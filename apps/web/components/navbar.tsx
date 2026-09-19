@@ -5,6 +5,7 @@ import { useState } from "react";
 import { APP_CONFIG } from "@repo/shared";
 import { Sparkles, Briefcase, Compass, Building2, Menu, X, ShieldCheck, Zap } from "lucide-react";
 import { Button } from "./ui/button";
+import { NotificationBell } from "./notification-bell";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -80,6 +81,8 @@ export function Navbar() {
 
         {/* Action Buttons */}
         <div className="hidden md:flex items-center gap-3">
+          <NotificationBell />
+
           <Link href="/login">
             <Button variant="ghost" size="sm">
               Log in
