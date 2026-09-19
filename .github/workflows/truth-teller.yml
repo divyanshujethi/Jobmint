@@ -1,0 +1,18 @@
+name: Truth Teller Inactivity Scanner & Keep-Alive
+
+on:
+  schedule:
+    # Runs daily at 00:00 UTC (100% Free on GitHub Actions)
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+jobs:
+  check-inactivity:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Truth Teller Inactivity Detector
+        run: |
+          echo "Running Truth Teller 7-day ghosting scan..."
+          # Replace with your production domain
+          URL="${{ secrets.APP_URL || 'http://localhost:3000' }}/api/cron/truth-teller"
+          curl -s -f "$URL" || echo "Scan trigger dispatched"
