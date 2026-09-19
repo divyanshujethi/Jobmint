@@ -55,6 +55,13 @@ export function Navbar() {
               </span>
             </Link>
             <Link
+              href="/applications"
+              className="flex items-center gap-1.5 text-sm font-medium text-slate-600 hover:text-emerald-600 transition-colors"
+            >
+              <ShieldCheck className="h-4 w-4 text-emerald-600" />
+              My Applications
+            </Link>
+            <Link
               href="/companies"
               className="flex items-center gap-1.5 text-sm font-medium text-slate-600 hover:text-emerald-600 transition-colors"
             >
@@ -74,7 +81,11 @@ export function Navbar() {
           <Link href="/register">
             <Button size="sm">Get Started</Button>
           </Link>
-          <div className="h-4 w-px bg-slate-200" />
+          <Link href="/employer/applicants">
+            <Button variant="ghost" size="sm" className="text-xs font-semibold text-slate-600">
+              Applicants
+            </Button>
+          </Link>
           <Link href="/employer/jobs/new">
             <Button variant="outline" size="sm" className="gap-1.5 text-xs font-semibold">
               <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />

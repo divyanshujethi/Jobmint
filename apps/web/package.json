@@ -13,6 +13,7 @@
     "@auth/drizzle-adapter": "^1.7.4",
     "@repo/database": "workspace:*",
     "@repo/shared": "workspace:*",
+    "@repo/storage": "workspace:*",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.475.0",

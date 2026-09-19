@@ -17,6 +17,7 @@ import { MOCK_JOBS } from "@/lib/mock-jobs";
 import { getLearningGuideForSkill } from "@repo/shared";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { JobApplyButton } from "@/components/job-apply-button";
 
 interface JobPageProps {
   params: Promise<{ slug: string }>;
@@ -75,9 +76,13 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
               </div>
 
               <div className="hidden sm:block">
-                <Button size="lg" className="font-bold">
-                  Apply Now
-                </Button>
+                <JobApplyButton
+                  jobId={job.id}
+                  jobTitle={job.title}
+                  companyName={job.companyName}
+                  size="lg"
+                  className="font-bold"
+                />
               </div>
             </div>
 
@@ -110,9 +115,13 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
             </div>
 
             <div className="mt-5 sm:hidden">
-              <Button size="lg" className="w-full font-bold">
-                Apply Now
-              </Button>
+              <JobApplyButton
+                jobId={job.id}
+                jobTitle={job.title}
+                companyName={job.companyName}
+                size="lg"
+                className="w-full font-bold"
+              />
             </div>
           </div>
 
