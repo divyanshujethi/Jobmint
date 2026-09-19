@@ -6,6 +6,9 @@ import { ShieldCheck, Bookmark, ArrowRight, Clock, MapPin, Sparkles } from "luci
 import { MockJob } from "@/lib/mock-jobs";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
+import { calculateJobMatch } from "@repo/matching";
+import { CURRENT_CANDIDATE_PROFILE } from "@/lib/candidate-profile";
+import { MatchScoreBadge } from "./match-score-badge";
 
 interface JobCardProps {
   job: MockJob;
@@ -13,6 +16,16 @@ interface JobCardProps {
 
 export function JobCard({ job }: JobCardProps) {
   const [isSaved, setIsSaved] = useState(false);
+
+  const matchResult = calculateJobMatch(CURRENT_CANDIDATE_PROFILE, {
+    id: job.id,
+    title: job.title,
+    requiredSkills: job.skills,
+    experienceYears: job.experienceYears,
+    workMode: job.workMode,
+    location: job.location,
+    jobType: job.jobType,
+  });
 
   return (
     <div className="group relative rounded-xl border border-slate-200 bg-white p-5 sm:p-6 shadow-sm transition-all hover:border-slate-300 hover:shadow-md">
@@ -49,18 +62,26 @@ export function JobCard({ job }: JobCardProps) {
           </div>
         </div>
 
-        {/* Save Bookmark Button */}
-        <button
-          onClick={() => setIsSaved(!isSaved)}
-          className={`rounded-lg p-2 transition-colors ${
-            isSaved
-              ? "bg-emerald-50 text-emerald-600"
-              : "text-slate-400 hover:bg-slate-100 hover:text-slate-700"
-          }`}
-          title={isSaved ? "Saved" : "Save Job"}
-        >
-          <Bookmark className={`h-4 w-4 ${isSaved ? "fill-emerald-600" : ""}`} />
-        </button>
+        {/* Match Badge & Save Bookmark Button */}
+        <div className="flex items-center gap-2">
+          <MatchScoreBadge
+            jobTitle={job.title}
+            companyName={job.companyName}
+            matchResult={matchResult}
+          />
+
+          <button
+            onClick={() => setIsSaved(!isSaved)}
+            className={`rounded-lg p-2 transition-colors ${
+              isSaved
+                ? "bg-emerald-50 text-emerald-600"
+                : "text-slate-400 hover:bg-slate-100 hover:text-slate-700"
+            }`}
+            title={isSaved ? "Saved" : "Save Job"}
+          >
+            <Bookmark className={`h-4 w-4 ${isSaved ? "fill-emerald-600" : ""}`} />
+          </button>
+        </div>
       </div>
 
       {/* WORK MODE, LOCATION & SALARY */}

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { APP_CONFIG } from "@repo/shared";
-import { Sparkles, Briefcase, Compass, Building2, Menu, X, ShieldCheck } from "lucide-react";
+import { Sparkles, Briefcase, Compass, Building2, Menu, X, ShieldCheck, Zap } from "lucide-react";
 import { Button } from "./ui/button";
 
 export function Navbar() {
@@ -43,6 +43,13 @@ export function Navbar() {
             >
               <Sparkles className="h-4 w-4 text-amber-500" />
               Internships
+            </Link>
+            <Link
+              href="/recommendations"
+              className="flex items-center gap-1.5 text-sm font-medium text-slate-600 hover:text-emerald-600 transition-colors"
+            >
+              <Zap className="h-4 w-4 text-emerald-600" />
+              For You
             </Link>
             <Link
               href="/roadmaps"

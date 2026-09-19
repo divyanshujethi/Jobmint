@@ -12,6 +12,7 @@
     "@auth/core": "^0.41.3",
     "@auth/drizzle-adapter": "^1.7.4",
     "@repo/database": "workspace:*",
+    "@repo/matching": "workspace:*",
     "@repo/shared": "workspace:*",
     "@repo/storage": "workspace:*",
     "class-variance-authority": "^0.7.1",

@@ -36,6 +36,9 @@ importers:
       '@repo/database':
         specifier: workspace:*
         version: link:../../packages/database
+      '@repo/matching':
+        specifier: workspace:*
+        version: link:../../packages/matching
       '@repo/shared':
         specifier: workspace:*
         version: link:../../packages/shared
@@ -107,6 +110,16 @@ importers:
       drizzle-kit:
         specifier: ^0.30.5
         version: 0.30.6
+      typescript:
+        specifier: ^5.8.2
+        version: 5.9.3
+
+  packages/matching:
+    dependencies:
+      '@repo/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
       typescript:
         specifier: ^5.8.2
         version: 5.9.3
