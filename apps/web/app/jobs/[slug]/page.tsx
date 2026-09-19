@@ -237,6 +237,26 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
             </div>
           </div>
 
+          {/* AI INTERVIEW PREP CARD */}
+          <div className="rounded-2xl border border-purple-200 bg-gradient-to-br from-purple-50/70 to-indigo-50/50 p-6 shadow-sm">
+            <div className="flex items-center gap-2">
+              <Sparkles className="h-4 w-4 text-purple-600" />
+              <h3 className="text-xs font-bold uppercase tracking-wider text-purple-900">
+                AI Interview Prep
+              </h3>
+            </div>
+            <p className="mt-1.5 text-xs text-slate-600">
+              Practice 5 targeted questions tailored to {job.title} and the required tech stack before you apply.
+            </p>
+            <Link
+              href={`/jobs/${job.slug}/interview-prep`}
+              className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-purple-600 px-4 py-2.5 text-xs font-bold text-white shadow-sm hover:bg-purple-700 transition-colors"
+            >
+              <Sparkles className="h-3.5 w-3.5" />
+              <span>Generate Interview Questions</span>
+            </Link>
+          </div>
+
           {/* TRUTH TELLER TRANSPARENCY CARD */}
           <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
             <div className="flex items-center gap-2">

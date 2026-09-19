@@ -33,6 +33,9 @@ importers:
       '@auth/drizzle-adapter':
         specifier: ^1.7.4
         version: 1.11.3
+      '@repo/ai':
+        specifier: workspace:*
+        version: link:../../packages/ai
       '@repo/database':
         specifier: workspace:*
         version: link:../../packages/database
@@ -91,6 +94,19 @@ importers:
       tailwindcss:
         specifier: ^3.4.17
         version: 3.4.19
+      typescript:
+        specifier: ^5.8.2
+        version: 5.9.3
+
+  packages/ai:
+    dependencies:
+      '@repo/shared':
+        specifier: workspace:*
+        version: link:../shared
+    devDependencies:
+      '@types/node':
+        specifier: ^22.13.0
+        version: 22.20.3
       typescript:
         specifier: ^5.8.2
         version: 5.9.3

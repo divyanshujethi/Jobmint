@@ -50,6 +50,11 @@ export function Footer() {
                   Truth Teller Engine
                 </Link>
               </li>
+              <li>
+                <Link href="/resume/assistant" className="hover:text-emerald-600 flex items-center gap-1 font-medium text-emerald-700">
+                  AI Resume Assistant
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -81,6 +86,11 @@ export function Footer() {
               Platform & Open Source
             </h3>
             <ul className="mt-4 space-y-2 text-sm text-slate-600">
+              <li>
+                <Link href="/admin/system" className="text-emerald-700 hover:underline font-semibold flex items-center gap-1">
+                  Zero-Cost Quota Monitor
+                </Link>
+              </li>
               <li>
                 <span className="text-slate-500">100% Free Tier Architecture</span>
               </li>

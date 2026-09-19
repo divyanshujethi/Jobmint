@@ -70,6 +70,13 @@ export function Navbar() {
               My Applications
             </Link>
             <Link
+              href="/resume/assistant"
+              className="flex items-center gap-1.5 text-sm font-medium text-slate-600 hover:text-emerald-600 transition-colors"
+            >
+              <Sparkles className="h-4 w-4 text-purple-600" />
+              Resume AI
+            </Link>
+            <Link
               href="/companies"
               className="flex items-center gap-1.5 text-sm font-medium text-slate-600 hover:text-emerald-600 transition-colors"
             >
