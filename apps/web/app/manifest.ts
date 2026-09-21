@@ -1,0 +1,25 @@
+import type { MetadataRoute } from "next";
+
+export default function manifest(): MetadataRoute.Manifest {
+  return {
+    name: "JobMint — Verified Jobs & Roadmaps",
+    short_name: "JobMint",
+    description: "The 100% free, transparent job and internship platform for students and early-career talent.",
+    start_url: "/",
+    display: "standalone",
+    background_color: "#09090b",
+    theme_color: "#10b981",
+    icons: [
+      {
+        src: "/icon-192.png",
+        sizes: "192x192",
+        type: "image/png",
+      },
+      {
+        src: "/icon-512.png",
+        sizes: "512x512",
+        type: "image/png",
+      },
+    ],
+  };
+}

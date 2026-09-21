@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { APP_CONFIG } from "@repo/shared";
-import { Sparkles, Briefcase, Compass, Building2, Menu, X, ShieldCheck, Zap } from "lucide-react";
+import { Sparkles, Briefcase, Compass, Building2, Menu, X, ShieldCheck, Zap, Users, Code2 } from "lucide-react";
 import { Button } from "./ui/button";
 import { NotificationBell } from "./notification-bell";
 
@@ -75,6 +75,23 @@ export function Navbar() {
             >
               <Sparkles className="h-4 w-4 text-purple-600" />
               Resume AI
+            </Link>
+            <Link
+              href="/study-pods"
+              className="flex items-center gap-1.5 text-sm font-medium text-slate-600 hover:text-emerald-600 transition-colors"
+            >
+              <Users className="h-4 w-4 text-indigo-500" />
+              Study Pods
+              <span className="rounded-full bg-indigo-100 px-1.5 py-0.2 text-[10px] font-bold text-indigo-700">
+                Peer
+              </span>
+            </Link>
+            <Link
+              href="/profile/github"
+              className="flex items-center gap-1.5 text-sm font-medium text-slate-600 hover:text-emerald-600 transition-colors"
+            >
+              <Code2 className="h-4 w-4 text-emerald-600" />
+              GitHub
             </Link>
             <Link
               href="/companies"
@@ -150,6 +167,38 @@ export function Navbar() {
             >
               <Compass className="h-5 w-5 text-blue-500" />
               Roadmaps (100% Free)
+            </Link>
+            <Link
+              href="/study-pods"
+              className="flex items-center gap-2 py-2 text-base font-medium text-slate-700 hover:text-emerald-600"
+              onClick={() => setIsOpen(false)}
+            >
+              <Users className="h-5 w-5 text-indigo-500" />
+              Study Pods & Mocks
+            </Link>
+            <Link
+              href="/profile/github"
+              className="flex items-center gap-2 py-2 text-base font-medium text-slate-700 hover:text-emerald-600"
+              onClick={() => setIsOpen(false)}
+            >
+              <Code2 className="h-5 w-5 text-emerald-600" />
+              GitHub Project Verifier
+            </Link>
+            <Link
+              href="/resume/parser"
+              className="flex items-center gap-2 py-2 text-base font-medium text-slate-700 hover:text-emerald-600"
+              onClick={() => setIsOpen(false)}
+            >
+              <Sparkles className="h-5 w-5 text-purple-600" />
+              Client Resume Parser (0-Cost)
+            </Link>
+            <Link
+              href="/placement-portal"
+              className="flex items-center gap-2 py-2 text-base font-medium text-slate-700 hover:text-emerald-600"
+              onClick={() => setIsOpen(false)}
+            >
+              <Building2 className="h-5 w-5 text-blue-500" />
+              Placement Syndication & RSS
             </Link>
             <Link
               href="/companies"

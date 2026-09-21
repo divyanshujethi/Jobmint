@@ -46,6 +46,21 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/study-pods" className="hover:text-emerald-600 font-medium text-indigo-600">
+                  Peer Study Pods & Mocks
+                </Link>
+              </li>
+              <li>
+                <Link href="/profile/github" className="hover:text-emerald-600">
+                  GitHub Project Verifier
+                </Link>
+              </li>
+              <li>
+                <Link href="/resume/parser" className="hover:text-emerald-600">
+                  Client-Side Resume Parser
+                </Link>
+              </li>
+              <li>
                 <Link href="/truth-teller" className="hover:text-emerald-600">
                   Truth Teller Engine
                 </Link>
@@ -60,7 +75,7 @@ export function Footer() {
 
           <div>
             <h3 className="text-sm font-semibold text-slate-900 tracking-wider uppercase">
-              Employers
+              Employers & Campuses
             </h3>
             <ul className="mt-4 space-y-2 text-sm text-slate-600">
               <li>
@@ -71,6 +86,16 @@ export function Footer() {
               <li>
                 <Link href="/employer" className="hover:text-emerald-600">
                   Employer Dashboard
+                </Link>
+              </li>
+              <li>
+                <Link href="/placement-portal" className="hover:text-emerald-600 font-medium text-emerald-700">
+                  Placement Cell Syndication
+                </Link>
+              </li>
+              <li>
+                <Link href="/api/feed/rss" target="_blank" className="hover:text-emerald-600 flex items-center gap-1 text-amber-700">
+                  Standard RSS 2.0 Feed
                 </Link>
               </li>
               <li>
@@ -89,6 +114,11 @@ export function Footer() {
               <li>
                 <Link href="/admin/system" className="text-emerald-700 hover:underline font-semibold flex items-center gap-1">
                   Zero-Cost Quota Monitor
+                </Link>
+              </li>
+              <li>
+                <Link href="/offline" className="hover:text-emerald-600">
+                  PWA & Offline Mode
                 </Link>
               </li>
               <li>

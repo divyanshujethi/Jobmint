@@ -86,3 +86,9 @@ export function getSkillBySlugOrId(identifier: string): CanonicalSkill | null {
     ) || null
   );
 }
+
+/**
+ * Match canonical skill alias for zero-cost client and server parsing
+ */
+export const matchCanonicalSkill = normalizeSkill;
+

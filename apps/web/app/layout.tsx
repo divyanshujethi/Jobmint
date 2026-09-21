@@ -2,11 +2,14 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
+import { PwaInstallPrompt } from "@/components/pwa-install-prompt";
 import { APP_CONFIG } from "@repo/shared";
 
 export const metadata: Metadata = {
   title: `${APP_CONFIG.name} — Job & Internship Platform`,
   description: APP_CONFIG.tagline,
+  manifest: "/manifest.json",
+  themeColor: "#10b981",
 };
 
 export default function RootLayout({
@@ -20,6 +23,7 @@ export default function RootLayout({
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />
+        <PwaInstallPrompt />
       </body>
     </html>
   );
