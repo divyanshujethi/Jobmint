@@ -1,15 +1,24 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { PwaInstallPrompt } from "@/components/pwa-install-prompt";
 import { APP_CONFIG } from "@repo/shared";
 
+export const viewport: Viewport = {
+  themeColor: "#10b981",
+  width: "device-width",
+  initialScale: 1,
+};
+
 export const metadata: Metadata = {
   title: `${APP_CONFIG.name} — Job & Internship Platform`,
   description: APP_CONFIG.tagline,
   manifest: "/manifest.json",
-  themeColor: "#10b981",
+  icons: {
+    icon: "/icon-192.png",
+    apple: "/icon-192.png",
+  },
 };
 
 export default function RootLayout({
