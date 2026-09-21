@@ -1,86 +1,65 @@
-import {
-  S3Client,
-  PutObjectCommand,
-  GetObjectCommand,
-  DeleteObjectCommand,
-} from "@aws-sdk/client-s3";
-import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+import { StorageProvider, UploadOptions, UploadResult } from "./types";
+import { LocalDiskStorageDriver } from "./local-driver";
+import { S3StorageDriver } from "./s3-driver";
 
-const accountId = process.env.R2_ACCOUNT_ID;
-const accessKeyId = process.env.R2_ACCESS_KEY_ID;
-const secretAccessKey = process.env.R2_SECRET_ACCESS_KEY;
-const bucketName = process.env.R2_BUCKET_NAME || "jobmint-resumes";
+export * from "./types";
+export * from "./security";
+export * from "./local-driver";
+export * from "./s3-driver";
 
-// Initialize S3 client for Cloudflare R2 (or any standard S3 endpoint)
-const s3Client =
-  accountId && accessKeyId && secretAccessKey
-    ? new S3Client({
-        region: "auto",
-        endpoint: `https://${accountId}.r2.cloudflarestorage.com`,
-        credentials: {
-          accessKeyId,
-          secretAccessKey,
-        },
-      })
-    : null;
+let instance: StorageProvider | null = null;
 
-export interface UploadOptions {
-  key: string;
-  body: Uint8Array | Buffer;
-  contentType: string;
-}
+export function getStorageProvider(): StorageProvider {
+  if (instance) return instance;
 
-/**
- * Upload a resume, logo, or document to Cloudflare R2 / S3
- */
-export async function uploadFile({ key, body, contentType }: UploadOptions): Promise<string> {
-  if (!s3Client) {
-    // Local development fallback
-    console.info(`[Storage: Local Dev Mode] File "${key}" saved in virtual store.`);
-    return `/uploads/${key}`;
+  const driverType = process.env.STORAGE_DRIVER ? process.env.STORAGE_DRIVER.toLowerCase() : "local";
+
+  if (driverType === "s3" || driverType === "r2") {
+    instance = new S3StorageDriver();
+  } else {
+    // Default to OCI 200 GB Local Persistent Disk Storage
+    instance = new LocalDiskStorageDriver();
   }
 
-  const command = new PutObjectCommand({
-    Bucket: bucketName,
-    Key: key,
-    Body: body,
-    ContentType: contentType,
-  });
-
-  await s3Client.send(command);
-  return key;
+  return instance;
 }
 
 /**
- * Generate a secure, time-limited presigned URL for viewing private resumes
- * Resumes are NEVER permanently public
+ * Upload a resume, document, or asset with security checks & deduplication
+ */
+export async function uploadFile(options: UploadOptions): Promise<UploadResult> {
+  const provider = getStorageProvider();
+  return provider.uploadFile(options);
+}
+
+/**
+ * Retrieve secure streaming URL for a private resume
  */
 export async function getSecureFileUrl(key: string, expiresInSeconds = 3600): Promise<string> {
-  if (!s3Client) {
-    return `/uploads/${key}`;
-  }
-
-  const command = new GetObjectCommand({
-    Bucket: bucketName,
-    Key: key,
-  });
-
-  return await getSignedUrl(s3Client, command, { expiresIn: expiresInSeconds });
+  const provider = getStorageProvider();
+  return provider.getSecureFileUrl(key, expiresInSeconds);
 }
 
 /**
- * Delete a file from Cloudflare R2
+ * Retrieve raw file buffer (used by background virus scans, parsers, or streaming endpoints)
+ */
+export async function getFileBuffer(key: string): Promise<Buffer | null> {
+  const provider = getStorageProvider();
+  return provider.getFileBuffer(key);
+}
+
+/**
+ * Delete a file by key
  */
 export async function deleteFile(key: string): Promise<boolean> {
-  if (!s3Client) {
-    return true;
-  }
+  const provider = getStorageProvider();
+  return provider.deleteFile(key);
+}
 
-  const command = new DeleteObjectCommand({
-    Bucket: bucketName,
-    Key: key,
-  });
-
-  await s3Client.send(command);
-  return true;
+/**
+ * Verify HMAC token for secure resume streaming
+ */
+export function verifySignedToken(key: string, token: string, expiresAtUnix: number): boolean {
+  const provider = getStorageProvider();
+  return provider.verifySignedToken(key, token, expiresAtUnix);
 }

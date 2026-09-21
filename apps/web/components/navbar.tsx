@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { APP_CONFIG } from "@repo/shared";
-import { Sparkles, Briefcase, Compass, Building2, Menu, X, ShieldCheck, Zap, Users, Code2 } from "lucide-react";
+import { Sparkles, Briefcase, Compass, Building2, Menu, X, ShieldCheck, Zap, Users, Code2, HardDrive } from "lucide-react";
 import { Button } from "./ui/button";
 import { NotificationBell } from "./notification-bell";
 
@@ -75,6 +75,13 @@ export function Navbar() {
             >
               <Sparkles className="h-4 w-4 text-purple-600" />
               Resume AI
+            </Link>
+            <Link
+              href="/profile/resume"
+              className="flex items-center gap-1.5 text-sm font-medium text-slate-600 hover:text-emerald-600 transition-colors"
+            >
+              <HardDrive className="h-4 w-4 text-emerald-600" />
+              Vault
             </Link>
             <Link
               href="/study-pods"
@@ -191,6 +198,14 @@ export function Navbar() {
             >
               <Sparkles className="h-5 w-5 text-purple-600" />
               Client Resume Parser (0-Cost)
+            </Link>
+            <Link
+              href="/profile/resume"
+              className="flex items-center gap-2 py-2 text-base font-medium text-slate-700 hover:text-emerald-600"
+              onClick={() => setIsOpen(false)}
+            >
+              <HardDrive className="h-5 w-5 text-emerald-600" />
+              Resume Vault (OCI 200GB)
             </Link>
             <Link
               href="/placement-portal"

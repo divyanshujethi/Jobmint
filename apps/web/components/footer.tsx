@@ -61,6 +61,11 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/profile/resume" className="hover:text-emerald-600 font-medium text-emerald-700">
+                  Resume Vault (OCI 200GB)
+                </Link>
+              </li>
+              <li>
                 <Link href="/truth-teller" className="hover:text-emerald-600">
                   Truth Teller Engine
                 </Link>
