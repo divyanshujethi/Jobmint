@@ -24,6 +24,15 @@ class QuotaCircuitBreaker {
       emailPercentage: 52,
       backgroundJobsPercentage: 24,
       circuitBreakerStatus,
+      activeProviders: {
+        groq: Boolean(process.env.GROQ_API_KEY),
+        cloudflare: Boolean(
+          process.env.CLOUDFLARE_API_TOKEN &&
+            (process.env.CLOUDFLARE_ACCOUNT_ID || process.env.R2_ACCOUNT_ID)
+        ),
+        ociOllama: true, // Always ready on OCI Always Free VM
+        gemini: Boolean(process.env.GEMINI_API_KEY),
+      },
     };
   }
 

@@ -4,25 +4,44 @@ export type AITask =
   | "EXPLAIN_MISSING_SKILLS"
   | "JOB_DESCRIPTION_IMPROVE";
 
+export type AIProviderName =
+  | "webgpu"
+  | "groq-llama-3.3"
+  | "cloudflare-llama-3.2"
+  | "oci-ollama-llama-3.2"
+  | "gemini-flash"
+  | "deterministic";
+
 export interface AIRequestOptions {
   task: AITask;
   input: Record<string, any>;
+  preferredProvider?: AIProviderName;
 }
 
 export interface AIResponse {
   success: boolean;
-  provider: "gemini" | "groq" | "cloudflare" | "mock";
+  provider: AIProviderName;
+  modelUsed: string;
+  tier: number; // 0: WebGPU, 1: Groq, 2: Cloudflare, 3: OCI Ollama, 4: Gemini/Deterministic
+  latencyMs: number;
   result: any;
   cached: boolean;
   quotaWarning?: string;
   error?: string;
+  providerChainAttempted?: string[];
 }
 
 export interface SystemUsageStats {
-  databasePercentage: number; // e.g. 61%
-  storagePercentage: number;  // e.g. 32%
-  aiPercentage: number;       // e.g. 81%
-  emailPercentage: number;    // e.g. 52%
-  backgroundJobsPercentage: number; // e.g. 24%
+  databasePercentage: number;
+  storagePercentage: number;
+  aiPercentage: number;
+  emailPercentage: number;
+  backgroundJobsPercentage: number;
   circuitBreakerStatus: "HEALTHY" | "THROTTLED_85" | "KILLSWITCH_95";
+  activeProviders: {
+    groq: boolean;
+    cloudflare: boolean;
+    ociOllama: boolean;
+    gemini: boolean;
+  };
 }

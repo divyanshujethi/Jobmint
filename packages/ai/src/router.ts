@@ -1,127 +1,172 @@
-import { AIRequestOptions, AIResponse } from "./types";
+import { AIRequestOptions, AIResponse, AIProviderName } from "./types";
 import { circuitBreaker } from "./circuit-breaker";
+import { callGroqProvider } from "./providers/groq-provider";
+import { callCloudflareWorkersAI } from "./providers/cloudflare-provider";
+import { callOllamaProvider } from "./providers/ollama-provider";
+import { callGeminiProvider } from "./providers/gemini-provider";
 
 /**
- * Multi-Model Task Router
- * Primary: Google Gemini Flash (Generous free tier)
- * Backup: Groq (Ultra-fast Llama 3)
- * Safety: Circuit breaker (guarantees zero surprise bill) + Safe Fallback
+ * 4-Tier Llama 3.2 AI Cascade Router
+ * Tier 1: Groq (Llama 3.3 70B - 300 tok/sec, 14.4k/day free)
+ * Tier 2: Cloudflare Workers AI (Llama 3.2 3B - Edge GPU)
+ * Tier 3: OCI Always Free VM (Llama 3.2 3B - Self-Hosted Ollama, 0 limits)
+ * Tier 4: Gemini 1.5/2.0 Flash (Generous free tier)
+ * Tier 5: Deterministic ATS Engine (Offline / 0-cost safety net)
  */
 export async function generateAI({
   task,
   input,
+  preferredProvider,
 }: AIRequestOptions): Promise<AIResponse> {
   // 1. Quota Circuit Breaker Check
   const check = circuitBreaker.canExecute(task === "IMPROVE_RESUME_BULLET");
   if (!check.allowed) {
     return {
       success: false,
-      provider: "mock",
+      provider: "deterministic",
+      modelUsed: "none",
+      tier: 4,
+      latencyMs: 0,
       result: null,
       cached: false,
       error: check.reason,
     };
   }
 
-  const geminiKey = process.env.GEMINI_API_KEY;
-  const groqKey = process.env.GROQ_API_KEY;
+  const prompt = constructPrompt(task, input);
+  const attemptedProviders: string[] = [];
 
-  // 2. PRIMARY: GEMINI FLASH (Free tier in Google AI Studio)
-  if (geminiKey) {
-    try {
-      const prompt = constructPrompt(task, input);
-      const res = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${geminiKey}`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            contents: [{ parts: [{ text: prompt }] }],
-            generationConfig: { temperature: 0.3, maxOutputTokens: 800 },
-          }),
-        }
-      );
-
-      if (res.ok) {
-        const data = await res.json();
-        const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
-        if (text) {
-          return {
-            success: true,
-            provider: "gemini",
-            result: formatResult(task, text),
-            cached: false,
-          };
-        }
+  // TIER 1: GROQ (Llama 3.3 70B)
+  if (!preferredProvider || preferredProvider === "groq-llama-3.3") {
+    if (process.env.GROQ_API_KEY) {
+      attemptedProviders.push("Groq (Llama 3.3 70B)");
+      try {
+        const res = await callGroqProvider(prompt);
+        return {
+          success: true,
+          provider: "groq-llama-3.3",
+          modelUsed: res.modelUsed,
+          tier: 1,
+          latencyMs: res.latencyMs,
+          result: formatResult(task, res.text),
+          cached: false,
+          providerChainAttempted: attemptedProviders,
+        };
+      } catch (err: any) {
+        console.warn(`[AI Cascade] Tier 1 Groq failed: ${err.message}. Falling to Tier 2...`);
       }
-      console.warn("[AI Gateway] Gemini API returned error, attempting Groq fallback...");
-    } catch (err) {
-      console.error("[AI Gateway] Gemini error:", err);
     }
   }
 
-  // 3. BACKUP: GROQ (Free Tier Llama 3)
-  if (groqKey) {
-    try {
-      const prompt = constructPrompt(task, input);
-      const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${groqKey}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          model: "llama-3.1-8b-instant",
-          messages: [{ role: "user", content: prompt }],
-          temperature: 0.3,
-        }),
-      });
-
-      if (res.ok) {
-        const data = await res.json();
-        const text = data.choices?.[0]?.message?.content;
-        if (text) {
-          return {
-            success: true,
-            provider: "groq",
-            result: formatResult(task, text),
-            cached: false,
-          };
-        }
+  // TIER 2: CLOUDFLARE WORKERS AI (Llama 3.2 3B)
+  if (!preferredProvider || preferredProvider === "cloudflare-llama-3.2") {
+    if ((process.env.CLOUDFLARE_ACCOUNT_ID || process.env.R2_ACCOUNT_ID) && process.env.CLOUDFLARE_API_TOKEN) {
+      attemptedProviders.push("Cloudflare Workers AI (Llama 3.2 3B)");
+      try {
+        const res = await callCloudflareWorkersAI(prompt);
+        return {
+          success: true,
+          provider: "cloudflare-llama-3.2",
+          modelUsed: res.modelUsed,
+          tier: 2,
+          latencyMs: res.latencyMs,
+          result: formatResult(task, res.text),
+          cached: false,
+          providerChainAttempted: attemptedProviders,
+        };
+      } catch (err: any) {
+        console.warn(`[AI Cascade] Tier 2 Cloudflare failed: ${err.message}. Falling to Tier 3...`);
       }
-    } catch (err) {
-      console.error("[AI Gateway] Groq error:", err);
     }
   }
 
-  // 4. DETERMINISTIC SAFE FALLBACK (No API Keys needed during dev / testing)
+  // TIER 3: OCI ALWAYS FREE VM (Self-Hosted Llama 3.2 3B via Ollama)
+  if (!preferredProvider || preferredProvider === "oci-ollama-llama-3.2") {
+    attemptedProviders.push("OCI VM Self-Hosted (Llama 3.2 3B)");
+    try {
+      const res = await callOllamaProvider(prompt);
+      return {
+        success: true,
+        provider: "oci-ollama-llama-3.2",
+        modelUsed: res.modelUsed,
+        tier: 3,
+        latencyMs: res.latencyMs,
+        result: formatResult(task, res.text),
+        cached: false,
+        providerChainAttempted: attemptedProviders,
+      };
+    } catch (err: any) {
+      console.warn(`[AI Cascade] Tier 3 OCI Ollama failed: ${err.message}. Falling to Tier 4...`);
+    }
+  }
+
+  // TIER 4: GEMINI FLASH (Google AI Studio Free Tier)
+  if (!preferredProvider || preferredProvider === "gemini-flash") {
+    if (process.env.GEMINI_API_KEY) {
+      attemptedProviders.push("Google Gemini Flash");
+      try {
+        const res = await callGeminiProvider(prompt);
+        return {
+          success: true,
+          provider: "gemini-flash",
+          modelUsed: res.modelUsed,
+          tier: 4,
+          latencyMs: res.latencyMs,
+          result: formatResult(task, res.text),
+          cached: false,
+          providerChainAttempted: attemptedProviders,
+        };
+      } catch (err: any) {
+        console.warn(`[AI Cascade] Tier 4 Gemini failed: ${err.message}. Falling to Deterministic...`);
+      }
+    }
+  }
+
+  // TIER 5: DETERMINISTIC SAFE FALLBACK (Offline & Testing Engine)
+  attemptedProviders.push("Deterministic Rule-Based Engine");
   return {
     success: true,
-    provider: "mock",
+    provider: "deterministic",
+    modelUsed: "Rule-Based-STAR-Taxonomy",
+    tier: 5,
+    latencyMs: 2,
     result: generateDeterministicFallback(task, input),
     cached: true,
+    providerChainAttempted: attemptedProviders,
   };
 }
 
 function constructPrompt(task: string, input: Record<string, any>): string {
   if (task === "IMPROVE_RESUME_BULLET") {
-    return `You are an expert tech recruiter and ATS optimization assistant.
-Rewrite the following student resume bullet into a high-impact, professional bullet.
+    return `Rewrite the following student resume bullet into a high-impact, professional bullet for tech recruiters.
 RULES:
-- Start with a strong action verb (e.g. Architected, Engineered, Developed).
-- NEVER invent facts, metrics, or technologies not implied in the draft.
-- Keep under 28 words.
+1. Start with a strong action verb (e.g. Architected, Engineered, Spearheaded, Optimized).
+2. Follow the STAR framework (Action taken + Technical implementation + Measurable outcome/impact).
+3. Do NOT invent facts or metrics not implied in the draft.
+4. Keep under 28 words. Output ONLY the refined bullet point.
+
 Bullet draft: "${input.bullet}"`;
   }
 
   if (task === "INTERVIEW_PREP_QUESTIONS") {
-    return `Generate 5 technical interview questions for a candidate applying to "${input.jobTitle}" requiring skills: ${input.skills?.join(", ")}.`;
+    return `Generate 5 technical interview questions for a candidate applying to "${input.jobTitle || "Software Engineer"}" requiring skills: ${input.skills?.join(", ") || "General CS"}. Return structured questions with key evaluation criteria.`;
   }
 
   return `Task: ${task} on input ${JSON.stringify(input)}`;
 }
 
 function formatResult(task: string, text: string): any {
+  if (task === "IMPROVE_RESUME_BULLET") {
+    const clean = text.replace(/^["'\s*•-]+|["'\s]+$/g, "").trim();
+    const firstWord = clean.split(" ")[0] || "Engineered";
+    return {
+      original: "",
+      enhanced: clean,
+      actionVerbUsed: firstWord,
+      impactFocus: "Technical Execution & Business Impact",
+    };
+  }
+
   return text.trim();
 }
 
@@ -131,11 +176,12 @@ function generateDeterministicFallback(
 ): any {
   if (task === "IMPROVE_RESUME_BULLET") {
     const raw = String(input.bullet || "").trim();
+    const stripped = raw.replace(/^(i worked on|built|made|did|helped with)\s*/i, "");
     return {
       original: raw,
-      enhanced: `Architected and shipped ${raw.replace(/^(i worked on|built|made|did)\s*/i, "")}, adhering to modern clean code patterns and improving modularity and execution reliability.`,
+      enhanced: `Architected and delivered ${stripped}, implementing robust design patterns, reducing latency, and ensuring continuous production reliability.`,
       actionVerbUsed: "Architected",
-      impactFocus: "Modularity & Performance",
+      impactFocus: "Modularity & Execution Reliability",
     };
   }
 
@@ -152,7 +198,7 @@ function generateDeterministicFallback(
         recommendedApproach: "Use the STAR method (Situation, Task, Action, Result) with verifiable debugging techniques.",
       },
       {
-        question: `How do you ensure data validation and type safety between client and server?`,
+        question: "How do you ensure data validation and type safety between client and server?",
         focusArea: "Reliability & Types",
         recommendedApproach: "Discuss TypeScript interfaces, Zod runtime schemas, and typed API boundaries.",
       },
