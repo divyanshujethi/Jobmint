@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { APP_CONFIG } from "@repo/shared";
+import { APP_CONFIG, UserRole } from "@repo/shared";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
-import { ArrowRight, Mail, Lock } from "lucide-react";
+import { ArrowRight, Mail, Lock, GraduationCap, Building } from "lucide-react";
 
 export default function LoginPage() {
+  const [role, setRole] = useState<string>(UserRole.CANDIDATE);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -16,8 +17,12 @@ export default function LoginPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    // Submit via NextAuth credentials
-    window.location.href = "/dashboard";
+    // Role-separated navigation
+    if (role === UserRole.EMPLOYER) {
+      window.location.href = "/employer";
+    } else {
+      window.location.href = "/recommendations";
+    }
   };
 
   return (
@@ -37,6 +42,37 @@ export default function LoginPage() {
 
         <form onSubmit={handleSubmit}>
           <CardContent className="space-y-4">
+            {/* ROLE TOGGLE */}
+            <div className="grid grid-cols-2 gap-3 mb-2">
+              <button
+                type="button"
+                onClick={() => setRole(UserRole.CANDIDATE)}
+                className={`flex flex-col items-center justify-center rounded-xl border p-2.5 text-center transition-all ${
+                  role === UserRole.CANDIDATE
+                    ? "border-emerald-600 bg-emerald-50 text-emerald-900 shadow-sm ring-1 ring-emerald-600"
+                    : "border-slate-200 hover:border-slate-300 text-slate-600"
+                }`}
+              >
+                <GraduationCap className="h-4 w-4 mb-1 text-emerald-600" />
+                <span className="text-xs font-bold">Candidate / Student</span>
+                <span className="text-[10px] text-slate-500">Apply & Learn</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setRole(UserRole.EMPLOYER)}
+                className={`flex flex-col items-center justify-center rounded-xl border p-2.5 text-center transition-all ${
+                  role === UserRole.EMPLOYER
+                    ? "border-emerald-600 bg-emerald-50 text-emerald-900 shadow-sm ring-1 ring-emerald-600"
+                    : "border-slate-200 hover:border-slate-300 text-slate-600"
+                }`}
+              >
+                <Building className="h-4 w-4 mb-1 text-emerald-600" />
+                <span className="text-xs font-bold">Employer / Recruiter</span>
+                <span className="text-[10px] text-slate-500">Post & Hire</span>
+              </button>
+            </div>
+
             <div className="space-y-1.5">
               <label className="text-xs font-semibold text-slate-700">Email address</label>
               <div className="relative">

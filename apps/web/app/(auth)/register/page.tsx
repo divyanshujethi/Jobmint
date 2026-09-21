@@ -91,7 +91,9 @@ export default function RegisterPage() {
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-slate-700">Email address</label>
+              <label className="text-xs font-semibold text-slate-700">
+                {role === UserRole.EMPLOYER ? "Official Work Email" : "Email address"}
+              </label>
               <div className="relative">
                 <Mail className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
                 <Input
@@ -103,6 +105,11 @@ export default function RegisterPage() {
                   required
                 />
               </div>
+              {role === UserRole.EMPLOYER && (email.includes("@gmail.com") || email.includes("@yahoo.com")) && (
+                <p className="text-[11px] text-amber-600 font-medium">
+                  ⚠️ Note: Free webmail accounts (@gmail/@yahoo) require manual admin approval before posting jobs. Use your corporate domain (@company.com) for instant verification.
+                </p>
+              )}
             </div>
 
             <div className="space-y-1.5">

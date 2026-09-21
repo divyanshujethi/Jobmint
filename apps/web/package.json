@@ -12,6 +12,7 @@
     "@auth/core": "^0.41.3",
     "@auth/drizzle-adapter": "^1.7.4",
     "@repo/ai": "workspace:*",
+    "@repo/alligators": "workspace:*",
     "@repo/database": "workspace:*",
     "@repo/email": "workspace:*",
     "@repo/matching": "workspace:*",

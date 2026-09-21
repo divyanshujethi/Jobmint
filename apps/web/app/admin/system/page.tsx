@@ -90,6 +90,12 @@ export default function AdminSystemDashboard() {
           </div>
 
           <div className="flex items-center gap-3 self-start sm:self-auto">
+            <Link
+              href="/admin/alligators"
+              className="px-3.5 py-2 bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-700/80 rounded-xl text-xs font-mono flex items-center gap-2 text-emerald-300 transition-colors"
+            >
+              <span>🐊 Alligator Intelligence Deck</span>
+            </Link>
             <button
               onClick={refreshTelemetry}
               disabled={loading}

@@ -63,14 +63,22 @@ export default function PostNewJobPage() {
 
       <Card className="border-slate-200 shadow-sm">
         <CardHeader className="space-y-1">
-          <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-md w-fit">
-            <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" /> Transparent Posting
+          <div className="flex flex-wrap items-center gap-2">
+            <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-md w-fit">
+              <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" /> Transparent Posting
+            </div>
+            <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-800 bg-blue-50 px-2.5 py-1 rounded-md w-fit">
+              <Building className="h-3.5 w-3.5 text-blue-600" /> Verified Company Shield
+            </div>
+            <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-indigo-800 bg-indigo-50 px-2.5 py-1 rounded-md w-fit">
+              <Clock className="h-3.5 w-3.5 text-indigo-600" /> 7-Day Ghosting Guarantee
+            </div>
           </div>
           <CardTitle className="text-2xl font-bold text-slate-900">
             Post an Opportunity on JobMint
           </CardTitle>
           <CardDescription>
-            Reach thousands of ambitious students and freshers. No spam, no ghosting.
+            Reach thousands of ambitious students and freshers. Verified corporate postings receive 3.4x more high-fit applicants.
           </CardDescription>
         </CardHeader>
 
