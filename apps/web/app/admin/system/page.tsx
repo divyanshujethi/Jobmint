@@ -219,26 +219,30 @@ export default function AdminSystemDashboard() {
 
             <div className="space-y-1.5 text-xs text-neutral-400 font-mono">
               <div className="flex justify-between">
-                <span>Primary Provider:</span>
-                <span className="text-neutral-200">Cloudflare R2 (10 GB)</span>
+                <span>Primary Volume:</span>
+                <span className="text-neutral-200">OCI 200 GB SSD (/data/resumes)</span>
               </div>
               <div className="flex justify-between">
-                <span>Egress Fees:</span>
-                <span className="text-emerald-400 font-bold">$0.00 Guaranteed</span>
+                <span>Deduplication:</span>
+                <span className="text-emerald-400 font-bold">SHA-256 Active</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Streaming Privacy:</span>
+                <span className="text-neutral-200">HMAC-SHA256 Signed Tokens</span>
               </div>
               <div className="flex justify-between">
                 <span>Secondary Backup:</span>
-                <span className="text-neutral-200">Backblaze B2 (10 GB)</span>
+                <span className="text-neutral-200">Cloudflare R2 ($0 Egress)</span>
               </div>
             </div>
           </div>
 
-          {/* Layer 3: AI Gateway */}
+          {/* Layer 3: 4-Tier AI Cascade Gateway */}
           <div className="bg-neutral-900/80 border border-neutral-800 rounded-2xl p-6 space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2.5">
                 <Cpu className="w-5 h-5 text-emerald-400" />
-                <h3 className="font-bold text-white text-sm">AI Task Gateway</h3>
+                <h3 className="font-bold text-white text-sm">4-Tier Llama 3.2 AI Cascade</h3>
               </div>
               <span className={`text-xs font-mono px-2 py-0.5 rounded border ${getStatusColor(stats.aiPercentage)}`}>
                 {stats.aiPercentage}%
@@ -254,16 +258,24 @@ export default function AdminSystemDashboard() {
 
             <div className="space-y-1.5 text-xs text-neutral-400 font-mono">
               <div className="flex justify-between">
-                <span>Primary Engine:</span>
-                <span className="text-neutral-200">Gemini 1.5 Flash (15 RPM)</span>
+                <span>Tier 0 (Client):</span>
+                <span className="text-emerald-400 font-semibold">WebGPU (Llama 3.2 1B - $0)</span>
               </div>
               <div className="flex justify-between">
-                <span>Backup Engine:</span>
-                <span className="text-neutral-200">Groq (Llama 3.1)</span>
+                <span>Tier 1 (Fast Cloud):</span>
+                <span className="text-neutral-200">Groq (Llama 3.3 70B, 300 t/s)</span>
               </div>
               <div className="flex justify-between">
-                <span>Safe Fallback:</span>
-                <span className="text-emerald-400">Deterministic Engine</span>
+                <span>Tier 2 (Edge GPU):</span>
+                <span className="text-neutral-200">Cloudflare Workers AI (3B)</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Tier 3 (Self-Hosted):</span>
+                <span className="text-emerald-400">OCI VM Ollama (Llama 3.2 3B)</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Tier 4 (Backup):</span>
+                <span className="text-neutral-400">Gemini Flash + Deterministic</span>
               </div>
             </div>
           </div>
