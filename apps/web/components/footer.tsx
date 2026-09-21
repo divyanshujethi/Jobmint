@@ -46,6 +46,11 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/canvas" className="hover:text-emerald-600 font-medium text-emerald-700">
+                  Visual Skill Canvas (Node Graph)
+                </Link>
+              </li>
+              <li>
                 <Link href="/study-pods" className="hover:text-emerald-600 font-medium text-indigo-600">
                   Peer Study Pods & Mocks
                 </Link>

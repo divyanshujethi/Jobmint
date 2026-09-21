@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { APP_CONFIG } from "@repo/shared";
-import { Sparkles, Briefcase, Compass, Building2, Menu, X, ShieldCheck, Zap, Users, Code2, HardDrive } from "lucide-react";
+import { Sparkles, Briefcase, Compass, Building2, Menu, X, ShieldCheck, Zap, Users, Code2, HardDrive, Layers } from "lucide-react";
 import { Button } from "./ui/button";
 import { NotificationBell } from "./notification-bell";
 
@@ -60,6 +60,16 @@ export function Navbar() {
               Roadmaps
               <span className="rounded-full bg-blue-100 px-1.5 py-0.2 text-[10px] font-bold text-blue-700">
                 Free
+              </span>
+            </Link>
+            <Link
+              href="/canvas"
+              className="flex items-center gap-1.5 text-sm font-medium text-slate-600 hover:text-emerald-600 transition-colors"
+            >
+              <Layers className="h-4 w-4 text-emerald-500" />
+              Canvas
+              <span className="rounded-full bg-emerald-100 px-1.5 py-0.2 text-[10px] font-bold text-emerald-700">
+                Visual
               </span>
             </Link>
             <Link
@@ -174,6 +184,14 @@ export function Navbar() {
             >
               <Compass className="h-5 w-5 text-blue-500" />
               Roadmaps (100% Free)
+            </Link>
+            <Link
+              href="/canvas"
+              className="flex items-center gap-2 py-2 text-base font-medium text-slate-700 hover:text-emerald-600"
+              onClick={() => setIsOpen(false)}
+            >
+              <Layers className="h-5 w-5 text-emerald-500" />
+              Visual Skill Canvas (Interactive)
             </Link>
             <Link
               href="/study-pods"
