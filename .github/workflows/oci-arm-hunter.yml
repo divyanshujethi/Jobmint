@@ -2,9 +2,9 @@
 
 on:
   schedule:
-    # Runs every 5 minutes politely
-    - cron: '*/5 * * * *'
-  workflow_dispatch: # Allows manual trigger from GitHub UI anytime
+    # Runs politely every 10 minutes (safe from API bans & conserves GitHub minutes)
+    - cron: '*/10 * * * *'
+  workflow_dispatch: # Allows manual trigger from GitHub Actions tab anytime
 
 concurrency:
   group: oci-hunter
@@ -12,7 +12,7 @@ concurrency:
 
 jobs:
   hunt:
-    name: Probe OCI for A1 Capacity
+    name: Polite OCI Probe for A1 Capacity
     runs-on: ubuntu-latest
     timeout-minutes: 5
 
@@ -49,6 +49,7 @@ jobs:
       - name: Run Hunter Script
         env:
           OCI_COMPARTMENT_OCID: ${{ secrets.OCI_COMPARTMENT_OCID }}
+          OCI_TENANCY_OCID: ${{ secrets.OCI_TENANCY_OCID }}
           OCI_SUBNET_OCID: ${{ secrets.OCI_SUBNET_OCID }}
           OCI_IMAGE_OCID: ${{ secrets.OCI_IMAGE_OCID }}
           OCI_AVAILABILITY_DOMAIN: ${{ secrets.OCI_AVAILABILITY_DOMAIN }}
