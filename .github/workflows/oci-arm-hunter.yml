@@ -33,7 +33,9 @@ jobs:
       - name: Configure OCI CLI Credentials
         run: |
           mkdir -p ~/.oci
-          echo "${{ secrets.OCI_KEY_FILE }}" > ~/.oci/oci_api_key.pem
+          # Support both secret names: OCI_KEY_FILE or OCI_API_KEY
+          KEY_CONTENT="${{ secrets.OCI_KEY_FILE || secrets.OCI_API_KEY }}"
+          echo "$KEY_CONTENT" > ~/.oci/oci_api_key.pem
           chmod 600 ~/.oci/oci_api_key.pem
 
           cat <<EOF > ~/.oci/config
@@ -42,7 +44,7 @@ jobs:
           fingerprint=${{ secrets.OCI_FINGERPRINT }}
           key_file=~/.oci/oci_api_key.pem
           tenancy=${{ secrets.OCI_TENANCY_OCID }}
-          region=${{ secrets.OCI_REGION }}
+          region=${{ secrets.OCI_REGION || 'ap-mumbai-1' }}
           EOF
           chmod 600 ~/.oci/config
 

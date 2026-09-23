@@ -5,7 +5,8 @@ Runs periodically via GitHub Actions to provision:
   - Shape: VM.Standard.A1.Flex (4 OCPU, 24 GB RAM)
   - Region: ap-mumbai-1 (or configured region)
   - Boot Volume: 200 GB SSD
-  - Auto-discovers AD, Subnet, and ARM64 Image if not provided
+  - Auto-discovers AD, Subnet, and ARM64 Image
+  - Built-in default SSH public key fallback
   - Polite single-shot request per execution
 """
 
@@ -13,6 +14,8 @@ import os
 import sys
 import json
 import subprocess
+
+DEFAULT_SSH_KEY = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC5UUaemRxuEC0kFi+DYT9nzGvDOh+D6DTG6iJGfJ1E/DeKWTMhQkBRwvbV8iOKxSk2METuKCPFjEPQIqIycxg3A7hVl6do2hY35/08aZUnOLoupoadAGSqWkDL0vMAL36GclM5Eicys9mtq7oBIMcPEB3Xg+7MsulZV/gSxoV+YcV94nr7RHHaQ4kseL3xAVXOqiAUfn1di3K7BpBJsqx5oVcH2DanAfjCTM8TZR2q9UZHGAiL7otche/DxWwjDOqpS6B0c7gwEuVTCZ9kqCC+Zn7vRVskduGiGWGo/uWcwuRqwv3QCnS4GziO2uS+d3z/k/aBCIjBUzxuMMOV727v ssh-key-2026-09-22"
 
 def run_cmd(cmd):
     result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
@@ -22,17 +25,13 @@ def main():
     print("🐊 JobMint OCI Ampere A1 Hunter Initiated...")
 
     compartment_id = os.environ.get("OCI_COMPARTMENT_OCID") or os.environ.get("OCI_TENANCY_OCID")
-    ssh_public_key = os.environ.get("OCI_SSH_PUBLIC_KEY")
+    ssh_public_key = os.environ.get("OCI_SSH_PUBLIC_KEY") or DEFAULT_SSH_KEY
     ad_override = os.environ.get("OCI_AVAILABILITY_DOMAIN")
     subnet_override = os.environ.get("OCI_SUBNET_OCID")
     image_override = os.environ.get("OCI_IMAGE_OCID")
 
     if not compartment_id:
         print("❌ Missing OCI_COMPARTMENT_OCID or OCI_TENANCY_OCID! Please check GitHub Secrets.")
-        sys.exit(1)
-
-    if not ssh_public_key:
-        print("❌ Missing OCI_SSH_PUBLIC_KEY! Please check GitHub Secrets.")
         sys.exit(1)
 
     # 1. Check if an Ampere A1 instance is already running
@@ -72,7 +71,6 @@ def main():
         if code == 0 and out:
             subnets = json.loads(out).get("data", [])
             for s in subnets:
-                # Prefer public subnet
                 if not s.get("prohibit-public-ip-on-vnic", False):
                     subnet_id = s["id"]
                     print(f"✅ Found Public Subnet: {s.get('display-name')} ({subnet_id})")
@@ -94,7 +92,6 @@ def main():
             images = json.loads(out).get("data", [])
             for img in images:
                 name = img.get("display-name", "").lower()
-                # Prefer Oracle Linux 9 or Ubuntu 22.04 aarch64
                 if ("oracle-linux-9" in name or "ubuntu-22.04" in name or "oracle linux 9" in name) and "aarch64" in name:
                     image_id = img["id"]
                     print(f"✅ Found Image: {img.get('display-name')} ({image_id})")
@@ -137,7 +134,7 @@ def main():
         sys.exit(0)
     else:
         if "Out of host capacity" in err or "Capacity" in err or "500" in err:
-            print(f"⏳ Capacity temporarily full in {availability_domain}. Polite exit; will retry in 5 minutes.")
+            print(f"⏳ Capacity temporarily full in {availability_domain}. Polite exit; will retry in 10 minutes.")
             sys.exit(0)
         elif "TooManyRequests" in err or "429" in err:
             print("⚠️ Rate limit notice received from OCI. Backing off safely.")
