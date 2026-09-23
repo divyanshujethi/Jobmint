@@ -41,6 +41,7 @@ Thumbs.db
 *.key
 *.key.pub
 *.pub
+*.pem
 *.mobileprovision
 *.orig.*
 
