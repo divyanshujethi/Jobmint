@@ -6,7 +6,7 @@ Runs periodically via GitHub Actions to provision:
   - Region: ap-mumbai-1 (or configured region)
   - Boot Volume: 200 GB SSD
   - Auto-discovers AD, Subnet, and ARM64 Image
-  - Built-in default SSH public key fallback
+  - Auto-generates brand new SSH Key pair if none provided
   - Polite single-shot request per execution
 """
 
@@ -14,8 +14,6 @@ import os
 import sys
 import json
 import subprocess
-
-DEFAULT_SSH_KEY = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC5UUaemRxuEC0kFi+DYT9nzGvDOh+D6DTG6iJGfJ1E/DeKWTMhQkBRwvbV8iOKxSk2METuKCPFjEPQIqIycxg3A7hVl6do2hY35/08aZUnOLoupoadAGSqWkDL0vMAL36GclM5Eicys9mtq7oBIMcPEB3Xg+7MsulZV/gSxoV+YcV94nr7RHHaQ4kseL3xAVXOqiAUfn1di3K7BpBJsqx5oVcH2DanAfjCTM8TZR2q9UZHGAiL7otche/DxWwjDOqpS6B0c7gwEuVTCZ9kqCC+Zn7vRVskduGiGWGo/uWcwuRqwv3QCnS4GziO2uS+d3z/k/aBCIjBUzxuMMOV727v ssh-key-2026-09-22"
 
 def run_cmd(cmd):
     result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
@@ -25,7 +23,7 @@ def main():
     print("🐊 JobMint OCI Ampere A1 Hunter Initiated...")
 
     compartment_id = os.environ.get("OCI_COMPARTMENT_OCID") or os.environ.get("OCI_TENANCY_OCID")
-    ssh_public_key = os.environ.get("OCI_SSH_PUBLIC_KEY") or DEFAULT_SSH_KEY
+    ssh_public_key = os.environ.get("OCI_SSH_PUBLIC_KEY")
     ad_override = os.environ.get("OCI_AVAILABILITY_DOMAIN")
     subnet_override = os.environ.get("OCI_SUBNET_OCID")
     image_override = os.environ.get("OCI_IMAGE_OCID")
@@ -103,10 +101,28 @@ def main():
             print("❌ Could not auto-discover Image. Please set OCI_IMAGE_OCID.")
             sys.exit(1)
 
-    # 5. Write SSH public key to temp file
+    # 5. Handle SSH Key (Auto-generate if none provided)
     ssh_key_path = "/tmp/oci_authorized_keys"
-    with open(ssh_key_path, "w") as f:
-        f.write(ssh_public_key.strip() + "\n")
+    generated_private_key = None
+    if ssh_public_key and ssh_public_key.strip():
+        with open(ssh_key_path, "w") as f:
+            f.write(ssh_public_key.strip() + "\n")
+    else:
+        print("🔑 No SSH key provided; generating a brand new 4096-bit RSA key pair...")
+        priv_path = "/tmp/oci_new_rsa"
+        pub_path = "/tmp/oci_new_rsa.pub"
+        run_cmd(f"ssh-keygen -t rsa -b 4096 -f '{priv_path}' -N ''")
+        if os.path.exists(pub_path):
+            with open(pub_path, "r") as f:
+                ssh_public_key = f.read().strip()
+            with open(priv_path, "r") as f:
+                generated_private_key = f.read().strip()
+            with open(ssh_key_path, "w") as f:
+                f.write(ssh_public_key + "\n")
+            print("✅ Generated new SSH key pair.")
+        else:
+            print("❌ Failed to generate SSH key pair.")
+            sys.exit(1)
 
     # 6. Shape Config for 4 OCPUs and 24 GB RAM
     shape_config = json.dumps({"ocpus": 4, "memoryInGBs": 24})
@@ -129,8 +145,16 @@ def main():
     code, out, err = run_cmd(launch_cmd)
 
     if code == 0:
+        print("\n" + "="*80)
         print("🎉🎉🎉 BINGO! 4 OCPU / 24 GB RAM Ampere A1 instance successfully created!")
+        print("="*80)
         print(out)
+        if generated_private_key:
+            print("\n" + "#"*80)
+            print("🔑 YOUR PRIVATE SSH KEY (SAVE THIS TO A FILE e.g. jobmint_arm.key):")
+            print("#"*80)
+            print(generated_private_key)
+            print("#"*80 + "\n")
         sys.exit(0)
     else:
         if "Out of host capacity" in err or "Capacity" in err or "500" in err:
