@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 """
 JobMint OCI Ampere A1 Hunter
 Runs periodically via GitHub Actions to provision:
@@ -32,17 +32,21 @@ def main():
         print("❌ Missing OCI_COMPARTMENT_OCID or OCI_TENANCY_OCID! Please check GitHub Secrets.")
         sys.exit(1)
 
-    # 1. Check if an Ampere A1 instance is already running
+    # 1. Check if an Ampere A1 instance is already created or provisioning
     print("🔍 Checking existing instances in compartment...")
-    list_cmd = f"oci compute instance list --compartment-id '{compartment_id}' --lifecycle-state RUNNING"
-    code, out, err = run_cmd(list_cmd)
+    code, out, err = run_cmd(f"oci compute instance list --compartment-id '{compartment_id}'")
     
     if code == 0 and out:
         try:
             data = json.loads(out)
             for inst in data.get("data", []):
-                if inst.get("shape") == "VM.Standard.A1.Flex":
-                    print(f"🎉 SUCCESS! An Ampere A1 instance is ALREADY RUNNING: {inst.get('display-name')} ({inst.get('id')})")
+                state = inst.get("lifecycle-state", "").upper()
+                if inst.get("shape") == "VM.Standard.A1.Flex" and state in ["RUNNING", "PROVISIONING", "STARTING"]:
+                    print(f"🎉 Ampere A1 instance already exists in state '{state}': {inst.get('display-name')} ({inst.get('id')})")
+                    github_output = os.environ.get("GITHUB_OUTPUT")
+                    if github_output:
+                        with open(github_output, "a") as f:
+                            f.write("instance_acquired=true\n")
                     sys.exit(0)
         except Exception as e:
             print(f"⚠️ Could not parse existing instances: {e}")
@@ -149,6 +153,10 @@ def main():
         print("🎉🎉🎉 BINGO! 4 OCPU / 24 GB RAM Ampere A1 instance successfully created!")
         print("="*80)
         print(out)
+        github_output = os.environ.get("GITHUB_OUTPUT")
+        if github_output:
+            with open(github_output, "a") as f:
+                f.write("instance_acquired=true\n")
         if generated_private_key:
             print("\n" + "#"*80)
             print("🔑 YOUR PRIVATE SSH KEY (SAVE THIS TO A FILE e.g. jobmint_arm.key):")

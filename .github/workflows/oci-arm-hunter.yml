@@ -14,7 +14,9 @@ jobs:
   hunt:
     name: Polite OCI Probe for A1 Capacity
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    permissions:
+      contents: read
+      actions: write
 
     steps:
       - name: Checkout Repository
@@ -48,6 +50,7 @@ jobs:
           chmod 600 ~/.oci/config
 
       - name: Run Hunter Script
+        id: hunter
         env:
           OCI_COMPARTMENT_OCID: ${{ secrets.OCI_COMPARTMENT_OCID }}
           OCI_TENANCY_OCID: ${{ secrets.OCI_TENANCY_OCID }}
@@ -57,3 +60,11 @@ jobs:
           OCI_SSH_PUBLIC_KEY: ${{ secrets.OCI_SSH_PUBLIC_KEY }}
         run: |
           python .github/scripts/oci_arm_hunter.py
+
+      - name: Auto-Disable Hunter Upon Success
+        if: steps.hunter.outputs.instance_acquired == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "🎉 Instance + 200 GB Storage acquired! Disabling workflow so it stops permanently."
+          gh workflow disable oci-arm-hunter.yml || true
