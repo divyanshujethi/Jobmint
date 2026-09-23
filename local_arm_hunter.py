@@ -120,32 +120,33 @@ def main():
     # 6. Hunting Loop
     attempt = 1
     consecutive_server_errors = 0
-    recent_requests = []  # Timestamps for rolling 60-minute request budget
-    next_break_target = random.randint(9, 14)  # Natural break after 9-14 attempts
+    recent_requests = []  # Timestamps for rolling 60-minute window (Target: 6-10 req/hour)
 
     while True:
-        # Enforce strict 1-hour sliding request budget (Max 14 requests per hour)
+        # Enforce strict 1-hour rolling request cap (Never exceed 10 requests in any 60-min window)
         current_time = time.time()
         recent_requests = [t for t in recent_requests if current_time - t < 3600]
 
-        if len(recent_requests) >= 14:
+        if len(recent_requests) >= 10:
             oldest_request = recent_requests[0]
-            budget_wait = max(30.0, 3600.0 - (current_time - oldest_request) + random.uniform(10.0, 60.0))
+            budget_wait = max(45.0, 3600.0 - (current_time - oldest_request) + random.uniform(30.0, 90.0))
             b_mins = int(budget_wait // 60)
             b_secs = int(budget_wait % 60)
-            print(f"\n[RATE BUDGET GUARD] 14 requests made in last 60 minutes. Pausing {b_mins}m {b_secs}s to strictly stay below cloud limits...")
+            print(f"\n[HUMAN PACE GUARD] 10 requests reached in last 60 minutes.")
+            print(f"Pausing {b_mins}m {b_secs}s to maintain an organic human rhythm of 6-10 requests/hour...")
             remaining = budget_wait
             while remaining > 0:
                 step = min(10.0, remaining)
                 r_min = int(remaining // 60)
                 r_sec = int(remaining % 60)
-                print(f"   Budget reset in {r_min:02d}m {r_sec:02d}s (Press Ctrl+C to stop)...", end="\r", flush=True)
+                print(f"   Pace reset in {r_min:02d}m {r_sec:02d}s (Press Ctrl+C to stop)...", end="\r", flush=True)
                 time.sleep(step)
                 remaining -= step
             recent_requests = [t for t in recent_requests if time.time() - t < 3600]
 
+        reqs_in_last_hour = len(recent_requests) + 1
         timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
-        print(f"\n[{timestamp}] Attempt #{attempt} (Hourly usage: {len(recent_requests)+1}/14): Requesting 4 OCPU / 24 GB RAM / 200 GB SSD...")
+        print(f"\n[{timestamp}] Attempt #{attempt} | Human Pace: {reqs_in_last_hour}/10 reqs/hr | Target: 4 OCPU, 24 GB RAM, 200 GB SSD")
         recent_requests.append(time.time())
 
         launch_details = oci.core.models.LaunchInstanceDetails(
@@ -243,7 +244,7 @@ def main():
                 consecutive_server_errors = 0
                 print(f"[OCI] [{e.status}] {e.message}")
 
-        # Compute next sleep interval
+        # Compute next sleep interval using Human Behavior States
         if circuit_breaker:
             # 15 to 20 minute complete circuit breaker cooldown
             wait_seconds = random.uniform(900.0, 1200.0)
@@ -254,26 +255,31 @@ def main():
         elif server_error_escalation:
             # Consecutive failure backoff multiplier (2x base jitter)
             multiplier = min(4, 2 ** (consecutive_server_errors - 4))
-            base_jitter = random.uniform(120.0, 420.0)
+            base_jitter = random.uniform(180.0, 360.0)
             wait_seconds = base_jitter * multiplier
             mins = int(wait_seconds // 60)
             secs = int(wait_seconds % 60)
             print(f"[SERVER BACKOFF] Scaled sleep to {mins}m {secs}s ({multiplier}x multiplier) to stabilize...")
 
-        elif attempt >= next_break_target:
-            # Natural Human "Coffee Break" (10 to 16 minutes pause every ~1 hour)
-            wait_seconds = random.uniform(600.0, 960.0)
-            mins = int(wait_seconds // 60)
-            secs = int(wait_seconds % 60)
-            next_break_target = attempt + random.randint(9, 14)
-            print(f"\n[HUMAN PAUSE] Simulating natural break. Stepping away for {mins}m {secs}s...")
-
         else:
-            # Natural Human Random Jitter between 2 minutes (120s) and 7 minutes (420s)
-            wait_seconds = random.uniform(120.0, 420.0)
+            # Human Behavioral State Model:
+            # 1. Quick Followup (35%): 2m to 3.5m (User actively checking back)
+            # 2. Focused Working Lull (50%): 4m to 7m (User working on another tab/task)
+            # 3. Step-Away Break (15%): 9m to 14m (User stepped away from desk)
+            behavior_roll = random.random()
+            if behavior_roll < 0.35:
+                behavior_label = "Active Check"
+                wait_seconds = random.uniform(120.0, 210.0)
+            elif behavior_roll < 0.85:
+                behavior_label = "Working Lull"
+                wait_seconds = random.uniform(240.0, 420.0)
+            else:
+                behavior_label = "Desk Break"
+                wait_seconds = random.uniform(540.0, 840.0)
+
             mins = int(wait_seconds // 60)
             secs = int(wait_seconds % 60)
-            print(f"[HUMAN JITTER] Waiting {mins}m {secs:02d}s ({wait_seconds:.1f}s) before polite retry #{attempt+1}...")
+            print(f"[HUMAN PACE: {behavior_label}] Waiting {mins}m {secs:02d}s ({wait_seconds:.1f}s) | Target: 6-10 reqs/hr...")
 
         # Countdown with human-friendly display
         remaining = wait_seconds
