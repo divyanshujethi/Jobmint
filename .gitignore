@@ -2,7 +2,9 @@
 node_modules
 .pnpm-store
 .venv/
+__pycache__/
 jobmint-arm-ssh*
+hunter/*.txt
 
 # Next.js
 .next/

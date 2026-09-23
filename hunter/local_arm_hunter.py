@@ -19,7 +19,7 @@ if hasattr(sys.stdout, 'reconfigure'):
 
 import oci
 
-PROJECT_DIR = r"D:\jobapp"
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 KEY_FILE = os.path.join(PROJECT_DIR, "divyanshujethi@gmail.com-2026-09-23T04_14_11.792Z.pem")
 SSH_PRIV_KEY = os.path.join(PROJECT_DIR, "jobmint-arm-ssh.key")
 SSH_PUB_KEY = os.path.join(PROJECT_DIR, "jobmint-arm-ssh.key.pub")
