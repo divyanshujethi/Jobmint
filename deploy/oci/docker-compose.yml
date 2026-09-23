@@ -22,7 +22,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 4096M
+          memory: 384M
 
   # 2. Redis 7 (Cache, Rate Limiting & Queue on OCI SSD)
   redis:
@@ -42,30 +42,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 2048M
-
-  # 3. Ollama (Meta Llama 3.2 3B Inference Engine on ARM64 CPU)
-  ollama:
-    image: ollama/ollama:latest
-    container_name: jobmint-ollama
-    restart: always
-    environment:
-      - OLLAMA_NUM_PARALLEL=4
-      - OLLAMA_MAX_LOADED_MODELS=1
-      - OLLAMA_KEEP_ALIVE=24h
-    volumes:
-      - /data/ollama:/root/.ollama
-    ports:
-      - "11434:11434"
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:11434/api/tags"]
-      interval: 20s
-      timeout: 10s
-      retries: 3
-    deploy:
-      resources:
-        limits:
-          memory: 6144M
+          memory: 128M
 
 networks:
   default:
