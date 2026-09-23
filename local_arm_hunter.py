@@ -119,6 +119,8 @@ def main():
 
     # 6. Hunting Loop
     attempt = 1
+    consecutive_server_errors = 0
+
     while True:
         timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
         print(f"\n[{timestamp}] Attempt #{attempt}: Requesting 4 OCPU / 24 GB RAM / 200 GB SSD...")
@@ -146,17 +148,27 @@ def main():
             }
         )
 
+        circuit_breaker = False
+        server_error_escalation = False
+
         try:
             response = compute_client.launch_instance(launch_instance_details=launch_details)
             instance = response.data
-            print("\n" + "=" * 80)
-            print("SUCCESS! YOUR 4 OCPU / 24 GB RAM AMPERE A1 INSTANCE IS CREATED!")
-            print("=" * 80)
-            print(f"   Instance Name: {instance.display_name}")
-            print(f"   Instance ID:   {instance.id}")
-            print(f"   Shape:         VM.Standard.A1.Flex (4 OCPU, 24 GB RAM)")
-            print(f"   Boot Volume:   200 GB SSD")
-            print(f"   Private Key:   {SSH_PRIV_KEY}")
+            consecutive_server_errors = 0
+
+            print("\n" + "*" * 80)
+            print("🎉🎉🎉 BINGO! YOUR 4 OCPU / 24 GB RAM AMPERE A1 INSTANCE IS SECURED! 🎉🎉🎉")
+            print("*" * 80)
+            print(f"   Instance Name:   {instance.display_name}")
+            print(f"   Instance ID:     {instance.id}")
+            print(f"   Shape:           VM.Standard.A1.Flex (4 OCPU, 24 GB RAM)")
+            print(f"   Boot Volume:     200 GB SSD Always Free")
+            print(f"   Private SSH Key: {SSH_PRIV_KEY}")
+            print(f"   Public SSH Key:  {SSH_PUB_KEY}")
+            print("*" * 80)
+            print("📋 EXACT SSH COMMAND TO CONNECT (Once status is RUNNING):")
+            print(f'   ssh -i "{SSH_PRIV_KEY}" opc@<PUBLIC_IP>')
+            print("*" * 80)
 
             with open(RESULT_FILE, "w") as f:
                 f.write(f"JOBMINT AMPERE A1 INSTANCE DETAILS\n")
@@ -166,36 +178,82 @@ def main():
                 f.write(f"To connect once RUNNING:\n")
                 f.write(f'ssh -i "{SSH_PRIV_KEY}" opc@<PUBLIC_IP>\n')
 
-            print(f"\nConnection details saved to: {RESULT_FILE}")
-            print("\a")
-            print("AUTO-SHUTDOWN: Work complete. Hunter is now stopping.")
+            print(f"\n📁 Connection details saved to: {RESULT_FILE}")
+            print("\a")  # Audible sound notification
+            print("\n🛑 HUNT COMPLETED SUCCESSFULLY: Process has cut further attempts.")
+            print("   This window will REMAIN OPEN so you can copy your details.")
+            print("=" * 80)
+            try:
+                input("\n👉 Press [Enter] whenever you are done to close this window...")
+            except Exception:
+                pass
             sys.exit(0)
 
         except oci.exceptions.ServiceError as e:
-            if "Out of host capacity" in e.message or e.status == 500:
-                print(f"Status: Capacity temporarily full in {availability_domain}.")
-            elif e.status == 429:
-                print("⚠️ Rate limit (429) detected from Oracle. Backing off for 10 minutes safely...")
-                time.sleep(600)
-                continue
+            # Case A: Standard Capacity Limit (Normal business logic)
+            if "Out of host capacity" in str(e.message) or "Capacity" in str(e.message):
+                consecutive_server_errors = 0
+                print(f"[CAPACITY] Slots temporarily full in {availability_domain}.")
+
+            # Case B: Rate Limit (HTTP 429) -> Immediate Circuit Breaker
+            elif e.status == 429 or "TooManyRequests" in str(e.message):
+                circuit_breaker = True
+                consecutive_server_errors = 0
+                print("\n" + "!" * 80)
+                print("[CIRCUIT BREAKER TRIGGERED] Oracle HTTP 429 Too Many Requests detected!")
+                print("Enforcing strict 10-15 minute safety cooldown to protect account from rate limits...")
+                print("!" * 80)
+
+            # Case C: True Server Errors (500 InternalServerError, 502, 503 Service Unavailable)
+            elif e.status in [500, 502, 503, 504]:
+                consecutive_server_errors += 1
+                print(f"[SERVER ERROR] Oracle returned HTTP {e.status} ({consecutive_server_errors} in a row): {e.message}")
+                if consecutive_server_errors >= 5:
+                    server_error_escalation = True
+                    print("\n" + "!" * 80)
+                    print(f"[BACKOFF ESCALATION] {consecutive_server_errors} consecutive server errors detected!")
+                    print("Oracle control plane is under heavy internal load. Doubling sleep timer to protect account...")
+                    print("!" * 80)
+
+            # Case D: Other OCI Message
             else:
-                print(f"OCI Message: [{e.status}] {e.message}")
+                consecutive_server_errors = 0
+                print(f"[OCI] [{e.status}] {e.message}")
 
-        # Human-like random jitter: e.g. 172s, 194s, 231s, 276s, etc.
-        # Uses normal distribution centered around ~215 seconds with wide variance
-        raw_jitter = int(random.gauss(215, 40))
-        wait_seconds = max(160, min(320, raw_jitter))
+        # Compute next sleep interval
+        if circuit_breaker:
+            # 10 to 15 minute complete circuit breaker cooldown
+            wait_seconds = random.uniform(600.0, 900.0)
+            mins = int(wait_seconds // 60)
+            secs = int(wait_seconds % 60)
+            print(f"[COOLING OFF] Sleeping for {mins}m {secs}s before resetting circuit breaker...")
 
-        # Every 8 attempts, simulate a human stepping away (coffee break: +5 to 8 mins)
-        if attempt % 8 == 0:
-            break_seconds = random.randint(300, 480)
-            wait_seconds += break_seconds
-            print(f"\n[HUMAN JITTER] Simulating natural break (+{break_seconds//60} mins) to blend with normal browser traffic...")
+        elif server_error_escalation:
+            # Consecutive failure backoff multiplier (2x or 4x base jitter)
+            multiplier = min(4, 2 ** (consecutive_server_errors - 4))
+            base_jitter = random.uniform(175.0, 245.0)
+            wait_seconds = base_jitter * multiplier
+            mins = int(wait_seconds // 60)
+            secs = int(wait_seconds % 60)
+            print(f"[SERVER BACKOFF] Scaled sleep to {mins}m {secs}s ({multiplier}x multiplier) to stabilize...")
 
-        print(f"Waiting {wait_seconds}s (human-randomized jitter) before retry #{attempt+1} (Press Ctrl+C to stop)...")
-        for remaining in range(wait_seconds, 0, -10):
-            print(f"   Next check in {remaining:3d}s...", end="\r", flush=True)
-            time.sleep(min(10, remaining))
+        else:
+            # Normal human-like random jitter: between 175s and 245s
+            wait_seconds = random.uniform(175.0, 245.0)
+            mins = int(wait_seconds // 60)
+            secs = int(wait_seconds % 60)
+            print(f"[JITTER SLEEP] Waiting {mins}m {secs}s ({wait_seconds:.1f}s) before polite retry #{attempt+1}...")
+
+        # Countdown with human-friendly display
+        remaining = wait_seconds
+        while remaining > 0:
+            step = min(10.0, remaining)
+            r_min = int(remaining // 60)
+            r_sec = int(remaining % 60)
+            print(f"   Next check in {r_min:02d}m {r_sec:02d}s (Press Ctrl+C to stop)...", end="\r", flush=True)
+            time.sleep(step)
+            remaining -= step
+
         attempt += 1
 
 if __name__ == "__main__":
