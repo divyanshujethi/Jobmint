@@ -120,10 +120,33 @@ def main():
     # 6. Hunting Loop
     attempt = 1
     consecutive_server_errors = 0
+    recent_requests = []  # Timestamps for rolling 60-minute request budget
+    next_break_target = random.randint(9, 14)  # Natural break after 9-14 attempts
 
     while True:
+        # Enforce strict 1-hour sliding request budget (Max 14 requests per hour)
+        current_time = time.time()
+        recent_requests = [t for t in recent_requests if current_time - t < 3600]
+
+        if len(recent_requests) >= 14:
+            oldest_request = recent_requests[0]
+            budget_wait = max(30.0, 3600.0 - (current_time - oldest_request) + random.uniform(10.0, 60.0))
+            b_mins = int(budget_wait // 60)
+            b_secs = int(budget_wait % 60)
+            print(f"\n[RATE BUDGET GUARD] 14 requests made in last 60 minutes. Pausing {b_mins}m {b_secs}s to strictly stay below cloud limits...")
+            remaining = budget_wait
+            while remaining > 0:
+                step = min(10.0, remaining)
+                r_min = int(remaining // 60)
+                r_sec = int(remaining % 60)
+                print(f"   Budget reset in {r_min:02d}m {r_sec:02d}s (Press Ctrl+C to stop)...", end="\r", flush=True)
+                time.sleep(step)
+                remaining -= step
+            recent_requests = [t for t in recent_requests if time.time() - t < 3600]
+
         timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
-        print(f"\n[{timestamp}] Attempt #{attempt}: Requesting 4 OCPU / 24 GB RAM / 200 GB SSD...")
+        print(f"\n[{timestamp}] Attempt #{attempt} (Hourly usage: {len(recent_requests)+1}/14): Requesting 4 OCPU / 24 GB RAM / 200 GB SSD...")
+        recent_requests.append(time.time())
 
         launch_details = oci.core.models.LaunchInstanceDetails(
             compartment_id=compartment_id,
@@ -201,7 +224,7 @@ def main():
                 consecutive_server_errors = 0
                 print("\n" + "!" * 80)
                 print("[CIRCUIT BREAKER TRIGGERED] Oracle HTTP 429 Too Many Requests detected!")
-                print("Enforcing strict 10-15 minute safety cooldown to protect account from rate limits...")
+                print("Enforcing strict 15-20 minute safety cooldown to protect account from rate limits...")
                 print("!" * 80)
 
             # Case C: True Server Errors (500 InternalServerError, 502, 503 Service Unavailable)
@@ -222,27 +245,35 @@ def main():
 
         # Compute next sleep interval
         if circuit_breaker:
-            # 10 to 15 minute complete circuit breaker cooldown
-            wait_seconds = random.uniform(600.0, 900.0)
+            # 15 to 20 minute complete circuit breaker cooldown
+            wait_seconds = random.uniform(900.0, 1200.0)
             mins = int(wait_seconds // 60)
             secs = int(wait_seconds % 60)
             print(f"[COOLING OFF] Sleeping for {mins}m {secs}s before resetting circuit breaker...")
 
         elif server_error_escalation:
-            # Consecutive failure backoff multiplier (2x or 4x base jitter)
+            # Consecutive failure backoff multiplier (2x base jitter)
             multiplier = min(4, 2 ** (consecutive_server_errors - 4))
-            base_jitter = random.uniform(175.0, 245.0)
+            base_jitter = random.uniform(120.0, 420.0)
             wait_seconds = base_jitter * multiplier
             mins = int(wait_seconds // 60)
             secs = int(wait_seconds % 60)
             print(f"[SERVER BACKOFF] Scaled sleep to {mins}m {secs}s ({multiplier}x multiplier) to stabilize...")
 
-        else:
-            # Normal human-like random jitter: between 175s and 245s
-            wait_seconds = random.uniform(175.0, 245.0)
+        elif attempt >= next_break_target:
+            # Natural Human "Coffee Break" (10 to 16 minutes pause every ~1 hour)
+            wait_seconds = random.uniform(600.0, 960.0)
             mins = int(wait_seconds // 60)
             secs = int(wait_seconds % 60)
-            print(f"[JITTER SLEEP] Waiting {mins}m {secs}s ({wait_seconds:.1f}s) before polite retry #{attempt+1}...")
+            next_break_target = attempt + random.randint(9, 14)
+            print(f"\n[HUMAN PAUSE] Simulating natural break. Stepping away for {mins}m {secs}s...")
+
+        else:
+            # Natural Human Random Jitter between 2 minutes (120s) and 7 minutes (420s)
+            wait_seconds = random.uniform(120.0, 420.0)
+            mins = int(wait_seconds // 60)
+            secs = int(wait_seconds % 60)
+            print(f"[HUMAN JITTER] Waiting {mins}m {secs:02d}s ({wait_seconds:.1f}s) before polite retry #{attempt+1}...")
 
         # Countdown with human-friendly display
         remaining = wait_seconds
