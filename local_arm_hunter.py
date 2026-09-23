@@ -120,20 +120,20 @@ def main():
     # 6. Hunting Loop
     attempt = 1
     consecutive_server_errors = 0
-    recent_requests = []  # Timestamps for rolling 60-minute window (Target: 6-10 req/hour)
+    recent_requests = []  # Timestamps for rolling 60-minute window (Target: 15-20 req/hour)
 
     while True:
-        # Enforce strict 1-hour rolling request cap (Never exceed 10 requests in any 60-min window)
+        # Enforce strict 1-hour rolling request cap (Never exceed 20 requests in any 60-min window)
         current_time = time.time()
         recent_requests = [t for t in recent_requests if current_time - t < 3600]
 
-        if len(recent_requests) >= 10:
+        if len(recent_requests) >= 20:
             oldest_request = recent_requests[0]
-            budget_wait = max(45.0, 3600.0 - (current_time - oldest_request) + random.uniform(30.0, 90.0))
+            budget_wait = max(30.0, 3600.0 - (current_time - oldest_request) + random.uniform(15.0, 45.0))
             b_mins = int(budget_wait // 60)
             b_secs = int(budget_wait % 60)
-            print(f"\n[HUMAN PACE GUARD] 10 requests reached in last 60 minutes.")
-            print(f"Pausing {b_mins}m {b_secs}s to maintain an organic human rhythm of 6-10 requests/hour...")
+            print(f"\n[HUMAN PACE GUARD] 20 requests reached in last 60 minutes.")
+            print(f"Pausing {b_mins}m {b_secs}s to maintain an organic human rhythm of 15-20 requests/hour...")
             remaining = budget_wait
             while remaining > 0:
                 step = min(10.0, remaining)
@@ -146,7 +146,7 @@ def main():
 
         reqs_in_last_hour = len(recent_requests) + 1
         timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
-        print(f"\n[{timestamp}] Attempt #{attempt} | Human Pace: {reqs_in_last_hour}/10 reqs/hr | Target: 4 OCPU, 24 GB RAM, 200 GB SSD")
+        print(f"\n[{timestamp}] Attempt #{attempt} | Human Pace: {reqs_in_last_hour}/20 reqs/hr | Target: 4 OCPU, 24 GB RAM, 200 GB SSD")
         recent_requests.append(time.time())
 
         launch_details = oci.core.models.LaunchInstanceDetails(
@@ -244,7 +244,7 @@ def main():
                 consecutive_server_errors = 0
                 print(f"[OCI] [{e.status}] {e.message}")
 
-        # Compute next sleep interval using Human Behavior States
+        # Compute next sleep interval using Human Behavior States (Calibrated for 15-20 reqs/hr)
         if circuit_breaker:
             # 15 to 20 minute complete circuit breaker cooldown
             wait_seconds = random.uniform(900.0, 1200.0)
@@ -255,31 +255,31 @@ def main():
         elif server_error_escalation:
             # Consecutive failure backoff multiplier (2x base jitter)
             multiplier = min(4, 2 ** (consecutive_server_errors - 4))
-            base_jitter = random.uniform(180.0, 360.0)
+            base_jitter = random.uniform(150.0, 270.0)
             wait_seconds = base_jitter * multiplier
             mins = int(wait_seconds // 60)
             secs = int(wait_seconds % 60)
             print(f"[SERVER BACKOFF] Scaled sleep to {mins}m {secs}s ({multiplier}x multiplier) to stabilize...")
 
         else:
-            # Human Behavioral State Model:
-            # 1. Quick Followup (35%): 2m to 3.5m (User actively checking back)
-            # 2. Focused Working Lull (50%): 4m to 7m (User working on another tab/task)
-            # 3. Step-Away Break (15%): 9m to 14m (User stepped away from desk)
+            # Human Behavioral State Model (15 to 20 calls/hour pace):
+            # 1. Quick Re-check (45%): 90s to 150s (1.5m to 2.5m - User actively watching)
+            # 2. Standard Working Lull (40%): 180s to 270s (3.0m to 4.5m - User checking between tasks)
+            # 3. Micro-Break (15%): 360s to 540s (6m to 9m - User stepping away for coffee/water)
             behavior_roll = random.random()
-            if behavior_roll < 0.35:
-                behavior_label = "Active Check"
-                wait_seconds = random.uniform(120.0, 210.0)
+            if behavior_roll < 0.45:
+                behavior_label = "Quick Check"
+                wait_seconds = random.uniform(90.0, 150.0)
             elif behavior_roll < 0.85:
-                behavior_label = "Working Lull"
-                wait_seconds = random.uniform(240.0, 420.0)
+                behavior_label = "Standard Check"
+                wait_seconds = random.uniform(180.0, 270.0)
             else:
-                behavior_label = "Desk Break"
-                wait_seconds = random.uniform(540.0, 840.0)
+                behavior_label = "Micro-Break"
+                wait_seconds = random.uniform(360.0, 540.0)
 
             mins = int(wait_seconds // 60)
             secs = int(wait_seconds % 60)
-            print(f"[HUMAN PACE: {behavior_label}] Waiting {mins}m {secs:02d}s ({wait_seconds:.1f}s) | Target: 6-10 reqs/hr...")
+            print(f"[HUMAN PACE: {behavior_label}] Waiting {mins}m {secs:02d}s ({wait_seconds:.1f}s) | Pace Target: 15-20 reqs/hr...")
 
         # Countdown with human-friendly display
         remaining = wait_seconds
@@ -290,7 +290,6 @@ def main():
             print(f"   Next check in {r_min:02d}m {r_sec:02d}s (Press Ctrl+C to stop)...", end="\r", flush=True)
             time.sleep(step)
             remaining -= step
-
         attempt += 1
 
 if __name__ == "__main__":
