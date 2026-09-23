@@ -1,6 +1,8 @@
 # Dependencies
 node_modules
 .pnpm-store
+.venv/
+jobmint-arm-ssh*
 
 # Next.js
 .next/
