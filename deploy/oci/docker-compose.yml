@@ -22,7 +22,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 384M
+          memory: 4096M
 
   # 2. Redis 7 (Cache, Rate Limiting & Queue on OCI SSD)
   redis:
@@ -42,7 +42,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 128M
+          memory: 2048M
 
 networks:
   default:
