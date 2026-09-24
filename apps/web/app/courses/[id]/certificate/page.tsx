@@ -406,7 +406,7 @@ export default function CourseCertificatePage({
             <div className="mt-10 pt-6 border-t border-slate-800 grid grid-cols-1 sm:grid-cols-3 items-center justify-between gap-6 relative z-10 text-center sm:text-left">
               {/* SIGNATURE 1 */}
               <div className="space-y-1">
-                <div className="font-serif italic text-lg text-[#e6ca65]">Dr. A. Sen</div>
+                <div className="font-serif italic text-lg text-[#e6ca65]">Sakshi Sharma</div>
                 <div className="border-t border-slate-700 pt-1 text-[11px] font-mono text-slate-400 uppercase">
                   Head of Engineering Curricula
                   <br />
