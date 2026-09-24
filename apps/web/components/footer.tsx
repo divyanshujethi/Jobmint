@@ -75,7 +75,12 @@ export function Footer() {
               </li>
               <li>
                 <Link href="/courses" className="hover:text-emerald-600 font-semibold text-emerald-700">
-                  Interactive Courses &amp; Playlists
+                  Interactive Courses &amp; Diplomas
+                </Link>
+              </li>
+              <li>
+                <Link href="/playlists" className="hover:text-emerald-600 font-semibold text-red-600 flex items-center gap-1">
+                  Best YouTube Playlists Hub
                 </Link>
               </li>
               <li>

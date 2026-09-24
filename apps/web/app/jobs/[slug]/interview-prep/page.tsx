@@ -13,8 +13,9 @@ import {
   Building2,
   ShieldCheck,
   RefreshCw,
+  Lock,
 } from "lucide-react";
-
+import { Button } from "@/components/ui/button";
 import { MockJob } from "@/lib/mock-jobs";
 
 interface InterviewQuestion {
@@ -33,10 +34,23 @@ export default function JobInterviewPrepPage() {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(0);
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
   const [provider, setProvider] = useState<string>("gemini");
-  const [requiresAuth, setRequiresAuth] = useState(false);
   const [rateLimitMsg, setRateLimitMsg] = useState<string | null>(null);
+  const [sessionUser, setSessionUser] = useState<any>(null);
+  const [sessionChecked, setSessionChecked] = useState(false);
 
   useEffect(() => {
+    fetch("/api/auth/session")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data && data.user) {
+          setSessionUser(data.user);
+        } else {
+          setSessionUser(null);
+        }
+      })
+      .catch(() => setSessionUser(null))
+      .finally(() => setSessionChecked(true));
+
     fetch("/api/jobs")
       .then((res) => res.json())
       .then((data) => {
@@ -54,7 +68,6 @@ export default function JobInterviewPrepPage() {
     if (!job) return;
     setLoading(true);
     try {
-      setRequiresAuth(false);
       setRateLimitMsg(null);
       const res = await fetch("/api/ai", {
         method: "POST",
@@ -71,9 +84,7 @@ export default function JobInterviewPrepPage() {
       const data = await res.json();
 
       if (res.status === 401) {
-        setRequiresAuth(true);
-        setProvider("curated-catalog");
-        setQuestions(getDefaultQuestions(job.title));
+        setSessionUser(null);
         return;
       }
 
@@ -110,10 +121,10 @@ export default function JobInterviewPrepPage() {
   };
 
   useEffect(() => {
-    if (job) {
+    if (job && sessionUser) {
       fetchPrepQuestions();
     }
-  }, [job]);
+  }, [job, sessionUser]);
 
   const copyQuestion = (q: string, idx: number) => {
     navigator.clipboard.writeText(q);
@@ -121,10 +132,45 @@ export default function JobInterviewPrepPage() {
     setTimeout(() => setCopiedIndex(null), 2000);
   };
 
-  if (!job) {
+  if (!sessionChecked || !job) {
     return (
       <div className="min-h-screen bg-slate-50/50 text-slate-500 flex items-center justify-center py-20 font-mono text-xs">
-        Loading interview prep guide...
+        Loading interview preparation environment...
+      </div>
+    );
+  }
+
+  // Strict Authentication Gate for AI Mock Interview
+  if (!sessionUser) {
+    return (
+      <div className="min-h-screen bg-slate-50/50 text-slate-900 py-16 px-4 sm:px-6 lg:px-8 flex items-center justify-center">
+        <div className="max-w-md w-full bg-white border border-slate-200 rounded-3xl p-8 shadow-xl text-center space-y-6">
+          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600 border border-emerald-200">
+            <Lock className="h-7 w-7" />
+          </div>
+          <div>
+            <h2 className="text-xl font-bold text-slate-900">Sign In Required for AI Mock Interview</h2>
+            <p className="text-xs text-slate-600 mt-2 leading-relaxed">
+              To prevent automated API scraping and tailor technical STAR interview questions specifically to your profile for <strong className="text-slate-900">{job.title}</strong>, please sign in.
+            </p>
+          </div>
+          <div className="space-y-3 pt-2">
+            <Link href={`/login?callbackUrl=/jobs/${slug}/interview-prep`} className="block">
+              <Button className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm rounded-xl py-5 shadow-sm">
+                Sign In with GitHub or Google
+              </Button>
+            </Link>
+            <Link href={`/jobs/${slug}`} className="block">
+              <Button variant="outline" className="w-full text-xs text-slate-600 hover:text-slate-900 border-slate-200">
+                ← Return to Job Opening
+              </Button>
+            </Link>
+          </div>
+          <div className="pt-4 border-t border-slate-100 flex items-center justify-center gap-2 text-[11px] text-slate-500">
+            <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />
+            <span>100% Free • DPDP Act Compliant</span>
+          </div>
+        </div>
       </div>
     );
   }
@@ -171,23 +217,6 @@ export default function JobInterviewPrepPage() {
           </div>
         </div>
 
-        {requiresAuth && (
-          <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs shadow-sm">
-            <div className="flex items-center gap-2.5">
-              <ShieldCheck className="h-5 w-5 text-amber-600 shrink-0" />
-              <div>
-                <span className="font-bold text-slate-900 block">Preview Mode: Displaying Verified Curriculum Questions</span>
-                <span className="text-slate-600">Sign in to generate unlimited personalized questions and live AI evaluation.</span>
-              </div>
-            </div>
-            <Link href={`/login?callbackUrl=/jobs/${job.slug}/interview-prep`}>
-              <button className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs px-4 py-2 rounded-xl shadow-xs transition-colors shrink-0">
-                Sign In for Live AI
-              </button>
-            </Link>
-          </div>
-        )}
-
         {rateLimitMsg && (
           <div className="rounded-2xl border border-rose-200 bg-rose-50 p-4 text-xs text-rose-800 font-medium">
             {rateLimitMsg}
@@ -215,7 +244,7 @@ export default function JobInterviewPrepPage() {
           {loading ? (
             <div className="bg-white border border-slate-200 rounded-2xl p-16 text-center text-slate-500 flex flex-col items-center justify-center space-y-3 shadow-sm">
               <div className="w-6 h-6 border-2 border-emerald-500 border-t-transparent rounded-full animate-spin" />
-              <p className="text-sm font-mono">Generating tailored interview questions...</p>
+              <p className="text-sm font-mono">Generating tailored interview questions with AI...</p>
             </div>
           ) : (
             questions.map((q, idx) => {
@@ -331,7 +360,7 @@ function getDefaultQuestions(title: string): InterviewQuestion[] {
       recommendedApproach: "Discuss optimistic updates, background refetching, and error boundary recovery.",
     },
     {
-      question: "Describe how you write tests to ensure code quality before pushing to main.",
+      question: "Describe how you write tests to ensure code quality before pushing to main?",
       focusArea: "Testing & Quality",
       recommendedApproach: "Cover unit tests for business logic, integration tests for critical user flows, and CI linting.",
     },

@@ -23,6 +23,11 @@ import {
   ArrowRight,
   ShieldCheck,
   Compass,
+  Copy,
+  Check,
+  GraduationCap,
+  Play,
+  Lightbulb,
 } from "lucide-react";
 import { Button } from "./ui/button";
 
@@ -31,10 +36,11 @@ export function InteractiveStudyCanvas() {
   const [selectedNode, setSelectedNode] = useState<CanvasNode | null>(null);
   const [completedNodes, setCompletedNodes] = useState<Set<string>>(new Set());
   const [nodeNote, setNodeNote] = useState<string>("");
+  const [copiedCode, setCopiedCode] = useState(false);
 
   // Canvas Pan & Zoom State
   const [scale, setScale] = useState(1);
-  const [pan, setPan] = useState({ x: 80, y: 40 });
+  const [pan, setPan] = useState({ x: 60, y: 30 });
   const [isPanning, setIsPanning] = useState(false);
   const [startPan, setStartPan] = useState({ x: 0, y: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
@@ -58,6 +64,7 @@ export function InteractiveStudyCanvas() {
     if (selectedNode) {
       const savedNote = localStorage.getItem(`jobmint_canvas_note_${selectedNode.id}`) || "";
       setNodeNote(savedNote);
+      setCopiedCode(false);
     }
   }, [selectedNode]);
 
@@ -85,6 +92,12 @@ export function InteractiveStudyCanvas() {
     });
   };
 
+  const copySnippet = (code: string) => {
+    navigator.clipboard.writeText(code);
+    setCopiedCode(true);
+    setTimeout(() => setCopiedCode(false), 2000);
+  };
+
   // Mouse pan handlers
   const handleMouseDown = (e: React.MouseEvent) => {
     if ((e.target as HTMLElement).closest(".canvas-node") || (e.target as HTMLElement).closest(".drawer-content")) {
@@ -102,12 +115,12 @@ export function InteractiveStudyCanvas() {
   const handleMouseUp = () => setIsPanning(false);
 
   const handleZoom = (delta: number) => {
-    setScale((prev) => Math.min(1.6, Math.max(0.6, prev + delta)));
+    setScale((prev) => Math.min(1.6, Math.max(0.5, prev + delta)));
   };
 
   const resetView = () => {
     setScale(1);
-    setPan({ x: 80, y: 40 });
+    setPan({ x: 60, y: 30 });
   };
 
   // Node coordinate map
@@ -131,10 +144,10 @@ export function InteractiveStudyCanvas() {
       node.dependencies.forEach((depId) => {
         const parent = nodeMap.get(depId);
         if (parent) {
-          const startX = parent.x + 220;
-          const startY = parent.y + 55;
+          const startX = parent.x + 230;
+          const startY = parent.y + 60;
           const endX = node.x;
-          const endY = node.y + 55;
+          const endY = node.y + 60;
           const dx = endX - startX;
           const d = `M ${startX} ${startY} C ${startX + dx * 0.5} ${startY}, ${endX - dx * 0.5} ${endY}, ${endX} ${endY}`;
           const isCompleted = completedNodes.has(parent.id) && completedNodes.has(node.id);
@@ -157,8 +170,19 @@ export function InteractiveStudyCanvas() {
 
   return (
     <div className="flex flex-col h-[calc(100vh-4rem)] bg-slate-950 text-slate-100 overflow-hidden select-none">
+      <style>{`
+        @keyframes flowPulse {
+          0% { stroke-dashoffset: 36; }
+          100% { stroke-dashoffset: 0; }
+        }
+        .canvas-line-flow {
+          stroke-dasharray: 8 6;
+          animation: flowPulse 1.4s linear infinite;
+        }
+      `}</style>
+
       {/* Top Navigation & Track Selector */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between border-b border-slate-800 bg-slate-900/90 px-6 py-3.5 backdrop-blur-md z-20 gap-3">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between border-b border-slate-800 bg-slate-900/95 px-6 py-3.5 backdrop-blur-md z-20 gap-3">
         <div className="flex items-center gap-3">
           <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
             <Compass className="h-5 w-5" />
@@ -167,11 +191,11 @@ export function InteractiveStudyCanvas() {
             <h1 className="text-base font-bold text-white flex items-center gap-2">
               Visual Skill Canvas
               <span className="rounded-full bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 text-[10px] font-bold text-emerald-400">
-                100% Free
+                2026 Edition
               </span>
             </h1>
             <p className="text-xs text-slate-400">
-              Interactive node-graph roadmaps linking free courses directly to verified jobs.
+              Interactive node-graph roadmap: What to study, where to study, mental models &amp; verified project challenges.
             </p>
           </div>
         </div>
@@ -198,7 +222,7 @@ export function InteractiveStudyCanvas() {
       </div>
 
       {/* Subheader: Track Details & Progress Bar */}
-      <div className="flex items-center justify-between border-b border-slate-800/80 bg-slate-900/40 px-6 py-2 text-xs text-slate-300 z-10">
+      <div className="flex items-center justify-between border-b border-slate-800/80 bg-slate-900/50 px-6 py-2 text-xs text-slate-300 z-10">
         <div className="flex items-center gap-2">
           <span className="font-semibold text-emerald-400">{activeTrack.badge}</span>
           <span className="text-slate-600">•</span>
@@ -209,7 +233,7 @@ export function InteractiveStudyCanvas() {
           <span className="font-mono text-[11px] text-slate-400">
             Track Progress: <strong className="text-emerald-400">{progressCount}/{activeTrack.nodes.length}</strong> ({progressPercentage}%)
           </span>
-          <div className="w-24 bg-slate-800 rounded-full h-2 overflow-hidden">
+          <div className="w-28 bg-slate-800 rounded-full h-2 overflow-hidden border border-slate-700">
             <div
               className="bg-emerald-500 h-full transition-all duration-300"
               style={{ width: `${progressPercentage}%` }}
@@ -233,7 +257,7 @@ export function InteractiveStudyCanvas() {
             transformOrigin: "0 0",
             transition: isPanning ? "none" : "transform 0.1s ease-out",
           }}
-          className="absolute inset-0 w-[2200px] h-[900px] pointer-events-auto"
+          className="absolute inset-0 w-[2700px] h-[950px] pointer-events-auto"
         >
           {/* SVG Connection Lines */}
           <svg className="absolute inset-0 w-full h-full pointer-events-none">
@@ -242,25 +266,44 @@ export function InteractiveStudyCanvas() {
                 <stop offset="0%" stopColor="#10b981" />
                 <stop offset="100%" stopColor="#06b6d4" />
               </linearGradient>
+              <linearGradient id="inactiveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#334155" />
+                <stop offset="100%" stopColor="#475569" />
+              </linearGradient>
             </defs>
 
             {connections.map((conn) => (
               <g key={conn.id}>
-                {/* Shadow/Base path */}
+                {/* Base connection line */}
+                <path
+                  d={conn.d}
+                  fill="none"
+                  stroke="#1e293b"
+                  strokeWidth="4"
+                />
                 <path
                   d={conn.d}
                   fill="none"
                   stroke="#334155"
-                  strokeWidth="2.5"
-                  strokeDasharray={conn.isCompleted ? "none" : "6 4"}
+                  strokeWidth="2"
+                  strokeDasharray="4 4"
                 />
-                {/* Active connection stroke */}
-                {conn.isCompleted && (
+                {/* Animated active connection path */}
+                {conn.isCompleted ? (
                   <path
                     d={conn.d}
                     fill="none"
                     stroke="url(#activeGradient)"
-                    strokeWidth="3"
+                    strokeWidth="3.5"
+                    className="canvas-line-flow"
+                  />
+                ) : (
+                  <path
+                    d={conn.d}
+                    fill="none"
+                    stroke="#475569"
+                    strokeWidth="1.5"
+                    className="canvas-line-flow opacity-40"
                   />
                 )}
               </g>
@@ -282,17 +325,17 @@ export function InteractiveStudyCanvas() {
                 style={{
                   left: `${node.x}px`,
                   top: `${node.y}px`,
-                  width: "220px",
+                  width: "230px",
                 }}
-                className={`canvas-node absolute rounded-xl border p-4 shadow-xl transition-all cursor-pointer ${
+                className={`canvas-node absolute rounded-2xl border p-4 shadow-xl transition-all cursor-pointer ${
                   isSelected
-                    ? "border-emerald-400 bg-slate-900 ring-2 ring-emerald-400/50 scale-105 z-30"
+                    ? "border-emerald-400 bg-slate-900 ring-2 ring-emerald-400/50 scale-105 z-30 shadow-emerald-500/20"
                     : isCompleted
-                    ? "border-emerald-500/70 bg-slate-900/95 hover:border-emerald-400"
-                    : "border-slate-800 bg-slate-900/90 hover:border-slate-700 hover:bg-slate-800/90"
+                    ? "border-emerald-500/80 bg-slate-900/95 shadow-emerald-950/40 hover:border-emerald-400"
+                    : "border-slate-800 bg-slate-900/90 hover:border-slate-700 hover:bg-slate-850"
                 }`}
               >
-                {/* Node Level Badge */}
+                {/* Node Level Badge & Toggle */}
                 <div className="flex items-center justify-between mb-2">
                   <span
                     className={`rounded-full px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider ${
@@ -328,9 +371,26 @@ export function InteractiveStudyCanvas() {
                 <h3 className="text-sm font-bold text-white leading-tight">
                   {node.title}
                 </h3>
-                <p className="text-[11px] text-slate-400 mt-0.5">
+                <p className="text-[11px] text-slate-400 mt-1 line-clamp-1">
                   {node.subtitle}
                 </p>
+
+                {/* Key Skills Preview */}
+                <div className="mt-2.5 flex flex-wrap gap-1">
+                  {node.skills.slice(0, 2).map((s, i) => (
+                    <span
+                      key={i}
+                      className="rounded bg-slate-800/80 px-1.5 py-0.5 text-[9px] font-mono text-slate-300 border border-slate-700/50"
+                    >
+                      {s}
+                    </span>
+                  ))}
+                  {node.skills.length > 2 && (
+                    <span className="text-[9px] text-slate-500 self-center">
+                      +{node.skills.length - 2} more
+                    </span>
+                  )}
+                </div>
 
                 {/* Footer Badges */}
                 <div className="mt-3 flex items-center justify-between border-t border-slate-800/80 pt-2 text-[10px] text-slate-400">
@@ -376,20 +436,21 @@ export function InteractiveStudyCanvas() {
 
         {/* Canvas Hint Badge */}
         <div className="absolute bottom-6 left-6 hidden sm:flex items-center gap-2 rounded-xl border border-slate-800 bg-slate-900/80 px-3 py-1.5 text-xs text-slate-400 backdrop-blur-md">
-          <span>Click any node to inspect free courses, project benchmarks & matching jobs</span>
+          <Sparkles className="h-3.5 w-3.5 text-emerald-400" />
+          <span>Click any node to inspect free video lectures, exact docs, code blueprints &amp; capstone benchmarks</span>
         </div>
 
         {/* Node Side Drawer */}
         {selectedNode && (
-          <div className="drawer-content absolute top-0 right-0 h-full w-full sm:w-[420px] border-l border-slate-800 bg-slate-900/95 backdrop-blur-xl p-6 shadow-2xl z-40 overflow-y-auto flex flex-col justify-between animate-in slide-in-from-right duration-200">
+          <div className="drawer-content absolute top-0 right-0 h-full w-full sm:w-[460px] border-l border-slate-800 bg-slate-900/95 backdrop-blur-xl p-6 shadow-2xl z-40 overflow-y-auto flex flex-col justify-between animate-in slide-in-from-right duration-200">
             <div className="space-y-6">
               {/* Drawer Header */}
               <div className="flex items-start justify-between">
                 <div>
-                  <span className="rounded-full bg-emerald-500/20 px-2 py-0.5 text-[10px] font-bold text-emerald-400 uppercase">
+                  <span className="rounded-full bg-emerald-500/20 border border-emerald-500/30 px-2.5 py-0.5 text-[10px] font-bold text-emerald-400 uppercase tracking-wider">
                     {selectedNode.category} • {selectedNode.level}
                   </span>
-                  <h2 className="text-xl font-bold text-white mt-1">
+                  <h2 className="text-xl font-bold text-white mt-1.5">
                     {selectedNode.title}
                   </h2>
                   <p className="text-xs text-slate-400 mt-0.5">
@@ -398,43 +459,70 @@ export function InteractiveStudyCanvas() {
                 </div>
                 <button
                   onClick={() => setSelectedNode(null)}
-                  className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-800 hover:text-white"
+                  className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-800 hover:text-white transition-colors"
                 >
                   <X className="h-5 w-5" />
                 </button>
               </div>
 
-              {/* Skills Tags */}
-              <div className="space-y-1.5">
-                <span className="text-xs font-semibold text-slate-300 uppercase tracking-wider">
-                  Core Skills Tested:
-                </span>
-                <div className="flex flex-wrap gap-1.5">
-                  {selectedNode.skills.map((s, idx) => (
-                    <span
-                      key={idx}
-                      className="rounded-md bg-slate-800 px-2.5 py-1 text-xs text-slate-200 font-mono"
-                    >
-                      {s}
-                    </span>
-                  ))}
+              {/* SECTION 1: WHAT TO STUDY */}
+              <div className="space-y-2">
+                <div className="flex items-center gap-1.5 text-xs font-bold text-slate-200 uppercase tracking-wider">
+                  <Lightbulb className="h-4 w-4 text-amber-400" />
+                  What You Will Master:
+                </div>
+                <div className="rounded-xl border border-slate-800 bg-slate-950/70 p-3 space-y-2">
+                  <p className="text-xs text-slate-300 leading-relaxed">
+                    {selectedNode.description}
+                  </p>
+                  {selectedNode.keyTopics && selectedNode.keyTopics.length > 0 && (
+                    <ul className="space-y-1.5 pt-2 border-t border-slate-800/80">
+                      {selectedNode.keyTopics.map((topic, idx) => (
+                        <li key={idx} className="flex items-start gap-2 text-xs text-slate-300">
+                          <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shrink-0 mt-1.5" />
+                          <span>{topic}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
               </div>
 
-              {/* Node Description */}
-              <div className="space-y-1.5">
-                <span className="text-xs font-semibold text-slate-300 uppercase tracking-wider">
-                  Curriculum Overview:
-                </span>
-                <p className="text-xs text-slate-300 leading-relaxed bg-slate-950/60 p-3 rounded-xl border border-slate-800">
-                  {selectedNode.description}
-                </p>
-              </div>
+              {/* SECTION 2: MENTAL MODEL & CODE BLUEPRINT */}
+              {selectedNode.mentalModelSnippet && (
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between text-xs font-bold text-slate-200 uppercase tracking-wider">
+                    <span className="flex items-center gap-1.5">
+                      <Code2 className="h-4 w-4 text-emerald-400" />
+                      Mental Model &amp; Code Blueprint:
+                    </span>
+                    <button
+                      onClick={() => copySnippet(selectedNode.mentalModelSnippet || "")}
+                      className="text-[10px] text-slate-400 hover:text-white flex items-center gap-1 transition-colors font-mono"
+                    >
+                      {copiedCode ? (
+                        <>
+                          <Check className="h-3 w-3 text-emerald-400" />
+                          <span className="text-emerald-400">Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <Copy className="h-3 w-3" />
+                          <span>Copy Code</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+                  <pre className="rounded-xl border border-slate-800 bg-slate-950 p-3.5 text-[11px] text-emerald-300 font-mono overflow-x-auto whitespace-pre leading-relaxed">
+                    {selectedNode.mentalModelSnippet}
+                  </pre>
+                </div>
+              )}
 
-              {/* Free Resources */}
+              {/* SECTION 3: WHERE TO STUDY (EXACT FREE RESOURCES) */}
               <div className="space-y-2.5">
                 <span className="text-xs font-semibold text-slate-300 uppercase tracking-wider flex items-center justify-between">
-                  <span>100% Free Learning Resources:</span>
+                  <span>Where to Study (100% Free Links):</span>
                   <span className="text-[10px] text-emerald-400 font-bold">$0 Paid Fees</span>
                 </span>
                 <div className="space-y-2">
@@ -448,13 +536,17 @@ export function InteractiveStudyCanvas() {
                     >
                       <div className="flex items-center gap-2.5">
                         <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-slate-800 text-slate-300 group-hover:bg-emerald-500/20 group-hover:text-emerald-400">
-                          <BookOpen className="h-3.5 w-3.5" />
+                          {res.type === "video" ? (
+                            <Play className="h-3.5 w-3.5 fill-current" />
+                          ) : (
+                            <BookOpen className="h-3.5 w-3.5" />
+                          )}
                         </div>
                         <div>
                           <div className="text-xs font-semibold text-white group-hover:text-emerald-400">
                             {res.title}
                           </div>
-                          <div className="text-[10px] text-slate-500">{res.provider}</div>
+                          <div className="text-[10px] text-slate-500 font-mono">{res.provider}</div>
                         </div>
                       </div>
                       <ExternalLink className="h-3.5 w-3.5 text-slate-500 group-hover:text-emerald-400" />
@@ -463,7 +555,25 @@ export function InteractiveStudyCanvas() {
                 </div>
               </div>
 
-              {/* Capstone / Project Benchmark */}
+              {/* SECTION 4: MATCHING INTERACTIVE COURSE */}
+              {selectedNode.matchedCourseId && (
+                <div className="rounded-xl border border-emerald-800/50 bg-emerald-950/30 p-3.5 flex items-center justify-between gap-3 text-xs">
+                  <div className="flex items-center gap-2.5">
+                    <GraduationCap className="h-5 w-5 text-emerald-400 shrink-0" />
+                    <div>
+                      <div className="font-bold text-white">Interactive Certification Track</div>
+                      <div className="text-[11px] text-emerald-200/80">Includes verifiable JobMint course diploma</div>
+                    </div>
+                  </div>
+                  <Link href={`/courses/${selectedNode.matchedCourseId}/certificate`}>
+                    <Button size="sm" className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow-xs shrink-0">
+                      Open Course
+                    </Button>
+                  </Link>
+                </div>
+              )}
+
+              {/* SECTION 5: PROOF-OF-WORK BENCHMARK */}
               <div className="rounded-xl border border-indigo-900/40 bg-indigo-950/20 p-4 space-y-2">
                 <div className="flex items-center gap-1.5 text-xs font-bold text-indigo-300 uppercase tracking-wider">
                   <Sparkles className="h-4 w-4 text-indigo-400" /> Proof-of-Work Benchmark:
@@ -485,10 +595,10 @@ export function InteractiveStudyCanvas() {
                 </div>
               </div>
 
-              {/* Personal Study Notes (Persisted) */}
+              {/* SECTION 6: PERSONAL STUDY NOTES */}
               <div className="space-y-1.5">
                 <span className="text-xs font-semibold text-slate-300 uppercase tracking-wider flex items-center justify-between">
-                  <span>My Study Notes & Repo Links:</span>
+                  <span>My Study Notes &amp; Repo Links:</span>
                   <span className="text-[10px] text-emerald-400 font-mono">Auto-saved</span>
                 </span>
                 <textarea
@@ -502,14 +612,18 @@ export function InteractiveStudyCanvas() {
             </div>
 
             {/* Bottom Actions */}
-            <div className="pt-6 border-t border-slate-800 space-y-2">
+            <div className="pt-6 border-t border-slate-800 space-y-2 mt-4">
               <Button
-                className="w-full gap-2 font-bold"
+                className={`w-full gap-2 font-bold ${
+                  completedNodes.has(selectedNode.id)
+                    ? "bg-slate-800 hover:bg-slate-700 text-emerald-400 border border-emerald-500/40"
+                    : "bg-emerald-600 hover:bg-emerald-500 text-white"
+                }`}
                 onClick={() => toggleNodeCompletion(selectedNode.id)}
               >
                 {completedNodes.has(selectedNode.id) ? (
                   <>
-                    <CheckCircle2 className="h-4 w-4" />
+                    <CheckCircle2 className="h-4 w-4 text-emerald-400" />
                     Marked as Mastered (Click to Undo)
                   </>
                 ) : (
@@ -526,7 +640,7 @@ export function InteractiveStudyCanvas() {
               >
                 <Button
                   variant="outline"
-                  className="w-full gap-1.5 text-xs text-slate-300 hover:text-white"
+                  className="w-full gap-1.5 text-xs text-slate-300 hover:text-white border-slate-800"
                 >
                   <Briefcase className="h-3.5 w-3.5 text-emerald-400" />
                   View {selectedNode.matchedJobsCount} Matching Jobs

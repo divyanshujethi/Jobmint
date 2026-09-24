@@ -3,26 +3,23 @@
 import { useState } from "react";
 import Link from "next/link";
 import {
-  BookOpen,
-  Award,
+  Youtube,
+  Github,
+  Clock,
   ExternalLink,
   Search,
-  Code2,
-  Sparkles,
-  ChevronRight,
   Play,
-  CheckCircle2,
-  Clock,
-  ShieldCheck,
-  Check,
-  Youtube,
+  ArrowRight,
+  BookOpen,
+  Award,
+  Sparkles,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { CURATED_COURSES } from "@/lib/courses-data";
 
-export default function CoursesPage() {
+export default function PlaylistsPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>("ALL");
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -48,31 +45,31 @@ export default function CoursesPage() {
         
         {/* HEADER */}
         <div className="text-center space-y-3">
-          <div className="inline-flex items-center gap-2 rounded-full bg-emerald-50 border border-emerald-200 px-3.5 py-1 text-xs font-mono font-semibold text-emerald-800">
-            <Award className="h-4 w-4 text-emerald-600" />
-            Proof-of-Work Interactive Certifications
+          <div className="inline-flex items-center gap-2 rounded-full bg-red-50 border border-red-200 px-3.5 py-1 text-xs font-mono font-semibold text-red-700">
+            <Youtube className="h-4 w-4 text-red-600" />
+            Curated Free Video Education
           </div>
           <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-slate-900">
-            Interactive Developer Courses &amp; Certifications
+            Best YouTube Developer Playlists
           </h1>
           <p className="mx-auto max-w-2xl text-sm sm:text-base text-slate-600">
-            Structured hands-on curricula with required Proof-of-Work project benchmarks, code implementations, and verified cryptographic JobMint completion certificates.
+            Hand-picked, high-signal YouTube playlists from the world&apos;s greatest computer science educators (Striver, Chai aur Code, Andrej Karpathy, 3Blue1Brown, TechWorld with Nana) paired with top open-source GitHub companion repositories.
           </p>
 
-          {/* DEDICATED SEPARATION CALLOUT TO YOUTUBE PLAYLISTS */}
-          <div className="mx-auto max-w-3xl rounded-2xl bg-gradient-to-r from-red-50 via-white to-amber-50/60 border border-red-200/80 p-4 text-xs sm:text-sm text-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-sm">
+          {/* DEDICATED CALLOUT TO INTERACTIVE COURSES */}
+          <div className="mx-auto max-w-3xl rounded-2xl bg-gradient-to-r from-emerald-50 to-teal-50/60 border border-emerald-200/80 p-4 text-xs sm:text-sm text-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-sm">
             <div className="flex items-center gap-2.5 text-left">
-              <Youtube className="h-6 w-6 text-red-600 shrink-0" />
+              <Award className="h-6 w-6 text-emerald-600 shrink-0" />
               <div>
-                <span className="font-bold text-slate-900">Looking for Free YouTube Video Playlists?</span>
+                <span className="font-bold text-slate-900">Looking for Interactive Courses with Diplomas?</span>
                 <p className="text-[11px] text-slate-600">
-                  Browse our separated, dedicated YouTube Playlists Hub featuring Striver, Chai aur Code, Karpathy, and 3Blue1Brown with GitHub companion repos.
+                  Switch to our Interactive Courses to submit project benchmarks and earn cryptographically verifiable JobMint certificates.
                 </p>
               </div>
             </div>
-            <Link href="/playlists" className="shrink-0">
-              <Button size="sm" variant="outline" className="border-red-300 bg-white text-red-700 hover:bg-red-50 text-xs rounded-xl shadow-sm">
-                View YouTube Playlists →
+            <Link href="/courses" className="shrink-0">
+              <Button size="sm" className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow-xs">
+                Explore Interactive Courses →
               </Button>
             </Link>
           </div>
@@ -87,7 +84,7 @@ export default function CoursesPage() {
                 selectedCategory === "ALL" ? "bg-white text-slate-900 shadow-sm" : "text-slate-600 hover:text-slate-900"
               }`}
             >
-              All Interactive Tracks ({CURATED_COURSES.length})
+              All Playlists ({CURATED_COURSES.length})
             </button>
 
             <button
@@ -105,7 +102,7 @@ export default function CoursesPage() {
                 selectedCategory === "WEB_DEV" ? "bg-teal-600 text-white shadow-sm" : "text-slate-600 hover:text-slate-900"
               }`}
             >
-              💻 Full-Stack Web
+              💻 Web Dev
             </button>
 
             <button
@@ -114,7 +111,7 @@ export default function CoursesPage() {
                 selectedCategory === "DSA" ? "bg-purple-600 text-white shadow-sm" : "text-slate-600 hover:text-slate-900"
               }`}
             >
-              ⚡ DSA &amp; Algorithms
+              ⚡ DSA &amp; Coding
             </button>
 
             <button
@@ -141,7 +138,7 @@ export default function CoursesPage() {
               <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
               <Input
                 type="text"
-                placeholder="Search course or topic..."
+                placeholder="Search channel or creator..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-9 bg-white border-slate-200 text-xs text-slate-900 placeholder:text-slate-400 h-9 rounded-xl shadow-none focus-visible:ring-emerald-500"
@@ -150,123 +147,130 @@ export default function CoursesPage() {
           </div>
         </div>
 
-        {/* INTERACTIVE COURSES GRID */}
+        {/* PLAYLISTS GRID */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {filtered.map((course) => (
+          {filtered.map((item) => (
             <Card
-              key={course.id}
-              className="border-slate-200 bg-white text-slate-900 flex flex-col justify-between hover:border-emerald-300 transition-all hover:shadow-md shadow-sm"
+              key={item.id}
+              className="border-slate-200 bg-white text-slate-900 flex flex-col justify-between hover:border-red-300 transition-all hover:shadow-md shadow-sm"
             >
               <CardHeader className="pb-3">
                 <div className="flex items-start justify-between gap-3">
                   <div>
                     <div className="flex items-center gap-2 mb-1">
-                      <span className="rounded bg-emerald-50 text-emerald-800 border border-emerald-200 px-2 py-0.5 text-[10px] font-mono font-bold">
-                        {course.subcategory}
+                      <span className="rounded bg-red-50 text-red-700 border border-red-200 px-2 py-0.5 text-[10px] font-mono font-bold">
+                        {item.subcategory}
                       </span>
                       <span className="text-xs text-slate-400">•</span>
-                      <span className="text-xs text-slate-500">{course.difficulty}</span>
+                      <span className="text-xs text-slate-500">{item.difficulty}</span>
                     </div>
 
                     <CardTitle className="text-lg font-bold text-slate-900 leading-snug">
-                      {course.title}
+                      {item.title}
                     </CardTitle>
-                    <div className="flex items-center gap-2 mt-1.5 text-xs text-slate-500 font-medium">
-                      <span>Curriculum Lead: <strong className="text-slate-800">{course.creator}</strong></span>
+                    <div className="flex items-center gap-2 mt-1.5 text-xs text-slate-500">
+                      <span className="font-semibold text-slate-800">{item.creator}</span>
+                      <span>({item.creatorSubscribers} Subscribers)</span>
                     </div>
                   </div>
 
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-50 text-amber-600 border border-amber-200 shadow-sm" title="Includes Verified Certificate">
-                    <Award className="h-5 w-5" />
-                  </div>
+                  <a
+                    href={item.youtubeUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-red-50 text-red-600 border border-red-200 hover:bg-red-600 hover:text-white transition-all shadow-sm"
+                    title="Watch Playlist on YouTube"
+                  >
+                    <Youtube className="h-5 w-5" />
+                  </a>
                 </div>
               </CardHeader>
 
               <CardContent className="space-y-4 pt-1">
                 <p className="text-xs text-slate-600 leading-relaxed">
-                  {course.description}
+                  {item.description}
                 </p>
 
-                {/* DURATION & MODULES */}
+                {/* METRICS */}
                 <div className="grid grid-cols-2 gap-2 rounded-xl bg-slate-50 border border-slate-200 p-2.5 text-xs text-slate-600">
                   <div className="flex items-center gap-1.5">
                     <Clock className="h-3.5 w-3.5 text-emerald-600" />
-                    <span>Estimated: <strong className="text-slate-900">{course.duration}</strong></span>
+                    <span>Duration: <strong className="text-slate-900">{item.duration}</strong></span>
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" />
-                    <span>{course.curriculumModules.length} Core Modules</span>
+                    <Play className="h-3.5 w-3.5 text-red-500" />
+                    <span>{item.totalVideos} Full Episodes</span>
                   </div>
                 </div>
 
-                {/* CURRICULUM MODULES BREAKDOWN */}
-                <div className="rounded-xl border border-slate-200 bg-slate-50 p-3 space-y-1.5">
-                  <div className="text-[10px] font-mono uppercase text-slate-600 font-bold tracking-wider">
-                    Syllabus &amp; Learning Modules
+                {/* SKILLS */}
+                <div className="space-y-1.5">
+                  <div className="text-[10px] font-mono uppercase text-slate-500 tracking-wider font-semibold">
+                    Core Concepts Taught
                   </div>
-                  <ul className="space-y-1">
-                    {course.curriculumModules.map((mod, i) => (
-                      <li key={i} className="flex items-start gap-1.5 text-xs text-slate-700">
-                        <Check className="h-3.5 w-3.5 text-emerald-600 shrink-0 mt-0.5" />
-                        <span className="line-clamp-1">{mod}</span>
-                      </li>
+                  <div className="flex flex-wrap gap-1">
+                    {item.skillsLearned.map((sk) => (
+                      <span
+                        key={sk}
+                        className="rounded bg-slate-100 border border-slate-200 px-2 py-0.5 text-[11px] font-medium text-slate-700"
+                      >
+                        {sk}
+                      </span>
                     ))}
-                  </ul>
+                  </div>
                 </div>
 
-                {/* PROOF-OF-WORK BENCHMARK */}
-                <div className="rounded-xl border border-indigo-200 bg-indigo-50/60 p-3 space-y-1.5">
-                  <div className="text-[10px] font-mono uppercase text-indigo-700 font-bold tracking-wider flex items-center gap-1">
-                    <Code2 className="h-3.5 w-3.5 text-indigo-600" />
-                    Capstone Proof-of-Work Requirement
+                {/* RECOMMENDED GITHUB REPOS */}
+                {item.recommendedGithubRepos.length > 0 && (
+                  <div className="rounded-xl border border-slate-200 bg-slate-50 p-3 space-y-2">
+                    <div className="text-[10px] font-mono uppercase text-slate-600 font-bold tracking-wider flex items-center gap-1.5">
+                      <Github className="h-3.5 w-3.5 text-slate-700" />
+                      Companion GitHub Libraries
+                    </div>
+                    <div className="space-y-2">
+                      {item.recommendedGithubRepos.map((repo) => (
+                        <div
+                          key={repo.name}
+                          className="flex items-start justify-between gap-2 text-xs border-t border-slate-200 pt-1.5 first:border-0 first:pt-0"
+                        >
+                          <div>
+                            <a
+                              href={repo.repoUrl}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="font-mono font-bold text-emerald-700 hover:underline flex items-center gap-1"
+                            >
+                              {repo.name}
+                              <ExternalLink className="h-2.5 w-2.5" />
+                            </a>
+                            <p className="text-[11px] text-slate-500 mt-0.5">
+                              {repo.description}
+                            </p>
+                          </div>
+                          <span className="font-mono text-[10px] text-amber-600 font-semibold shrink-0">
+                            ★ {repo.stars}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                  <p className="text-xs text-slate-700 leading-relaxed">
-                    {course.projectBenchmark}
-                  </p>
-                </div>
-
-                {/* CERTIFICATE CLAIM PREVIEW */}
-                <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-2.5 flex items-center justify-between gap-2 text-xs">
-                  <div className="flex items-center gap-2">
-                    <Award className="h-4 w-4 text-amber-500 shrink-0" />
-                    <span className="text-[11px] text-slate-700">
-                      Earn: <strong className="text-amber-900 font-semibold">{course.certificateTitle}</strong>
-                    </span>
-                  </div>
-                  <span className="text-[10px] font-mono text-emerald-700 font-bold shrink-0">
-                    Free Certificate
-                  </span>
-                </div>
+                )}
 
                 {/* ACTIONS */}
-                <div className="pt-3 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-2">
-                  <Link
-                    href={`/courses/${course.id}/certificate`}
-                    className="w-full sm:w-auto"
-                  >
-                    <Button
-                      size="sm"
-                      className="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs gap-1.5 rounded-xl shadow-sm"
-                    >
-                      <Award className="h-3.5 w-3.5 text-white" />
-                      <span>🎓 Claim Completion Certificate</span>
-                    </Button>
-                  </Link>
-
+                <div className="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
                   <a
-                    href={course.youtubeUrl}
+                    href={item.youtubeUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="w-full sm:w-auto"
+                    className="w-full"
                   >
                     <Button
                       size="sm"
-                      variant="outline"
-                      className="w-full sm:w-auto border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs gap-1.5 rounded-xl shadow-sm"
+                      className="w-full bg-red-600 hover:bg-red-500 text-white font-bold text-xs gap-1.5 rounded-xl shadow-sm"
                     >
-                      <Play className="h-3 w-3 fill-current text-red-500" />
-                      <span>Watch Lessons</span>
-                      <ExternalLink className="h-3 w-3" />
+                      <Play className="h-3.5 w-3.5 fill-current" />
+                      <span>Watch Full Playlist on YouTube</span>
+                      <ExternalLink className="h-3 w-3 ml-auto" />
                     </Button>
                   </a>
                 </div>

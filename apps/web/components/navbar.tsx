@@ -27,6 +27,7 @@ import {
   Code2,
   FileText,
   School,
+  Youtube,
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { NotificationBell } from "./notification-bell";
@@ -309,13 +310,28 @@ export function Navbar() {
                     onClick={() => setToolsOpen(false)}
                     className="flex items-start gap-3 rounded-xl p-2.5 hover:bg-slate-50 transition-colors"
                   >
-                    <BookOpen className="h-5 w-5 text-red-500 shrink-0 mt-0.5" />
+                    <BookOpen className="h-5 w-5 text-emerald-600 shrink-0 mt-0.5" />
                     <div>
                       <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
-                        Courses & Playlists
-                        <span className="rounded bg-red-50 text-red-700 px-1 py-0.2 text-[9px]">YouTube</span>
+                        Interactive Courses
+                        <span className="rounded bg-emerald-50 text-emerald-700 px-1 py-0.2 text-[9px]">Certificates</span>
                       </div>
-                      <div className="text-[11px] text-slate-500">Karpathy, Striver, Chai & GitHub repos</div>
+                      <div className="text-[11px] text-slate-500">Hands-on tracks with verified diplomas</div>
+                    </div>
+                  </Link>
+
+                  <Link
+                    href="/playlists"
+                    onClick={() => setToolsOpen(false)}
+                    className="flex items-start gap-3 rounded-xl p-2.5 hover:bg-slate-50 transition-colors"
+                  >
+                    <Youtube className="h-5 w-5 text-red-500 shrink-0 mt-0.5" />
+                    <div>
+                      <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                        YouTube Playlists
+                        <span className="rounded bg-red-50 text-red-700 px-1 py-0.2 text-[9px]">Curated</span>
+                      </div>
+                      <div className="text-[11px] text-slate-500">Striver, Karpathy, Chai aur Code & repos</div>
                     </div>
                   </Link>
 
@@ -573,8 +589,16 @@ export function Navbar() {
               className="flex items-center gap-2.5 py-2 px-3 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50"
               onClick={() => setIsOpen(false)}
             >
-              <BookOpen className="h-4 w-4 text-red-500" />
-              Courses & Playlists
+              <BookOpen className="h-4 w-4 text-emerald-600" />
+              Interactive Courses &amp; Diplomas
+            </Link>
+            <Link
+              href="/playlists"
+              className="flex items-center gap-2.5 py-2 px-3 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50"
+              onClick={() => setIsOpen(false)}
+            >
+              <Youtube className="h-4 w-4 text-red-500" />
+              YouTube Playlists Hub
             </Link>
             <Link
               href="/dev-score"

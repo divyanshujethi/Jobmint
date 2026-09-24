@@ -4,6 +4,7 @@ export interface PodMember {
   avatarInitial: string;
   college: string;
   roleInterest: string;
+  isBot?: boolean;
 }
 
 export interface PodInterviewQuestion {
@@ -29,6 +30,15 @@ export interface StudyPod {
   mockQuestions: PodInterviewQuestion[];
 }
 
+export const BOT_COORDINATOR: PodMember = {
+  id: "cohort-bot",
+  name: "JobMint Cohort Bot",
+  avatarInitial: "🤖",
+  college: "Verified AI Coordinator",
+  roleInterest: "Technical Study Mentor",
+  isBot: true,
+};
+
 export const MOCK_STUDY_PODS: StudyPod[] = [
   {
     id: "pod-1",
@@ -38,19 +48,12 @@ export const MOCK_STUDY_PODS: StudyPod[] = [
     category: "AI & ML",
     roadmapSlug: "ai-engineer",
     primarySkill: "PyTorch",
-    memberCount: 6,
+    memberCount: 1,
     maxMembers: 8,
     meetingCadence: "Tuesdays & Saturdays at 7:30 PM IST",
     currentPhaseNumber: 3,
     phaseTitle: "Transformers & Attention Mechanism Deep Dive",
-    activeMembers: [
-      { id: "m-1", name: "Aarav Patel", avatarInitial: "A", college: "IIT Delhi", roleInterest: "ML Engineer" },
-      { id: "m-2", name: "Priya Nair", avatarInitial: "P", college: "BITS Pilani", roleInterest: "AI Researcher" },
-      { id: "m-3", name: "Kavya Reddy", avatarInitial: "K", college: "NIT Surathkal", roleInterest: "GenAI Dev" },
-      { id: "m-4", name: "Rohan Gupta", avatarInitial: "R", college: "IIIT Hyderabad", roleInterest: "Applied Scientist" },
-      { id: "m-5", name: "Ananya Iyer", avatarInitial: "A", college: "VJTI Mumbai", roleInterest: "MLOps Engineer" },
-      { id: "m-6", name: "Divyanshu S", avatarInitial: "D", college: "DTU Delhi", roleInterest: "Full Stack AI" },
-    ],
+    activeMembers: [BOT_COORDINATOR],
     mockQuestions: [
       {
         question: "Explain the architectural difference between self-attention and cross-attention in Transformer models.",
@@ -87,20 +90,12 @@ export const MOCK_STUDY_PODS: StudyPod[] = [
     category: "Web Development",
     roadmapSlug: "full-stack",
     primarySkill: "Next.js",
-    memberCount: 7,
+    memberCount: 1,
     maxMembers: 8,
     meetingCadence: "Mondays & Thursdays at 8:00 PM IST",
     currentPhaseNumber: 2,
     phaseTitle: "Relational Schemas, ACID Transactions & Drizzle ORM",
-    activeMembers: [
-      { id: "m-7", name: "Siddharth Sen", avatarInitial: "S", college: "NSUT Delhi", roleInterest: "Frontend Engineer" },
-      { id: "m-8", name: "Meera Kulkarni", avatarInitial: "M", college: "COEP Pune", roleInterest: "Full Stack Developer" },
-      { id: "m-9", name: "Harsh Vardhan", avatarInitial: "H", college: "VIT Vellore", roleInterest: "Backend Engineer" },
-      { id: "m-10", name: "Sneha Roy", avatarInitial: "S", college: "Jadavpur University", roleInterest: "Web Engineer" },
-      { id: "m-11", name: "Tushar Jain", avatarInitial: "T", college: "Thapar Institute", roleInterest: "Frontend Lead" },
-      { id: "m-12", name: "Ritika Das", avatarInitial: "R", college: "Heritage Tech", roleInterest: "Full Stack Dev" },
-      { id: "m-13", name: "Karan Singh", avatarInitial: "K", college: "PEC Chandigarh", roleInterest: "Software Engineer" },
-    ],
+    activeMembers: [BOT_COORDINATOR],
     mockQuestions: [
       {
         question: "How do Next.js Server Components differ from Client Components in terms of bundle delivery and data fetching?",
@@ -137,17 +132,12 @@ export const MOCK_STUDY_PODS: StudyPod[] = [
     category: "Data Science",
     roadmapSlug: "data-science",
     primarySkill: "SQL",
-    memberCount: 4,
+    memberCount: 1,
     maxMembers: 6,
     meetingCadence: "Wednesdays & Sundays at 6:30 PM IST",
     currentPhaseNumber: 2,
     phaseTitle: "Advanced SQL: CTEs, Window Functions & Joins",
-    activeMembers: [
-      { id: "m-14", name: "Neha Verma", avatarInitial: "N", college: "SRM Chennai", roleInterest: "Data Analyst" },
-      { id: "m-15", name: "Arjun Bhatia", avatarInitial: "A", college: "Manipal University", roleInterest: "Data Scientist" },
-      { id: "m-16", name: "Isha Mathur", avatarInitial: "I", college: "BMSCE Bangalore", roleInterest: "BI Developer" },
-      { id: "m-17", name: "Devansh Rao", avatarInitial: "D", college: "RVCE Bangalore", roleInterest: "Quantitative Analyst" },
-    ],
+    activeMembers: [BOT_COORDINATOR],
     mockQuestions: [
       {
         question: "What is the difference between RANK(), DENSE_RANK(), and ROW_NUMBER() in SQL window functions?",
@@ -184,18 +174,12 @@ export const MOCK_STUDY_PODS: StudyPod[] = [
     category: "Mobile",
     roadmapSlug: "mobile",
     primarySkill: "React Native",
-    memberCount: 5,
+    memberCount: 1,
     maxMembers: 8,
     meetingCadence: "Wednesdays & Fridays at 7:00 PM IST",
     currentPhaseNumber: 2,
     phaseTitle: "Navigation Hierarchies, Gesture Handlers & Device Storage",
-    activeMembers: [
-      { id: "m-18", name: "Sameer Joshi", avatarInitial: "S", college: "PICT Pune", roleInterest: "Mobile Developer" },
-      { id: "m-19", name: "Aishwarya M", avatarInitial: "A", college: "PSG Tech Coimbatore", roleInterest: "React Native Lead" },
-      { id: "m-20", name: "Varun Reddy", avatarInitial: "V", college: "CBIT Hyderabad", roleInterest: "iOS / Android Dev" },
-      { id: "m-21", name: "Pooja Hegde", avatarInitial: "P", college: "PES University", roleInterest: "Cross-Platform Eng" },
-      { id: "m-22", name: "Nikhil Chawla", avatarInitial: "N", college: "MAIT Delhi", roleInterest: "Mobile UX Dev" },
-    ],
+    activeMembers: [BOT_COORDINATOR],
     mockQuestions: [
       {
         question: "How does the React Native New Architecture (Fabric & TurboModules) improve communication over the legacy JS bridge?",
