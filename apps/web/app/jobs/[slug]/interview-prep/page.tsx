@@ -105,38 +105,38 @@ export default function JobInterviewPrepPage() {
 
   if (!job) {
     return (
-      <div className="min-h-screen bg-neutral-950 text-neutral-100 flex items-center justify-center py-20 font-mono text-xs text-neutral-500">
+      <div className="min-h-screen bg-slate-50/50 text-slate-500 flex items-center justify-center py-20 font-mono text-xs">
         Loading interview prep guide...
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-neutral-100 py-10 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-slate-50/50 text-slate-900 py-10 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto space-y-8">
         {/* Top Header */}
         <div className="space-y-4">
           <Link
             href={`/jobs/${job.slug}`}
-            className="text-xs text-neutral-400 hover:text-white flex items-center gap-1.5 transition-colors font-mono"
+            className="text-xs text-slate-500 hover:text-slate-900 flex items-center gap-1.5 transition-colors font-mono"
           >
             <ArrowLeft className="w-3.5 h-3.5" /> Back to Job Details
           </Link>
 
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-neutral-800 pb-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-6">
             <div>
-              <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 mb-1">
-                <Building2 className="w-3.5 h-3.5" />
+              <div className="flex items-center gap-2 text-xs font-mono text-emerald-700 font-semibold mb-1">
+                <Building2 className="w-3.5 h-3.5 text-emerald-600" />
                 <span>{job.companyName}</span>
                 <span>•</span>
                 <span>{job.location}</span>
               </div>
-              <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white flex items-center gap-3">
+              <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 flex items-center gap-3">
                 Interview Preparation Guide
               </h1>
-              <p className="text-neutral-400 text-sm mt-1">
+              <p className="text-slate-600 text-sm mt-1">
                 Targeted technical &amp; behavioral interview questions for{" "}
-                <span className="text-white font-medium">{job.title}</span>.
+                <span className="text-slate-900 font-semibold">{job.title}</span>.
               </p>
             </div>
 
@@ -144,9 +144,9 @@ export default function JobInterviewPrepPage() {
               <button
                 onClick={fetchPrepQuestions}
                 disabled={loading}
-                className="bg-neutral-900 hover:bg-neutral-800 text-neutral-300 hover:text-white border border-neutral-700/80 px-3 py-2 rounded-xl text-xs font-mono flex items-center gap-2 transition-colors"
+                className="bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 px-3 py-2 rounded-xl text-xs font-mono flex items-center gap-2 transition-colors shadow-sm"
               >
-                <RefreshCw className={`w-3.5 h-3.5 ${loading ? "animate-spin text-emerald-400" : ""}`} />
+                <RefreshCw className={`w-3.5 h-3.5 ${loading ? "animate-spin text-emerald-600" : ""}`} />
                 <span>Regenerate</span>
               </button>
             </div>
@@ -154,17 +154,17 @@ export default function JobInterviewPrepPage() {
         </div>
 
         {/* Required Skills Pill List */}
-        <div className="bg-neutral-900/60 border border-neutral-800 rounded-xl p-4 flex flex-wrap items-center gap-2">
-          <span className="text-xs font-mono text-neutral-400 mr-2">Tested Stack:</span>
+        <div className="bg-white border border-slate-200 rounded-xl p-4 flex flex-wrap items-center gap-2 shadow-sm">
+          <span className="text-xs font-mono text-slate-500 mr-2 font-medium">Tested Stack:</span>
           {job.skills.map((skill: string) => (
             <span
               key={skill}
-              className="text-xs bg-neutral-800 text-emerald-400 border border-emerald-950 px-2.5 py-1 rounded-md font-mono"
+              className="text-xs bg-emerald-50 text-emerald-800 border border-emerald-200 px-2.5 py-1 rounded-md font-mono font-medium"
             >
               {skill}
             </span>
           ))}
-          <span className="ml-auto text-[11px] text-neutral-500 font-mono">
+          <span className="ml-auto text-[11px] text-slate-400 font-mono">
             Provider: {provider}
           </span>
         </div>
@@ -172,7 +172,7 @@ export default function JobInterviewPrepPage() {
         {/* Questions List */}
         <div className="space-y-4">
           {loading ? (
-            <div className="border border-neutral-800 rounded-2xl p-16 text-center text-neutral-400 flex flex-col items-center justify-center space-y-3">
+            <div className="bg-white border border-slate-200 rounded-2xl p-16 text-center text-slate-500 flex flex-col items-center justify-center space-y-3 shadow-sm">
               <div className="w-6 h-6 border-2 border-emerald-500 border-t-transparent rounded-full animate-spin" />
               <p className="text-sm font-mono">Generating tailored interview questions...</p>
             </div>
@@ -182,22 +182,22 @@ export default function JobInterviewPrepPage() {
               return (
                 <div
                   key={idx}
-                  className="bg-neutral-900/80 border border-neutral-800 rounded-2xl overflow-hidden transition-all"
+                  className="bg-white border border-slate-200 rounded-2xl overflow-hidden transition-all shadow-sm"
                 >
                   <div
                     onClick={() => setExpandedIndex(isExpanded ? null : idx)}
-                    className="p-5 cursor-pointer hover:bg-neutral-800/40 flex items-start justify-between gap-4 transition-colors"
+                    className="p-5 cursor-pointer hover:bg-slate-50/80 flex items-start justify-between gap-4 transition-colors"
                   >
                     <div className="space-y-2">
                       <div className="flex items-center gap-2">
-                        <span className="text-xs font-mono text-emerald-400 bg-emerald-950/70 border border-emerald-800/40 px-2 py-0.5 rounded">
+                        <span className="text-xs font-mono text-emerald-700 font-bold bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded">
                           Q{idx + 1}
                         </span>
-                        <span className="text-xs text-neutral-400 font-mono">
+                        <span className="text-xs text-slate-500 font-mono font-medium">
                           {q.focusArea}
                         </span>
                       </div>
-                      <h3 className="text-base font-medium text-neutral-100">
+                      <h3 className="text-base font-semibold text-slate-900 leading-snug">
                         {q.question}
                       </h3>
                     </div>
@@ -209,18 +209,18 @@ export default function JobInterviewPrepPage() {
                           e.stopPropagation();
                           copyQuestion(q.question, idx);
                         }}
-                        className="p-1.5 text-neutral-400 hover:text-white rounded-lg hover:bg-neutral-800 transition-colors"
+                        className="p-1.5 text-slate-400 hover:text-slate-700 rounded-lg hover:bg-slate-100 transition-colors"
                         title="Copy question"
                       >
                         {copiedIndex === idx ? (
-                          <Check className="w-4 h-4 text-emerald-400" />
+                          <Check className="w-4 h-4 text-emerald-600" />
                         ) : (
                           <Copy className="w-4 h-4" />
                         )}
                       </button>
                       <button
                         type="button"
-                        className="p-1.5 text-neutral-400 hover:text-white rounded-lg hover:bg-neutral-800 transition-colors"
+                        className="p-1.5 text-slate-400 hover:text-slate-700 rounded-lg hover:bg-slate-100 transition-colors"
                       >
                         {isExpanded ? (
                           <ChevronUp className="w-4 h-4" />
@@ -232,14 +232,14 @@ export default function JobInterviewPrepPage() {
                   </div>
 
                   {isExpanded && (
-                    <div className="px-5 pb-5 pt-2 border-t border-neutral-800/70 bg-neutral-950/50 space-y-3">
-                      <div className="flex items-start gap-2.5 text-xs text-neutral-300">
-                        <Lightbulb className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                    <div className="px-5 pb-5 pt-3 border-t border-slate-100 bg-slate-50/80 space-y-3">
+                      <div className="flex items-start gap-2.5 text-xs text-slate-700">
+                        <Lightbulb className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
                         <div>
-                          <div className="font-semibold text-neutral-200 mb-1">
+                          <div className="font-semibold text-slate-900 mb-1">
                             Recommended Answer Strategy (STAR Method)
                           </div>
-                          <p className="text-neutral-400 leading-relaxed font-mono text-[13px]">
+                          <p className="text-slate-600 leading-relaxed font-mono text-[13px]">
                             {q.recommendedApproach}
                           </p>
                         </div>
@@ -253,16 +253,16 @@ export default function JobInterviewPrepPage() {
         </div>
 
         {/* Footer Advice */}
-        <div className="bg-neutral-900/40 border border-neutral-800 rounded-xl p-5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-400">
+        <div className="bg-white border border-slate-200 rounded-xl p-5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-600 shadow-sm">
           <div className="flex items-center gap-2">
-            <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
+            <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
             <span>
               Pro Tip: Don&apos;t memorize scripted answers. Recount true project tradeoffs and debugging stories.
             </span>
           </div>
           <Link
             href={`/jobs/${job.slug}`}
-            className="px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-neutral-950 font-semibold rounded-lg shrink-0 transition-colors"
+            className="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-lg shrink-0 transition-colors shadow-sm"
           >
             Apply to this Job
           </Link>

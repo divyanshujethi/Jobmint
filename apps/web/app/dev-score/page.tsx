@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
@@ -20,6 +20,7 @@ import {
   Layers,
   Zap,
   Play,
+  HelpCircle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -132,21 +133,37 @@ export default function VerifiedDevScorePage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-slate-50/50 py-12 px-4 sm:px-6 lg:px-8 text-slate-900">
       <div className="mx-auto max-w-5xl space-y-8">
         
         {/* HERO TITLE */}
         <div className="text-center space-y-3">
-          <div className="inline-flex items-center gap-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 px-3.5 py-1 text-xs font-mono font-semibold text-emerald-400">
-            <ShieldCheck className="h-4 w-4" />
+          <div className="inline-flex items-center gap-2 rounded-full bg-emerald-50 border border-emerald-200 px-3.5 py-1 text-xs font-mono font-semibold text-emerald-800">
+            <ShieldCheck className="h-4 w-4 text-emerald-600" />
             Proof-of-Work Verification Protocol
           </div>
-          <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-white">
-            JobMint Verified Dev Score™
+          <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-slate-900">
+            JobMint Verified Dev Score
           </h1>
-          <p className="mx-auto max-w-2xl text-sm sm:text-base text-slate-400">
-            Kill the fake resume buzzwords. Scan real GitHub commits, production code architecture, and live deployed web demos to prove your actual engineering caliber.
+          <p className="mx-auto max-w-2xl text-sm sm:text-base text-slate-600">
+            Kill fake resume buzzwords. Scan real GitHub commits, production code architecture, and live deployed web demos to prove actual engineering caliber.
           </p>
+
+          {/* EXPLANATORY BANNER: ANYONE VS MINE */}
+          <div className="mx-auto max-w-2xl rounded-2xl bg-white border border-slate-200 p-4 shadow-sm text-left flex items-start gap-3">
+            <HelpCircle className="h-5 w-5 text-emerald-600 shrink-0 mt-0.5" />
+            <div className="text-xs text-slate-600 space-y-1">
+              <p className="font-semibold text-slate-900">
+                How does Dev Score work?
+              </p>
+              <p>
+                • <strong>Public Preview:</strong> You can look up <em>any</em> developer&apos;s public GitHub profile (try your friends, top open-source contributors, or candidates) to inspect their real proof-of-work.
+              </p>
+              <p>
+                • <strong>Your Applications:</strong> When you enter your own GitHub handle and click <strong>&quot;Attach Dev Score to My Applications&quot;</strong>, it binds your score to your JobMint profile so recruiters see verified proof of competence when reviewing your applications.
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* LOOKUP INPUT BAR */}
@@ -156,22 +173,22 @@ export default function VerifiedDevScorePage() {
               e.preventDefault();
               fetchScore(username);
             }}
-            className="flex items-center gap-2 rounded-2xl bg-slate-900 border border-slate-800 p-2 shadow-2xl focus-within:border-emerald-500 transition-colors"
+            className="flex items-center gap-2 rounded-2xl bg-white border border-slate-200 p-2 shadow-sm focus-within:border-emerald-500 focus-within:ring-2 focus-within:ring-emerald-500/20 transition-all"
           >
             <div className="flex h-10 w-10 items-center justify-center text-slate-400 pl-2">
-              <Github className="h-5 w-5" />
+              <Github className="h-5 w-5 text-slate-700" />
             </div>
             <Input
               type="text"
               placeholder="Enter any GitHub username (e.g. torvalds, your handle)"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="border-0 bg-transparent text-white placeholder:text-slate-500 focus-visible:ring-0 text-sm"
+              className="border-0 bg-transparent text-slate-900 placeholder:text-slate-400 focus-visible:ring-0 text-sm shadow-none"
             />
             <Button
               type="submit"
               disabled={loading}
-              className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs h-10 px-5 rounded-xl gap-2 shrink-0"
+              className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs h-10 px-5 rounded-xl gap-2 shrink-0 shadow-sm"
             >
               {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Search className="h-4 w-4" />}
               <span>Verify Score</span>
@@ -189,7 +206,7 @@ export default function VerifiedDevScorePage() {
                   setUsername(u);
                   fetchScore(u);
                 }}
-                className="text-slate-400 hover:text-emerald-400 font-mono transition-colors underline"
+                className="text-slate-600 hover:text-emerald-600 font-mono transition-colors underline font-medium"
               >
                 @{u}
               </button>
@@ -198,7 +215,7 @@ export default function VerifiedDevScorePage() {
         </div>
 
         {error && (
-          <div className="mx-auto max-w-xl rounded-xl bg-red-500/10 border border-red-500/20 p-4 text-center text-xs text-red-400">
+          <div className="mx-auto max-w-xl rounded-xl bg-red-50 border border-red-200 p-4 text-center text-xs font-medium text-red-700">
             {error}
           </div>
         )}
@@ -208,7 +225,7 @@ export default function VerifiedDevScorePage() {
           <div className="space-y-8 animate-in fade-in slide-in-from-bottom-3 duration-200">
             
             {/* MAIN SCORE CARD */}
-            <div className="rounded-3xl border border-slate-800 bg-slate-900/90 p-6 sm:p-8 shadow-2xl backdrop-blur-md grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <div className="rounded-3xl border border-slate-200 bg-white p-6 sm:p-8 shadow-md grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               
               {/* Profile Details */}
               <div className="lg:col-span-7 space-y-4">
@@ -216,27 +233,27 @@ export default function VerifiedDevScorePage() {
                   <img
                     src={result.avatarUrl}
                     alt={result.name}
-                    className="h-20 w-20 rounded-2xl border-2 border-emerald-500/40 object-cover shadow-lg"
+                    className="h-20 w-20 rounded-2xl border-2 border-emerald-500/40 object-cover shadow-sm"
                   />
                   <div>
                     <div className="flex flex-wrap items-center gap-2">
-                      <h2 className="text-2xl font-bold text-white">{result.name}</h2>
-                      <span className="text-xs font-mono text-slate-400">@{result.username}</span>
+                      <h2 className="text-2xl font-bold text-slate-900">{result.name}</h2>
+                      <span className="text-xs font-mono text-slate-500">@{result.username}</span>
                     </div>
-                    <p className="text-xs text-slate-300 mt-1 line-clamp-2">{result.bio}</p>
-                    <div className="flex flex-wrap items-center gap-3 mt-3 text-xs text-slate-400">
-                      <span className="flex items-center gap-1">
-                        <Code2 className="h-3.5 w-3.5 text-emerald-400" />
+                    <p className="text-xs text-slate-600 mt-1 line-clamp-2">{result.bio}</p>
+                    <div className="flex flex-wrap items-center gap-3 mt-3 text-xs text-slate-500">
+                      <span className="flex items-center gap-1 font-medium">
+                        <Code2 className="h-3.5 w-3.5 text-emerald-600" />
                         {result.publicReposCount} Repos
                       </span>
                       <span>•</span>
-                      <span className="flex items-center gap-1">
-                        <Star className="h-3.5 w-3.5 text-amber-400" />
+                      <span className="flex items-center gap-1 font-medium">
+                        <Star className="h-3.5 w-3.5 text-amber-500" />
                         {result.totalStars} Stars
                       </span>
                       <span>•</span>
-                      <span className="flex items-center gap-1">
-                        <GitFork className="h-3.5 w-3.5 text-blue-400" />
+                      <span className="flex items-center gap-1 font-medium">
+                        <GitFork className="h-3.5 w-3.5 text-blue-500" />
                         {result.totalForks} Forks
                       </span>
                     </div>
@@ -245,16 +262,16 @@ export default function VerifiedDevScorePage() {
 
                 {/* Verified Skills */}
                 <div className="pt-2">
-                  <div className="text-[11px] font-mono font-bold text-slate-400 uppercase tracking-wider mb-2">
+                  <div className="text-[11px] font-mono font-bold text-slate-500 uppercase tracking-wider mb-2">
                     Codebase-Verified Skills
                   </div>
                   <div className="flex flex-wrap gap-1.5">
                     {result.verifiedSkills.map((skill) => (
                       <span
                         key={skill}
-                        className="rounded-lg bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 text-xs font-semibold text-emerald-300 flex items-center gap-1"
+                        className="rounded-lg bg-emerald-50 border border-emerald-200 px-2.5 py-1 text-xs font-semibold text-emerald-800 flex items-center gap-1"
                       >
-                        <CheckCircle2 className="h-3 w-3 text-emerald-400" />
+                        <CheckCircle2 className="h-3 w-3 text-emerald-600" />
                         {skill}
                       </span>
                     ))}
@@ -262,11 +279,11 @@ export default function VerifiedDevScorePage() {
                 </div>
 
                 {/* Actions */}
-                <div className="flex flex-wrap items-center gap-3 pt-3 border-t border-slate-800">
+                <div className="flex flex-wrap items-center gap-3 pt-3 border-t border-slate-100">
                   <Button
                     size="sm"
                     onClick={handleAttachToProfile}
-                    className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs gap-1.5 rounded-xl"
+                    className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs gap-1.5 rounded-xl shadow-sm"
                   >
                     {attached ? (
                       <>
@@ -283,41 +300,41 @@ export default function VerifiedDevScorePage() {
                     variant="outline"
                     size="sm"
                     onClick={handleCopyBadge}
-                    className="border-slate-700 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs gap-1.5 rounded-xl"
+                    className="border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs gap-1.5 rounded-xl shadow-sm"
                   >
-                    {copied ? <Check className="h-4 w-4 text-emerald-400" /> : <Copy className="h-4 w-4" />}
+                    {copied ? <Check className="h-4 w-4 text-emerald-600" /> : <Copy className="h-4 w-4" />}
                     <span>{copied ? "Copied Markdown!" : "Copy README Badge"}</span>
                   </Button>
                 </div>
               </div>
 
               {/* Gauge Score Graphic */}
-              <div className="lg:col-span-5 flex flex-col items-center justify-center p-6 rounded-2xl bg-slate-950/60 border border-slate-800 text-center space-y-3">
+              <div className="lg:col-span-5 flex flex-col items-center justify-center p-6 rounded-2xl bg-slate-50 border border-slate-200 text-center space-y-3">
                 <span className="text-4xl">{result.badgeEmoji}</span>
                 <div>
-                  <div className="text-5xl sm:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400">
+                  <div className="text-5xl sm:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600">
                     {result.devScore}
                   </div>
-                  <div className="text-xs font-mono text-slate-400 mt-1 uppercase tracking-wider">
+                  <div className="text-xs font-mono text-slate-500 mt-1 uppercase tracking-wider font-semibold">
                     out of 1,000 Points
                   </div>
                 </div>
 
                 <div className="space-y-1">
-                  <div className="inline-block rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-3 py-1 text-xs font-bold">
+                  <div className="inline-block rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200 px-3 py-1 text-xs font-bold">
                     {result.builderLevel}
                   </div>
-                  <div className="text-xs text-slate-400 font-semibold">{result.percentile}</div>
+                  <div className="text-xs text-slate-600 font-semibold">{result.percentile}</div>
                 </div>
 
                 {/* Score Pillar Bars */}
-                <div className="w-full space-y-2 pt-3 border-t border-slate-800 text-left text-xs">
+                <div className="w-full space-y-2 pt-3 border-t border-slate-200 text-left text-xs">
                   <div>
-                    <div className="flex justify-between text-[11px] text-slate-400 mb-1">
+                    <div className="flex justify-between text-[11px] text-slate-600 mb-1">
                       <span>Activity & Momentum</span>
-                      <span className="font-mono text-emerald-400">{result.scoreBreakdown.momentum}/250</span>
+                      <span className="font-mono text-emerald-600 font-bold">{result.scoreBreakdown.momentum}/250</span>
                     </div>
-                    <div className="h-1.5 rounded-full bg-slate-800 overflow-hidden">
+                    <div className="h-1.5 rounded-full bg-slate-200 overflow-hidden">
                       <div
                         className="h-full bg-emerald-500 rounded-full"
                         style={{ width: `${(result.scoreBreakdown.momentum / 250) * 100}%` }}
@@ -326,26 +343,26 @@ export default function VerifiedDevScorePage() {
                   </div>
 
                   <div>
-                    <div className="flex justify-between text-[11px] text-slate-400 mb-1">
+                    <div className="flex justify-between text-[11px] text-slate-600 mb-1">
                       <span>Stack Depth</span>
-                      <span className="font-mono text-emerald-400">{result.scoreBreakdown.depth}/250</span>
+                      <span className="font-mono text-emerald-600 font-bold">{result.scoreBreakdown.depth}/250</span>
                     </div>
-                    <div className="h-1.5 rounded-full bg-slate-800 overflow-hidden">
+                    <div className="h-1.5 rounded-full bg-slate-200 overflow-hidden">
                       <div
-                        className="h-full bg-teal-400 rounded-full"
+                        className="h-full bg-teal-500 rounded-full"
                         style={{ width: `${(result.scoreBreakdown.depth / 250) * 100}%` }}
                       />
                     </div>
                   </div>
 
                   <div>
-                    <div className="flex justify-between text-[11px] text-slate-400 mb-1">
+                    <div className="flex justify-between text-[11px] text-slate-600 mb-1">
                       <span>Proof-of-Work Demos</span>
-                      <span className="font-mono text-emerald-400">{result.scoreBreakdown.proofOfWork}/250</span>
+                      <span className="font-mono text-emerald-600 font-bold">{result.scoreBreakdown.proofOfWork}/250</span>
                     </div>
-                    <div className="h-1.5 rounded-full bg-slate-800 overflow-hidden">
+                    <div className="h-1.5 rounded-full bg-slate-200 overflow-hidden">
                       <div
-                        className="h-full bg-cyan-400 rounded-full"
+                        className="h-full bg-cyan-500 rounded-full"
                         style={{ width: `${(result.scoreBreakdown.proofOfWork / 250) * 100}%` }}
                       />
                     </div>
@@ -358,11 +375,11 @@ export default function VerifiedDevScorePage() {
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <h3 className="text-xl font-bold text-white flex items-center gap-2">
-                    <Layers className="h-5 w-5 text-emerald-400" />
+                  <h3 className="text-xl font-bold text-slate-900 flex items-center gap-2">
+                    <Layers className="h-5 w-5 text-emerald-600" />
                     Verified Repositories & Proof-of-Work Demos
                   </h3>
-                  <p className="text-xs text-slate-400">
+                  <p className="text-xs text-slate-600">
                     Test live applications directly in your browser without leaving JobMint.
                   </p>
                 </div>
@@ -372,27 +389,27 @@ export default function VerifiedDevScorePage() {
                 {result.highlightedProjects.map((repo) => (
                   <Card
                     key={repo.name}
-                    className="border-slate-800 bg-slate-900/80 text-white flex flex-col justify-between hover:border-slate-700 transition-colors"
+                    className="border-slate-200 bg-white text-slate-900 flex flex-col justify-between hover:border-emerald-300 transition-all shadow-sm"
                   >
                     <CardHeader className="pb-3">
                       <div className="flex items-start justify-between gap-3">
                         <div>
-                          <CardTitle className="text-base font-bold text-white flex items-center gap-2">
+                          <CardTitle className="text-base font-bold text-slate-900 flex items-center gap-2">
                             {repo.name}
                             {repo.homepage && (
-                              <span className="rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-1.5 py-0.5 text-[9px] font-mono">
+                              <span className="rounded bg-emerald-50 text-emerald-700 border border-emerald-200 px-1.5 py-0.5 text-[9px] font-mono font-semibold">
                                 Live Demo
                               </span>
                             )}
                           </CardTitle>
-                          <CardDescription className="text-xs text-slate-400 line-clamp-2 mt-1">
+                          <CardDescription className="text-xs text-slate-600 line-clamp-2 mt-1">
                             {repo.description}
                           </CardDescription>
                         </div>
 
                         <div className="flex items-center gap-2 shrink-0">
-                          <span className="flex items-center gap-1 text-xs font-mono text-slate-400">
-                            <Star className="h-3 w-3 text-amber-400" />
+                          <span className="flex items-center gap-1 text-xs font-mono text-slate-500 font-medium">
+                            <Star className="h-3 w-3 text-amber-500 fill-amber-500" />
                             {repo.stars}
                           </span>
                         </div>
@@ -405,7 +422,7 @@ export default function VerifiedDevScorePage() {
                         {repo.matchedSkills.map((sk) => (
                           <span
                             key={sk}
-                            className="rounded bg-slate-800 text-slate-300 px-2 py-0.5 text-[10px] font-mono"
+                            className="rounded bg-slate-100 text-slate-700 px-2 py-0.5 text-[10px] font-mono"
                           >
                             {sk}
                           </span>
@@ -413,12 +430,12 @@ export default function VerifiedDevScorePage() {
                       </div>
 
                       {/* Footer Actions */}
-                      <div className="flex items-center justify-between gap-2 pt-2 border-t border-slate-800/80">
+                      <div className="flex items-center justify-between gap-2 pt-2 border-t border-slate-100">
                         <a
                           href={repo.url}
                           target="_blank"
                           rel="noreferrer"
-                          className="text-xs text-slate-400 hover:text-white flex items-center gap-1"
+                          className="text-xs text-slate-600 hover:text-slate-900 flex items-center gap-1 font-medium"
                         >
                           <Github className="h-3.5 w-3.5" /> Source
                         </a>
@@ -427,7 +444,7 @@ export default function VerifiedDevScorePage() {
                           <Button
                             size="sm"
                             onClick={() => openSandbox(repo.name, repo.homepage!, repo.url)}
-                            className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs h-8 px-3 rounded-lg gap-1.5"
+                            className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs h-8 px-3 rounded-lg gap-1.5 shadow-sm"
                           >
                             <Play className="h-3 w-3 fill-current" /> Launch 1-Click Sandbox
                           </Button>
@@ -442,7 +459,7 @@ export default function VerifiedDevScorePage() {
                                 repo.url
                               )
                             }
-                            className="text-slate-400 hover:text-white text-xs h-8 px-2"
+                            className="text-slate-600 hover:text-slate-900 text-xs h-8 px-2"
                           >
                             Inspect Repo Sandbox
                           </Button>

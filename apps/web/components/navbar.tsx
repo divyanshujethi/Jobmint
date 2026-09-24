@@ -370,20 +370,15 @@ export function Navbar() {
               </div>
             </div>
           ) : (
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2.5">
               <Link href="/employer/login">
                 <Button variant="ghost" size="sm" className="font-semibold text-xs text-slate-600 hover:text-emerald-700">
                   For Employers
                 </Button>
               </Link>
               <Link href="/login">
-                <Button variant="outline" size="sm" className="font-semibold text-xs text-slate-700 border-slate-300">
-                  Log in
-                </Button>
-              </Link>
-              <Link href="/login">
-                <Button size="sm" className="font-bold text-xs bg-emerald-600 hover:bg-emerald-500">
-                  Candidate Sign In
+                <Button size="sm" className="font-bold text-xs bg-emerald-600 hover:bg-emerald-500 text-white shadow-xs">
+                  Sign In
                 </Button>
               </Link>
             </div>

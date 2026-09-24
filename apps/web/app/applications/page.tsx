@@ -125,7 +125,7 @@ export default function ApplicationsTrackerPage() {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-6">
         <div>
           <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-md mb-2">
-            <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" /> Truth Teller™ Verified Application Tracker
+            <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" /> Truth Teller Verified Application Tracker
           </div>
           <h1 className="text-3xl font-extrabold tracking-tight text-slate-900">
             My Applications

@@ -141,21 +141,21 @@ export default function CourseCertificatePage({
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white py-8 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-slate-50/50 text-slate-900 py-8 px-4 sm:px-6 lg:px-8">
       {/* SCREEN NAVIGATION (Hidden on Print) */}
       <div className="mx-auto max-w-5xl space-y-6 print:hidden">
-        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-800 pb-4">
+        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-200 pb-4">
           <Link
             href="/courses"
-            className="inline-flex items-center gap-1.5 text-xs text-slate-400 hover:text-emerald-400 transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs text-slate-600 hover:text-emerald-600 transition-colors font-medium"
           >
             <ArrowLeft className="h-4 w-4" /> Back to Curated Courses
           </Link>
           <div className="flex items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 text-xs font-mono font-bold text-emerald-400">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 border border-emerald-200 px-3 py-1 text-xs font-mono font-bold text-emerald-800">
               <Award className="h-3.5 w-3.5" /> Anti-Fraud Technical Examination
             </span>
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 px-3 py-1 text-xs font-mono font-bold text-blue-400">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 border border-blue-200 px-3 py-1 text-xs font-mono font-bold text-blue-800">
               <ShieldCheck className="h-3.5 w-3.5" /> PostgreSQL Registered
             </span>
           </div>
@@ -163,14 +163,14 @@ export default function CourseCertificatePage({
 
         {/* 1. AUTHENTICATION GATE IF NOT SIGNED IN */}
         {!authLoading && !session?.user && !issuedCert && (
-          <div className="rounded-3xl border border-amber-500/30 bg-amber-950/20 p-8 sm:p-10 text-center space-y-4 shadow-xl">
-            <div className="h-14 w-14 rounded-2xl bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-amber-400 mx-auto">
+          <div className="rounded-3xl border border-amber-200 bg-white p-8 sm:p-10 text-center space-y-4 shadow-sm">
+            <div className="h-14 w-14 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-600 mx-auto">
               <Lock className="h-7 w-7" />
             </div>
-            <h2 className="text-2xl font-black text-white">
+            <h2 className="text-2xl font-black text-slate-900">
               Student Authentication Required
             </h2>
-            <p className="text-sm text-slate-300 max-w-xl mx-auto leading-relaxed">
+            <p className="text-sm text-slate-600 max-w-xl mx-auto leading-relaxed">
               To protect the integrity of JobMint credentials, certificates can no longer be generated with arbitrary names. <strong>You must sign in with a verified account</strong> so your official diploma is permanently registered in our database, signed with HMAC-SHA256, and verified against your real profile.
             </p>
             <div className="pt-2">
@@ -191,11 +191,11 @@ export default function CourseCertificatePage({
               <span className="text-xs font-mono font-bold text-emerald-400 uppercase tracking-wider">
                 Technical Competence Examination
               </span>
-              <h1 className="text-3xl sm:text-4xl font-black text-white">
+              <h1 className="text-3xl sm:text-4xl font-black text-slate-900">
                 {course.title}
               </h1>
-              <p className="text-sm text-slate-400">
-                Candidate: <strong className="text-white">{session.user.name}</strong> ({session.user.email}) •{" "}
+              <p className="text-sm text-slate-600">
+                Candidate: <strong className="text-slate-900">{session.user.name}</strong> ({session.user.email}) •{" "}
                 <span className="text-emerald-400 font-semibold">Passing Threshold: 80% (4/5 Questions)</span>
               </p>
             </div>
@@ -216,10 +216,10 @@ export default function CourseCertificatePage({
                 {quiz.map((q, qIndex) => (
                   <div
                     key={q.id}
-                    className="rounded-2xl border border-slate-800 bg-slate-900/90 p-5 sm:p-6 space-y-3"
+                    className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-6 space-y-3 shadow-sm"
                   >
                     <div className="flex items-start justify-between gap-3">
-                      <h3 className="text-sm sm:text-base font-bold text-white leading-snug">
+                      <h3 className="text-sm sm:text-base font-bold text-slate-900 leading-snug">
                         <span className="text-emerald-400 font-mono mr-2">Q{qIndex + 1}.</span>
                         {q.question}
                       </h3>
@@ -239,8 +239,8 @@ export default function CourseCertificatePage({
                             onClick={() => handleSelectOption(q.id, optIdx)}
                             className={`flex items-start gap-3 p-3 rounded-xl border text-xs sm:text-sm cursor-pointer transition-all ${
                               isSelected
-                                ? "bg-emerald-950/40 border-emerald-500 text-white font-medium shadow-sm"
-                                : "bg-slate-950/60 border-slate-800 text-slate-300 hover:border-slate-700"
+                                ? "bg-emerald-50 border-emerald-500 text-emerald-950 font-medium shadow-sm"
+                                : "bg-slate-50/70 border-slate-200 text-slate-700 hover:border-slate-300 hover:bg-slate-100/60"
                             }`}
                           >
                             <div
@@ -262,8 +262,8 @@ export default function CourseCertificatePage({
               </div>
 
               {/* GITHUB PROOF OF WORK */}
-              <div className="rounded-2xl border border-slate-800 bg-slate-900/90 p-5 space-y-2">
-                <label className="text-xs font-bold text-slate-200 flex items-center gap-1.5">
+              <div className="rounded-2xl border border-slate-200 bg-white p-5 space-y-2 shadow-sm">
+                <label className="text-xs font-bold text-slate-800 flex items-center gap-1.5">
                   <Github className="h-4 w-4 text-slate-300" />
                   GitHub Proof-of-Work Repository URL (Optional)
                 </label>
@@ -272,7 +272,7 @@ export default function CourseCertificatePage({
                   placeholder="https://github.com/your-username/course-capstone-project"
                   value={githubUrl}
                   onChange={(e) => setGithubUrl(e.target.value)}
-                  className="bg-slate-950 border-slate-800 text-xs text-white h-10 rounded-xl"
+                  className="bg-slate-50 border-slate-200 text-xs text-slate-900 placeholder:text-slate-400 h-10 rounded-xl"
                 />
                 <p className="text-[11px] text-slate-400">
                   Submitting your actual code repository links your certificate to real source code on GitHub.
@@ -299,14 +299,14 @@ export default function CourseCertificatePage({
 
         {/* 3. TOOLBAR WHEN CERTIFICATE IS ALREADY ISSUED */}
         {issuedCert && (
-          <div className="flex flex-wrap items-center justify-between gap-3 bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-lg">
+          <div className="flex flex-wrap items-center justify-between gap-3 bg-white border border-slate-200 rounded-2xl p-4 shadow-sm">
             <div className="space-y-0.5">
               <div className="flex items-center gap-2 text-xs font-mono font-bold text-emerald-400">
                 <CheckCircle2 className="h-4 w-4 text-emerald-400" />
                 Certificate Authenticated: {issuedCert.id}
               </div>
               <p className="text-xs text-slate-400">
-                Registered in PostgreSQL • Score: <strong className="text-white">{certScore || 100}%</strong>
+                Registered in PostgreSQL • Score: <strong className="text-slate-900">{certScore || 100}%</strong>
               </p>
             </div>
 
@@ -315,7 +315,7 @@ export default function CourseCertificatePage({
                 variant="outline"
                 size="sm"
                 onClick={handlePrint}
-                className="border-slate-700 bg-slate-800 text-white hover:bg-slate-700 text-xs gap-1.5 rounded-xl"
+                className="border-slate-200 bg-white text-slate-700 hover:bg-slate-50 text-xs gap-1.5 rounded-xl shadow-sm"
               >
                 <Printer className="h-3.5 w-3.5" />
                 Print / Save PDF
@@ -339,7 +339,7 @@ export default function CourseCertificatePage({
                 variant="outline"
                 size="sm"
                 onClick={handleCopyLink}
-                className="border-slate-700 bg-slate-800 text-white hover:bg-slate-700 text-xs gap-1.5 rounded-xl"
+                className="border-slate-200 bg-white text-slate-700 hover:bg-slate-50 text-xs gap-1.5 rounded-xl shadow-sm"
               >
                 {copied ? <Check className="h-3.5 w-3.5 text-emerald-400" /> : <Copy className="h-3.5 w-3.5" />}
                 {copied ? "Copied!" : "Copy Verification URL"}
@@ -349,7 +349,7 @@ export default function CourseCertificatePage({
                 <Button
                   variant="outline"
                   size="sm"
-                  className="border-emerald-500/30 bg-emerald-950/20 text-emerald-400 hover:text-white text-xs gap-1 rounded-xl"
+                  className="border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 text-xs gap-1 rounded-xl font-semibold"
                 >
                   View Public Ledger
                 </Button>
