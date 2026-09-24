@@ -163,207 +163,221 @@ export function Navbar() {
               </button>
 
               {toolsOpen && (
-                <div className="absolute left-0 mt-3 w-64 rounded-2xl border border-slate-200 bg-white p-2 shadow-xl ring-1 ring-black/5 animate-in fade-in slide-in-from-top-2 duration-150 z-50">
-                  <Link
-                    href="/potd"
-                    onClick={() => setToolsOpen(false)}
-                    className="flex items-start gap-3 rounded-xl p-2.5 hover:bg-slate-50 transition-colors"
-                  >
-                    <Code2 className="h-5 w-5 text-orange-500 shrink-0 mt-0.5" />
-                    <div>
-                      <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
-                        Daily Problem (POTD)
-                        <span className="rounded bg-orange-50 text-orange-700 px-1 py-0.2 text-[9px]">+50 XP</span>
+                <div className="absolute -left-64 sm:-left-48 mt-3 w-[780px] rounded-3xl border border-slate-200 bg-white p-5 shadow-2xl ring-1 ring-black/5 animate-in fade-in slide-in-from-top-2 duration-150 z-50">
+                  <div className="grid grid-cols-3 gap-6">
+                    {/* COLUMN 1: CODING & INTERVIEWS */}
+                    <div className="space-y-3">
+                      <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-emerald-700 flex items-center gap-1.5 px-2">
+                        <Code2 className="h-3.5 w-3.5" />
+                        <span>Coding &amp; Practice</span>
                       </div>
-                      <div className="text-[11px] text-slate-500">In-browser code runner &amp; streak challenges</div>
-                    </div>
-                  </Link>
+                      <div className="space-y-1">
+                        <Link
+                          href="/potd"
+                          onClick={() => setToolsOpen(false)}
+                          className="flex items-start gap-2.5 rounded-xl p-2 hover:bg-slate-50 transition-colors group"
+                        >
+                          <Flame className="h-4 w-4 text-orange-500 shrink-0 mt-0.5" />
+                          <div>
+                            <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5 group-hover:text-emerald-600 transition-colors">
+                              Problem of the Day
+                              <span className="rounded bg-orange-50 text-orange-700 px-1 py-0.2 text-[9px] font-mono">+50 XP</span>
+                            </div>
+                            <div className="text-[11px] text-slate-500">In-browser runner &amp; streak</div>
+                          </div>
+                        </Link>
 
-                  <Link
-                    href="/problems"
-                    onClick={() => setToolsOpen(false)}
-                    className="flex items-start gap-3 rounded-xl p-2.5 hover:bg-slate-50 transition-colors"
-                  >
-                    <BookOpen className="h-5 w-5 text-emerald-600 shrink-0 mt-0.5" />
-                    <div>
-                      <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
-                        Problem Catalog
-                        <span className="rounded bg-emerald-50 text-emerald-700 px-1 py-0.2 text-[9px]">Monaco</span>
+                        <Link
+                          href="/problems"
+                          onClick={() => setToolsOpen(false)}
+                          className="flex items-start gap-2.5 rounded-xl p-2 hover:bg-slate-50 transition-colors group"
+                        >
+                          <BookOpen className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                          <div>
+                            <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5 group-hover:text-emerald-600 transition-colors">
+                              Problem Catalog
+                              <span className="rounded bg-emerald-50 text-emerald-700 px-1 py-0.2 text-[9px] font-mono">Monaco</span>
+                            </div>
+                            <div className="text-[11px] text-slate-500">LeetCode interview challenges</div>
+                          </div>
+                        </Link>
+
+                        <Link
+                          href="/study-pods"
+                          onClick={() => setToolsOpen(false)}
+                          className="flex items-start gap-2.5 rounded-xl p-2 hover:bg-slate-50 transition-colors group"
+                        >
+                          <Users className="h-4 w-4 text-indigo-500 shrink-0 mt-0.5" />
+                          <div>
+                            <div className="text-xs font-bold text-slate-900 group-hover:text-emerald-600 transition-colors">Peer Study Pods</div>
+                            <div className="text-[11px] text-slate-500">Virtual cohorts &amp; live chat</div>
+                          </div>
+                        </Link>
+
+                        <Link
+                          href="/leaderboard"
+                          onClick={() => setToolsOpen(false)}
+                          className="flex items-start gap-2.5 rounded-xl p-2 hover:bg-slate-50 transition-colors group"
+                        >
+                          <Trophy className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
+                          <div>
+                            <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5 group-hover:text-emerald-600 transition-colors">
+                              Campus Battles
+                              <span className="rounded bg-amber-50 text-amber-700 px-1 py-0.2 text-[9px] font-mono">Live</span>
+                            </div>
+                            <div className="text-[11px] text-slate-500">Inter-college leaderboard</div>
+                          </div>
+                        </Link>
                       </div>
-                      <div className="text-[11px] text-slate-500">LeetCode-style problems with sandbox runner</div>
                     </div>
-                  </Link>
 
-                  <Link
-                    href="/resume/builder"
-                    onClick={() => setToolsOpen(false)}
-                    className="flex items-start gap-3 rounded-xl p-2.5 hover:bg-slate-50 transition-colors"
-                  >
-                    <FileText className="h-5 w-5 text-blue-600 shrink-0 mt-0.5" />
-                    <div>
-                      <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
-                        Harvard ATS Resume
-                        <span className="rounded bg-blue-50 text-blue-700 px-1 py-0.2 text-[9px]">PDF &amp; TeX</span>
+                    {/* COLUMN 2: RESUME & CAREER TOOLKIT */}
+                    <div className="space-y-3 border-l border-slate-100 pl-4">
+                      <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-blue-700 flex items-center gap-1.5 px-2">
+                        <FileText className="h-3.5 w-3.5" />
+                        <span>Resume &amp; Caliber</span>
                       </div>
-                      <div className="text-[11px] text-slate-500">1-click ATS single-column resume builder</div>
-                    </div>
-                  </Link>
+                      <div className="space-y-1">
+                        <Link
+                          href="/resume/builder"
+                          onClick={() => setToolsOpen(false)}
+                          className="flex items-start gap-2.5 rounded-xl p-2 hover:bg-slate-50 transition-colors group"
+                        >
+                          <FileText className="h-4 w-4 text-blue-600 shrink-0 mt-0.5" />
+                          <div>
+                            <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5 group-hover:text-blue-600 transition-colors">
+                              Harvard ATS Resume
+                              <span className="rounded bg-blue-50 text-blue-700 px-1 py-0.2 text-[9px] font-mono">LaTeX/PDF</span>
+                            </div>
+                            <div className="text-[11px] text-slate-500">1-click single-column builder</div>
+                          </div>
+                        </Link>
 
-                  <Link
-                    href="/leaderboard"
-                    onClick={() => setToolsOpen(false)}
-                    className="flex items-start gap-3 rounded-xl p-2.5 hover:bg-slate-50 transition-colors"
-                  >
-                    <Flame className="h-5 w-5 text-amber-500 shrink-0 mt-0.5" />
-                    <div>
-                      <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
-                        Streaks &amp; Trendshift
-                        <span className="rounded bg-amber-50 text-amber-700 px-1 py-0.2 text-[9px]">Live</span>
+                        <Link
+                          href="/resume/assistant"
+                          onClick={() => setToolsOpen(false)}
+                          className="flex items-start gap-2.5 rounded-xl p-2 hover:bg-slate-50 transition-colors group"
+                        >
+                          <Sparkles className="h-4 w-4 text-purple-600 shrink-0 mt-0.5" />
+                          <div>
+                            <div className="text-xs font-bold text-slate-900 group-hover:text-blue-600 transition-colors">AI Resume Auditor</div>
+                            <div className="text-[11px] text-slate-500">ATS score &amp; STAR rewrites</div>
+                          </div>
+                        </Link>
+
+                        <Link
+                          href="/dev-score"
+                          onClick={() => setToolsOpen(false)}
+                          className="flex items-start gap-2.5 rounded-xl p-2 hover:bg-slate-50 transition-colors group"
+                        >
+                          <Zap className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
+                          <div>
+                            <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5 group-hover:text-blue-600 transition-colors">
+                              Verified Dev Score
+                              <span className="rounded bg-amber-50 text-amber-700 px-1 py-0.2 text-[9px] font-mono">Proof</span>
+                            </div>
+                            <div className="text-[11px] text-slate-500">GitHub proof-of-work score</div>
+                          </div>
+                        </Link>
+
+                        <Link
+                          href="/placement-portal"
+                          onClick={() => setToolsOpen(false)}
+                          className="flex items-start gap-2.5 rounded-xl p-2 hover:bg-slate-50 transition-colors group"
+                        >
+                          <GraduationCap className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                          <div>
+                            <div className="text-xs font-bold text-slate-900 group-hover:text-blue-600 transition-colors">Placement Syndication</div>
+                            <div className="text-[11px] text-slate-500">College placement cell feed</div>
+                          </div>
+                        </Link>
                       </div>
-                      <div className="text-[11px] text-slate-500">Daily check-in streaks, repos &amp; referrals</div>
                     </div>
-                  </Link>
 
-                  <Link
-                    href="/roadmaps"
-                    onClick={() => setToolsOpen(false)}
-                    className="flex items-start gap-3 rounded-xl p-2.5 hover:bg-slate-50 transition-colors"
-                  >
-                    <Compass className="h-5 w-5 text-blue-500 shrink-0 mt-0.5" />
-                    <div>
-                      <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
-                        Career Roadmaps
-                        <span className="rounded bg-blue-50 text-blue-700 px-1 py-0.2 text-[9px]">Free</span>
+                    {/* COLUMN 3: LEARNING & MASTERY */}
+                    <div className="space-y-3 border-l border-slate-100 pl-4">
+                      <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-purple-700 flex items-center gap-1.5 px-2">
+                        <Compass className="h-3.5 w-3.5" />
+                        <span>Learning &amp; Growth</span>
                       </div>
-                      <div className="text-[11px] text-slate-500">Full-stack, AI/ML, Cloud roadmaps</div>
-                    </div>
-                  </Link>
+                      <div className="space-y-1">
+                        <Link
+                          href="/roadmaps"
+                          onClick={() => setToolsOpen(false)}
+                          className="flex items-start gap-2.5 rounded-xl p-2 hover:bg-slate-50 transition-colors group"
+                        >
+                          <Compass className="h-4 w-4 text-blue-500 shrink-0 mt-0.5" />
+                          <div>
+                            <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5 group-hover:text-purple-600 transition-colors">
+                              Career Roadmaps
+                              <span className="rounded bg-blue-50 text-blue-700 px-1 py-0.2 text-[9px] font-mono">Free</span>
+                            </div>
+                            <div className="text-[11px] text-slate-500">AI, Full-Stack &amp; Cloud paths</div>
+                          </div>
+                        </Link>
 
-                  <Link
-                    href="/canvas"
-                    onClick={() => setToolsOpen(false)}
-                    className="flex items-start gap-3 rounded-xl p-2.5 hover:bg-slate-50 transition-colors"
-                  >
-                    <Layers className="h-5 w-5 text-emerald-600 shrink-0 mt-0.5" />
-                    <div>
-                      <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
-                        Interactive Canvas
-                        <span className="rounded bg-emerald-50 text-emerald-700 px-1 py-0.2 text-[9px]">Visual</span>
+                        <Link
+                          href="/canvas"
+                          onClick={() => setToolsOpen(false)}
+                          className="flex items-start gap-2.5 rounded-xl p-2 hover:bg-slate-50 transition-colors group"
+                        >
+                          <Layers className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                          <div>
+                            <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5 group-hover:text-purple-600 transition-colors">
+                              Interactive Canvas
+                              <span className="rounded bg-emerald-50 text-emerald-700 px-1 py-0.2 text-[9px] font-mono">Visual</span>
+                            </div>
+                            <div className="text-[11px] text-slate-500">Node-graph knowledge trees</div>
+                          </div>
+                        </Link>
+
+                        <Link
+                          href="/playlists"
+                          onClick={() => setToolsOpen(false)}
+                          className="flex items-start gap-2.5 rounded-xl p-2 hover:bg-slate-50 transition-colors group"
+                        >
+                          <Youtube className="h-4 w-4 text-red-500 shrink-0 mt-0.5" />
+                          <div>
+                            <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5 group-hover:text-purple-600 transition-colors">
+                              YouTube Playlists Hub
+                              <span className="rounded bg-red-50 text-red-700 px-1 py-0.2 text-[9px] font-mono">Curated</span>
+                            </div>
+                            <div className="text-[11px] text-slate-500">Striver, Karpathy, Chai aur Code</div>
+                          </div>
+                        </Link>
+
+                        <Link
+                          href="/courses"
+                          onClick={() => setToolsOpen(false)}
+                          className="flex items-start gap-2.5 rounded-xl p-2 hover:bg-slate-50 transition-colors group"
+                        >
+                          <Award className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
+                          <div>
+                            <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5 group-hover:text-purple-600 transition-colors">
+                              Courses &amp; Diplomas
+                              <span className="rounded bg-amber-50 text-amber-700 px-1 py-0.2 text-[9px] font-mono">Certs</span>
+                            </div>
+                            <div className="text-[11px] text-slate-500">Verified course diplomas</div>
+                          </div>
+                        </Link>
                       </div>
-                      <div className="text-[11px] text-slate-500">Visual node-based study canvas</div>
                     </div>
-                  </Link>
+                  </div>
 
-                  <Link
-                    href="/resume/assistant"
-                    onClick={() => setToolsOpen(false)}
-                    className="flex items-start gap-3 rounded-xl p-2.5 hover:bg-slate-50 transition-colors"
-                  >
-                    <Sparkles className="h-5 w-5 text-purple-600 shrink-0 mt-0.5" />
-                    <div>
-                      <div className="text-xs font-bold text-slate-900">AI Resume Teller</div>
-                      <div className="text-[11px] text-slate-500">Groq ATS score & STAR bullet rewrite</div>
-                    </div>
-                  </Link>
-
-                  <Link
-                    href="/study-pods"
-                    onClick={() => setToolsOpen(false)}
-                    className="flex items-start gap-3 rounded-xl p-2.5 hover:bg-slate-50 transition-colors"
-                  >
-                    <Users className="h-5 w-5 text-indigo-500 shrink-0 mt-0.5" />
-                    <div>
-                      <div className="text-xs font-bold text-slate-900">Peer Study Pods</div>
-                      <div className="text-[11px] text-slate-500">Mock technical interviews & live chat</div>
-                    </div>
-                  </Link>
-
-                  <Link
-                    href="/placement-portal"
-                    onClick={() => setToolsOpen(false)}
-                    className="flex items-start gap-3 rounded-xl p-2.5 hover:bg-slate-50 transition-colors"
-                  >
-                    <GraduationCap className="h-5 w-5 text-emerald-600 shrink-0 mt-0.5" />
-                    <div>
-                      <div className="text-xs font-bold text-slate-900">Campus Placement Syndication</div>
-                      <div className="text-[11px] text-slate-500">RSS & Discord bots for colleges</div>
-                    </div>
-                  </Link>
-
-                  <Link
-                    href="/dev-score"
-                    onClick={() => setToolsOpen(false)}
-                    className="flex items-start gap-3 rounded-xl p-2.5 hover:bg-slate-50 transition-colors"
-                  >
-                    <Zap className="h-5 w-5 text-amber-500 shrink-0 mt-0.5" />
-                    <div>
-                      <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
-                        Verified Dev Score
-                        <span className="rounded bg-amber-50 text-amber-700 px-1 py-0.2 text-[9px]">Proof</span>
-                      </div>
-                      <div className="text-[11px] text-slate-500">GitHub proof-of-work & README badges</div>
-                    </div>
-                  </Link>
-
-                  <Link
-                    href="/certificates"
-                    onClick={() => setToolsOpen(false)}
-                    className="flex items-start gap-3 rounded-xl p-2.5 hover:bg-slate-50 transition-colors"
-                  >
-                    <Award className="h-5 w-5 text-amber-500 shrink-0 mt-0.5" />
-                    <div>
-                      <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
-                        Free Certifications
-                        <span className="rounded bg-amber-50 text-amber-700 px-1 py-0.2 text-[9px]">Forage</span>
-                      </div>
-                      <div className="text-[11px] text-slate-500">Google, JPMorgan & Harvard virtual certs</div>
-                    </div>
-                  </Link>
-
-                  <Link
-                    href="/courses"
-                    onClick={() => setToolsOpen(false)}
-                    className="flex items-start gap-3 rounded-xl p-2.5 hover:bg-slate-50 transition-colors"
-                  >
-                    <BookOpen className="h-5 w-5 text-emerald-600 shrink-0 mt-0.5" />
-                    <div>
-                      <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
-                        Interactive Courses
-                        <span className="rounded bg-emerald-50 text-emerald-700 px-1 py-0.2 text-[9px]">Certificates</span>
-                      </div>
-                      <div className="text-[11px] text-slate-500">Hands-on tracks with verified diplomas</div>
-                    </div>
-                  </Link>
-
-                  <Link
-                    href="/playlists"
-                    onClick={() => setToolsOpen(false)}
-                    className="flex items-start gap-3 rounded-xl p-2.5 hover:bg-slate-50 transition-colors"
-                  >
-                    <Youtube className="h-5 w-5 text-red-500 shrink-0 mt-0.5" />
-                    <div>
-                      <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
-                        YouTube Playlists
-                        <span className="rounded bg-red-50 text-red-700 px-1 py-0.2 text-[9px]">Curated</span>
-                      </div>
-                      <div className="text-[11px] text-slate-500">Striver, Karpathy, Chai aur Code & repos</div>
-                    </div>
-                  </Link>
-
-                  <Link
-                    href="/transparency"
-                    onClick={() => setToolsOpen(false)}
-                    className="flex items-start gap-3 rounded-xl p-2.5 hover:bg-slate-50 transition-colors"
-                  >
-                    <ShieldCheck className="h-5 w-5 text-teal-600 shrink-0 mt-0.5" />
-                    <div>
-                      <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
-                        Transparency Wall
-                        <span className="rounded bg-teal-50 text-teal-700 px-1 py-0.2 text-[9px]">Anti-Ghost</span>
-                      </div>
-                      <div className="text-[11px] text-slate-500">Wall of Fame & Ghosting alerts</div>
-                    </div>
-                  </Link>
+                  {/* Mega Menu Footer Strip */}
+                  <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 px-2 font-sans">
+                    <span className="flex items-center gap-1.5">
+                      <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />
+                      100% Free Tools • Zero Paywalls for Students &amp; Freshers
+                    </span>
+                    <Link
+                      href="/transparency"
+                      onClick={() => setToolsOpen(false)}
+                      className="text-slate-600 hover:text-slate-900 font-semibold underline decoration-slate-300"
+                    >
+                      Transparency Pledge &rarr;
+                    </Link>
+                  </div>
                 </div>
               )}
             </div>
@@ -519,134 +533,203 @@ export function Navbar() {
       {isOpen && (
         <div className="border-b border-slate-200 bg-white px-4 pt-3 pb-6 lg:hidden animate-in slide-in-from-top-2 duration-150">
           <div className="flex flex-col space-y-2">
-            <Link
-              href="/jobs"
-              className="flex items-center gap-2.5 py-2 px-3 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50"
-              onClick={() => setIsOpen(false)}
-            >
-              <Briefcase className="h-4 w-4 text-slate-400" />
-              Jobs
-            </Link>
-            <Link
-              href="/internships"
-              className="flex items-center gap-2.5 py-2 px-3 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50"
-              onClick={() => setIsOpen(false)}
-            >
-              <Sparkles className="h-4 w-4 text-amber-500" />
-              Internships
-            </Link>
-            <Link
-              href="/companies"
-              className="flex items-center gap-2.5 py-2 px-3 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50"
-              onClick={() => setIsOpen(false)}
-            >
-              <Building2 className="h-4 w-4 text-slate-400" />
-              Companies
-            </Link>
-            <Link
-              href="/recommendations"
-              className="flex items-center gap-2.5 py-2 px-3 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50"
-              onClick={() => setIsOpen(false)}
-            >
-              <Zap className="h-4 w-4 text-emerald-600" />
-              Recommendations
-            </Link>
-            <Link
-              href="/leaderboard"
-              className="flex items-center gap-2.5 py-2 px-3 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50"
-              onClick={() => setIsOpen(false)}
-            >
-              <Flame className="h-4 w-4 text-amber-500 fill-amber-500" />
-              Streaks &amp; Campus Battles
-            </Link>
-            <Link
-              href="/potd"
-              className="flex items-center gap-2.5 py-2 px-3 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50"
-              onClick={() => setIsOpen(false)}
-            >
-              <Code2 className="h-4 w-4 text-orange-500" />
-              Daily Problem (POTD)
-            </Link>
-            <Link
-              href="/problems"
-              className="flex items-center gap-2.5 py-2 px-3 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50"
-              onClick={() => setIsOpen(false)}
-            >
-              <BookOpen className="h-4 w-4 text-emerald-600" />
-              Problem Catalog
-            </Link>
-            <Link
-              href="/resume/builder"
-              className="flex items-center gap-2.5 py-2 px-3 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50"
-              onClick={() => setIsOpen(false)}
-            >
-              <FileText className="h-4 w-4 text-blue-600" />
-              Harvard ATS Resume Builder
-            </Link>
-            <Link
-              href="/roadmaps"
-              className="flex items-center gap-2.5 py-2 px-3 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50"
-              onClick={() => setIsOpen(false)}
-            >
-              <Compass className="h-4 w-4 text-blue-500" />
-              Career Roadmaps
-            </Link>
-            <Link
-              href="/canvas"
-              className="flex items-center gap-2.5 py-2 px-3 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50"
-              onClick={() => setIsOpen(false)}
-            >
-              <Layers className="h-4 w-4 text-emerald-500" />
-              Visual Canvas
-            </Link>
-            <Link
-              href="/certificates"
-              className="flex items-center gap-2.5 py-2 px-3 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50"
-              onClick={() => setIsOpen(false)}
-            >
-              <Award className="h-4 w-4 text-amber-500" />
-              Free Certifications
-            </Link>
-            <Link
-              href="/courses"
-              className="flex items-center gap-2.5 py-2 px-3 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50"
-              onClick={() => setIsOpen(false)}
-            >
-              <BookOpen className="h-4 w-4 text-emerald-600" />
-              Interactive Courses &amp; Diplomas
-            </Link>
-            <Link
-              href="/playlists"
-              className="flex items-center gap-2.5 py-2 px-3 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50"
-              onClick={() => setIsOpen(false)}
-            >
-              <Youtube className="h-4 w-4 text-red-500" />
-              YouTube Playlists Hub
-            </Link>
-            <Link
-              href="/dev-score"
-              className="flex items-center gap-2.5 py-2 px-3 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50"
-              onClick={() => setIsOpen(false)}
-            >
-              <Zap className="h-4 w-4 text-amber-500" />
-              Verified Dev Score
-            </Link>
-            <Link
-              href="/transparency"
-              className="flex items-center gap-2.5 py-2 px-3 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50"
-              onClick={() => setIsOpen(false)}
-            >
-              <ShieldCheck className="h-4 w-4 text-teal-600" />
-              Transparency Wall
-            </Link>
-            <Link
-              href="/study-pods"
-              className="flex items-center gap-2.5 py-2 px-3 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50"
-              onClick={() => setIsOpen(false)}
-            >
-              <Users className="h-4 w-4 text-indigo-500" />
-              Study Pods
-            </Link>
+            {/* Primary Links */}
+            <div className="grid grid-cols-2 gap-1 pb-2 border-b border-slate-100">
+              <Link
+                href="/jobs"
+                className="flex items-center gap-2 py-2 px-3 rounded-xl text-xs font-semibold text-slate-700 hover:bg-slate-50"
+                onClick={() => setIsOpen(false)}
+              >
+                <Briefcase className="h-4 w-4 text-slate-400" />
+                Jobs
+              </Link>
+              <Link
+                href="/internships"
+                className="flex items-center gap-2 py-2 px-3 rounded-xl text-xs font-semibold text-slate-700 hover:bg-slate-50"
+                onClick={() => setIsOpen(false)}
+              >
+                <Sparkles className="h-4 w-4 text-amber-500" />
+                Internships
+              </Link>
+              <Link
+                href="/companies"
+                className="flex items-center gap-2 py-2 px-3 rounded-xl text-xs font-semibold text-slate-700 hover:bg-slate-50"
+                onClick={() => setIsOpen(false)}
+              >
+                <Building2 className="h-4 w-4 text-slate-400" />
+                Companies
+              </Link>
+              <Link
+                href="/recommendations"
+                className="flex items-center gap-2 py-2 px-3 rounded-xl text-xs font-semibold text-slate-700 hover:bg-slate-50"
+                onClick={() => setIsOpen(false)}
+              >
+                <Zap className="h-4 w-4 text-emerald-600" />
+                For You
+              </Link>
+            </div>
+
+            {/* Category 1: Coding & Practice */}
+            <div className="pt-2">
+              <div className="text-[10px] font-mono font-bold uppercase tracking-wider text-emerald-700 px-3 py-1 flex items-center gap-1.5">
+                <Code2 className="h-3 w-3" />
+                <span>Coding &amp; Practice</span>
+              </div>
+              <div className="grid grid-cols-1 gap-0.5">
+                <Link
+                  href="/potd"
+                  className="flex items-center justify-between py-1.5 px-3 rounded-xl text-xs font-semibold text-slate-700 hover:bg-slate-50"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <span className="flex items-center gap-2">
+                    <Flame className="h-3.5 w-3.5 text-orange-500" />
+                    Problem of the Day
+                  </span>
+                  <span className="rounded bg-orange-50 text-orange-700 px-1.5 py-0.5 text-[9px] font-mono font-bold">Daily</span>
+                </Link>
+                <Link
+                  href="/problems"
+                  className="flex items-center justify-between py-1.5 px-3 rounded-xl text-xs font-semibold text-slate-700 hover:bg-slate-50"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <span className="flex items-center gap-2">
+                    <BookOpen className="h-3.5 w-3.5 text-emerald-600" />
+                    Problem Catalog &amp; Editor
+                  </span>
+                  <span className="rounded bg-emerald-50 text-emerald-700 px-1.5 py-0.5 text-[9px] font-mono font-bold">Monaco</span>
+                </Link>
+                <Link
+                  href="/study-pods"
+                  className="flex items-center justify-between py-1.5 px-3 rounded-xl text-xs font-semibold text-slate-700 hover:bg-slate-50"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <span className="flex items-center gap-2">
+                    <Users className="h-3.5 w-3.5 text-indigo-500" />
+                    Peer Study Pods
+                  </span>
+                  <span className="rounded bg-indigo-50 text-indigo-700 px-1.5 py-0.5 text-[9px] font-mono font-bold">Cohort Bot</span>
+                </Link>
+                <Link
+                  href="/leaderboard"
+                  className="flex items-center justify-between py-1.5 px-3 rounded-xl text-xs font-semibold text-slate-700 hover:bg-slate-50"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <span className="flex items-center gap-2">
+                    <Flame className="h-3.5 w-3.5 text-amber-500 fill-amber-500" />
+                    Campus Battles &amp; Streaks
+                  </span>
+                  <span className="rounded bg-amber-50 text-amber-700 px-1.5 py-0.5 text-[9px] font-mono font-bold">Colleges</span>
+                </Link>
+              </div>
+            </div>
+
+            {/* Category 2: Resume & Caliber */}
+            <div className="pt-2 border-t border-slate-100">
+              <div className="text-[10px] font-mono font-bold uppercase tracking-wider text-blue-700 px-3 py-1 flex items-center gap-1.5">
+                <FileText className="h-3 w-3" />
+                <span>Resume &amp; Caliber</span>
+              </div>
+              <div className="grid grid-cols-1 gap-0.5">
+                <Link
+                  href="/resume/builder"
+                  className="flex items-center justify-between py-1.5 px-3 rounded-xl text-xs font-semibold text-slate-700 hover:bg-slate-50"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <span className="flex items-center gap-2">
+                    <FileText className="h-3.5 w-3.5 text-blue-600" />
+                    Harvard ATS Resume Builder
+                  </span>
+                  <span className="rounded bg-blue-50 text-blue-700 px-1.5 py-0.5 text-[9px] font-mono font-bold">1-Click</span>
+                </Link>
+                <Link
+                  href="/profile/resume"
+                  className="flex items-center justify-between py-1.5 px-3 rounded-xl text-xs font-semibold text-slate-700 hover:bg-slate-50"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <span className="flex items-center gap-2">
+                    <Sparkles className="h-3.5 w-3.5 text-purple-600" />
+                    AI Resume Auditor &amp; Fixer
+                  </span>
+                  <span className="rounded bg-purple-50 text-purple-700 px-1.5 py-0.5 text-[9px] font-mono font-bold">AI</span>
+                </Link>
+                <Link
+                  href="/dev-score"
+                  className="flex items-center justify-between py-1.5 px-3 rounded-xl text-xs font-semibold text-slate-700 hover:bg-slate-50"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <span className="flex items-center gap-2">
+                    <Zap className="h-3.5 w-3.5 text-amber-500" />
+                    Verified Dev Score &amp; Rank
+                  </span>
+                  <span className="rounded bg-amber-50 text-amber-700 px-1.5 py-0.5 text-[9px] font-mono font-bold">Proof</span>
+                </Link>
+                <Link
+                  href="/transparency"
+                  className="flex items-center justify-between py-1.5 px-3 rounded-xl text-xs font-semibold text-slate-700 hover:bg-slate-50"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <span className="flex items-center gap-2">
+                    <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />
+                    Placement Syndication &amp; Transparency
+                  </span>
+                  <span className="rounded bg-slate-100 text-slate-600 px-1.5 py-0.5 text-[9px] font-mono font-bold">Wall</span>
+                </Link>
+              </div>
+            </div>
+
+            {/* Category 3: Learning & Growth */}
+            <div className="pt-2 border-t border-slate-100">
+              <div className="text-[10px] font-mono font-bold uppercase tracking-wider text-purple-700 px-3 py-1 flex items-center gap-1.5">
+                <Compass className="h-3 w-3" />
+                <span>Learning &amp; Growth</span>
+              </div>
+              <div className="grid grid-cols-1 gap-0.5">
+                <Link
+                  href="/roadmaps"
+                  className="flex items-center justify-between py-1.5 px-3 rounded-xl text-xs font-semibold text-slate-700 hover:bg-slate-50"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <span className="flex items-center gap-2">
+                    <Compass className="h-3.5 w-3.5 text-blue-500" />
+                    Career Roadmaps
+                  </span>
+                  <span className="rounded bg-blue-50 text-blue-700 px-1.5 py-0.5 text-[9px] font-mono font-bold">Free</span>
+                </Link>
+                <Link
+                  href="/canvas"
+                  className="flex items-center justify-between py-1.5 px-3 rounded-xl text-xs font-semibold text-slate-700 hover:bg-slate-50"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <span className="flex items-center gap-2">
+                    <Layers className="h-3.5 w-3.5 text-emerald-500" />
+                    Interactive Canvas
+                  </span>
+                  <span className="rounded bg-emerald-50 text-emerald-700 px-1.5 py-0.5 text-[9px] font-mono font-bold">Visual</span>
+                </Link>
+                <Link
+                  href="/playlists"
+                  className="flex items-center justify-between py-1.5 px-3 rounded-xl text-xs font-semibold text-slate-700 hover:bg-slate-50"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <span className="flex items-center gap-2">
+                    <Youtube className="h-3.5 w-3.5 text-red-500" />
+                    YouTube Playlists Hub
+                  </span>
+                  <span className="rounded bg-red-50 text-red-700 px-1.5 py-0.5 text-[9px] font-mono font-bold">Curated</span>
+                </Link>
+                <Link
+                  href="/courses"
+                  className="flex items-center justify-between py-1.5 px-3 rounded-xl text-xs font-semibold text-slate-700 hover:bg-slate-50"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <span className="flex items-center gap-2">
+                    <Award className="h-3.5 w-3.5 text-amber-500" />
+                    Courses &amp; Diplomas
+                  </span>
+                  <span className="rounded bg-amber-50 text-amber-700 px-1.5 py-0.5 text-[9px] font-mono font-bold">Certs</span>
+                </Link>
+              </div>
+            </div>
 
             <div className="pt-3 border-t border-slate-100 flex flex-col gap-2">
               <Link href={user ? "/employer/jobs/new" : "/employer/login"} onClick={() => setIsOpen(false)}>

@@ -264,7 +264,7 @@ export default function HomePage() {
                   </Button>
                 </Link>
                 <Link href="/register">
-                  <Button variant="outline" className="text-white border-slate-600 hover:bg-slate-800">
+                  <Button className="bg-slate-800 hover:bg-slate-700 text-white border border-slate-600 font-bold shadow-sm">
                     Create Free Profile
                   </Button>
                 </Link>
