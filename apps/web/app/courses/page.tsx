@@ -22,272 +22,13 @@ import {
   Smartphone,
   ChevronRight,
   Bookmark,
+  Award,
+  ShieldCheck,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
-
-interface CoursePlaylist {
-  id: string;
-  title: string;
-  creator: string;
-  creatorSubscribers: string;
-  category: "AI_ML" | "WEB_DEV" | "DSA" | "DEVOPS_CLOUD" | "CYBERSECURITY";
-  subcategory: string;
-  youtubeUrl: string;
-  duration: string;
-  totalVideos: number;
-  difficulty: "Beginner" | "Intermediate" | "Advanced" | "Beginner to Intermediate" | "Beginner to Advanced" | "All Levels";
-  skillsLearned: string[];
-  description: string;
-  recommendedGithubRepos: {
-    name: string;
-    repoUrl: string;
-    stars: string;
-    description: string;
-  }[];
-}
-
-const CURATED_COURSES: CoursePlaylist[] = [
-  // AI & MACHINE LEARNING
-  {
-    id: "karpathy-nn",
-    title: "Neural Networks: Zero to Hero",
-    creator: "Andrej Karpathy",
-    creatorSubscribers: "680K+",
-    category: "AI_ML",
-    subcategory: "Deep Learning & Transformer Architectures",
-    youtubeUrl: "https://www.youtube.com/playlist?list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ",
-    duration: "20+ Hours",
-    totalVideos: 8,
-    difficulty: "Intermediate",
-    skillsLearned: ["Backpropagation", "Micrograd", "Makemore (Language Models)", "GPT from Scratch", "Tokenizer"],
-    description:
-      "World-class, hands-on deep learning lecture series from former Tesla AI Director & OpenAI founding member Andrej Karpathy. Builds GPT-2 completely from raw Python.",
-    recommendedGithubRepos: [
-      {
-        name: "karpathy/nanoGPT",
-        repoUrl: "https://github.com/karpathy/nanoGPT",
-        stars: "34k ⭐",
-        description: "The simplest, fastest repository for training/finetuning medium-sized GPTs in PyTorch.",
-      },
-      {
-        name: "karpathy/micrograd",
-        repoUrl: "https://github.com/karpathy/micrograd",
-        stars: "11k ⭐",
-        description: "A tiny scalar-valued autograd engine with a small PyTorch-like neural net library.",
-      },
-    ],
-  },
-  {
-    id: "krish-genai",
-    title: "Complete Generative AI & LangChain Playlist",
-    creator: "Krish Naik",
-    creatorSubscribers: "1M+",
-    category: "AI_ML",
-    subcategory: "Generative AI & LLMs",
-    youtubeUrl: "https://www.youtube.com/playlist?list=PLZoTAELRMXVORE4VDCg1h34W889kCgnQU",
-    duration: "35+ Hours",
-    totalVideos: 42,
-    difficulty: "Beginner to Intermediate",
-    skillsLearned: ["OpenAI API", "Hugging Face", "LangChain", "Llama 3", "Vector Databases (Chroma/FAISS)", "RAG Systems"],
-    description:
-      "End-to-end practical Generative AI roadmap covering RAG pipelines, agents, fine-tuning open-weights models, and deploying production conversational AI apps.",
-    recommendedGithubRepos: [
-      {
-        name: "langchain-ai/langchain",
-        repoUrl: "https://github.com/langchain-ai/langchain",
-        stars: "96k ⭐",
-        description: "Building applications with LLMs through composability and RAG pipelines.",
-      },
-      {
-        name: "vllm-project/vllm",
-        repoUrl: "https://github.com/vllm-project/vllm",
-        stars: "32k ⭐",
-        description: "A high-throughput and memory-efficient inference and serving engine for LLMs.",
-      },
-    ],
-  },
-  {
-    id: "3b1b-dl",
-    title: "Essence of Neural Networks & Calculus",
-    creator: "3Blue1Brown",
-    creatorSubscribers: "6.2M+",
-    category: "AI_ML",
-    subcategory: "Mathematical Foundations",
-    youtubeUrl: "https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi",
-    duration: "4 Hours",
-    totalVideos: 5,
-    difficulty: "Beginner",
-    skillsLearned: ["Gradient Descent", "Loss Functions", "Matrix Transformations", "Backpropagation Intuition"],
-    description:
-      "The undisputed gold standard visual explanation of neural network mathematics, weights, biases, and high-dimensional loss geometry.",
-    recommendedGithubRepos: [
-      {
-        name: "3b1b/manim",
-        repoUrl: "https://github.com/3b1b/manim",
-        stars: "66k ⭐",
-        description: "Animation engine for explanatory math and machine learning videos.",
-      },
-    ],
-  },
-
-  // FULL-STACK & WEB DEVELOPMENT
-  {
-    id: "hitesh-chai-fullstack",
-    title: "Chai aur Full Stack Next.js & Node.js",
-    creator: "Hitesh Choudhary (Chai aur Code)",
-    creatorSubscribers: "1.2M+",
-    category: "WEB_DEV",
-    subcategory: "Full-Stack React & Next.js",
-    youtubeUrl: "https://www.youtube.com/playlist?list=PLu71SKxNbfoBAaWGtn9GA2PTw0HO0tXzq",
-    duration: "28+ Hours",
-    totalVideos: 30,
-    difficulty: "Beginner to Intermediate",
-    skillsLearned: ["React 19", "Next.js App Router", "Server Actions", "PostgreSQL", "Prisma/Drizzle", "Auth.js"],
-    description:
-      "Production-focused Hindi/Hinglish comprehensive guide to building modern full-stack web applications with authentication, serverless backends, and deployment.",
-    recommendedGithubRepos: [
-      {
-        name: "shadcn/ui",
-        repoUrl: "https://github.com/shadcn/ui",
-        stars: "76k ⭐",
-        description: "Beautifully designed components that you can copy and paste into your apps.",
-      },
-      {
-        name: "drizzle-team/drizzle-orm",
-        repoUrl: "https://github.com/drizzle-team/drizzle-orm",
-        stars: "38k ⭐",
-        description: "TypeScript ORM for SQL databases with maximum performance and zero overhead.",
-      },
-    ],
-  },
-  {
-    id: "traversy-modern-web",
-    title: "Traversy Media Full-Stack Crash Courses",
-    creator: "Traversy Media (Brad Traversy)",
-    creatorSubscribers: "2.2M+",
-    category: "WEB_DEV",
-    subcategory: "Modern Web Foundations & APIs",
-    youtubeUrl: "https://www.youtube.com/c/TraversyMedia/playlists",
-    duration: "40+ Hours",
-    totalVideos: 25,
-    difficulty: "Beginner",
-    skillsLearned: ["Modern JavaScript", "REST APIs", "Node.js", "Express", "Docker for Web Developers"],
-    description:
-      "Crystal-clear, no-nonsense practical project tutorials by veteran educator Brad Traversy. Learn how real backends and frontends glue together.",
-    recommendedGithubRepos: [
-      {
-        name: "goldbergyoni/nodebestpractices",
-        repoUrl: "https://github.com/goldbergyoni/nodebestpractices",
-        stars: "98k ⭐",
-        description: "The largest compilation of Node.js best practices, security guidelines, and architectural rules.",
-      },
-    ],
-  },
-
-  // DATA STRUCTURES & ALGORITHMS (DSA)
-  {
-    id: "striver-a2z-dsa",
-    title: "A2Z DSA Course / Sheet Playlist",
-    creator: "Striver (takeUforward)",
-    creatorSubscribers: "800K+",
-    category: "DSA",
-    subcategory: "Complete Coding Interview Prep",
-    youtubeUrl: "https://www.youtube.com/playlist?list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BHz",
-    duration: "80+ Hours",
-    totalVideos: 120,
-    difficulty: "Beginner to Advanced",
-    skillsLearned: ["Arrays", "Sliding Window", "Trees & Graphs", "Dynamic Programming", "Bit Manipulation", "Recursion"],
-    description:
-      "The #1 coding interview preparation syllabus for Indian and global tech placements (FAANG/MAANG, Unicorns). Step-by-step intuition, brute to optimal approaches.",
-    recommendedGithubRepos: [
-      {
-        name: "kamyu104/LeetCode-Solutions",
-        repoUrl: "https://github.com/kamyu104/LeetCode-Solutions",
-        stars: "45k ⭐",
-        description: "Python and C++ clean optimal solutions to all LeetCode algorithm problems.",
-      },
-      {
-        name: "jwasham/coding-interview-university",
-        repoUrl: "https://github.com/jwasham/coding-interview-university",
-        stars: "310k ⭐",
-        description: "A complete multi-month study plan to become a software engineer for large tech companies.",
-      },
-    ],
-  },
-  {
-    id: "neetcode-blind75",
-    title: "NeetCode Blind 75 / Roadmap Playlist",
-    creator: "NeetCode",
-    creatorSubscribers: "850K+",
-    category: "DSA",
-    subcategory: "Pattern Recognition & LeetCode",
-    youtubeUrl: "https://www.youtube.com/playlist?list=PLot-Xpze53ldVwtstag2TL4HQhAnC8ATf",
-    duration: "30+ Hours",
-    totalVideos: 75,
-    difficulty: "Intermediate",
-    skillsLearned: ["Two Pointers", "Binary Search", "Heap / Priority Queue", "Trie", "Backtracking", "Graph DFS/BFS"],
-    description:
-      "Taught by an ex-Google software engineer. Visual whiteboard code walkthroughs categorizing interview questions by fundamental algorithmic patterns.",
-    recommendedGithubRepos: [
-      {
-        name: "donnemartin/system-design-primer",
-        repoUrl: "https://github.com/donnemartin/system-design-primer",
-        stars: "275k ⭐",
-        description: "Learn how to design large-scale systems and prepare for the system design interview.",
-      },
-    ],
-  },
-
-  // DEVOPS, CLOUD & LINUX
-  {
-    id: "nana-devops-bootcamp",
-    title: "DevOps Full Course & Kubernetes Mastery",
-    creator: "TechWorld with Nana",
-    creatorSubscribers: "1.1M+",
-    category: "DEVOPS_CLOUD",
-    subcategory: "Containers & Orchestration",
-    youtubeUrl: "https://www.youtube.com/playlist?list=PLy7NrLnytVU7YfU7pX9K_n2ZzG_Jq76K_",
-    duration: "24+ Hours",
-    totalVideos: 18,
-    difficulty: "Beginner to Intermediate",
-    skillsLearned: ["Docker", "Kubernetes", "YAML Configs", "CI/CD Pipelines", "Helm Charts", "Prometheus"],
-    description:
-      "Visual, crystal-clear explanation of modern cloud infrastructure. From running your first Docker container to deploying microservices on Kubernetes.",
-    recommendedGithubRepos: [
-      {
-        name: "bregman-arie/devops-exercises",
-        repoUrl: "https://github.com/bregman-arie/devops-exercises",
-        stars: "64k ⭐",
-        description: "Linux, Jenkins, AWS, SRE, Prometheus, Docker, Python, Ansible interview questions and practical tasks.",
-      },
-    ],
-  },
-  {
-    id: "networkchuck-linux",
-    title: "Linux for Hackers & Cloud Engineers",
-    creator: "NetworkChuck",
-    creatorSubscribers: "3.5M+",
-    category: "DEVOPS_CLOUD",
-    subcategory: "Linux CLI & Networking",
-    youtubeUrl: "https://www.youtube.com/playlist?list=PLS1QulWo1RIZqA0q9XQoVb1vG2rB_x6qC",
-    duration: "15+ Hours",
-    totalVideos: 15,
-    difficulty: "Beginner",
-    skillsLearned: ["Bash Scripting", "SSH Keys", "Permissions (chmod/chown)", "Networking (DNS/TCP)", "Firewalls (ufw)"],
-    description:
-      "Energetic, engaging terminal mastery for developers. Learn the core Linux command line skills needed for cloud computing, AWS, and server management.",
-    recommendedGithubRepos: [
-      {
-        name: "awesome-selfhosted/awesome-selfhosted",
-        repoUrl: "https://github.com/awesome-selfhosted/awesome-selfhosted",
-        stars: "215k ⭐",
-        description: "A list of Free Software network services and web applications which can be hosted locally on Linux servers.",
-      },
-    ],
-  },
-];
+import { CURATED_COURSES, CoursePlaylist } from "@/lib/courses-data";
 
 export default function CoursesPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>("ALL");
@@ -315,14 +56,32 @@ export default function CoursesPage() {
         <div className="text-center space-y-3">
           <div className="inline-flex items-center gap-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 px-3.5 py-1 text-xs font-mono font-semibold text-emerald-400">
             <BookOpen className="h-4 w-4" />
-            Curated Free Developer Curricula
+            Curated Free Developer Curricula &amp; Certifications
           </div>
           <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-white">
-            Interactive Courses & Best YouTube Playlists
+            Interactive Courses &amp; Best YouTube Playlists
           </h1>
           <p className="mx-auto max-w-2xl text-sm sm:text-base text-slate-400">
-            Hand-picked video curricula from the world&apos;s best tech educators (Andrej Karpathy, Striver, Hitesh Choudhary, Nana, NeetCode) paired with essential open-source GitHub libraries.
+            Hand-picked video curricula from the world&apos;s best tech educators (Andrej Karpathy, Striver, Hitesh Choudhary, Nana, NeetCode, Angela Yu) paired with open-source GitHub libraries and verified JobMint completion certificates.
           </p>
+
+          {/* CERTIFICATE BANNER */}
+          <div className="mx-auto max-w-3xl rounded-2xl bg-gradient-to-r from-emerald-950/60 via-slate-900 to-amber-950/40 border border-emerald-500/30 p-4 text-xs sm:text-sm text-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-lg">
+            <div className="flex items-center gap-2.5 text-left">
+              <Award className="h-6 w-6 text-amber-400 shrink-0" />
+              <div>
+                <span className="font-bold text-white">Earn JobMint Verified Completion Certificates</span>
+                <p className="text-[11px] text-slate-400">
+                  Every course includes a cryptographic Proof-of-Work certificate with 1-click LinkedIn profile sharing and DPDP Act compliance.
+                </p>
+              </div>
+            </div>
+            <Link href="/certificates" className="shrink-0">
+              <Button size="sm" variant="outline" className="border-emerald-500/40 text-emerald-300 hover:bg-emerald-950/40 text-xs rounded-xl">
+                View All Certificates
+              </Button>
+            </Link>
+          </div>
         </div>
 
         {/* TABS & SEARCH BAR */}
@@ -343,7 +102,7 @@ export default function CoursesPage() {
                 selectedCategory === "AI_ML" ? "bg-emerald-600 text-white" : "text-slate-400 hover:text-slate-200"
               }`}
             >
-              🤖 AI & GenAI
+              🤖 AI &amp; GenAI
             </button>
 
             <button
@@ -361,7 +120,7 @@ export default function CoursesPage() {
                 selectedCategory === "DSA" ? "bg-purple-600 text-white" : "text-slate-400 hover:text-slate-200"
               }`}
             >
-              ⚡ DSA & LeetCode
+              ⚡ DSA &amp; LeetCode
             </button>
 
             <button
@@ -370,7 +129,16 @@ export default function CoursesPage() {
                 selectedCategory === "DEVOPS_CLOUD" ? "bg-cyan-600 text-white" : "text-slate-400 hover:text-slate-200"
               }`}
             >
-              ☁️ Cloud & DevOps
+              ☁️ Cloud &amp; DevOps
+            </button>
+
+            <button
+              onClick={() => setSelectedCategory("PYTHON_DATA")}
+              className={`rounded-lg px-3.5 py-1.5 text-xs font-bold transition-all ${
+                selectedCategory === "PYTHON_DATA" ? "bg-amber-600 text-white" : "text-slate-400 hover:text-slate-200"
+              }`}
+            >
+              🐍 Python &amp; Data
             </button>
           </div>
 
@@ -461,6 +229,19 @@ export default function CoursesPage() {
                   </div>
                 </div>
 
+                {/* CERTIFICATE BADGE PROMPT */}
+                <div className="rounded-xl border border-amber-500/20 bg-amber-950/20 p-2.5 flex items-center justify-between gap-2 text-xs">
+                  <div className="flex items-center gap-2">
+                    <Award className="h-4 w-4 text-amber-400 shrink-0" />
+                    <span className="text-[11px] text-slate-300">
+                      Earn: <strong className="text-amber-300">{course.certificateTitle}</strong>
+                    </span>
+                  </div>
+                  <span className="text-[10px] font-mono text-emerald-400 font-semibold shrink-0">
+                    Free Certificate
+                  </span>
+                </div>
+
                 {/* RECOMMENDED GITHUB LIBRARIES */}
                 {course.recommendedGithubRepos.length > 0 && (
                   <div className="rounded-xl border border-slate-800 bg-slate-950/80 p-3 space-y-2">
@@ -498,26 +279,33 @@ export default function CoursesPage() {
                 )}
 
                 {/* ACTIONS */}
-                <div className="pt-2 border-t border-slate-800 flex items-center justify-between">
+                <div className="pt-3 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-2">
                   <Link
-                    href={`/roadmaps`}
-                    className="text-xs text-slate-400 hover:text-white flex items-center gap-1"
+                    href={`/courses/${course.id}/certificate`}
+                    className="w-full sm:w-auto"
                   >
-                    <span>View Full Career Roadmap</span>
-                    <ChevronRight className="h-3.5 w-3.5" />
+                    <Button
+                      size="sm"
+                      className="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs gap-1.5 rounded-xl shadow-md"
+                    >
+                      <Award className="h-3.5 w-3.5 text-white" />
+                      <span>🎓 Claim Completion Certificate</span>
+                    </Button>
                   </Link>
 
                   <a
                     href={course.youtubeUrl}
                     target="_blank"
                     rel="noreferrer"
+                    className="w-full sm:w-auto"
                   >
                     <Button
                       size="sm"
-                      className="bg-red-600 hover:bg-red-500 text-white font-bold text-xs gap-1.5 rounded-xl shadow-md"
+                      variant="outline"
+                      className="w-full sm:w-auto border-slate-700 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs gap-1.5 rounded-xl"
                     >
-                      <Play className="h-3 w-3 fill-current" />
-                      <span>Start Playlist on YouTube</span>
+                      <Play className="h-3 w-3 fill-current text-red-500" />
+                      <span>Watch Series</span>
                       <ExternalLink className="h-3 w-3" />
                     </Button>
                   </a>

@@ -3,6 +3,7 @@ import "./globals.css";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { PwaInstallPrompt } from "@/components/pwa-install-prompt";
+import { DPDPConsentManager } from "@/components/dpdp-consent-manager";
 import { APP_CONFIG } from "@repo/shared";
 
 export const viewport: Viewport = {
@@ -33,6 +34,7 @@ export default function RootLayout({
         <main className="flex-1">{children}</main>
         <Footer />
         <PwaInstallPrompt />
+        <DPDPConsentManager />
       </body>
     </html>
   );

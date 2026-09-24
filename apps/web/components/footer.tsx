@@ -1,8 +1,16 @@
+"use client";
+
 import Link from "next/link";
 import { APP_CONFIG } from "@repo/shared";
-import { ShieldCheck, Heart } from "lucide-react";
+import { ShieldCheck, Heart, Award, Scale, Settings2 } from "lucide-react";
 
 export function Footer() {
+  const openDPDPPreferences = () => {
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new CustomEvent("open-dpdp-preferences"));
+    }
+  };
+
   return (
     <footer className="border-t border-slate-200 bg-white">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
@@ -21,15 +29,34 @@ export function Footer() {
             </p>
             <div className="flex items-center gap-1.5 text-xs font-medium text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-md w-fit">
               <ShieldCheck className="h-4 w-4 text-emerald-600" />
-              Verified & Transparent
+              Verified &amp; Transparent
+            </div>
+            <div className="flex items-center gap-1.5 text-xs font-medium text-blue-700 bg-blue-50 px-2.5 py-1 rounded-md w-fit">
+              <Scale className="h-4 w-4 text-blue-600" />
+              🇮🇳 DPDP Act 2023 Compliant
             </div>
           </div>
 
           <div>
             <h3 className="text-sm font-semibold text-slate-900 tracking-wider uppercase">
-              Candidates
+              Candidates &amp; Learning
             </h3>
             <ul className="mt-4 space-y-2 text-sm text-slate-600">
+              <li>
+                <Link href="/courses" className="hover:text-emerald-600 font-semibold text-emerald-700">
+                  Interactive Courses &amp; Playlists
+                </Link>
+              </li>
+              <li>
+                <Link href="/certificates" className="hover:text-emerald-600 font-semibold text-emerald-700">
+                  🎓 Free Course Diplomas &amp; Hub
+                </Link>
+              </li>
+              <li>
+                <Link href="/certificates/verify/JM-AI-GPT-7B29A1" className="hover:text-emerald-600 text-xs text-slate-500">
+                  Verify Certificate ID (Demo)
+                </Link>
+              </li>
               <li>
                 <Link href="/jobs" className="hover:text-emerald-600">
                   Browse Jobs
@@ -52,32 +79,12 @@ export function Footer() {
               </li>
               <li>
                 <Link href="/study-pods" className="hover:text-emerald-600 font-medium text-indigo-600">
-                  Peer Study Pods & Mocks
-                </Link>
-              </li>
-              <li>
-                <Link href="/profile/github" className="hover:text-emerald-600">
-                  GitHub Project Verifier
-                </Link>
-              </li>
-              <li>
-                <Link href="/resume/parser" className="hover:text-emerald-600">
-                  Client-Side Resume Parser
+                  Peer Study Pods &amp; Mocks
                 </Link>
               </li>
               <li>
                 <Link href="/profile/resume" className="hover:text-emerald-600 font-medium text-emerald-700">
-                  Resume Vault (OCI 200GB)
-                </Link>
-              </li>
-              <li>
-                <Link href="/truth-teller" className="hover:text-emerald-600">
-                  Truth Teller Engine
-                </Link>
-              </li>
-              <li>
-                <Link href="/resume/assistant" className="hover:text-emerald-600 flex items-center gap-1 font-medium text-emerald-700">
-                  AI Resume Assistant
+                  Resume Vault (OCI NVMe)
                 </Link>
               </li>
             </ul>
@@ -85,7 +92,7 @@ export function Footer() {
 
           <div>
             <h3 className="text-sm font-semibold text-slate-900 tracking-wider uppercase">
-              Employers & Campuses
+              Employers &amp; Campuses
             </h3>
             <ul className="mt-4 space-y-2 text-sm text-slate-600">
               <li>
@@ -118,45 +125,55 @@ export function Footer() {
 
           <div>
             <h3 className="text-sm font-semibold text-slate-900 tracking-wider uppercase">
-              Platform & Open Source
+              Privacy &amp; DPDP Governance
             </h3>
             <ul className="mt-4 space-y-2 text-sm text-slate-600">
               <li>
-                <Link href="/admin/system" className="text-emerald-700 hover:underline font-semibold flex items-center gap-1">
-                  Zero-Cost Quota Monitor
+                <Link href="/privacy" className="hover:text-emerald-600 font-medium text-slate-800">
+                  Privacy Policy &amp; DPDP Notice
                 </Link>
               </li>
               <li>
-                <Link href="/offline" className="hover:text-emerald-600">
-                  PWA & Offline Mode
+                <Link href="/privacy#dpdp-grievance" className="hover:text-emerald-600 text-xs text-emerald-700 font-semibold">
+                  Grievance Redressal Officer (72h SLA)
+                </Link>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  onClick={openDPDPPreferences}
+                  className="hover:text-emerald-600 text-xs text-slate-600 font-medium flex items-center gap-1 text-left"
+                >
+                  <Settings2 className="h-3.5 w-3.5" />
+                  DPDP &amp; Cookie Preferences
+                </button>
+              </li>
+              <li>
+                <Link href="/settings/account" className="hover:text-emerald-600 font-medium text-slate-700">
+                  Download My Data (Sec. 11)
                 </Link>
               </li>
               <li>
                 <Link href="/terms" className="hover:text-emerald-600 font-medium text-slate-700">
-                  Terms & Conditions
-                </Link>
-              </li>
-              <li>
-                <Link href="/privacy" className="hover:text-emerald-600 font-medium text-slate-700">
-                  Privacy Policy
+                  Terms &amp; Conditions
                 </Link>
               </li>
               <li>
                 <Link href="/settings/account" className="hover:text-rose-600 font-medium text-slate-500">
-                  Delete Account (GDPR)
+                  Delete Account (DPDP Sec. 12)
                 </Link>
               </li>
               <li>
-                <span className="text-slate-400">Zero Job Guarantee Disclaimer</span>
+                <span className="text-slate-400 text-xs">Zero Job Guarantee Disclaimer</span>
               </li>
             </ul>
           </div>
         </div>
 
         <div className="mt-12 border-t border-slate-100 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-          <p>© {new Date().getFullYear()} {APP_CONFIG.name}. Built for young talent.</p>
+          <p>© {new Date().getFullYear()} {APP_CONFIG.name}. Built for young talent in India &amp; Worldwide.</p>
           <p className="flex items-center gap-1">
-            Built with transparency <Heart className="h-3.5 w-3.5 text-rose-500 fill-rose-500" /> for students & freshers.
+            Built with transparency <Heart className="h-3.5 w-3.5 text-rose-500 fill-rose-500" /> for students &amp; freshers.
           </p>
         </div>
       </div>

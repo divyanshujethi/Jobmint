@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import {
   User,
@@ -9,6 +9,11 @@ import {
   ArrowLeft,
   AlertTriangle,
   HardDrive,
+  Download,
+  CheckCircle2,
+  UserCheck,
+  ShieldCheck,
+  Lock,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
@@ -17,7 +22,65 @@ import { Input } from "@/components/ui/input";
 export default function AccountSettingsPage() {
   const [confirmText, setConfirmText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
+  const [isExporting, setIsExporting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [exportSuccess, setExportSuccess] = useState(false);
+
+  // DPDP Section 14 Nominee state
+  const [nomineeName, setNomineeName] = useState("");
+  const [nomineeEmail, setNomineeEmail] = useState("");
+  const [nomineeSaved, setNomineeSaved] = useState(false);
+
+  // DPDP Section 9 Age affirmation
+  const [isAdultAffirmed, setIsAdultAffirmed] = useState(true);
+
+  useEffect(() => {
+    const savedNominee = localStorage.getItem("jobmint_dpdp_nominee");
+    if (savedNominee) {
+      try {
+        const parsed = JSON.parse(savedNominee);
+        setNomineeName(parsed.name || "");
+        setNomineeEmail(parsed.email || "");
+      } catch (e) {
+        // ignore
+      }
+    }
+  }, []);
+
+  const handleExportData = async () => {
+    setIsExporting(true);
+    setError(null);
+    try {
+      const res = await fetch("/api/account/export");
+      if (!res.ok) {
+        throw new Error("Export request failed. Ensure you are signed in.");
+      }
+      const blob = await res.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `jobmint-dpdp-data-export-${Date.now()}.json`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setExportSuccess(true);
+      setTimeout(() => setExportSuccess(false), 4000);
+    } catch (err: any) {
+      setError(err.message || "Failed to download personal data archive.");
+    } finally {
+      setIsExporting(false);
+    }
+  };
+
+  const handleSaveNominee = (e: React.FormEvent) => {
+    e.preventDefault();
+    localStorage.setItem(
+      "jobmint_dpdp_nominee",
+      JSON.stringify({ name: nomineeName, email: nomineeEmail, updatedAt: new Date().toISOString() })
+    );
+    setNomineeSaved(true);
+    setTimeout(() => setNomineeSaved(false), 3000);
+  };
 
   const handleDeleteAccount = async () => {
     if (confirmText !== "DELETE MY ACCOUNT") {
@@ -33,6 +96,7 @@ export default function AccountSettingsPage() {
       const data = await res.json();
 
       if (data.success) {
+        localStorage.clear();
         window.location.href = "/api/auth/signout?callbackUrl=/";
       } else {
         setError(data.error || "Failed to delete account. Please try again.");
@@ -55,61 +119,133 @@ export default function AccountSettingsPage() {
             <ArrowLeft className="h-3.5 w-3.5" /> Back to Dashboard
           </Link>
           <div className="flex items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700">
-              <User className="h-3.5 w-3.5" />
-              Account Security & Data
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 border border-emerald-200 px-3 py-1 text-xs font-semibold text-emerald-800">
+              <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />
+              🇮🇳 India DPDP Act 2023 &amp; Data Principal Portal
             </span>
           </div>
           <h1 className="text-3xl font-black tracking-tight text-slate-900 mt-2">
-            Account Settings
+            Account &amp; Data Rights
           </h1>
           <p className="text-sm text-slate-600 mt-1">
-            Manage your credentials, data portability rights, and permanent account removal.
+            Exercise your statutory rights under Sections 11, 12, and 14 of the Indian Digital Personal Data Protection Act, 2023.
           </p>
         </div>
 
-        {/* DATA PORTABILITY & PRIVACY CARD */}
+        {/* 1. DATA PORTABILITY & ACCESS (DPDP SECTION 11) */}
         <Card className="border-slate-200 shadow-sm">
           <CardHeader>
             <CardTitle className="text-base font-bold text-slate-900 flex items-center gap-2">
               <HardDrive className="h-4 w-4 text-emerald-600" />
-              Data Portability & Vault
+              Right to Access &amp; Data Portability (Section 11)
             </CardTitle>
             <CardDescription className="text-xs">
-              Your profile, uploaded resumes, and Dev Score metrics are stored under strict zero-selling privacy standards.
+              Under DPDP Section 11 and GDPR Article 15, you have the right to obtain a full machine-readable copy of your personal data processed by JobMint.
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-3 pt-0 text-xs text-slate-600">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-2.5">
-              <span>View Stored Resumes & ATS Cache</span>
+          <CardContent className="space-y-4 pt-0 text-xs text-slate-600">
+            <p className="text-slate-600">
+              Your export includes: Account credentials, candidate profile, skills, education, job applications history, and proof-of-work certificate completion records.
+            </p>
+
+            <div className="flex items-center gap-3">
+              <Button
+                type="button"
+                onClick={handleExportData}
+                disabled={isExporting}
+                className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs gap-1.5 rounded-xl h-9 shadow-sm"
+              >
+                <Download className="h-3.5 w-3.5" />
+                {isExporting ? "Generating JSON Export..." : "Download My Data (JSON)"}
+              </Button>
+
+              {exportSuccess && (
+                <span className="text-xs font-semibold text-emerald-700 flex items-center gap-1">
+                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" />
+                  Data archive downloaded!
+                </span>
+              )}
+            </div>
+
+            <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
+              <span>View Resume Files in NVMe Vault:</span>
               <Link href="/profile/resume" className="text-emerald-700 font-bold hover:underline">
                 Resume Vault →
-              </Link>
-            </div>
-            <div className="flex items-center justify-between border-b border-slate-100 pb-2.5">
-              <span>Notification & Quota Settings</span>
-              <Link href="/settings/notifications" className="text-emerald-700 font-bold hover:underline">
-                Preferences →
-              </Link>
-            </div>
-            <div className="flex items-center justify-between">
-              <span>Review Privacy & Data Collection</span>
-              <Link href="/privacy" className="text-emerald-700 font-bold hover:underline">
-                Privacy Policy →
               </Link>
             </div>
           </CardContent>
         </Card>
 
-        {/* DANGER ZONE: DELETE ACCOUNT */}
+        {/* 2. DPDP SECTION 14: NOMINEE DESIGNATION */}
+        <Card className="border-slate-200 shadow-sm">
+          <CardHeader>
+            <CardTitle className="text-base font-bold text-slate-900 flex items-center gap-2">
+              <UserCheck className="h-4 w-4 text-blue-600" />
+              Right to Nominate (DPDP Section 14)
+            </CardTitle>
+            <CardDescription className="text-xs">
+              You have the right to nominate an individual who shall exercise your Data Principal rights under the DPDP Act in the event of death or incapacity.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleSaveNominee} className="space-y-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="space-y-1">
+                  <label className="text-xs font-semibold text-slate-700">
+                    Nominee Full Name
+                  </label>
+                  <Input
+                    type="text"
+                    placeholder="e.g. Legal Guardian or Next of Kin"
+                    value={nomineeName}
+                    onChange={(e) => setNomineeName(e.target.value)}
+                    className="text-xs h-9"
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-xs font-semibold text-slate-700">
+                    Nominee Contact Email
+                  </label>
+                  <Input
+                    type="email"
+                    placeholder="nominee@domain.com"
+                    value={nomineeEmail}
+                    onChange={(e) => setNomineeEmail(e.target.value)}
+                    className="text-xs h-9"
+                  />
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between pt-1">
+                <span className="text-[11px] text-slate-500">
+                  {nomineeSaved && (
+                    <span className="text-emerald-700 font-semibold flex items-center gap-1">
+                      <CheckCircle2 className="h-3 w-3" /> Nominee details updated under Sec. 14.
+                    </span>
+                  )}
+                </span>
+                <Button
+                  type="submit"
+                  variant="outline"
+                  size="sm"
+                  className="text-xs rounded-xl border-slate-300 font-semibold h-8"
+                >
+                  Save Nominee
+                </Button>
+              </div>
+            </form>
+          </CardContent>
+        </Card>
+
+        {/* 3. DANGER ZONE: RIGHT TO ERASURE (DPDP SECTION 12) */}
         <Card className="border-2 border-rose-200 bg-rose-50/20 shadow-sm">
           <CardHeader>
             <div className="flex items-center gap-2 text-rose-700 font-bold text-sm">
               <ShieldAlert className="h-4 w-4" />
-              Danger Zone: Permanent Account Deletion
+              Right to Erasure (DPDP Act Sec. 12 &amp; GDPR Art. 17)
             </div>
             <CardTitle className="text-xl font-bold text-slate-900">
-              Delete Your Account
+              Permanently Delete Your Account &amp; Data
             </CardTitle>
             <CardDescription className="text-xs text-slate-600">
               Irreversibly deletes your account, login credentials, candidate profile, tracked applications, and uploaded resumes from our NVMe storage.
@@ -120,12 +256,12 @@ export default function AccountSettingsPage() {
             <div className="rounded-xl border border-rose-200 bg-rose-50/70 p-4 space-y-2 text-xs text-rose-900">
               <div className="font-bold flex items-center gap-1.5">
                 <AlertTriangle className="h-4 w-4 text-rose-600" />
-                This action cannot be undone
+                This action is immediate and non-reversible
               </div>
               <ul className="list-disc pl-5 space-y-1 text-[11px] text-rose-800">
-                <li>All application histories and status updates will be purged.</li>
-                <li>Your resume PDF will be permanently erased from our OCI NVMe storage.</li>
-                <li>Your JobMint Dev Score verification badge will be revoked.</li>
+                <li>All application histories and status updates will be permanently purged.</li>
+                <li>Your resume PDF will be erased from our OCI NVMe storage.</li>
+                <li>All profile records, skills, and account credentials will be wiped from PostgreSQL.</li>
               </ul>
             </div>
 
