@@ -6,7 +6,7 @@ export async function GET() {
   try {
     const session = await auth();
 
-    // Query DB
+    // Query DB applications
     const dbApps = await db
       .select({
         id: applications.id,
@@ -33,12 +33,46 @@ export async function GET() {
       .innerJoin(companies, eq(jobs.companyId, companies.id))
       .orderBy(desc(applications.appliedAt));
 
+    // Fetch application events for Truth Teller timeline
+    const allEvents = await db.select().from(applicationEvents);
+    const eventsMap = new Map<string, any[]>();
+    for (const ev of allEvents) {
+      if (!eventsMap.has(ev.applicationId)) {
+        eventsMap.set(ev.applicationId, []);
+      }
+      eventsMap.get(ev.applicationId)!.push({
+        id: ev.id,
+        eventType: ev.eventType,
+        displayDate: new Date(ev.createdAt).toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+        }),
+        note: ev.note,
+      });
+    }
+
     const now = Date.now();
     const formatted = dbApps.map((app) => {
       const daysSinceApplied = Math.floor(
         (now - new Date(app.appliedAt).getTime()) / (1000 * 60 * 60 * 24)
       );
       const isGhosted = !app.lastViewedAt && daysSinceApplied >= 7;
+
+      const appEvents = eventsMap.get(app.id) || [
+        {
+          id: `ev-${app.id}-applied`,
+          eventType: "APPLIED",
+          displayDate: new Date(app.appliedAt).toLocaleDateString("en-US", {
+            month: "short",
+            day: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+          }),
+          note: "Application submitted and received with Truth Teller telemetry active.",
+        },
+      ];
 
       return {
         id: app.id,
@@ -66,8 +100,10 @@ export async function GET() {
             })
           : null,
         daysSinceApplied,
+        appliedDaysAgo: daysSinceApplied,
         isGhosted,
         ghostingThresholdDays: 7,
+        events: appEvents,
       };
     });
 

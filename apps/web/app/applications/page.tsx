@@ -201,7 +201,7 @@ export default function ApplicationsTrackerPage() {
                 Verifiable Activity Timeline
               </div>
               <div className="space-y-2.5 text-xs text-slate-700">
-                {app.events.map((event) => (
+                {(app.events || []).map((event) => (
                   <div key={event.id} className="flex items-start gap-2.5">
                     <div className="mt-0.5">
                       {event.eventType === ApplicationStatus.SHORTLISTED ? (
@@ -238,7 +238,7 @@ export default function ApplicationsTrackerPage() {
                   Truth Teller Inactivity Notice
                 </div>
                 <p className="text-slate-700 leading-relaxed">
-                  You applied <strong>{app.appliedDaysAgo} days ago</strong>. The employer has not viewed your application on JobMint yet. Their typical first review window is 2–3 days.
+                  You applied <strong>{app.appliedDaysAgo ?? 0} days ago</strong>. The employer has not viewed your application on JobMint yet. Their typical first review window is 2–3 days.
                 </p>
                 <div className="pt-1 flex items-center justify-between">
                   <span className="font-bold text-slate-900">
