@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
 import {
@@ -54,9 +54,9 @@ interface AITelemetry {
   latencyMs: number;
 }
 
-const SAMPLE_RESUME_TEXT = `Divyanshu Sharma
-Email: divyanshu.dev@gmail.com | Phone: +91 9876543210
-GitHub: https://github.com/divyanshu-dev | LinkedIn: https://linkedin.com/in/divyanshu-sharma
+const SAMPLE_RESUME_TEXT = `John Doe
+Email: john.doe@example.com | Phone: +1 555-019-2834
+GitHub: https://github.com/johndoe | LinkedIn: https://linkedin.com/in/johndoe
 
 EDUCATION
 B.Tech in Computer Science & Engineering (2022 - 2026)
