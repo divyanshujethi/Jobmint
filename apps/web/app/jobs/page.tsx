@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Search, MapPin, Filter, Briefcase, Sparkles, X } from "lucide-react";
 import { MOCK_JOBS, MockJob } from "@/lib/mock-jobs";
 import { JobCard } from "@/components/job-card";
@@ -12,9 +12,21 @@ export default function JobsPage() {
   const [selectedType, setSelectedType] = useState<string>("ALL");
   const [selectedMode, setSelectedMode] = useState<string>("ALL");
   const [onlyVerified, setOnlyVerified] = useState(false);
+  const [jobs, setJobs] = useState<MockJob[]>(MOCK_JOBS);
+
+  useEffect(() => {
+    fetch("/api/jobs")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.jobs && data.jobs.length > 0) {
+          setJobs(data.jobs);
+        }
+      })
+      .catch((err) => console.error("Error loading live jobs:", err));
+  }, []);
 
   const filteredJobs = useMemo(() => {
-    return MOCK_JOBS.filter((job) => {
+    return jobs.filter((job) => {
       // Search term
       if (searchTerm) {
         const query = searchTerm.toLowerCase();
@@ -92,7 +104,7 @@ export default function JobsPage() {
                 : "bg-white border border-slate-200 text-slate-700 hover:bg-slate-50"
             }`}
           >
-            All Opportunities ({MOCK_JOBS.length})
+            All Opportunities ({jobs.length})
           </button>
           <button
             onClick={() => setSelectedType(JobType.INTERNSHIP)}

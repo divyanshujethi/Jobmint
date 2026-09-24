@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import {
   Bell,
@@ -21,6 +21,17 @@ export function NotificationBell() {
     INITIAL_NOTIFICATIONS
   );
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    fetch("/api/notifications")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.notifications && data.notifications.length > 0) {
+          setNotifications(data.notifications);
+        }
+      })
+      .catch((err) => console.error("Error in bell:", err));
+  }, []);
 
   const unreadCount = notifications.filter((n) => !n.isRead).length;
 

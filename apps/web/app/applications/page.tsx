@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import {
   INITIAL_CANDIDATE_APPLICATIONS,
@@ -26,6 +26,17 @@ export default function ApplicationsTrackerPage() {
     INITIAL_CANDIDATE_APPLICATIONS
   );
   const [activeFilter, setActiveFilter] = useState<string>("ALL");
+
+  useEffect(() => {
+    fetch("/api/applications")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.applications && data.applications.length > 0) {
+          setApplications(data.applications);
+        }
+      })
+      .catch((err) => console.error("Error loading live applications:", err));
+  }, []);
 
   const total = applications.length;
   const viewed = applications.filter(

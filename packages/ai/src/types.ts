@@ -2,7 +2,8 @@ export type AITask =
   | "IMPROVE_RESUME_BULLET"
   | "INTERVIEW_PREP_QUESTIONS"
   | "EXPLAIN_MISSING_SKILLS"
-  | "JOB_DESCRIPTION_IMPROVE";
+  | "JOB_DESCRIPTION_IMPROVE"
+  | "ANALYZE_FULL_RESUME";
 
 export type AIProviderName =
   | "webgpu"

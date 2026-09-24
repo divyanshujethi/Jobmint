@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import {
   INITIAL_NOTIFICATIONS,
@@ -25,6 +25,17 @@ export default function NotificationsCenterPage() {
     INITIAL_NOTIFICATIONS
   );
   const [filter, setFilter] = useState<string>("ALL");
+
+  useEffect(() => {
+    fetch("/api/notifications")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.notifications && data.notifications.length > 0) {
+          setNotifications(data.notifications);
+        }
+      })
+      .catch((err) => console.error("Error loading live notifications:", err));
+  }, []);
 
   const unreadCount = notifications.filter((n) => !n.isRead).length;
 

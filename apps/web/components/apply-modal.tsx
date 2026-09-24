@@ -1,18 +1,18 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import {
   X,
   UploadCloud,
   FileText,
   CheckCircle2,
-  AlertCircle,
-  ArrowRight,
+  Sparkles,
   ShieldCheck,
+  ArrowRight,
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
+import { useRouter } from "next/navigation";
 
 interface ApplyModalProps {
   jobId: string;
@@ -31,17 +31,15 @@ export function ApplyModal({
 }: ApplyModalProps) {
   const router = useRouter();
   const [file, setFile] = useState<File | null>(null);
-  const [email, setEmail] = useState("student@college.edu");
-  const [phone, setPhone] = useState("+91 98765 43210");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [coverNote, setCoverNote] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [uploadedResume, setUploadedResume] = useState<{
-    key: string;
     filename: string;
-    sizeBytes: number;
     sha256Hash: string;
-    url: string;
+    sizeBytes: number;
     isDuplicate: boolean;
   } | null>(null);
 
@@ -77,7 +75,7 @@ export function ApplyModal({
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!file && !uploadedResume) {
       alert("Please upload your resume (PDF)");
@@ -85,10 +83,30 @@ export function ApplyModal({
     }
 
     setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      const res = await fetch("/api/applications", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          jobId,
+          resumeUrl: uploadedResume
+            ? `/api/resumes/stream?token=${uploadedResume.sha256Hash}`
+            : "/uploads/resumes/default.pdf",
+          email,
+          phone,
+          coverNote,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to submit application");
+      }
       setIsSuccess(true);
-    }, 600);
+    } catch (err: any) {
+      alert(err.message || "Failed to submit application");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -112,7 +130,7 @@ export function ApplyModal({
                 Application Submitted!
               </h3>
               <p className="mt-1 text-xs text-slate-600 max-w-sm mx-auto">
-                Your application for <strong>{jobTitle}</strong> at <strong>{companyName}</strong> has been logged with verifiable Truth Teller telemetry.
+                Your application for <strong>{jobTitle}</strong> at <strong>{companyName}</strong> has been logged in PostgreSQL with verifiable Truth Teller telemetry.
               </p>
             </div>
 
@@ -121,7 +139,7 @@ export function ApplyModal({
                 <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" /> Truth Teller Active:
               </span>
               <p className="text-[11px] text-emerald-800">
-                You will receive an in-app alert the instant the recruiter views your resume. If not viewed in 7 days, we will automatically notify you.
+                You will receive an in-app alert the instant the recruiter views your resume. If not viewed in 7 days, our Truth Teller will automatically alert you to apply to alternative active roles.
               </p>
             </div>
 
@@ -204,6 +222,7 @@ export function ApplyModal({
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  placeholder="your.email@gmail.com"
                   required
                 />
               </div>
@@ -213,6 +232,7 @@ export function ApplyModal({
                   type="tel"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
+                  placeholder="+91 9876543210"
                   required
                 />
               </div>
