@@ -67,6 +67,7 @@ export async function GET(req: NextRequest) {
           totalXp: userStreaks.totalXp,
           unlockedBadges: userStreaks.unlockedBadges,
           lastCheckInDate: userStreaks.lastCheckInDate,
+          collegeName: candidateProfiles.collegeName,
           githubUrl: candidateProfiles.githubUrl,
         })
         .from(users)
@@ -229,12 +230,68 @@ export async function GET(req: NextRequest) {
       ];
     }
 
+    
+    // 4. Real College Aggregation for Campus Battles
+    const collegeMap = new Map<string, {
+      collegeName: string;
+      buildersCount: number;
+      totalStreakDays: number;
+      totalXp: number;
+      devScores: number[];
+      topBuilder: { name: string; avatarUrl: string; streak: number };
+    }>();
+
+    for (const u of dbUsers) {
+      const cName = u.collegeName || "Independent Builders";
+      if (!collegeMap.has(cName)) {
+        collegeMap.set(cName, {
+          collegeName: cName,
+          buildersCount: 0,
+          totalStreakDays: 0,
+          totalXp: 0,
+          devScores: [],
+          topBuilder: {
+            name: u.name || "Student",
+            avatarUrl: u.image || "https://api.dicebear.com/7.x/bottts/svg?seed=" + encodeURIComponent(u.id),
+            streak: u.currentStreak || 0,
+          },
+        });
+      }
+      const entry = collegeMap.get(cName)!;
+      entry.buildersCount += 1;
+      entry.totalStreakDays += (u.currentStreak || 0);
+      entry.totalXp += (u.totalXp || 0);
+      const score = u.totalXp ? Math.min(990, 500 + Math.round(u.totalXp * 0.8)) : 650;
+      entry.devScores.push(score);
+      if ((u.currentStreak || 0) > entry.topBuilder.streak) {
+        entry.topBuilder = {
+          name: u.name || "Student",
+          avatarUrl: u.image || "https://api.dicebear.com/7.x/bottts/svg?seed=" + encodeURIComponent(u.id),
+          streak: u.currentStreak || 0,
+        };
+      }
+    }
+
+    const collegeRankings = Array.from(collegeMap.values())
+      .map((c) => ({
+        rank: 0,
+        collegeName: c.collegeName,
+        buildersCount: c.buildersCount,
+        totalStreakDays: c.totalStreakDays,
+        totalXp: c.totalXp,
+        avgDevScore: Math.round(c.devScores.reduce((a, b) => a + b, 0) / (c.devScores.length || 1)),
+        topBuilder: c.topBuilder,
+      }))
+      .sort((a, b) => b.totalStreakDays - a.totalStreakDays || b.totalXp - a.totalXp)
+      .map((c, idx) => ({ ...c, rank: idx + 1 }));
+
     return NextResponse.json({
       leaders,
       trendingRepos,
       candidateProjects: candidateProjectsList,
       totalBuildersActiveToday,
       activeStreaksCount,
+      collegeRankings,
       source: "LIVE_DATABASE_AND_GITHUB_API",
     });
   } catch (error: any) {

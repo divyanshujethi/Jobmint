@@ -29,6 +29,10 @@ import {
   HelpCircle,
   Code2,
   Laptop,
+  GraduationCap,
+  Building2,
+  School,
+  FileText,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
@@ -46,6 +50,20 @@ interface StreakLeader {
   badgesCount: number;
   recentBadge: string;
   isCurrentUser?: boolean;
+}
+
+interface CollegeRanking {
+  rank: number;
+  collegeName: string;
+  buildersCount: number;
+  totalStreakDays: number;
+  totalXp: number;
+  avgDevScore: number;
+  topBuilder: {
+    name: string;
+    avatarUrl: string;
+    streak: number;
+  };
 }
 
 interface TrendingRepository {
@@ -85,12 +103,31 @@ interface BadgeInfo {
   tier: "BRONZE" | "SILVER" | "GOLD" | "PLATINUM";
 }
 
+const POPULAR_COLLEGES = [
+  "Delhi Technological University (DTU)",
+  "IIT Bombay",
+  "IIT Delhi",
+  "BITS Pilani",
+  "NIT Trichy",
+  "NSUT Delhi",
+  "VIT Vellore",
+  "SRM Institute of Science and Technology",
+  "Manipal Institute of Technology",
+  "Pune University (SPPU)",
+  "Anna University Chennai",
+  "Mumbai University (VJTI/SPIT)",
+];
+
 export default function LeaderboardPage() {
-  const [activeTab, setActiveTab] = useState<"STREAK" | "TRENDING_REPOS" | "REFERRALS">("STREAK");
+  const [activeTab, setActiveTab] = useState<"STREAK" | "CAMPUS_BATTLES" | "TRENDING_REPOS" | "REFERRALS">("STREAK");
   const [repoMode, setRepoMode] = useState<"GITHUB_TRENDING" | "CANDIDATE_PROJECTS">("GITHUB_TRENDING");
   const [selectedLanguage, setSelectedLanguage] = useState<string>("ALL");
   const [streakData, setStreakData] = useState<any>(null);
   const [leaders, setLeaders] = useState<StreakLeader[]>([]);
+  const [colleges, setColleges] = useState<CollegeRanking[]>([]);
+  const [userCollege, setUserCollege] = useState<string>("");
+  const [savingCollege, setSavingCollege] = useState(false);
+  const [collegeSavedMsg, setCollegeSavedMsg] = useState<string | null>(null);
   const [trendingRepos, setTrendingRepos] = useState<TrendingRepository[]>([]);
   const [candidateProjects, setCandidateProjects] = useState<CandidateProjectItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -102,17 +139,20 @@ export default function LeaderboardPage() {
   const [sandboxOpen, setSandboxOpen] = useState(false);
   const [activeProject, setActiveProject] = useState<{ title: string; url: string; githubUrl: string } | null>(null);
 
-  // Load streak & leaderboard telemetry
+  // Load telemetry
   useEffect(() => {
     Promise.all([
       fetch("/api/streak").then((r) => r.json()),
       fetch("/api/leaderboard").then((r) => r.json()),
+      fetch("/api/candidate/college").then((r) => r.json()).catch(() => ({ collegeName: null })),
     ])
-      .then(([streakRes, leadRes]) => {
+      .then(([streakRes, leadRes, colRes]) => {
         setStreakData(streakRes);
         if (leadRes.leaders) setLeaders(leadRes.leaders);
+        if (leadRes.collegeRankings) setColleges(leadRes.collegeRankings);
         if (leadRes.trendingRepos) setTrendingRepos(leadRes.trendingRepos);
         if (leadRes.candidateProjects) setCandidateProjects(leadRes.candidateProjects);
+        if (colRes?.collegeName) setUserCollege(colRes.collegeName);
       })
       .catch((err) => console.error("Error loading leaderboard:", err))
       .finally(() => setLoading(false));
@@ -136,11 +176,11 @@ export default function LeaderboardPage() {
           canCheckInToday: false,
         }));
         setCheckInSuccess(`🔥 Streak updated! You earned +${data.xpEarned || 25} XP.`);
-        // Refresh leaderboard to update ranking
         fetch("/api/leaderboard")
           .then((r) => r.json())
           .then((leadRes) => {
             if (leadRes.leaders) setLeaders(leadRes.leaders);
+            if (leadRes.collegeRankings) setColleges(leadRes.collegeRankings);
           });
         setTimeout(() => setCheckInSuccess(null), 4000);
       } else {
@@ -150,6 +190,36 @@ export default function LeaderboardPage() {
       setCheckInSuccess("🔥 Check-in recorded! +25 XP awarded.");
     } finally {
       setCheckingIn(false);
+    }
+  };
+
+  const handleSaveCollege = async (cName: string) => {
+    if (!streakData?.isAuthenticated) {
+      window.location.href = "/login?callbackUrl=/leaderboard";
+      return;
+    }
+    setSavingCollege(true);
+    setUserCollege(cName);
+    try {
+      const res = await fetch("/api/candidate/college", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ collegeName: cName }),
+      });
+      if (res.ok) {
+        setCollegeSavedMsg(`🏫 Representing ${cName}!`);
+        // Refresh leaderboard
+        fetch("/api/leaderboard")
+          .then((r) => r.json())
+          .then((leadRes) => {
+            if (leadRes.collegeRankings) setColleges(leadRes.collegeRankings);
+          });
+        setTimeout(() => setCollegeSavedMsg(null), 3000);
+      }
+    } catch {
+      setCollegeSavedMsg("College updated!");
+    } finally {
+      setSavingCollege(false);
     }
   };
 
@@ -167,6 +237,14 @@ export default function LeaderboardPage() {
     navigator.clipboard.writeText(referralUrl);
     setCopiedLink(true);
     setTimeout(() => setCopiedLink(false), 2500);
+  };
+
+  const shareCampusBattle = () => {
+    const collegeTag = userCollege ? `${userCollege}` : "our college";
+    const text = encodeURIComponent(
+      `🚨 Representing ${collegeTag} on the National Inter-College Engineering Leaderboard on JobMint! Join using our campus invite to boost our college rank: ${referralUrl}`
+    );
+    window.open(`https://api.whatsapp.com/send?text=${text}`, "_blank");
   };
 
   const shareOnWhatsApp = () => {
@@ -192,18 +270,34 @@ export default function LeaderboardPage() {
     <div className="min-h-screen bg-slate-50/50 text-slate-900 py-10 px-4 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl space-y-8">
         
-        {/* HERO TITLE & PLATFORM STATS */}
+        {/* HERO TITLE & PLATFORM QUICK ACTIONS */}
         <div className="text-center space-y-3">
           <div className="inline-flex items-center gap-2 rounded-full bg-emerald-50 border border-emerald-200 px-3.5 py-1 text-xs font-mono font-semibold text-emerald-800">
             <Trophy className="h-4 w-4 text-emerald-600" />
-            JobMint Builder Pulse &amp; Daily Engagement
+            JobMint Builder Pulse &amp; Inter-College Arena
           </div>
           <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-slate-900">
-            Leaderboard &amp; Trending Repositories
+            Leaderboard &amp; Campus Battles
           </h1>
           <p className="mx-auto max-w-2xl text-sm sm:text-base text-slate-600">
-            Real data from registered students &amp; engineers. Build daily streaks, unlock verified badges, explore live GitHub trending repositories, and invite peers.
+            Real data from registered students &amp; engineers. Build daily streaks, battle for your college rank, solve the Daily Problem (POTD), and export ATS resumes.
           </p>
+
+          <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
+            <Link href="/potd">
+              <Button size="sm" className="bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs gap-1.5 shadow-sm">
+                <Flame className="h-3.5 w-3.5 fill-white" />
+                Solve Today's Problem (POTD)
+              </Button>
+            </Link>
+
+            <Link href="/resume/builder">
+              <Button variant="outline" size="sm" className="border-slate-300 text-slate-800 hover:bg-slate-100 font-bold text-xs gap-1.5">
+                <FileText className="h-3.5 w-3.5 text-blue-600" />
+                1-Click Harvard ATS Resume
+              </Button>
+            </Link>
+          </div>
         </div>
 
         {/* 1. USER'S DAILY STREAK HUD CARD */}
@@ -219,7 +313,7 @@ export default function LeaderboardPage() {
                     You are viewing as a Guest (0 Days Streak)
                   </div>
                   <div className="text-[11px] text-amber-800">
-                    Sign in to initialize your streak profile, claim your daily check-in XP, and rank on the live leaderboard.
+                    Sign in to initialize your streak profile, claim daily check-in XP, represent your college, and rank on the leaderboard.
                   </div>
                 </div>
               </div>
@@ -253,6 +347,12 @@ export default function LeaderboardPage() {
                     <Shield className="h-3 w-3" /> {streakData?.streakFreezes || 0} Freeze
                   </span>
                 </div>
+                {userCollege && (
+                  <div className="text-[11px] font-semibold text-emerald-800 flex items-center gap-1">
+                    <School className="h-3 w-3 text-emerald-600" />
+                    <span>{userCollege}</span>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -349,10 +449,10 @@ export default function LeaderboardPage() {
 
         {/* NAVIGATION TABS */}
         <div className="flex items-center justify-center">
-          <div className="inline-flex rounded-2xl bg-slate-100 p-1.5 border border-slate-200 shadow-xs">
+          <div className="inline-flex flex-wrap justify-center rounded-2xl bg-slate-100 p-1.5 border border-slate-200 shadow-xs gap-1">
             <button
               onClick={() => setActiveTab("STREAK")}
-              className={`flex items-center gap-2 rounded-xl px-5 py-2.5 text-xs sm:text-sm font-bold transition-all ${
+              className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs sm:text-sm font-bold transition-all ${
                 activeTab === "STREAK"
                   ? "bg-emerald-600 text-white shadow-xs"
                   : "text-slate-600 hover:text-slate-900"
@@ -363,8 +463,20 @@ export default function LeaderboardPage() {
             </button>
 
             <button
+              onClick={() => setActiveTab("CAMPUS_BATTLES")}
+              className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs sm:text-sm font-bold transition-all ${
+                activeTab === "CAMPUS_BATTLES"
+                  ? "bg-emerald-600 text-white shadow-xs"
+                  : "text-slate-600 hover:text-slate-900"
+              }`}
+            >
+              <School className="h-4 w-4" />
+              <span>🏫 Campus Battles (Inter-College)</span>
+            </button>
+
+            <button
               onClick={() => setActiveTab("TRENDING_REPOS")}
-              className={`flex items-center gap-2 rounded-xl px-5 py-2.5 text-xs sm:text-sm font-bold transition-all ${
+              className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs sm:text-sm font-bold transition-all ${
                 activeTab === "TRENDING_REPOS"
                   ? "bg-emerald-600 text-white shadow-xs"
                   : "text-slate-600 hover:text-slate-900"
@@ -376,19 +488,19 @@ export default function LeaderboardPage() {
 
             <button
               onClick={() => setActiveTab("REFERRALS")}
-              className={`flex items-center gap-2 rounded-xl px-5 py-2.5 text-xs sm:text-sm font-bold transition-all ${
+              className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs sm:text-sm font-bold transition-all ${
                 activeTab === "REFERRALS"
                   ? "bg-emerald-600 text-white shadow-xs"
                   : "text-slate-600 hover:text-slate-900"
               }`}
             >
               <Users className="h-4 w-4" />
-              <span>🤝 Peer Referrals &amp; Rewards</span>
+              <span>🤝 Peer Referrals</span>
             </button>
           </div>
         </div>
 
-        {/* TAB 1: STREAK LEADERBOARD */}
+        {/* TAB 1: INDIVIDUAL STREAK LEADERBOARD */}
         {activeTab === "STREAK" && (
           <div className="space-y-6">
             <div className="rounded-3xl border border-slate-200 bg-white shadow-sm overflow-hidden">
@@ -512,7 +624,182 @@ export default function LeaderboardPage() {
           </div>
         )}
 
-        {/* TAB 2: TRENDING REPOS & CANDIDATE PROJECTS */}
+        {/* TAB 2: INTER-COLLEGE CAMPUS BATTLES */}
+        {activeTab === "CAMPUS_BATTLES" && (
+          <div className="space-y-6">
+            
+            {/* CAMPUS BATTLES BANNER & COLLEGE SELECTOR */}
+            <div className="rounded-3xl border border-indigo-200 bg-gradient-to-br from-indigo-50 via-white to-emerald-50 p-6 sm:p-8 shadow-sm space-y-6">
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div className="space-y-1">
+                  <div className="inline-flex items-center gap-1.5 rounded-full bg-indigo-100 text-indigo-800 px-3 py-0.5 text-xs font-bold">
+                    <School className="h-3.5 w-3.5 text-indigo-600" />
+                    All-India Inter-College Ranking
+                  </div>
+                  <h3 className="text-2xl font-black text-slate-900">
+                    Inter-College Engineering Battles
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-600">
+                    Students from across India build daily streaks and complete projects to push their college up the ranks.
+                  </p>
+                </div>
+
+                <Button
+                  onClick={shareCampusBattle}
+                  className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs gap-1.5 shrink-0 shadow-sm"
+                >
+                  <Share2 className="h-4 w-4" />
+                  Rally Your College WhatsApp Group
+                </Button>
+              </div>
+
+              {/* Set My College HUD */}
+              <div className="rounded-2xl border border-slate-200 bg-white p-4 space-y-3">
+                <div className="text-xs font-mono font-bold text-slate-600 uppercase flex items-center justify-between">
+                  <span>Tag Your College / University</span>
+                  {userCollege && (
+                    <span className="text-emerald-700 font-bold font-sans">
+                      Currently Representing: <strong>{userCollege}</strong>
+                    </span>
+                  )}
+                </div>
+
+                <div className="flex flex-col sm:flex-row gap-2">
+                  <select
+                    value={userCollege}
+                    onChange={(e) => handleSaveCollege(e.target.value)}
+                    disabled={savingCollege}
+                    className="w-full rounded-xl border border-slate-200 bg-slate-50 p-2.5 text-xs font-semibold text-slate-800 focus:outline-none"
+                  >
+                    <option value="">-- Select Your College to Represent --</option>
+                    {POPULAR_COLLEGES.map((c) => (
+                      <option key={c} value={c}>
+                        {c}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                {collegeSavedMsg && (
+                  <div className="text-xs font-bold text-emerald-700 animate-in fade-in">
+                    {collegeSavedMsg}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* COLLEGE RANKING TABLE */}
+            <div className="rounded-3xl border border-slate-200 bg-white shadow-sm overflow-hidden">
+              <div className="p-5 border-b border-slate-100 flex items-center justify-between">
+                <div>
+                  <h4 className="font-bold text-slate-900 text-base flex items-center gap-2">
+                    <Trophy className="h-5 w-5 text-amber-500" />
+                    College Dominance Standings
+                  </h4>
+                  <p className="text-xs text-slate-500 mt-0.5">
+                    Colleges ordered by aggregate student streak days and collective builder XP.
+                  </p>
+                </div>
+              </div>
+
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-xs">
+                  <thead className="bg-slate-50 text-slate-500 font-mono uppercase text-[10px] border-b border-slate-200">
+                    <tr>
+                      <th className="py-3 px-4">College Rank</th>
+                      <th className="py-3 px-4">Institution / University</th>
+                      <th className="py-3 px-4 text-center">Active Builders</th>
+                      <th className="py-3 px-4 text-center">Collective Streak Days</th>
+                      <th className="py-3 px-4 text-center">Collective XP</th>
+                      <th className="py-3 px-4 text-right">Campus MVP</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100">
+                    {colleges.length === 0 ? (
+                      <tr>
+                        <td colSpan={6} className="py-12 text-center text-slate-500">
+                          Select your college above to create the first campus team on JobMint!
+                        </td>
+                      </tr>
+                    ) : (
+                      colleges.map((col) => (
+                        <tr
+                          key={col.collegeName}
+                          className={`hover:bg-slate-50/70 transition-colors ${
+                            userCollege === col.collegeName ? "bg-indigo-50/40 font-semibold" : ""
+                          }`}
+                        >
+                          <td className="py-3.5 px-4 font-mono font-bold">
+                            {col.rank === 1 ? (
+                              <span className="inline-flex items-center gap-1 text-amber-600 font-bold">
+                                <Crown className="h-4 w-4 fill-amber-500 text-amber-500" /> #1
+                              </span>
+                            ) : col.rank === 2 ? (
+                              <span className="inline-flex items-center gap-1 text-slate-600 font-bold">
+                                🥈 #2
+                              </span>
+                            ) : col.rank === 3 ? (
+                              <span className="inline-flex items-center gap-1 text-amber-700 font-bold">
+                                🥉 #3
+                              </span>
+                            ) : (
+                              <span className="text-slate-500">#{col.rank}</span>
+                            )}
+                          </td>
+
+                          <td className="py-3.5 px-4">
+                            <span className="font-bold text-slate-900 block flex items-center gap-1.5">
+                              <Building2 className="h-4 w-4 text-indigo-600 shrink-0" />
+                              {col.collegeName}
+                              {userCollege === col.collegeName && (
+                                <span className="rounded bg-indigo-100 text-indigo-800 px-1 py-0.2 text-[9px] font-mono">
+                                  Your Campus
+                                </span>
+                              )}
+                            </span>
+                          </td>
+
+                          <td className="py-3.5 px-4 text-center">
+                            <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2.5 py-0.5 font-mono font-bold text-slate-700">
+                              <Users className="h-3 w-3 text-slate-500" />
+                              {col.buildersCount} Builders
+                            </span>
+                          </td>
+
+                          <td className="py-3.5 px-4 text-center">
+                            <span className="inline-flex items-center gap-1 rounded-full bg-orange-50 border border-orange-200 px-2.5 py-0.5 font-mono font-bold text-orange-700">
+                              <Flame className="h-3 w-3 fill-orange-500 text-orange-500" />
+                              {col.totalStreakDays} Days
+                            </span>
+                          </td>
+
+                          <td className="py-3.5 px-4 text-center font-mono font-bold text-emerald-700">
+                            {col.totalXp.toLocaleString()} XP
+                          </td>
+
+                          <td className="py-3.5 px-4 text-right">
+                            <div className="inline-flex items-center gap-2">
+                              <img
+                                src={col.topBuilder.avatarUrl}
+                                alt={col.topBuilder.name}
+                                className="h-6 w-6 rounded-full border border-slate-200 object-cover"
+                              />
+                              <span className="font-bold text-slate-800 text-[11px]">
+                                {col.topBuilder.name}
+                              </span>
+                            </div>
+                          </td>
+                        </tr>
+                      ))
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+          </div>
+        )}
+
+        {/* TAB 3: TRENDING REPOS & CANDIDATE PROJECTS */}
         {activeTab === "TRENDING_REPOS" && (
           <div className="space-y-6">
             
@@ -733,7 +1020,7 @@ export default function LeaderboardPage() {
           </div>
         )}
 
-        {/* TAB 3: REFERRAL PROGRAM */}
+        {/* TAB 4: REFERRAL PROGRAM */}
         {activeTab === "REFERRALS" && (
           <div className="space-y-6">
             

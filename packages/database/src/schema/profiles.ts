@@ -17,6 +17,7 @@ export const candidateProfiles = pgTable("candidate_profiles", {
   workModes: text("work_modes").array().notNull().default([]),
   expectedSalaryMin: integer("expected_salary_min"),
   isFresher: boolean("is_fresher").default(true).notNull(),
+  collegeName: text("college_name"),
   resumeUrl: text("resume_url"),
   githubUrl: text("github_url"),
   linkedinUrl: text("linkedin_url"),

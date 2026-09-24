@@ -60,7 +60,17 @@ export function Footer() {
               </li>
               <li>
                 <Link href="/leaderboard" className="hover:text-emerald-600 font-semibold text-amber-700 flex items-center gap-1.5">
-                  🔥 Daily Streaks &amp; Trendshift Leaderboard
+                  🔥 Daily Streaks &amp; Campus Battles
+                </Link>
+              </li>
+              <li>
+                <Link href="/potd" className="hover:text-emerald-600 font-semibold text-orange-700 flex items-center gap-1.5">
+                  ⚡ Problem of the Day (POTD +50 XP)
+                </Link>
+              </li>
+              <li>
+                <Link href="/resume/builder" className="hover:text-emerald-600 font-semibold text-blue-700 flex items-center gap-1.5">
+                  📄 Harvard ATS Resume Builder (PDF &amp; LaTeX)
                 </Link>
               </li>
               <li>

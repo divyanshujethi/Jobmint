@@ -24,6 +24,9 @@ import {
   BookOpen,
   Flame,
   Trophy,
+  Code2,
+  FileText,
+  School,
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { NotificationBell } from "./notification-bell";
@@ -160,6 +163,36 @@ export function Navbar() {
 
               {toolsOpen && (
                 <div className="absolute left-0 mt-3 w-64 rounded-2xl border border-slate-200 bg-white p-2 shadow-xl ring-1 ring-black/5 animate-in fade-in slide-in-from-top-2 duration-150 z-50">
+                  <Link
+                    href="/potd"
+                    onClick={() => setToolsOpen(false)}
+                    className="flex items-start gap-3 rounded-xl p-2.5 hover:bg-slate-50 transition-colors"
+                  >
+                    <Code2 className="h-5 w-5 text-orange-500 shrink-0 mt-0.5" />
+                    <div>
+                      <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                        Daily Problem (POTD)
+                        <span className="rounded bg-orange-50 text-orange-700 px-1 py-0.2 text-[9px]">+50 XP</span>
+                      </div>
+                      <div className="text-[11px] text-slate-500">In-browser code runner &amp; streak challenges</div>
+                    </div>
+                  </Link>
+
+                  <Link
+                    href="/resume/builder"
+                    onClick={() => setToolsOpen(false)}
+                    className="flex items-start gap-3 rounded-xl p-2.5 hover:bg-slate-50 transition-colors"
+                  >
+                    <FileText className="h-5 w-5 text-blue-600 shrink-0 mt-0.5" />
+                    <div>
+                      <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                        Harvard ATS Resume
+                        <span className="rounded bg-blue-50 text-blue-700 px-1 py-0.2 text-[9px]">PDF &amp; TeX</span>
+                      </div>
+                      <div className="text-[11px] text-slate-500">1-click ATS single-column resume builder</div>
+                    </div>
+                  </Link>
+
                   <Link
                     href="/leaderboard"
                     onClick={() => setToolsOpen(false)}
@@ -493,7 +526,23 @@ export function Navbar() {
               onClick={() => setIsOpen(false)}
             >
               <Flame className="h-4 w-4 text-amber-500 fill-amber-500" />
-              Streaks &amp; Leaderboard
+              Streaks &amp; Campus Battles
+            </Link>
+            <Link
+              href="/potd"
+              className="flex items-center gap-2.5 py-2 px-3 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50"
+              onClick={() => setIsOpen(false)}
+            >
+              <Code2 className="h-4 w-4 text-orange-500" />
+              Daily Problem (POTD)
+            </Link>
+            <Link
+              href="/resume/builder"
+              className="flex items-center gap-2.5 py-2 px-3 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50"
+              onClick={() => setIsOpen(false)}
+            >
+              <FileText className="h-4 w-4 text-blue-600" />
+              Harvard ATS Resume Builder
             </Link>
             <Link
               href="/roadmaps"
