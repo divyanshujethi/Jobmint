@@ -14,7 +14,8 @@ import {
   ShieldCheck,
   RefreshCw,
 } from "lucide-react";
-import { MOCK_JOBS } from "@/lib/mock-jobs";
+
+import { MockJob } from "@/lib/mock-jobs";
 
 interface InterviewQuestion {
   question: string;
@@ -25,7 +26,7 @@ interface InterviewQuestion {
 export default function JobInterviewPrepPage() {
   const params = useParams();
   const slug = params?.slug as string;
-  const job = MOCK_JOBS.find((j) => j.slug === slug) || MOCK_JOBS[0];
+  const [job, setJob] = useState<MockJob | null>(null);
 
   const [questions, setQuestions] = useState<InterviewQuestion[]>([]);
   const [loading, setLoading] = useState(true);
@@ -33,7 +34,22 @@ export default function JobInterviewPrepPage() {
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
   const [provider, setProvider] = useState<string>("gemini");
 
+  useEffect(() => {
+    fetch("/api/jobs")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.jobs && Array.isArray(data.jobs)) {
+          const found = data.jobs.find((j: any) => j.slug === slug);
+          if (found) {
+            setJob(found);
+          }
+        }
+      })
+      .catch((err) => console.error("Error loading job for interview prep:", err));
+  }, [slug]);
+
   const fetchPrepQuestions = async () => {
+    if (!job) return;
     setLoading(true);
     try {
       const res = await fetch("/api/ai", {
@@ -76,14 +92,24 @@ export default function JobInterviewPrepPage() {
   };
 
   useEffect(() => {
-    fetchPrepQuestions();
-  }, [slug]);
+    if (job) {
+      fetchPrepQuestions();
+    }
+  }, [job]);
 
   const copyQuestion = (q: string, idx: number) => {
     navigator.clipboard.writeText(q);
     setCopiedIndex(idx);
     setTimeout(() => setCopiedIndex(null), 2000);
   };
+
+  if (!job) {
+    return (
+      <div className="min-h-screen bg-neutral-950 text-neutral-100 flex items-center justify-center py-20 font-mono text-xs text-neutral-500">
+        Loading interview prep guide...
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-neutral-950 text-neutral-100 py-10 px-4 sm:px-6 lg:px-8">
@@ -130,7 +156,7 @@ export default function JobInterviewPrepPage() {
         {/* Required Skills Pill List */}
         <div className="bg-neutral-900/60 border border-neutral-800 rounded-xl p-4 flex flex-wrap items-center gap-2">
           <span className="text-xs font-mono text-neutral-400 mr-2">Tested Stack:</span>
-          {job.skills.map((skill) => (
+          {job.skills.map((skill: string) => (
             <span
               key={skill}
               className="text-xs bg-neutral-800 text-emerald-400 border border-emerald-950 px-2.5 py-1 rounded-md font-mono"

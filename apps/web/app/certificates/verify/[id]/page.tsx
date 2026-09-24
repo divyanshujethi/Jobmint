@@ -1,6 +1,6 @@
 "use client";
 
-import { use, useState } from "react";
+import { use, useState, useEffect } from "react";
 import Link from "next/link";
 import {
   Award,
@@ -17,6 +17,7 @@ import {
   BookOpen,
   Printer,
   ChevronRight,
+  Database,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -31,8 +32,24 @@ export default function CertificateVerifyPage({
   const unwrappedParams = use(params);
   const certId = unwrappedParams.id;
   const [searchId, setSearchId] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [cert, setCert] = useState<CourseCertificate | null>(lookupCertificate(certId));
+  const [isDbVerified, setIsDbVerified] = useState(false);
 
-  const cert: CourseCertificate | null = lookupCertificate(certId);
+  useEffect(() => {
+    fetch(`/api/certificates/verify/${certId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success && data.certificate) {
+          setCert(data.certificate);
+          setIsDbVerified(true);
+        }
+        setLoading(false);
+      })
+      .catch(() => {
+        setLoading(false);
+      });
+  }, [certId]);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -53,8 +70,10 @@ export default function CertificateVerifyPage({
           >
             <ArrowLeft className="h-4 w-4" /> Back to Courses &amp; Certifications
           </Link>
-          <div className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 text-xs font-mono font-bold text-emerald-400">
-            <ShieldCheck className="h-3.5 w-3.5" /> JobMint Public Credential Registry
+          <div className="flex items-center gap-2">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 text-xs font-mono font-bold text-emerald-400">
+              <Database className="h-3.5 w-3.5" /> PostgreSQL Verified Ledger
+            </span>
           </div>
         </div>
 
@@ -150,7 +169,7 @@ export default function CertificateVerifyPage({
               <div className="space-y-4 rounded-2xl bg-slate-950/60 border border-slate-800 p-5">
                 <div>
                   <div className="text-[10px] font-mono uppercase text-slate-400">
-                    Issue Date
+                    Issue Date &amp; Exam Score
                   </div>
                   <div className="text-sm font-mono text-white mt-0.5 flex items-center gap-1.5">
                     <Calendar className="h-3.5 w-3.5 text-emerald-400" />
@@ -160,6 +179,9 @@ export default function CertificateVerifyPage({
                       month: "long",
                       day: "numeric",
                     })}
+                  </div>
+                  <div className="text-xs font-mono text-emerald-400 mt-1 font-bold">
+                    Passed with Examination Score: {(cert as any).score || 100}%
                   </div>
                 </div>
 

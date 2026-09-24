@@ -2,11 +2,52 @@ import { NextRequest, NextResponse } from "next/server";
 import { db, applications, applicationEvents, jobs, companies, candidateProfiles, users, eq, desc } from "@repo/database";
 import { auth } from "@/auth";
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
     const session = await auth();
+    if (!session || !session.user || !session.user.email) {
+      return NextResponse.json({
+        applications: [],
+        total: 0,
+        source: "postgresql-jobmint-prod",
+      });
+    }
 
-    // Query DB applications
+    // Look up the user by email
+    const userList = await db
+      .select()
+      .from(users)
+      .where(eq(users.email, session.user.email))
+      .limit(1);
+
+    if (userList.length === 0) {
+      return NextResponse.json({
+        applications: [],
+        total: 0,
+        source: "postgresql-jobmint-prod",
+      });
+    }
+
+    const currentUserId = userList[0].id;
+
+    // Look up candidate profile
+    const profileList = await db
+      .select()
+      .from(candidateProfiles)
+      .where(eq(candidateProfiles.userId, currentUserId))
+      .limit(1);
+
+    if (profileList.length === 0) {
+      return NextResponse.json({
+        applications: [],
+        total: 0,
+        source: "postgresql-jobmint-prod",
+      });
+    }
+
+    const candidateProfileId = profileList[0].id;
+
+    // Query DB applications scoped exclusively to this candidate profile
     const dbApps = await db
       .select({
         id: applications.id,
@@ -31,6 +72,7 @@ export async function GET() {
       .from(applications)
       .innerJoin(jobs, eq(applications.jobId, jobs.id))
       .innerJoin(companies, eq(jobs.companyId, companies.id))
+      .where(eq(applications.candidateProfileId, candidateProfileId))
       .orderBy(desc(applications.appliedAt));
 
     // Fetch application events for Truth Teller timeline

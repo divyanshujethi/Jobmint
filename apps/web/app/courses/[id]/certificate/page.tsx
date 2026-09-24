@@ -8,7 +8,6 @@ import {
   CheckCircle2,
   ExternalLink,
   Printer,
-  Share2,
   ArrowLeft,
   Sparkles,
   Github,
@@ -16,72 +15,117 @@ import {
   Lock,
   Copy,
   Check,
-  Building,
   GraduationCap,
-  Download,
+  AlertCircle,
+  HelpCircle,
+  UserCheck,
+  LogIn,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { CURATED_COURSES, CoursePlaylist } from "@/lib/courses-data";
-import {
-  CourseCertificate,
-  issueCourseCertificate,
-  getLinkedInCertUrl,
-  SHOWCASE_CERTIFICATES,
-} from "@/lib/certificates-issuer";
+import { CURATED_COURSES } from "@/lib/courses-data";
+import { getQuizForCourse, QuizQuestion } from "@/lib/courses-quizzes";
+import { CourseCertificate, getLinkedInCertUrl } from "@/lib/certificates-issuer";
 
 export default function CourseCertificatePage({
   params,
-  searchParams,
 }: {
   params: Promise<{ id: string }>;
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const unwrappedParams = use(params);
-  const unwrappedSearch = use(searchParams);
   const courseId = unwrappedParams.id;
-
   const course = CURATED_COURSES.find((c) => c.id === courseId) || CURATED_COURSES[0];
 
-  const [studentName, setStudentName] = useState(
-    typeof unwrappedSearch.name === "string" ? unwrappedSearch.name : ""
-  );
+  const [session, setSession] = useState<any>(null);
+  const [authLoading, setAuthLoading] = useState(true);
+
+  // Quiz state
+  const quiz = getQuizForCourse(course.id);
+  const [quizAnswers, setQuizAnswers] = useState<Record<number, number>>({});
   const [githubUrl, setGithubUrl] = useState("");
-  const [checkedModules, setCheckedModules] = useState<Record<number, boolean>>({
-    0: true,
-    1: true,
-    2: true,
-    3: true,
-  });
+  const [submitting, setSubmitting] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+
+  // Issued certificate state
   const [issuedCert, setIssuedCert] = useState<CourseCertificate | null>(null);
+  const [certScore, setCertScore] = useState<number | null>(null);
   const [copied, setCopied] = useState(false);
 
-  // If user already had a saved certificate in localStorage for this course, load it
+  // Check user session and existing certificate
   useEffect(() => {
-    const saved = localStorage.getItem(`jobmint_cert_${course.id}`);
-    if (saved) {
-      try {
-        setIssuedCert(JSON.parse(saved));
-      } catch (e) {
-        // ignore
-      }
-    } else {
-      // Check showcase certificate if matching
-      const showcase = SHOWCASE_CERTIFICATES.find((c) => c.courseId === course.id);
-      if (showcase && !studentName) {
-        setStudentName(showcase.recipientName);
-      }
-    }
+    fetch("/api/auth/session")
+      .then((res) => res.json())
+      .then(async (data) => {
+        if (data && data.user) {
+          setSession(data);
+          // Check if this user already earned a certificate for this course
+          try {
+            const checkRes = await fetch("/api/certificates/claim", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ courseId: course.id, quizAnswers: {}, checkOnly: true }),
+            });
+            const checkData = await checkRes.json();
+            if (checkData.alreadyIssued && checkData.certificate) {
+              setIssuedCert(checkData.certificate);
+              setCertScore(checkData.certificate.score || 100);
+            }
+          } catch (e) {
+            // ignore
+          }
+        }
+        setAuthLoading(false);
+      })
+      .catch(() => setAuthLoading(false));
   }, [course.id]);
 
-  const handleIssueCertificate = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!studentName.trim()) return;
+  const handleSelectOption = (questionId: number, optionIndex: number) => {
+    setQuizAnswers((prev) => ({
+      ...prev,
+      [questionId]: optionIndex,
+    }));
+  };
 
-    const cert = issueCourseCertificate(course, studentName, githubUrl || undefined);
-    setIssuedCert(cert);
-    localStorage.setItem(`jobmint_cert_${course.id}`, JSON.stringify(cert));
+  const handleSubmitExam = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!session?.user) {
+      setErrorMsg("You must be logged in to submit this examination and receive a certificate.");
+      return;
+    }
+
+    if (Object.keys(quizAnswers).length < quiz.length) {
+      setErrorMsg(`Please answer all ${quiz.length} technical questions before submitting.`);
+      return;
+    }
+
+    setSubmitting(true);
+    setErrorMsg(null);
+
+    try {
+      const res = await fetch("/api/certificates/claim", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          courseId: course.id,
+          quizAnswers,
+          githubUrl: githubUrl || undefined,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setErrorMsg(data.error || "Assessment failed. An 80% passing grade is required.");
+      } else if (data.certificate) {
+        setIssuedCert(data.certificate);
+        setCertScore(data.score || 100);
+      }
+    } catch {
+      setErrorMsg("Network error submitting assessment.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const handleCopyLink = () => {
@@ -96,10 +140,6 @@ export default function CourseCertificatePage({
     window.print();
   };
 
-  const allModulesChecked =
-    course.curriculumModules.length === 0 ||
-    course.curriculumModules.every((_, idx) => checkedModules[idx]);
-
   return (
     <div className="min-h-screen bg-slate-950 text-white py-8 px-4 sm:px-6 lg:px-8">
       {/* SCREEN NAVIGATION (Hidden on Print) */}
@@ -113,149 +153,160 @@ export default function CourseCertificatePage({
           </Link>
           <div className="flex items-center gap-2">
             <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 text-xs font-mono font-bold text-emerald-400">
-              <Award className="h-3.5 w-3.5" /> JobMint Verified Proof-of-Work
+              <Award className="h-3.5 w-3.5" /> Anti-Fraud Technical Examination
             </span>
             <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 px-3 py-1 text-xs font-mono font-bold text-blue-400">
-              <ShieldCheck className="h-3.5 w-3.5" /> DPDP Act 2023 Compliant
+              <ShieldCheck className="h-3.5 w-3.5" /> PostgreSQL Registered
             </span>
           </div>
         </div>
 
-        {/* CLAIM FORM IF NOT ISSUED */}
-        {!issuedCert ? (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <div className="lg:col-span-2 space-y-6">
-              <div className="space-y-2">
-                <span className="text-xs font-mono font-semibold text-emerald-400 uppercase tracking-wider">
-                  Course Completion Verification
-                </span>
-                <h1 className="text-3xl font-black text-white">{course.title}</h1>
-                <p className="text-sm text-slate-400">
-                  {course.description}
-                </p>
-                <div className="text-xs text-slate-400 pt-1">
-                  Curriculum creator: <strong className="text-slate-200">{course.creator}</strong> ({course.creatorSubscribers})
-                </div>
-              </div>
-
-              {/* CURRICULUM CHECKLIST */}
-              <div className="rounded-2xl border border-slate-800 bg-slate-900/90 p-6 space-y-4">
-                <div className="flex items-center justify-between">
-                  <h3 className="text-sm font-bold text-slate-200 flex items-center gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-emerald-400" />
-                    Curriculum Milestones Checklist
-                  </h3>
-                  <span className="text-xs font-mono text-emerald-400 font-bold">
-                    {course.curriculumModules.length} Modules
-                  </span>
-                </div>
-                <div className="space-y-2.5">
-                  {course.curriculumModules.map((module, idx) => (
-                    <label
-                      key={idx}
-                      className="flex items-start gap-3 p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 cursor-pointer hover:border-slate-700 transition-colors"
-                    >
-                      <input
-                        type="checkbox"
-                        checked={!!checkedModules[idx]}
-                        onChange={(e) =>
-                          setCheckedModules((prev) => ({
-                            ...prev,
-                            [idx]: e.target.checked,
-                          }))
-                        }
-                        className="mt-0.5 h-4 w-4 rounded border-slate-700 text-emerald-500 focus:ring-emerald-500"
-                      />
-                      <span className="text-xs text-slate-300 leading-snug">{module}</span>
-                    </label>
-                  ))}
-                </div>
-
-                <div className="rounded-xl bg-emerald-950/30 border border-emerald-500/20 p-3.5 space-y-1">
-                  <div className="text-xs font-bold text-emerald-400 flex items-center gap-1.5">
-                    <Sparkles className="h-3.5 w-3.5" />
-                    Required Project Benchmark:
-                  </div>
-                  <p className="text-xs text-slate-300">{course.projectBenchmark}</p>
-                </div>
-              </div>
+        {/* 1. AUTHENTICATION GATE IF NOT SIGNED IN */}
+        {!authLoading && !session?.user && !issuedCert && (
+          <div className="rounded-3xl border border-amber-500/30 bg-amber-950/20 p-8 sm:p-10 text-center space-y-4 shadow-xl">
+            <div className="h-14 w-14 rounded-2xl bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-amber-400 mx-auto">
+              <Lock className="h-7 w-7" />
             </div>
-
-            {/* FORM */}
-            <div className="space-y-6">
-              <Card className="border-slate-800 bg-slate-900/90 text-white shadow-xl">
-                <CardHeader>
-                  <CardTitle className="text-lg font-bold flex items-center gap-2">
-                    <GraduationCap className="h-5 w-5 text-emerald-400" />
-                    Claim Official Certificate
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <form onSubmit={handleIssueCertificate} className="space-y-4">
-                    <div className="space-y-1.5">
-                      <label className="text-xs font-semibold text-slate-300">
-                        Candidate Full Name (printed on certificate) *
-                      </label>
-                      <Input
-                        type="text"
-                        required
-                        placeholder="e.g. Divyanshu Jethi"
-                        value={studentName}
-                        onChange={(e) => setStudentName(e.target.value)}
-                        className="bg-slate-950 border-slate-800 text-sm text-white"
-                      />
-                    </div>
-
-                    <div className="space-y-1.5">
-                      <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
-                        <Github className="h-3.5 w-3.5" />
-                        GitHub Proof-of-Work Project (Optional)
-                      </label>
-                      <Input
-                        type="url"
-                        placeholder="https://github.com/your-username/project"
-                        value={githubUrl}
-                        onChange={(e) => setGithubUrl(e.target.value)}
-                        className="bg-slate-950 border-slate-800 text-xs text-white"
-                      />
-                      <p className="text-[11px] text-slate-400">
-                        Adding your repository links this certificate to real code for recruiters.
-                      </p>
-                    </div>
-
-                    <div className="rounded-xl bg-slate-950/60 border border-slate-800 p-3 text-[11px] text-slate-400 space-y-1">
-                      <div className="font-semibold text-slate-300 flex items-center gap-1">
-                        <Lock className="h-3 w-3 text-emerald-400" />
-                        DPDP Act 2023 Notice
-                      </div>
-                      <p>
-                        Only your name and optional project link will appear on the public verification page. No private contact info is exposed.
-                      </p>
-                    </div>
-
-                    <Button
-                      type="submit"
-                      disabled={!studentName.trim() || !allModulesChecked}
-                      className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm h-11 rounded-xl shadow-lg gap-2"
-                    >
-                      <Award className="h-4 w-4" />
-                      Issue & Sign Certificate
-                    </Button>
-                  </form>
-                </CardContent>
-              </Card>
+            <h2 className="text-2xl font-black text-white">
+              Student Authentication Required
+            </h2>
+            <p className="text-sm text-slate-300 max-w-xl mx-auto leading-relaxed">
+              To protect the integrity of JobMint credentials, certificates can no longer be generated with arbitrary names. <strong>You must sign in with a verified account</strong> so your official diploma is permanently registered in our database, signed with HMAC-SHA256, and verified against your real profile.
+            </p>
+            <div className="pt-2">
+              <Link href={`/login?callbackUrl=/courses/${course.id}/certificate`}>
+                <Button className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm px-6 h-11 rounded-xl shadow-lg gap-2">
+                  <LogIn className="h-4 w-4" />
+                  Sign In to Take Assessment &amp; Earn Certificate
+                </Button>
+              </Link>
             </div>
           </div>
-        ) : (
-          /* ACTION TOOLBAR WHEN CERTIFICATE IS ISSUED */
+        )}
+
+        {/* 2. REAL TECHNICAL EXAMINATION FORM (WHEN LOGGED IN AND NOT ISSUED) */}
+        {session?.user && !issuedCert && (
+          <div className="space-y-8">
+            <div className="space-y-2">
+              <span className="text-xs font-mono font-bold text-emerald-400 uppercase tracking-wider">
+                Technical Competence Examination
+              </span>
+              <h1 className="text-3xl sm:text-4xl font-black text-white">
+                {course.title}
+              </h1>
+              <p className="text-sm text-slate-400">
+                Candidate: <strong className="text-white">{session.user.name}</strong> ({session.user.email}) •{" "}
+                <span className="text-emerald-400 font-semibold">Passing Threshold: 80% (4/5 Questions)</span>
+              </p>
+            </div>
+
+            {errorMsg && (
+              <div className="rounded-2xl border border-rose-500/40 bg-rose-950/30 p-4 text-xs font-semibold text-rose-300 flex items-start gap-3">
+                <AlertCircle className="h-5 w-5 text-rose-400 shrink-0 mt-0.5" />
+                <div>
+                  <div className="font-bold text-rose-200">Assessment Incomplete or Failed:</div>
+                  <p className="mt-0.5">{errorMsg}</p>
+                </div>
+              </div>
+            )}
+
+            <form onSubmit={handleSubmitExam} className="space-y-6">
+              {/* QUIZ QUESTIONS */}
+              <div className="space-y-6">
+                {quiz.map((q, qIndex) => (
+                  <div
+                    key={q.id}
+                    className="rounded-2xl border border-slate-800 bg-slate-900/90 p-5 sm:p-6 space-y-3"
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <h3 className="text-sm sm:text-base font-bold text-white leading-snug">
+                        <span className="text-emerald-400 font-mono mr-2">Q{qIndex + 1}.</span>
+                        {q.question}
+                      </h3>
+                      {quizAnswers[q.id] !== undefined && (
+                        <span className="text-[10px] font-mono text-emerald-400 font-bold bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded">
+                          Answered
+                        </span>
+                      )}
+                    </div>
+
+                    <div className="space-y-2 pt-2">
+                      {q.options.map((option, optIdx) => {
+                        const isSelected = quizAnswers[q.id] === optIdx;
+                        return (
+                          <div
+                            key={optIdx}
+                            onClick={() => handleSelectOption(q.id, optIdx)}
+                            className={`flex items-start gap-3 p-3 rounded-xl border text-xs sm:text-sm cursor-pointer transition-all ${
+                              isSelected
+                                ? "bg-emerald-950/40 border-emerald-500 text-white font-medium shadow-sm"
+                                : "bg-slate-950/60 border-slate-800 text-slate-300 hover:border-slate-700"
+                            }`}
+                          >
+                            <div
+                              className={`h-4 w-4 rounded-full border mt-0.5 flex items-center justify-center shrink-0 ${
+                                isSelected
+                                  ? "border-emerald-400 bg-emerald-500"
+                                  : "border-slate-600"
+                              }`}
+                            >
+                              {isSelected && <div className="h-1.5 w-1.5 rounded-full bg-white" />}
+                            </div>
+                            <span className="leading-relaxed">{option}</span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* GITHUB PROOF OF WORK */}
+              <div className="rounded-2xl border border-slate-800 bg-slate-900/90 p-5 space-y-2">
+                <label className="text-xs font-bold text-slate-200 flex items-center gap-1.5">
+                  <Github className="h-4 w-4 text-slate-300" />
+                  GitHub Proof-of-Work Repository URL (Optional)
+                </label>
+                <Input
+                  type="url"
+                  placeholder="https://github.com/your-username/course-capstone-project"
+                  value={githubUrl}
+                  onChange={(e) => setGithubUrl(e.target.value)}
+                  className="bg-slate-950 border-slate-800 text-xs text-white h-10 rounded-xl"
+                />
+                <p className="text-[11px] text-slate-400">
+                  Submitting your actual code repository links your certificate to real source code on GitHub.
+                </p>
+              </div>
+
+              {/* SUBMIT BUTTON */}
+              <div className="pt-2">
+                <Button
+                  type="submit"
+                  disabled={submitting || Object.keys(quizAnswers).length < quiz.length}
+                  className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm h-12 rounded-xl shadow-xl gap-2"
+                >
+                  <Award className="h-4 w-4" />
+                  {submitting ? "Evaluating Technical Examination..." : "Submit Examination & Issue Verified Certificate"}
+                </Button>
+                <p className="text-[11px] text-slate-400 text-center mt-2">
+                  Permanently ties the certificate to <strong>{session.user.name}</strong> in PostgreSQL.
+                </p>
+              </div>
+            </form>
+          </div>
+        )}
+
+        {/* 3. TOOLBAR WHEN CERTIFICATE IS ALREADY ISSUED */}
+        {issuedCert && (
           <div className="flex flex-wrap items-center justify-between gap-3 bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-lg">
             <div className="space-y-0.5">
               <div className="flex items-center gap-2 text-xs font-mono font-bold text-emerald-400">
                 <CheckCircle2 className="h-4 w-4 text-emerald-400" />
-                Certificate Successfully Issued: {issuedCert.id}
+                Certificate Authenticated: {issuedCert.id}
               </div>
               <p className="text-xs text-slate-400">
-                Verifiable worldwide with cryptographic SHA-256 HMAC signature.
+                Registered in PostgreSQL • Score: <strong className="text-white">{certScore || 100}%</strong>
               </p>
             </div>
 
@@ -267,7 +318,7 @@ export default function CourseCertificatePage({
                 className="border-slate-700 bg-slate-800 text-white hover:bg-slate-700 text-xs gap-1.5 rounded-xl"
               >
                 <Printer className="h-3.5 w-3.5" />
-                Print / Save as PDF
+                Print / Save PDF
               </Button>
 
               <a
@@ -291,17 +342,18 @@ export default function CourseCertificatePage({
                 className="border-slate-700 bg-slate-800 text-white hover:bg-slate-700 text-xs gap-1.5 rounded-xl"
               >
                 {copied ? <Check className="h-3.5 w-3.5 text-emerald-400" /> : <Copy className="h-3.5 w-3.5" />}
-                {copied ? "Copied Link!" : "Copy Verification URL"}
+                {copied ? "Copied!" : "Copy Verification URL"}
               </Button>
 
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setIssuedCert(null)}
-                className="text-xs text-slate-400 hover:text-white"
-              >
-                Edit Name
-              </Button>
+              <Link href={`/certificates/verify/${issuedCert.id}`}>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="border-emerald-500/30 bg-emerald-950/20 text-emerald-400 hover:text-white text-xs gap-1 rounded-xl"
+                >
+                  View Public Ledger
+                </Button>
+              </Link>
             </div>
           </div>
         )}
@@ -310,7 +362,6 @@ export default function CourseCertificatePage({
       {/* LUXURY GOLD/EMERALD PRINTABLE CERTIFICATE VIEW */}
       {issuedCert && (
         <div className="mx-auto max-w-5xl mt-6 print:mt-0 print:max-w-none">
-          {/* THE CERTIFICATE CANVAS */}
           <div
             id="jobmint-certificate"
             className="relative bg-[#0d131f] text-slate-100 rounded-3xl border-8 border-[#c9a84d] p-8 sm:p-14 shadow-2xl overflow-hidden print:border-8 print:border-[#c9a84d] print:shadow-none print:m-0 print:rounded-none"
@@ -319,28 +370,26 @@ export default function CourseCertificatePage({
                 "radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.05) 0%, rgba(13, 19, 31, 0.98) 100%)",
             }}
           >
-            {/* INNER DECORATIVE GOLD BORDER */}
             <div className="absolute inset-3 border-2 border-[#e6ca65]/40 rounded-2xl pointer-events-none" />
             <div className="absolute inset-5 border border-[#e6ca65]/20 rounded-xl pointer-events-none" />
 
-            {/* CORNER ORNAMENTS */}
             <div className="absolute top-6 left-6 font-serif text-[#c9a84d] text-2xl select-none opacity-70">❖</div>
             <div className="absolute top-6 right-6 font-serif text-[#c9a84d] text-2xl select-none opacity-70">❖</div>
             <div className="absolute bottom-6 left-6 font-serif text-[#c9a84d] text-2xl select-none opacity-70">❖</div>
             <div className="absolute bottom-6 right-6 font-serif text-[#c9a84d] text-2xl select-none opacity-70">❖</div>
 
-            {/* CERTIFICATE HEADER */}
+            {/* HEADER */}
             <div className="text-center space-y-2 relative z-10">
               <div className="flex items-center justify-center gap-2 text-emerald-400 text-xs font-mono font-bold tracking-widest uppercase">
                 <Sparkles className="h-4 w-4" />
-                JobMint Technical Education & Verified Proof-of-Work
+                JobMint Technical Education &amp; Verified Proof-of-Work
                 <Sparkles className="h-4 w-4" />
               </div>
               <h2 className="text-2xl sm:text-4xl font-serif font-black tracking-tight text-[#e6ca65] uppercase drop-shadow">
                 Certificate of Completion
               </h2>
               <div className="text-xs font-mono tracking-widest text-slate-400 uppercase">
-                Official Technical Proficiency & Milestone Achievement Credential
+                Official Technical Competence &amp; Engineering Milestone Credential
               </div>
             </div>
 
@@ -353,7 +402,7 @@ export default function CourseCertificatePage({
                 {issuedCert.recipientName}
               </div>
               <p className="text-xs sm:text-sm text-slate-300 max-w-2xl mx-auto pt-2 leading-relaxed">
-                has successfully mastered the comprehensive curriculum, passed technical project benchmarks, and demonstrated hands-on engineering proficiency in
+                has successfully passed the technical examination ({certScore || 100}% Score), completed practical engineering benchmarks, and demonstrated verified hands-on proficiency in
               </p>
             </div>
 
@@ -381,13 +430,13 @@ export default function CourseCertificatePage({
                     key={skill}
                     className="rounded bg-slate-900 border border-slate-800 px-2.5 py-1 text-[11px] font-mono text-slate-300 shadow-sm"
                   >
-                    {skill}
+                    ✓ {skill}
                   </span>
                 ))}
               </div>
             </div>
 
-            {/* GITHUB PROOF LINK IF PRESENT */}
+            {/* GITHUB PROOF LINK */}
             {issuedCert.githubProofUrl && (
               <div className="text-center my-3 relative z-10">
                 <a
@@ -402,19 +451,16 @@ export default function CourseCertificatePage({
               </div>
             )}
 
-            {/* SIGNATURES & VERIFICATION METADATA */}
+            {/* SIGNATURES */}
             <div className="mt-10 pt-6 border-t border-slate-800 grid grid-cols-1 sm:grid-cols-3 items-center justify-between gap-6 relative z-10 text-center sm:text-left">
-              {/* SIGNATURE 1 */}
               <div className="space-y-1">
                 <div className="font-serif italic text-lg text-[#e6ca65]">Sakshi Sharma</div>
                 <div className="border-t border-slate-700 pt-1 text-[11px] font-mono text-slate-400 uppercase">
-                  Head of Engineering Curricula
-                  <br />
+                  Head of Engineering Curricula<br />
                   JobMint Technical Education
                 </div>
               </div>
 
-              {/* CENTER SEAL */}
               <div className="flex flex-col items-center justify-center space-y-1">
                 <div className="h-16 w-16 rounded-full border-2 border-[#c9a84d] bg-gradient-to-br from-[#c9a84d]/20 to-emerald-500/20 flex items-center justify-center shadow-inner">
                   <Award className="h-8 w-8 text-[#e6ca65]" />
@@ -424,18 +470,16 @@ export default function CourseCertificatePage({
                 </div>
               </div>
 
-              {/* SIGNATURE 2 */}
               <div className="space-y-1 sm:text-right">
                 <div className="font-serif italic text-lg text-[#e6ca65]">Divyanshu Jethi</div>
                 <div className="border-t border-slate-700 pt-1 text-[11px] font-mono text-slate-400 uppercase">
-                  Founder &amp; Chief Architect
-                  <br />
+                  Founder &amp; Chief Architect<br />
                   JobMint Platform
                 </div>
               </div>
             </div>
 
-            {/* FOOTER & CRYPTOGRAPHIC VERIFICATION TOKEN */}
+            {/* FOOTER METADATA */}
             <div className="mt-8 pt-4 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-3 text-[10px] font-mono text-slate-400 relative z-10">
               <div>
                 Certificate ID: <strong className="text-[#e6ca65]">{issuedCert.id}</strong> • Issue Date:{" "}
@@ -460,9 +504,8 @@ export default function CourseCertificatePage({
               </div>
             </div>
 
-            {/* DPDP STATUTORY DISCLAIMER FOOTNOTE */}
             <div className="mt-4 text-[9px] font-mono text-slate-500 text-center relative z-10 leading-tight">
-              Issued in compliance with Sections 5 &amp; 6 of the Indian Digital Personal Data Protection (DPDP) Act, 2023. This is an open-curriculum technical proof-of-work certificate validating practical project competence and not an accredited university degree.
+              Issued in compliance with Sections 5 &amp; 6 of the Indian Digital Personal Data Protection (DPDP) Act, 2023. Certified proof-of-work certificate under JobMint Open Education Standards; not an accredited degree.
             </div>
           </div>
         </div>

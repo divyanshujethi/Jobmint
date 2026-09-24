@@ -22,7 +22,10 @@ export interface CandidateApplication {
   resumeUrl: string;
   status: (typeof ApplicationStatus)[keyof typeof ApplicationStatus];
   appliedDate: string;
+  appliedDateFormatted?: string;
   appliedDaysAgo: number;
+  jobSlug?: string;
+  isVerifiedCompany?: boolean;
   lastViewedDate?: string;
   isGhosted: boolean; // True if applied > 7 days ago and status === APPLIED (Not viewed)
   events: ApplicationEvent[];

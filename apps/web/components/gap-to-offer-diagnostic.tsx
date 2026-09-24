@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
@@ -41,16 +41,25 @@ export function GapToOfferDiagnostic({
       const saved = localStorage.getItem("jobmint_verified_dev_score");
       if (saved) {
         const parsed = JSON.parse(saved);
-        if (parsed.verifiedSkills && Array.isArray(parsed.verifiedSkills)) {
+        if (parsed.verifiedSkills && Array.isArray(parsed.verifiedSkills) && parsed.verifiedSkills.length > 0) {
           setCandidateSkills(parsed.verifiedSkills);
+          setHasScanned(true);
+          return;
+        }
+      }
+      const savedSkills = localStorage.getItem("jobmint_candidate_skills");
+      if (savedSkills) {
+        const parsed = JSON.parse(savedSkills);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          setCandidateSkills(parsed);
           setHasScanned(true);
           return;
         }
       }
     } catch {}
 
-    // Default starting set (common student baseline)
-    setCandidateSkills(jobSkills.slice(0, Math.max(1, Math.floor(jobSkills.length * 0.6))));
+    // Never auto-assume or fake candidate skills - start empty
+    setCandidateSkills([]);
   }, [jobSkills]);
 
   const toggleSkill = (skill: string) => {
@@ -64,7 +73,11 @@ export function GapToOfferDiagnostic({
   const matchedSkills = jobSkills.filter((s) => candidateSkills.includes(s));
   const missingSkills = jobSkills.filter((s) => !candidateSkills.includes(s));
   const matchPercentage =
-    jobSkills.length > 0 ? Math.round((matchedSkills.length / jobSkills.length) * 100) : 100;
+    candidateSkills.length === 0
+      ? 0
+      : jobSkills.length > 0
+      ? Math.round((matchedSkills.length / jobSkills.length) * 100)
+      : 0;
 
   return (
     <div className="rounded-2xl border border-emerald-500/30 bg-gradient-to-br from-emerald-950/20 via-slate-900 to-slate-950 p-5 text-white shadow-xl">
@@ -201,7 +214,7 @@ export function GapToOfferDiagnostic({
           </div>
 
           {/* 7-DAY PERSONALIZED SPRINT PLAN */}
-          {missingSkills.length > 0 && (
+          {candidateSkills.length > 0 && missingSkills.length > 0 && (
             <div className="rounded-xl bg-slate-900/80 border border-slate-800 p-4 space-y-3">
               <div className="flex items-center gap-2 text-xs font-bold text-white">
                 <Calendar className="h-4 w-4 text-emerald-400" />

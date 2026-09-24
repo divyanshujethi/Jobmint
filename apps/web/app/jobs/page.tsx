@@ -2,7 +2,7 @@
 
 import { useState, useMemo, useEffect } from "react";
 import { Search, MapPin, Filter, Briefcase, Sparkles, X } from "lucide-react";
-import { MOCK_JOBS, MockJob } from "@/lib/mock-jobs";
+import { MockJob } from "@/lib/mock-jobs";
 import { JobCard } from "@/components/job-card";
 import { Button } from "@/components/ui/button";
 import { JobType, WorkMode } from "@repo/shared";
@@ -12,17 +12,19 @@ export default function JobsPage() {
   const [selectedType, setSelectedType] = useState<string>("ALL");
   const [selectedMode, setSelectedMode] = useState<string>("ALL");
   const [onlyVerified, setOnlyVerified] = useState(false);
-  const [jobs, setJobs] = useState<MockJob[]>(MOCK_JOBS);
+  const [jobs, setJobs] = useState<MockJob[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     fetch("/api/jobs")
       .then((res) => res.json())
       .then((data) => {
-        if (data.jobs && data.jobs.length > 0) {
+        if (data.jobs && Array.isArray(data.jobs)) {
           setJobs(data.jobs);
         }
       })
-      .catch((err) => console.error("Error loading live jobs:", err));
+      .catch((err) => console.error("Error loading live jobs:", err))
+      .finally(() => setIsLoading(false));
   }, []);
 
   const filteredJobs = useMemo(() => {
@@ -156,7 +158,22 @@ export default function JobsPage() {
 
       {/* JOBS GRID / LIST */}
       <div className="mt-6 space-y-4">
-        {filteredJobs.length > 0 ? (
+        {isLoading ? (
+          <div className="space-y-4">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="rounded-xl border border-slate-200 bg-white p-6 shadow-xs animate-pulse">
+                <div className="flex items-start gap-4">
+                  <div className="h-12 w-12 rounded-xl bg-slate-200 shrink-0" />
+                  <div className="flex-1 space-y-2">
+                    <div className="h-4 bg-slate-200 rounded w-1/4" />
+                    <div className="h-5 bg-slate-200 rounded w-1/2" />
+                    <div className="h-3 bg-slate-200 rounded w-1/3 mt-2" />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : filteredJobs.length > 0 ? (
           filteredJobs.map((job) => <JobCard key={job.id} job={job} />)
         ) : (
           <div className="rounded-2xl border border-dashed border-slate-200 bg-white p-12 text-center">

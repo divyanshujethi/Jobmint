@@ -2,10 +2,7 @@
 
 import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
-import {
-  MOCK_COMPANIES,
-  CompanyProfile,
-} from "@/lib/mock-companies";
+import { CompanyProfile } from "@/lib/mock-companies";
 import {
   ShieldCheck,
   Search,
@@ -22,18 +19,19 @@ export default function CompaniesDirectoryPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [onlyFastReviewers, setOnlyFastReviewers] = useState(false);
   const [onlyVerified, setOnlyVerified] = useState(false);
-  const [companies, setCompanies] = useState<CompanyProfile[]>(MOCK_COMPANIES);
-  const [loading, setLoading] = useState(false);
+  const [companies, setCompanies] = useState<CompanyProfile[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch("/api/companies")
       .then((res) => res.json())
       .then((data) => {
-        if (data.companies && data.companies.length > 0) {
+        if (data.companies && Array.isArray(data.companies)) {
           setCompanies(data.companies);
         }
       })
-      .catch((err) => console.error("Error loading live companies:", err));
+      .catch((err) => console.error("Error loading live companies:", err))
+      .finally(() => setLoading(false));
   }, []);
 
   const filteredCompanies = useMemo(() => {
@@ -104,11 +102,25 @@ export default function CompaniesDirectoryPage() {
 
       {/* COMPANIES GRID */}
       <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredCompanies.map((comp) => (
-          <div
-            key={comp.id}
-            className="flex flex-col justify-between rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:border-slate-300 hover:shadow-md"
-          >
+        {loading ? (
+          [1, 2, 3, 4, 5, 6].map((i) => (
+            <div key={i} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-xs animate-pulse space-y-4">
+              <div className="flex items-center gap-3">
+                <div className="h-12 w-12 rounded-xl bg-slate-200 shrink-0" />
+                <div className="flex-1 space-y-2">
+                  <div className="h-4 bg-slate-200 rounded w-1/2" />
+                  <div className="h-3 bg-slate-200 rounded w-1/3" />
+                </div>
+              </div>
+              <div className="h-16 bg-slate-100 rounded-xl" />
+            </div>
+          ))
+        ) : filteredCompanies.length > 0 ? (
+          filteredCompanies.map((comp) => (
+            <div
+              key={comp.id}
+              className="flex flex-col justify-between rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:border-slate-300 hover:shadow-md"
+            >
             <div className="space-y-4">
               {/* TOP ROW */}
               <div className="flex items-start justify-between gap-3">
@@ -168,7 +180,12 @@ export default function CompaniesDirectoryPage() {
               </Link>
             </div>
           </div>
-        ))}
+        ))
+        ) : (
+          <div className="col-span-full rounded-2xl border border-dashed border-slate-200 bg-white p-12 text-center text-sm text-slate-500">
+            No companies found matching your search.
+          </div>
+        )}
       </div>
     </div>
   );

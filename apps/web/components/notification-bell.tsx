@@ -11,22 +11,17 @@ import {
   Check,
   ArrowRight,
 } from "lucide-react";
-import {
-  INITIAL_NOTIFICATIONS,
-  InAppNotification,
-} from "@/lib/mock-notifications";
+import { InAppNotification } from "@/lib/mock-notifications";
 
 export function NotificationBell() {
-  const [notifications, setNotifications] = useState<InAppNotification[]>(
-    INITIAL_NOTIFICATIONS
-  );
+  const [notifications, setNotifications] = useState<InAppNotification[]>([]);
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     fetch("/api/notifications")
       .then((res) => res.json())
       .then((data) => {
-        if (data.notifications && data.notifications.length > 0) {
+        if (data.notifications && Array.isArray(data.notifications)) {
           setNotifications(data.notifications);
         }
       })
@@ -60,82 +55,86 @@ export function NotificationBell() {
         )}
       </button>
 
-      {/* DROPDOWN POPOVER */}
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-80 sm:w-96 rounded-2xl border border-slate-200 bg-white p-4 shadow-2xl z-50 animate-in fade-in zoom-in-95 duration-150">
-          <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-            <div className="flex items-center gap-1.5">
-              <h3 className="text-sm font-bold text-slate-900">Notifications</h3>
+        <>
+          <div
+            className="fixed inset-0 z-40"
+            onClick={() => setIsOpen(false)}
+          />
+          <div className="absolute right-0 top-12 z-50 w-80 sm:w-96 rounded-2xl border border-slate-200 bg-white p-4 shadow-xl animate-in fade-in zoom-in-95 duration-100">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+              <div className="flex items-center gap-1.5">
+                <span className="font-bold text-sm text-slate-900">Notifications</span>
+                {unreadCount > 0 && (
+                  <span className="rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-bold text-emerald-700">
+                    {unreadCount} new
+                  </span>
+                )}
+              </div>
               {unreadCount > 0 && (
-                <span className="rounded-full bg-emerald-100 px-1.5 py-0.2 text-[10px] font-bold text-emerald-800">
-                  {unreadCount} new
-                </span>
+                <button
+                  onClick={markAllRead}
+                  className="text-xs text-slate-500 hover:text-emerald-600 flex items-center gap-1 font-medium"
+                >
+                  <Check className="h-3 w-3" /> Mark all read
+                </button>
               )}
             </div>
 
-            {unreadCount > 0 && (
-              <button
-                onClick={markAllRead}
-                className="text-[11px] font-semibold text-emerald-600 hover:underline"
-              >
-                Mark all as read
-              </button>
-            )}
-          </div>
-
-          <div className="mt-3 space-y-2 max-h-80 overflow-y-auto">
-            {notifications.map((notif) => (
-              <Link
-                key={notif.id}
-                href={notif.linkUrl}
-                onClick={() => {
-                  markSingleRead(notif.id);
-                  setIsOpen(false);
-                }}
-                className={`block rounded-xl border p-3 transition-all hover:bg-slate-50 ${
-                  !notif.isRead
-                    ? "border-emerald-200 bg-emerald-50/20"
-                    : "border-slate-100 bg-white"
-                }`}
-              >
-                <div className="flex items-start gap-2.5">
-                  <div className="mt-0.5 shrink-0">
-                    {notif.type === "VIEWED" ? (
-                      <Eye className="h-4 w-4 text-emerald-600" />
-                    ) : notif.type === "SHORTLISTED" ? (
-                      <Sparkles className="h-4 w-4 text-emerald-600" />
-                    ) : notif.type === "GHOSTING" ? (
-                      <AlertCircle className="h-4 w-4 text-amber-600" />
-                    ) : (
-                      <Zap className="h-4 w-4 text-blue-600" />
-                    )}
-                  </div>
-                  <div className="space-y-0.5">
-                    <div className="text-xs font-bold text-slate-900 leading-snug">
-                      {notif.title}
-                    </div>
-                    <p className="text-[11px] text-slate-600 leading-relaxed">
-                      {notif.message}
-                    </p>
-                    <span className="text-[10px] font-medium text-slate-400 block pt-0.5">
-                      {notif.timestampAgo}
-                    </span>
-                  </div>
+            <div className="divide-y divide-slate-100 max-h-80 overflow-y-auto my-1">
+              {notifications.length === 0 ? (
+                <div className="py-8 text-center text-xs text-slate-400">
+                  No notifications yet.
                 </div>
-              </Link>
-            ))}
-          </div>
+              ) : (
+                notifications.slice(0, 4).map((n) => (
+                  <div
+                    key={n.id}
+                    onClick={() => markSingleRead(n.id)}
+                    className={`py-3 px-1 transition-colors flex items-start gap-3 cursor-pointer hover:bg-slate-50 rounded-lg ${
+                      !n.isRead ? "bg-emerald-50/20" : ""
+                    }`}
+                  >
+                    <div className="mt-0.5 shrink-0">
+                      {n.type === "VIEWED" ? (
+                        <Eye className="h-4 w-4 text-emerald-600" />
+                      ) : n.type === "SHORTLISTED" ? (
+                        <Sparkles className="h-4 w-4 text-emerald-600" />
+                      ) : n.type === "GHOSTING" ? (
+                        <AlertCircle className="h-4 w-4 text-amber-600" />
+                      ) : (
+                        <Zap className="h-4 w-4 text-blue-600" />
+                      )}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between gap-1">
+                        <p className="text-xs font-bold text-slate-900 truncate">
+                          {n.title}
+                        </p>
+                        <span className="text-[10px] text-slate-400 shrink-0">
+                          {n.timestampAgo}
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-slate-600 line-clamp-2 mt-0.5">
+                        {n.message}
+                      </p>
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
 
-          <div className="mt-3 border-t border-slate-100 pt-2 text-center">
-            <Link
-              href="/notifications"
-              onClick={() => setIsOpen(false)}
-              className="inline-flex items-center gap-1 text-xs font-bold text-emerald-700 hover:underline"
-            >
-              View all notifications <ArrowRight className="h-3 w-3" />
-            </Link>
+            <div className="border-t border-slate-100 pt-2.5 text-center">
+              <Link
+                href="/notifications"
+                onClick={() => setIsOpen(false)}
+                className="text-xs font-bold text-emerald-600 hover:text-emerald-700 inline-flex items-center gap-1"
+              >
+                View all notifications <ArrowRight className="h-3 w-3" />
+              </Link>
+            </div>
           </div>
-        </div>
+        </>
       )}
     </div>
   );

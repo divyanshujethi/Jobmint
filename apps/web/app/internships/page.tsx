@@ -1,16 +1,14 @@
-﻿"use client";
+"use client";
 
 import { useState, useEffect, useMemo } from "react";
 import { Sparkles, MapPin, Search, Filter } from "lucide-react";
-import { MOCK_JOBS, MockJob } from "@/lib/mock-jobs";
+import { MockJob } from "@/lib/mock-jobs";
 import { JobCard } from "@/components/job-card";
 import { JobType, WorkMode } from "@repo/shared";
 
 export default function InternshipsPage() {
-  const [internships, setInternships] = useState<MockJob[]>(
-    MOCK_JOBS.filter((job) => job.jobType === JobType.INTERNSHIP)
-  );
-  const [loading, setLoading] = useState(false);
+  const [internships, setInternships] = useState<MockJob[]>([]);
+  const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [modeFilter, setModeFilter] = useState("ALL");
 
@@ -18,11 +16,12 @@ export default function InternshipsPage() {
     fetch("/api/jobs?type=INTERNSHIP")
       .then((res) => res.json())
       .then((data) => {
-        if (data.jobs && data.jobs.length > 0) {
+        if (data.jobs && Array.isArray(data.jobs)) {
           setInternships(data.jobs);
         }
       })
-      .catch((err) => console.error("Error loading live internships:", err));
+      .catch((err) => console.error("Error loading live internships:", err))
+      .finally(() => setLoading(false));
   }, []);
 
   const filteredInternships = useMemo(() => {
@@ -87,10 +86,26 @@ export default function InternshipsPage() {
       </div>
 
       <div className="mt-6 space-y-4">
-        {filteredInternships.map((job) => (
-          <JobCard key={job.id} job={job} />
-        ))}
-        {filteredInternships.length === 0 && (
+        {loading ? (
+          <div className="space-y-4">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="rounded-xl border border-slate-200 bg-white p-6 shadow-xs animate-pulse">
+                <div className="flex items-start gap-4">
+                  <div className="h-12 w-12 rounded-xl bg-slate-200 shrink-0" />
+                  <div className="flex-1 space-y-2">
+                    <div className="h-4 bg-slate-200 rounded w-1/4" />
+                    <div className="h-5 bg-slate-200 rounded w-1/2" />
+                    <div className="h-3 bg-slate-200 rounded w-1/3 mt-2" />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : filteredInternships.length > 0 ? (
+          filteredInternships.map((job) => (
+            <JobCard key={job.id} job={job} />
+          ))
+        ) : (
           <div className="rounded-2xl border border-dashed border-slate-200 bg-white p-12 text-center">
             <p className="text-sm text-slate-500">No internships match your current search.</p>
           </div>

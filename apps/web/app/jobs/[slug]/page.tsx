@@ -13,7 +13,6 @@ import {
   Sparkles,
   Share2,
 } from "lucide-react";
-import { MOCK_JOBS } from "@/lib/mock-jobs";
 import { getLiveJobBySlug } from "@/lib/db-jobs";
 import { getLearningGuideForSkill } from "@repo/shared";
 import { Button } from "@/components/ui/button";
@@ -27,7 +26,7 @@ interface JobPageProps {
 
 export default async function JobDetailsPage({ params }: JobPageProps) {
   const { slug } = await params;
-  const job = (await getLiveJobBySlug(slug)) || MOCK_JOBS.find((j) => j.slug === slug);
+  const job = await getLiveJobBySlug(slug);
 
   if (!job) {
     notFound();

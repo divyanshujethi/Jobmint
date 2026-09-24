@@ -1,9 +1,8 @@
-﻿"use client";
+"use client";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import {
-  INITIAL_EMPLOYER_APPLICANTS,
   EmployerApplicant,
 } from "@/lib/mock-applications";
 import {
@@ -34,14 +33,8 @@ interface ExtendedApplicant extends EmployerApplicant {
 }
 
 export default function EmployerApplicantsPage() {
-  const [applicants, setApplicants] = useState<ExtendedApplicant[]>(
-    INITIAL_EMPLOYER_APPLICANTS.map((a, i) => ({
-      ...a,
-      demoUrl: i === 0 ? "https://jobmint.ritualdev.in" : i === 1 ? "https://shadcn.com" : null,
-      devScore: i === 0 ? 885 : i === 1 ? 790 : null,
-      githubUrl: i === 0 ? "https://github.com/shadcn" : i === 1 ? "https://github.com/gaearon" : null,
-    }))
-  );
+  const [applicants, setApplicants] = useState<ExtendedApplicant[]>([]);
+  const [loading, setLoading] = useState(true);
   const [selectedJob, setSelectedJob] = useState<string>("ALL");
   const [activeTab, setActiveTab] = useState<string>("ALL");
   const [lastActionMessage, setLastActionMessage] = useState<string | null>(null);
@@ -84,7 +77,8 @@ export default function EmployerApplicantsPage() {
           setApplicants(liveList);
         }
       })
-      .catch((err) => console.error("Error loading employer applicants:", err));
+      .catch((err) => console.error("Error loading employer applicants:", err))
+      .finally(() => setLoading(false));
   }, []);
 
   const updateStatus = (
@@ -189,9 +183,18 @@ export default function EmployerApplicantsPage() {
 
       {/* APPLICANT CARDS */}
       <div className="mt-6 space-y-4">
-        {filteredApplicants.length === 0 ? (
-          <div className="rounded-2xl border border-dashed border-slate-300 p-12 text-center text-sm text-slate-500">
-            No applicants match the selected filter.
+        {loading ? (
+          <div className="py-16 text-center space-y-3">
+            <div className="h-8 w-8 mx-auto rounded-full border-2 border-emerald-600 border-t-transparent animate-spin" />
+            <p className="text-xs font-mono text-slate-400">Loading applicants...</p>
+          </div>
+        ) : filteredApplicants.length === 0 ? (
+          <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-12 text-center space-y-3">
+            <Clock className="mx-auto h-10 w-10 text-slate-300" />
+            <h3 className="text-base font-bold text-slate-800">No applicants received yet</h3>
+            <p className="text-xs text-slate-500 max-w-sm mx-auto">
+              Once candidates submit applications to your job postings, their verified profiles, GitHub portfolios, and Truth Teller tracking will appear here.
+            </p>
           </div>
         ) : (
           filteredApplicants.map((candidate) => (

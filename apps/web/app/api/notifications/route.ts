@@ -1,105 +1,136 @@
-﻿import { NextRequest, NextResponse } from "next/server";
-import { db, applications, jobs, companies, desc, eq } from "@repo/database";
+import { NextRequest, NextResponse } from "next/server";
+import {
+  db,
+  applications,
+  jobs,
+  companies,
+  candidateProfiles,
+  users,
+  courseCertificates,
+  desc,
+  eq,
+} from "@repo/database";
 import { auth } from "@/auth";
 
 export async function GET() {
   try {
     const session = await auth();
 
-    // Query recent applications
-    const recentApps = await db
-      .select({
-        id: applications.id,
-        status: applications.status,
-        appliedAt: applications.appliedAt,
-        lastViewedAt: applications.lastViewedAt,
-        jobTitle: jobs.title,
-        jobSlug: jobs.slug,
-        companyName: companies.name,
-      })
-      .from(applications)
-      .innerJoin(jobs, eq(applications.jobId, jobs.id))
-      .innerJoin(companies, eq(jobs.companyId, companies.id))
-      .orderBy(desc(applications.appliedAt))
-      .limit(6);
-
-    const now = Date.now();
-    const notifs: any[] = [];
-
-    // Notifications from real applications
-    for (const app of recentApps) {
-      const days = Math.floor(
-        (now - new Date(app.appliedAt).getTime()) / (1000 * 60 * 60 * 24)
-      );
-
-      // 1. Submitted Notification
-      notifs.push({
-        id: `notif-app-${app.id}`,
-        type: "VIEWED",
-        title: `Applied: ${app.jobTitle}`,
-        message: `Your application to ${app.companyName} was submitted. Truth Teller telemetry is tracking recruiter activity.`,
-        timestampAgo: days === 0 ? "Today" : `${days}d ago`,
-        isRead: false,
-        linkUrl: "/applications",
+    if (!session || !session.user || !session.user.email) {
+      return NextResponse.json({
+        notifications: [],
+        unreadCount: 0,
+        source: "postgresql-jobmint-prod",
       });
+    }
 
-      // 2. Viewed Notification
-      if (app.lastViewedAt) {
+    // Query authenticated user
+    const userList = await db
+      .select()
+      .from(users)
+      .where(eq(users.email, session.user.email))
+      .limit(1);
+
+    if (userList.length === 0) {
+      return NextResponse.json({
+        notifications: [],
+        unreadCount: 0,
+        source: "postgresql-jobmint-prod",
+      });
+    }
+
+    const currentUserId = userList[0].id;
+    const notifs: any[] = [];
+    const now = Date.now();
+
+    // Query candidate profile
+    const profileList = await db
+      .select()
+      .from(candidateProfiles)
+      .where(eq(candidateProfiles.userId, currentUserId))
+      .limit(1);
+
+    if (profileList.length > 0) {
+      const candidateProfileId = profileList[0].id;
+      const userApps = await db
+        .select({
+          id: applications.id,
+          status: applications.status,
+          appliedAt: applications.appliedAt,
+          lastViewedAt: applications.lastViewedAt,
+          jobTitle: jobs.title,
+          jobSlug: jobs.slug,
+          companyName: companies.name,
+        })
+        .from(applications)
+        .innerJoin(jobs, eq(applications.jobId, jobs.id))
+        .innerJoin(companies, eq(jobs.companyId, companies.id))
+        .where(eq(applications.candidateProfileId, candidateProfileId))
+        .orderBy(desc(applications.appliedAt))
+        .limit(10);
+
+      for (const app of userApps) {
+        const days = Math.floor(
+          (now - new Date(app.appliedAt).getTime()) / (1000 * 60 * 60 * 24)
+        );
+
         notifs.push({
-          id: `notif-view-${app.id}`,
+          id: `notif-app-${app.id}`,
           type: "VIEWED",
-          title: `Resume Viewed by ${app.companyName}`,
-          message: `A recruiter from ${app.companyName} reviewed your resume for ${app.jobTitle}.`,
-          timestampAgo: "Recent",
+          title: `Applied: ${app.jobTitle}`,
+          message: `Your application to ${app.companyName} was submitted. Truth Teller telemetry is tracking recruiter activity.`,
+          timestampAgo: days === 0 ? "Today" : `${days}d ago`,
           isRead: false,
           linkUrl: "/applications",
         });
-      }
 
-      // 3. Ghosting Alert
-      if (!app.lastViewedAt && days >= 7) {
-        notifs.push({
-          id: `notif-ghost-${app.id}`,
-          type: "GHOSTING",
-          title: `Truth Teller Inactivity Alert (${days}d)`,
-          message: `${app.companyName} has not viewed your application in ${days} days. We recommend applying to active roles.`,
-          timestampAgo: `${days}d ago`,
-          isRead: false,
-          linkUrl: "/applications",
-        });
+        if (app.lastViewedAt) {
+          notifs.push({
+            id: `notif-view-${app.id}`,
+            type: "VIEWED",
+            title: `Resume Viewed by ${app.companyName}`,
+            message: `A recruiter from ${app.companyName} reviewed your resume for ${app.jobTitle}.`,
+            timestampAgo: "Recent",
+            isRead: false,
+            linkUrl: "/applications",
+          });
+        }
+
+        if (!app.lastViewedAt && days >= 7) {
+          notifs.push({
+            id: `notif-ghost-${app.id}`,
+            type: "GHOSTING",
+            title: `Truth Teller Inactivity Alert (${days}d)`,
+            message: `${app.companyName} has not viewed your application in ${days} days. We recommend applying to active roles.`,
+            timestampAgo: `${days}d ago`,
+            isRead: false,
+            linkUrl: "/applications",
+          });
+        }
       }
     }
 
-    // High Compatibility Matches
-    notifs.push(
-      {
-        id: "notif-match-razorpay",
-        type: "MATCH",
-        title: "New 95% Compatibility Match",
-        message: "Razorpay posted Frontend Engineer Intern matching your React, TypeScript & Next.js skills.",
-        timestampAgo: "Just now",
-        isRead: false,
-        linkUrl: "/jobs/frontend-engineer-intern-razorpay",
-      },
-      {
-        id: "notif-match-microsoft",
-        type: "MATCH",
-        title: "New High-Stipend Role Verified",
-        message: "Microsoft posted Cloud Infrastructure & DevOps Intern (₹60,000/mo) in Hyderabad.",
-        timestampAgo: "2h ago",
-        isRead: false,
-        linkUrl: "/jobs/cloud-infrastructure-devops-intern-microsoft",
-      },
-      {
-        id: "notif-match-google",
-        type: "SHORTLISTED",
-        title: "Google AI & ML Role Live",
-        message: "Google is actively interviewing for AI & Machine Learning Engineers in Bengaluru.",
-        timestampAgo: "1d ago",
-        isRead: true,
-        linkUrl: "/jobs/ai-machine-learning-engineer-google",
+    // Query real course certificates
+    try {
+      const earnedCerts = await db
+        .select()
+        .from(courseCertificates)
+        .where(eq(courseCertificates.userId, currentUserId))
+        .orderBy(desc(courseCertificates.issuedAt))
+        .limit(5);
+
+      for (const cert of earnedCerts) {
+        notifs.push({
+          id: `notif-cert-${cert.id}`,
+          type: "SHORTLISTED",
+          title: "Verified Certificate Earned!",
+          message: `Congratulations! You passed the technical examination for ${cert.courseId} with a verified grade of ${cert.score}%.`,
+          timestampAgo: "Verified",
+          isRead: false,
+          linkUrl: `/certificates/verify/${cert.id}`,
+        });
       }
-    );
+    } catch {}
 
     return NextResponse.json({
       notifications: notifs,

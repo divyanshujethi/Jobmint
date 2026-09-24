@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { MOCK_JOBS } from "@/lib/mock-jobs";
+import { getLiveJobs } from "@/lib/db-jobs";
 
 interface RoadmapPageProps {
   params: Promise<{ slug: string }>;
@@ -31,8 +31,9 @@ export default async function RoadmapDetailPage({ params }: RoadmapPageProps) {
     notFound();
   }
 
-  // Find jobs related to this roadmap
-  const relatedJobs = MOCK_JOBS.filter((job) =>
+  // Find live jobs related to this roadmap from PostgreSQL
+  const allJobs = await getLiveJobs();
+  const relatedJobs = allJobs.filter((job) =>
     job.skills.some((skill) => roadmap.keySkills.includes(skill))
   );
 

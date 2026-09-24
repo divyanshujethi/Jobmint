@@ -1,13 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ShieldCheck, Bookmark, ArrowRight, Clock, MapPin, Sparkles } from "lucide-react";
 import { MockJob } from "@/lib/mock-jobs";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { calculateJobMatch } from "@repo/matching";
-import { CURRENT_CANDIDATE_PROFILE } from "@/lib/candidate-profile";
 import { MatchScoreBadge } from "./match-score-badge";
 
 interface JobCardProps {
@@ -16,16 +15,58 @@ interface JobCardProps {
 
 export function JobCard({ job }: JobCardProps) {
   const [isSaved, setIsSaved] = useState(false);
+  const [candidateProfile, setCandidateProfile] = useState<{
+    skills: string[];
+    experienceYears?: number;
+  } | null>(null);
 
-  const matchResult = calculateJobMatch(CURRENT_CANDIDATE_PROFILE, {
-    id: job.id,
-    title: job.title,
-    requiredSkills: job.skills,
-    experienceYears: job.experienceYears,
-    workMode: job.workMode,
-    location: job.location,
-    jobType: job.jobType,
-  });
+  useEffect(() => {
+    try {
+      const savedDev = localStorage.getItem("jobmint_verified_dev_score");
+      if (savedDev) {
+        const parsed = JSON.parse(savedDev);
+        if (Array.isArray(parsed.verifiedSkills) && parsed.verifiedSkills.length > 0) {
+          setCandidateProfile({ skills: parsed.verifiedSkills, experienceYears: 0 });
+          return;
+        }
+      }
+      const savedSkills = localStorage.getItem("jobmint_candidate_skills");
+      if (savedSkills) {
+        const parsed = JSON.parse(savedSkills);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          setCandidateProfile({ skills: parsed, experienceYears: 0 });
+          return;
+        }
+      }
+    } catch {}
+    setCandidateProfile(null);
+  }, []);
+
+  const matchResult = candidateProfile
+    ? calculateJobMatch(
+        {
+          id: "active-candidate",
+          skills: candidateProfile.skills,
+          experienceYears: candidateProfile.experienceYears || 0,
+          isFresher: true,
+          location: "Remote",
+          preferredWorkModes: [],
+          preferredRoles: [],
+          expectedSalaryMin: 0,
+          educationField: "Computer Science",
+          projects: [],
+        },
+        {
+          id: job.id,
+          title: job.title,
+          requiredSkills: job.skills,
+          experienceYears: job.experienceYears,
+          workMode: job.workMode,
+          location: job.location,
+          jobType: job.jobType,
+        }
+      )
+    : null;
 
   return (
     <div className="group relative rounded-xl border border-slate-200 bg-white p-5 sm:p-6 shadow-sm transition-all hover:border-slate-300 hover:shadow-md">
@@ -64,11 +105,13 @@ export function JobCard({ job }: JobCardProps) {
 
         {/* Match Badge & Save Bookmark Button */}
         <div className="flex items-center gap-2">
-          <MatchScoreBadge
-            jobTitle={job.title}
-            companyName={job.companyName}
-            matchResult={matchResult}
-          />
+          {matchResult && (
+            <MatchScoreBadge
+              jobTitle={job.title}
+              companyName={job.companyName}
+              matchResult={matchResult}
+            />
+          )}
 
           <button
             onClick={() => setIsSaved(!isSaved)}
