@@ -1,7 +1,8 @@
 ﻿"use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { APP_CONFIG, UserRole } from "@repo/shared";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
@@ -16,13 +17,15 @@ import {
   Briefcase,
 } from "lucide-react";
 
-export default function LoginPage() {
+function LoginForm() {
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl") || "/recommendations";
   const [activeProvider, setActiveProvider] = useState<string | null>(null);
 
   const handleOAuthSignIn = async (provider: string) => {
     setActiveProvider(provider);
     try {
-      await signIn(provider, { callbackUrl: "/recommendations" });
+      await signIn(provider, { callbackUrl });
     } catch (err) {
       console.error("Sign in failed:", err);
       setActiveProvider(null);
@@ -188,5 +191,12 @@ export default function LoginPage() {
         </CardFooter>
       </Card>
     </div>
+  );
+}
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div className="flex min-h-[82vh] items-center justify-center text-xs font-mono text-slate-400">Loading sign in...</div>}>
+      <LoginForm />
+    </Suspense>
   );
 }

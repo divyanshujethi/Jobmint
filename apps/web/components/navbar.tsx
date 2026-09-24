@@ -54,7 +54,7 @@ export function Navbar() {
             "divyanshu.dev@gmail.com",
             "divyanshujethi@gmail.com",
           ];
-          if (email && adminEmails.includes(email)) {
+          if (email && (adminEmails.includes(email) || data.user.role === "ADMIN")) {
             setIsAdmin(true);
           }
         }
