@@ -9,7 +9,11 @@ export async function GET() {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { task, input } = body as { task: AITask; input: Record<string, any> };
+    const { task, input, preferredProvider } = body as {
+      task: AITask;
+      input: Record<string, any>;
+      preferredProvider?: any;
+    };
 
     if (!task || !input) {
       return NextResponse.json(
@@ -18,7 +22,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const response = await generateAI({ task, input });
+    const response = await generateAI({ task, input, preferredProvider });
 
     if (!response.success && response.error) {
       return NextResponse.json(response, { status: 429 });
