@@ -2,9 +2,15 @@
 
 import Link from "next/link";
 import { APP_CONFIG } from "@repo/shared";
-import { ShieldCheck, Heart, Award, Scale, Settings2 } from "lucide-react";
+import { ShieldCheck, Heart, Award, Scale, Settings2, Download, Smartphone } from "lucide-react";
 
 export function Footer() {
+  const triggerPwaInstall = () => {
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new CustomEvent("trigger-pwa-install"));
+    }
+  };
+
   const openDPDPPreferences = () => {
     if (typeof window !== "undefined") {
       window.dispatchEvent(new CustomEvent("open-dpdp-preferences"));
@@ -42,6 +48,16 @@ export function Footer() {
               Candidates &amp; Learning
             </h3>
             <ul className="mt-4 space-y-2 text-sm text-slate-600">
+              <li>
+                <button
+                  type="button"
+                  onClick={triggerPwaInstall}
+                  className="flex items-center gap-1.5 text-xs font-bold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-2.5 py-1.5 rounded-lg transition-colors w-full text-left"
+                >
+                  <Download className="h-3.5 w-3.5 text-emerald-600" />
+                  Install JobMint App (PWA)
+                </button>
+              </li>
               <li>
                 <Link href="/courses" className="hover:text-emerald-600 font-semibold text-emerald-700">
                   Interactive Courses &amp; Playlists

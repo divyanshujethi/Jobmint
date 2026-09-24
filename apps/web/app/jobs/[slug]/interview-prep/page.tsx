@@ -33,6 +33,8 @@ export default function JobInterviewPrepPage() {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(0);
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
   const [provider, setProvider] = useState<string>("gemini");
+  const [requiresAuth, setRequiresAuth] = useState(false);
+  const [rateLimitMsg, setRateLimitMsg] = useState<string | null>(null);
 
   useEffect(() => {
     fetch("/api/jobs")
@@ -52,6 +54,8 @@ export default function JobInterviewPrepPage() {
     if (!job) return;
     setLoading(true);
     try {
+      setRequiresAuth(false);
+      setRateLimitMsg(null);
       const res = await fetch("/api/ai", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -65,8 +69,22 @@ export default function JobInterviewPrepPage() {
       });
 
       const data = await res.json();
+
+      if (res.status === 401) {
+        setRequiresAuth(true);
+        setProvider("curated-catalog");
+        setQuestions(getDefaultQuestions(job.title));
+        return;
+      }
+
+      if (res.status === 429) {
+        setRateLimitMsg(data.error || "Rate limit reached. Please wait a few moments.");
+        setQuestions(getDefaultQuestions(job.title));
+        return;
+      }
+
       if (res.ok && data.result) {
-        setProvider(data.provider || "mock");
+        setProvider(data.provider || "gemini");
         if (Array.isArray(data.result)) {
           setQuestions(data.result);
         } else if (typeof data.result === "string") {
@@ -152,6 +170,29 @@ export default function JobInterviewPrepPage() {
             </div>
           </div>
         </div>
+
+        {requiresAuth && (
+          <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs shadow-sm">
+            <div className="flex items-center gap-2.5">
+              <ShieldCheck className="h-5 w-5 text-amber-600 shrink-0" />
+              <div>
+                <span className="font-bold text-slate-900 block">Preview Mode: Displaying Verified Curriculum Questions</span>
+                <span className="text-slate-600">Sign in to generate unlimited personalized questions and live AI evaluation.</span>
+              </div>
+            </div>
+            <Link href={`/login?callbackUrl=/jobs/${job.slug}/interview-prep`}>
+              <button className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs px-4 py-2 rounded-xl shadow-xs transition-colors shrink-0">
+                Sign In for Live AI
+              </button>
+            </Link>
+          </div>
+        )}
+
+        {rateLimitMsg && (
+          <div className="rounded-2xl border border-rose-200 bg-rose-50 p-4 text-xs text-rose-800 font-medium">
+            {rateLimitMsg}
+          </div>
+        )}
 
         {/* Required Skills Pill List */}
         <div className="bg-white border border-slate-200 rounded-xl p-4 flex flex-wrap items-center gap-2 shadow-sm">

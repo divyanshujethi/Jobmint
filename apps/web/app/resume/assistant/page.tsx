@@ -11,8 +11,10 @@ import {
   Zap,
   AlertCircle,
   BookOpen,
+  Lock,
 } from "lucide-react";
 import { WebGpuBadge } from "@/components/webgpu-optimizer";
+import { Button } from "@/components/ui/button";
 
 interface EnhancedResult {
   original: string;
@@ -39,6 +41,7 @@ export default function ResumeAssistantPage() {
   const [cascadeChain, setCascadeChain] = useState<string[]>([]);
   const [useLocalWebGpu, setUseLocalWebGpu] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [requiresAuth, setRequiresAuth] = useState(false);
   const [stats, setStats] = useState<{ aiPercentage: number; circuitBreakerStatus: string } | null>(null);
 
   useEffect(() => {
@@ -59,6 +62,7 @@ export default function ResumeAssistantPage() {
     if (!inputBullet.trim()) return;
     setLoading(true);
     setError(null);
+    setRequiresAuth(false);
 
     // If local WebGPU is selected
     if (useLocalWebGpu) {
@@ -92,6 +96,13 @@ export default function ResumeAssistantPage() {
       });
 
       const data = await res.json();
+
+      if (res.status === 401) {
+        setRequiresAuth(true);
+        setError("Sign-in required: Please log in to JobMint to use our server-side AI models.");
+        return;
+      }
+
       if (!res.ok) {
         throw new Error(data.error || "Failed to process bullet point");
       }
@@ -127,37 +138,38 @@ export default function ResumeAssistantPage() {
   };
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-neutral-100 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-slate-50/50 text-slate-900 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-5xl mx-auto space-y-8">
+        
         {/* Breadcrumb & Quota Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-neutral-800 pb-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-6">
           <div>
-            <div className="flex items-center gap-2 text-xs text-neutral-400 font-mono mb-2">
-              <Link href="/jobs" className="hover:text-emerald-400">JobMint</Link>
+            <div className="flex items-center gap-2 text-xs text-slate-500 font-mono mb-2">
+              <Link href="/jobs" className="hover:text-emerald-600">JobMint</Link>
               <span>/</span>
-              <span className="text-neutral-200">Resume Optimizer</span>
+              <span className="text-slate-800 font-semibold">Resume Optimizer</span>
             </div>
-            <h1 className="text-3xl font-bold tracking-tight text-white flex items-center gap-3">
-              <Sparkles className="w-7 h-7 text-emerald-400" />
+            <h1 className="text-3xl font-black tracking-tight text-slate-900 flex items-center gap-3">
+              <Sparkles className="w-7 h-7 text-emerald-600" />
               ATS Resume Bullet Assistant
             </h1>
-            <p className="text-neutral-400 text-sm mt-1">
-              Powered by our 4-Tier Llama 3.2 AI Cascade Engine (Groq, Cloudflare, OCI Ollama, WebGPU).
+            <p className="text-slate-600 text-sm mt-1">
+              Powered by our 4-Tier AI Cascade Engine (Gemini 2.5 Flash, Groq, Cloudflare, WebGPU).
             </p>
           </div>
 
           {/* Live Quota Badge */}
-          <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-3 flex items-center gap-3 self-start sm:self-auto">
-            <div className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
+          <div className="bg-white border border-slate-200 rounded-2xl p-3 flex items-center gap-3 self-start sm:self-auto shadow-sm">
+            <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
             <div className="text-xs font-mono">
-              <div className="text-neutral-400">Gateway Status</div>
-              <div className="text-white font-medium">
-                {stats ? `Daily Quota: ${stats.aiPercentage}% Used` : "4-Tier Cascade Active"}
+              <div className="text-slate-500">Gateway Status</div>
+              <div className="text-slate-900 font-bold">
+                {stats ? `Daily Quota: ${stats.aiPercentage}% Used` : "Cascade Engine Active"}
               </div>
             </div>
             <Link
               href="/admin/system"
-              className="text-[11px] text-emerald-400 hover:underline border-l border-neutral-800 pl-3"
+              className="text-[11px] text-emerald-600 hover:underline border-l border-slate-200 pl-3 font-semibold"
             >
               Telemetry
             </Link>
@@ -165,32 +177,50 @@ export default function ResumeAssistantPage() {
         </div>
 
         {/* Informational Alert */}
-        <div className="bg-emerald-950/40 border border-emerald-800/60 rounded-xl p-4 flex items-start gap-3 text-sm text-emerald-200">
-          <ShieldCheck className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
-          <div>
-            <span className="font-semibold text-emerald-300">Zero-Hallucination and Zero-Cost Architecture: </span>
-            Runs on free-tier Llama 3.2 models across Groq, Cloudflare, and your private OCI Always Free ARM VM. No credit cards, no subscriptions.
+        <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 flex items-start gap-3 text-sm text-emerald-950 shadow-sm">
+          <ShieldCheck className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
+          <div className="text-xs sm:text-sm">
+            <span className="font-bold text-emerald-900">Zero-Hallucination &amp; Zero-Cost Architecture: </span>
+            Runs on free-tier high-speed models across Gemini 2.5 Flash and Groq Llama 3.3.
           </div>
         </div>
 
-        {/* Tier 0 WebGPU Toggle */}
+        {/* Hardware Spec Diagnostic & Potato PC Checker */}
         <WebGpuBadge onSelectLocal={setUseLocalWebGpu} isSelected={useLocalWebGpu} />
 
-        {error && (
-          <div className="bg-red-950/50 border border-red-800 rounded-xl p-4 flex items-center gap-3 text-sm text-red-300">
-            <AlertCircle className="w-5 h-5 text-red-400 shrink-0" />
+        {/* AUTH REQUIREMENT PROMPT */}
+        {requiresAuth && (
+          <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs shadow-sm">
+            <div className="flex items-center gap-2.5">
+              <Lock className="h-5 w-5 text-amber-600 shrink-0" />
+              <div>
+                <span className="font-bold text-slate-900 block">Sign In Required to Generate AI Bullets</span>
+                <span className="text-slate-600">To prevent automated scraping and quota abuse, AI features require an authenticated account.</span>
+              </div>
+            </div>
+            <Link href="/login?callbackUrl=/resume/assistant">
+              <Button className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow-xs">
+                Sign In to Continue
+              </Button>
+            </Link>
+          </div>
+        )}
+
+        {error && !requiresAuth && (
+          <div className="bg-rose-50 border border-rose-200 rounded-2xl p-4 flex items-center gap-3 text-xs text-rose-800 font-medium">
+            <AlertCircle className="w-5 h-5 text-rose-600 shrink-0" />
             <div>{error}</div>
           </div>
         )}
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Input Column */}
-          <div className="space-y-6 bg-neutral-900/70 border border-neutral-800 p-6 rounded-2xl">
+          <div className="space-y-6 bg-white border border-slate-200 p-6 rounded-3xl shadow-sm">
             <div className="flex items-center justify-between">
-              <label className="text-sm font-semibold text-neutral-200">
+              <label className="text-sm font-bold text-slate-900">
                 Draft Bullet / Raw Description
               </label>
-              <span className="text-xs text-neutral-500 font-mono">
+              <span className="text-xs text-slate-500 font-mono">
                 {inputBullet.length} chars
               </span>
             </div>
@@ -200,19 +230,19 @@ export default function ResumeAssistantPage() {
               value={inputBullet}
               onChange={(e) => setInputBullet(e.target.value)}
               placeholder="e.g. I worked on a react app that lets students register for hackathons..."
-              className="w-full bg-neutral-950 border border-neutral-800 rounded-xl p-4 text-sm text-neutral-100 placeholder-neutral-600 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 font-mono"
+              className="w-full bg-slate-50 border border-slate-200 rounded-2xl p-4 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 font-mono"
             />
 
             {/* Quick Sample Selector */}
             <div className="space-y-2">
-              <div className="text-xs text-neutral-400 font-medium">Try a student example:</div>
+              <div className="text-xs text-slate-500 font-semibold">Try a student example:</div>
               <div className="flex flex-wrap gap-2">
                 {SAMPLE_BULLETS.map((sample, idx) => (
                   <button
                     key={idx}
                     type="button"
                     onClick={() => setInputBullet(sample)}
-                    className="text-xs bg-neutral-800/80 hover:bg-neutral-800 text-neutral-300 hover:text-white px-3 py-1.5 rounded-lg border border-neutral-700/60 transition-colors text-left"
+                    className="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-xl border border-slate-200 transition-colors text-left"
                   >
                     Example {idx + 1}
                   </button>
@@ -223,20 +253,20 @@ export default function ResumeAssistantPage() {
             <button
               onClick={handleEnhance}
               disabled={loading || !inputBullet.trim()}
-              className="w-full py-3 px-4 bg-emerald-500 hover:bg-emerald-400 disabled:opacity-50 disabled:cursor-not-allowed text-neutral-950 font-semibold rounded-xl flex items-center justify-center gap-2 transition-all shadow-lg shadow-emerald-500/10"
+              className="w-full py-3 px-4 bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold rounded-xl flex items-center justify-center gap-2 transition-all shadow-sm"
             >
               {loading ? (
                 <>
-                  <div className="w-4 h-4 border-2 border-neutral-950 border-t-transparent rounded-full animate-spin" />
-                  <span>Cascading across Llama 3.2 engines...</span>
+                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  <span>Cascading across AI engines...</span>
                 </>
               ) : (
                 <>
                   <Zap className="w-4 h-4 fill-current" />
                   <span>
                     {useLocalWebGpu
-                      ? "Run on Device (WebGPU Llama 3.2)"
-                      : "Enhance via 4-Tier AI Cascade"}
+                      ? "Run on Device (WebGPU)"
+                      : "Enhance via AI Cascade"}
                   </span>
                 </>
               )}
@@ -244,108 +274,78 @@ export default function ResumeAssistantPage() {
           </div>
 
           {/* Result Column */}
-          <div className="space-y-6 bg-neutral-900/70 border border-neutral-800 p-6 rounded-2xl flex flex-col justify-between">
+          <div className="space-y-6 bg-white border border-slate-200 p-6 rounded-3xl shadow-sm flex flex-col justify-between">
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <span className="text-sm font-semibold text-neutral-200 flex items-center gap-2">
+                <span className="text-sm font-bold text-slate-900 flex items-center gap-2">
+                  <Sparkles className="w-4 h-4 text-emerald-600" />
                   ATS-Optimized Output
-                  {result && (
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-800 flex items-center gap-1">
-                      <Zap className="h-3 w-3 text-amber-400" />
-                      {latencyMs}ms • Tier {tier} ({provider})
-                    </span>
-                  )}
                 </span>
                 {result && (
                   <button
                     onClick={copyToClipboard}
-                    className="text-xs text-emerald-400 hover:text-emerald-300 font-mono flex items-center gap-1.5 bg-emerald-950/40 hover:bg-emerald-950/70 border border-emerald-800/60 px-2.5 py-1 rounded-lg transition-colors"
+                    className="text-xs flex items-center gap-1.5 text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-lg border border-slate-200 transition-colors"
                   >
-                    {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-                    {copied ? "Copied!" : "Copy Bullet"}
+                    {copied ? (
+                      <>
+                        <Check className="w-3.5 h-3.5 text-emerald-600" />
+                        <span className="text-emerald-700 font-bold">Copied!</span>
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="w-3.5 h-3.5" />
+                        <span>Copy Bullet</span>
+                      </>
+                    )}
                   </button>
                 )}
               </div>
 
               {result ? (
-                <div className="space-y-4">
-                  <div className="bg-neutral-950 border border-neutral-800 p-4 rounded-xl text-neutral-100 font-mono text-sm leading-relaxed border-l-4 border-l-emerald-500">
-                    • {result.enhanced}
+                <div className="space-y-4 animate-in fade-in">
+                  <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 font-mono text-sm leading-relaxed text-slate-900 selection:bg-emerald-100">
+                    &bull; {result.enhanced}
                   </div>
 
-                  {/* Engine Telemetry Card */}
-                  <div className="bg-neutral-950/60 border border-neutral-800 p-3 rounded-xl text-xs space-y-1.5 font-mono">
-                    <div className="flex items-center justify-between text-neutral-400">
-                      <span>Model Inferred:</span>
-                      <span className="text-emerald-400 font-semibold">{modelUsed}</span>
-                    </div>
-                    <div className="flex items-center justify-between text-neutral-400">
-                      <span>Latency:</span>
-                      <span className="text-white">{latencyMs} ms</span>
-                    </div>
-                    {cascadeChain.length > 0 && (
-                      <div className="flex items-center justify-between text-neutral-400 pt-1 border-t border-neutral-900">
-                        <span>Cascade Chain:</span>
-                        <span className="text-neutral-300">{cascadeChain.join(" → ")}</span>
+                  <div className="grid grid-cols-2 gap-3 text-xs">
+                    <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-3">
+                      <div className="text-[10px] text-emerald-700 font-mono uppercase font-bold">Action Verb</div>
+                      <div className="font-bold text-emerald-900 text-sm mt-0.5">
+                        {result.actionVerbUsed || "Engineered"}
                       </div>
-                    )}
+                    </div>
+
+                    <div className="bg-blue-50 border border-blue-200 rounded-xl p-3">
+                      <div className="text-[10px] text-blue-700 font-mono uppercase font-bold">Impact Metric</div>
+                      <div className="font-bold text-blue-900 text-sm mt-0.5 line-clamp-1">
+                        {result.impactFocus || "Measurable Outcome"}
+                      </div>
+                    </div>
                   </div>
 
-                  {result.actionVerbUsed && (
-                    <div className="grid grid-cols-2 gap-3 pt-1 text-xs">
-                      <div className="bg-neutral-950 p-3 rounded-xl border border-neutral-800">
-                        <div className="text-neutral-500 font-mono">Power Action Verb</div>
-                        <div className="text-emerald-400 font-semibold text-sm mt-0.5">
-                          {result.actionVerbUsed}
-                        </div>
-                      </div>
-                      <div className="bg-neutral-950 p-3 rounded-xl border border-neutral-800">
-                        <div className="text-neutral-500 font-mono">Recruiter Focus</div>
-                        <div className="text-neutral-200 font-semibold text-sm mt-0.5">
-                          {result.impactFocus || "Technical Competency"}
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* ATS Checklist */}
-                  <div className="bg-neutral-950/60 border border-neutral-800/80 rounded-xl p-4 space-y-2">
-                    <div className="text-xs font-semibold text-neutral-300 uppercase tracking-wider font-mono">
-                      ATS Scannability Checklist
-                    </div>
-                    <ul className="text-xs text-neutral-400 space-y-1.5">
-                      <li className="flex items-center gap-2">
-                        <Check className="w-3.5 h-3.5 text-emerald-400" /> Starts with an active engineering verb
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <Check className="w-3.5 h-3.5 text-emerald-400" /> Removes first-person pronouns ("I", "me", "my")
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <Check className="w-3.5 h-3.5 text-emerald-400" /> STAR framework aligned for fast 6-second recruiter scanning
-                      </li>
-                    </ul>
+                  {/* Telemetry info */}
+                  <div className="text-[11px] font-mono text-slate-500 pt-2 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2">
+                    <span>Engine: <strong className="text-slate-800">{modelUsed}</strong></span>
+                    <span>Latency: <strong className="text-emerald-600">{latencyMs}ms</strong></span>
                   </div>
                 </div>
               ) : (
-                <div className="border border-dashed border-neutral-800 rounded-xl p-12 text-center text-neutral-500 text-sm flex flex-col items-center justify-center h-64">
-                  <Sparkles className="w-8 h-8 text-neutral-700 mb-3" />
-                  <p>Click <span className="text-neutral-300 font-medium">Enhance Bullet Point</span> to transform your project description.</p>
+                <div className="border border-dashed border-slate-200 rounded-2xl p-12 text-center text-slate-400 space-y-2">
+                  <BookOpen className="w-8 h-8 text-slate-300 mx-auto" />
+                  <p className="text-sm font-medium">Your enhanced ATS bullet point will appear here.</p>
+                  <p className="text-xs text-slate-400">
+                    Click &quot;Enhance via AI Cascade&quot; to transform your draft.
+                  </p>
                 </div>
               )}
             </div>
 
-            {/* Roadmaps Promotion */}
-            <div className="border-t border-neutral-800/80 pt-4 flex items-center justify-between text-xs text-neutral-400">
-              <div className="flex items-center gap-2">
-                <BookOpen className="w-4 h-4 text-emerald-400" />
-                <span>Need projects with heavier technical depth?</span>
-              </div>
-              <Link href="/roadmaps" className="text-emerald-400 hover:underline flex items-center gap-1">
-                Free Roadmaps <ArrowRight className="w-3 h-3" />
-              </Link>
+            <div className="pt-4 border-t border-slate-100 text-xs text-slate-500">
+              Tips: Use Google&apos;s X-Y-Z formula (&quot;Accomplished [X] as measured by [Y], by doing [Z]&quot;).
             </div>
           </div>
         </div>
+
       </div>
     </div>
   );

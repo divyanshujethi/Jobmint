@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import { useState, Suspense } from "react";
@@ -179,11 +179,11 @@ function LoginForm() {
         <CardFooter className="flex flex-col gap-2 text-center text-xs text-slate-500 border-t border-slate-100 pt-4">
           <p>
             By continuing, you agree to {APP_CONFIG.name}&apos;s{" "}
-            <Link href="#" className="underline hover:text-slate-800">
+            <Link href="/terms" className="underline hover:text-slate-800">
               Terms of Service
             </Link>{" "}
             and{" "}
-            <Link href="#" className="underline hover:text-slate-800">
+            <Link href="/privacy" className="underline hover:text-slate-800">
               Privacy Policy
             </Link>
             .
