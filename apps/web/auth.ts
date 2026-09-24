@@ -43,7 +43,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }),
   ],
   callbacks: {
-    async jwt({ token, user, trigger, session }) {
+    async jwt({ token, user, account, profile, trigger, session }) {
+      if (account && account.provider === "github" && profile) {
+        token.githubUsername = (profile as any).login || (profile as any).username;
+      }
       if (user) {
         token.id = user.id;
         token.role = (user as any).role || UserRole.CANDIDATE;
@@ -57,6 +60,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (token && session.user) {
         session.user.id = token.id as string;
         (session.user as any).role = token.role as string;
+        (session.user as any).githubUsername = token.githubUsername as string;
       }
       return session;
     },

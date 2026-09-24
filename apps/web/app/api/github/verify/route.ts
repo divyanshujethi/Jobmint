@@ -1,5 +1,7 @@
-﻿import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { matchCanonicalSkill } from "@repo/shared";
+import { auth } from "@/auth";
+import crypto from "crypto";
 
 interface VerifiedRepo {
   name: string;
@@ -26,6 +28,19 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "Invalid GitHub username format" }, { status: 400 });
   }
 
+  // 1. Retrieve Current JobMint User Session
+  const session = await auth();
+  const userId = session?.user?.id;
+  const userEmail = session?.user?.email?.toLowerCase();
+  const authedGithubUsername = (session?.user as any)?.githubUsername?.toLowerCase();
+
+  // 2. Generate Account-Bound Verification Challenge Token
+  const verificationToken = userId
+    ? "jobmint-verify-" + crypto.createHash("sha256").update(userId).digest("hex").slice(0, 10)
+    : userEmail
+    ? "jobmint-verify-" + crypto.createHash("sha256").update(userEmail).digest("hex").slice(0, 10)
+    : "jobmint-verify-auth-required";
+
   try {
     const headers: Record<string, string> = {
       "User-Agent": "JobMint-Project-Verifier",
@@ -45,11 +60,11 @@ export async function GET(req: NextRequest) {
     ]);
 
     if (userRes.status === 404) {
-      return NextResponse.json({ error: `GitHub user '${username}' not found.` }, { status: 404 });
+      return NextResponse.json({ error: `GitHub user '${username}' not found on GitHub.` }, { status: 404 });
     }
 
     if (!userRes.ok || !reposRes.ok) {
-      return NextResponse.json(generateFallbackGitHubData(username));
+      return NextResponse.json(generateFallbackGitHubData(username, session, verificationToken));
     }
 
     const userData = await userRes.json();
@@ -104,23 +119,62 @@ export async function GET(req: NextRequest) {
       });
     }
 
+    // 3. Check Real Ownership
+    let isOwner = false;
+    let ownershipStatus: "VERIFIED_OAUTH" | "VERIFIED_EMAIL" | "VERIFIED_BIO_TOKEN" | "VERIFIED_REPO_TOKEN" | "UNVERIFIED_PUBLIC_PREVIEW" =
+      "UNVERIFIED_PUBLIC_PREVIEW";
+    let ownerExplanation = `Public code inspection only. You have not proven ownership of @${username}.`;
+
+    if (session?.user) {
+      // Check 1: User signed in via GitHub OAuth with this username
+      if (authedGithubUsername && authedGithubUsername === username.toLowerCase()) {
+        isOwner = true;
+        ownershipStatus = "VERIFIED_OAUTH";
+        ownerExplanation = `Ownership verified via active GitHub OAuth session (@${authedGithubUsername}).`;
+      }
+      // Check 2: Matching verified public GitHub email
+      else if (userData.email && userEmail && userData.email.toLowerCase() === userEmail) {
+        isOwner = true;
+        ownershipStatus = "VERIFIED_EMAIL";
+        ownerExplanation = `Ownership verified via matching GitHub verified email (${userData.email}).`;
+      }
+      // Check 3: Bio contains user's JobMint verification challenge token
+      else if (
+        verificationToken !== "jobmint-verify-auth-required" &&
+        userData.bio &&
+        userData.bio.includes(verificationToken)
+      ) {
+        isOwner = true;
+        ownershipStatus = "VERIFIED_BIO_TOKEN";
+        ownerExplanation = `Ownership cryptographically proven via verification challenge token in GitHub bio.`;
+      }
+      // Check 4: Any repository description or topics contain the verification token
+      else if (verificationToken !== "jobmint-verify-auth-required") {
+        const hasTokenInRepo = reposData.some(
+          (r: any) =>
+            (r.description && r.description.includes(verificationToken)) ||
+            (Array.isArray(r.topics) && r.topics.includes(verificationToken.toLowerCase()))
+        );
+        if (hasTokenInRepo) {
+          isOwner = true;
+          ownershipStatus = "VERIFIED_REPO_TOKEN";
+          ownerExplanation = `Ownership cryptographically proven via verification challenge token in repository metadata.`;
+        }
+      }
+    }
+
     // Algorithmic JobMint Dev Score Computation (0 - 1000)
-    // 1. Momentum (Max 250): Activity, number of original repos, recent updates
     const momentum = Math.min(250, Math.round((Math.min(verifiedRepos.length, 12) / 12) * 180 + 70));
-    
-    // 2. Depth & Skills (Max 250): Tech stack diversity and canonical skills detected
     const depth = Math.min(250, Math.round((Math.min(detectedSkillsSet.size, 8) / 8) * 200 + 50));
-    
-    // 3. Community (Max 250): Stars, forks, followers
     const followers = userData.followers || 0;
     const community = Math.min(250, Math.round(Math.min(totalStars * 15 + totalForks * 20 + followers * 5, 250)));
-    
-    // 4. Proof of Work (Max 250): Deployed live demo URLs & documented projects
-    const proofOfWork = Math.min(250, Math.round(Math.min(reposWithDemosCount * 80 + verifiedRepos.filter(r => r.description.length > 25).length * 15, 250)));
+    const proofOfWork = Math.min(
+      250,
+      Math.round(Math.min(reposWithDemosCount * 80 + verifiedRepos.filter((r) => r.description.length > 25).length * 15, 250))
+    );
 
     const devScore = Math.max(350, Math.min(990, momentum + depth + community + proofOfWork));
 
-    // Determine Builder Level & Percentile
     let builderLevel = "Explorer Developer";
     let badgeEmoji = "🌱";
     let percentile = "Top 40% Developer";
@@ -148,7 +202,7 @@ export async function GET(req: NextRequest) {
       username: userData.login,
       name: userData.name || userData.login,
       avatarUrl: userData.avatar_url,
-      bio: userData.bio || "Software Engineer & Builder",
+      bio: userData.bio || "Software Engineer & Open Source Contributor",
       publicReposCount: userData.public_repos,
       totalStars,
       totalForks,
@@ -165,13 +219,23 @@ export async function GET(req: NextRequest) {
       verifiedSkills: Array.from(detectedSkillsSet),
       highlightedProjects: verifiedRepos.slice(0, 8),
       verifiedAt: new Date().toISOString(),
+      // Ownership and Security Verification
+      isOwner,
+      ownershipStatus,
+      ownerExplanation,
+      verificationToken,
+      authenticatedGithubUsername: authedGithubUsername || null,
+      isAuthenticated: !!session?.user,
     });
   } catch (error: any) {
-    return NextResponse.json(generateFallbackGitHubData(username));
+    return NextResponse.json(generateFallbackGitHubData(username, session, verificationToken));
   }
 }
 
-function generateFallbackGitHubData(username: string) {
+function generateFallbackGitHubData(username: string, session: any, verificationToken: string) {
+  const authedGithub = (session?.user as any)?.githubUsername?.toLowerCase();
+  const isOwner = !!(authedGithub && authedGithub === username.toLowerCase());
+
   return {
     success: true,
     username,
@@ -218,5 +282,13 @@ function generateFallbackGitHubData(username: string) {
     ],
     verifiedAt: new Date().toISOString(),
     isDemoFallback: true,
+    isOwner,
+    ownershipStatus: isOwner ? "VERIFIED_OAUTH" : "UNVERIFIED_PUBLIC_PREVIEW",
+    ownerExplanation: isOwner
+      ? `Ownership verified via active GitHub OAuth session (@${authedGithub}).`
+      : `Public repository inspection only. You have not proven ownership of @${username}.`,
+    verificationToken,
+    authenticatedGithubUsername: authedGithub || null,
+    isAuthenticated: !!session?.user,
   };
 }
