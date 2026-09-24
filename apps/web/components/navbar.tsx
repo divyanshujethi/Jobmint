@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
@@ -211,7 +211,7 @@ export function Navbar() {
 
         {/* Right Action Bar */}
         <div className="hidden lg:flex items-center gap-3">
-          <Link href="/employer/jobs/new">
+          <Link href={user ? "/employer/jobs/new" : "/employer/login"}>
             <Button variant="outline" size="sm" className="gap-1.5 text-xs font-bold border-slate-300">
               <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />
               Post an Opening
@@ -300,14 +300,19 @@ export function Navbar() {
             </div>
           ) : (
             <div className="flex items-center gap-2">
+              <Link href="/employer/login">
+                <Button variant="ghost" size="sm" className="font-semibold text-xs text-slate-600 hover:text-emerald-700">
+                  For Employers
+                </Button>
+              </Link>
               <Link href="/login">
-                <Button variant="ghost" size="sm" className="font-semibold text-xs text-slate-700">
+                <Button variant="outline" size="sm" className="font-semibold text-xs text-slate-700 border-slate-300">
                   Log in
                 </Button>
               </Link>
-              <Link href="/register">
+              <Link href="/login">
                 <Button size="sm" className="font-bold text-xs bg-emerald-600 hover:bg-emerald-500">
-                  Get Started
+                  Candidate Sign In
                 </Button>
               </Link>
             </div>
@@ -389,10 +394,10 @@ export function Navbar() {
             </Link>
 
             <div className="pt-3 border-t border-slate-100 flex flex-col gap-2">
-              <Link href="/employer/jobs/new" onClick={() => setIsOpen(false)}>
-                <Button variant="outline" className="w-full text-xs font-bold gap-1.5">
+              <Link href={user ? "/employer/jobs/new" : "/employer/login"} onClick={() => setIsOpen(false)}>
+                <Button variant="outline" className="w-full text-xs font-bold gap-1.5 border-slate-300">
                   <ShieldCheck className="h-4 w-4 text-emerald-600" />
-                  Post an Opening
+                  Post an Opening (Employers)
                 </Button>
               </Link>
               {user ? (
@@ -424,17 +429,19 @@ export function Navbar() {
                   </a>
                 </div>
               ) : (
-                <div className="grid grid-cols-2 gap-2 pt-1">
-                  <Link href="/login" onClick={() => setIsOpen(false)}>
-                    <Button variant="outline" className="w-full text-xs font-semibold">
-                      Log in
-                    </Button>
-                  </Link>
-                  <Link href="/register" onClick={() => setIsOpen(false)}>
-                    <Button className="w-full text-xs font-bold bg-emerald-600">
-                      Get Started
-                    </Button>
-                  </Link>
+                <div className="flex flex-col gap-2 pt-1">
+                  <div className="grid grid-cols-2 gap-2">
+                    <Link href="/login" onClick={() => setIsOpen(false)}>
+                      <Button variant="outline" className="w-full text-xs font-semibold">
+                        Candidate Login
+                      </Button>
+                    </Link>
+                    <Link href="/employer/login" onClick={() => setIsOpen(false)}>
+                      <Button className="w-full text-xs font-bold bg-slate-900 hover:bg-slate-800 text-white">
+                        Recruiter Portal
+                      </Button>
+                    </Link>
+                  </div>
                 </div>
               )}
             </div>

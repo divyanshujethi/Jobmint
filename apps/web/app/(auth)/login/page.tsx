@@ -1,21 +1,28 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { APP_CONFIG, UserRole } from "@repo/shared";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
-import { GraduationCap, Building, ShieldCheck, Loader2 } from "lucide-react";
+import {
+  GraduationCap,
+  Building2,
+  ShieldCheck,
+  Loader2,
+  Sparkles,
+  ArrowRight,
+  Code2,
+  Briefcase,
+} from "lucide-react";
 
 export default function LoginPage() {
-  const [role, setRole] = useState<string>(UserRole.CANDIDATE);
   const [activeProvider, setActiveProvider] = useState<string | null>(null);
 
   const handleOAuthSignIn = async (provider: string) => {
     setActiveProvider(provider);
-    const callbackUrl = role === UserRole.EMPLOYER ? "/employer" : "/recommendations";
     try {
-      await signIn(provider, { callbackUrl });
+      await signIn(provider, { callbackUrl: "/recommendations" });
     } catch (err) {
       console.error("Sign in failed:", err);
       setActiveProvider(null);
@@ -23,63 +30,52 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex min-h-[80vh] items-center justify-center px-4 py-12">
-      <Card className="w-full max-w-md border-slate-200/80 shadow-lg">
-        <CardHeader className="text-center space-y-2">
+    <div className="flex min-h-[82vh] flex-col items-center justify-center px-4 py-10">
+      
+      {/* Recruiter Switcher Banner */}
+      <div className="mb-6 w-full max-w-md">
+        <Link
+          href="/employer/login"
+          className="group flex items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white p-3.5 shadow-sm hover:border-emerald-500 hover:bg-emerald-50/50 transition-all"
+        >
+          <div className="flex items-center gap-3">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-slate-900 text-white group-hover:bg-emerald-600 transition-colors">
+              <Building2 className="h-4 w-4" />
+            </div>
+            <div>
+              <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                Are you an Employer or Recruiter?
+                <span className="rounded bg-slate-100 text-slate-700 px-1.5 py-0.5 text-[10px] font-mono group-hover:bg-emerald-100 group-hover:text-emerald-800 transition-colors">
+                  Corporate
+                </span>
+              </div>
+              <div className="text-[11px] text-slate-500">
+                Post jobs and hire verified engineering talent
+              </div>
+            </div>
+          </div>
+          <ArrowRight className="h-4 w-4 text-slate-400 group-hover:text-emerald-600 group-hover:translate-x-0.5 transition-all" />
+        </Link>
+      </div>
+
+      <Card className="w-full max-w-md border-slate-200/90 shadow-xl bg-white">
+        <CardHeader className="text-center space-y-2 pb-4">
           <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-500 text-white font-black text-xl shadow-md">
             J
+          </div>
+          <div className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 border border-emerald-200 px-3 py-0.5 text-[11px] font-bold text-emerald-800 mx-auto">
+            <GraduationCap className="h-3.5 w-3.5 text-emerald-600" />
+            Candidate & Student Portal
           </div>
           <CardTitle className="text-2xl font-bold tracking-tight text-slate-900">
             Sign in to {APP_CONFIG.name}
           </CardTitle>
-          <CardDescription className="text-sm text-slate-500">
-            One-click passwordless login via your verified account
+          <CardDescription className="text-xs text-slate-500">
+            One-click passwordless sign-in with your verified developer profile
           </CardDescription>
         </CardHeader>
 
-        <CardContent className="space-y-5">
-          {/* ROLE TOGGLE */}
-          <div className="grid grid-cols-2 gap-3">
-            <button
-              type="button"
-              onClick={() => setRole(UserRole.CANDIDATE)}
-              className={`flex flex-col items-center justify-center rounded-xl border p-3 text-center transition-all ${
-                role === UserRole.CANDIDATE
-                  ? "border-emerald-600 bg-emerald-50/80 text-emerald-900 shadow-sm ring-1 ring-emerald-600"
-                  : "border-slate-200 hover:border-slate-300 text-slate-600 bg-white"
-              }`}
-            >
-              <GraduationCap className="h-5 w-5 mb-1 text-emerald-600" />
-              <span className="text-xs font-bold">Candidate / Student</span>
-              <span className="text-[10px] text-slate-500">Apply & Learn</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setRole(UserRole.EMPLOYER)}
-              className={`flex flex-col items-center justify-center rounded-xl border p-3 text-center transition-all ${
-                role === UserRole.EMPLOYER
-                  ? "border-emerald-600 bg-emerald-50/80 text-emerald-900 shadow-sm ring-1 ring-emerald-600"
-                  : "border-slate-200 hover:border-slate-300 text-slate-600 bg-white"
-              }`}
-            >
-              <Building className="h-5 w-5 mb-1 text-emerald-600" />
-              <span className="text-xs font-bold">Employer / Recruiter</span>
-              <span className="text-[10px] text-slate-500">Post & Hire</span>
-            </button>
-          </div>
-
-          <div className="relative my-2">
-            <div className="absolute inset-0 flex items-center">
-              <span className="w-full border-t border-slate-200" />
-            </div>
-            <div className="relative flex justify-center text-[11px] uppercase tracking-wider">
-              <span className="bg-white px-3 text-slate-400 font-semibold">
-                Select your provider
-              </span>
-            </div>
-          </div>
-
+        <CardContent className="space-y-4">
           {/* OAUTH PROVIDERS */}
           <div className="space-y-2.5">
             {/* GOOGLE */}
@@ -172,7 +168,7 @@ export default function LoginPage() {
           <div className="flex items-center gap-2 rounded-xl bg-slate-50 p-3 text-[11px] text-slate-500 border border-slate-100">
             <ShieldCheck className="h-4 w-4 text-emerald-600 shrink-0" />
             <span>
-              Zero passwords to remember. Your verified social profile guarantees secure, fraud-free recruitment.
+              Zero passwords to memorize. One-click verified login with automated ATS resume sync.
             </span>
           </div>
         </CardContent>
