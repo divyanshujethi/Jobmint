@@ -1,4 +1,4 @@
-﻿import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { db, companies, jobs, applications, applicationEvents, eq } from "@repo/database";
 import { auth } from "@/auth";
 
@@ -11,6 +11,13 @@ export async function POST(req: NextRequest) {
 
     const userEmail = session?.user?.email?.toLowerCase();
     const isAdmin = (session?.user as any)?.role === "ADMIN" || (userEmail && adminEmails.includes(userEmail));
+
+    if (!isAdmin) {
+      return NextResponse.json(
+        { error: "Forbidden: SuperAdmin privileges required to execute platform governance actions." },
+        { status: 403 }
+      );
+    }
 
     const body = await req.json();
     const { action, payload } = body;

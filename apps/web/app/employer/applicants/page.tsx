@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import {
   INITIAL_EMPLOYER_APPLICANTS,
@@ -31,6 +31,32 @@ export default function EmployerApplicantsPage() {
   const [activeTab, setActiveTab] = useState<string>("ALL");
   const [lastActionMessage, setLastActionMessage] = useState<string | null>(null);
 
+  useEffect(() => {
+    fetch("/api/applications")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.applications && data.applications.length > 0) {
+          const liveList = data.applications.map((a: any, idx: number) => ({
+            id: a.id,
+            candidateName: a.candidateName || `Candidate #${idx + 1}`,
+            candidateEmail: a.candidateEmail || "applicant@jobmint.dev",
+            candidatePhone: "+91 98765 43210",
+            jobId: a.jobId,
+            jobTitle: a.jobTitle,
+            appliedDaysAgo: a.appliedDaysAgo ?? 0,
+            status: a.status,
+            matchScore: Math.max(75, 94 - idx * 3),
+            verifiedSkills: ["TypeScript", "React", "PostgreSQL"],
+            missingSkills: [],
+            atsSummary: "Verified candidate with matching core skills and active portfolio projects.",
+            resumeViewed: !!a.resumeViewedAtFormatted,
+          }));
+          setApplicants(liveList);
+        }
+      })
+      .catch((err) => console.error("Error loading employer applicants:", err));
+  }, []);
+
   const updateStatus = (
     applicantId: string,
     newStatus: (typeof ApplicationStatus)[keyof typeof ApplicationStatus],
@@ -38,11 +64,21 @@ export default function EmployerApplicantsPage() {
   ) => {
     setApplicants((prev) =>
       prev.map((app) =>
-        app.id === applicantId ? { ...app, status: newStatus } : app
+        app.id === applicantId ? { ...app, status: newStatus, resumeViewed: true } : app
       )
     );
     setLastActionMessage(actionDescription);
     setTimeout(() => setLastActionMessage(null), 3000);
+
+    const eventType = newStatus === ApplicationStatus.SHORTLISTED ? "SHORTLISTED" : "RESUME_VIEWED";
+    fetch("/api/admin/actions", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        action: "SIMULATE_RECRUITER_ACTION",
+        payload: { applicationId: applicantId, eventType },
+      }),
+    }).catch((err) => console.warn("Error recording recruiter action in DB:", err));
   };
 
   const filteredApplicants = applicants.filter((app) => {

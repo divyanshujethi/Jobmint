@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import {
   Users,
@@ -20,6 +20,15 @@ export default function StudyPodsPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [joinedPods, setJoinedPods] = useState<Record<string, boolean>>({ "pod-1": true });
 
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("jobmint_joined_pods");
+      if (saved) {
+        setJoinedPods(JSON.parse(saved));
+      }
+    } catch {}
+  }, []);
+
   const categories = ["ALL", "AI & ML", "Web Development", "Data Science", "Mobile"];
 
   const filteredPods = MOCK_STUDY_PODS.filter((pod) => {
@@ -35,10 +44,16 @@ export default function StudyPodsPage() {
   });
 
   const toggleJoinPod = (podId: string) => {
-    setJoinedPods((prev) => ({
-      ...prev,
-      [podId]: !prev[podId],
-    }));
+    setJoinedPods((prev) => {
+      const updated = {
+        ...prev,
+        [podId]: !prev[podId],
+      };
+      try {
+        localStorage.setItem("jobmint_joined_pods", JSON.stringify(updated));
+      } catch {}
+      return updated;
+    });
   };
 
   return (

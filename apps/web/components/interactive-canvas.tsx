@@ -30,6 +30,7 @@ export function InteractiveStudyCanvas() {
   const [activeTrackId, setActiveTrackId] = useState<string>(CANVAS_TRACKS[0].id);
   const [selectedNode, setSelectedNode] = useState<CanvasNode | null>(null);
   const [completedNodes, setCompletedNodes] = useState<Set<string>>(new Set());
+  const [nodeNote, setNodeNote] = useState<string>("");
 
   // Canvas Pan & Zoom State
   const [scale, setScale] = useState(1);
@@ -51,6 +52,23 @@ export function InteractiveStudyCanvas() {
       }
     } catch {}
   }, []);
+
+  // Sync node note
+  useEffect(() => {
+    if (selectedNode) {
+      const savedNote = localStorage.getItem(`jobmint_canvas_note_${selectedNode.id}`) || "";
+      setNodeNote(savedNote);
+    }
+  }, [selectedNode]);
+
+  const handleNoteChange = (text: string) => {
+    setNodeNote(text);
+    if (selectedNode) {
+      try {
+        localStorage.setItem(`jobmint_canvas_note_${selectedNode.id}`, text);
+      } catch {}
+    }
+  };
 
   const toggleNodeCompletion = (nodeId: string) => {
     setCompletedNodes((prev) => {
@@ -466,6 +484,21 @@ export function InteractiveStudyCanvas() {
                   </Link>
                 </div>
               </div>
+
+              {/* Personal Study Notes (Persisted) */}
+              <div className="space-y-1.5">
+                <span className="text-xs font-semibold text-slate-300 uppercase tracking-wider flex items-center justify-between">
+                  <span>My Study Notes & Repo Links:</span>
+                  <span className="text-[10px] text-emerald-400 font-mono">Auto-saved</span>
+                </span>
+                <textarea
+                  rows={3}
+                  placeholder="Record your project repo, implementation notes, or interview takeaways here..."
+                  value={nodeNote}
+                  onChange={(e) => handleNoteChange(e.target.value)}
+                  className="w-full bg-slate-950/70 border border-slate-800 rounded-xl p-3 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-emerald-500 font-sans"
+                />
+              </div>
             </div>
 
             {/* Bottom Actions */}
@@ -488,7 +521,7 @@ export function InteractiveStudyCanvas() {
               </Button>
 
               <Link
-                href={`/jobs?keyword=${encodeURIComponent(selectedNode.skills[0] || "")}`}
+                href={`/jobs?q=${encodeURIComponent(selectedNode.skills[0] || "")}`}
                 className="block"
               >
                 <Button

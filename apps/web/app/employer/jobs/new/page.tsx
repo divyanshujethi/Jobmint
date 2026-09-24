@@ -30,6 +30,9 @@ export default function PostNewJobPage() {
   const [responsibilities, setResponsibilities] = useState("");
   const [requirements, setRequirements] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [createdJobSlug, setCreatedJobSlug] = useState<string | null>(null);
 
   const addSkill = (skillName: string) => {
     if (!selectedSkills.includes(skillName)) {
@@ -48,9 +51,43 @@ export default function PostNewJobPage() {
       !selectedSkills.includes(s.name)
   ).slice(0, 6);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitted(true);
+    if (!title.trim() || isSubmitting) return;
+
+    setIsSubmitting(true);
+    setErrorMessage(null);
+
+    try {
+      const res = await fetch("/api/employer/jobs", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          title,
+          jobType,
+          workMode,
+          location,
+          salaryOrStipend,
+          experienceYears: Number(experienceYears),
+          selectedSkills,
+          description,
+          responsibilities,
+          requirements,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to create job posting");
+      }
+
+      setCreatedJobSlug(data.job?.slug || null);
+      setIsSubmitted(true);
+    } catch (err: any) {
+      setErrorMessage(err.message || "An error occurred");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -91,17 +128,18 @@ export default function PostNewJobPage() {
               Opportunity Posted Successfully!
             </h2>
             <p className="text-sm text-slate-600 max-w-md mx-auto">
-              Your posting for <strong>{title}</strong> is now active. Candidates with matching verified skills are being notified.
+              Your posting for <strong>{title}</strong> is now active in PostgreSQL. Candidates with matching verified skills are being notified.
             </p>
             <div className="pt-4 flex justify-center gap-3">
-              <Link href="/jobs">
-                <Button variant="default">View on Job Board</Button>
+              <Link href={createdJobSlug ? `/jobs/${createdJobSlug}` : "/jobs"}>
+                <Button variant="default">View Live Job Board Listing</Button>
               </Link>
               <Button
                 variant="outline"
                 onClick={() => {
                   setIsSubmitted(false);
                   setTitle("");
+                  setCreatedJobSlug(null);
                 }}
               >
                 Post Another Job
@@ -284,8 +322,14 @@ export default function PostNewJobPage() {
                 </p>
               </div>
 
-              <Button type="submit" size="lg" className="w-full font-bold">
-                Publish Opportunity
+              {errorMessage && (
+                <div className="rounded-xl border border-red-200 bg-red-50 p-3 text-xs text-red-700">
+                  {errorMessage}
+                </div>
+              )}
+
+              <Button type="submit" size="lg" disabled={isSubmitting} className="w-full font-bold">
+                {isSubmitting ? "Publishing to PostgreSQL..." : "Publish Opportunity"}
               </Button>
             </CardContent>
           </form>

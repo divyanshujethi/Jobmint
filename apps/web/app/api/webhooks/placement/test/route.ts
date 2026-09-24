@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { getLiveJobs } from "@/lib/db-jobs";
 
 export async function POST(req: NextRequest) {
   try {
@@ -9,6 +10,18 @@ export async function POST(req: NextRequest) {
     }
 
     const trimmedUrl = webhookUrl.trim();
+    const liveJobs = await getLiveJobs();
+    const sampleJob = liveJobs[0] || {
+      title: "Full-Stack Software Engineer",
+      companyName: "ABC Technologies",
+      slug: "full-stack-software-engineer-abc-tech",
+      salaryOrStipend: "₹35,000 / month",
+      workMode: "Remote",
+      skills: ["Next.js", "TypeScript", "PostgreSQL"],
+      truthTeller: { reviewRate: 91, medianFirstReviewDays: 1.9 },
+    };
+
+    const baseUrl = process.env.NEXTAUTH_URL || "https://jobmint.ritualdev.in";
 
     // Prepare rich payload based on target platform
     let payload: any = {};
@@ -16,19 +29,19 @@ export async function POST(req: NextRequest) {
     if (platform === "discord" || trimmedUrl.includes("discord.com")) {
       payload = {
         username: "JobMint Placement Alerts",
-        avatar_url: "https://jobmint.dev/icon-192.png",
+        avatar_url: `${baseUrl}/icon-192.png`,
         embeds: [
           {
-            title: "🎓 New Verified Opening: Frontend Developer Intern",
-            url: "https://jobmint.dev/jobs/frontend-developer-intern-abc-tech",
+            title: `🎓 New Verified Opening: ${sampleJob.title}`,
+            url: `${baseUrl}/jobs/${sampleJob.slug}`,
             description: "A new verified fresher opening has been published for your college students.",
             color: 0x10b981, // Emerald Green
             fields: [
-              { name: "Company", value: "ABC Technologies", inline: true },
-              { name: "Stipend", value: "₹25,000 / month", inline: true },
-              { name: "Work Mode", value: "Remote", inline: true },
-              { name: "Required Skills", value: "React, TypeScript, Tailwind CSS", inline: false },
-              { name: "Truth Teller Status", value: "88% Review Rate • 2.1 Days Median Review", inline: false },
+              { name: "Company", value: sampleJob.companyName, inline: true },
+              { name: "Compensation", value: sampleJob.salaryOrStipend, inline: true },
+              { name: "Work Mode", value: sampleJob.workMode, inline: true },
+              { name: "Required Skills", value: sampleJob.skills.slice(0, 4).join(", "), inline: false },
+              { name: "Truth Teller Status", value: `${sampleJob.truthTeller.reviewRate}% Review Rate • ${sampleJob.truthTeller.medianFirstReviewDays} Days Median Review`, inline: false },
             ],
             footer: {
               text: "JobMint College Syndication Engine • 100% Free & Transparent",
@@ -40,7 +53,7 @@ export async function POST(req: NextRequest) {
     } else {
       // Slack payload
       payload = {
-        text: "🎓 *New Verified Opening Alert from JobMint*:\n*Frontend Developer Intern* at *ABC Technologies*\nStipend: ₹25,000/month | Mode: Remote\nSkills: React, TypeScript, Tailwind CSS\nLink: https://jobmint.dev/jobs/frontend-developer-intern-abc-tech",
+        text: `🎓 *New Verified Opening Alert from JobMint*:\n*${sampleJob.title}* at *${sampleJob.companyName}*\nCompensation: ${sampleJob.salaryOrStipend} | Mode: ${sampleJob.workMode}\nSkills: ${sampleJob.skills.slice(0, 4).join(", ")}\nLink: ${baseUrl}/jobs/${sampleJob.slug}`,
       };
     }
 

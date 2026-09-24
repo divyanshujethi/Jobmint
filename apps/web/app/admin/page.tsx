@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
@@ -70,6 +70,48 @@ export default function SuperAdminPanel() {
       <div className="min-h-screen bg-slate-950 text-white flex flex-col items-center justify-center space-y-4">
         <RefreshCw className="h-8 w-8 text-emerald-400 animate-spin" />
         <p className="text-sm font-mono text-slate-400">Loading JobMint SuperAdmin Console...</p>
+      </div>
+    );
+  }
+
+  if (!data?.isAdmin) {
+    return (
+      <div className="min-h-screen bg-slate-950 text-white flex flex-col items-center justify-center p-6">
+        <div className="max-w-md w-full bg-slate-900 border border-slate-800 rounded-2xl p-8 text-center space-y-6 shadow-2xl">
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-red-500/10 border border-red-500/20 text-red-400">
+            <Lock className="h-8 w-8" />
+          </div>
+          <div className="space-y-2">
+            <span className="rounded-full bg-red-500/20 px-3 py-1 text-xs font-mono font-bold text-red-400 uppercase tracking-wider">
+              Access Restricted
+            </span>
+            <h1 className="text-2xl font-bold text-white">SuperAdmin Clearance Required</h1>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              This panel provides direct platform governance over corporate verifications, live job toggling, and recruiter audits.
+            </p>
+          </div>
+
+          <div className="rounded-xl border border-slate-800 bg-slate-950 p-4 text-left space-y-2 text-xs font-mono">
+            <div className="text-slate-400">Your Current Identity:</div>
+            <div className="text-emerald-400 font-bold break-all">
+              {data?.currentUser?.email || "Not signed in (Guest)"}
+            </div>
+            <div className="text-[11px] text-slate-500 pt-2 border-t border-slate-800">
+              Only authorized administrator accounts (e.g. admin@ritualdev.in, divyanshu.dev@gmail.com) can access this terminal.
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <Link href="/auth/signin">
+              <Button className="w-full font-bold">Sign In as Admin</Button>
+            </Link>
+            <Link href="/">
+              <Button variant="outline" className="w-full text-xs text-slate-400 hover:text-white">
+                Return to Job Board
+              </Button>
+            </Link>
+          </div>
+        </div>
       </div>
     );
   }

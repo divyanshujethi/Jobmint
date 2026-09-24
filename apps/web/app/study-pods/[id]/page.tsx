@@ -1,8 +1,8 @@
-"use client";
+﻿"use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { useParams, notFound } from "next/navigation";
+import { useParams } from "next/navigation";
 import {
   Users,
   Calendar,
@@ -14,22 +14,84 @@ import {
   MessageSquare,
   ShieldCheck,
   Video,
+  Send,
+  Sparkles,
 } from "lucide-react";
 import { MOCK_STUDY_PODS } from "@/lib/mock-pods";
+
+interface PodMessage {
+  id: string;
+  sender: string;
+  role: string;
+  text: string;
+  timestamp: string;
+  avatar: string;
+}
 
 export default function StudyPodDetailPage() {
   const params = useParams();
   const slug = params?.id as string;
   const pod = MOCK_STUDY_PODS.find((p) => p.slug === slug || p.id === slug) || MOCK_STUDY_PODS[0];
 
-  const [activeTab, setActiveTab] = useState<"INTERVIEW" | "MEMBERS">("INTERVIEW");
+  const [activeTab, setActiveTab] = useState<"INTERVIEW" | "CHAT" | "MEMBERS">("INTERVIEW");
   const [completedQuestions, setCompletedQuestions] = useState<Record<number, boolean>>({});
+  const [messages, setMessages] = useState<PodMessage[]>([]);
+  const [newMessageText, setNewMessageText] = useState("");
+  const [sendingMessage, setSendingMessage] = useState(false);
+
+  // Load completed questions and messages
+  useEffect(() => {
+    try {
+      const savedProgress = localStorage.getItem(`jobmint_pod_progress_${pod.slug}`);
+      if (savedProgress) {
+        setCompletedQuestions(JSON.parse(savedProgress));
+      }
+    } catch {}
+
+    fetch(`/api/study-pods/${pod.slug}/messages`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.messages) {
+          setMessages(data.messages);
+        }
+      })
+      .catch((err) => console.error("Error loading pod messages:", err));
+  }, [pod.slug]);
 
   const toggleQuestion = (idx: number) => {
-    setCompletedQuestions((prev) => ({
-      ...prev,
-      [idx]: !prev[idx],
-    }));
+    setCompletedQuestions((prev) => {
+      const updated = {
+        ...prev,
+        [idx]: !prev[idx],
+      };
+      try {
+        localStorage.setItem(`jobmint_pod_progress_${pod.slug}`, JSON.stringify(updated));
+      } catch {}
+      return updated;
+    });
+  };
+
+  const handleSendMessage = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newMessageText.trim() || sendingMessage) return;
+
+    setSendingMessage(true);
+    try {
+      const res = await fetch(`/api/study-pods/${pod.slug}/messages`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text: newMessageText }),
+      });
+      const data = await res.json();
+      if (data.success && data.message) {
+        setMessages((prev) => [...prev, data.message]);
+        setNewMessageText("");
+      }
+    } catch (err) {
+      console.error("Failed to post pod message:", err);
+    } finally {
+      setSendingMessage(false);
+    }
   };
 
   const completedCount = Object.values(completedQuestions).filter(Boolean).length;
@@ -98,7 +160,7 @@ export default function StudyPodDetailPage() {
               href={`/roadmaps/${pod.roadmapSlug}`}
               className="text-xs text-emerald-400 hover:underline font-mono"
             >
-              Open Guide →
+              Open Guide ?
             </Link>
           </div>
         </div>
@@ -113,10 +175,25 @@ export default function StudyPodDetailPage() {
                 : "border-transparent text-neutral-400 hover:text-white"
             }`}
           >
-            <MessageSquare className="w-4 h-4" />
-            <span>Peer Mock Interview Room</span>
+            <CheckCircle2 className="w-4 h-4" />
+            <span>Mock Interview Room</span>
             <span className="bg-neutral-800 px-2 py-0.5 rounded text-[10px] text-neutral-300">
               {completedCount} / {pod.mockQuestions.length} Done
+            </span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab("CHAT")}
+            className={`pb-3 px-4 font-semibold transition-colors flex items-center gap-2 border-b-2 ${
+              activeTab === "CHAT"
+                ? "border-emerald-500 text-emerald-400"
+                : "border-transparent text-neutral-400 hover:text-white"
+            }`}
+          >
+            <MessageSquare className="w-4 h-4" />
+            <span>Live Peer Chat</span>
+            <span className="bg-emerald-950 border border-emerald-800 px-2 py-0.5 rounded text-[10px] text-emerald-300 font-bold">
+              {messages.length}
             </span>
           </button>
 
@@ -204,7 +281,68 @@ export default function StudyPodDetailPage() {
           </div>
         )}
 
-        {/* TAB 2: Members List */}
+        {/* TAB 2: Live Peer Chat Room */}
+        {activeTab === "CHAT" && (
+          <div className="bg-neutral-900/90 border border-neutral-800 rounded-2xl p-6 space-y-6">
+            <div className="flex items-center justify-between border-b border-neutral-800 pb-4">
+              <div>
+                <h3 className="text-base font-bold text-white flex items-center gap-2">
+                  <MessageSquare className="w-4 h-4 text-emerald-400" />
+                  Cohort Peer Discussion
+                </h3>
+                <p className="text-xs text-neutral-400 font-mono mt-0.5">
+                  Coordinate mock session schedules and share code solutions
+                </p>
+              </div>
+              <span className="flex items-center gap-1.5 text-[11px] font-mono text-emerald-400 bg-emerald-950/60 border border-emerald-800/50 px-2.5 py-1 rounded-full">
+                <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+                Live Room
+              </span>
+            </div>
+
+            {/* Message Stream */}
+            <div className="space-y-4 max-h-[420px] overflow-y-auto pr-2">
+              {messages.map((m) => (
+                <div key={m.id} className="flex items-start gap-3 bg-neutral-950/60 border border-neutral-800/70 p-4 rounded-xl">
+                  <div className="w-8 h-8 rounded-lg bg-neutral-800 border border-neutral-700 flex items-center justify-center font-bold text-xs text-emerald-400 font-mono shrink-0">
+                    {m.avatar}
+                  </div>
+                  <div className="space-y-1 flex-1">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs font-bold text-white">{m.sender}</span>
+                        <span className="text-[10px] text-neutral-400 font-mono">({m.role})</span>
+                      </div>
+                      <span className="text-[10px] text-neutral-500 font-mono">{m.timestamp}</span>
+                    </div>
+                    <p className="text-xs text-neutral-300 leading-relaxed font-sans">{m.text}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Message Input Box */}
+            <form onSubmit={handleSendMessage} className="flex gap-2 pt-2 border-t border-neutral-800">
+              <input
+                type="text"
+                placeholder="Type your message, mock interview question, or resource..."
+                value={newMessageText}
+                onChange={(e) => setNewMessageText(e.target.value)}
+                className="flex-1 bg-neutral-950 border border-neutral-800 rounded-xl px-4 py-2.5 text-xs text-neutral-100 placeholder-neutral-500 focus:outline-none focus:border-emerald-500"
+              />
+              <button
+                type="submit"
+                disabled={sendingMessage || !newMessageText.trim()}
+                className="px-4 py-2.5 bg-emerald-500 hover:bg-emerald-400 disabled:opacity-50 text-neutral-950 font-bold rounded-xl text-xs flex items-center gap-1.5 transition-colors"
+              >
+                <Send className="w-3.5 h-3.5" />
+                <span>Send</span>
+              </button>
+            </form>
+          </div>
+        )}
+
+        {/* TAB 3: Members List */}
         {activeTab === "MEMBERS" && (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             {pod.activeMembers.map((m) => (

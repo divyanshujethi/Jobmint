@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import {
   MOCK_COMPANIES,
@@ -22,9 +22,22 @@ export default function CompaniesDirectoryPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [onlyFastReviewers, setOnlyFastReviewers] = useState(false);
   const [onlyVerified, setOnlyVerified] = useState(false);
+  const [companies, setCompanies] = useState<CompanyProfile[]>(MOCK_COMPANIES);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    fetch("/api/companies")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.companies && data.companies.length > 0) {
+          setCompanies(data.companies);
+        }
+      })
+      .catch((err) => console.error("Error loading live companies:", err));
+  }, []);
 
   const filteredCompanies = useMemo(() => {
-    return MOCK_COMPANIES.filter((comp) => {
+    return companies.filter((comp) => {
       if (searchTerm) {
         const q = searchTerm.toLowerCase();
         const matchesName = comp.name.toLowerCase().includes(q);
@@ -35,7 +48,7 @@ export default function CompaniesDirectoryPage() {
       if (onlyVerified && !comp.isVerified) return false;
       return true;
     });
-  }, [searchTerm, onlyFastReviewers, onlyVerified]);
+  }, [companies, searchTerm, onlyFastReviewers, onlyVerified]);
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">

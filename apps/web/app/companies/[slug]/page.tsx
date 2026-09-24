@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
-  MOCK_COMPANIES,
   CompanyProfile,
 } from "@/lib/mock-companies";
-import { MOCK_JOBS } from "@/lib/mock-jobs";
+import { getLiveCompanyBySlug } from "@/lib/db-companies";
+import { getLiveJobs } from "@/lib/db-jobs";
 import { JobCard } from "@/components/job-card";
 import {
   ShieldCheck,
@@ -25,14 +25,15 @@ interface CompanyPageProps {
 
 export default async function CompanyDetailsPage({ params }: CompanyPageProps) {
   const { slug } = await params;
-  const company = MOCK_COMPANIES.find((c) => c.slug === slug);
+  const company = await getLiveCompanyBySlug(slug);
 
   if (!company) {
     notFound();
   }
 
-  // Active jobs posted by this company
-  const activeJobs = MOCK_JOBS.filter((j) => j.companySlug === company.slug);
+  // Active jobs posted by this company from PostgreSQL
+  const allJobs = await getLiveJobs();
+  const activeJobs = allJobs.filter((j) => j.companySlug === company.slug);
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">

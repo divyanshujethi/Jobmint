@@ -1,12 +1,14 @@
 import { NextResponse } from "next/server";
-import { MOCK_JOBS } from "@/lib/mock-jobs";
+import { getLiveJobs } from "@/lib/db-jobs";
 import { APP_CONFIG } from "@repo/shared";
 
 export async function GET() {
   const baseUrl = process.env.NEXTAUTH_URL || "https://jobmint.dev";
   const now = new Date().toUTCString();
 
-  const itemsXml = MOCK_JOBS.map((job) => {
+  const liveJobs = await getLiveJobs();
+
+  const itemsXml = liveJobs.map((job) => {
     const jobUrl = `${baseUrl}/jobs/${job.slug}`;
     const pubDate = new Date(job.postedAt || Date.now()).toUTCString();
     const cleanDesc = job.description.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
