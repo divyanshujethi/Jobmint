@@ -20,6 +20,8 @@ import {
   User,
   GraduationCap,
   Lock,
+  Award,
+  BookOpen,
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { NotificationBell } from "./notification-bell";
@@ -220,6 +222,36 @@ export function Navbar() {
                   </Link>
 
                   <Link
+                    href="/certificates"
+                    onClick={() => setToolsOpen(false)}
+                    className="flex items-start gap-3 rounded-xl p-2.5 hover:bg-slate-50 transition-colors"
+                  >
+                    <Award className="h-5 w-5 text-amber-500 shrink-0 mt-0.5" />
+                    <div>
+                      <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                        Free Certifications
+                        <span className="rounded bg-amber-50 text-amber-700 px-1 py-0.2 text-[9px]">Forage</span>
+                      </div>
+                      <div className="text-[11px] text-slate-500">Google, JPMorgan & Harvard virtual certs</div>
+                    </div>
+                  </Link>
+
+                  <Link
+                    href="/courses"
+                    onClick={() => setToolsOpen(false)}
+                    className="flex items-start gap-3 rounded-xl p-2.5 hover:bg-slate-50 transition-colors"
+                  >
+                    <BookOpen className="h-5 w-5 text-red-500 shrink-0 mt-0.5" />
+                    <div>
+                      <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                        Courses & Playlists
+                        <span className="rounded bg-red-50 text-red-700 px-1 py-0.2 text-[9px]">YouTube</span>
+                      </div>
+                      <div className="text-[11px] text-slate-500">Karpathy, Striver, Chai & GitHub repos</div>
+                    </div>
+                  </Link>
+
+                  <Link
                     href="/transparency"
                     onClick={() => setToolsOpen(false)}
                     className="flex items-start gap-3 rounded-xl p-2.5 hover:bg-slate-50 transition-colors"
@@ -413,6 +445,22 @@ export function Navbar() {
             >
               <Layers className="h-4 w-4 text-emerald-500" />
               Visual Canvas
+            </Link>
+            <Link
+              href="/certificates"
+              className="flex items-center gap-2.5 py-2 px-3 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50"
+              onClick={() => setIsOpen(false)}
+            >
+              <Award className="h-4 w-4 text-amber-500" />
+              Free Certifications
+            </Link>
+            <Link
+              href="/courses"
+              className="flex items-center gap-2.5 py-2 px-3 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50"
+              onClick={() => setIsOpen(false)}
+            >
+              <BookOpen className="h-4 w-4 text-red-500" />
+              Courses & Playlists
             </Link>
             <Link
               href="/dev-score"

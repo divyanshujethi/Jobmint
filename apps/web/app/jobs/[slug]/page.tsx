@@ -33,12 +33,6 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
     notFound();
   }
 
-  // Sample match breakdown for demonstration
-  // In Phase 5 this will be calculated dynamically from candidate profile
-  const matchedSkills = job.skills.slice(0, 2);
-  const missingSkills = job.skills.slice(2);
-  const matchPercentage = missingSkills.length === 0 ? 95 : 78;
-
   return (
     <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
       {/* BREADCRUMB */}
@@ -189,61 +183,57 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
 
         {/* SIDEBAR COLUMN (1 COL) */}
         <div className="space-y-6">
-          {/* YOUR MATCH & MISSING SKILLS BRIDGE CARD */}
+          {/* REQUIRED TECHNICAL COMPETENCIES */}
           <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
             <div className="flex items-center justify-between border-b border-slate-100 pb-3">
               <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
-                Candidate Fit
+                Required Tech Stack
               </span>
-              <span className="rounded-full bg-emerald-50 px-2.5 py-0.5 text-xs font-bold text-emerald-700">
-                🔥 {matchPercentage}% Match
+              <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-mono font-bold text-slate-700">
+                {job.skills.length} Skills
               </span>
             </div>
 
-            <div className="mt-4 space-y-2 text-xs">
-              <span className="text-slate-400 block">Matched with your profile:</span>
-              {matchedSkills.map((s) => (
-                <div key={s} className="flex items-center gap-2 text-emerald-700 font-medium">
-                  <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
-                  <span>{s}</span>
-                </div>
-              ))}
+            <div className="mt-4 space-y-3">
+              <p className="text-xs text-slate-500">
+                The employer seeks candidates proficient in the following core technologies:
+              </p>
 
-              {missingSkills.length > 0 && (
-                <div className="pt-3 border-t border-slate-100 mt-3 space-y-2">
-                  <span className="text-amber-800 font-semibold block">
-                    Missing Required Skills:
+              <div className="flex flex-wrap gap-1.5">
+                {job.skills.map((s) => (
+                  <span
+                    key={s}
+                    className="rounded-lg bg-slate-50 border border-slate-200 px-2.5 py-1 text-xs font-semibold text-slate-800"
+                  >
+                    {s}
                   </span>
-                  {missingSkills.map((s) => {
-                    const guide = getLearningGuideForSkill(s.toLowerCase());
-                    return (
-                      <div
-                        key={s}
-                        className="rounded-lg border border-amber-200 bg-amber-50/50 p-2.5 text-slate-700 space-y-1.5"
-                      >
-                        <div className="flex items-center gap-1.5 font-bold text-amber-900">
-                          <AlertTriangle className="h-3.5 w-3.5 text-amber-600 shrink-0" />
-                          <span>{s}</span>
-                        </div>
-                        <p className="text-[11px] text-slate-600">
-                          {guide
-                            ? `Free guide available: ${guide.resource.title}`
-                            : "Recommended to practice before applying"}
-                        </p>
-                        {guide && (
-                          <Link
-                            href={`/roadmaps/${guide.roadmapSlug}`}
-                            className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-700 hover:underline pt-0.5"
-                          >
-                            <BookOpen className="h-3 w-3" />
-                            Learn Free on Roadmap →
-                          </Link>
-                        )}
+                ))}
+              </div>
+
+              <div className="pt-3 border-t border-slate-100 space-y-2 text-xs">
+                <span className="text-slate-400 block font-semibold">Free Learning Guides:</span>
+                {job.skills.slice(0, 3).map((s) => {
+                  const guide = getLearningGuideForSkill(s.toLowerCase());
+                  if (!guide) return null;
+                  return (
+                    <div
+                      key={s}
+                      className="rounded-lg border border-slate-100 bg-slate-50/70 p-2.5 text-slate-700 flex items-center justify-between gap-2"
+                    >
+                      <div className="flex items-center gap-1.5 font-medium text-slate-800">
+                        <BookOpen className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
+                        <span>{s}</span>
                       </div>
-                    );
-                  })}
-                </div>
-              )}
+                      <Link
+                        href={`/roadmaps/${guide.roadmapSlug}`}
+                        className="text-[11px] font-bold text-emerald-700 hover:underline shrink-0"
+                      >
+                        Free Roadmap →
+                      </Link>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
 
