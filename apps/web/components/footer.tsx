@@ -59,6 +59,11 @@ export function Footer() {
                 </button>
               </li>
               <li>
+                <Link href="/leaderboard" className="hover:text-emerald-600 font-semibold text-amber-700 flex items-center gap-1.5">
+                  🔥 Daily Streaks &amp; Trendshift Leaderboard
+                </Link>
+              </li>
+              <li>
                 <Link href="/courses" className="hover:text-emerald-600 font-semibold text-emerald-700">
                   Interactive Courses &amp; Playlists
                 </Link>
