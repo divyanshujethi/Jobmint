@@ -36,10 +36,10 @@ export async function generateAI({
   const prompt = constructPrompt(task, input);
   const attemptedProviders: string[] = [];
 
-  // TIER 1: GROQ (Llama 3.3 70B)
+  // TIER 1: GROQ
   if (!preferredProvider || preferredProvider === "groq-llama-3.3") {
     if (process.env.GROQ_API_KEY) {
-      attemptedProviders.push("Groq (Llama 3.3 70B)");
+      attemptedProviders.push("Groq (Qwen/Llama)");
       try {
         const res = await callGroqProvider(prompt);
         return {
@@ -58,15 +58,15 @@ export async function generateAI({
     }
   }
 
-  // TIER 2: CLOUDFLARE WORKERS AI (Llama 3.2 3B)
-  if (!preferredProvider || preferredProvider === "cloudflare-llama-3.2") {
-    if ((process.env.CLOUDFLARE_ACCOUNT_ID || process.env.R2_ACCOUNT_ID) && process.env.CLOUDFLARE_API_TOKEN) {
-      attemptedProviders.push("Cloudflare Workers AI (Llama 3.2 3B)");
+  // TIER 2: GEMINI FLASH (Google AI Studio)
+  if (!preferredProvider || preferredProvider === "gemini-flash") {
+    if (process.env.GEMINI_API_KEY) {
+      attemptedProviders.push("Google Gemini Flash");
       try {
-        const res = await callCloudflareWorkersAI(prompt);
+        const res = await callGeminiProvider(prompt);
         return {
           success: true,
-          provider: "cloudflare-llama-3.2",
+          provider: "gemini-flash",
           modelUsed: res.modelUsed,
           tier: 2,
           latencyMs: res.latencyMs,
@@ -75,7 +75,7 @@ export async function generateAI({
           providerChainAttempted: attemptedProviders,
         };
       } catch (err: any) {
-        console.warn(`[AI Cascade] Tier 2 Cloudflare failed: ${err.message}. Falling to Tier 3...`);
+        console.warn(`[AI Cascade] Tier 2 Gemini failed: ${err.message}. Falling to Tier 3...`);
       }
     }
   }
@@ -100,15 +100,15 @@ export async function generateAI({
     }
   }
 
-  // TIER 4: GEMINI FLASH (Google AI Studio Free Tier)
-  if (!preferredProvider || preferredProvider === "gemini-flash") {
-    if (process.env.GEMINI_API_KEY) {
-      attemptedProviders.push("Google Gemini Flash");
+  // TIER 4: CLOUDFLARE WORKERS AI
+  if (!preferredProvider || preferredProvider === "cloudflare-llama-3.2") {
+    if ((process.env.CLOUDFLARE_ACCOUNT_ID || process.env.R2_ACCOUNT_ID) && process.env.CLOUDFLARE_API_TOKEN) {
+      attemptedProviders.push("Cloudflare Workers AI (Llama 3.2 3B)");
       try {
-        const res = await callGeminiProvider(prompt);
+        const res = await callCloudflareWorkersAI(prompt);
         return {
           success: true,
-          provider: "gemini-flash",
+          provider: "cloudflare-llama-3.2",
           modelUsed: res.modelUsed,
           tier: 4,
           latencyMs: res.latencyMs,
@@ -117,7 +117,7 @@ export async function generateAI({
           providerChainAttempted: attemptedProviders,
         };
       } catch (err: any) {
-        console.warn(`[AI Cascade] Tier 4 Gemini failed: ${err.message}. Falling to Deterministic...`);
+        console.warn(`[AI Cascade] Tier 4 Cloudflare failed: ${err.message}. Falling to Deterministic...`);
       }
     }
   }

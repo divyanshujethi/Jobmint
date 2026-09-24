@@ -1,6 +1,6 @@
 export async function callGroqProvider(
   prompt: string,
-  model = "llama-3.3-70b-versatile"
+  model = process.env.GROQ_MODEL || "qwen/qwen3.8-27b"
 ): Promise<{ success: boolean; text: string; modelUsed: string; latencyMs: number }> {
   const apiKey = process.env.GROQ_API_KEY;
   if (!apiKey) {
@@ -13,6 +13,7 @@ export async function callGroqProvider(
     headers: {
       Authorization: `Bearer ${apiKey}`,
       "Content-Type": "application/json",
+      "User-Agent": "JobMint/1.0",
     },
     body: JSON.stringify({
       model,
