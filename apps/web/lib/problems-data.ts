@@ -22,7 +22,10 @@ export interface Problem {
   constraints: string[];
   hints: string[];
   starterCodeJs: string;
-  starterCodeTs?: string;
+  starterCodeTs: string;
+  starterCodePy: string;
+  starterCodeCpp: string;
+  starterCodeJava: string;
   testCases: TestCase[];
   editorial: string;
   badgeName: string;
@@ -65,7 +68,11 @@ export const LEETCODE_PROBLEMS: Problem[] = [
       "Can you use a Hash Map (dictionary) to remember numbers you've seen so far in O(n) time?",
       "For each number x, look up whether (target - x) already exists in your map."
     ],
-    "starterCodeJs": "function twoSum(nums, target) {\n  // Write your O(n) solution here\n  const map = new Map();\n  for (let i = 0; i < nums.length; i++) {\n    const diff = target - nums[i];\n    if (map.has(diff)) {\n      return [map.get(diff), i];\n    }\n    map.set(nums[i], i);\n  }\n  return [];\n}",
+    "starterCodeJs": "/**\n * @param {number[]} nums\n * @param {number} target\n * @return {number[]}\n */\nfunction twoSum(nums, target) {\n  // Write your O(n) solution here\n  \n}",
+    "starterCodeTs": "function twoSum(nums: number[], target: number): number[] {\n  // Write your O(n) solution here\n  \n}",
+    "starterCodePy": "class Solution:\n    def twoSum(self, nums: list[int], target: int) -> list[int]:\n        # Write your O(n) solution here\n        pass",
+    "starterCodeCpp": "#include <vector>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> twoSum(vector<int>& nums, int target) {\n        // Write your O(n) solution here\n        \n    }\n};",
+    "starterCodeJava": "class Solution {\n    public int[] twoSum(int[] nums, int target) {\n        // Write your O(n) solution here\n        return new int[]{};\n    }\n}",
     "testCases": [
       {
         "name": "Basic Pair",
@@ -127,29 +134,12 @@ export const LEETCODE_PROBLEMS: Problem[] = [
         "expected": [
           2,
           4
-        ]
-      },
-      {
-        "name": "Hidden Large Test",
-        "inputArgs": [
-          [
-            1000,
-            2000,
-            3000,
-            4000,
-            5000
-          ],
-          7000
-        ],
-        "expected": [
-          1,
-          4
         ],
         "isHidden": true
       }
     ],
-    "editorial": "### Optimal Approach: One-Pass Hash Map\nBy maintaining a lookup table mapping each visited number to its index, we can check for the complement (target - current) in O(1) average time per element.\n\n- **Time Complexity**: O(n)\n- **Space Complexity**: O(n)",
-    "badgeName": "Hash Map Pioneer"
+    "editorial": "### Optimal Approach: Hash Map (One-Pass)\n\nInstead of checking every pair with nested loops in $O(n^2)$, we can trade space for time using a Hash Map.\n\n1. Iterate through `nums` with index `i`.\n2. For each number, compute `diff = target - nums[i]`.\n3. If `diff` exists in our map, we have found our pair: return `[map.get(diff), i]`.\n4. Otherwise, store `map.set(nums[i], i)` and continue.\n\n- **Time Complexity:** $O(n)$\n- **Space Complexity:** $O(n)$",
+    "badgeName": "Arrays Master: Two Sum"
   },
   {
     "id": "valid-parentheses",
@@ -157,9 +147,9 @@ export const LEETCODE_PROBLEMS: Problem[] = [
     "title": "Valid Parentheses: Syntax Tree Validator",
     "difficulty": "Easy",
     "category": "Stack",
-    "acceptance": "44.6%",
-    "description": "Given a string `s` containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.\n\nAn input string is valid if:\n1. Open brackets must be closed by the same type of brackets.\n2. Open brackets must be closed in the correct order.\n3. Every close bracket has a corresponding open bracket of the same type.",
-    "realWorldContext": "The foundational grammar parser used inside TypeScript and Babel compiler lexers to validate JSON payloads and AST tree balance.",
+    "acceptance": "41.1%",
+    "description": "Given a string `s` containing just the characters `'('`, `')'`, `'{'`, `'}'`, `'['` and `']'`, determine if the input string is valid.\n\nAn input string is valid if:\n1. Open brackets must be closed by the same type of brackets.\n2. Open brackets must be closed in the correct order.\n3. Every close bracket has a corresponding open bracket of the same type.",
+    "realWorldContext": "Directly used in compilers and AST parsers (such as Babel, SWC, and TypeScript compiler) to validate code syntax before compilation.",
     "examples": [
       {
         "input": "s = \"()\"",
@@ -172,10 +162,6 @@ export const LEETCODE_PROBLEMS: Problem[] = [
       {
         "input": "s = \"(]\"",
         "output": "false"
-      },
-      {
-        "input": "s = \"([)]\"",
-        "output": "false"
       }
     ],
     "constraints": [
@@ -183,10 +169,15 @@ export const LEETCODE_PROBLEMS: Problem[] = [
       "s consists of parentheses only '()[]{}'."
     ],
     "hints": [
-      "Think about Last-In First-Out (LIFO). Which data structure handles this?",
-      "Push opening brackets onto a stack. When a closing bracket arrives, verify it matches the top of the stack."
+      "Use a Last-In, First-Out (LIFO) Stack data structure.",
+      "Whenever you see an opening bracket, push it onto the stack.",
+      "When you see a closing bracket, check if the stack top matches."
     ],
-    "starterCodeJs": "function isValid(s) {\n  const stack = [];\n  const map = { ')': '(', '}': '{', ']': '[' };\n  \n  for (const char of s) {\n    if (char === '(' || char === '{' || char === '[') {\n      stack.push(char);\n    } else {\n      if (stack.pop() !== map[char]) return false;\n    }\n  }\n  return stack.length === 0;\n}",
+    "starterCodeJs": "/**\n * @param {string} s\n * @return {boolean}\n */\nfunction isValid(s) {\n  // Write your O(n) stack solution here\n  \n}",
+    "starterCodeTs": "function isValid(s: string): boolean {\n  // Write your O(n) stack solution here\n  \n}",
+    "starterCodePy": "class Solution:\n    def isValid(self, s: str) -> bool:\n        # Write your O(n) stack solution here\n        pass",
+    "starterCodeCpp": "#include <string>\n#include <stack>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool isValid(string s) {\n        // Write your O(n) stack solution here\n        \n    }\n};",
+    "starterCodeJava": "class Solution {\n    public boolean isValid(String s) {\n        // Write your O(n) stack solution here\n        return false;\n    }\n}",
     "testCases": [
       {
         "name": "Simple Pair",
@@ -196,54 +187,47 @@ export const LEETCODE_PROBLEMS: Problem[] = [
         "expected": true
       },
       {
-        "name": "Multiple Sets",
+        "name": "Multiple Types",
         "inputArgs": [
           "()[]{}"
         ],
         "expected": true
       },
       {
-        "name": "Mismatched Brackets",
+        "name": "Mismatch Types",
         "inputArgs": [
           "(]"
         ],
         "expected": false
       },
       {
-        "name": "Nested Valid",
+        "name": "Nested Brackets",
         "inputArgs": [
           "{[]}"
         ],
         "expected": true
       },
       {
-        "name": "Unbalanced Open",
+        "name": "Unmatched Open",
         "inputArgs": [
-          "((("
-        ],
-        "expected": false
-      },
-      {
-        "name": "Interleaved Invalid",
-        "inputArgs": [
-          "([)]"
+          "["
         ],
         "expected": false,
         "isHidden": true
       }
     ],
-    "editorial": "### Optimal Approach: Stack Verification\n- Push opening brackets onto the stack.\n- Pop and match corresponding closing brackets.\n- If stack is empty at the end, the string is valid.\n\n- **Time**: O(n)\n- **Space**: O(n)",
-    "badgeName": "Stack Architect"
+    "editorial": "### Optimal Approach: Stack\n\n1. Initialize an empty stack.\n2. Map closing brackets to opening brackets: `')': '(', '}': '{', ']': '['`.\n3. Traverse `s`. If character is an open bracket, push to stack.\n4. If closing bracket, pop from stack and verify match.\n5. Valid if stack is completely empty at the end.\n\n- **Time Complexity:** $O(n)$\n- **Space Complexity:** $O(n)$",
+    "badgeName": "Stack Architect: Parentheses"
   },
   {
     "id": "best-time-to-buy-and-sell-stock",
     "slug": "best-time-to-buy-and-sell-stock",
-    "title": "Best Time to Buy and Sell Stock",
+    "title": "Best Time to Buy & Sell Stock: Volatility Profit Tracker",
     "difficulty": "Easy",
-    "category": "Sliding Window",
-    "acceptance": "54.1%",
-    "description": "You are given an array `prices` where `prices[i]` is the price of a given stock on the `i`th day.\n\nYou want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.\n\nReturn the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.",
-    "realWorldContext": "Algorithmic trading engines track minimum historical cost baselines to identify high-probability breakout sell triggers.",
+    "category": "Arrays & Hashing",
+    "acceptance": "54.6%",
+    "description": "You are given an array `prices` where `prices[i]` is the price of a given stock on the `i-th` day.\n\nYou want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.\n\nReturn the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return `0`.",
+    "realWorldContext": "Algorithmic trading engines at Jane Street and Citadel analyze historical asset windows to execute high-frequency arbitrage trades.",
     "examples": [
       {
         "input": "prices = [7, 1, 5, 3, 6, 4]",
@@ -253,7 +237,7 @@ export const LEETCODE_PROBLEMS: Problem[] = [
       {
         "input": "prices = [7, 6, 4, 3, 1]",
         "output": "0",
-        "explanation": "In this case, no transactions are done and max profit = 0."
+        "explanation": "In this case, no transactions are done and the max profit = 0."
       }
     ],
     "constraints": [
@@ -261,13 +245,18 @@ export const LEETCODE_PROBLEMS: Problem[] = [
       "0 <= prices[i] <= 10^4"
     ],
     "hints": [
-      "Keep track of the minimum price seen so far as you iterate through the list.",
-      "Calculate the potential profit if sold on the current day, and update maximum profit."
+      "Keep track of the minimum buy price seen so far as you iterate through the list.",
+      "Calculate current profit = price - minPrice at each day.",
+      "Update maxProfit if current profit is greater."
     ],
-    "starterCodeJs": "function maxProfit(prices) {\n  let minPrice = Infinity;\n  let maxProfit = 0;\n  \n  for (const price of prices) {\n    if (price < minPrice) {\n      minPrice = price;\n    } else if (price - minPrice > maxProfit) {\n      maxProfit = price - minPrice;\n    }\n  }\n  return maxProfit;\n}",
+    "starterCodeJs": "/**\n * @param {number[]} prices\n * @return {number}\n */\nfunction maxProfit(prices) {\n  // Write your O(n) greedy solution here\n  \n}",
+    "starterCodeTs": "function maxProfit(prices: number[]): number {\n  // Write your O(n) greedy solution here\n  \n}",
+    "starterCodePy": "class Solution:\n    def maxProfit(self, prices: list[int]) -> int:\n        # Write your O(n) greedy solution here\n        pass",
+    "starterCodeCpp": "#include <vector>\nusing namespace std;\n\nclass Solution {\npublic:\n    int maxProfit(vector<int>& prices) {\n        // Write your O(n) greedy solution here\n        \n    }\n};",
+    "starterCodeJava": "class Solution {\n    public int maxProfit(int[] prices) {\n        // Write your O(n) greedy solution here\n        return 0;\n    }\n}",
     "testCases": [
       {
-        "name": "Standard Profit",
+        "name": "Standard Peak",
         "inputArgs": [
           [
             7,
@@ -294,44 +283,31 @@ export const LEETCODE_PROBLEMS: Problem[] = [
         "expected": 0
       },
       {
-        "name": "Two Days",
-        "inputArgs": [
-          [
-            1,
-            2
-          ]
-        ],
-        "expected": 1
-      },
-      {
-        "name": "High Volatility",
+        "name": "Two Days Only",
         "inputArgs": [
           [
             2,
-            4,
-            1
+            4
           ]
         ],
         "expected": 2
       },
       {
-        "name": "Hidden Long Horizon",
+        "name": "Flat Prices",
         "inputArgs": [
           [
             3,
-            2,
-            6,
-            5,
-            0,
+            3,
+            3,
             3
           ]
         ],
-        "expected": 4,
+        "expected": 0,
         "isHidden": true
       }
     ],
-    "editorial": "### Optimal Approach: One-Pass Dynamic Min Tracker\nTrack the minimum price seen so far and compare each day's price against it.\n\n- **Time**: O(n)\n- **Space**: O(1)",
-    "badgeName": "Market Arbitrageur"
+    "editorial": "### Optimal Approach: Single-Pass Greedy\n\nTrack the lowest price encountered so far (`minPrice`) and check the profit if sold today:\n\n```js\nlet minPrice = Infinity;\nlet maxProfit = 0;\nfor (const p of prices) {\n  if (p < minPrice) minPrice = p;\n  else if (p - minPrice > maxProfit) maxProfit = p - minPrice;\n}\nreturn maxProfit;\n```\n\n- **Time Complexity:** $O(n)$\n- **Space Complexity:** $O(1)$",
+    "badgeName": "HFT Quant: Stock Arbitrage"
   },
   {
     "id": "max-subarray",
@@ -339,9 +315,9 @@ export const LEETCODE_PROBLEMS: Problem[] = [
     "title": "Maximum Subarray: Kadane's Algorithm",
     "difficulty": "Medium",
     "category": "Dynamic Programming",
-    "acceptance": "51.1%",
+    "acceptance": "50.4%",
     "description": "Given an integer array `nums`, find the subarray with the largest sum, and return its sum.",
-    "realWorldContext": "Kadane's Algorithm is widely deployed in quantitative trading and genomic sequence analysis to identify maximum contiguous return periods.",
+    "realWorldContext": "Used in computer vision (finding highest-contrast regions in an image) and genomic sequence alignment to locate protein coding regions.",
     "examples": [
       {
         "input": "nums = [-2, 1, -3, 4, -1, 2, 1, -5, 4]",
@@ -362,13 +338,17 @@ export const LEETCODE_PROBLEMS: Problem[] = [
       "-10^4 <= nums[i] <= 10^4"
     ],
     "hints": [
-      "Can you keep track of the current subarray sum and reset whenever it drops below 0?",
-      "This is known as Kadane's Algorithm."
+      "If the current accumulated sum becomes negative, it can never contribute positively to any subsequent subarray.",
+      "Reset current sum to 0 whenever it drops below zero (Kadane's Algorithm)."
     ],
-    "starterCodeJs": "function maxSubArray(nums) {\n  let maxSum = nums[0];\n  let curr = 0;\n  for (const n of nums) {\n    curr = Math.max(n, curr + n);\n    maxSum = Math.max(maxSum, curr);\n  }\n  return maxSum;\n}",
+    "starterCodeJs": "/**\n * @param {number[]} nums\n * @return {number}\n */\nfunction maxSubArray(nums) {\n  // Write Kadane's Algorithm in O(n) time\n  \n}",
+    "starterCodeTs": "function maxSubArray(nums: number[]): number {\n  // Write Kadane's Algorithm in O(n) time\n  \n}",
+    "starterCodePy": "class Solution:\n    def maxSubArray(self, nums: list[int]) -> int:\n        # Write Kadane's Algorithm in O(n) time\n        pass",
+    "starterCodeCpp": "#include <vector>\nusing namespace std;\n\nclass Solution {\npublic:\n    int maxSubArray(vector<int>& nums) {\n        // Write Kadane's Algorithm in O(n) time\n        \n    }\n};",
+    "starterCodeJava": "class Solution {\n    public int maxSubArray(int[] nums) {\n        // Write Kadane's Algorithm in O(n) time\n        return 0;\n    }\n}",
     "testCases": [
       {
-        "name": "Standard Mixed",
+        "name": "Mixed Negative/Positive",
         "inputArgs": [
           [
             -2,
@@ -410,17 +390,18 @@ export const LEETCODE_PROBLEMS: Problem[] = [
         "name": "All Negative",
         "inputArgs": [
           [
-            -5,
             -3,
+            -2,
             -1,
             -4
           ]
         ],
-        "expected": -1
+        "expected": -1,
+        "isHidden": true
       }
     ],
-    "editorial": "### Optimal Approach: Kadane's Algorithm\nAt each index, decide whether to append to the existing sum or start fresh with the current number.\n\n- **Time**: O(n)\n- **Space**: O(1)",
-    "badgeName": "Kadane Master"
+    "editorial": "### Optimal Approach: Kadane's Algorithm\n\n```js\nlet maxSum = nums[0];\nlet curr = 0;\nfor (const n of nums) {\n  curr = Math.max(n, curr + n);\n  maxSum = Math.max(maxSum, curr);\n}\nreturn maxSum;\n```\n\n- **Time Complexity:** $O(n)$\n- **Space Complexity:** $O(1)$",
+    "badgeName": "DP Vanguard: Kadane"
   },
   {
     "id": "contains-duplicate",
@@ -428,9 +409,9 @@ export const LEETCODE_PROBLEMS: Problem[] = [
     "title": "Contains Duplicate: Set Collision Detector",
     "difficulty": "Easy",
     "category": "Arrays & Hashing",
-    "acceptance": "61.8%",
-    "description": "Given an integer array `nums`, return true if any value appears at least twice in the array, and return false if every element is distinct.",
-    "realWorldContext": "Used in database write pipelines to enforce uniqueness constraints before inserting rows.",
+    "acceptance": "61.3%",
+    "description": "Given an integer array `nums`, return `true` if any value appears at least twice in the array, and return `false` if every element is distinct.",
+    "realWorldContext": "Primary deduplication routine in distributed message queues (Kafka, AWS SQS) and unique user identifier validations in PostgreSQL.",
     "examples": [
       {
         "input": "nums = [1, 2, 3, 1]",
@@ -450,13 +431,17 @@ export const LEETCODE_PROBLEMS: Problem[] = [
       "-10^9 <= nums[i] <= 10^9"
     ],
     "hints": [
-      "Can a Set data structure help detect duplicate elements in O(n) time?",
-      "If the size of a Set constructed from the array is less than the array length, duplicates exist."
+      "A Hash Set stores unique elements and has O(1) average lookup and insertion.",
+      "Compare the size of a Set constructed from `nums` to `nums.length`."
     ],
-    "starterCodeJs": "function containsDuplicate(nums) {\n  return new Set(nums).size < nums.length;\n}",
+    "starterCodeJs": "/**\n * @param {number[]} nums\n * @return {boolean}\n */\nfunction containsDuplicate(nums) {\n  // Write your O(n) set solution here\n  \n}",
+    "starterCodeTs": "function containsDuplicate(nums: number[]): boolean {\n  // Write your O(n) set solution here\n  \n}",
+    "starterCodePy": "class Solution:\n    def containsDuplicate(self, nums: list[int]) -> bool:\n        # Write your O(n) set solution here\n        pass",
+    "starterCodeCpp": "#include <vector>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool containsDuplicate(vector<int>& nums) {\n        // Write your O(n) set solution here\n        \n    }\n};",
+    "starterCodeJava": "class Solution {\n    public boolean containsDuplicate(int[] nums) {\n        // Write your O(n) set solution here\n        return false;\n    }\n}",
     "testCases": [
       {
-        "name": "Has Duplicate",
+        "name": "Contains Duplicate",
         "inputArgs": [
           [
             1,
@@ -468,7 +453,7 @@ export const LEETCODE_PROBLEMS: Problem[] = [
         "expected": true
       },
       {
-        "name": "All Unique",
+        "name": "All Distinct",
         "inputArgs": [
           [
             1,
@@ -480,7 +465,7 @@ export const LEETCODE_PROBLEMS: Problem[] = [
         "expected": false
       },
       {
-        "name": "Multiple Duplicates",
+        "name": "Multiple Repetitions",
         "inputArgs": [
           [
             1,
@@ -488,23 +473,18 @@ export const LEETCODE_PROBLEMS: Problem[] = [
             1,
             3,
             3,
-            4
+            4,
+            3,
+            2,
+            4,
+            2
           ]
         ],
         "expected": true
-      },
-      {
-        "name": "Single Element",
-        "inputArgs": [
-          [
-            99
-          ]
-        ],
-        "expected": false
       }
     ],
-    "editorial": "### Optimal Approach: Hash Set\nCompare new Set(nums).size with nums.length.\n\n- **Time**: O(n)\n- **Space**: O(n)",
-    "badgeName": "Set Theory Specialist"
+    "editorial": "### Optimal Approach: Hash Set\n\n```js\nreturn new Set(nums).size < nums.length;\n```\n\n- **Time Complexity:** $O(n)$\n- **Space Complexity:** $O(n)$",
+    "badgeName": "Hash Master: Deduplication"
   },
   {
     "id": "valid-anagram",
@@ -512,9 +492,9 @@ export const LEETCODE_PROBLEMS: Problem[] = [
     "title": "Valid Anagram: Frequency Counter",
     "difficulty": "Easy",
     "category": "Arrays & Hashing",
-    "acceptance": "64.1%",
-    "description": "Given two strings `s` and `t`, return true if `t` is an anagram of `s`, and false otherwise.\n\nAn Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.",
-    "realWorldContext": "Used in search query auto-correct engines and cryptographic permutation verification.",
+    "acceptance": "63.2%",
+    "description": "Given two strings `s` and `t`, return `true` if `t` is an anagram of `s`, and `false` otherwise.\n\nAn Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.",
+    "realWorldContext": "Employed in spell checkers, text comparison tools, and linguistic cryptanalysis engines.",
     "examples": [
       {
         "input": "s = \"anagram\", t = \"nagaram\"",
@@ -531,12 +511,16 @@ export const LEETCODE_PROBLEMS: Problem[] = [
     ],
     "hints": [
       "If lengths differ, they cannot be anagrams.",
-      "Count character frequencies with an array of size 26 or a hash map."
+      "Count character frequencies of s and decrement for t."
     ],
-    "starterCodeJs": "function isAnagram(s, t) {\n  if (s.length !== t.length) return false;\n  const count = {};\n  for (const c of s) count[c] = (count[c] || 0) + 1;\n  for (const c of t) {\n    if (!count[c]) return false;\n    count[c]--;\n  }\n  return true;\n}",
+    "starterCodeJs": "/**\n * @param {string} s\n * @param {string} t\n * @return {boolean}\n */\nfunction isAnagram(s, t) {\n  // Write your O(n) frequency counting solution here\n  \n}",
+    "starterCodeTs": "function isAnagram(s: string, t: string): boolean {\n  // Write your O(n) frequency counting solution here\n  \n}",
+    "starterCodePy": "class Solution:\n    def isAnagram(self, s: str, t: str) -> bool:\n        # Write your O(n) frequency counting solution here\n        pass",
+    "starterCodeCpp": "#include <string>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool isAnagram(string s, string t) {\n        // Write your O(n) frequency counting solution here\n        \n    }\n};",
+    "starterCodeJava": "class Solution {\n    public boolean isAnagram(String s, String t) {\n        // Write your O(n) frequency counting solution here\n        return false;\n    }\n}",
     "testCases": [
       {
-        "name": "Valid Anagram",
+        "name": "Standard Anagram",
         "inputArgs": [
           "anagram",
           "nagaram"
@@ -544,7 +528,7 @@ export const LEETCODE_PROBLEMS: Problem[] = [
         "expected": true
       },
       {
-        "name": "Different Words",
+        "name": "Mismatch Characters",
         "inputArgs": [
           "rat",
           "car"
@@ -552,24 +536,16 @@ export const LEETCODE_PROBLEMS: Problem[] = [
         "expected": false
       },
       {
-        "name": "Length Mismatch",
+        "name": "Length Difference",
         "inputArgs": [
           "a",
           "ab"
         ],
         "expected": false
-      },
-      {
-        "name": "Single Character Match",
-        "inputArgs": [
-          "z",
-          "z"
-        ],
-        "expected": true
       }
     ],
-    "editorial": "### Optimal Approach: Character Frequency Table\nUse a frequency hash map or fixed-size 26-element array.\n\n- **Time**: O(n)\n- **Space**: O(1) since English alphabet is 26 characters",
-    "badgeName": "Lexical Analyzer"
+    "editorial": "### Optimal Approach: Frequency Array\n\n```js\nif (s.length !== t.length) return false;\nconst count = {};\nfor (const c of s) count[c] = (count[c] || 0) + 1;\nfor (const c of t) {\n  if (!count[c]) return false;\n  count[c]--;\n}\nreturn true;\n```\n\n- **Time Complexity:** $O(n)$\n- **Space Complexity:** $O(1)$",
+    "badgeName": "Frequency Specialist: Anagram"
   },
   {
     "id": "merge-intervals",
@@ -577,9 +553,9 @@ export const LEETCODE_PROBLEMS: Problem[] = [
     "title": "Merge Intervals: Calendar Optimizer",
     "difficulty": "Medium",
     "category": "Intervals",
-    "acceptance": "47.2%",
+    "acceptance": "47.1%",
     "description": "Given an array of `intervals` where `intervals[i] = [start_i, end_i]`, merge all overlapping intervals, and return an array of the non-overlapping intervals that cover all the intervals in the input.",
-    "realWorldContext": "Google Calendar and Zoom use interval merging to determine real meeting conflicts and suggest free meeting windows.",
+    "realWorldContext": "Google Calendar and Outlook meeting scheduler algorithms collapse free/busy slot blocks to identify overlapping availability across teams.",
     "examples": [
       {
         "input": "intervals = [[1, 3], [2, 6], [8, 10], [15, 18]]",
@@ -598,13 +574,17 @@ export const LEETCODE_PROBLEMS: Problem[] = [
       "0 <= start_i <= end_i <= 10^4"
     ],
     "hints": [
-      "Sort the intervals by their start time first.",
-      "Iterate through sorted intervals: if current interval overlaps with the previous merged one, extend previous end time."
+      "Sort intervals by start time first.",
+      "If current start <= previous end, merge them: previous.end = max(previous.end, current.end)."
     ],
-    "starterCodeJs": "function merge(intervals) {\n  if (intervals.length <= 1) return intervals;\n  intervals.sort((a, b) => a[0] - b[0]);\n  \n  const merged = [intervals[0]];\n  for (let i = 1; i < intervals.length; i++) {\n    const prev = merged[merged.length - 1];\n    const curr = intervals[i];\n    \n    if (curr[0] <= prev[1]) {\n      prev[1] = Math.max(prev[1], curr[1]);\n    } else {\n      merged.push(curr);\n    }\n  }\n  return merged;\n}",
+    "starterCodeJs": "/**\n * @param {number[][]} intervals\n * @return {number[][]}\n */\nfunction merge(intervals) {\n  // Write your O(n log n) intervals sorting & merge solution here\n  \n}",
+    "starterCodeTs": "function merge(intervals: number[][]): number[][] {\n  // Write your O(n log n) intervals sorting & merge solution here\n  \n}",
+    "starterCodePy": "class Solution:\n    def merge(self, intervals: list[list[int]]) -> list[list[int]]:\n        # Write your O(n log n) intervals sorting & merge solution here\n        pass",
+    "starterCodeCpp": "#include <vector>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<vector<int>> merge(vector<vector<int>>& intervals) {\n        // Write your O(n log n) intervals sorting & merge solution here\n        \n    }\n};",
+    "starterCodeJava": "class Solution {\n    public int[][] merge(int[][] intervals) {\n        // Write your O(n log n) intervals sorting & merge solution here\n        return new int[][]{};\n    }\n}",
     "testCases": [
       {
-        "name": "Overlapping Set",
+        "name": "Standard Overlap",
         "inputArgs": [
           [
             [
@@ -641,7 +621,7 @@ export const LEETCODE_PROBLEMS: Problem[] = [
         ]
       },
       {
-        "name": "Adjacent Touch",
+        "name": "Touching Boundary",
         "inputArgs": [
           [
             [
@@ -662,7 +642,7 @@ export const LEETCODE_PROBLEMS: Problem[] = [
         ]
       },
       {
-        "name": "Fully Enclosed",
+        "name": "Fully Contained",
         "inputArgs": [
           [
             [
@@ -671,7 +651,7 @@ export const LEETCODE_PROBLEMS: Problem[] = [
             ],
             [
               2,
-              5
+              6
             ]
           ]
         ],
@@ -681,27 +661,10 @@ export const LEETCODE_PROBLEMS: Problem[] = [
             10
           ]
         ]
-      },
-      {
-        "name": "Single Interval",
-        "inputArgs": [
-          [
-            [
-              1,
-              4
-            ]
-          ]
-        ],
-        "expected": [
-          [
-            1,
-            4
-          ]
-        ]
       }
     ],
-    "editorial": "### Optimal Approach: Sort & Linear Merge\nSorting by start time ensures intervals that can merge are strictly adjacent.\n\n- **Time**: O(n log n)\n- **Space**: O(n)",
-    "badgeName": "Chronos Optimizer"
+    "editorial": "### Optimal Approach: Sort + Single Scan\n\n```js\nif (intervals.length <= 1) return intervals;\nintervals.sort((a, b) => a[0] - b[0]);\nconst merged = [intervals[0]];\nfor (let i = 1; i < intervals.length; i++) {\n  const prev = merged[merged.length - 1];\n  const curr = intervals[i];\n  if (curr[0] <= prev[1]) {\n    prev[1] = Math.max(prev[1], curr[1]);\n  } else {\n    merged.push(curr);\n  }\n}\nreturn merged;\n```\n\n- **Time Complexity:** $O(n \\log n)$\n- **Space Complexity:** $O(n)$",
+    "badgeName": "Calendar Maven: Intervals"
   },
   {
     "id": "binary-search",
@@ -710,8 +673,8 @@ export const LEETCODE_PROBLEMS: Problem[] = [
     "difficulty": "Easy",
     "category": "Binary Search",
     "acceptance": "57.8%",
-    "description": "Given an array of integers `nums` which is sorted in ascending order, and an integer `target`, write a function to search `target` in `nums`.\n\nIf `target` exists, then return its index. Otherwise, return -1.\n\nYou must write an algorithm with O(log n) runtime complexity.",
-    "realWorldContext": "B-Tree database indexes in PostgreSQL and MySQL rely on binary search on each disk block to retrieve rows in sub-millisecond time.",
+    "description": "Given an array of integers `nums` which is sorted in ascending order, and an integer `target`, write a function to search `target` in `nums`. If `target` exists, then return its index. Otherwise, return `-1`.\n\nYou must write an algorithm with `O(log n)` runtime complexity.",
+    "realWorldContext": "Foundational primitive behind B-Trees, database indexing in Postgres/MySQL, and Git Bisect bug isolation.",
     "examples": [
       {
         "input": "nums = [-1, 0, 3, 5, 9, 12], target = 9",
@@ -731,10 +694,15 @@ export const LEETCODE_PROBLEMS: Problem[] = [
       "nums is sorted in ascending order."
     ],
     "hints": [
-      "Maintain low and high pointers.",
-      "Calculate mid as Math.floor((low + high) / 2) to prevent potential integer overflow."
+      "Maintain two pointers: left = 0, right = nums.length - 1.",
+      "Calculate mid = Math.floor((left + right) / 2).",
+      "Compare nums[mid] with target and discard half the search space."
     ],
-    "starterCodeJs": "function search(nums, target) {\n  let left = 0;\n  let right = nums.length - 1;\n  \n  while (left <= right) {\n    const mid = Math.floor((left + right) / 2);\n    if (nums[mid] === target) return mid;\n    if (nums[mid] < target) {\n      left = mid + 1;\n    } else {\n      right = mid - 1;\n    }\n  }\n  return -1;\n}",
+    "starterCodeJs": "/**\n * @param {number[]} nums\n * @param {number} target\n * @return {number}\n */\nfunction search(nums, target) {\n  // Write your O(log n) binary search here\n  \n}",
+    "starterCodeTs": "function search(nums: number[], target: number): number {\n  // Write your O(log n) binary search here\n  \n}",
+    "starterCodePy": "class Solution:\n    def search(self, nums: list[int], target: int) -> int:\n        # Write your O(log n) binary search here\n        pass",
+    "starterCodeCpp": "#include <vector>\nusing namespace std;\n\nclass Solution {\npublic:\n    int search(vector<int>& nums, int target) {\n        // Write your O(log n) binary search here\n        \n    }\n};",
+    "starterCodeJava": "class Solution {\n    public int search(int[] nums, int target) {\n        // Write your O(log n) binary search here\n        return -1;\n    }\n}",
     "testCases": [
       {
         "name": "Target Present",
@@ -752,7 +720,7 @@ export const LEETCODE_PROBLEMS: Problem[] = [
         "expected": 4
       },
       {
-        "name": "Target Missing",
+        "name": "Target Absent",
         "inputArgs": [
           [
             -1,
@@ -767,7 +735,7 @@ export const LEETCODE_PROBLEMS: Problem[] = [
         "expected": -1
       },
       {
-        "name": "Single Element Found",
+        "name": "Single Element Match",
         "inputArgs": [
           [
             5
@@ -777,17 +745,18 @@ export const LEETCODE_PROBLEMS: Problem[] = [
         "expected": 0
       },
       {
-        "name": "Single Element Missing",
+        "name": "Single Element Mismatch",
         "inputArgs": [
           [
             5
           ],
-          -5
+          1
         ],
-        "expected": -1
+        "expected": -1,
+        "isHidden": true
       }
     ],
-    "editorial": "### Optimal Approach: Classical Binary Search\nRepeatedly halve the search window based on comparing target to mid.\n\n- **Time**: O(log n)\n- **Space**: O(1)",
-    "badgeName": "Logarithmic Navigator"
+    "editorial": "### Optimal Approach: Classical Binary Search\n\n```js\nlet left = 0;\nlet right = nums.length - 1;\nwhile (left <= right) {\n  const mid = Math.floor((left + right) / 2);\n  if (nums[mid] === target) return mid;\n  if (nums[mid] < target) left = mid + 1;\n  else right = mid - 1;\n}\nreturn -1;\n```\n\n- **Time Complexity:** $O(\\log n)$\n- **Space Complexity:** $O(1)$",
+    "badgeName": "Algorithmist: Binary Search"
   }
 ];

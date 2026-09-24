@@ -28,7 +28,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LEETCODE_PROBLEMS, Problem } from "@/lib/problems-data";
-import { executeCodeInSandbox, ExecutionReport } from "@/lib/code-runner";
+import { executeCodeInSandbox, ExecutionReport, SupportedLanguage, SUPPORTED_LANGUAGES } from "@/lib/code-runner";
 
 // Lazy-load Monaco Editor on client side (no SSR, isolated bundle)
 const MonacoEditor = dynamic(() => import("@monaco-editor/react"), {
@@ -55,7 +55,14 @@ function POTDWorkspace() {
     LEETCODE_PROBLEMS[0];
 
   const [currentProblem, setCurrentProblem] = useState<Problem>(initialProblem);
-  const [code, setCode] = useState<string>(initialProblem.starterCodeJs);
+  const [selectedLanguage, setSelectedLanguage] = useState<SupportedLanguage>("javascript");
+  const [languageCodeMap, setLanguageCodeMap] = useState<Record<SupportedLanguage, string>>({
+    javascript: initialProblem.starterCodeJs,
+    typescript: initialProblem.starterCodeTs,
+    python: initialProblem.starterCodePy,
+    cpp: initialProblem.starterCodeCpp,
+    java: initialProblem.starterCodeJava,
+  });
   const [activeLeftTab, setActiveLeftTab] = useState<"DESCRIPTION" | "HINTS" | "EDITORIAL" | "BADGES">("DESCRIPTION");
   const [activeBottomTab, setActiveBottomTab] = useState<"TEST_CASES" | "CONSOLE">("TEST_CASES");
   const [activeTestCaseIdx, setActiveTestCaseIdx] = useState<number>(0);
@@ -76,12 +83,44 @@ function POTDWorkspace() {
   }, [problemSlug]);
 
   useEffect(() => {
-    setCode(currentProblem.starterCodeJs);
+    setLanguageCodeMap({
+      javascript: currentProblem.starterCodeJs,
+      typescript: currentProblem.starterCodeTs,
+      python: currentProblem.starterCodePy,
+      cpp: currentProblem.starterCodeCpp,
+      java: currentProblem.starterCodeJava,
+    });
     setReport(null);
     setSubmitMessage(null);
     setActiveTestCaseIdx(0);
     setBadgeUnlocked(null);
   }, [currentProblem]);
+
+  const handleResetCode = () => {
+    const defaultStarter =
+      selectedLanguage === "javascript"
+        ? currentProblem.starterCodeJs
+        : selectedLanguage === "typescript"
+        ? currentProblem.starterCodeTs
+        : selectedLanguage === "python"
+        ? currentProblem.starterCodePy
+        : selectedLanguage === "cpp"
+        ? currentProblem.starterCodeCpp
+        : currentProblem.starterCodeJava;
+
+    setLanguageCodeMap((prev) => ({
+      ...prev,
+      [selectedLanguage]: defaultStarter,
+    }));
+  };
+
+  const handleCodeChange = (newVal: string | undefined) => {
+    const val = newVal || "";
+    setLanguageCodeMap((prev) => ({
+      ...prev,
+      [selectedLanguage]: val,
+    }));
+  };
 
   useEffect(() => {
     try {
@@ -101,7 +140,9 @@ function POTDWorkspace() {
       : currentProblem.testCases.filter((tc) => !tc.isHidden);
 
     try {
-      const execReport = await executeCodeInSandbox(code, testCasesToRun, 2500);
+      const currentCode = languageCodeMap[selectedLanguage] || "";
+      const timeout = selectedLanguage === "python" ? 6000 : 3500;
+      const execReport = await executeCodeInSandbox(currentCode, testCasesToRun, selectedLanguage, timeout);
       setReport(execReport);
 
       if (isSubmission) {
@@ -418,21 +459,36 @@ function POTDWorkspace() {
         <div className="lg:col-span-7 bg-slate-900 flex flex-col h-full overflow-hidden">
           
           {/* Editor Header Bar */}
-          <div className="border-b border-slate-800 bg-slate-950 px-4 py-2 flex items-center justify-between shrink-0">
-            <div className="flex items-center gap-2">
+          <div className="border-b border-slate-800 bg-slate-950 px-4 py-2 flex flex-wrap items-center justify-between gap-2 shrink-0">
+            <div className="flex items-center gap-2.5">
               <Code2 className="h-4 w-4 text-emerald-500" />
-              <span className="text-xs font-mono font-bold text-slate-300">
-                Monaco Editor (VS Code Engine)
-              </span>
-              <span className="text-[10px] font-mono rounded bg-slate-800 px-1.5 py-0.5 text-slate-400 border border-slate-700">
-                JavaScript ES2024
+              <div className="flex items-center gap-1.5">
+                <span className="text-xs font-mono font-bold text-slate-300">
+                  Language:
+                </span>
+                <select
+                  value={selectedLanguage}
+                  onChange={(e) => setSelectedLanguage(e.target.value as SupportedLanguage)}
+                  className="rounded-lg bg-slate-900 border border-slate-700 text-xs font-mono text-emerald-400 px-2.5 py-1 focus:outline-none focus:ring-1 focus:ring-emerald-500 cursor-pointer"
+                >
+                  {SUPPORTED_LANGUAGES.map((lang) => (
+                    <option key={lang.id} value={lang.id} className="bg-slate-900 text-slate-200">
+                      {lang.name} ({lang.badge})
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <span className="text-[10px] font-mono rounded bg-slate-800/80 px-2 py-0.5 text-slate-400 border border-slate-700/60 hidden sm:inline">
+                {SUPPORTED_LANGUAGES.find((l) => l.id === selectedLanguage)?.version}
               </span>
             </div>
             
             <div className="flex items-center gap-2">
               <button
-                onClick={() => setCode(currentProblem.starterCodeJs)}
+                onClick={handleResetCode}
                 className="text-slate-400 hover:text-white text-xs flex items-center gap-1 font-mono transition-colors px-2 py-1 rounded hover:bg-slate-800"
+                title={`Reset ${selectedLanguage} starter code`}
               >
                 <RotateCcw className="h-3 w-3" /> Reset Code
               </button>
@@ -443,10 +499,10 @@ function POTDWorkspace() {
           <div className="flex-1 relative bg-slate-950 overflow-hidden">
             <MonacoEditor
               height="100%"
-              language="javascript"
+              language={SUPPORTED_LANGUAGES.find((l) => l.id === selectedLanguage)?.monacoLang || "javascript"}
               theme="vs-dark"
-              value={code}
-              onChange={(value) => setCode(value || "")}
+              value={languageCodeMap[selectedLanguage] || ""}
+              onChange={handleCodeChange}
               options={{
                 minimap: { enabled: false },
                 fontSize: 13,
@@ -454,7 +510,7 @@ function POTDWorkspace() {
                 lineNumbers: "on",
                 scrollBeyondLastLine: false,
                 automaticLayout: true,
-                tabSize: 2,
+                tabSize: selectedLanguage === "python" ? 4 : 2,
                 wordWrap: "on",
                 padding: { top: 12, bottom: 12 },
                 suggestOnTriggerCharacters: true,
