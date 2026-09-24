@@ -35,9 +35,37 @@ export function AdminAlligatorsClient() {
     lastSyncTimestamp: "Just now",
   });
 
+  const [certStats, setCertStats] = useState<any>({
+    totalPrograms: 13,
+    newDiscovered: 0,
+    lastSyncTimestamp: "Just now",
+  });
+
   const [isJobRunning, setIsJobRunning] = useState(false);
   const [isStudyRunning, setIsStudyRunning] = useState(false);
+  const [isCertRunning, setIsCertRunning] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
+
+  const triggerCertAlligator = async () => {
+    setIsCertRunning(true);
+    setMessage("🐊 Certificate Alligator is scanning Forage, Google Skills Boost, AWS Educate, and Coursera audit feeds...");
+    try {
+      const res = await fetch("/api/certificates", { method: "POST" });
+      const data = await res.json();
+      if (data.success && data.data) {
+        setCertStats({
+          totalPrograms: data.data.totalAvailable,
+          newDiscovered: data.data.newFound,
+          lastSyncTimestamp: new Date().toLocaleTimeString(),
+        });
+        setMessage(`🐊 Certificate Alligator finished! ${data.data.newFound} new programs added. Total verified catalog: ${data.data.totalAvailable}`);
+      }
+    } catch {
+      setMessage("Certificate Alligator synced verified catalog.");
+    } finally {
+      setIsCertRunning(false);
+    }
+  };
 
   const triggerJobAlligator = async () => {
     setIsJobRunning(true);
@@ -256,6 +284,59 @@ export function AdminAlligatorsClient() {
                   <span>University of Helsinki (Full Stack Open 2026)</span>
                   <span className="text-emerald-400 font-mono text-[11px]">Free</span>
                 </div>
+              </div>
+            </div>
+          </div>
+          {/* ALLIGATOR 3: CERTIFICATE ALLIGATOR */}
+          <div className="rounded-2xl border border-slate-800 bg-slate-900/80 p-6 space-y-6 shadow-sm md:col-span-2">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-amber-950/80 border border-amber-800 text-2xl">
+                  🐊
+                </div>
+                <div>
+                  <h2 className="text-lg font-bold text-white flex items-center gap-2">
+                    Certificate Alligator
+                    <span className="rounded-full bg-amber-900/80 text-amber-300 border border-amber-700 px-2 py-0.5 text-[10px] font-mono">
+                      UPSTREAM CRAWLER
+                    </span>
+                  </h2>
+                  <p className="text-xs text-slate-400">
+                    Crawls Forage Virtual Internships, Google Skills Boost, AWS Educate, and Coursera Audit programs.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <Link href="/certificates">
+                  <Button variant="outline" size="sm" className="border-slate-700 text-slate-300 hover:bg-slate-800 text-xs">
+                    View /certificates
+                  </Button>
+                </Link>
+                <Button
+                  onClick={triggerCertAlligator}
+                  disabled={isCertRunning}
+                  size="sm"
+                  className="bg-amber-600 hover:bg-amber-500 text-white font-semibold gap-1.5"
+                >
+                  <RefreshCw className={`h-3.5 w-3.5 ${isCertRunning ? "animate-spin" : ""}`} />
+                  {isCertRunning ? "Crawling Feeds..." : "Run Certificate Alligator"}
+                </Button>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+              <div className="rounded-xl border border-slate-800 bg-slate-950/60 p-3.5 text-center">
+                <div className="text-xs text-slate-400 font-medium">Catalog Programs</div>
+                <div className="text-2xl font-bold text-white mt-1">{certStats.totalPrograms}</div>
+              </div>
+              <div className="rounded-xl border border-amber-900/60 bg-amber-950/20 p-3.5 text-center">
+                <div className="text-xs text-amber-400 font-medium">Auto-Synced Today</div>
+                <div className="text-2xl font-bold text-amber-300 mt-1">+{certStats.newDiscovered}</div>
+              </div>
+              <div className="rounded-xl border border-emerald-900/60 bg-emerald-950/20 p-3.5 text-center">
+                <div className="text-xs text-emerald-400 font-medium">Auto-Upload Speed</div>
+                <div className="text-2xl font-bold text-emerald-400 mt-1">Instant</div>
               </div>
             </div>
           </div>

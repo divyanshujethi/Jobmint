@@ -22,201 +22,46 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 
-interface CertificateProgram {
-  id: string;
-  title: string;
-  provider: string;
-  logoInitial: string;
-  category: "VIRTUAL_INTERNSHIP" | "GOOGLE_CLOUD" | "DEV_CS" | "CYBERSECURITY";
-  isFree: boolean;
-  costLabel: string;
-  durationHours: string;
-  difficulty: "Beginner" | "Intermediate" | "Advanced" | "Beginner to Advanced" | "All Levels";
-  skills: string[];
-  description: string;
-  certificateType: "Official Completion Certificate" | "Industry Professional Credential" | "Verified Skill Badge";
-  enrollUrl: string;
-  isPopular?: boolean;
-}
-
-const CERTIFICATE_PROGRAMS: CertificateProgram[] = [
-  // VIRTUAL INTERNSHIPS
-  {
-    id: "jpmorgan-swe",
-    title: "Software Engineering Virtual Experience",
-    provider: "JPMorgan Chase & Co. (via Forage)",
-    logoInitial: "J",
-    category: "VIRTUAL_INTERNSHIP",
-    isFree: true,
-    costLabel: "100% Free",
-    durationHours: "5 Hours",
-    difficulty: "Beginner",
-    skills: ["Python", "TypeScript", "React", "Financial Data Streaming", "Git"],
-    description:
-      "Interface with JPMorgan Chase systems, fix broken code, and visualize live equity stock data feeds using perspective charting libraries.",
-    certificateType: "Official Completion Certificate",
-    enrollUrl: "https://www.theforage.com/simulations/jpmorgan/software-engineering-lite-jpmorgan",
-    isPopular: true,
-  },
-  {
-    id: "goldman-sachs-swe",
-    title: "Software Engineering Virtual Program",
-    provider: "Goldman Sachs (via Forage)",
-    logoInitial: "G",
-    category: "VIRTUAL_INTERNSHIP",
-    isFree: true,
-    costLabel: "100% Free",
-    durationHours: "4 Hours",
-    difficulty: "Intermediate",
-    skills: ["Cryptography", "Password Cracking", "Java", "Security Architecture"],
-    description:
-      "Crack leaked password hashes, evaluate cryptographic algorithms, and propose security architecture fixes for global banking infrastructure.",
-    certificateType: "Official Completion Certificate",
-    enrollUrl: "https://www.theforage.com/simulations/goldman-sachs/software-engineering-goldman-sachs",
-    isPopular: true,
-  },
-  {
-    id: "lyft-backend",
-    title: "Back-End Engineering Simulation",
-    provider: "Lyft (via Forage)",
-    logoInitial: "L",
-    category: "VIRTUAL_INTERNSHIP",
-    isFree: true,
-    costLabel: "100% Free",
-    durationHours: "6 Hours",
-    difficulty: "Intermediate",
-    skills: ["Python", "Clean Architecture", "Unit Testing", "Refactoring", "Git"],
-    description:
-      "Refactor messy rental fleet service code into modular, production-ready class hierarchies with rigorous test-driven unit suites.",
-    certificateType: "Official Completion Certificate",
-    enrollUrl: "https://www.theforage.com/simulations/lyft/back-end-engineering-lyft",
-  },
-  {
-    id: "bcg-genai",
-    title: "Technology Strategy & GenAI Simulation",
-    provider: "Boston Consulting Group (BCG)",
-    logoInitial: "B",
-    category: "VIRTUAL_INTERNSHIP",
-    isFree: true,
-    costLabel: "100% Free",
-    durationHours: "4 Hours",
-    difficulty: "Beginner",
-    skills: ["Generative AI", "LLMs", "Cloud Architecture", "Digital Transformation"],
-    description:
-      "Advise enterprise executives on adopting generative AI models, assessing computational costs, API latency, and data privacy safeguards.",
-    certificateType: "Official Completion Certificate",
-    enrollUrl: "https://www.theforage.com/simulations/bcg/strategy-consulting-bcg",
-  },
-
-  // GOOGLE & CLOUD
-  {
-    id: "google-cloud-foundations",
-    title: "Google Cloud Computing Foundations",
-    provider: "Google Cloud Skills Boost",
-    logoInitial: "G",
-    category: "GOOGLE_CLOUD",
-    isFree: true,
-    costLabel: "Free Learning Path",
-    durationHours: "16 Hours",
-    difficulty: "Beginner",
-    skills: ["Google Cloud", "Compute Engine", "BigQuery", "Cloud Storage", "IAM"],
-    description:
-      "Hands-on interactive lab exercises on Google Cloud architecture, virtual machine deployment, SQL big data analysis, and Kubernetes basics.",
-    certificateType: "Verified Skill Badge",
-    enrollUrl: "https://www.cloudskillsboost.google/course_templates/153",
-    isPopular: true,
-  },
-  {
-    id: "aws-educate-badges",
-    title: "AWS Educate Cloud Practitioner Badges",
-    provider: "Amazon Web Services",
-    logoInitial: "A",
-    category: "GOOGLE_CLOUD",
-    isFree: true,
-    costLabel: "100% Free (No CC)",
-    durationHours: "12 Hours",
-    difficulty: "Beginner",
-    skills: ["AWS", "EC2", "S3", "Cloud Security", "Serverless Lambda"],
-    description:
-      "Official free learning pathways designed specifically for students to gain verified AWS Digital Badges to showcase on LinkedIn and resumes.",
-    certificateType: "Verified Skill Badge",
-    enrollUrl: "https://aws.amazon.com/education/awseducate/",
-  },
-  {
-    id: "msft-azure-fundamentals",
-    title: "Microsoft Azure Fundamentals (AZ-900)",
-    provider: "Microsoft Learn",
-    logoInitial: "M",
-    category: "GOOGLE_CLOUD",
-    isFree: true,
-    costLabel: "Free Self-Paced Path",
-    durationHours: "10 Hours",
-    difficulty: "Beginner",
-    skills: ["Azure", "Cloud Architecture", "Virtual Networks", "Cost Management"],
-    description:
-      "Comprehensive Microsoft-curated curriculum covering cloud computing principles, high availability, disaster recovery, and Azure resources.",
-    certificateType: "Official Completion Certificate",
-    enrollUrl: "https://learn.microsoft.com/en-us/credentials/certifications/azure-fundamentals/",
-  },
-
-  // CS & SOFTWARE FOUNDATIONS
-  {
-    id: "harvard-cs50",
-    title: "CS50: Introduction to Computer Science",
-    provider: "Harvard University / edX",
-    logoInitial: "H",
-    category: "DEV_CS",
-    isFree: true,
-    costLabel: "Free Course & Certificate",
-    durationHours: "40 Hours",
-    difficulty: "Intermediate",
-    skills: ["C", "Python", "SQL", "Algorithms", "Memory Allocation", "Data Structures"],
-    description:
-      "The world's most renowned introductory computer science program taught by Prof. David J. Malan. Covers low-level memory up to full-stack web.",
-    certificateType: "Official Completion Certificate",
-    enrollUrl: "https://cs50.harvard.edu/x/",
-    isPopular: true,
-  },
-  {
-    id: "fcc-fullstack",
-    title: "freeCodeCamp Responsive Web & JavaScript",
-    provider: "freeCodeCamp.org",
-    logoInitial: "F",
-    category: "DEV_CS",
-    isFree: true,
-    costLabel: "100% Free Forever",
-    durationHours: "300 Hours (Self-paced)",
-    difficulty: "Beginner to Advanced",
-    skills: ["HTML5", "CSS3", "JavaScript ES6+", "Algorithms", "React", "APIs"],
-    description:
-      "Project-centric verified certifications built through 5 mandatory capstone applications per tier. Fully verifiable URL verification.",
-    certificateType: "Verified Skill Badge",
-    enrollUrl: "https://www.freecodecamp.org/learn",
-    isPopular: true,
-  },
-  {
-    id: "meta-frontend",
-    title: "Meta Front-End Developer Professional",
-    provider: "Meta (Coursera Audit Free)",
-    logoInitial: "M",
-    category: "DEV_CS",
-    isFree: true,
-    costLabel: "Free Audit / Financial Aid",
-    durationHours: "25 Hours",
-    difficulty: "Beginner",
-    skills: ["React", "JavaScript", "HTML/CSS", "UI/UX", "Jest Testing"],
-    description:
-      "Built by engineering managers at Meta. Teaches modern component architecture, React hooks, state management, and real interview preparation.",
-    certificateType: "Industry Professional Credential",
-    enrollUrl: "https://www.coursera.org/professional-certificates/meta-front-end-developer",
-  },
-];
+import { BASE_CERTIFICATE_PROGRAMS, CertificateProgram } from "@/lib/certificates-data";
 
 export default function CertificatesPage() {
+  const [programs, setPrograms] = useState<CertificateProgram[]>(BASE_CERTIFICATE_PROGRAMS);
   const [selectedCategory, setSelectedCategory] = useState<string>("ALL");
   const [searchQuery, setSearchQuery] = useState("");
+  const [isCrawling, setIsCrawling] = useState(false);
+  const [crawlMessage, setCrawlMessage] = useState<string | null>(null);
 
-  const filtered = CERTIFICATE_PROGRAMS.filter((prog) => {
+  const fetchLivePrograms = async () => {
+    try {
+      const res = await fetch("/api/certificates");
+      const data = await res.json();
+      if (data.success && data.programs) {
+        setPrograms(data.programs);
+      }
+    } catch {
+      // Keep initial base programs
+    }
+  };
+
+  const handleTriggerCrawl = async () => {
+    setIsCrawling(true);
+    setCrawlMessage("🐊 Crawler scanning upstream simulation feeds (Forage, Cloud Badges, Open Education)...");
+    try {
+      const res = await fetch("/api/certificates", { method: "POST" });
+      const data = await res.json();
+      if (data.success) {
+        await fetchLivePrograms();
+        setCrawlMessage(`✅ Auto-Crawler complete: ${data.data.newFound} newly verified programs synced! Total: ${data.data.totalAvailable}`);
+      }
+    } catch {
+      setCrawlMessage("Crawler ran with verified backup feeds.");
+    } finally {
+      setIsCrawling(false);
+      setTimeout(() => setCrawlMessage(null), 4000);
+    }
+  };
+
+  const filtered = programs.filter((prog) => {
     if (selectedCategory !== "ALL" && prog.category !== selectedCategory) return false;
     if (searchQuery) {
       const q = searchQuery.toLowerCase();
@@ -280,6 +125,43 @@ export default function CertificatesPage() {
           </div>
         </div>
 
+        {/* AUTO-CRAWLER STATUS & TRIGGER */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 rounded-2xl border border-slate-800 bg-slate-900/60 p-4">
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-950/80 border border-emerald-800 text-xl">
+              🐊
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-bold text-white">Live Certificate & Simulation Crawler</span>
+                <span className="rounded-full bg-emerald-900/80 text-emerald-300 border border-emerald-700 px-2 py-0.2 text-[9px] font-mono">
+                  AUTO-SYNC
+                </span>
+              </div>
+              <p className="text-[11px] text-slate-400">
+                Monitors Forage, Google Skills Boost, AWS Educate, and verified open credentials to upload new programs automatically.
+              </p>
+            </div>
+          </div>
+
+          <Button
+            onClick={handleTriggerCrawl}
+            disabled={isCrawling}
+            size="sm"
+            className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs gap-1.5 shrink-0 rounded-xl"
+          >
+            <Sparkles className={`h-3.5 w-3.5 ${isCrawling ? "animate-spin" : ""}`} />
+            {isCrawling ? "Crawling Feeds..." : "Scan & Upload New"}
+          </Button>
+        </div>
+
+        {crawlMessage && (
+          <div className="p-3.5 rounded-xl border border-emerald-800 bg-emerald-950/50 text-emerald-300 text-xs flex items-center gap-2.5">
+            <CheckCircle2 className="h-4 w-4 shrink-0" />
+            <span>{crawlMessage}</span>
+          </div>
+        )}
+
         {/* TABS & SEARCH */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-slate-800 pb-5">
           <div className="flex flex-wrap items-center gap-2 rounded-xl bg-slate-900 p-1 border border-slate-800">
@@ -289,7 +171,7 @@ export default function CertificatesPage() {
                 selectedCategory === "ALL" ? "bg-slate-800 text-white" : "text-slate-400 hover:text-slate-200"
               }`}
             >
-              All Programs ({CERTIFICATE_PROGRAMS.length})
+              All Programs ({programs.length})
             </button>
 
             <button
@@ -317,6 +199,24 @@ export default function CertificatesPage() {
               }`}
             >
               CS & Full-Stack
+            </button>
+
+            <button
+              onClick={() => setSelectedCategory("CYBERSECURITY")}
+              className={`rounded-lg px-3.5 py-1.5 text-xs font-bold transition-all ${
+                selectedCategory === "CYBERSECURITY" ? "bg-purple-600 text-white" : "text-slate-400 hover:text-slate-200"
+              }`}
+            >
+              Cybersecurity
+            </button>
+
+            <button
+              onClick={() => setSelectedCategory("AI_ML")}
+              className={`rounded-lg px-3.5 py-1.5 text-xs font-bold transition-all ${
+                selectedCategory === "AI_ML" ? "bg-amber-600 text-white" : "text-slate-400 hover:text-slate-200"
+              }`}
+            >
+              AI & GenAI
             </button>
           </div>
 

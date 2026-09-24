@@ -132,13 +132,22 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <span className="text-slate-500">100% Free Tier Architecture</span>
+                <Link href="/terms" className="hover:text-emerald-600 font-medium text-slate-700">
+                  Terms & Conditions
+                </Link>
               </li>
               <li>
-                <span className="text-slate-500">Zero-Lock-In Standard</span>
+                <Link href="/privacy" className="hover:text-emerald-600 font-medium text-slate-700">
+                  Privacy Policy
+                </Link>
               </li>
               <li>
-                <span className="text-slate-500">Data Portability First</span>
+                <Link href="/settings/account" className="hover:text-rose-600 font-medium text-slate-500">
+                  Delete Account (GDPR)
+                </Link>
+              </li>
+              <li>
+                <span className="text-slate-400">Zero Job Guarantee Disclaimer</span>
               </li>
             </ul>
           </div>
