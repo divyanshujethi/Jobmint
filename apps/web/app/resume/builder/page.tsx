@@ -20,6 +20,7 @@ import {
   Trash2,
   Printer,
   Code,
+  RotateCcw,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
@@ -136,6 +137,21 @@ export default function ResumeBuilderPage() {
   const [copiedLatex, setCopiedLatex] = useState(false);
   const printRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("jobmint_harvard_resume");
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed.fullName && (parsed.fullName.includes("Divyanshu") || parsed.email?.includes("divyanshu"))) {
+          localStorage.removeItem("jobmint_harvard_resume");
+          setData(DEFAULT_RESUME);
+        } else {
+          setData(parsed);
+        }
+      }
+    } catch (e) {}
+  }, []);
+
   // Generate clean LaTeX code (Jake's Resume / Harvard Standard format)
   const generateLatex = () => {
     return `\\documentclass[letterpaper,11pt]{article}
@@ -242,15 +258,206 @@ ${p.bullets.map((b) => `      \\item \\small{${b}}`).join("\n")}
   };
 
   const handlePrint = () => {
-    window.print();
+    let printFrame = document.getElementById("resume-print-frame") as HTMLIFrameElement;
+    if (!printFrame) {
+      printFrame = document.createElement("iframe");
+      printFrame.id = "resume-print-frame";
+      printFrame.style.position = "fixed";
+      printFrame.style.right = "0";
+      printFrame.style.bottom = "0";
+      printFrame.style.width = "0";
+      printFrame.style.height = "0";
+      printFrame.style.border = "0";
+      document.body.appendChild(printFrame);
+    }
+
+    const frameDoc = printFrame.contentDocument || printFrame.contentWindow?.document;
+    if (!frameDoc) {
+      window.print();
+      return;
+    }
+
+    frameDoc.open();
+    frameDoc.write(`<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>${data.fullName || "Resume"} - Harvard ATS Resume</title>
+  <style>
+    @page {
+      size: letter portrait;
+      margin: 0.4in 0.45in 0.4in 0.45in;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    body {
+      font-family: 'Times New Roman', Times, 'Nimbus Roman No9 L', serif;
+      color: #000000;
+      background: #ffffff;
+      font-size: 10pt;
+      line-height: 1.25;
+      padding: 0;
+      margin: 0;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 7pt;
+    }
+    .name {
+      font-size: 19pt;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.5pt;
+      margin-bottom: 2pt;
+    }
+    .contact {
+      font-size: 9.5pt;
+      color: #111111;
+    }
+    .contact a {
+      color: #000000;
+      text-decoration: none;
+    }
+    .sep {
+      margin: 0 4pt;
+      color: #555555;
+    }
+    .section-title {
+      font-size: 10.5pt;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.5pt;
+      border-bottom: 1pt solid #000000;
+      padding-bottom: 1pt;
+      margin-top: 6pt;
+      margin-bottom: 3.5pt;
+    }
+    .row-split {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 10pt;
+    }
+    .sub-split {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 9.5pt;
+      font-style: italic;
+      margin-bottom: 1.5pt;
+    }
+    .bold { font-weight: bold; }
+    ul {
+      margin: 1.5pt 0 4pt 0;
+      padding-left: 16pt;
+    }
+    li {
+      font-size: 9.5pt;
+      line-height: 1.25;
+      margin-bottom: 1pt;
+    }
+    .skills-line {
+      font-size: 9.5pt;
+      line-height: 1.32;
+      margin-bottom: 1.5pt;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="name">${data.fullName}</div>
+    <div class="contact">
+      <span>${data.phone}</span>
+      <span class="sep">|</span>
+      <a href="mailto:${data.email}">${data.email}</a>
+      <span class="sep">|</span>
+      <a href="https://${data.linkedinUrl}">${data.linkedinUrl}</a>
+      <span class="sep">|</span>
+      <a href="https://${data.githubUrl}">${data.githubUrl}</a>
+      <span class="sep">|</span>
+      <span>${data.location}</span>
+    </div>
+  </div>
+
+  <div class="section-title">Education</div>
+  ${data.education.map(e => `
+    <div style="margin-bottom: 3pt;">
+      <div class="row-split">
+        <span class="bold">${e.institution}</span>
+        <span>${e.location}</span>
+      </div>
+      <div class="sub-split">
+        <span>${e.degree} in ${e.fieldOfStudy} (GPA: ${e.gpa})</span>
+        <span style="font-style: normal;">${e.startDate} – ${e.endDate}</span>
+      </div>
+    </div>
+  `).join('')}
+
+  <div class="section-title">Experience</div>
+  ${data.experience.map(exp => `
+    <div style="margin-bottom: 4pt;">
+      <div class="row-split">
+        <span class="bold">${exp.role}</span>
+        <span>${exp.startDate} – ${exp.endDate}</span>
+      </div>
+      <div class="sub-split">
+        <span>${exp.company}</span>
+        <span style="font-style: normal;">${exp.location}</span>
+      </div>
+      <ul>
+        ${exp.bullets.map(b => `<li>${b}</li>`).join('')}
+      </ul>
+    </div>
+  `).join('')}
+
+  <div class="section-title">Technical Projects</div>
+  ${data.projects.map(p => `
+    <div style="margin-bottom: 4pt;">
+      <div class="row-split">
+        <span class="bold">${p.title} <span style="font-weight: normal; font-style: italic; font-size: 9pt;">| ${p.techStack}</span></span>
+      </div>
+      <ul>
+        ${p.bullets.map(b => `<li>${b}</li>`).join('')}
+      </ul>
+    </div>
+  `).join('')}
+
+  <div class="section-title">Technical Skills</div>
+  <div style="padding-top: 1pt;">
+    <div class="skills-line"><span class="bold">Languages:</span> ${data.skills.languages}</div>
+    <div class="skills-line"><span class="bold">Frameworks:</span> ${data.skills.frameworks}</div>
+    <div class="skills-line"><span class="bold">Developer Tools:</span> ${data.skills.developerTools}</div>
+    <div class="skills-line"><span class="bold">Libraries & Cloud:</span> ${data.skills.libraries}</div>
+    <div class="skills-line"><span class="bold">Verified Caliber:</span> JobMint Dev Score ${data.devScore}/1000 (Proof-of-Work GitHub Verified)</div>
+  </div>
+</body>
+</html>`);
+    frameDoc.close();
+
+    setTimeout(() => {
+      printFrame.contentWindow?.focus();
+      printFrame.contentWindow?.print();
+    }, 250);
+  };
+
+  const resetToDefault = () => {
+    setData(DEFAULT_RESUME);
+    try {
+      localStorage.removeItem("jobmint_harvard_resume");
+    } catch (e) {}
   };
 
   return (
-    <div className="min-h-screen bg-slate-100/70 text-slate-900 py-8 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-slate-100/70 text-slate-900 py-8 px-4 sm:px-6 lg:px-8 resume-builder-container print:p-0 print:m-0 print:bg-white">
       <div className="mx-auto max-w-7xl space-y-6">
         
         {/* HEADER BAR */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-4 rounded-2xl border border-slate-200 shadow-xs">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-4 rounded-2xl border border-slate-200 shadow-xs print:hidden">
           <div className="flex items-center gap-3">
             <Link
               href="/profile/resume"
@@ -272,6 +479,17 @@ ${p.bullets.map((b) => `      \\item \\small{${b}}`).join("\n")}
           </div>
 
           <div className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={resetToDefault}
+              title="Reset all fields to standard John Doe template"
+              className="gap-1.5 text-xs font-bold border-slate-300 text-slate-600 hover:text-slate-900"
+            >
+              <RotateCcw className="h-3.5 w-3.5" />
+              <span>Reset Template</span>
+            </Button>
+
             <Button
               variant="outline"
               size="sm"
@@ -759,27 +977,6 @@ ${p.bullets.map((b) => `      \\item \\small{${b}}`).join("\n")}
         </div>
 
       </div>
-
-      {/* Print Stylesheet */}
-      <style jsx global>{`
-        @media print {
-          body {
-            background: white !important;
-            color: black !important;
-          }
-          nav, footer, .print\\:hidden {
-            display: none !important;
-          }
-          #resume-canvas {
-            border: none !important;
-            box-shadow: none !important;
-            padding: 0 !important;
-            margin: 0 !important;
-            width: 100% !important;
-            max-width: 100% !important;
-          }
-        }
-      `}</style>
     </div>
   );
 }

@@ -30,3 +30,50 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
 }
+
+/* Print Styles for ATS Resume and Document Generation */
+@media print {
+  @page {
+    size: letter portrait;
+    margin: 0.4in 0.45in 0.4in 0.45in;
+  }
+
+  nav,
+  footer,
+  header,
+  .print-hidden,
+  .print\\:hidden,
+  #pwa-install-banner,
+  #dpdp-consent-banner {
+    display: none !important;
+  }
+
+  html,
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 10.5pt !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .resume-builder-container {
+    padding: 0 !important;
+    margin: 0 !important;
+    background: #ffffff !important;
+  }
+
+  #resume-canvas {
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: auto !important;
+    background: #ffffff !important;
+  }
+}
+
