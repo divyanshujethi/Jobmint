@@ -180,6 +180,21 @@ export function Navbar() {
                   </Link>
 
                   <Link
+                    href="/problems"
+                    onClick={() => setToolsOpen(false)}
+                    className="flex items-start gap-3 rounded-xl p-2.5 hover:bg-slate-50 transition-colors"
+                  >
+                    <BookOpen className="h-5 w-5 text-emerald-600 shrink-0 mt-0.5" />
+                    <div>
+                      <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                        Problem Catalog
+                        <span className="rounded bg-emerald-50 text-emerald-700 px-1 py-0.2 text-[9px]">Monaco</span>
+                      </div>
+                      <div className="text-[11px] text-slate-500">LeetCode-style problems with sandbox runner</div>
+                    </div>
+                  </Link>
+
+                  <Link
                     href="/resume/builder"
                     onClick={() => setToolsOpen(false)}
                     className="flex items-start gap-3 rounded-xl p-2.5 hover:bg-slate-50 transition-colors"
@@ -551,6 +566,14 @@ export function Navbar() {
             >
               <Code2 className="h-4 w-4 text-orange-500" />
               Daily Problem (POTD)
+            </Link>
+            <Link
+              href="/problems"
+              className="flex items-center gap-2.5 py-2 px-3 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50"
+              onClick={() => setIsOpen(false)}
+            >
+              <BookOpen className="h-4 w-4 text-emerald-600" />
+              Problem Catalog
             </Link>
             <Link
               href="/resume/builder"
