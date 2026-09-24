@@ -27,6 +27,8 @@ import {
   Globe,
   Clock,
   HelpCircle,
+  Code2,
+  Laptop,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
@@ -63,6 +65,17 @@ interface TrendingRepository {
   topics: string[];
 }
 
+interface CandidateProjectItem {
+  id: string;
+  title: string;
+  description: string;
+  liveUrl?: string | null;
+  repoUrl?: string | null;
+  skillsUsed: string[];
+  authorName: string;
+  authorImage?: string | null;
+}
+
 interface BadgeInfo {
   id: string;
   name: string;
@@ -74,10 +87,12 @@ interface BadgeInfo {
 
 export default function LeaderboardPage() {
   const [activeTab, setActiveTab] = useState<"STREAK" | "TRENDING_REPOS" | "REFERRALS">("STREAK");
+  const [repoMode, setRepoMode] = useState<"GITHUB_TRENDING" | "CANDIDATE_PROJECTS">("GITHUB_TRENDING");
   const [selectedLanguage, setSelectedLanguage] = useState<string>("ALL");
   const [streakData, setStreakData] = useState<any>(null);
   const [leaders, setLeaders] = useState<StreakLeader[]>([]);
   const [trendingRepos, setTrendingRepos] = useState<TrendingRepository[]>([]);
+  const [candidateProjects, setCandidateProjects] = useState<CandidateProjectItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [checkingIn, setCheckingIn] = useState(false);
   const [checkInSuccess, setCheckInSuccess] = useState<string | null>(null);
@@ -97,12 +112,17 @@ export default function LeaderboardPage() {
         setStreakData(streakRes);
         if (leadRes.leaders) setLeaders(leadRes.leaders);
         if (leadRes.trendingRepos) setTrendingRepos(leadRes.trendingRepos);
+        if (leadRes.candidateProjects) setCandidateProjects(leadRes.candidateProjects);
       })
       .catch((err) => console.error("Error loading leaderboard:", err))
       .finally(() => setLoading(false));
   }, []);
 
   const handleDailyCheckIn = async () => {
+    if (!streakData?.isAuthenticated) {
+      window.location.href = "/login?callbackUrl=/leaderboard";
+      return;
+    }
     setCheckingIn(true);
     setCheckInSuccess(null);
     try {
@@ -116,6 +136,12 @@ export default function LeaderboardPage() {
           canCheckInToday: false,
         }));
         setCheckInSuccess(`🔥 Streak updated! You earned +${data.xpEarned || 25} XP.`);
+        // Refresh leaderboard to update ranking
+        fetch("/api/leaderboard")
+          .then((r) => r.json())
+          .then((leadRes) => {
+            if (leadRes.leaders) setLeaders(leadRes.leaders);
+          });
         setTimeout(() => setCheckInSuccess(null), 4000);
       } else {
         setCheckInSuccess(data.error || "Already checked in today!");
@@ -132,7 +158,7 @@ export default function LeaderboardPage() {
     setSandboxOpen(true);
   };
 
-  const referralCode = streakData?.referralCode || "JM-VIP-2026";
+  const referralCode = streakData?.referralCode || "JM-JOIN";
   const referralUrl = typeof window !== "undefined"
     ? `${window.location.origin}/login?ref=${referralCode}`
     : `https://jobmint.ritualdev.in/login?ref=${referralCode}`;
@@ -170,18 +196,41 @@ export default function LeaderboardPage() {
         <div className="text-center space-y-3">
           <div className="inline-flex items-center gap-2 rounded-full bg-emerald-50 border border-emerald-200 px-3.5 py-1 text-xs font-mono font-semibold text-emerald-800">
             <Trophy className="h-4 w-4 text-emerald-600" />
-            JobMint Builder Pulse &amp; Daily Engagement Engine
+            JobMint Builder Pulse &amp; Daily Engagement
           </div>
           <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-slate-900">
             Leaderboard &amp; Trending Repositories
           </h1>
           <p className="mx-auto max-w-2xl text-sm sm:text-base text-slate-600">
-            Build daily consistency, unlock verified achievement badges, explore trending open-source projects (Trendshift style), and invite peers to earn streak protection.
+            Real data from registered students &amp; engineers. Build daily streaks, unlock verified badges, explore live GitHub trending repositories, and invite peers.
           </p>
         </div>
 
         {/* 1. USER'S DAILY STREAK HUD CARD */}
         <div className="rounded-3xl border border-slate-200 bg-white p-6 sm:p-8 shadow-sm">
+          {!streakData?.isAuthenticated && (
+            <div className="mb-6 rounded-2xl bg-amber-50 border border-amber-200 p-4 text-amber-900 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-500 text-white font-bold shrink-0">
+                  <Flame className="h-6 w-6 fill-white" />
+                </div>
+                <div>
+                  <div className="text-xs font-bold text-amber-950">
+                    You are viewing as a Guest (0 Days Streak)
+                  </div>
+                  <div className="text-[11px] text-amber-800">
+                    Sign in to initialize your streak profile, claim your daily check-in XP, and rank on the live leaderboard.
+                  </div>
+                </div>
+              </div>
+              <Link href="/login?callbackUrl=/leaderboard">
+                <Button size="sm" className="bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs shrink-0">
+                  Sign In to Start Day 1
+                </Button>
+              </Link>
+            </div>
+          )}
+
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
             
             {/* Left: Streak Flame & XP */}
@@ -194,14 +243,14 @@ export default function LeaderboardPage() {
                   Your Daily Streak
                 </div>
                 <div className="text-3xl sm:text-4xl font-black text-slate-900 flex items-center gap-1.5">
-                  <span>{streakData?.currentStreak || 1}</span>
+                  <span>{streakData?.currentStreak || 0}</span>
                   <span className="text-lg font-bold text-orange-500">Days</span>
                 </div>
                 <div className="text-xs text-slate-500 flex items-center gap-2 font-medium">
-                  <span>Total XP: <strong className="text-emerald-700">{streakData?.totalXp || 50}</strong></span>
+                  <span>Total XP: <strong className="text-emerald-700">{streakData?.totalXp || 0}</strong></span>
                   <span>•</span>
                   <span className="flex items-center gap-1 text-blue-700">
-                    <Shield className="h-3 w-3" /> {streakData?.streakFreezes || 1} Freeze
+                    <Shield className="h-3 w-3" /> {streakData?.streakFreezes || 0} Freeze
                   </span>
                 </div>
               </div>
@@ -210,7 +259,7 @@ export default function LeaderboardPage() {
             {/* Middle: Today's Tasks */}
             <div className="lg:col-span-5 space-y-2">
               <div className="text-xs font-mono uppercase text-slate-500 font-bold tracking-wider mb-1">
-                Daily Habit Quest (Come Back Daily)
+                Daily Habit Quest
               </div>
               <div className="grid grid-cols-2 gap-2 text-xs">
                 {streakData?.todayTasks?.map((task: any) => (
@@ -235,7 +284,7 @@ export default function LeaderboardPage() {
 
             {/* Right: Check-in CTA */}
             <div className="lg:col-span-3 flex flex-col items-center justify-center space-y-2">
-              {streakData?.canCheckInToday !== false ? (
+              {streakData?.canCheckInToday ? (
                 <Button
                   onClick={handleDailyCheckIn}
                   disabled={checkingIn}
@@ -244,11 +293,17 @@ export default function LeaderboardPage() {
                   <Flame className="h-4 w-4 fill-white" />
                   <span>{checkingIn ? "Checking In..." : "Check In (+25 XP)"}</span>
                 </Button>
-              ) : (
+              ) : streakData?.isAuthenticated ? (
                 <div className="w-full bg-emerald-50 border border-emerald-200 rounded-xl py-2 px-3 text-center text-xs font-bold text-emerald-800 flex items-center justify-center gap-1.5">
                   <CheckCircle2 className="h-4 w-4 text-emerald-600" />
                   <span>Checked In for Today!</span>
                 </div>
+              ) : (
+                <Link href="/login?callbackUrl=/leaderboard" className="w-full">
+                  <Button className="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs h-11 rounded-xl">
+                    Sign In to Check In
+                  </Button>
+                </Link>
               )}
               {checkInSuccess && (
                 <div className="text-[11px] text-orange-600 font-bold text-center animate-in fade-in">
@@ -256,7 +311,7 @@ export default function LeaderboardPage() {
                 </div>
               )}
               <div className="text-[10px] text-slate-400 text-center font-mono">
-                Longest Streak: {streakData?.longestStreak || 1} Days
+                Longest Streak: {streakData?.longestStreak || 0} Days
               </div>
             </div>
 
@@ -316,7 +371,7 @@ export default function LeaderboardPage() {
               }`}
             >
               <TrendingUp className="h-4 w-4" />
-              <span>⚡ Trending Git Repos (Trendshift)</span>
+              <span>⚡ Trending Repos &amp; Projects</span>
             </button>
 
             <button
@@ -333,19 +388,24 @@ export default function LeaderboardPage() {
           </div>
         </div>
 
-        {/* TAB 1: DAILY STREAK LEADERBOARD */}
+        {/* TAB 1: STREAK LEADERBOARD */}
         {activeTab === "STREAK" && (
-          <div className="space-y-4">
-            <div className="rounded-3xl border border-slate-200 bg-white overflow-hidden shadow-sm">
-              <div className="p-5 border-b border-slate-100 flex items-center justify-between">
+          <div className="space-y-6">
+            <div className="rounded-3xl border border-slate-200 bg-white shadow-sm overflow-hidden">
+              <div className="p-5 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                 <div>
                   <h3 className="font-bold text-slate-900 text-base flex items-center gap-2">
                     <Trophy className="h-5 w-5 text-amber-500" />
                     Top Streak Builders on JobMint
                   </h3>
                   <p className="text-xs text-slate-500 mt-0.5">
-                    Engineers ranked by active daily streak, total XP, and proof-of-work achievements.
+                    Real candidate streaks querying the live database. Ranked by active days, XP, and badges.
                   </p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-mono font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200">
+                    {leaders.length} Registered Builder{leaders.length === 1 ? "" : "s"}
+                  </span>
                 </div>
               </div>
 
@@ -357,77 +417,94 @@ export default function LeaderboardPage() {
                       <th className="py-3 px-4">Candidate</th>
                       <th className="py-3 px-4 text-center">Daily Streak</th>
                       <th className="py-3 px-4 text-center">Total XP</th>
-                      <th className="py-3 px-4 text-center">Verified Dev Score</th>
+                      <th className="py-3 px-4 text-center">Dev Caliber Score</th>
                       <th className="py-3 px-4 text-right">Top Badge</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-100">
-                    {leaders.map((leader) => (
-                      <tr
-                        key={leader.userId}
-                        className="hover:bg-slate-50/70 transition-colors"
-                      >
-                        <td className="py-3.5 px-4 font-mono font-bold">
-                          {leader.rank === 1 ? (
-                            <span className="inline-flex items-center gap-1 text-amber-600 font-bold">
-                              <Crown className="h-4 w-4 fill-amber-500 text-amber-500" /> #1
-                            </span>
-                          ) : leader.rank === 2 ? (
-                            <span className="inline-flex items-center gap-1 text-slate-600 font-bold">
-                              🥈 #2
-                            </span>
-                          ) : leader.rank === 3 ? (
-                            <span className="inline-flex items-center gap-1 text-amber-700 font-bold">
-                              🥉 #3
-                            </span>
-                          ) : (
-                            <span className="text-slate-500">#{leader.rank}</span>
-                          )}
-                        </td>
-
-                        <td className="py-3.5 px-4">
-                          <div className="flex items-center gap-3">
-                            <img
-                              src={leader.avatarUrl}
-                              alt={leader.name}
-                              className="h-8 w-8 rounded-full border border-slate-200 object-cover"
-                            />
-                            <div>
-                              <span className="font-bold text-slate-900 block">
-                                {leader.name}
-                              </span>
-                              <span className="text-[11px] text-slate-400 font-mono">
-                                {leader.badgesCount} badges earned
-                              </span>
-                            </div>
+                    {leaders.length === 0 ? (
+                      <tr>
+                        <td colSpan={6} className="py-12 text-center">
+                          <div className="mx-auto max-w-sm space-y-2">
+                            <Trophy className="h-8 w-8 text-slate-300 mx-auto" />
+                            <p className="font-bold text-slate-700 text-sm">No builders on the leaderboard yet</p>
+                            <p className="text-xs text-slate-500">Sign in and click Daily Check-in to be #1 on JobMint!</p>
                           </div>
                         </td>
-
-                        <td className="py-3.5 px-4 text-center">
-                          <span className="inline-flex items-center gap-1 rounded-full bg-orange-50 border border-orange-200 px-2.5 py-0.5 font-mono font-bold text-orange-700">
-                            <Flame className="h-3 w-3 fill-orange-500 text-orange-500" />
-                            {leader.currentStreak} Days
-                          </span>
-                        </td>
-
-                        <td className="py-3.5 px-4 text-center font-mono font-bold text-emerald-700">
-                          {leader.totalXp.toLocaleString()} XP
-                        </td>
-
-                        <td className="py-3.5 px-4 text-center">
-                          <span className="inline-flex items-center gap-1 rounded bg-slate-100 px-2 py-0.5 font-mono text-[11px] font-bold text-slate-800">
-                            <Zap className="h-3 w-3 text-emerald-600" />
-                            {leader.verifiedDevScore}/1000
-                          </span>
-                        </td>
-
-                        <td className="py-3.5 px-4 text-right">
-                          <span className="inline-block rounded-lg bg-slate-50 border border-slate-200 px-2 py-1 font-semibold text-slate-700 text-[11px]">
-                            {leader.recentBadge}
-                          </span>
-                        </td>
                       </tr>
-                    ))}
+                    ) : (
+                      leaders.map((leader) => (
+                        <tr
+                          key={leader.userId}
+                          className={`hover:bg-slate-50/70 transition-colors ${leader.isCurrentUser ? "bg-emerald-50/40 font-semibold" : ""}`}
+                        >
+                          <td className="py-3.5 px-4 font-mono font-bold">
+                            {leader.rank === 1 ? (
+                              <span className="inline-flex items-center gap-1 text-amber-600 font-bold">
+                                <Crown className="h-4 w-4 fill-amber-500 text-amber-500" /> #1
+                              </span>
+                            ) : leader.rank === 2 ? (
+                              <span className="inline-flex items-center gap-1 text-slate-600 font-bold">
+                                🥈 #2
+                              </span>
+                            ) : leader.rank === 3 ? (
+                              <span className="inline-flex items-center gap-1 text-amber-700 font-bold">
+                                🥉 #3
+                              </span>
+                            ) : (
+                              <span className="text-slate-500">#{leader.rank}</span>
+                            )}
+                          </td>
+
+                          <td className="py-3.5 px-4">
+                            <div className="flex items-center gap-3">
+                              <img
+                                src={leader.avatarUrl}
+                                alt={leader.name}
+                                className="h-8 w-8 rounded-full border border-slate-200 object-cover"
+                              />
+                              <div>
+                                <span className="font-bold text-slate-900 block flex items-center gap-1.5">
+                                  {leader.name}
+                                  {leader.isCurrentUser && (
+                                    <span className="rounded bg-emerald-100 text-emerald-800 px-1 py-0.2 text-[9px] font-mono">
+                                      You
+                                    </span>
+                                  )}
+                                </span>
+                                <span className="text-[11px] text-slate-400 font-mono">
+                                  {leader.badgesCount} badges earned
+                                </span>
+                              </div>
+                            </div>
+                          </td>
+
+                          <td className="py-3.5 px-4 text-center">
+                            <span className="inline-flex items-center gap-1 rounded-full bg-orange-50 border border-orange-200 px-2.5 py-0.5 font-mono font-bold text-orange-700">
+                              <Flame className="h-3 w-3 fill-orange-500 text-orange-500" />
+                              {leader.currentStreak} Days
+                            </span>
+                          </td>
+
+                          <td className="py-3.5 px-4 text-center font-mono font-bold text-emerald-700">
+                            {leader.totalXp.toLocaleString()} XP
+                          </td>
+
+                          <td className="py-3.5 px-4 text-center">
+                            <span className="inline-flex items-center gap-1 rounded bg-slate-100 px-2 py-0.5 font-mono text-[11px] font-bold text-slate-800">
+                              <Zap className="h-3 w-3 text-emerald-600" />
+                              {leader.verifiedDevScore}/1000
+                            </span>
+                          </td>
+
+                          <td className="py-3.5 px-4 text-right">
+                            <span className="inline-block rounded-lg bg-slate-50 border border-slate-200 px-2 py-1 font-semibold text-slate-700 text-[11px]">
+                              {leader.recentBadge}
+                            </span>
+                          </td>
+                        </tr>
+                      ))
+                    )}
                   </tbody>
                 </table>
               </div>
@@ -435,248 +512,339 @@ export default function LeaderboardPage() {
           </div>
         )}
 
-        {/* TAB 2: TRENDING REPOS (TRENDSHIFT STYLE) */}
+        {/* TAB 2: TRENDING REPOS & CANDIDATE PROJECTS */}
         {activeTab === "TRENDING_REPOS" && (
           <div className="space-y-6">
             
-            {/* Trendshift Language Filter Header */}
+            {/* Mode Switcher */}
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-slate-200 pb-4">
-              <div>
-                <h3 className="font-bold text-slate-900 text-lg flex items-center gap-2">
-                  <TrendingUp className="h-5 w-5 text-emerald-600" />
-                  Trendshift: Trending Developer Repositories
-                </h3>
-                <p className="text-xs text-slate-500 mt-0.5">
-                  Curated open-source projects built by candidates with live 1-Click Interactive Sandboxes and verified Dev Scores.
-                </p>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setRepoMode("GITHUB_TRENDING")}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                    repoMode === "GITHUB_TRENDING"
+                      ? "bg-slate-900 text-white"
+                      : "bg-slate-100 text-slate-600 hover:text-slate-900"
+                  }`}
+                >
+                  <Globe className="h-3.5 w-3.5" />
+                  Live GitHub Trending (Trendshift)
+                </button>
+                <button
+                  onClick={() => setRepoMode("CANDIDATE_PROJECTS")}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                    repoMode === "CANDIDATE_PROJECTS"
+                      ? "bg-slate-900 text-white"
+                      : "bg-slate-100 text-slate-600 hover:text-slate-900"
+                  }`}
+                >
+                  <Users className="h-3.5 w-3.5" />
+                  Community Candidate Projects ({candidateProjects.length})
+                </button>
               </div>
 
-              {/* Language Pills */}
-              <div className="flex items-center gap-1.5 flex-wrap">
-                {["ALL", "TypeScript", "Python", "Rust", "Go"].map((lang) => (
-                  <button
-                    key={lang}
-                    onClick={() => setSelectedLanguage(lang)}
-                    className={`rounded-lg px-3 py-1 text-xs font-semibold transition-all ${
-                      selectedLanguage === lang
-                        ? "bg-slate-900 text-white shadow-xs"
-                        : "bg-white border border-slate-200 text-slate-600 hover:bg-slate-50"
-                    }`}
-                  >
-                    {lang}
-                  </button>
-                ))}
-              </div>
+              {repoMode === "GITHUB_TRENDING" && (
+                <div className="flex flex-wrap items-center gap-1.5">
+                  {["ALL", "TypeScript", "Python", "Rust", "Go"].map((lang) => (
+                    <button
+                      key={lang}
+                      onClick={() => setSelectedLanguage(lang)}
+                      className={`rounded-lg px-2.5 py-1 text-xs font-bold transition-all ${
+                        selectedLanguage === lang
+                          ? "bg-emerald-600 text-white shadow-xs"
+                          : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                      }`}
+                    >
+                      {lang}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
 
-            {/* Repositories Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {filteredRepos.map((repo) => (
-                <Card
-                  key={repo.id}
-                  className="border-slate-200 bg-white text-slate-900 flex flex-col justify-between hover:border-emerald-300 transition-all shadow-xs"
-                >
-                  <CardHeader className="pb-3">
-                    <div className="flex items-start justify-between gap-3">
-                      <div>
-                        <div className="flex items-center gap-2 mb-1.5">
+            {/* GITHUB TRENDING VIEW */}
+            {repoMode === "GITHUB_TRENDING" && (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {filteredRepos.map((repo) => (
+                  <div
+                    key={repo.id}
+                    className="flex flex-col justify-between rounded-2xl border border-slate-200 bg-white p-5 shadow-xs hover:border-slate-300 transition-all space-y-4"
+                  >
+                    <div className="space-y-2">
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="flex items-center gap-2.5">
                           <img
                             src={repo.avatarUrl}
                             alt={repo.owner}
-                            className="h-5 w-5 rounded-full border border-slate-200 object-cover"
+                            className="h-7 w-7 rounded-lg border border-slate-200"
                           />
-                          <span className="text-xs font-mono text-slate-500 font-semibold">
-                            {repo.owner}
+                          <span className="text-xs text-slate-500 font-mono">
+                            {repo.owner} /
                           </span>
                         </div>
-
-                        <CardTitle className="text-base font-bold text-slate-900 hover:text-emerald-700 transition-colors">
-                          <a href={repo.repoUrl} target="_blank" rel="noreferrer">
-                            {repo.name}
-                          </a>
-                        </CardTitle>
-                        <CardDescription className="text-xs text-slate-600 line-clamp-2 mt-1">
-                          {repo.description}
-                        </CardDescription>
-                      </div>
-
-                      <div className="flex flex-col items-end gap-1 shrink-0">
-                        <span className="inline-flex items-center gap-1 rounded bg-amber-50 text-amber-800 border border-amber-200 px-2 py-0.5 text-xs font-mono font-bold">
-                          <Star className="h-3 w-3 fill-amber-500 text-amber-500" />
-                          {repo.stars.toLocaleString()}
-                        </span>
-                        <span className="text-[10px] font-mono text-emerald-700 font-semibold">
-                          +{repo.starsToday} today
+                        <span className="flex items-center gap-1 rounded bg-amber-50 border border-amber-200 px-2 py-0.5 text-[11px] font-bold text-amber-800">
+                          <Zap className="h-3 w-3 text-amber-600" />
+                          Dev Score {repo.devScore}
                         </span>
                       </div>
-                    </div>
-                  </CardHeader>
 
-                  <CardContent className="space-y-3 pt-0">
-                    {/* Topics / Tags */}
-                    <div className="flex flex-wrap gap-1">
-                      {repo.topics.map((t) => (
-                        <span
-                          key={t}
-                          className="rounded bg-slate-100 text-slate-700 px-2 py-0.5 text-[10px] font-mono"
+                      <h4 className="font-extrabold text-slate-900 text-base flex items-center gap-2">
+                        <a
+                          href={repo.repoUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:text-emerald-600 transition-colors"
                         >
-                          #{t}
-                        </span>
-                      ))}
+                          {repo.name}
+                        </a>
+                      </h4>
+
+                      <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed">
+                        {repo.description}
+                      </p>
+
+                      <div className="flex flex-wrap gap-1.5 pt-1">
+                        {repo.topics.map((t) => (
+                          <span
+                            key={t}
+                            className="rounded-md bg-slate-100 px-2 py-0.5 text-[10px] font-mono text-slate-600"
+                          >
+                            #{t}
+                          </span>
+                        ))}
+                      </div>
                     </div>
 
-                    {/* Footer Row */}
-                    <div className="pt-2 border-t border-slate-100 flex items-center justify-between gap-2 text-xs">
-                      <div className="flex items-center gap-3">
-                        <div className="flex items-center gap-1.5">
+                    <div className="flex items-center justify-between border-t border-slate-100 pt-3 text-xs">
+                      <div className="flex items-center gap-4 font-mono">
+                        <span className="flex items-center gap-1 font-semibold text-slate-700">
                           <span
-                            className="h-2.5 w-2.5 rounded-full"
+                            className="h-2 w-2 rounded-full inline-block"
                             style={{ backgroundColor: repo.languageColor }}
                           />
-                          <span className="text-xs text-slate-700 font-medium">
-                            {repo.language}
-                          </span>
-                        </div>
-
-                        <span className="text-[11px] font-mono text-emerald-800 bg-emerald-50 border border-emerald-200 px-1.5 py-0.2 rounded font-bold">
-                          Dev Score: {repo.devScore}
+                          {repo.language}
+                        </span>
+                        <span className="flex items-center gap-1 text-slate-600">
+                          <Star className="h-3.5 w-3.5 text-amber-500 fill-amber-500" />
+                          {repo.stars.toLocaleString()}
+                        </span>
+                        <span className="flex items-center gap-1 text-slate-500">
+                          <GitFork className="h-3.5 w-3.5" />
+                          {repo.forks.toLocaleString()}
                         </span>
                       </div>
 
-                      <div className="flex items-center gap-1.5">
+                      <div className="flex items-center gap-2">
                         {repo.demoUrl && (
                           <Button
+                            variant="outline"
                             size="sm"
                             onClick={() => openSandbox(repo.name, repo.demoUrl!, repo.repoUrl)}
-                            className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs h-7 px-2.5 rounded-lg gap-1 shadow-xs"
+                            className="h-7 text-[11px] gap-1 px-2.5 font-bold border-slate-300"
                           >
-                            <Play className="h-3 w-3 fill-current" />
-                            <span>1-Click Sandbox</span>
+                            <Play className="h-3 w-3 text-emerald-600 fill-emerald-600" />
+                            Live Demo
                           </Button>
                         )}
                         <a
                           href={repo.repoUrl}
                           target="_blank"
-                          rel="noreferrer"
-                          className="text-xs text-slate-500 hover:text-slate-800 p-1"
+                          rel="noopener noreferrer"
+                          className="text-slate-400 hover:text-slate-800"
                         >
-                          <ExternalLink className="h-3.5 w-3.5" />
+                          <ExternalLink className="h-4 w-4" />
                         </a>
                       </div>
                     </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* CANDIDATE PROJECTS VIEW */}
+            {repoMode === "CANDIDATE_PROJECTS" && (
+              <div className="space-y-4">
+                {candidateProjects.length === 0 ? (
+                  <div className="rounded-3xl border border-slate-200 bg-white p-12 text-center space-y-3">
+                    <Laptop className="h-10 w-10 text-slate-300 mx-auto" />
+                    <h4 className="font-bold text-slate-800 text-base">No Candidate Projects Listed Yet</h4>
+                    <p className="text-xs text-slate-500 max-w-md mx-auto">
+                      Are you a candidate? Add your engineering projects and GitHub repository in your Candidate Profile to be featured here!
+                    </p>
+                    <Link href="/onboarding/candidate">
+                      <Button size="sm" className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs mt-2">
+                        Update Candidate Profile
+                      </Button>
+                    </Link>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {candidateProjects.map((proj) => (
+                      <div
+                        key={proj.id}
+                        className="flex flex-col justify-between rounded-2xl border border-slate-200 bg-white p-5 shadow-xs space-y-3"
+                      >
+                        <div>
+                          <div className="flex items-center gap-2 mb-2">
+                            <span className="text-xs font-bold text-slate-700">{proj.authorName}</span>
+                            <span className="text-[10px] text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded font-mono">
+                              Verified Student
+                            </span>
+                          </div>
+                          <h4 className="font-extrabold text-slate-900 text-base">{proj.title}</h4>
+                          <p className="text-xs text-slate-600 mt-1 line-clamp-2">{proj.description}</p>
+                          <div className="flex flex-wrap gap-1 mt-2">
+                            {proj.skillsUsed.map((s) => (
+                              <span key={s} className="rounded bg-slate-100 px-2 py-0.5 text-[10px] font-mono text-slate-600">
+                                {s}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="flex items-center justify-between border-t border-slate-100 pt-3">
+                          {proj.repoUrl && (
+                            <a
+                              href={proj.repoUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-xs font-bold text-emerald-600 hover:underline flex items-center gap-1"
+                            >
+                              <Code2 className="h-3.5 w-3.5" /> View Source
+                            </a>
+                          )}
+                          {proj.liveUrl && (
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => openSandbox(proj.title, proj.liveUrl!, proj.repoUrl || "")}
+                              className="h-7 text-[11px] gap-1 px-2.5 font-bold"
+                            >
+                              <Play className="h-3 w-3 text-emerald-600 fill-emerald-600" /> Demo
+                            </Button>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         )}
 
         {/* TAB 3: REFERRAL PROGRAM */}
         {activeTab === "REFERRALS" && (
-          <div className="space-y-8">
+          <div className="space-y-6">
+            
             {/* REFERRAL HERO CARD */}
-            <div className="rounded-3xl border border-emerald-200 bg-gradient-to-br from-emerald-50/70 via-white to-teal-50/40 p-6 sm:p-10 shadow-sm space-y-6">
-              <div className="max-w-2xl space-y-2">
-                <div className="inline-flex items-center gap-2 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200 px-3 py-0.5 text-xs font-bold">
-                  <Users className="h-3.5 w-3.5" />
+            <div className="rounded-3xl border border-emerald-200 bg-gradient-to-br from-emerald-50 via-teal-50 to-white p-6 sm:p-8 shadow-sm space-y-6">
+              <div className="max-w-xl space-y-2">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-100 px-3 py-0.5 text-xs font-bold text-emerald-800">
+                  <Sparkles className="h-3.5 w-3.5 text-emerald-600" />
+                  Viral Growth &amp; Peer Learning
+                </span>
+                <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
                   Developer Peer Referral Network
-                </div>
-                <h2 className="text-2xl sm:text-3xl font-black text-slate-900">
-                  Invite Peers. Protect Your Streak. Earn XP.
-                </h2>
-                <p className="text-sm text-slate-600 leading-relaxed">
-                  Share your unique referral link with engineering classmates, batchmates, and hackathon teammates. When they sign up on JobMint, you both unlock exclusive streak protections and platform rewards.
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  Share your unique referral link with engineering classmates and teammates. When they sign up on JobMint, they receive a free streak freeze and you earn XP plus badge milestone rewards.
                 </p>
               </div>
 
               {/* REFERRAL LINK BOX */}
-              <div className="space-y-3 max-w-xl">
-                <label className="text-xs font-bold text-slate-800 block">
+              <div className="rounded-2xl border border-emerald-200 bg-white p-4 shadow-sm space-y-3">
+                <div className="text-xs font-mono font-bold text-slate-500 uppercase">
                   Your Unique Referral Link
-                </label>
-                <div className="flex items-center gap-2 bg-white border border-slate-200 rounded-2xl p-2 shadow-xs">
+                </div>
+                <div className="flex flex-col sm:flex-row items-center gap-2">
                   <input
                     type="text"
                     readOnly
                     value={referralUrl}
-                    className="flex-1 bg-transparent border-0 text-xs font-mono text-slate-800 pl-2 focus:outline-none"
+                    className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2.5 font-mono text-xs text-slate-800 focus:outline-none"
                   />
                   <Button
-                    size="sm"
                     onClick={copyReferralLink}
-                    className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs h-9 px-4 rounded-xl gap-1.5 shrink-0 shadow-xs"
+                    className="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs gap-1.5 shrink-0"
                   >
                     {copiedLink ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
                     <span>{copiedLink ? "Copied!" : "Copy Link"}</span>
                   </Button>
                 </div>
 
-                {/* 1-Click Sharing buttons */}
-                <div className="flex flex-wrap items-center gap-2 pt-1">
-                  <button
-                    type="button"
+                {/* Direct Share Buttons */}
+                <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-100">
+                  <span className="text-xs text-slate-500 font-semibold mr-1">Share via:</span>
+                  <Button
+                    variant="outline"
+                    size="sm"
                     onClick={shareOnWhatsApp}
-                    className="flex items-center gap-1.5 rounded-xl bg-[#25D366]/10 text-[#128C7E] hover:bg-[#25D366]/20 border border-[#25D366]/30 px-3 py-1.5 text-xs font-bold transition-colors"
+                    className="gap-1.5 text-xs font-bold border-emerald-300 text-emerald-800 hover:bg-emerald-50"
                   >
-                    Share on WhatsApp
-                  </button>
-                  <button
-                    type="button"
+                    <Share2 className="h-3.5 w-3.5 text-emerald-600" />
+                    WhatsApp
+                  </Button>
+
+                  <Button
+                    variant="outline"
+                    size="sm"
                     onClick={shareOnTwitter}
-                    className="flex items-center gap-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-800 px-3 py-1.5 text-xs font-bold transition-colors"
+                    className="gap-1.5 text-xs font-bold border-sky-300 text-sky-800 hover:bg-sky-50"
                   >
-                    Post on X / Twitter
-                  </button>
-                  <button
-                    type="button"
+                    <Share2 className="h-3.5 w-3.5 text-sky-600" />
+                    Twitter / X
+                  </Button>
+
+                  <Button
+                    variant="ghost"
+                    size="sm"
                     onClick={copyReferralLink}
-                    className="flex items-center gap-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-800 px-3 py-1.5 text-xs font-bold transition-colors"
+                    className="text-xs text-slate-600"
                   >
-                    <Share2 className="h-3.5 w-3.5" />
-                    Direct Invite
-                  </button>
+                    Copy Direct
+                  </Button>
                 </div>
               </div>
 
               {/* REFERRAL MILESTONES HUD */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-slate-200">
-                <div className="bg-white border border-slate-200 rounded-2xl p-4 space-y-1 shadow-xs">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-slate-900">Milestone 1</span>
-                    <span className="text-[10px] font-mono text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded">
-                      1 Friend
-                    </span>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+                <div className="rounded-2xl border border-slate-200 bg-white p-4 space-y-1">
+                  <div className="text-xs text-slate-500 font-bold font-mono">1 PEER INVITED</div>
+                  <div className="text-sm font-extrabold text-slate-900 flex items-center gap-1.5">
+                    <Shield className="h-4 w-4 text-blue-500" />
+                    +1 Streak Freeze Shield
                   </div>
-                  <p className="text-xs text-slate-600">
-                    +100 XP + 🛡️ 1 Streak Freeze Shield + &quot;Community Champion&quot; badge.
+                  <p className="text-[11px] text-slate-500">
+                    Protects your daily streak if you miss 24 hours of coding.
                   </p>
                 </div>
 
-                <div className="bg-white border border-slate-200 rounded-2xl p-4 space-y-1 shadow-xs">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-slate-900">Milestone 2</span>
-                    <span className="text-[10px] font-mono text-blue-700 font-bold bg-blue-50 px-2 py-0.5 rounded">
-                      3 Friends
-                    </span>
+                <div className="rounded-2xl border border-slate-200 bg-white p-4 space-y-1">
+                  <div className="text-xs text-slate-500 font-bold font-mono">3 PEERS INVITED</div>
+                  <div className="text-sm font-extrabold text-slate-900 flex items-center gap-1.5">
+                    <Award className="h-4 w-4 text-indigo-500" />
+                    +300 XP &amp; Silver Badge
                   </div>
-                  <p className="text-xs text-slate-600">
-                    +300 XP + Priority Recruiter Highlight on applications.
+                  <p className="text-[11px] text-slate-500">
+                    Boosts your leaderboard position into top rankings.
                   </p>
                 </div>
 
-                <div className="bg-white border border-slate-200 rounded-2xl p-4 space-y-1 shadow-xs">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-slate-900">Milestone 3</span>
-                    <span className="text-[10px] font-mono text-amber-700 font-bold bg-amber-50 px-2 py-0.5 rounded">
-                      5 Friends
-                    </span>
+                <div className="rounded-2xl border border-slate-200 bg-white p-4 space-y-1">
+                  <div className="text-xs text-slate-500 font-bold font-mono">5 PEERS INVITED</div>
+                  <div className="text-sm font-extrabold text-slate-900 flex items-center gap-1.5">
+                    <Crown className="h-4 w-4 text-amber-500" />
+                    Community Champion
                   </div>
-                  <p className="text-xs text-slate-600">
-                    +600 XP + Top Builder Spotlight on the JobMint Leaderboard.
+                  <p className="text-[11px] text-slate-500">
+                    Unlocks permanent Gold badge on your verified profile.
                   </p>
                 </div>
               </div>
+
             </div>
+
           </div>
         )}
 
@@ -690,7 +858,6 @@ export default function LeaderboardPage() {
           projectTitle={activeProject.title}
           projectUrl={activeProject.url}
           githubUrl={activeProject.githubUrl}
-          candidateName="Open-Source Contributor"
         />
       )}
     </div>

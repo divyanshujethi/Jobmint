@@ -20,6 +20,13 @@ import {
 function LoginForm() {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/recommendations";
+  const refCode = searchParams.get("ref");
+
+  useState(() => {
+    if (typeof window !== "undefined" && refCode) {
+      document.cookie = "jm_referral=" + encodeURIComponent(refCode) + "; path=/; max-age=604800; SameSite=Lax";
+    }
+  });
   const [activeProvider, setActiveProvider] = useState<string | null>(null);
 
   const handleOAuthSignIn = async (provider: string) => {
@@ -60,6 +67,22 @@ function LoginForm() {
           <ArrowRight className="h-4 w-4 text-slate-400 group-hover:text-emerald-600 group-hover:translate-x-0.5 transition-all" />
         </Link>
       </div>
+
+      {refCode && (
+        <div className="mb-4 w-full max-w-md rounded-2xl border border-emerald-300 bg-emerald-50/90 p-3.5 shadow-sm text-emerald-950 flex items-center gap-3 animate-in fade-in">
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-600 text-white font-bold shrink-0">
+            🎁
+          </div>
+          <div>
+            <div className="text-xs font-bold text-emerald-900">
+              Peer Invite Active ({refCode})
+            </div>
+            <div className="text-[11px] text-emerald-700">
+              Sign in with Google or GitHub to activate your account with 1 Free Streak Freeze & +50 bonus XP!
+            </div>
+          </div>
+        </div>
+      )}
 
       <Card className="w-full max-w-md border-slate-200/90 shadow-xl bg-white">
         <CardHeader className="text-center space-y-2 pb-4">

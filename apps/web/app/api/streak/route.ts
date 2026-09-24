@@ -69,25 +69,25 @@ export async function GET(req: NextRequest) {
   try {
     const session = await auth();
 
-    // Default preview streak data for guests / unauthenticated users
+    // Clean 0-streak preview data for guests / unauthenticated users
     if (!session?.user) {
       return NextResponse.json({
         isAuthenticated: false,
-        currentStreak: 3,
-        longestStreak: 5,
-        totalXp: 180,
-        lastCheckInDate: new Date().toISOString().split("T")[0],
-        streakFreezes: 1,
+        currentStreak: 0,
+        longestStreak: 0,
+        totalXp: 0,
+        lastCheckInDate: null,
+        streakFreezes: 0,
         canCheckInToday: false,
-        referralCode: "JM-GUEST",
+        referralCode: null,
         referralCount: 0,
         badges: ALL_BADGES.map((b) => ({
           ...b,
-          unlocked: ["FIRST_STEP", "OPPORTUNITY_HUNTER"].includes(b.id),
+          unlocked: false,
         })),
         todayTasks: [
-          { id: "checkin", title: "Daily Check-in & Warmup", completed: true, xp: 25 },
-          { id: "prep", title: "Review 1 Interview Question", completed: true, xp: 30 },
+          { id: "checkin", title: "Daily Check-in & Warmup", completed: false, xp: 25 },
+          { id: "prep", title: "Review 1 Interview Question", completed: false, xp: 30 },
           { id: "github", title: "Sync GitHub Commits / Dev Score", completed: false, xp: 50 },
           { id: "referral", title: "Invite 1 Developer Peer", completed: false, xp: 100 },
         ],
@@ -105,8 +105,48 @@ export async function GET(req: NextRequest) {
       .limit(1);
 
     if (!record) {
-      // Auto-initialize streak record for user
+      // Auto-initialize streak record for user with real referral attribution if invite cookie is set
       const defaultRefCode = "JM-" + (session.user.name?.replace(/\s+/g, "").toUpperCase().slice(0, 6) || "DEV") + "-" + Math.random().toString(36).substring(2, 6).toUpperCase();
+      
+      const refCookie = req.cookies.get("jm_referral")?.value;
+      let referredByUserId: string | null = null;
+      let initialXp = 50;
+      let initialFreezes = 1;
+
+      if (refCookie) {
+        try {
+          const [referrer] = await db
+            .select()
+            .from(userStreaks)
+            .where(eq(userStreaks.referralCode, refCookie))
+            .limit(1);
+
+          if (referrer && referrer.userId !== userId) {
+            referredByUserId = referrer.userId;
+            initialXp += 50; // Bonus 50 XP for joining via referral
+            initialFreezes += 1; // Extra streak freeze
+            
+            // Credit the referrer
+            const updatedBadges = [...(referrer.unlockedBadges || [])];
+            if (!updatedBadges.includes("COMMUNITY_CHAMPION")) {
+              updatedBadges.push("COMMUNITY_CHAMPION");
+            }
+            await db
+              .update(userStreaks)
+              .set({
+                referralCount: (referrer.referralCount || 0) + 1,
+                totalXp: (referrer.totalXp || 0) + 100,
+                streakFreezes: (referrer.streakFreezes || 0) + 1,
+                unlockedBadges: updatedBadges,
+                updatedAt: new Date(),
+              })
+              .where(eq(userStreaks.id, referrer.id));
+          }
+        } catch (err) {
+          console.error("Referral attribution error:", err);
+        }
+      }
+
       try {
         const [inserted] = await db
           .insert(userStreaks)
@@ -114,10 +154,12 @@ export async function GET(req: NextRequest) {
             userId,
             currentStreak: 1,
             longestStreak: 1,
-            totalXp: 50,
+            totalXp: initialXp,
             lastCheckInDate: todayStr,
-            streakFreezes: 1,
+            streakFreezes: initialFreezes,
             referralCode: defaultRefCode,
+            referredBy: referredByUserId,
+            referralCount: 0,
             unlockedBadges: ["FIRST_STEP"],
           })
           .returning();
@@ -129,11 +171,11 @@ export async function GET(req: NextRequest) {
           userId,
           currentStreak: 1,
           longestStreak: 1,
-          totalXp: 50,
+          totalXp: initialXp,
           lastCheckInDate: todayStr,
-          streakFreezes: 1,
+          streakFreezes: initialFreezes,
           referralCode: defaultRefCode,
-          referredBy: null,
+          referredBy: referredByUserId,
           referralCount: 0,
           unlockedBadges: ["FIRST_STEP"],
           createdAt: new Date(),
