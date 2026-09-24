@@ -74,6 +74,20 @@ export async function GET() {
         },
       ];
 
+      let parsedNote = app.coverNote || "";
+      let githubUrl = "";
+      let demoUrl = "";
+      let devScore: number | null = null;
+      try {
+        if (app.coverNote && app.coverNote.startsWith("{")) {
+          const parsed = JSON.parse(app.coverNote);
+          parsedNote = parsed.note || "";
+          githubUrl = parsed.githubUrl || "";
+          demoUrl = parsed.demoUrl || "";
+          devScore = parsed.devScore || null;
+        }
+      } catch {}
+
       return {
         id: app.id,
         jobId: app.jobId,
@@ -103,6 +117,10 @@ export async function GET() {
         appliedDaysAgo: daysSinceApplied,
         isGhosted,
         ghostingThresholdDays: 7,
+        coverNote: parsedNote,
+        githubUrl: githubUrl || null,
+        demoUrl: demoUrl || null,
+        devScore: devScore || null,
         events: appEvents,
       };
     });
@@ -121,7 +139,7 @@ export async function GET() {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { jobId, resumeUrl, email, phone, coverNote } = body;
+    const { jobId, resumeUrl, email, phone, coverNote, githubUrl, demoUrl, devScore } = body;
 
     if (!jobId) {
       return NextResponse.json({ error: "Missing jobId" }, { status: 400 });
@@ -185,6 +203,16 @@ export async function POST(req: NextRequest) {
       }
     }
 
+    let finalCoverNote = coverNote || null;
+    if (githubUrl || demoUrl || devScore) {
+      finalCoverNote = JSON.stringify({
+        note: coverNote || "",
+        githubUrl: githubUrl || null,
+        demoUrl: demoUrl || null,
+        devScore: devScore || null,
+      });
+    }
+
     // 3. Create application
     const [newApp] = await db
       .insert(applications)
@@ -193,7 +221,7 @@ export async function POST(req: NextRequest) {
         candidateProfileId: profileId,
         resumeUrl: resumeUrl || "/uploads/resumes/default.pdf",
         status: "APPLIED",
-        coverNote: coverNote || null,
+        coverNote: finalCoverNote,
         appliedAt: new Date(),
         lastStatusChangeAt: new Date(),
       })

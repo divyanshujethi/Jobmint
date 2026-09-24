@@ -203,6 +203,36 @@ export function Navbar() {
                       <div className="text-[11px] text-slate-500">RSS & Discord bots for colleges</div>
                     </div>
                   </Link>
+
+                  <Link
+                    href="/dev-score"
+                    onClick={() => setToolsOpen(false)}
+                    className="flex items-start gap-3 rounded-xl p-2.5 hover:bg-slate-50 transition-colors"
+                  >
+                    <Zap className="h-5 w-5 text-amber-500 shrink-0 mt-0.5" />
+                    <div>
+                      <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                        Verified Dev Score
+                        <span className="rounded bg-amber-50 text-amber-700 px-1 py-0.2 text-[9px]">Proof</span>
+                      </div>
+                      <div className="text-[11px] text-slate-500">GitHub proof-of-work & README badges</div>
+                    </div>
+                  </Link>
+
+                  <Link
+                    href="/transparency"
+                    onClick={() => setToolsOpen(false)}
+                    className="flex items-start gap-3 rounded-xl p-2.5 hover:bg-slate-50 transition-colors"
+                  >
+                    <ShieldCheck className="h-5 w-5 text-teal-600 shrink-0 mt-0.5" />
+                    <div>
+                      <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                        Transparency Wall
+                        <span className="rounded bg-teal-50 text-teal-700 px-1 py-0.2 text-[9px]">Anti-Ghost</span>
+                      </div>
+                      <div className="text-[11px] text-slate-500">Wall of Fame & Ghosting alerts</div>
+                    </div>
+                  </Link>
                 </div>
               )}
             </div>
@@ -383,6 +413,22 @@ export function Navbar() {
             >
               <Layers className="h-4 w-4 text-emerald-500" />
               Visual Canvas
+            </Link>
+            <Link
+              href="/dev-score"
+              className="flex items-center gap-2.5 py-2 px-3 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50"
+              onClick={() => setIsOpen(false)}
+            >
+              <Zap className="h-4 w-4 text-amber-500" />
+              Verified Dev Score
+            </Link>
+            <Link
+              href="/transparency"
+              className="flex items-center gap-2.5 py-2 px-3 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-50"
+              onClick={() => setIsOpen(false)}
+            >
+              <ShieldCheck className="h-4 w-4 text-teal-600" />
+              Transparency Wall
             </Link>
             <Link
               href="/study-pods"

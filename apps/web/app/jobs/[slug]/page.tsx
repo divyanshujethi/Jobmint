@@ -19,6 +19,7 @@ import { getLearningGuideForSkill } from "@repo/shared";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { JobApplyButton } from "@/components/job-apply-button";
+import { GapToOfferDiagnostic } from "@/components/gap-to-offer-diagnostic";
 
 interface JobPageProps {
   params: Promise<{ slug: string }>;
@@ -125,6 +126,14 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
               />
             </div>
           </div>
+
+          {/* GAP-TO-OFFER INSTANT SKILL DIAGNOSTIC */}
+          <GapToOfferDiagnostic
+            jobTitle={job.title}
+            companyName={job.companyName}
+            jobSkills={job.skills}
+            jobSlug={job.slug}
+          />
 
           {/* JOB DESCRIPTION */}
           <div className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8 shadow-sm space-y-6 text-slate-800">

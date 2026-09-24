@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, useEffect } from "react";
 import {
@@ -36,6 +36,9 @@ export function ApplyModal({
   const [file, setFile] = useState<File | null>(null);
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [githubUrl, setGithubUrl] = useState("");
+  const [demoUrl, setDemoUrl] = useState("");
+  const [devScore, setDevScore] = useState<number | null>(null);
   const [coverNote, setCoverNote] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -61,6 +64,19 @@ export function ApplyModal({
         })
         .catch(() => setSessionUser(null))
         .finally(() => setCheckingAuth(false));
+
+      try {
+        const savedScore = localStorage.getItem("jobmint_verified_dev_score");
+        if (savedScore) {
+          const parsed = JSON.parse(savedScore);
+          if (parsed.username && !githubUrl) {
+            setGithubUrl(`https://github.com/${parsed.username}`);
+          }
+          if (parsed.devScore) {
+            setDevScore(parsed.devScore);
+          }
+        }
+      } catch {}
     }
   }, [isOpen]);
 
@@ -116,6 +132,9 @@ export function ApplyModal({
           email,
           phone,
           coverNote,
+          githubUrl: githubUrl.trim() || undefined,
+          demoUrl: demoUrl.trim() || undefined,
+          devScore: devScore || undefined,
         }),
       });
       const data = await res.json();
@@ -290,6 +309,55 @@ export function ApplyModal({
               </div>
             </div>
 
+            {/* PROOF-OF-WORK OPTIONAL ENHANCEMENTS */}
+            <div className="rounded-xl border border-slate-200 bg-slate-50/80 p-3 space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+                  <Sparkles className="h-3.5 w-3.5 text-emerald-600" />
+                  Proof-of-Work Superpowers (Optional)
+                </span>
+                <span className="text-[10px] text-emerald-700 bg-emerald-100/60 font-semibold px-2 py-0.5 rounded">
+                  3x Higher Response Rate
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                <div className="space-y-1">
+                  <div className="flex items-center justify-between">
+                    <label className="text-[11px] font-semibold text-slate-700">GitHub Profile / Handle</label>
+                    {devScore && (
+                      <span className="text-[10px] text-emerald-700 font-mono font-bold">
+                        Score: {devScore}/1000
+                      </span>
+                    )}
+                  </div>
+                  <Input
+                    type="text"
+                    value={githubUrl}
+                    onChange={(e) => setGithubUrl(e.target.value)}
+                    placeholder="https://github.com/username"
+                    className="h-8 text-xs bg-white"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-[11px] font-semibold text-slate-700">
+                    Live Demo Sandbox URL
+                  </label>
+                  <Input
+                    type="url"
+                    value={demoUrl}
+                    onChange={(e) => setDemoUrl(e.target.value)}
+                    placeholder="https://my-project.vercel.app"
+                    className="h-8 text-xs bg-white"
+                  />
+                </div>
+              </div>
+              <p className="text-[10px] text-slate-500">
+                Recruiters can test your live app directly in the 1-Click Sandbox without leaving JobMint.
+              </p>
+            </div>
+
             {/* SHORT NOTE */}
             <div className="space-y-1">
               <div className="flex items-center justify-between">
@@ -302,7 +370,7 @@ export function ApplyModal({
                 value={coverNote}
                 onChange={(e) => setCoverNote(e.target.value.slice(0, 300))}
                 placeholder="Mention why this role excites you or link a key GitHub project..."
-                className="w-full rounded-lg border border-slate-200 bg-white p-2.5 text-xs placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 min-h-[70px]"
+                className="w-full rounded-lg border border-slate-200 bg-white p-2.5 text-xs placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 min-h-[60px]"
               />
             </div>
 
