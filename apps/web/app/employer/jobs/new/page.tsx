@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import {
   ShieldCheck,
@@ -11,6 +11,7 @@ import {
   Plus,
   X,
   Clock,
+  Lock,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -18,6 +19,8 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/com
 import { JobType, WorkMode, CANONICAL_SKILLS } from "@repo/shared";
 
 export default function PostNewJobPage() {
+  const [sessionUser, setSessionUser] = useState<any>(null);
+  const [checkingAuth, setCheckingAuth] = useState(true);
   const [title, setTitle] = useState("");
   const [jobType, setJobType] = useState<string>(JobType.INTERNSHIP);
   const [workMode, setWorkMode] = useState<string>(WorkMode.REMOTE);
@@ -33,6 +36,18 @@ export default function PostNewJobPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [createdJobSlug, setCreatedJobSlug] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetch("/api/auth/session")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data && data.user) {
+          setSessionUser(data.user);
+        }
+      })
+      .catch(() => {})
+      .finally(() => setCheckingAuth(false));
+  }, []);
 
   const addSkill = (skillName: string) => {
     if (!selectedSkills.includes(skillName)) {
@@ -89,6 +104,45 @@ export default function PostNewJobPage() {
       setIsSubmitting(false);
     }
   };
+
+  if (checkingAuth) {
+    return (
+      <div className="mx-auto max-w-xl px-4 py-20 text-center text-sm font-mono text-slate-500">
+        Verifying recruiter authorization...
+      </div>
+    );
+  }
+
+  if (!sessionUser) {
+    return (
+      <div className="mx-auto max-w-md px-4 py-16 text-center space-y-6">
+        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-600 shadow-sm">
+          <Building className="h-8 w-8" />
+        </div>
+        <div className="space-y-2">
+          <span className="rounded-full bg-emerald-50 border border-emerald-200 px-3 py-1 text-xs font-mono font-bold text-emerald-700 uppercase tracking-wider">
+            Employer Portal
+          </span>
+          <h1 className="text-2xl font-bold text-slate-900">Sign In to Post Opportunities</h1>
+          <p className="text-xs text-slate-600 leading-relaxed">
+            Posting an opportunity on JobMint creates a verifiable company record with Truth Teller transparency. Please sign in to verify your identity.
+          </p>
+        </div>
+        <div className="pt-2 flex flex-col gap-2">
+          <Link href="/login?callbackUrl=/employer/jobs/new">
+            <Button size="lg" className="w-full font-bold bg-emerald-600 hover:bg-emerald-500">
+              Sign In to Continue
+            </Button>
+          </Link>
+          <Link href="/">
+            <Button variant="outline" className="w-full text-xs">
+              Return to Job Board
+            </Button>
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 lg:px-8">

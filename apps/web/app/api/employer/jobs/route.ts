@@ -1,10 +1,16 @@
-﻿import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { db, jobs, companies, jobSkills, skills, eq } from "@repo/database";
 import { auth } from "@/auth";
 
 export async function POST(req: NextRequest) {
   try {
     const session = await auth();
+    if (!session || !session.user) {
+      return NextResponse.json(
+        { error: "Unauthorized: You must be signed in to publish opportunities on JobMint." },
+        { status: 401 }
+      );
+    }
     const body = await req.json();
     const {
       title,

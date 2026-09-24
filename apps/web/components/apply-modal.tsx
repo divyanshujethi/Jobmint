@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   X,
   UploadCloud,
@@ -9,6 +9,7 @@ import {
   Sparkles,
   ShieldCheck,
   ArrowRight,
+  Lock,
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
@@ -30,6 +31,8 @@ export function ApplyModal({
   onClose,
 }: ApplyModalProps) {
   const router = useRouter();
+  const [sessionUser, setSessionUser] = useState<any>(null);
+  const [checkingAuth, setCheckingAuth] = useState(true);
   const [file, setFile] = useState<File | null>(null);
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -42,6 +45,24 @@ export function ApplyModal({
     sizeBytes: number;
     isDuplicate: boolean;
   } | null>(null);
+
+  useEffect(() => {
+    if (isOpen) {
+      setCheckingAuth(true);
+      fetch("/api/auth/session")
+        .then((res) => res.json())
+        .then((data) => {
+          if (data && data.user) {
+            setSessionUser(data.user);
+            setEmail(data.user.email || "");
+          } else {
+            setSessionUser(null);
+          }
+        })
+        .catch(() => setSessionUser(null))
+        .finally(() => setCheckingAuth(false));
+    }
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -155,6 +176,33 @@ export function ApplyModal({
               </Button>
             </div>
           </div>
+        ) : checkingAuth ? (
+          <div className="py-12 text-center text-xs font-mono text-slate-500">
+            Verifying candidate credentials...
+          </div>
+        ) : !sessionUser ? (
+          <div className="py-6 text-center space-y-4">
+            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-600">
+              <ShieldCheck className="h-7 w-7" />
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-slate-900">Candidate Sign-In Required</h3>
+              <p className="mt-1 text-xs text-slate-600 max-w-sm mx-auto leading-relaxed">
+                To apply for <strong>{jobTitle}</strong> at <strong>{companyName}</strong> and activate 7-day Truth Teller tracking, please sign in with your verified candidate account.
+              </p>
+            </div>
+            <div className="pt-2 flex flex-col gap-2">
+              <a
+                href={`/login?callbackUrl=${typeof window !== "undefined" ? encodeURIComponent(window.location.pathname) : "/jobs"}`}
+                className="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-colors shadow-sm"
+              >
+                Sign In to Apply
+              </a>
+              <Button variant="ghost" size="sm" onClick={onClose} className="text-xs text-slate-500">
+                Cancel
+              </Button>
+            </div>
+          </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
@@ -217,12 +265,17 @@ export function ApplyModal({
             {/* CONTACT DETAILS */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div className="space-y-1">
-                <label className="text-xs font-semibold text-slate-700">Email</label>
+                <div className="flex items-center justify-between">
+                  <label className="text-xs font-semibold text-slate-700">Email</label>
+                  <span className="text-[10px] text-emerald-600 font-bold flex items-center gap-0.5">
+                    <ShieldCheck className="h-3 w-3" /> Verified Account
+                  </span>
+                </div>
                 <Input
                   type="email"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="your.email@gmail.com"
+                  readOnly
+                  className="bg-slate-50 text-slate-600 cursor-not-allowed font-medium"
                   required
                 />
               </div>
@@ -233,7 +286,6 @@ export function ApplyModal({
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   placeholder="+91 9876543210"
-                  required
                 />
               </div>
             </div>

@@ -1,4 +1,4 @@
-﻿import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { db, applications, applicationEvents, jobs, companies, candidateProfiles, users, eq, desc } from "@repo/database";
 import { auth } from "@/auth";
 
@@ -128,7 +128,13 @@ export async function POST(req: NextRequest) {
     }
 
     const session = await auth();
-    const candidateEmail = email || session?.user?.email || "candidate@jobmint.ritualdev.in";
+    if (!session || !session.user || !session.user.email) {
+      return NextResponse.json(
+        { error: "Unauthorized: You must be signed in to submit an application." },
+        { status: 401 }
+      );
+    }
+    const candidateEmail = session.user.email;
 
     // 1. Get or create candidate user
     let userList = await db.select().from(users).where(eq(users.email, candidateEmail)).limit(1);
