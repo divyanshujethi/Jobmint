@@ -3,6 +3,8 @@ import { matchCanonicalSkill } from "@repo/shared";
 import { auth } from "@/auth";
 import crypto from "crypto";
 
+export const dynamic = "force-dynamic";
+
 interface VerifiedRepo {
   name: string;
   description: string;
@@ -52,10 +54,10 @@ export async function GET(req: NextRequest) {
     }
 
     const [userRes, reposRes] = await Promise.all([
-      fetch(`https://api.github.com/users/${username}`, { headers, next: { revalidate: 300 } }),
+      fetch(`https://api.github.com/users/${username}`, { headers, cache: "no-store" }),
       fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=30`, {
         headers,
-        next: { revalidate: 300 },
+        cache: "no-store",
       }),
     ]);
 
