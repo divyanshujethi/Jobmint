@@ -3,6 +3,8 @@ import { matchCanonicalSkill } from "@repo/shared";
 import { auth } from "@/auth";
 import crypto from "crypto";
 
+import { checkRateLimit, getClientIp } from "@/lib/rate-limit";
+
 export const dynamic = "force-dynamic";
 
 interface VerifiedRepo {
@@ -28,6 +30,29 @@ export async function GET(req: NextRequest) {
   // Sanitize username
   if (!/^[a-zA-Z0-9](?:[a-zA-Z0-9]|-(?=[a-zA-Z0-9])){0,38}$/.test(username)) {
     return NextResponse.json({ error: "Invalid GitHub username format" }, { status: 400 });
+  }
+
+  // Rate Limiting (20 requests per 5 minutes per IP)
+  const rateLimit = await checkRateLimit(req, {
+    maxRequests: 20,
+    windowSeconds: 300,
+    prefix: "rl:gh-verify",
+    customKey: getClientIp(req),
+  });
+
+  if (!rateLimit.allowed) {
+    return NextResponse.json(
+      { error: `Too many verification requests. Please wait ${rateLimit.resetInSeconds}s.` },
+      {
+        status: 429,
+        headers: {
+          "Retry-After": String(rateLimit.resetInSeconds),
+          "X-RateLimit-Limit": String(rateLimit.limit),
+          "X-RateLimit-Remaining": String(rateLimit.remaining),
+          "X-RateLimit-Reset": String(rateLimit.resetInSeconds),
+        },
+      }
+    );
   }
 
   // 1. Retrieve Current JobMint User Session

@@ -245,10 +245,10 @@ export default function AccountSettingsPage() {
               Right to Erasure (DPDP Act Sec. 12 &amp; GDPR Art. 17)
             </div>
             <CardTitle className="text-xl font-bold text-slate-900">
-              Permanently Delete Your Account &amp; Data
+              Delete My Account &amp; Resume Data
             </CardTitle>
             <CardDescription className="text-xs text-slate-600">
-              Irreversibly deletes your account, login credentials, candidate profile, tracked applications, and uploaded resumes from our NVMe storage.
+              Permanently and irreversibly deletes your account, login credentials, candidate profile, tracked applications, and uploaded resume files from our NVMe storage.
             </CardDescription>
           </CardHeader>
 
@@ -291,7 +291,7 @@ export default function AccountSettingsPage() {
               className="w-full font-bold gap-2 text-xs h-10 rounded-xl"
             >
               <Trash2 className="h-4 w-4" />
-              {isDeleting ? "Erasing Account Records..." : "Permanently Delete My Account & Data"}
+              {isDeleting ? "Erasing Account & Resume Files..." : "Delete My Account & Resume Data"}
             </Button>
           </CardContent>
         </Card>

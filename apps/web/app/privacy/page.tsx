@@ -107,10 +107,13 @@ export default function PrivacyPage() {
                   <strong>Candidate Profile</strong>: Technical skills, target roles, preferred work locations, and educational history.
                 </li>
                 <li>
-                  <strong>Proof-of-Work Artifacts</strong>: Public GitHub repository URLs and commits (used solely to compute your Verified Dev Score).
+                  <strong>Proof-of-Work &amp; GitHub Tokens</strong>: When authenticating via GitHub or verifying project ownership, we store read-only public repo metadata (commits, PRs, languages) to compute your tamper-proof Dev Score. We never request write permissions or access private repositories without explicit consent.
                 </li>
                 <li>
-                  <strong>Resume Files</strong>: PDF/DOCX resumes uploaded to private storage for application submission.
+                  <strong>Resume Files &amp; Extracted Data</strong>: Uploaded PDF/DOCX resumes and ATS builder data are encrypted on private NVMe storage with HMAC-SHA256 authenticated streaming tokens. Resumes are NEVER shared with third-party data brokers, ad networks, or scrapers.
+                </li>
+                <li>
+                  <strong>Code Submissions &amp; Sandboxing</strong>: Daily Coding Problems (POTD) and Monaco code runs are executed in client-side Web Worker sandboxes. Your code submissions are evaluated locally and are never harvested to train commercial AI systems.
                 </li>
                 <li>
                   <strong>Course Completion Data</strong>: Course milestones, completion timestamps, and generated cryptographic certificate hashes.

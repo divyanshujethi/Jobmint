@@ -1,3 +1,5 @@
+import { withSentryConfig } from "@sentry/nextjs";
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   transpilePackages: [
@@ -12,4 +14,11 @@ const nextConfig = {
   experimental: {},
 };
 
-export default nextConfig;
+export default withSentryConfig(nextConfig, {
+  org: "ritualdev",
+  project: "javascript-nextjs",
+  silent: !process.env.CI,
+  widenClientFileUpload: true,
+  hideSourceMaps: true,
+  disableLogger: true,
+});

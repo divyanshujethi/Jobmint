@@ -64,7 +64,24 @@ export default function TermsPage() {
 
             <section className="space-y-2">
               <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-                3. Courses, Certificates, and Learning Tracks
+                3. Storage of Resume Data, GitHub Tokens &amp; Code Submissions
+              </h2>
+              <div className="space-y-2 text-xs sm:text-sm text-slate-600 bg-slate-50 p-4 rounded-xl border border-slate-200">
+                <p>
+                  <strong>Resume &amp; Application Data:</strong> Uploaded resumes and ATS builder outputs are encrypted and stored on private NVMe storage. Access is strictly mediated via HMAC-SHA256 time-limited streaming URLs. We never sell, rent, or leak candidate resumes to commercial third parties.
+                </p>
+                <p>
+                  <strong>GitHub Tokens &amp; Metadata:</strong> When performing GitHub account verification or project validation, JobMint queries public repository metadata and commit histories. GitHub OAuth tokens are used solely for read-only verification of authentic technical authorship.
+                </p>
+                <p>
+                  <strong>Code Submissions &amp; POTD Sandboxing:</strong> Code executed via our Problem of the Day (POTD) runner is isolated client-side using browser Web Workers and WebAssembly sandboxes. Submissions are never used to train public machine learning models.
+                </p>
+              </div>
+            </section>
+
+            <section className="space-y-2">
+              <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+                4. Courses, Certificates, and Learning Tracks
               </h2>
               <p>
                 JobMint curates third-party open educational resources (including YouTube playlists from top educators, Harvard CS50, and Forage Virtual Internships).

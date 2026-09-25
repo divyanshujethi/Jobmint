@@ -10,8 +10,15 @@ import { GraduationCap, Building, ShieldCheck, Loader2, Sparkles } from "lucide-
 export default function RegisterPage() {
   const [role, setRole] = useState<string>(UserRole.CANDIDATE);
   const [activeProvider, setActiveProvider] = useState<string | null>(null);
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [consentError, setConsentError] = useState<string | null>(null);
 
   const handleOAuthSignUp = async (provider: string) => {
+    if (!agreedToTerms) {
+      setConsentError("Please agree to the Terms of Service & Privacy Policy to create your account.");
+      return;
+    }
+    setConsentError(null);
     setActiveProvider(provider);
     const callbackUrl = role === UserRole.EMPLOYER ? "/onboarding/employer" : "/onboarding/candidate";
     try {
@@ -78,6 +85,40 @@ export default function RegisterPage() {
                 Sign up with
               </span>
             </div>
+          </div>
+
+          {/* CONSENT CHECKBOX (DPDP ACT 2023 COMPLIANT) */}
+          <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-3 space-y-1.5 transition-all">
+            <div className="flex items-start gap-2.5">
+              <input
+                type="checkbox"
+                id="consent-checkbox"
+                checked={agreedToTerms}
+                onChange={(e) => {
+                  setAgreedToTerms(e.target.checked);
+                  if (e.target.checked) setConsentError(null);
+                }}
+                className="mt-0.5 h-4 w-4 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500 cursor-pointer shrink-0 accent-emerald-600"
+              />
+              <label htmlFor="consent-checkbox" className="text-xs text-slate-700 cursor-pointer select-none leading-relaxed">
+                I agree to the{" "}
+                <Link href="/terms" target="_blank" className="font-semibold text-emerald-600 underline underline-offset-2 hover:text-emerald-700">
+                  Terms of Service
+                </Link>{" "}
+                and{" "}
+                <Link href="/privacy" target="_blank" className="font-semibold text-emerald-600 underline underline-offset-2 hover:text-emerald-700">
+                  Privacy Policy
+                </Link>
+                <span className="block text-[10px] text-slate-500 mt-0.5">
+                  🇮🇳 DPDP Act 2023 Compliant: Right to Erasure, Zero Data Selling, Token-Gated Resumes.
+                </span>
+              </label>
+            </div>
+            {consentError && (
+              <p className="text-[11px] font-semibold text-rose-600 pl-6 animate-pulse">
+                {consentError}
+              </p>
+            )}
           </div>
 
           {/* OAUTH PROVIDERS */}

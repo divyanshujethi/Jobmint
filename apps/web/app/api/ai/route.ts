@@ -2,37 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { generateAI, circuitBreaker, AITask } from "@repo/ai";
 import { auth } from "@/auth";
 
-// Sliding window in-memory rate limiter
-interface RateLimitBucket {
-  count: number;
-  resetAt: number;
-}
-
-const userBuckets = new Map<string, RateLimitBucket>();
-const MAX_REQUESTS_PER_WINDOW = 15;
-const WINDOW_MS = 10 * 60 * 1000; // 10 minutes
-
-function checkRateLimit(userId: string): { allowed: boolean; remaining: number; resetInSeconds: number } {
-  const now = Date.now();
-  const bucket = userBuckets.get(userId);
-
-  if (!bucket || now > bucket.resetAt) {
-    userBuckets.set(userId, { count: 1, resetAt: now + WINDOW_MS });
-    return { allowed: true, remaining: MAX_REQUESTS_PER_WINDOW - 1, resetInSeconds: Math.ceil(WINDOW_MS / 1000) };
-  }
-
-  if (bucket.count >= MAX_REQUESTS_PER_WINDOW) {
-    const resetInSeconds = Math.ceil((bucket.resetAt - now) / 1000);
-    return { allowed: false, remaining: 0, resetInSeconds };
-  }
-
-  bucket.count++;
-  return {
-    allowed: true,
-    remaining: MAX_REQUESTS_PER_WINDOW - bucket.count,
-    resetInSeconds: Math.ceil((bucket.resetAt - now) / 1000),
-  };
-}
+import { checkRateLimit } from "@/lib/rate-limit";
 
 export async function GET() {
   const stats = circuitBreaker.getStats();
@@ -55,16 +25,30 @@ export async function POST(req: NextRequest) {
 
     const userId = session.user.id || session.user.email || "unknown-user";
 
-    // 2. Per-user Rate Limiting (15 requests per 10 minutes)
-    const rateLimit = checkRateLimit(userId);
+    // 2. Per-user Rate Limiting (15 requests per 10 minutes) with Upstash / Cloudflare IP support
+    const rateLimit = await checkRateLimit(req, {
+      maxRequests: 15,
+      windowSeconds: 600,
+      prefix: "rl:ai-core",
+      customKey: userId,
+    });
+
     if (!rateLimit.allowed) {
       return NextResponse.json(
         {
-          error: `AI Rate Limit Exceeded: You have reached your limit of ${MAX_REQUESTS_PER_WINDOW} requests per 10 minutes. Please try again in ${rateLimit.resetInSeconds} seconds.`,
+          error: `AI Rate Limit Exceeded: You have reached your limit of 15 requests per 10 minutes. Please try again in ${rateLimit.resetInSeconds} seconds.`,
           rateLimitExceeded: true,
           resetInSeconds: rateLimit.resetInSeconds,
         },
-        { status: 429 }
+        {
+          status: 429,
+          headers: {
+            "Retry-After": String(rateLimit.resetInSeconds),
+            "X-RateLimit-Limit": String(rateLimit.limit),
+            "X-RateLimit-Remaining": String(rateLimit.remaining),
+            "X-RateLimit-Reset": String(rateLimit.resetInSeconds),
+          },
+        }
       );
     }
 
