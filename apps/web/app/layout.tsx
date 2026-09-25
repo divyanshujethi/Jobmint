@@ -5,6 +5,7 @@ import { Footer } from "@/components/footer";
 import { PwaInstallPrompt } from "@/components/pwa-install-prompt";
 import { DPDPConsentManager } from "@/components/dpdp-consent-manager";
 import { PaddleProvider } from "@/components/paddle-provider";
+import { MobileNav } from "@/components/mobile-nav";
 import { APP_CONFIG } from "@repo/shared";
 
 export const viewport: Viewport = {
@@ -145,8 +146,9 @@ export default function RootLayout({
       <body className="flex min-h-full flex-col font-sans antialiased bg-slate-50/50 text-slate-900">
         <PaddleProvider />
         <Navbar />
-        <main className="flex-1">{children}</main>
+        <main className="flex-1 pb-16 md:pb-0">{children}</main>
         <Footer />
+        <MobileNav />
         <PwaInstallPrompt />
         <DPDPConsentManager />
       </body>
