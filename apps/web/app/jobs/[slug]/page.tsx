@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import {
   ShieldCheck,
   MapPin,
@@ -24,6 +25,40 @@ interface JobPageProps {
   params: Promise<{ slug: string }>;
 }
 
+export async function generateMetadata({ params }: JobPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const job = await getLiveJobBySlug(slug);
+
+  if (!job) {
+    return {
+      title: "Job Not Found | Role Nest",
+    };
+  }
+
+  const title = `${job.title} at ${job.companyName} | Role Nest`;
+  const description = `${job.title} opportunity at ${job.companyName}. Location: ${job.location} (${job.workMode}). Compensation: ${job.salaryOrStipend}. Verified on Role Nest Truth Teller.`;
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: `https://rolenest.in/jobs/${slug}`,
+    },
+    openGraph: {
+      title,
+      description,
+      url: `https://rolenest.in/jobs/${slug}`,
+      siteName: "Role Nest",
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+    },
+  };
+}
+
 export default async function JobDetailsPage({ params }: JobPageProps) {
   const { slug } = await params;
   const job = await getLiveJobBySlug(slug);
@@ -32,8 +67,54 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
     notFound();
   }
 
+  const jobPostingJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "JobPosting",
+    title: job.title,
+    description: job.description || `${job.title} at ${job.companyName}`,
+    identifier: {
+      "@type": "PropertyValue",
+      name: job.companyName,
+      value: job.id,
+    },
+    datePosted: job.createdAt ? new Date(job.createdAt).toISOString() : new Date().toISOString(),
+    validThrough: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000).toISOString(),
+    employmentType:
+      job.jobType === "FULL_TIME" ? "FULL_TIME" : job.jobType === "INTERNSHIP" ? "INTERN" : "OTHER",
+    hiringOrganization: {
+      "@type": "Organization",
+      name: job.companyName,
+      sameAs: `https://rolenest.in/companies/${job.companySlug}`,
+    },
+    jobLocation: {
+      "@type": "Place",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: job.location || "Remote",
+        addressCountry: "IN",
+      },
+    },
+    jobLocationType: job.workMode === "REMOTE" ? "TELECOMMUTE" : undefined,
+    baseSalary: job.minSalary
+      ? {
+          "@type": "MonetaryAmount",
+          currency: "INR",
+          value: {
+            "@type": "QuantitativeValue",
+            minValue: job.minSalary,
+            maxValue: job.maxSalary || job.minSalary,
+            unitText: "YEAR",
+          },
+        }
+      : undefined,
+  };
+
   return (
     <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jobPostingJsonLd) }}
+      />
       {/* BREADCRUMB */}
       <div className="flex items-center gap-2 text-xs text-slate-500 mb-6">
         <Link href="/jobs" className="hover:text-emerald-600">
