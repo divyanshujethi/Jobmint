@@ -72,7 +72,7 @@ export const INITIAL_CANDIDATE_APPLICATIONS: CandidateApplication[] = [
         timestamp: "2026-09-14T10:14:00Z",
         displayDate: "Sep 14, 10:14 AM",
         actor: "Candidate",
-        note: "Application submitted via JobMint",
+        note: "Application submitted via Role Nest",
       },
       {
         id: "ev-2",

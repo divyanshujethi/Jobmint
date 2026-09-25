@@ -80,7 +80,7 @@ export default function StudyPodsPage() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-6">
           <div>
             <div className="flex items-center gap-2 text-xs text-slate-400 font-mono mb-2">
-              <Link href="/jobs" className="hover:text-emerald-400">JobMint</Link>
+              <Link href="/jobs" className="hover:text-emerald-400">Role Nest</Link>
               <span>/</span>
               <span className="text-slate-200">Study Pods</span>
             </div>
@@ -110,7 +110,7 @@ export default function StudyPodsPage() {
               <Lock className="w-4 h-4 text-amber-400 shrink-0" />
               <div>
                 <span className="font-bold text-amber-300">Guest Preview Mode: </span>
-                You can browse cohort roadmaps and interview questions. Sign in with GitHub or Google to join a pod, chat with peers, and access the JobMint Cohort Bot.
+                You can browse cohort roadmaps and interview questions. Sign in with GitHub or Google to join a pod, chat with peers, and access the Role Nest Cohort Bot.
               </div>
             </div>
             <Link href="/login?callbackUrl=/study-pods" className="shrink-0">
@@ -126,7 +126,7 @@ export default function StudyPodsPage() {
           <ShieldCheck className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
           <div>
             <span className="font-semibold text-emerald-300">100% Free Peer Learning • Zero Fake Profiles: </span>
-            No paid cohort fees. Connect with real campus peers and practice turn-based technical mock interviews moderated by the JobMint Cohort Bot.
+            No paid cohort fees. Connect with real campus peers and practice turn-based technical mock interviews moderated by the Role Nest Cohort Bot.
           </div>
         </div>
 
@@ -221,7 +221,7 @@ export default function StudyPodsPage() {
                         🤖
                       </div>
                       <div className="text-[11px] font-mono text-slate-300">
-                        JobMint Cohort Bot <span className="text-emerald-400 font-semibold">(Active)</span>
+                        Role Nest Cohort Bot <span className="text-emerald-400 font-semibold">(Active)</span>
                       </div>
                     </div>
                     {isJoined && (

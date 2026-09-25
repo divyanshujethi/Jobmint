@@ -96,7 +96,7 @@ export default function EmployerOnboardingPage() {
             Register & Verify Your Company
           </CardTitle>
           <CardDescription className="text-xs text-slate-500">
-            Establish your official company profile on JobMint to start publishing opportunities.
+            Establish your official company profile on Role Nest to start publishing opportunities.
           </CardDescription>
         </CardHeader>
 
@@ -215,7 +215,7 @@ export default function EmployerOnboardingPage() {
                 Truth Teller & Verified Employer Guarantee
               </div>
               <p className="text-emerald-800 leading-relaxed text-[11px]">
-                JobMint protects students from fake recruiters and ghosting. If your work email matches your registered company website domain, your profile is immediately verified. Free mail accounts (@gmail) require admin approval before listings go live.
+                Role Nest protects students from fake recruiters and ghosting. If your work email matches your registered company website domain, your profile is immediately verified. Free mail accounts (@gmail) require admin approval before listings go live.
               </p>
             </div>
 

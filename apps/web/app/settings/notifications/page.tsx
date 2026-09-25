@@ -47,7 +47,7 @@ export default function NotificationPreferencesPage() {
             Notification Preferences
           </CardTitle>
           <CardDescription>
-            Control how and when JobMint communicates with you. High-volume alerts are delivered in-app to prevent inbox clutter.
+            Control how and when Role Nest communicates with you. High-volume alerts are delivered in-app to prevent inbox clutter.
           </CardDescription>
         </CardHeader>
 

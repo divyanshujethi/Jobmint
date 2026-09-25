@@ -15,7 +15,7 @@ export function generateCapstoneBrief(nodeId: string, roleTitle: string) {
       'All code hosted on GitHub with clear README.md instructions',
       '100% test coverage or integration tests verified',
       'Deployed to a production environment (OWP /Clo and verifiable live)',
-      'Verified by JobMint GitHub Project Verifier',
+      'Verified by Role Nest GitHub Project Verifier',
     ],
     suggestedTech: ['TypeScript', 'Next.js', 'PostgreSQL', 'Docker'],
   };

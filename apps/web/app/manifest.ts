@@ -2,8 +2,8 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "JobMint — Verified Jobs & Roadmaps",
-    short_name: "JobMint",
+    name: "Role Nest — Verified Jobs & Roadmaps",
+    short_name: "Role Nest",
     description: "The 100% free, transparent job and internship platform for students and early-career talent.",
     start_url: "/",
     display: "standalone",

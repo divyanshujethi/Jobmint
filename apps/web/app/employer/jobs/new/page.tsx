@@ -125,7 +125,7 @@ export default function PostNewJobPage() {
           </span>
           <h1 className="text-2xl font-bold text-slate-900">Sign In to Post Opportunities</h1>
           <p className="text-xs text-slate-600 leading-relaxed">
-            Posting an opportunity on JobMint creates a verifiable company record with Truth Teller transparency. Please sign in to verify your identity.
+            Posting an opportunity on Role Nest creates a verifiable company record with Truth Teller transparency. Please sign in to verify your identity.
           </p>
         </div>
         <div className="pt-2 flex flex-col gap-2">
@@ -166,7 +166,7 @@ export default function PostNewJobPage() {
             </div>
           </div>
           <CardTitle className="text-2xl font-bold text-slate-900">
-            Post an Opportunity on JobMint
+            Post an Opportunity on Role Nest
           </CardTitle>
           <CardDescription>
             Reach thousands of ambitious students and freshers. Verified corporate postings receive 3.4x more high-fit applicants.
@@ -372,7 +372,7 @@ export default function PostNewJobPage() {
                   Truth Teller Employer Acknowledgment
                 </div>
                 <p className="text-emerald-800">
-                  JobMint displays your company&apos;s real review rate and median response time. Unreviewed applications after 7 days will be flagged to candidates with similar recommendations.
+                  Role Nest displays your company&apos;s real review rate and median response time. Unreviewed applications after 7 days will be flagged to candidates with similar recommendations.
                 </p>
               </div>
 

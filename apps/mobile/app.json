@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "JobMint",
-    "slug": "jobmint",
+    "name": "Role Nest",
+    "slug": "rolenest",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -15,10 +15,10 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.jobmint.app"
+      "bundleIdentifier": "com.rolenest.app"
     },
     "android": {
-      "package": "com.jobmint.app",
+      "package": "com.rolenest.app",
       "versionCode": 1,
       "adaptiveIcon": {
         "backgroundColor": "#09090b"

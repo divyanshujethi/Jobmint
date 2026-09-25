@@ -20,7 +20,7 @@ export async function sendEmail({
   to,
   subject,
   html,
-  from = "JobMint <notifications@jobmint.app>",
+  from = "Role Nest <notifications@rolenest.in>",
 }: SendEmailOptions): Promise<EmailDeliveryResult> {
   const brevoApiKey = process.env.BREVO_API_KEY;
   const resendApiKey = process.env.RESEND_API_KEY;
@@ -36,7 +36,7 @@ export async function sendEmail({
           Accept: "application/json",
         },
         body: JSON.stringify({
-          sender: { name: "JobMint", email: "noreply@jobmint.app" },
+          sender: { name: "Role Nest", email: "noreply@rolenest.in" },
           to: [{ email: to }],
           subject,
           htmlContent: html,

@@ -33,13 +33,13 @@ export default async function AdminPage() {
             </span>
             <h1 className="text-2xl font-bold text-white">SuperAdmin Clearance Required</h1>
             <p className="text-xs text-slate-400 leading-relaxed">
-              Your account <strong>{session.user.email}</strong> is not listed as an authorized administrator on JobMint.
+              Your account <strong>{session.user.email}</strong> is not listed as an authorized administrator on Role Nest.
             </p>
           </div>
           <div className="flex flex-col gap-2 pt-2">
             <Link href="/">
               <Button variant="outline" className="w-full text-xs text-slate-300">
-                Return to JobMint Board
+                Return to Role Nest Board
               </Button>
             </Link>
           </div>

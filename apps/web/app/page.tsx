@@ -255,7 +255,7 @@ export default function HomePage() {
                 <span className="text-emerald-400">We Teach You What&apos;s Missing.</span>
               </h2>
               <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-                Traditional job portals leave you wondering why you never got an interview. JobMint breaks down your match with exact mathematical transparency and links you directly to 100% free courses to bridge the gap.
+                Traditional job portals leave you wondering why you never got an interview. Role Nest breaks down your match with exact mathematical transparency and links you directly to 100% free courses to bridge the gap.
               </p>
               <div className="pt-2 flex flex-wrap gap-4">
                 <Link href="/roadmaps">

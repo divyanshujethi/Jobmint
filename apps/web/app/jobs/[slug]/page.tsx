@@ -302,7 +302,7 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
             </div>
 
             <div className="mt-5 rounded-lg bg-slate-50 p-3 text-[11px] text-slate-600">
-              🛡️ <strong>JobMint Ghosting Guarantee:</strong> If the employer does not review your application within 7 days, we alert you and suggest similar active openings.
+              🛡️ <strong>Role Nest Ghosting Guarantee:</strong> If the employer does not review your application within 7 days, we alert you and suggest similar active openings.
             </div>
           </div>
         </div>

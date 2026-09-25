@@ -79,14 +79,14 @@ export function WebGpuBadge({
     let classification: HardwareReport["classification"] = "MODERATE";
     let ratingLabel = "⚠️ Moderate Hardware";
     let verdictExplanation = "Your hardware can run light web workloads, but local browser LLMs may cause slight browser lag.";
-    let recommendation = "JobMint Cloud AI (Gemini 2.5) is recommended for zero local battery/memory drain.";
+    let recommendation = "Role Nest Cloud AI (Gemini 2.5) is recommended for zero local battery/memory drain.";
 
     if (!hasWebGpu || (ramGb !== null && ramGb < 4) || (cpuCores !== null && cpuCores < 4)) {
       isPotato = true;
       classification = "POTATO";
       ratingLabel = "🥔 Potato PC / Low-End Hardware Detected";
       verdictExplanation = `Limited resources (${ramGb ? ramGb + " GB RAM" : "< 4GB RAM"}, ${cpuCores ? cpuCores + " CPU cores" : "< 4 Cores"}, ${hasWebGpu ? "Basic WebGPU" : "No WebGPU"}). Loading a 1.5GB local AI model in your browser tab will cause extreme freezing or out-of-memory crashes.`;
-      recommendation = "⚡ Automatically routed to JobMint Cloud AI (Gemini). Zero local RAM used, 100% instant responses.";
+      recommendation = "⚡ Automatically routed to Role Nest Cloud AI (Gemini). Zero local RAM used, 100% instant responses.";
     } else if (hasWebGpu && (ramGb === null || ramGb >= 8) && (cpuCores === null || cpuCores >= 6)) {
       classification = "CAPABLE";
       ratingLabel = "🚀 High-Performance Machine Verified";
@@ -228,7 +228,7 @@ export function WebGpuBadge({
             </div>
 
             <p className="text-xs text-slate-600 leading-relaxed">
-              We test your real hardware specifications to determine whether your browser can safely execute local WebGPU LLMs (e.g. Llama 3.2 1B) without freezing your system, or whether you should use JobMint Cloud AI.
+              We test your real hardware specifications to determine whether your browser can safely execute local WebGPU LLMs (e.g. Llama 3.2 1B) without freezing your system, or whether you should use Role Nest Cloud AI.
             </p>
 
             {/* SPEC TELEMETRY GRID */}

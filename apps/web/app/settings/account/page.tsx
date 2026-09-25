@@ -140,7 +140,7 @@ export default function AccountSettingsPage() {
               Right to Access &amp; Data Portability (Section 11)
             </CardTitle>
             <CardDescription className="text-xs">
-              Under DPDP Section 11 and GDPR Article 15, you have the right to obtain a full machine-readable copy of your personal data processed by JobMint.
+              Under DPDP Section 11 and GDPR Article 15, you have the right to obtain a full machine-readable copy of your personal data processed by Role Nest.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4 pt-0 text-xs text-slate-600">

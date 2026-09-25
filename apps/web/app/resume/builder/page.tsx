@@ -543,7 +543,7 @@ ${p.bullets.map((b) => `      \\item \\small{${escapeLatex(b)}}`).join("\n")}
 \\begin{itemize}[leftmargin=0.15in, label={}]
   \\item \\small{
 ${data.skills.map((s) => `    \\textbf{${escapeLatex(s.category)}}{: ${escapeLatex(s.items)}} \\\\`).join("\n")}
-    \\textbf{Verified Caliber}{: JobMint Dev Score ${data.devScore}/1000 (Proof-of-Work GitHub Verified)}
+    \\textbf{Verified Caliber}{: Role Nest Dev Score ${data.devScore}/1000 (Proof-of-Work GitHub Verified)}
   }
 \\end{itemize}
 
@@ -674,7 +674,7 @@ ${data.skills.map((s) => `    \\textbf{${escapeLatex(s.category)}}{: ${escapeLat
       '  <div class="section-title">Technical Skills</div>' +
       '  <div class="avoid-break" style="padding-top: 1pt;">' +
       '    ' + skillsHtml +
-      '    <div class="skills-line"><span class="bold">Verified Caliber:</span> JobMint Dev Score ' + data.devScore + '/1000 (Proof-of-Work GitHub Verified)</div>' +
+      '    <div class="skills-line"><span class="bold">Verified Caliber:</span> Role Nest Dev Score ' + data.devScore + '/1000 (Proof-of-Work GitHub Verified)</div>' +
       '  </div>' +
       '</body>' +
       '</html>';
@@ -1612,7 +1612,7 @@ ${data.skills.map((s) => `    \\textbf{${escapeLatex(s.category)}}{: ${escapeLat
                         <div>
                           <div className="text-xs font-bold text-emerald-950 flex items-center gap-1.5">
                             <Zap className="h-3.5 w-3.5 text-amber-500 fill-amber-500" />
-                            JobMint Verified Dev Score
+                            Role Nest Verified Dev Score
                           </div>
                           <div className="text-[11px] text-emerald-700">
                             Automatic GitHub proof-of-work badge printed in Technical Skills
@@ -1871,7 +1871,7 @@ ${data.skills.map((s) => `    \\textbf{${escapeLatex(s.category)}}{: ${escapeLat
                         </div>
                       ))}
                       <div>
-                        <strong className="font-bold">Verified Caliber:</strong> JobMint Dev Score {data.devScore}/1000 (Proof-of-Work GitHub Verified)
+                        <strong className="font-bold">Verified Caliber:</strong> Role Nest Dev Score {data.devScore}/1000 (Proof-of-Work GitHub Verified)
                       </div>
                     </div>
                   </div>

@@ -156,7 +156,7 @@ export const JobDetailsScreen: React.FC<JobDetailsScreenProps> = ({
 
           <View style={styles.ghostBanner}>
             <Text style={styles.ghostBannerText}>
-              🛡️ Ghosting Protection: If the employer does not review your application within 7 days, JobMint automatically flags inactivity and alerts you.
+              🛡️ Ghosting Protection: If the employer does not review your application within 7 days, Role Nest automatically flags inactivity and alerts you.
             </Text>
           </View>
         </View>

@@ -43,7 +43,7 @@ export async function GET() {
       dpdpComplianceNotice: {
         act: "Digital Personal Data Protection Act, 2023 (DPDP Act, India)",
         statutorySection: "Section 11: Right to Access Information About Personal Data",
-        dataFiduciary: "JobMint / RitualDev Technologies",
+        dataFiduciary: "Role Nest / RitualDev Technologies",
         exportGeneratedAt: new Date().toISOString(),
         grievanceRedressalOfficerEmail: "grievance@ritualdev.in",
       },

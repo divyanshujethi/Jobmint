@@ -13,7 +13,11 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: `${APP_CONFIG.name} — Job & Internship Platform`,
+  metadataBase: new URL(process.env.NEXTAUTH_URL || "https://rolenest.in"),
+  title: {
+    default: `${APP_CONFIG.name} — Job & Internship Platform`,
+    template: `%s | ${APP_CONFIG.name}`,
+  },
   description: APP_CONFIG.tagline,
   manifest: "/manifest.json",
   icons: {

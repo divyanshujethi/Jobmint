@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
     if (!session || !session.user) {
       return NextResponse.json(
         {
-          error: "Authentication required: Please sign in to JobMint to use AI assistance.",
+          error: "Authentication required: Please sign in to Role Nest to use AI assistance.",
           requiresAuth: true,
         },
         { status: 401 }

@@ -24,7 +24,7 @@ export function Footer() {
           <div className="space-y-4 md:col-span-1">
             <div className="flex items-center gap-2">
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-600 text-white font-bold text-sm">
-                J
+                R
               </div>
               <span className="text-xl font-bold tracking-tight text-slate-900">
                 {APP_CONFIG.name}
@@ -55,7 +55,7 @@ export function Footer() {
                   className="flex items-center gap-1.5 text-xs font-bold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-2.5 py-1.5 rounded-lg transition-colors w-full text-left"
                 >
                   <Download className="h-3.5 w-3.5 text-emerald-600" />
-                  Install JobMint App (PWA)
+                  Install Role Nest App (PWA)
                 </button>
               </li>
               <li>

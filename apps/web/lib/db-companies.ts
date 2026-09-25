@@ -26,7 +26,7 @@ export async function getLiveCompanies(): Promise<CompanyProfile[]> {
         website: c.website,
         location: c.location,
         industry: c.industry,
-        description: c.description || `${c.name} is a verified engineering employer on JobMint.`,
+        description: c.description || `${c.name} is a verified engineering employer on Role Nest.`,
         isVerified: c.isVerified,
         truthTeller: {
           totalApplications: totalApps,

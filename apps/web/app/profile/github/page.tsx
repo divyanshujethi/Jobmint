@@ -128,7 +128,7 @@ export default function GitHubVerifierPage() {
 
   const copyBadgeText = () => {
     if (!result || !result.isOwner) return;
-    const shareText = `🛡️ JobMint Verified GitHub Builder: ${result.name} (@${result.username}) • ${result.builderLevel} • ${result.verifiedSkills.join(", ")}`;
+    const shareText = `🛡️ Role Nest Verified GitHub Builder: ${result.name} (@${result.username}) • ${result.builderLevel} • ${result.verifiedSkills.join(", ")}`;
     navigator.clipboard.writeText(shareText);
     setCopiedBadge(true);
     setTimeout(() => setCopiedBadge(false), 2000);
@@ -149,7 +149,7 @@ export default function GitHubVerifierPage() {
         <div className="border-b border-neutral-800 pb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-2 text-xs text-neutral-400 font-mono mb-2">
-              <Link href="/jobs" className="hover:text-emerald-400">JobMint</Link>
+              <Link href="/jobs" className="hover:text-emerald-400">Role Nest</Link>
               <span>/</span>
               <Link href="/dev-score" className="hover:text-emerald-400">DevScore</Link>
               <span>/</span>
@@ -169,7 +169,7 @@ export default function GitHubVerifierPage() {
             <div className="bg-neutral-900 border border-neutral-800 rounded-2xl px-4 py-3 flex items-center gap-3 self-start sm:self-auto text-xs">
               <div className="h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse" />
               <div>
-                <div className="text-neutral-400 text-[10px] font-mono">JobMint Account</div>
+                <div className="text-neutral-400 text-[10px] font-mono">Role Nest Account</div>
                 <div className="font-bold text-white truncate max-w-[160px]">
                   {sessionUser.name || sessionUser.email}
                 </div>
@@ -313,7 +313,7 @@ export default function GitHubVerifierPage() {
                         </span>
                       </div>
                       <p className="text-xs text-amber-200/90 mt-1 max-w-2xl leading-relaxed">
-                        You are viewing public repository metrics for <strong>@{result.username}</strong>. Anyone can inspect open-source code, but <strong>you cannot claim badges or attach these projects to your JobMint profile</strong> without proving ownership of this GitHub account.
+                        You are viewing public repository metrics for <strong>@{result.username}</strong>. Anyone can inspect open-source code, but <strong>you cannot claim badges or attach these projects to your Role Nest profile</strong> without proving ownership of this GitHub account.
                       </p>
                     </div>
                   </div>
@@ -341,7 +341,7 @@ export default function GitHubVerifierPage() {
                           <span>Method 1:</span> 1-Click GitHub OAuth
                         </div>
                         <p className="text-neutral-400 text-[11px] leading-relaxed">
-                          Sign into JobMint using the GitHub account for <strong>@{result.username}</strong>. We automatically verify ownership with zero setup.
+                          Sign into Role Nest using the GitHub account for <strong>@{result.username}</strong>. We automatically verify ownership with zero setup.
                         </p>
                         <Button
                           size="sm"
@@ -358,7 +358,7 @@ export default function GitHubVerifierPage() {
                           <span>Method 2:</span> Challenge Verification Token
                         </div>
                         <p className="text-neutral-400 text-[11px] leading-relaxed">
-                          Add your unique JobMint token to your GitHub Bio (at github.com/settings/profile):
+                          Add your unique Role Nest token to your GitHub Bio (at github.com/settings/profile):
                         </p>
                         <div className="flex items-center gap-2 bg-neutral-950 p-2 rounded-lg border border-neutral-800">
                           <code className="text-emerald-400 font-mono text-[11px] select-all truncate flex-1">

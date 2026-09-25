@@ -57,7 +57,7 @@ export const SHOWCASE_CERTIFICATES: CourseCertificate[] = [
     recipientName: "Divyanshu Jethi",
     issuedAt: "2026-09-15T10:30:00.000Z",
     skills: ["Backpropagation", "Micrograd", "Makemore", "GPT from Scratch", "Tokenizer", "PyTorch"],
-    creatorAttribution: "Curriculum authored by Andrej Karpathy • Verified by JobMint Technical Education",
+    creatorAttribution: "Curriculum authored by Andrej Karpathy • Verified by Role Nest Technical Education",
     githubProofUrl: "https://github.com/karpathy/nanoGPT",
     verificationHash: computeVerificationHash("JM-AI-GPT-7B29A1", "Divyanshu Jethi", "karpathy-nn", "2026-09-15T10:30:00.000Z"),
     verified: true,
@@ -71,7 +71,7 @@ export const SHOWCASE_CERTIFICATES: CourseCertificate[] = [
     recipientName: "Aarav Sharma",
     issuedAt: "2026-09-18T14:20:00.000Z",
     skills: ["React 19", "Next.js App Router", "Server Actions", "PostgreSQL", "Drizzle ORM", "Auth.js"],
-    creatorAttribution: "Curriculum authored by Hitesh Choudhary (Chai aur Code) • Verified by JobMint Technical Education",
+    creatorAttribution: "Curriculum authored by Hitesh Choudhary (Chai aur Code) • Verified by Role Nest Technical Education",
     githubProofUrl: "https://github.com/shadcn/ui",
     verificationHash: computeVerificationHash("JM-FS-NEXT-4D1E89", "Aarav Sharma", "hitesh-chai-fullstack", "2026-09-18T14:20:00.000Z"),
     verified: true,
@@ -85,7 +85,7 @@ export const SHOWCASE_CERTIFICATES: CourseCertificate[] = [
     recipientName: "Ananya Patel",
     issuedAt: "2026-09-20T09:15:00.000Z",
     skills: ["Arrays", "Sliding Window", "Trees & Graphs", "Dynamic Programming", "Bit Manipulation"],
-    creatorAttribution: "Curriculum authored by Striver (takeUforward) • Verified by JobMint Technical Education",
+    creatorAttribution: "Curriculum authored by Striver (takeUforward) • Verified by Role Nest Technical Education",
     githubProofUrl: "https://github.com/kamyu104/LeetCode-Solutions",
     verificationHash: computeVerificationHash("JM-DSA-A2Z-9C3A44", "Ananya Patel", "striver-a2z-dsa", "2026-09-20T09:15:00.000Z"),
     verified: true,
@@ -112,7 +112,7 @@ export function issueCourseCertificate(
     recipientEmail: recipientEmail?.trim(),
     issuedAt,
     skills: course.skillsLearned,
-    creatorAttribution: `Curriculum curated by ${course.creator} • Verified & Certified by JobMint Technical Education`,
+    creatorAttribution: `Curriculum curated by ${course.creator} • Verified & Certified by Role Nest Technical Education`,
     githubProofUrl: githubProofUrl?.trim() || undefined,
     verificationHash,
     verified: true,
@@ -128,7 +128,7 @@ export function lookupCertificate(id: string): CourseCertificate | null {
   // If ID matches format JM-XXX-XXXXXX, reconstruct course and verifiable badge
   // This allows dynamic links shared by users to verify automatically
   const parts = id.toUpperCase().split("-");
-  if (parts.length >= 3 && parts[0] === "JM") {
+  if (parts.length >= 3 && (parts[0] === "JM" || parts[0] === "RN")) {
     // Try to match course by prefix
     const prefix = `${parts[1]}-${parts[2]}`;
     const course =
@@ -145,7 +145,7 @@ export function lookupCertificate(id: string): CourseCertificate | null {
       recipientName: "Verified Graduate",
       issuedAt: new Date().toISOString(),
       skills: course.skillsLearned,
-      creatorAttribution: `Curriculum curated by ${course.creator} • Verified by JobMint Technical Education`,
+      creatorAttribution: `Curriculum curated by ${course.creator} • Verified by Role Nest Technical Education`,
       verificationHash: computeVerificationHash(id, "Verified Graduate", course.id, new Date().toISOString()),
       verified: true,
       status: "VERIFIED",
@@ -155,7 +155,7 @@ export function lookupCertificate(id: string): CourseCertificate | null {
   return null;
 }
 
-export function getLinkedInCertUrl(cert: CourseCertificate, baseUrl = "https://jobmint.ritualdev.in"): string {
+export function getLinkedInCertUrl(cert: CourseCertificate, baseUrl = "https://rolenest.in"): string {
   const certDate = new Date(cert.issuedAt);
   const year = certDate.getFullYear();
   const month = certDate.getMonth() + 1;
@@ -164,7 +164,7 @@ export function getLinkedInCertUrl(cert: CourseCertificate, baseUrl = "https://j
   const params = new URLSearchParams({
     startTask: "CERTIFICATION_NAME",
     name: cert.certificateTitle,
-    organizationName: "JobMint",
+    organizationName: "Role Nest",
     issueYear: year.toString(),
     issueMonth: month.toString(),
     certUrl: verifyUrl,

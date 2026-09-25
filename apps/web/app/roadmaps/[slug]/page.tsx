@@ -188,7 +188,7 @@ export default async function RoadmapDetailPage({ params }: RoadmapPageProps) {
                 Jobs Requiring These Skills
               </h2>
               <p className="text-xs text-slate-500 mt-0.5">
-                Active opportunities on JobMint that look for the skills in this roadmap.
+                Active opportunities on Role Nest that look for the skills in this roadmap.
               </p>
             </div>
             <Link href="/jobs" className="text-xs font-bold text-emerald-600 hover:underline">

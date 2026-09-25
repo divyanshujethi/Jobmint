@@ -18,7 +18,7 @@ const ALL_BADGES: Omit<BadgeInfo, "unlocked">[] = [
     id: "FIRST_STEP",
     name: "First Step",
     emoji: "🌱",
-    description: "Started your daily engineering streak on JobMint.",
+    description: "Started your daily engineering streak on Role Nest.",
     tier: "BRONZE",
   },
   {
@@ -60,7 +60,7 @@ const ALL_BADGES: Omit<BadgeInfo, "unlocked">[] = [
     id: "COMMUNITY_CHAMPION",
     name: "Community Champion",
     emoji: "🤝",
-    description: "Referred 3+ developer peers to JobMint.",
+    description: "Referred 3+ developer peers to Role Nest.",
     tier: "PLATINUM",
   },
 ];

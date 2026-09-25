@@ -32,7 +32,7 @@ export interface StudyPod {
 
 export const BOT_COORDINATOR: PodMember = {
   id: "cohort-bot",
-  name: "JobMint Cohort Bot",
+  name: "Role Nest Cohort Bot",
   avatarInitial: "🤖",
   college: "Verified AI Coordinator",
   roleInterest: "Technical Study Mentor",

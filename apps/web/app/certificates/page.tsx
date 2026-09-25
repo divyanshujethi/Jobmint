@@ -139,7 +139,7 @@ export default function CertificationsHubPage() {
     }
   };
 
-  const filteredJobMintCourses = CURATED_COURSES.filter((c) => {
+  const filteredRoleNestCourses = CURATED_COURSES.filter((c) => {
     if (searchQuery) {
       const q = searchQuery.toLowerCase();
       return (
@@ -177,7 +177,7 @@ export default function CertificationsHubPage() {
             Earn &amp; Verify Free Certificates
           </h1>
           <p className="mx-auto max-w-2xl text-sm sm:text-base text-slate-600">
-            Earn official JobMint Course Completion Diplomas with cryptographic verification, or discover free company-backed virtual work experience simulations (Walmart, JPMorgan, Google Cloud, Cisco).
+            Earn official Role Nest Course Completion Diplomas with cryptographic verification, or discover free company-backed virtual work experience simulations (Walmart, JPMorgan, Google Cloud, Cisco).
           </p>
 
           {/* MAIN TABS */}
@@ -192,7 +192,7 @@ export default function CertificationsHubPage() {
                 }`}
               >
                 <GraduationCap className="h-4 w-4" />
-                <span>JobMint Course Completion Diplomas ({CURATED_COURSES.length})</span>
+                <span>Role Nest Course Completion Diplomas ({CURATED_COURSES.length})</span>
               </button>
 
               <button
@@ -219,7 +219,7 @@ export default function CertificationsHubPage() {
                 type="text"
                 placeholder={
                   activeTab === "JOBMINT"
-                    ? "Search JobMint courses or skills..."
+                    ? "Search Role Nest courses or skills..."
                     : "Search simulations, companies, skills..."
                 }
                 value={searchQuery}
@@ -267,7 +267,7 @@ export default function CertificationsHubPage() {
         {activeTab === "JOBMINT" && (
           <div className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {filteredJobMintCourses.map((course) => (
+              {filteredRoleNestCourses.map((course) => (
                 <Card
                   key={course.id}
                   className="border-slate-200 bg-white text-slate-900 flex flex-col justify-between hover:border-emerald-300 transition-all hover:shadow-md shadow-sm"
@@ -277,7 +277,7 @@ export default function CertificationsHubPage() {
                       <div>
                         <div className="inline-flex items-center gap-1.5 rounded bg-emerald-50 text-emerald-800 border border-emerald-200 px-2 py-0.5 text-[10px] font-mono font-bold mb-2">
                           <Award className="h-3 w-3 text-emerald-600" />
-                          Official JobMint Credential
+                          Official Role Nest Credential
                         </div>
                         <CardTitle className="text-lg font-bold text-slate-900 leading-snug">
                           {course.certificateTitle}

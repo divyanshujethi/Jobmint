@@ -21,7 +21,7 @@ export function applicationViewedTemplate(
           ✓ Timestamp logged in your Application Tracker.
         </div>
         <p style="font-size: 12px; color: #94a3b8; margin-top: 30px;">
-          ${APP_CONFIG.tagline} • Delivered via JobMint Free Notification Gateway
+          ${APP_CONFIG.tagline} • Delivered via Role Nest Free Notification Gateway
         </p>
       </div>
     `,
@@ -72,7 +72,7 @@ export function inactivityNoticeTemplate(
         </div>
         <h2 style="font-size: 18px; color: #0f172a;">Application Update</h2>
         <p style="font-size: 14px; line-height: 1.6; color: #334155;">
-          You applied for <strong>${jobTitle}</strong> at <strong>${companyName}</strong> ${daysAgo} days ago. The employer has not viewed your application yet on JobMint.
+          You applied for <strong>${jobTitle}</strong> at <strong>${companyName}</strong> ${daysAgo} days ago. The employer has not viewed your application yet on Role Nest.
         </p>
         <div style="background-color: #fffbeb; border: 1px solid #fde68a; border-radius: 8px; padding: 14px; margin: 20px 0; font-size: 13px; color: #92400e;">
           💡 We recommend exploring similar active opportunities rather than waiting.

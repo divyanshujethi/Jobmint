@@ -562,7 +562,7 @@ export function InteractiveStudyCanvas() {
                     <GraduationCap className="h-5 w-5 text-emerald-400 shrink-0" />
                     <div>
                       <div className="font-bold text-white">Interactive Certification Track</div>
-                      <div className="text-[11px] text-emerald-200/80">Includes verifiable JobMint course diploma</div>
+                      <div className="text-[11px] text-emerald-200/80">Includes verifiable Role Nest course diploma</div>
                     </div>
                   </div>
                   <Link href={`/courses/${selectedNode.matchedCourseId}/certificate`}>

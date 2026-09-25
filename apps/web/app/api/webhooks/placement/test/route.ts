@@ -21,14 +21,14 @@ export async function POST(req: NextRequest) {
       truthTeller: { reviewRate: 91, medianFirstReviewDays: 1.9 },
     };
 
-    const baseUrl = process.env.NEXTAUTH_URL || "https://jobmint.ritualdev.in";
+    const baseUrl = process.env.NEXTAUTH_URL || "https://rolenest.in";
 
     // Prepare rich payload based on target platform
     let payload: any = {};
 
     if (platform === "discord" || trimmedUrl.includes("discord.com")) {
       payload = {
-        username: "JobMint Placement Alerts",
+        username: "Role Nest Placement Alerts",
         avatar_url: `${baseUrl}/icon-192.png`,
         embeds: [
           {
@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
               { name: "Truth Teller Status", value: `${sampleJob.truthTeller.reviewRate}% Review Rate • ${sampleJob.truthTeller.medianFirstReviewDays} Days Median Review`, inline: false },
             ],
             footer: {
-              text: "JobMint College Syndication Engine • 100% Free & Transparent",
+              text: "Role Nest College Syndication Engine • 100% Free & Transparent",
             },
             timestamp: new Date().toISOString(),
           },
@@ -53,7 +53,7 @@ export async function POST(req: NextRequest) {
     } else {
       // Slack payload
       payload = {
-        text: `🎓 *New Verified Opening Alert from JobMint*:\n*${sampleJob.title}* at *${sampleJob.companyName}*\nCompensation: ${sampleJob.salaryOrStipend} | Mode: ${sampleJob.workMode}\nSkills: ${sampleJob.skills.slice(0, 4).join(", ")}\nLink: ${baseUrl}/jobs/${sampleJob.slug}`,
+        text: `🎓 *New Verified Opening Alert from Role Nest*:\n*${sampleJob.title}* at *${sampleJob.companyName}*\nCompensation: ${sampleJob.salaryOrStipend} | Mode: ${sampleJob.workMode}\nSkills: ${sampleJob.skills.slice(0, 4).join(", ")}\nLink: ${baseUrl}/jobs/${sampleJob.slug}`,
       };
     }
 

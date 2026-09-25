@@ -7,7 +7,7 @@ export async function crawlLeverSite(siteName: string, companyName: string): Pro
   const results: RawCrawledJob[] = [];
   try {
     const response = await fetch(`https://api.lever.co/v0/postings/${siteName}?mode=json`, {
-      headers: { 'User-Agent': 'JobMint-TruthAligator/1.0' },
+      headers: { 'User-Agent': 'Role Nest-TruthAligator/1.0' },
     });
 
     if (!response.ok) {

@@ -63,7 +63,7 @@ export default function PlaylistsPage() {
               <div>
                 <span className="font-bold text-slate-900">Looking for Interactive Courses with Diplomas?</span>
                 <p className="text-[11px] text-slate-600">
-                  Switch to our Interactive Courses to submit project benchmarks and earn cryptographically verifiable JobMint certificates.
+                  Switch to our Interactive Courses to submit project benchmarks and earn cryptographically verifiable Role Nest certificates.
                 </p>
               </div>
             </div>

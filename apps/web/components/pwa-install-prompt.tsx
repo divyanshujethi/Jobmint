@@ -105,10 +105,10 @@ export function PwaInstallPrompt() {
           <div className="flex items-start justify-between gap-3">
             <div className="flex items-center gap-3">
               <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-600 text-white font-extrabold text-lg shadow-sm">
-                J
+                R
               </div>
               <div>
-                <h4 className="text-sm font-bold text-slate-900">Install JobMint App</h4>
+                <h4 className="text-sm font-bold text-slate-900">Install Role Nest App</h4>
                 <p className="text-xs text-slate-500 mt-0.5">
                   100% Free • Fast Offline Roadmaps &amp; Live Job Alerts
                 </p>
@@ -148,7 +148,7 @@ export function PwaInstallPrompt() {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2 text-slate-900 font-bold text-lg">
                 <Smartphone className="h-5 w-5 text-emerald-600" />
-                How to Install JobMint App
+                How to Install Role Nest App
               </div>
               <button
                 onClick={() => setManualInstructions(false)}
@@ -159,7 +159,7 @@ export function PwaInstallPrompt() {
             </div>
 
             <p className="text-xs text-slate-600 leading-relaxed">
-              JobMint is a Progressive Web App (PWA) with full offline support and instant loading. You can install it directly from your browser:
+              Role Nest is a Progressive Web App (PWA) with full offline support and instant loading. You can install it directly from your browser:
             </p>
 
             <div className="space-y-2.5 text-xs text-slate-700 bg-slate-50 border border-slate-200 p-4 rounded-2xl">

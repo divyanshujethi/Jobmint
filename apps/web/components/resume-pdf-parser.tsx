@@ -67,7 +67,7 @@ Languages & Frameworks: React, Next.js, TypeScript, JavaScript, Node.js, Python,
 Databases & Cloud: PostgreSQL, SQLite, Cloudflare R2, Docker, Git, REST APIs
 
 PROJECTS
-1. JobMint Portal (React, Next.js, TypeScript, PostgreSQL)
+1. Role Nest Portal (React, Next.js, TypeScript, PostgreSQL)
 - Developed an open-source recruitment platform with deterministic matching algorithms.
 - Built responsive mobile & web interfaces adhering to WCAG accessibility guidelines.
 - Integrated Cloudflare R2 presigned URLs for zero-egress document storage.

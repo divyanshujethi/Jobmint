@@ -11,7 +11,7 @@ export async function crawlGreenhouseBoard(boardToken: string, companyName: stri
   const results: RawCrawledJob[] = [];
   try {
     const response = await fetch(`https://api.greenhouse.io/v1/boards/${boardToken}/jobs`, {
-      headers: { 'User-Agent': 'JobMint-TruthAligator/1.0' },
+      headers: { 'User-Agent': 'Role Nest-TruthAligator/1.0' },
     });
 
     if (!response.ok) {

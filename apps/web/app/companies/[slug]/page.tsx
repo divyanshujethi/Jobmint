@@ -104,7 +104,7 @@ export default async function CompanyDetailsPage({ params }: CompanyPageProps) {
           </h2>
         </div>
         <p className="mt-1 text-xs text-slate-600">
-          This data is derived directly from candidate interactions on JobMint. We do not label companies &quot;good&quot; or &quot;bad&quot; — we show the observed facts.
+          This data is derived directly from candidate interactions on Role Nest. We do not label companies &quot;good&quot; or &quot;bad&quot; — we show the observed facts.
         </p>
 
         <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-4">

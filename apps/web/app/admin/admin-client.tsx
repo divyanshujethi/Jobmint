@@ -69,7 +69,7 @@ export function SuperAdminPanelClient() {
     return (
       <div className="min-h-screen bg-slate-950 text-white flex flex-col items-center justify-center space-y-4">
         <RefreshCw className="h-8 w-8 text-emerald-400 animate-spin" />
-        <p className="text-sm font-mono text-slate-400">Loading JobMint SuperAdmin Console...</p>
+        <p className="text-sm font-mono text-slate-400">Loading Role Nest SuperAdmin Console...</p>
       </div>
     );
   }
@@ -139,7 +139,7 @@ export function SuperAdminPanelClient() {
               </span>
             </div>
             <h1 className="text-lg font-bold text-white leading-tight">
-              JobMint Governance & Operations Console
+              Role Nest Governance & Operations Console
             </h1>
           </div>
         </div>
@@ -468,7 +468,7 @@ export function SuperAdminPanelClient() {
               </div>
               <h3 className="text-xl font-bold text-white">How This Admin Panel Is Secured</h3>
               <p className="text-xs text-slate-400 mt-1 max-w-2xl leading-relaxed">
-                JobMint implements defense-in-depth security to guarantee unauthorized visitors, candidates, or recruiters can never execute governance commands.
+                Role Nest implements defense-in-depth security to guarantee unauthorized visitors, candidates, or recruiters can never execute governance commands.
               </p>
             </div>
 

@@ -273,7 +273,7 @@ export async function POST(req: NextRequest) {
     await db.insert(applicationEvents).values({
       applicationId: newApp.id,
       eventType: "APPLIED",
-      note: "Application successfully received by JobMint telemetry with Truth Teller active.",
+      note: "Application successfully received by Role Nest telemetry with Truth Teller active.",
     });
 
     return NextResponse.json({

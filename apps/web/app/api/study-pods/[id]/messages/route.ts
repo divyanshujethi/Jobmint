@@ -7,7 +7,7 @@ const podMessages: Record<string, Array<{ id: string; sender: string; text: stri
   "ai-llm-builders-pod": [
     {
       id: "msg-welcome-ai",
-      sender: "JobMint Cohort Bot",
+      sender: "Role Nest Cohort Bot",
       role: "AI Study Coordinator",
       text: "Welcome to the AI & LLM Systems Study Pod! Ask me any questions on PyTorch, Transformers, LoRA fine-tuning, or RAG architecture, or coordinate STAR mock interviews with your cohort.",
       timestamp: "Today",
@@ -17,7 +17,7 @@ const podMessages: Record<string, Array<{ id: string; sender: string; text: stri
   "full-stack-nextjs-pod": [
     {
       id: "msg-welcome-fs",
-      sender: "JobMint Cohort Bot",
+      sender: "Role Nest Cohort Bot",
       role: "AI Study Coordinator",
       text: "Welcome to the Full-Stack Next.js 15 & PostgreSQL Pod! Post questions about Server Components, Server Actions, Drizzle ORM, or practice system design interview questions here.",
       timestamp: "Today",
@@ -27,7 +27,7 @@ const podMessages: Record<string, Array<{ id: string; sender: string; text: stri
   "data-science-analytics-pod": [
     {
       id: "msg-welcome-ds",
-      sender: "JobMint Cohort Bot",
+      sender: "Role Nest Cohort Bot",
       role: "AI Study Coordinator",
       text: "Welcome to the Data Science Pod! Coordinate your daily SQL window function practice, EDA benchmarks, and scikit-learn modeling challenges here.",
       timestamp: "Today",
@@ -37,7 +37,7 @@ const podMessages: Record<string, Array<{ id: string; sender: string; text: stri
   "mobile-react-native-pod": [
     {
       id: "msg-welcome-rn",
-      sender: "JobMint Cohort Bot",
+      sender: "Role Nest Cohort Bot",
       role: "AI Study Coordinator",
       text: "Welcome to the Mobile Development Pod! Ask about React Native Fabric architecture, Expo SDK 52, offline SQLite sync, or native device permission flows.",
       timestamp: "Today",
@@ -71,7 +71,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
   const list = podMessages[id] || [
     {
       id: `msg-welcome-${id}`,
-      sender: "JobMint Cohort Bot",
+      sender: "Role Nest Cohort Bot",
       role: "AI Study Coordinator",
       text: `Welcome to the ${id.replace(/-/g, " ")} Study Pod! Use this room to coordinate mock interview times and discuss technical roadmap milestones.`,
       timestamp: "Today",
@@ -90,7 +90,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
     const session = await auth();
     if (!session || !session.user) {
       return NextResponse.json(
-        { error: "Authentication required. Please sign in to JobMint to post messages and chat in this Study Pod." },
+        { error: "Authentication required. Please sign in to Role Nest to post messages and chat in this Study Pod." },
         { status: 401 }
       );
     }
@@ -120,11 +120,11 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
 
     podMessages[id].push(userMessage);
 
-    // 2. Generate working JobMint Cohort Bot response
+    // 2. Generate working Role Nest Cohort Bot response
     let botReplyText = "";
     try {
       if (process.env.GROQ_API_KEY) {
-        const botPrompt = `You are "JobMint Cohort Bot", an encouraging, highly knowledgeable AI study coordinator helping Indian college engineering students in the "${id}" Study Pod.
+        const botPrompt = `You are "Role Nest Cohort Bot", an encouraging, highly knowledgeable AI study coordinator helping Indian college engineering students in the "${id}" Study Pod.
 A student named ${finalSender} just wrote: "${text.trim()}".
 Task: Provide a concise, high-signal technical response (2-3 short sentences max). If they asked a technical question or discussed code, answer accurately with concrete tips or STAR interview advice. If they greeted, welcome them warmly and suggest a specific topic to study today. Do not include markdown headers or conversational filler like 'Sure, here is'.`;
 
@@ -143,7 +143,7 @@ Task: Provide a concise, high-signal technical response (2-3 short sentences max
 
     const botMessage = {
       id: `msg-bot-${Date.now()}`,
-      sender: "JobMint Cohort Bot",
+      sender: "Role Nest Cohort Bot",
       role: "AI Study Coordinator",
       text: botReplyText,
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),

@@ -17,7 +17,7 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 
 export const metadata = {
-  title: "DPDP Act 2023 & Privacy Policy — JobMint",
+  title: "DPDP Act 2023 & Privacy Policy — Role Nest",
   description:
     "Comprehensive Privacy Policy & Statutory Compliance with the Indian Digital Personal Data Protection (DPDP) Act, 2023 and GDPR.",
 };
@@ -84,7 +84,7 @@ export default function PrivacyPage() {
             Statutory Notice under Section 5 of the Digital Personal Data Protection Act, 2023
           </div>
           <p className="text-xs sm:text-sm text-emerald-800 leading-relaxed">
-            This notice accompanies the collection of personal data by <strong>JobMint (RitualDev Technologies)</strong>, acting as a Data Fiduciary under the DPDP Act 2023. As a Data Principal (candidate or employer), you are entitled to unambiguous notice, granular consent controls, free data export, and swift grievance redressal through our designated Data Protection Officer.
+            This notice accompanies the collection of personal data by <strong>Role Nest (RitualDev Technologies)</strong>, acting as a Data Fiduciary under the DPDP Act 2023. As a Data Principal (candidate or employer), you are entitled to unambiguous notice, granular consent controls, free data export, and swift grievance redressal through our designated Data Protection Officer.
           </p>
         </div>
 
@@ -97,7 +97,7 @@ export default function PrivacyPage() {
                 1. Itemised Personal Data We Collect (DPDP Sec. 5(1))
               </h2>
               <p>
-                When you access JobMint as a student, fresher, or recruiter, we collect only strictly necessary data:
+                When you access Role Nest as a student, fresher, or recruiter, we collect only strictly necessary data:
               </p>
               <ul className="list-disc pl-5 space-y-1.5 text-xs sm:text-sm text-slate-600">
                 <li>
@@ -133,7 +133,7 @@ export default function PrivacyPage() {
                 <li>Matching your skill profile to verified fresher job and internship postings.</li>
                 <li>Conducting automated skill diagnostic tests and gap-to-offer roadmaps.</li>
                 <li>Delivering your application securely to the hiring manager when you click &ldquo;Apply&rdquo;.</li>
-                <li>Issuing cryptographic proof-of-work completion diplomas for JobMint curricula.</li>
+                <li>Issuing cryptographic proof-of-work completion diplomas for Role Nest curricula.</li>
                 <li>Sending 7-day transparent application status alerts (Anti-Ghosting Wall).</li>
               </ol>
             </section>
@@ -144,7 +144,7 @@ export default function PrivacyPage() {
                 3. Consent Architecture &amp; Right to Withdraw (DPDP Sec. 6)
               </h2>
               <p>
-                Consent on JobMint is free, specific, informed, unconditional, and unambiguous. You have the statutory right to withdraw your consent at any time with equal ease. You can modify your consent preferences regarding recruiter visibility, alerts, and analytics via our on-screen DPDP Consent Manager or in Account Settings.
+                Consent on Role Nest is free, specific, informed, unconditional, and unambiguous. You have the statutory right to withdraw your consent at any time with equal ease. You can modify your consent preferences regarding recruiter visibility, alerts, and analytics via our on-screen DPDP Consent Manager or in Account Settings.
               </p>
             </section>
 
@@ -160,7 +160,7 @@ export default function PrivacyPage() {
                     Right to Access &amp; Data Portability (Section 11)
                   </div>
                   <p className="text-xs text-slate-600">
-                    You can request a summary of your personal data processed by JobMint. You can instantly download a complete JSON export of your profile, applications, and certificates via{" "}
+                    You can request a summary of your personal data processed by Role Nest. You can instantly download a complete JSON export of your profile, applications, and certificates via{" "}
                     <Link href="/settings/account" className="text-emerald-700 underline font-semibold">
                       Settings &gt; Account &gt; Download My Data
                     </Link>.
@@ -198,7 +198,7 @@ export default function PrivacyPage() {
                 5. Protection of Children and Minors (DPDP Sec. 9)
               </h2>
               <p>
-                JobMint is an engineering career platform intended for adults, college students, and aspiring software professionals. We do not engage in targeted advertising directed at children, nor do we track behavior or process personal data of individuals under 18 years without verifiable parental/guardian consent.
+                Role Nest is an engineering career platform intended for adults, college students, and aspiring software professionals. We do not engage in targeted advertising directed at children, nor do we track behavior or process personal data of individuals under 18 years without verifiable parental/guardian consent.
               </p>
             </section>
 
@@ -208,7 +208,7 @@ export default function PrivacyPage() {
                 6. Grievance Redressal Officer &amp; Statutory SLA (DPDP Sec. 13)
               </h2>
               <p>
-                In compliance with Section 13 of the Digital Personal Data Protection Act, 2023, JobMint has appointed a designated Grievance Redressal Officer to address complaints, data rights requests, and security disclosures.
+                In compliance with Section 13 of the Digital Personal Data Protection Act, 2023, Role Nest has appointed a designated Grievance Redressal Officer to address complaints, data rights requests, and security disclosures.
               </p>
 
               <div className="rounded-2xl border-2 border-slate-200 bg-white p-5 space-y-3 shadow-sm">
@@ -264,14 +264,14 @@ export default function PrivacyPage() {
                 7. Technical Safeguards &amp; Breach Protocol (DPDP Sec. 8(5) &amp; 8(6))
               </h2>
               <p>
-                We maintain state-of-the-art organizational and technical measures: AES-256 and HMAC-SHA256 encryption, role-based database permissions, NVMe private token gating, and automated threat logs. In the unlikely event of a personal data breach, JobMint will notify the <strong>Data Protection Board of India</strong> and affected Data Principals in the prescribed statutory format.
+                We maintain state-of-the-art organizational and technical measures: AES-256 and HMAC-SHA256 encryption, role-based database permissions, NVMe private token gating, and automated threat logs. In the unlikely event of a personal data breach, Role Nest will notify the <strong>Data Protection Board of India</strong> and affected Data Principals in the prescribed statutory format.
               </p>
             </section>
 
             <div className="pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
               <div className="flex items-center gap-2">
                 <ShieldCheck className="h-4 w-4 text-emerald-600" />
-                <span>JobMint DPDP Act 2023 &amp; MeitY Governance Standard</span>
+                <span>Role Nest DPDP Act 2023 &amp; MeitY Governance Standard</span>
               </div>
               <div className="flex items-center gap-3">
                 <Link href="/terms" className="hover:text-emerald-600 underline">Terms and Conditions</Link>

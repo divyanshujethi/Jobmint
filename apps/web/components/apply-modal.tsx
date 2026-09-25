@@ -354,7 +354,7 @@ export function ApplyModal({
                 </div>
               </div>
               <p className="text-[10px] text-slate-500">
-                Recruiters can test your live app directly in the 1-Click Sandbox without leaving JobMint.
+                Recruiters can test your live app directly in the 1-Click Sandbox without leaving Role Nest.
               </p>
             </div>
 

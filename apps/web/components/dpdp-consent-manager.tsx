@@ -106,7 +106,7 @@ export function DPDPConsentManager() {
                 </span>
               </div>
               <p className="text-xs text-slate-300 leading-relaxed">
-                JobMint operates in strict accordance with the Digital Personal Data Protection Act, 2023. We collect and process technical credentials exclusively for verified job matching, skill gap diagnostics, and proof-of-work diplomas. <strong>We do not sell personal data to advertisers.</strong>
+                Role Nest operates in strict accordance with the Digital Personal Data Protection Act, 2023. We collect and process technical credentials exclusively for verified job matching, skill gap diagnostics, and proof-of-work diplomas. <strong>We do not sell personal data to advertisers.</strong>
               </p>
               <div className="text-[11px] text-slate-400 flex items-center gap-3">
                 <Link href="/privacy" className="text-emerald-400 hover:underline flex items-center gap-1">

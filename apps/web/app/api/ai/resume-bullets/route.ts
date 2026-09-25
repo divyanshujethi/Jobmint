@@ -10,7 +10,7 @@ export async function POST(req: NextRequest) {
     if (!session || !session.user) {
       return NextResponse.json(
         {
-          error: "Authentication required: Please sign in to JobMint to use the ATS Resume Bullet Assistant.",
+          error: "Authentication required: Please sign in to Role Nest to use the ATS Resume Bullet Assistant.",
           requiresAuth: true,
         },
         { status: 401 }

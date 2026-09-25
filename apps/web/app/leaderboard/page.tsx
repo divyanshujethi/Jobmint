@@ -228,10 +228,10 @@ export default function LeaderboardPage() {
     setSandboxOpen(true);
   };
 
-  const referralCode = streakData?.referralCode || "JM-JOIN";
+  const referralCode = streakData?.referralCode || "RN-JOIN";
   const referralUrl = typeof window !== "undefined"
     ? `${window.location.origin}/login?ref=${referralCode}`
-    : `https://jobmint.ritualdev.in/login?ref=${referralCode}`;
+    : `https://rolenest.in/login?ref=${referralCode}`;
 
   const copyReferralLink = () => {
     navigator.clipboard.writeText(referralUrl);
@@ -242,21 +242,21 @@ export default function LeaderboardPage() {
   const shareCampusBattle = () => {
     const collegeTag = userCollege ? `${userCollege}` : "our college";
     const text = encodeURIComponent(
-      `🚨 Representing ${collegeTag} on the National Inter-College Engineering Leaderboard on JobMint! Join using our campus invite to boost our college rank: ${referralUrl}`
+      `🚨 Representing ${collegeTag} on the National Inter-College Engineering Leaderboard on Role Nest! Join using our campus invite to boost our college rank: ${referralUrl}`
     );
     window.open(`https://api.whatsapp.com/send?text=${text}`, "_blank");
   };
 
   const shareOnWhatsApp = () => {
     const text = encodeURIComponent(
-      `Hey! Check out JobMint - the zero-ghosting developer platform with verified dev scores, free course diplomas, and honest hiring stats. Join using my invite: ${referralUrl}`
+      `Hey! Check out Role Nest - the zero-ghosting developer platform with verified dev scores, free course diplomas, and honest hiring stats. Join using my invite: ${referralUrl}`
     );
     window.open(`https://api.whatsapp.com/send?text=${text}`, "_blank");
   };
 
   const shareOnTwitter = () => {
     const text = encodeURIComponent(
-      `Building my daily engineering streak on @JobMint! Verify real GitHub commits, earn DPDP-compliant course diplomas, and get hired with honest stats. ${referralUrl}`
+      `Building my daily engineering streak on @Role Nest! Verify real GitHub commits, earn DPDP-compliant course diplomas, and get hired with honest stats. ${referralUrl}`
     );
     window.open(`https://twitter.com/intent/tweet?text=${text}`, "_blank");
   };
@@ -274,7 +274,7 @@ export default function LeaderboardPage() {
         <div className="text-center space-y-3">
           <div className="inline-flex items-center gap-2 rounded-full bg-emerald-50 border border-emerald-200 px-3.5 py-1 text-xs font-mono font-semibold text-emerald-800">
             <Trophy className="h-4 w-4 text-emerald-600" />
-            JobMint Builder Pulse &amp; Inter-College Arena
+            Role Nest Builder Pulse &amp; Inter-College Arena
           </div>
           <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-slate-900">
             Leaderboard &amp; Campus Battles
@@ -508,7 +508,7 @@ export default function LeaderboardPage() {
                 <div>
                   <h3 className="font-bold text-slate-900 text-base flex items-center gap-2">
                     <Trophy className="h-5 w-5 text-amber-500" />
-                    Top Streak Builders on JobMint
+                    Top Streak Builders on Role Nest
                   </h3>
                   <p className="text-xs text-slate-500 mt-0.5">
                     Real candidate streaks querying the live database. Ranked by active days, XP, and badges.
@@ -540,7 +540,7 @@ export default function LeaderboardPage() {
                           <div className="mx-auto max-w-sm space-y-2">
                             <Trophy className="h-8 w-8 text-slate-300 mx-auto" />
                             <p className="font-bold text-slate-700 text-sm">No builders on the leaderboard yet</p>
-                            <p className="text-xs text-slate-500">Sign in and click Daily Check-in to be #1 on JobMint!</p>
+                            <p className="text-xs text-slate-500">Sign in and click Daily Check-in to be #1 on Role Nest!</p>
                           </div>
                         </td>
                       </tr>
@@ -717,7 +717,7 @@ export default function LeaderboardPage() {
                     {colleges.length === 0 ? (
                       <tr>
                         <td colSpan={6} className="py-12 text-center text-slate-500">
-                          Select your college above to create the first campus team on JobMint!
+                          Select your college above to create the first campus team on Role Nest!
                         </td>
                       </tr>
                     ) : (
@@ -1035,7 +1035,7 @@ export default function LeaderboardPage() {
                   Developer Peer Referral Network
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                  Share your unique referral link with engineering classmates and teammates. When they sign up on JobMint, they receive a free streak freeze and you earn XP plus badge milestone rewards.
+                  Share your unique referral link with engineering classmates and teammates. When they sign up on Role Nest, they receive a free streak freeze and you earn XP plus badge milestone rewards.
                 </p>
               </div>
 

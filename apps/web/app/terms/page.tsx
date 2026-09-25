@@ -3,7 +3,7 @@ import { ShieldCheck, AlertTriangle, ArrowLeft, FileText } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 
 export const metadata = {
-  title: "Terms and Conditions — JobMint",
+  title: "Terms and Conditions — Role Nest",
   description: "Official terms of service, platform disclaimers, proof-of-work guidelines, and job guarantee disclaimers.",
 };
 
@@ -25,7 +25,7 @@ export default function TermsPage() {
             Terms and Conditions
           </h1>
           <p className="text-sm text-slate-600 mt-1">
-            Last Updated: September 2026. Please read these terms carefully before accessing or using JobMint.
+            Last Updated: September 2026. Please read these terms carefully before accessing or using Role Nest.
           </p>
         </div>
 
@@ -36,7 +36,7 @@ export default function TermsPage() {
             Important Notice: No Employment or Internship Guarantee
           </div>
           <p className="text-xs sm:text-sm text-amber-800 leading-relaxed">
-            <strong>JobMint is an open, transparent discovery and proof-of-work hiring ecosystem.</strong> We provide verified listings, skill diagnostics, interactive course roadmaps, and recruiter tracking transparency.
+            <strong>Role Nest is an open, transparent discovery and proof-of-work hiring ecosystem.</strong> We provide verified listings, skill diagnostics, interactive course roadmaps, and recruiter tracking transparency.
             <strong> We DO NOT guarantee, warrant, or promise employment, internships, interview callbacks, offers, or compensation of any kind.</strong> All hiring choices, interview invitations, and final job decisions rest entirely within the independent discretion of third-party employers and companies.
           </p>
         </div>
@@ -49,7 +49,7 @@ export default function TermsPage() {
                 1. Acceptance of Terms
               </h2>
               <p>
-                By registering, accessing, or using the JobMint web application, API endpoints, feeds, or developer tools, you signify that you have read, understood, and agreed to be bound by these Terms and our Privacy Policy. If you do not agree to these terms, you must discontinue use immediately.
+                By registering, accessing, or using the Role Nest web application, API endpoints, feeds, or developer tools, you signify that you have read, understood, and agreed to be bound by these Terms and our Privacy Policy. If you do not agree to these terms, you must discontinue use immediately.
               </p>
             </section>
 
@@ -58,7 +58,7 @@ export default function TermsPage() {
                 2. Student and Candidate Roles
               </h2>
               <p>
-                JobMint offers candidate accounts free of charge. Candidates agree to provide authentic information regarding their technical background, GitHub repositories, and resumes. Submitting fraudulent credentials, malicious code payloads, automated bots, or spam applications is grounds for permanent platform revocation.
+                Role Nest offers candidate accounts free of charge. Candidates agree to provide authentic information regarding their technical background, GitHub repositories, and resumes. Submitting fraudulent credentials, malicious code payloads, automated bots, or spam applications is grounds for permanent platform revocation.
               </p>
             </section>
 
@@ -71,7 +71,7 @@ export default function TermsPage() {
                   <strong>Resume &amp; Application Data:</strong> Uploaded resumes and ATS builder outputs are encrypted and stored on private NVMe storage. Access is strictly mediated via HMAC-SHA256 time-limited streaming URLs. We never sell, rent, or leak candidate resumes to commercial third parties.
                 </p>
                 <p>
-                  <strong>GitHub Tokens &amp; Metadata:</strong> When performing GitHub account verification or project validation, JobMint queries public repository metadata and commit histories. GitHub OAuth tokens are used solely for read-only verification of authentic technical authorship.
+                  <strong>GitHub Tokens &amp; Metadata:</strong> When performing GitHub account verification or project validation, Role Nest queries public repository metadata and commit histories. GitHub OAuth tokens are used solely for read-only verification of authentic technical authorship.
                 </p>
                 <p>
                   <strong>Code Submissions &amp; POTD Sandboxing:</strong> Code executed via our Problem of the Day (POTD) runner is isolated client-side using browser Web Workers and WebAssembly sandboxes. Submissions are never used to train public machine learning models.
@@ -84,8 +84,8 @@ export default function TermsPage() {
                 4. Courses, Certificates, and Learning Tracks
               </h2>
               <p>
-                JobMint curates third-party open educational resources (including YouTube playlists from top educators, Harvard CS50, and Forage Virtual Internships).
-                Completion certificates issued directly by JobMint verify mastery of coursework, capstone submissions, or study tracks on our platform. <strong>JobMint certificates represent completion of learning modules and proof-of-work; they do not represent accredited university degrees or government licensing.</strong>
+                Role Nest curates third-party open educational resources (including YouTube playlists from top educators, Harvard CS50, and Forage Virtual Internships).
+                Completion certificates issued directly by Role Nest verify mastery of coursework, capstone submissions, or study tracks on our platform. <strong>Role Nest certificates represent completion of learning modules and proof-of-work; they do not represent accredited university degrees or government licensing.</strong>
               </p>
             </section>
 
@@ -94,7 +94,7 @@ export default function TermsPage() {
                 4. Recruiter Transparency and Anti-Ghosting Metrics
               </h2>
               <p>
-                To protect candidates, JobMint calculates community response metrics (Median Response Time, Review Rate, Ghosting Alerts). Employers posting on JobMint consent to aggregated response times being displayed to users. JobMint reserves the right to unpublish job listings that violate transparency rules or show signs of ghost recruiting.
+                To protect candidates, Role Nest calculates community response metrics (Median Response Time, Review Rate, Ghosting Alerts). Employers posting on Role Nest consent to aggregated response times being displayed to users. Role Nest reserves the right to unpublish job listings that violate transparency rules or show signs of ghost recruiting.
               </p>
             </section>
 
@@ -112,7 +112,7 @@ export default function TermsPage() {
                 6. Limitation of Liability
               </h2>
               <p>
-                Under no circumstances shall JobMint, RitualDev, or its maintainers be liable for any direct, indirect, incidental, or consequential damages resulting from job rejections, recruiter actions, third-party platform availability, or reliance on information presented on this site.
+                Under no circumstances shall Role Nest, RitualDev, or its maintainers be liable for any direct, indirect, incidental, or consequential damages resulting from job rejections, recruiter actions, third-party platform availability, or reliance on information presented on this site.
               </p>
             </section>
 

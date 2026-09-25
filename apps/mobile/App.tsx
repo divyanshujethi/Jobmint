@@ -31,7 +31,7 @@ export default function App() {
       case "assistant":
         return { title: "Resume AI", subtitle: "ATS Bullet Optimizer & Action Verbs" };
       default:
-        return { title: "JobMint", subtitle: "Transparency Job Platform" };
+        return { title: "Role Nest", subtitle: "Transparency Job Platform" };
     }
   };
 

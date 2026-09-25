@@ -171,7 +171,7 @@ export default function CourseCertificatePage({
               Student Authentication Required
             </h2>
             <p className="text-sm text-slate-600 max-w-xl mx-auto leading-relaxed">
-              To protect the integrity of JobMint credentials, certificates can no longer be generated with arbitrary names. <strong>You must sign in with a verified account</strong> so your official diploma is permanently registered in our database, signed with HMAC-SHA256, and verified against your real profile.
+              To protect the integrity of Role Nest credentials, certificates can no longer be generated with arbitrary names. <strong>You must sign in with a verified account</strong> so your official diploma is permanently registered in our database, signed with HMAC-SHA256, and verified against your real profile.
             </p>
             <div className="pt-2">
               <Link href={`/login?callbackUrl=/courses/${course.id}/certificate`}>
@@ -363,7 +363,7 @@ export default function CourseCertificatePage({
       {issuedCert && (
         <div className="mx-auto max-w-5xl mt-6 print:mt-0 print:max-w-none">
           <div
-            id="jobmint-certificate"
+            id="rolenest-certificate"
             className="relative bg-[#0d131f] text-slate-100 rounded-3xl border-8 border-[#c9a84d] p-8 sm:p-14 shadow-2xl overflow-hidden print:border-8 print:border-[#c9a84d] print:shadow-none print:m-0 print:rounded-none"
             style={{
               backgroundImage:
@@ -382,7 +382,7 @@ export default function CourseCertificatePage({
             <div className="text-center space-y-2 relative z-10">
               <div className="flex items-center justify-center gap-2 text-emerald-400 text-xs font-mono font-bold tracking-widest uppercase">
                 <Sparkles className="h-4 w-4" />
-                JobMint Technical Education &amp; Verified Proof-of-Work
+                Role Nest Technical Education &amp; Verified Proof-of-Work
                 <Sparkles className="h-4 w-4" />
               </div>
               <h2 className="text-2xl sm:text-4xl font-serif font-black tracking-tight text-[#e6ca65] uppercase drop-shadow">
@@ -457,7 +457,7 @@ export default function CourseCertificatePage({
                 <div className="font-serif italic text-lg text-[#e6ca65]">Sakshi Sharma</div>
                 <div className="border-t border-slate-700 pt-1 text-[11px] font-mono text-slate-400 uppercase">
                   Head of Engineering Curricula<br />
-                  JobMint Technical Education
+                  Role Nest Technical Education
                 </div>
               </div>
 
@@ -466,7 +466,7 @@ export default function CourseCertificatePage({
                   <Award className="h-8 w-8 text-[#e6ca65]" />
                 </div>
                 <div className="text-[10px] font-mono text-[#c9a84d] font-bold tracking-widest uppercase">
-                  JobMint Verified Seal
+                  Role Nest Verified Seal
                 </div>
               </div>
 
@@ -474,7 +474,7 @@ export default function CourseCertificatePage({
                 <div className="font-serif italic text-lg text-[#e6ca65]">Divyanshu Jethi</div>
                 <div className="border-t border-slate-700 pt-1 text-[11px] font-mono text-slate-400 uppercase">
                   Founder &amp; Chief Architect<br />
-                  JobMint Platform
+                  Role Nest Platform
                 </div>
               </div>
             </div>
@@ -499,13 +499,13 @@ export default function CourseCertificatePage({
                   href={`/certificates/verify/${issuedCert.id}`}
                   className="text-emerald-400 hover:underline"
                 >
-                  jobmint.ritualdev.in/certificates/verify/{issuedCert.id}
+                  rolenest.in/certificates/verify/{issuedCert.id}
                 </Link>
               </div>
             </div>
 
             <div className="mt-4 text-[9px] font-mono text-slate-500 text-center relative z-10 leading-tight">
-              Issued in compliance with Sections 5 &amp; 6 of the Indian Digital Personal Data Protection (DPDP) Act, 2023. Certified proof-of-work certificate under JobMint Open Education Standards; not an accredited degree.
+              Issued in compliance with Sections 5 &amp; 6 of the Indian Digital Personal Data Protection (DPDP) Act, 2023. Certified proof-of-work certificate under Role Nest Open Education Standards; not an accredited degree.
             </div>
           </div>
         </div>

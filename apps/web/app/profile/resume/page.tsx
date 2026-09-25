@@ -5,7 +5,7 @@ import { HardDrive, ShieldCheck, Sparkles, FileSearch, ArrowRight, Lock } from "
 import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
-  title: "Persistent Resume Storage — JobMint",
+  title: "Persistent Resume Storage — Role Nest",
   description: "Secure, zero-cost 200 GB OCI NVMe resume storage with cryptographic SHA-256 deduplication and token-gated recruiter access.",
 };
 

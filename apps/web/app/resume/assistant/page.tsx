@@ -120,7 +120,7 @@ export default function ResumeAssistantPage() {
       if (res.status === 401 || data.requiresAuth) {
         setRequiresAuth(true);
         setSessionUser(null);
-        setError("Sign-in required: Please log in to JobMint to use our server-side AI models.");
+        setError("Sign-in required: Please log in to Role Nest to use our server-side AI models.");
         return;
       }
 
@@ -178,7 +178,7 @@ export default function ResumeAssistantPage() {
           
           {/* Breadcrumbs */}
           <div className="flex items-center gap-2 text-xs text-slate-500 font-mono">
-            <Link href="/jobs" className="hover:text-emerald-600">JobMint</Link>
+            <Link href="/jobs" className="hover:text-emerald-600">Role Nest</Link>
             <span>/</span>
             <Link href="/resume/builder" className="hover:text-emerald-600">Resume Tools</Link>
             <span>/</span>
@@ -214,7 +214,7 @@ export default function ResumeAssistantPage() {
                     Sign in to Unlock the AI Bullet Assistant
                   </h2>
                   <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-xl">
-                    To prevent automated bot scraping and guarantee fair quota allocation across our 4-Tier AI Cascade Engine (Gemini 2.5 Flash, Groq Llama 3.3, Cloudflare, WebGPU), this tool requires an active JobMint account.
+                    To prevent automated bot scraping and guarantee fair quota allocation across our 4-Tier AI Cascade Engine (Gemini 2.5 Flash, Groq Llama 3.3, Cloudflare, WebGPU), this tool requires an active Role Nest account.
                   </p>
                 </div>
               </div>
@@ -336,7 +336,7 @@ export default function ResumeAssistantPage() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-6">
           <div>
             <div className="flex items-center gap-2 text-xs text-slate-500 font-mono mb-2">
-              <Link href="/jobs" className="hover:text-emerald-600">JobMint</Link>
+              <Link href="/jobs" className="hover:text-emerald-600">Role Nest</Link>
               <span>/</span>
               <Link href="/resume/builder" className="hover:text-emerald-600">Resume Tools</Link>
               <span>/</span>

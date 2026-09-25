@@ -7,8 +7,8 @@ import { Button } from '@/components/ui/button';
 import AdminSystemDashboard from './client/client-page';
 
 export const metadata: Metadata = {
-  title: "Zero-Cost Quota Monitor & Architecture | JobMint",
-  description: "Live cloud resource consumption and quota circuit breakers for JobMint infrastructure.",
+  title: "Zero-Cost Quota Monitor & Architecture | Role Nest",
+  description: "Live cloud resource consumption and quota circuit breakers for Role Nest infrastructure.",
 };
 
 export default async function AdminSystemPage() {
@@ -43,7 +43,7 @@ export default async function AdminSystemPage() {
           <div className="flex flex-col gap-2 pt-2">
             <Link href="/">
               <Button variant="outline" className="w-full text-xs text-slate-300">
-                Return to JobMint Board
+                Return to Role Nest Board
               </Button>
             </Link>
           </div>

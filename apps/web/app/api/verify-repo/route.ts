@@ -54,7 +54,7 @@ export async function POST(req: NextRequest) {
     const [, owner, repo] = match;
 
     const headers: Record<string, string> = {
-      "User-Agent": "JobMint-Repo-Verifier",
+      "User-Agent": "Role Nest-Repo-Verifier",
       Accept: "application/vnd.github.v3+json",
     };
 

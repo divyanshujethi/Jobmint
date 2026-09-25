@@ -7,7 +7,7 @@ export async function POST(req: NextRequest) {
     const session = await auth();
     if (!session || !session.user) {
       return NextResponse.json(
-        { error: "Unauthorized: You must be signed in to publish opportunities on JobMint." },
+        { error: "Unauthorized: You must be signed in to publish opportunities on Role Nest." },
         { status: 401 }
       );
     }
@@ -40,9 +40,9 @@ export async function POST(req: NextRequest) {
         const [newComp] = await db
           .insert(companies)
           .values({
-            name: "JobMint Partner Tech",
-            slug: "jobmint-partner-tech",
-            website: "https://jobmint.ritualdev.in",
+            name: "Role Nest Partner Tech",
+            slug: "rolenest-partner-tech",
+            website: "https://rolenest.in",
             location: "Remote",
             industry: "Software Engineering",
             isVerified: true,

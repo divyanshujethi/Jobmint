@@ -55,7 +55,7 @@ export async function GET(req: NextRequest) {
     );
   }
 
-  // 1. Retrieve Current JobMint User Session
+  // 1. Retrieve Current Role Nest User Session
   const session = await auth();
   const userId = session?.user?.id;
   const userEmail = session?.user?.email?.toLowerCase();
@@ -70,7 +70,7 @@ export async function GET(req: NextRequest) {
 
   try {
     const headers: Record<string, string> = {
-      "User-Agent": "JobMint-Project-Verifier",
+      "User-Agent": "Role Nest-Project-Verifier",
       Accept: "application/vnd.github.v3+json",
     };
 
@@ -165,7 +165,7 @@ export async function GET(req: NextRequest) {
         ownershipStatus = "VERIFIED_EMAIL";
         ownerExplanation = `Ownership verified via matching GitHub verified email (${userData.email}).`;
       }
-      // Check 3: Bio contains user's JobMint verification challenge token
+      // Check 3: Bio contains user's Role Nest verification challenge token
       else if (
         verificationToken !== "jobmint-verify-auth-required" &&
         userData.bio &&
@@ -190,7 +190,7 @@ export async function GET(req: NextRequest) {
       }
     }
 
-    // Algorithmic JobMint Dev Score Computation (0 - 1000)
+    // Algorithmic Role Nest Dev Score Computation (0 - 1000)
     const momentum = Math.min(250, Math.round((Math.min(verifiedRepos.length, 12) / 12) * 180 + 70));
     const depth = Math.min(250, Math.round((Math.min(detectedSkillsSet.size, 8) / 8) * 200 + 50));
     const followers = userData.followers || 0;

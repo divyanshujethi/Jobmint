@@ -1,4 +1,4 @@
-﻿import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { generateAI } from '@repo/ai';
 import { db, candidateProfiles, candidateSkills, skills, users, eq } from '@repo/database';
 import { auth } from '@/auth';
@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
     if (saveToProfile && analysis) {
       try {
         const session = await auth();
-        const email = session?.user?.email || analysis.email || 'candidate@jobmint.ritualdev.in';
+        const email = session?.user?.email || analysis.email || 'candidate@rolenest.in';
 
         let userList = await db.select().from(users).where(eq(users.email, email)).limit(1);
         let userId: string;

@@ -56,7 +56,7 @@ export default function CoursesPage() {
             Interactive Developer Courses &amp; Certifications
           </h1>
           <p className="mx-auto max-w-2xl text-sm sm:text-base text-slate-600">
-            Structured hands-on curricula with required Proof-of-Work project benchmarks, code implementations, and verified cryptographic JobMint completion certificates.
+            Structured hands-on curricula with required Proof-of-Work project benchmarks, code implementations, and verified cryptographic Role Nest completion certificates.
           </p>
 
           {/* DEDICATED SEPARATION CALLOUT TO YOUTUBE PLAYLISTS */}

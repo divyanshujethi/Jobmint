@@ -154,7 +154,7 @@ export async function GET(req: NextRequest) {
         "https://api.github.com/search/repositories?q=" + encodeURIComponent(query) + "&sort=stars&order=desc&per_page=12",
         {
           headers: {
-            "User-Agent": "JobMint-Trendshift/1.0",
+            "User-Agent": "Role Nest-Trendshift/1.0",
             Accept: "application/vnd.github.v3+json",
           },
           next: { revalidate: 600 },
@@ -212,7 +212,7 @@ export async function GET(req: NextRequest) {
       trendingRepos = [
         {
           id: "repo-jm",
-          name: "Jobmint",
+          name: "RoleNest",
           owner: "divyanshujethi",
           avatarUrl: "https://github.com/divyanshujethi.png",
           description:
@@ -224,7 +224,7 @@ export async function GET(req: NextRequest) {
           starsToday: 8,
           devScore: 920,
           repoUrl: "https://github.com/divyanshujethi/Jobmint",
-          demoUrl: "https://jobmint.ritualdev.in",
+          demoUrl: "https://rolenest.in",
           topics: ["nextjs", "turborepo", "drizzle", "dev-score"],
         },
       ];

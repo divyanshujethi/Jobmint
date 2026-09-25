@@ -56,7 +56,7 @@ export default function CandidateOnboardingPage() {
             Set Up Your Candidate Profile
           </CardTitle>
           <CardDescription>
-            This enables JobMint to calculate your exact match % and provide personalized job recommendations.
+            This enables Role Nest to calculate your exact match % and provide personalized job recommendations.
           </CardDescription>
         </CardHeader>
 

@@ -129,7 +129,9 @@ export default function StudyPodDetailPage() {
   };
 
   const copyShareLink = () => {
-    const url = `https://jobmint.ritualdev.in/study-pods/${pod.slug}`;
+    const url = typeof window !== "undefined"
+      ? `${window.location.origin}/study-pods/${pod.slug}`
+      : `https://rolenest.in/study-pods/${pod.slug}`;
     navigator.clipboard.writeText(url);
     setCopiedLink(true);
     setTimeout(() => setCopiedLink(false), 2000);
@@ -332,7 +334,7 @@ export default function StudyPodDetailPage() {
                   Cohort Peer Discussion &amp; AI Bot
                 </h3>
                 <p className="text-xs text-slate-400 font-mono mt-0.5">
-                  Coordinate mock sessions and get technical advice from the JobMint Cohort Bot
+                  Coordinate mock sessions and get technical advice from the Role Nest Cohort Bot
                 </p>
               </div>
               <span className="flex items-center gap-1.5 text-[11px] font-mono text-emerald-400 bg-emerald-950/60 border border-emerald-800/50 px-2.5 py-1 rounded-full">
@@ -405,7 +407,7 @@ export default function StudyPodDetailPage() {
               <div className="rounded-xl border border-slate-800 bg-slate-950/80 p-4 text-center space-y-3">
                 <div className="flex items-center justify-center gap-2 text-xs text-slate-300">
                   <Lock className="w-4 h-4 text-amber-400" />
-                  <span>Sign in to participate in the discussion and ask the JobMint Cohort Bot.</span>
+                  <span>Sign in to participate in the discussion and ask the Role Nest Cohort Bot.</span>
                 </div>
                 <Link href={`/login?callbackUrl=/study-pods/${pod.slug}`}>
                   <Button size="sm" className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow-xs">
@@ -428,13 +430,13 @@ export default function StudyPodDetailPage() {
                 </div>
                 <div className="overflow-hidden">
                   <div className="flex items-center gap-2">
-                    <h4 className="text-sm font-bold text-white truncate">JobMint Cohort Bot</h4>
+                    <h4 className="text-sm font-bold text-white truncate">Role Nest Cohort Bot</h4>
                     <span className="rounded bg-emerald-500/20 border border-emerald-500/40 px-1.5 py-0.2 text-[9px] text-emerald-400 font-mono">
                       Verified AI
                     </span>
                   </div>
                   <p className="text-xs text-emerald-400 font-mono truncate">Automated Study Coordinator</p>
-                  <p className="text-[11px] text-slate-500 truncate">JobMint Academy</p>
+                  <p className="text-[11px] text-slate-500 truncate">Role Nest Academy</p>
                 </div>
               </div>
 
@@ -467,7 +469,7 @@ export default function StudyPodDetailPage() {
                 <span>Invite Batchmates to Join this Cohort</span>
               </div>
               <p className="text-xs text-slate-400 leading-relaxed max-w-xl">
-                JobMint adheres to a strict zero-fake-profile policy. To practice mock interviews with real peers, share this room link with your college study group or WhatsApp batch chat.
+                Role Nest adheres to a strict zero-fake-profile policy. To practice mock interviews with real peers, share this room link with your college study group or WhatsApp batch chat.
               </p>
               <div className="flex flex-wrap items-center gap-3 pt-2">
                 <Button
@@ -482,7 +484,7 @@ export default function StudyPodDetailPage() {
 
                 <a
                   href={`https://api.whatsapp.com/send?text=${encodeURIComponent(
-                    `Join my peer study pod for ${pod.title} on JobMint: https://jobmint.ritualdev.in/study-pods/${pod.slug}`
+                    `Join my peer study pod for ${pod.title} on Role Nest: https://rolenest.in/study-pods/${pod.slug}`
                   )}`}
                   target="_blank"
                   rel="noreferrer"
