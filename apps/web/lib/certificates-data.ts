@@ -101,7 +101,7 @@ export const BASE_CERTIFICATE_PROGRAMS: CertificateProgram[] = [
     description:
       "Hands-on interactive lab exercises on Google Cloud architecture, virtual machine deployment, SQL big data analysis, and Kubernetes basics.",
     certificateType: "Verified Skill Badge",
-    enrollUrl: "https://www.cloudskillsboost.google/course_templates/153",
+    enrollUrl: "https://www.cloudskillsboost.google/paths/11",
     isPopular: true,
   },
   {
@@ -262,7 +262,7 @@ export async function crawlCertificatePrograms(): Promise<{
       skills: ["Generative AI", "LLM Foundations", "Attention Mechanisms", "Responsible AI"],
       description: "Official Google micro-learning path covering large language models, prompt engineering, and ethical AI deployment on Google Cloud.",
       certificateType: "Verified Skill Badge",
-      enrollUrl: "https://www.cloudskillsboost.google/course_templates/536",
+      enrollUrl: "https://www.cloudskillsboost.google/paths/118",
       isPopular: true,
       isLiveCrawled: true,
       verifiedAt: new Date().toISOString(),

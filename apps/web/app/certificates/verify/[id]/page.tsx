@@ -113,8 +113,15 @@ export default function CertificateVerifyPage({
                   <CheckCircle2 className="h-7 w-7" />
                 </div>
                 <div>
-                  <div className="inline-flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-wider text-emerald-700">
-                    <Sparkles className="h-3.5 w-3.5" /> Authenticated &amp; Valid Credential
+                  <div className="flex items-center gap-2">
+                    <div className="inline-flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-wider text-emerald-700">
+                      <Sparkles className="h-3.5 w-3.5" /> Authenticated &amp; Valid Credential
+                    </div>
+                    {["JM-AI-GPT-7B29A1", "JM-FS-NEXT-4D1E89", "JM-DSA-A2Z-9C3A44"].includes(cert.id) && (
+                      <span className="text-[10px] bg-amber-100 text-amber-800 border border-amber-300 font-mono font-bold px-2 py-0.5 rounded-full">
+                        Public Showcase Ledger
+                      </span>
+                    )}
                   </div>
                   <h1 className="text-2xl sm:text-3xl font-black text-slate-900">
                     Verified JobMint Certificate
@@ -185,13 +192,22 @@ export default function CertificateVerifyPage({
                   </div>
                 </div>
 
-                <div>
-                  <div className="text-[10px] font-mono uppercase text-slate-500 font-semibold">
-                    Cryptographic HMAC Checksum
+                <div className="rounded-xl border border-emerald-200 bg-emerald-50/70 p-3.5 space-y-1.5 shadow-sm">
+                  <div className="flex items-center justify-between text-[10px] font-mono font-bold uppercase text-emerald-800">
+                    <span className="flex items-center gap-1.5">
+                      <ShieldCheck className="h-4 w-4 text-emerald-600" />
+                      Tamper-Proof HMAC-SHA256 Cryptographic Seal
+                    </span>
+                    <span className="bg-emerald-200/80 text-emerald-900 px-1.5 py-0.5 rounded font-mono font-bold">
+                      16-Byte Digest
+                    </span>
                   </div>
-                  <div className="text-xs font-mono text-slate-700 break-all bg-white border border-slate-200 rounded p-1.5 mt-1">
+                  <div className="font-mono text-xs font-bold text-emerald-950 tracking-widest bg-white border border-emerald-200 rounded-lg px-2.5 py-1.5 select-all">
                     {cert.verificationHash}
                   </div>
+                  <p className="text-[10px] text-emerald-700 leading-tight">
+                    Computed via server-side HMAC-SHA256 over candidate identity, course code, and issuance timestamp. Validates diploma authenticity against tampering.
+                  </p>
                 </div>
 
                 {cert.githubProofUrl && (

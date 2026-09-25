@@ -445,7 +445,7 @@ export const CANVAS_TRACKS: CanvasTrack[] = [
         matchedCourseId: "traversy-modern-web",
         resources: [
           { title: "JavaScript.info: Modern Tutorial", url: "https://javascript.info", type: "doc", provider: "Open Book", isFree: true },
-          { title: "Namaste JavaScript", url: "https://youtube.com", type: "video", provider: "Akshay Saini", isFree: true },
+          { title: "Namaste JavaScript (Season 1 & 2)", url: "https://www.youtube.com/playlist?list=PLlasXeu85E9cQ32gLCvAvr9vNaUccPVNP", type: "video", provider: "Akshay Saini", isFree: true },
         ],
       },
       {
