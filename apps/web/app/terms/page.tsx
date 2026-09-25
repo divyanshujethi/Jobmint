@@ -121,7 +121,7 @@ export default function TermsPage() {
                 7. Payments, Subscriptions &amp; Merchant of Record
               </h2>
               <p>
-                Our order process is conducted by our online reseller <strong>Paddle.com</strong>. Paddle.com is the Merchant of Record for all our orders. Paddle provides all customer service inquiries and handles returns.
+                Our order process is conducted by our online reseller Paddle.com. Paddle.com is the Merchant of Record for all our orders. Paddle provides all customer service inquiries and handles returns.
               </p>
               <p className="text-xs text-slate-600">
                 Purchases of Role Nest Pro candidate subscriptions and Employer Featured Job Boosts are governed by our official <Link href="/refund" className="text-emerald-700 underline font-semibold">Refund &amp; Cancellation Policy</Link>. First-time candidate subscribers are entitled to our 7-day 100% money-back satisfaction guarantee.

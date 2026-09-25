@@ -36,14 +36,14 @@ export default function RefundPage() {
             Merchant of Record Notice
           </div>
           <p className="leading-relaxed">
-            Our order process is conducted by our online reseller <strong>Paddle.com</strong>. Paddle.com is the Merchant of Record for all our orders. Paddle provides all customer service inquiries and handles returns.
+            Our order process is conducted by our online reseller Paddle.com. Paddle.com is the Merchant of Record for all our orders. Paddle provides all customer service inquiries and handles returns.
           </p>
         </div>
 
         <Card className="border-slate-200 shadow-sm">
           <CardContent className="p-6 sm:p-8 space-y-6 text-sm text-slate-700 leading-relaxed">
             <section className="space-y-2">
-              <h2 className="text-lg font-bold text-slate-900">1. Digital Service Delivery</h2>
+              <h2 className="text-lg font-bold text-slate-900">1. Instant Digital Service Delivery</h2>
               <p>
                 All Role Nest digital products (including Role Nest Pro candidate subscriptions and Employer Featured Job Boosts) are delivered immediately upon successful transaction completion. You will instantly receive an automated confirmation receipt containing your order reference and tax invoice via email from Paddle.com.
               </p>
@@ -55,17 +55,18 @@ export default function RefundPage() {
                 We offer a <strong>100% money-back guarantee for first-time subscribers</strong> of Role Nest Pro. If you are not satisfied with your experience, you may request a full refund within <strong>7 days</strong> of your initial purchase date.
               </p>
               <p className="text-xs text-slate-500">
-                To claim your refund, simply email us at <strong className="text-slate-700">support@rolenest.in</strong> or contact Paddle support with your order reference number. Refunds are processed back to your original payment method within 3 to 7 business days.
+                To claim your refund, simply email us at <strong className="text-slate-700">support@rolenest.in</strong> or <strong className="text-slate-700">contact@rolenest.in</strong> with your order reference number, or contact Paddle support directly. Refunds are processed back to your original payment method within 3 to 7 business days.
               </p>
             </section>
 
             <section className="space-y-2">
               <h2 className="text-lg font-bold text-slate-900">3. Subscription Cancellation Policy</h2>
               <p>
-                You may cancel your recurring monthly Role Nest Pro subscription at any time without fees or penalties:
+                You may cancel your recurring monthly Role Nest Pro subscription at any time without fees, penalties, or long-term commitments:
               </p>
               <ul className="list-disc pl-5 space-y-1.5 text-xs text-slate-600">
-                <li><strong>Self-Service:</strong> Click &quot;Manage Subscription&quot; inside your Account Settings or click the management link provided in your Paddle email receipt.</li>
+                <li><strong>Via Settings &gt; Billing:</strong> Cancel anytime directly via <strong>Settings &gt; Billing</strong> in your account dashboard.</li>
+                <li><strong>Via Paddle Email Receipt:</strong> Click the secure 1-click subscription management link provided in your initial Paddle transaction receipt.</li>
                 <li><strong>Timing:</strong> Cancellation takes effect at the end of your current monthly billing period. You will retain full Pro privileges until the billing cycle concludes, and you will not be billed again.</li>
               </ul>
             </section>
@@ -83,8 +84,9 @@ export default function RefundPage() {
                 <Mail className="h-5 w-5 text-emerald-600 shrink-0" />
                 <div>
                   <div className="font-bold text-slate-900">Role Nest Customer Support</div>
-                  <div className="text-slate-600">Email: <a href="mailto:support@rolenest.in" className="text-emerald-700 underline font-semibold">support@rolenest.in</a></div>
-                  <div className="text-slate-500 text-[11px] mt-0.5">Paddle Customer Support: <a href="https://paddle.net" target="_blank" rel="noopener noreferrer" className="text-emerald-700 underline">https://paddle.net</a></div>
+                  <div className="text-slate-600">Support Email: <a href="mailto:support@rolenest.in" className="text-emerald-700 underline font-semibold">support@rolenest.in</a></div>
+                  <div className="text-slate-600">General Inquiries: <a href="mailto:contact@rolenest.in" className="text-emerald-700 underline font-semibold">contact@rolenest.in</a></div>
+                  <div className="text-slate-500 text-[11px] mt-0.5">Paddle Customer Support &amp; Buyer Portal: <a href="https://paddle.net" target="_blank" rel="noopener noreferrer" className="text-emerald-700 underline">https://paddle.net</a></div>
                 </div>
               </div>
             </section>

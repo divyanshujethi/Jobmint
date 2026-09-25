@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { APP_CONFIG } from "@repo/shared";
-import { ShieldCheck, Heart, Award, Scale, Settings2, Download, Smartphone } from "lucide-react";
+import { ShieldCheck, Heart, Award, Scale, Settings2, Download, Smartphone, Mail } from "lucide-react";
 
 export function Footer() {
   const triggerPwaInstall = () => {
@@ -40,6 +40,24 @@ export function Footer() {
             <div className="flex items-center gap-1.5 text-xs font-medium text-blue-700 bg-blue-50 px-2.5 py-1 rounded-md w-fit">
               <Scale className="h-4 w-4 text-blue-600" />
               🇮🇳 DPDP Act 2023 Compliant
+            </div>
+
+            {/* PADDLE SUPPORT CONTACT DETAILS */}
+            <div className="pt-3 border-t border-slate-100 text-xs text-slate-500 space-y-1">
+              <div className="font-bold text-slate-900 flex items-center gap-1.5">
+                <Mail className="h-3.5 w-3.5 text-emerald-600" /> Support &amp; Customer Care
+              </div>
+              <div>
+                <a href="mailto:support@rolenest.in" className="text-emerald-700 font-semibold hover:underline">
+                  support@rolenest.in
+                </a>
+              </div>
+              <div>
+                <a href="mailto:contact@rolenest.in" className="text-slate-600 hover:underline text-[11px]">
+                  contact@rolenest.in
+                </a>
+              </div>
+              <div className="text-[10px] text-slate-400">Response SLA: within 24 hours</div>
             </div>
           </div>
 
@@ -200,6 +218,11 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/cancellation" className="hover:text-emerald-600 font-medium text-slate-700">
+                  Subscription Cancellation
+                </Link>
+              </li>
+              <li>
                 <Link href="/pricing" className="hover:text-emerald-600 font-semibold text-emerald-800">
                   Plans &amp; Pricing
                 </Link>
@@ -217,9 +240,9 @@ export function Footer() {
         </div>
 
         <div className="mt-12 border-t border-slate-100 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-          <p>© {new Date().getFullYear()} {APP_CONFIG.name}. Built for young talent in India &amp; Worldwide.</p>
-          <p className="flex items-center gap-1">
-            Built with transparency <Heart className="h-3.5 w-3.5 text-rose-500 fill-rose-500" /> for students &amp; freshers.
+          <p>© {new Date().getFullYear()} {APP_CONFIG.name}. Payments securely processed by Paddle.com (Merchant of Record).</p>
+          <p className="flex items-center gap-1.5">
+            Support: <a href="mailto:support@rolenest.in" className="text-emerald-700 font-semibold underline">support@rolenest.in</a> • Built with <Heart className="h-3.5 w-3.5 text-rose-500 fill-rose-500" /> for students &amp; freshers.
           </p>
         </div>
       </div>
