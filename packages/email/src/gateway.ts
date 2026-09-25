@@ -27,14 +27,14 @@ export async function sendEmail({
   const resendApiKey = process.env.RESEND_API_KEY;
   const mailtrapApiKey = process.env.MAILTRAP_API_KEY;
 
-  const brevoSenderEmail = process.env.BREVO_SENDER_EMAIL || "rolenestalert@rolenest.in";
+  const brevoSenderEmail = process.env.BREVO_SENDER_EMAIL || "alert@news.rolenest.in";
   const brevoSenderName = process.env.BREVO_SENDER_NAME || "Role Nest";
 
-  const resendSenderEmail = process.env.RESEND_SENDER_EMAIL || "jobalert@rolenest.in";
+  const resendSenderEmail = process.env.RESEND_SENDER_EMAIL || "jobalert@mail.rolenest.in";
   const resendSenderName = process.env.RESEND_SENDER_NAME || "Role Nest";
   const resendFrom = from || `${resendSenderName} <${resendSenderEmail}>`;
 
-  const mailtrapSenderEmail = process.env.MAILTRAP_SENDER_EMAIL || "notifications@rolenest.in";
+  const mailtrapSenderEmail = process.env.MAILTRAP_SENDER_EMAIL || "notifications@alert.rolenest.in";
   const mailtrapSenderName = process.env.MAILTRAP_SENDER_NAME || "Role Nest";
 
   // 1. PRIMARY: BREVO (300 FREE/DAY = 9,000/MO)
