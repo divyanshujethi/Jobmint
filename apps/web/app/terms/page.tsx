@@ -117,7 +117,7 @@ export default function TermsPage() {
             </section>
 
             <div className="pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-              <span>Questions regarding our terms? Email: legal@ritualdev.in</span>
+              <span>Questions regarding our terms? Email: admin@rolenest.in</span>
               <div className="flex items-center gap-3">
                 <Link href="/privacy" className="hover:text-emerald-600 underline">Privacy Policy</Link>
                 <Link href="/settings/account" className="hover:text-emerald-600 underline">Manage / Delete Account</Link>

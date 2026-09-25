@@ -66,6 +66,7 @@ export function Navbar() {
           setUser(data.user);
           const email = data.user.email?.toLowerCase();
           const adminEmails = [
+            "admin@rolenest.in",
             "admin@ritualdev.in",
             "divyanshu.dev@gmail.com",
             "divyanshujethi@gmail.com",

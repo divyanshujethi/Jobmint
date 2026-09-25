@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import { useState } from "react";
@@ -192,8 +192,8 @@ export default function EmployerLoginPage() {
             <CardFooter className="flex flex-col gap-2 text-center text-xs text-slate-500 border-t border-slate-800/80 pt-4">
               <p>
                 Need assistance verifying your enterprise domain? Contact{" "}
-                <a href="mailto:admin@ritualdev.in" className="text-emerald-400 underline">
-                  admin@ritualdev.in
+                <a href="mailto:partners@rolenest.in" className="text-emerald-400 underline">
+                  partners@rolenest.in
                 </a>
               </p>
             </CardFooter>

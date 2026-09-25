@@ -226,13 +226,13 @@ export default function PrivacyPage() {
                       Official Grievance Email
                     </span>
                     <a
-                      href="mailto:grievance@ritualdev.in"
+                      href="mailto:support@rolenest.in"
                       className="font-mono font-bold text-emerald-700 hover:underline flex items-center gap-1 mt-0.5 text-sm"
                     >
                       <Mail className="h-3.5 w-3.5" />
-                      grievance@ritualdev.in
+                      support@rolenest.in
                     </a>
-                    <p className="text-slate-500">Cc: privacy@ritualdev.in</p>
+                    <p className="text-slate-500">Cc: admin@rolenest.in</p>
                   </div>
 
                   <div>

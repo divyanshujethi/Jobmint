@@ -45,7 +45,7 @@ export async function GET() {
         statutorySection: "Section 11: Right to Access Information About Personal Data",
         dataFiduciary: "Role Nest / RitualDev Technologies",
         exportGeneratedAt: new Date().toISOString(),
-        grievanceRedressalOfficerEmail: "grievance@ritualdev.in",
+        grievanceRedressalOfficerEmail: "support@rolenest.in",
       },
       account: {
         id: userRecord[0].id,

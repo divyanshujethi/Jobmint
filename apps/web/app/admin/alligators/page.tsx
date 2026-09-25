@@ -18,7 +18,7 @@ export default async function AdminAlligatorsPage() {
     redirect("/login?callbackUrl=/admin/alligators");
   }
 
-  const adminEmails = (process.env.ADMIN_EMAILS || "admin@ritualdev.in,divyanshu.dev@gmail.com,divyanshujethi@gmail.com")
+  const adminEmails = (process.env.ADMIN_EMAILS || "admin@rolenest.in,admin@ritualdev.in,divyanshu.dev@gmail.com,divyanshujethi@gmail.com")
     .split(",")
     .map((e) => e.trim().toLowerCase());
   const userEmail = session.user.email?.toLowerCase();

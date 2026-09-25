@@ -1,4 +1,4 @@
-﻿import { auth } from "@/auth";
+import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { Lock } from "lucide-react";
@@ -14,7 +14,7 @@ export default async function AdminPage() {
   }
 
   // 2. Check Admin role or email whitelist
-  const adminEmails = (process.env.ADMIN_EMAILS || "admin@ritualdev.in,divyanshu.dev@gmail.com,divyanshujethi@gmail.com")
+  const adminEmails = (process.env.ADMIN_EMAILS || "admin@rolenest.in,admin@ritualdev.in,divyanshu.dev@gmail.com,divyanshujethi@gmail.com")
     .split(",")
     .map((e) => e.trim().toLowerCase());
   const userEmail = session.user.email?.toLowerCase();

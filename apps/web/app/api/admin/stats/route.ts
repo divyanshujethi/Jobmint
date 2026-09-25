@@ -1,11 +1,11 @@
-﻿import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { db, companies, jobs, applications, users, skills, desc, eq } from "@repo/database";
 import { auth } from "@/auth";
 
 export async function GET() {
   try {
     const session = await auth();
-    const adminEmails = (process.env.ADMIN_EMAILS || "divyanshu.dev@gmail.com,divyanshujethi@gmail.com,admin@ritualdev.in")
+    const adminEmails = (process.env.ADMIN_EMAILS || "admin@rolenest.in,divyanshu.dev@gmail.com,divyanshujethi@gmail.com,admin@ritualdev.in")
       .split(",")
       .map((e) => e.trim().toLowerCase());
 
