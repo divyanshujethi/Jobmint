@@ -77,7 +77,7 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
       name: job.companyName,
       value: job.id,
     },
-    datePosted: job.createdAt ? new Date(job.createdAt).toISOString() : new Date().toISOString(),
+    datePosted: job.postedAt || new Date().toISOString(),
     validThrough: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000).toISOString(),
     employmentType:
       job.jobType === "FULL_TIME" ? "FULL_TIME" : job.jobType === "INTERNSHIP" ? "INTERN" : "OTHER",
