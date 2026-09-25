@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: JobPageProps): Promise<Metada
     };
   }
 
-  const title = `${job.title} at ${job.companyName} | Role Nest`;
+  const title = `${job.title} at ${job.companyName}`;
   const description = `${job.title} opportunity at ${job.companyName}. Location: ${job.location} (${job.workMode}). Compensation: ${job.salaryOrStipend}. Verified on Role Nest Truth Teller.`;
 
   return {
