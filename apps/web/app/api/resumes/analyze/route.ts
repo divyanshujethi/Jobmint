@@ -2,9 +2,32 @@ import { NextRequest, NextResponse } from 'next/server';
 import { generateAI } from '@repo/ai';
 import { db, candidateProfiles, candidateSkills, skills, users, eq } from '@repo/database';
 import { auth } from '@/auth';
+import { checkRateLimit } from '@/lib/rate-limit';
 
 export async function POST(req: NextRequest) {
   try {
+    const rateLimit = await checkRateLimit(req, {
+      maxRequests: 10,
+      windowSeconds: 300,
+      prefix: "rl:ai:resume-analyze",
+    });
+
+    if (!rateLimit.allowed) {
+      return NextResponse.json(
+        {
+          error: `Rate limit exceeded. Please wait ${rateLimit.resetInSeconds}s before analyzing another resume.`,
+        },
+        {
+          status: 429,
+          headers: {
+            "Retry-After": String(rateLimit.resetInSeconds),
+            "X-RateLimit-Limit": String(rateLimit.limit),
+            "X-RateLimit-Remaining": String(rateLimit.remaining),
+          },
+        }
+      );
+    }
+
     const body = await req.json();
     const { resumeText, targetRole, saveToProfile } = body;
 

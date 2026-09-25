@@ -109,6 +109,17 @@ export function stripTypeScript(tsCode: string): string {
  * Serialized via toString() to guarantee valid JS syntax with no regex template string escaping bugs.
  */
 function workerFunction() {
+  // Air-gap worker sandbox: disable ambient network, storage, and worker spawning APIs
+  try {
+    (self as any).fetch = undefined;
+    (self as any).XMLHttpRequest = undefined;
+    (self as any).WebSocket = undefined;
+    (self as any).importScripts = undefined;
+    (self as any).indexedDB = undefined;
+    (self as any).BroadcastChannel = undefined;
+    (self as any).Worker = undefined;
+  } catch {}
+
   self.onmessage = function (e: any) {
     const { code, testCases } = e.data;
     const logs: string[] = [];

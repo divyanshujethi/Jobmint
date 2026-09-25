@@ -1,10 +1,33 @@
 import { NextRequest, NextResponse } from "next/server";
 import { uploadFile, validatePdfMagicBytes } from "@repo/storage";
+import { checkRateLimit } from "@/lib/rate-limit";
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
 
 export async function POST(req: NextRequest) {
   try {
+    const rateLimit = await checkRateLimit(req, {
+      maxRequests: 15,
+      windowSeconds: 300,
+      prefix: "rl:upload:resume",
+    });
+
+    if (!rateLimit.allowed) {
+      return NextResponse.json(
+        {
+          error: `Upload rate limit exceeded. Please wait ${rateLimit.resetInSeconds}s before uploading another resume.`,
+        },
+        {
+          status: 429,
+          headers: {
+            "Retry-After": String(rateLimit.resetInSeconds),
+            "X-RateLimit-Limit": String(rateLimit.limit),
+            "X-RateLimit-Remaining": String(rateLimit.remaining),
+          },
+        }
+      );
+    }
+
     const formData = await req.formData();
     const file = formData.get("file") as File | null;
 
