@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { db, companies, jobs, applications, applicationEvents, candidateProfiles, users, eq } from "@repo/database";
 import { auth } from "@/auth";
 import { sendEmail, applicationViewedTemplate, interviewInvitationTemplate } from "@repo/email";
+import { publishJobSlugToGoogle } from "@/lib/google-indexing";
 
 export async function POST(req: NextRequest) {
   try {
@@ -156,6 +157,9 @@ export async function POST(req: NextRequest) {
         isActive: true,
       }).returning();
 
+      // Notify Google Indexing API in background
+      publishJobSlugToGoogle(newJob.slug, "URL_UPDATED").catch(console.error);
+
       return NextResponse.json({ success: true, job: newJob });
     }
 
@@ -189,6 +193,26 @@ export async function POST(req: NextRequest) {
         .where(eq(users.id, userId));
 
       return NextResponse.json({ success: true, message: `User Pro status set to ${nextPro}` });
+    }
+
+    // 7. Ping Google Indexing API
+    if (action === "PING_GOOGLE_INDEXING") {
+      const { slug, publishAll } = payload || {};
+      if (publishAll) {
+        const liveJobs = await db.select({ slug: jobs.slug }).from(jobs).where(eq(jobs.isActive, true));
+        for (const j of liveJobs) {
+          await publishJobSlugToGoogle(j.slug, "URL_UPDATED");
+        }
+        return NextResponse.json({
+          success: true,
+          message: `Dispatched ${liveJobs.length} live jobs to Google Indexing API`,
+        });
+      }
+      const res = await publishJobSlugToGoogle(slug || "all", "URL_UPDATED");
+      return NextResponse.json({
+        success: true,
+        message: res.message || `Google Indexing API triggered for ${slug}`,
+      });
     }
 
     return NextResponse.json({ error: "Unknown action" }, { status: 400 });

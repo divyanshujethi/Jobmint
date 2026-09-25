@@ -578,13 +578,25 @@ export function SuperAdminPanelClient() {
                     Real-time status of production database, in-memory cache, automated backup crons, and UFW firewall rules.
                   </p>
                 </div>
-                <Link
-                  href="/api/health"
-                  target="_blank"
-                  className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-2 transition-colors self-start sm:self-auto"
-                >
-                  <Activity className="h-4 w-4" /> Inspect Raw JSON /api/health
-                </Link>
+                <div className="flex flex-wrap items-center gap-2 self-start sm:self-auto">
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="text-xs h-9 bg-slate-800 hover:bg-slate-700 text-slate-200 border-slate-700 gap-1.5"
+                    disabled={actionLoading === "PING_GOOGLE_INDEXING"}
+                    onClick={() => handleAction("PING_GOOGLE_INDEXING", { publishAll: true })}
+                  >
+                    <Sparkles className="h-3.5 w-3.5 text-amber-400" />
+                    {actionLoading === "PING_GOOGLE_INDEXING" ? "Pinging Google..." : "Ping Google Indexing (All Jobs)"}
+                  </Button>
+                  <Link
+                    href="/api/health"
+                    target="_blank"
+                    className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-2 transition-colors"
+                  >
+                    <Activity className="h-4 w-4" /> Inspect Raw /api/health
+                  </Link>
+                </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

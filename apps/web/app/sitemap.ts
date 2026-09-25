@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { db, jobs, companies, eq, desc } from "@repo/database";
 import { MOCK_JOBS } from "@/lib/mock-jobs";
+import { PSEO_TOPICS } from "@/lib/pseo-data";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXTAUTH_URL || "https://rolenest.in";
@@ -100,5 +101,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  return [...staticRoutes, ...jobRoutes, ...companyRoutes, ...roadmapRoutes];
+  // 5. Programmatic SEO Landing Pages (pSEO)
+  const pseoRoutes: MetadataRoute.Sitemap = Object.keys(PSEO_TOPICS).map((slug) => ({
+    url: `${baseUrl}/jobs/${slug}`,
+    lastModified: new Date(),
+    changeFrequency: "daily" as const,
+    priority: 0.9,
+  }));
+
+  return [...staticRoutes, ...pseoRoutes, ...jobRoutes, ...companyRoutes, ...roadmapRoutes];
 }

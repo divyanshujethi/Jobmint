@@ -14,7 +14,9 @@ import {
   Sparkles,
   Share2,
 } from "lucide-react";
-import { getLiveJobBySlug } from "@/lib/db-jobs";
+import { getLiveJobs, getLiveJobBySlug } from "@/lib/db-jobs";
+import { resolvePseoCategory } from "@/lib/pseo-data";
+import { PseoLanding } from "@/components/pseo-landing";
 import { getLearningGuideForSkill } from "@repo/shared";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -30,6 +32,38 @@ export async function generateMetadata({ params }: JobPageProps): Promise<Metada
   const job = await getLiveJobBySlug(slug);
 
   if (!job) {
+    const pseo = resolvePseoCategory(slug);
+    if (pseo) {
+      return {
+        title: pseo.metaTitle,
+        description: pseo.metaDescription,
+        alternates: {
+          canonical: `https://rolenest.in/jobs/${slug}`,
+        },
+        openGraph: {
+          title: pseo.metaTitle,
+          description: pseo.metaDescription,
+          url: `https://rolenest.in/jobs/${slug}`,
+          siteName: "Role Nest",
+          type: "website",
+          images: [
+            {
+              url: `https://rolenest.in/jobs/${slug}/opengraph-image`,
+              width: 1200,
+              height: 630,
+              alt: pseo.title,
+            },
+          ],
+        },
+        twitter: {
+          card: "summary_large_image",
+          title: pseo.metaTitle,
+          description: pseo.metaDescription,
+          images: [`https://rolenest.in/jobs/${slug}/opengraph-image`],
+        },
+      };
+    }
+
     return {
       title: "Job Not Found | Role Nest",
     };
@@ -50,11 +84,20 @@ export async function generateMetadata({ params }: JobPageProps): Promise<Metada
       url: `https://rolenest.in/jobs/${slug}`,
       siteName: "Role Nest",
       type: "article",
+      images: [
+        {
+          url: `https://rolenest.in/jobs/${slug}/opengraph-image`,
+          width: 1200,
+          height: 630,
+          alt: `${job.title} at ${job.companyName}`,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
+      images: [`https://rolenest.in/jobs/${slug}/opengraph-image`],
     },
   };
 }
@@ -64,56 +107,89 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
   const job = await getLiveJobBySlug(slug);
 
   if (!job) {
+    const pseo = resolvePseoCategory(slug);
+    if (pseo) {
+      const allJobs = await getLiveJobs();
+      const filteredJobs = allJobs.filter(pseo.filterFn);
+      return <PseoLanding topic={pseo} jobs={filteredJobs} />;
+    }
     notFound();
   }
 
-  const jobPostingJsonLd = {
+  const structuredData = {
     "@context": "https://schema.org",
-    "@type": "JobPosting",
-    title: job.title,
-    description: job.description || `${job.title} at ${job.companyName}`,
-    identifier: {
-      "@type": "PropertyValue",
-      name: job.companyName,
-      value: job.id,
-    },
-    datePosted: job.postedAt || new Date().toISOString(),
-    validThrough: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000).toISOString(),
-    employmentType:
-      job.jobType === "FULL_TIME" ? "FULL_TIME" : job.jobType === "INTERNSHIP" ? "INTERN" : "OTHER",
-    hiringOrganization: {
-      "@type": "Organization",
-      name: job.companyName,
-      sameAs: `https://rolenest.in/companies/${job.companySlug}`,
-    },
-    jobLocation: {
-      "@type": "Place",
-      address: {
-        "@type": "PostalAddress",
-        addressLocality: job.location || "Remote",
-        addressCountry: "IN",
-      },
-    },
-    jobLocationType: job.workMode === "REMOTE" ? "TELECOMMUTE" : undefined,
-    baseSalary: job.minSalary
-      ? {
-          "@type": "MonetaryAmount",
-          currency: "INR",
-          value: {
-            "@type": "QuantitativeValue",
-            minValue: job.minSalary,
-            maxValue: job.maxSalary || job.minSalary,
-            unitText: "YEAR",
+    "@graph": [
+      {
+        "@type": "JobPosting",
+        title: job.title,
+        description: job.description || `${job.title} at ${job.companyName}`,
+        identifier: {
+          "@type": "PropertyValue",
+          name: job.companyName,
+          value: job.id,
+        },
+        datePosted: job.postedAt || new Date().toISOString(),
+        validThrough: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000).toISOString(),
+        employmentType:
+          job.jobType === "FULL_TIME" ? "FULL_TIME" : job.jobType === "INTERNSHIP" ? "INTERN" : "OTHER",
+        hiringOrganization: {
+          "@type": "Organization",
+          name: job.companyName,
+          sameAs: `https://rolenest.in/companies/${job.companySlug}`,
+        },
+        jobLocation: {
+          "@type": "Place",
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: job.location || "Remote",
+            addressCountry: "IN",
           },
-        }
-      : undefined,
+        },
+        jobLocationType: job.workMode === "REMOTE" ? "TELECOMMUTE" : undefined,
+        baseSalary: job.minSalary
+          ? {
+              "@type": "MonetaryAmount",
+              currency: "INR",
+              value: {
+                "@type": "QuantitativeValue",
+                minValue: job.minSalary,
+                maxValue: job.maxSalary || job.minSalary,
+                unitText: "YEAR",
+              },
+            }
+          : undefined,
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: "https://rolenest.in",
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Jobs",
+            item: "https://rolenest.in/jobs",
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: `${job.title} at ${job.companyName}`,
+            item: `https://rolenest.in/jobs/${slug}`,
+          },
+        ],
+      },
+    ],
   };
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jobPostingJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
       {/* BREADCRUMB */}
       <div className="flex items-center gap-2 text-xs text-slate-500 mb-6">
