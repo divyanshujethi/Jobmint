@@ -232,6 +232,8 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
                   jobId={job.id}
                   jobTitle={job.title}
                   companyName={job.companyName}
+                  requiredSkills={job.skills}
+                  jobDescription={job.description}
                   size="lg"
                   className="font-bold"
                 />
@@ -271,6 +273,8 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
                 jobId={job.id}
                 jobTitle={job.title}
                 companyName={job.companyName}
+                requiredSkills={job.skills}
+                jobDescription={job.description}
                 size="lg"
                 className="w-full font-bold"
               />
