@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { signIn } from "next-auth/react";
 import {
   Github,
@@ -391,9 +392,11 @@ export default function GitHubVerifierPage() {
             <div className="bg-neutral-900 border border-neutral-800 rounded-3xl p-6 sm:p-8 space-y-6">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
                 <div className="flex items-center gap-4">
-                  <img
+                  <Image
                     src={result.avatarUrl}
                     alt={result.name}
+                    width={64}
+                    height={64}
                     className="w-16 h-16 rounded-2xl border-2 border-emerald-500/40 object-cover"
                   />
                   <div>

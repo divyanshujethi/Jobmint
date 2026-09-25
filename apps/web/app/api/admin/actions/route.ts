@@ -3,6 +3,7 @@ import { db, companies, jobs, applications, applicationEvents, candidateProfiles
 import { auth } from "@/auth";
 import { sendEmail, applicationViewedTemplate, interviewInvitationTemplate } from "@repo/email";
 import { publishJobSlugToGoogle } from "@/lib/google-indexing";
+import { invalidateJobsCache } from "@/lib/db-jobs";
 
 export async function POST(req: NextRequest) {
   try {
@@ -50,6 +51,8 @@ export async function POST(req: NextRequest) {
           updatedAt: new Date(),
         })
         .where(eq(jobs.id, jobId));
+
+      await invalidateJobsCache();
 
       return NextResponse.json({ success: true, message: `Job active status set to ${!isActive}` });
     }
@@ -159,6 +162,7 @@ export async function POST(req: NextRequest) {
 
       // Notify Google Indexing API in background
       publishJobSlugToGoogle(newJob.slug, "URL_UPDATED").catch(console.error);
+      await invalidateJobsCache();
 
       return NextResponse.json({ success: true, job: newJob });
     }
@@ -175,6 +179,8 @@ export async function POST(req: NextRequest) {
           updatedAt: new Date(),
         })
         .where(eq(jobs.id, jobId));
+
+      await invalidateJobsCache();
 
       return NextResponse.json({ success: true, message: `Job boost status set to ${nextFeatured}` });
     }

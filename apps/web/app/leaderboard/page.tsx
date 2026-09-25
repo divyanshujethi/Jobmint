@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   Flame,
   Award,
@@ -570,9 +571,11 @@ export default function LeaderboardPage() {
 
                           <td className="py-3.5 px-4">
                             <div className="flex items-center gap-3">
-                              <img
+                              <Image
                                 src={leader.avatarUrl}
                                 alt={leader.name}
+                                width={32}
+                                height={32}
                                 className="h-8 w-8 rounded-full border border-slate-200 object-cover"
                               />
                               <div>
@@ -778,9 +781,11 @@ export default function LeaderboardPage() {
 
                           <td className="py-3.5 px-4 text-right">
                             <div className="inline-flex items-center gap-2">
-                              <img
+                              <Image
                                 src={col.topBuilder.avatarUrl}
                                 alt={col.topBuilder.name}
+                                width={24}
+                                height={24}
                                 className="h-6 w-6 rounded-full border border-slate-200 object-cover"
                               />
                               <span className="font-bold text-slate-800 text-[11px]">
@@ -860,9 +865,11 @@ export default function LeaderboardPage() {
                     <div className="space-y-2">
                       <div className="flex items-start justify-between gap-3">
                         <div className="flex items-center gap-2.5">
-                          <img
+                          <Image
                             src={repo.avatarUrl}
                             alt={repo.owner}
+                            width={28}
+                            height={28}
                             className="h-7 w-7 rounded-lg border border-slate-200"
                           />
                           <span className="text-xs text-slate-500 font-mono">

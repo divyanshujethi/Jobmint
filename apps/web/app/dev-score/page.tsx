@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   Sparkles,
   Github,
@@ -230,9 +231,11 @@ export default function VerifiedDevScorePage() {
               {/* Profile Details */}
               <div className="lg:col-span-7 space-y-4">
                 <div className="flex items-start gap-4">
-                  <img
+                  <Image
                     src={result.avatarUrl}
                     alt={result.name}
+                    width={80}
+                    height={80}
                     className="h-20 w-20 rounded-2xl border-2 border-emerald-500/40 object-cover shadow-sm"
                   />
                   <div>

@@ -1,6 +1,17 @@
 import { db, jobs, companies, jobSkills, skills, eq, desc } from "@repo/database";
 import { MockJob, MOCK_JOBS } from "./mock-jobs";
 import { JobType, WorkMode, JobSource } from "@repo/shared";
+import { getCache, setCache, delCache } from "./redis";
+
+export const JOBS_CACHE_KEY = "cache:jobs:live";
+export const JOBS_CACHE_TTL_SECONDS = 60;
+
+/**
+ * Invalidate live jobs Redis cache so changes immediately appear.
+ */
+export async function invalidateJobsCache(): Promise<void> {
+  await delCache(JOBS_CACHE_KEY);
+}
 
 function formatTimeAgo(date: Date): string {
   const seconds = Math.floor((Date.now() - date.getTime()) / 1000);
@@ -14,6 +25,12 @@ function formatTimeAgo(date: Date): string {
 
 export async function getLiveJobs(): Promise<MockJob[]> {
   try {
+    // 1. Read-Through Redis Cache Check (<5ms response)
+    const cachedJobs = await getCache<MockJob[]>(JOBS_CACHE_KEY);
+    if (cachedJobs && Array.isArray(cachedJobs) && cachedJobs.length > 0) {
+      return cachedJobs;
+    }
+
     const rawJobs = await db
       .select({
         id: jobs.id,
@@ -69,7 +86,7 @@ export async function getLiveJobs(): Promise<MockJob[]> {
       item.slugs.push(js.skillSlug);
     }
 
-    return rawJobs.map((j) => {
+    const formattedJobs = rawJobs.map((j) => {
       const skillData = skillsByJobId.get(j.id) || { names: ["TypeScript", "React"], slugs: ["typescript", "react"] };
       const totalApps = parseInt(j.totalApplications || "0", 10) || 120;
       const reviewedApps = parseInt(j.reviewedApplications || "0", 10) || 105;
@@ -118,6 +135,13 @@ export async function getLiveJobs(): Promise<MockJob[]> {
         },
       };
     });
+
+    // 2. Cache in Redis with 60-second TTL
+    if (formattedJobs.length > 0) {
+      await setCache(JOBS_CACHE_KEY, formattedJobs, JOBS_CACHE_TTL_SECONDS);
+    }
+
+    return formattedJobs;
   } catch (err) {
     console.error("getLiveJobs failed, using fallback:", err);
     return MOCK_JOBS;
