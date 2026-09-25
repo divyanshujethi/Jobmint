@@ -21,7 +21,7 @@ export function applicationSubmittedTemplate(
           ✓ <strong>Truth Teller Telemetry Active</strong>: You will be notified the moment the hiring team reviews your resume. If no review takes place within 7 days, you will receive an inactivity advisory.
         </div>
         <p style="font-size: 12px; color: #94a3b8; margin-top: 30px;">
-          ${APP_CONFIG.tagline} • Sent from jobalert@rolenest.in
+          ${APP_CONFIG.tagline} • Delivered via Role Nest Verified Notification Gateway
         </p>
       </div>
     `,

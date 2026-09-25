@@ -20,12 +20,15 @@ export async function sendEmail({
   to,
   subject,
   html,
-  from = "Role Nest <jobalert@rolenest.in>",
+  from,
 }: SendEmailOptions): Promise<EmailDeliveryResult> {
   const brevoApiKey = process.env.BREVO_API_KEY;
   const resendApiKey = process.env.RESEND_API_KEY;
-  const brevoSenderEmail = process.env.BREVO_SENDER_EMAIL || "jobalert@rolenest.in";
+  const brevoSenderEmail = process.env.BREVO_SENDER_EMAIL || "rolenestalert@rolenest.in";
   const brevoSenderName = process.env.BREVO_SENDER_NAME || "Role Nest";
+  const resendSenderEmail = process.env.RESEND_SENDER_EMAIL || "jobalert@rolenest.in";
+  const resendSenderName = process.env.RESEND_SENDER_NAME || "Role Nest";
+  const resendFrom = from || `${resendSenderName} <${resendSenderEmail}>`;
 
   // 1. PRIMARY: BREVO (300 FREE/DAY)
   if (brevoApiKey) {
@@ -70,8 +73,8 @@ export async function sendEmail({
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          from,
-          to,
+          from: resendFrom,
+          to: [to],
           subject,
           html,
         }),
@@ -85,8 +88,10 @@ export async function sendEmail({
           messageId: data.id,
         };
       }
-    } catch (err) {
-      console.error("[Email] Resend error:", err);
+      const errText = await res.text();
+      console.warn(`[Email] Resend returned status ${res.status}: ${errText}`);
+    } catch (err: any) {
+      console.error("[Email] Resend error:", err.message || err);
     }
   }
 
