@@ -159,6 +159,38 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: true, job: newJob });
     }
 
+    // 5. Toggle Job Featured (30-day Boost)
+    if (action === "TOGGLE_JOB_FEATURED") {
+      const { jobId, isFeatured } = payload;
+      const nextFeatured = !isFeatured;
+      await db
+        .update(jobs)
+        .set({
+          isFeatured: nextFeatured,
+          featuredExpiresAt: nextFeatured ? new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) : null,
+          updatedAt: new Date(),
+        })
+        .where(eq(jobs.id, jobId));
+
+      return NextResponse.json({ success: true, message: `Job boost status set to ${nextFeatured}` });
+    }
+
+    // 6. Toggle User Pro Status (Candidate Pro)
+    if (action === "TOGGLE_USER_PRO") {
+      const { userId, isPro } = payload;
+      const nextPro = !isPro;
+      await db
+        .update(users)
+        .set({
+          isPro: nextPro,
+          proExpiresAt: nextPro ? new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) : null,
+          updatedAt: new Date(),
+        })
+        .where(eq(users.id, userId));
+
+      return NextResponse.json({ success: true, message: `User Pro status set to ${nextPro}` });
+    }
+
     return NextResponse.json({ error: "Unknown action" }, { status: 400 });
   } catch (error: any) {
     console.error("Admin action error:", error);

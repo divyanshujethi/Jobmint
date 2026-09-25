@@ -12,6 +12,7 @@ import {
   RefreshCw,
   Lock,
   ShieldCheck,
+  Activity,
 } from "lucide-react";
 
 interface SystemTelemetry {
@@ -91,8 +92,16 @@ export default function AdminSystemDashboard() {
 
           <div className="flex items-center gap-3 self-start sm:self-auto">
             <Link
-              href="/admin/alligators"
+              href="/api/health"
+              target="_blank"
               className="px-3.5 py-2 bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-700/80 rounded-xl text-xs font-mono flex items-center gap-2 text-emerald-300 transition-colors"
+            >
+              <Activity className="w-3.5 h-3.5 text-emerald-400" />
+              <span>Live /api/health</span>
+            </Link>
+            <Link
+              href="/admin/alligators"
+              className="px-3.5 py-2 bg-slate-900 hover:bg-slate-800 border border-slate-700/80 rounded-xl text-xs font-mono flex items-center gap-2 text-slate-300 transition-colors"
             >
               <span>🐊 Alligator Intelligence Deck</span>
             </Link>
