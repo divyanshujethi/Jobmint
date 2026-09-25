@@ -28,6 +28,7 @@ import {
   FileText,
   School,
   Youtube,
+  Crown,
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { NotificationBell } from "./notification-bell";
