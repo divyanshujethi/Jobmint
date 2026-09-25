@@ -1,5 +1,33 @@
 import { APP_CONFIG } from "@repo/shared";
 
+export function applicationSubmittedTemplate(
+  candidateName: string,
+  jobTitle: string,
+  companyName: string
+): { subject: string; html: string } {
+  return {
+    subject: `Application Submitted: ${jobTitle} at ${companyName} — ${APP_CONFIG.name}`,
+    html: `
+      <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 580px; margin: 0 auto; padding: 24px; color: #1e293b;">
+        <div style="margin-bottom: 20px;">
+          <strong style="color: #059669; font-size: 20px;">${APP_CONFIG.name}</strong>
+          <span style="font-size: 12px; color: #64748b; margin-left: 8px;">Application Confirmed</span>
+        </div>
+        <h2 style="font-size: 18px; color: #0f172a; margin-bottom: 8px;">Application Received, ${candidateName}!</h2>
+        <p style="font-size: 14px; line-height: 1.6; color: #334155;">
+          Your application for <strong>${jobTitle}</strong> at <strong>${companyName}</strong> has been successfully registered on Role Nest.
+        </p>
+        <div style="background-color: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 8px; padding: 14px; margin: 20px 0; font-size: 13px; color: #065f46;">
+          ✓ <strong>Truth Teller Telemetry Active</strong>: You will be notified the moment the hiring team reviews your resume. If no review takes place within 7 days, you will receive an inactivity advisory.
+        </div>
+        <p style="font-size: 12px; color: #94a3b8; margin-top: 30px;">
+          ${APP_CONFIG.tagline} • Sent from jobalert@rolenest.in
+        </p>
+      </div>
+    `,
+  };
+}
+
 export function applicationViewedTemplate(
   candidateName: string,
   jobTitle: string,

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
-import { db, applications, jobs, companies, eq, desc } from "@repo/database";
+import { db, applications, jobs, companies, candidateProfiles, users, eq, desc } from "@repo/database";
 import { ApplicationStatus } from "@repo/shared";
+import { sendEmail, inactivityNoticeTemplate } from "@repo/email";
 
 /**
  * Truth Teller Background 7-Day Inactivity Detector
@@ -32,10 +33,14 @@ export async function GET(request: Request) {
         lastViewedAt: applications.lastViewedAt,
         jobTitle: jobs.title,
         companyName: companies.name,
+        candidateEmail: users.email,
+        candidateName: users.name,
       })
       .from(applications)
       .innerJoin(jobs, eq(applications.jobId, jobs.id))
       .innerJoin(companies, eq(jobs.companyId, companies.id))
+      .leftJoin(candidateProfiles, eq(applications.candidateProfileId, candidateProfiles.id))
+      .leftJoin(users, eq(candidateProfiles.userId, users.id))
       .orderBy(desc(applications.appliedAt));
 
     let scannedCount = 0;
@@ -59,6 +64,21 @@ export async function GET(request: Request) {
           appliedDaysAgo: daysSinceApplied,
           action: "FLAGGED_INACTIVE_7_DAYS_ALERT_SENT",
         });
+
+        // Dispatch real email via Brevo / Free Gateway if email present
+        if (app.candidateEmail) {
+          const { subject, html } = inactivityNoticeTemplate(
+            app.candidateName || "Candidate",
+            app.jobTitle,
+            app.companyName,
+            daysSinceApplied
+          );
+          sendEmail({
+            to: app.candidateEmail,
+            subject,
+            html,
+          }).catch((err) => console.error("[Truth Teller Email Alert Error]:", err.message || err));
+        }
       }
     }
 

@@ -20,10 +20,12 @@ export async function sendEmail({
   to,
   subject,
   html,
-  from = "Role Nest <notifications@rolenest.in>",
+  from = "Role Nest <jobalert@rolenest.in>",
 }: SendEmailOptions): Promise<EmailDeliveryResult> {
   const brevoApiKey = process.env.BREVO_API_KEY;
   const resendApiKey = process.env.RESEND_API_KEY;
+  const brevoSenderEmail = process.env.BREVO_SENDER_EMAIL || "jobalert@rolenest.in";
+  const brevoSenderName = process.env.BREVO_SENDER_NAME || "Role Nest";
 
   // 1. PRIMARY: BREVO (300 FREE/DAY)
   if (brevoApiKey) {
@@ -36,7 +38,7 @@ export async function sendEmail({
           Accept: "application/json",
         },
         body: JSON.stringify({
-          sender: { name: "Role Nest", email: "noreply@rolenest.in" },
+          sender: { name: brevoSenderName, email: brevoSenderEmail },
           to: [{ email: to }],
           subject,
           htmlContent: html,
@@ -51,9 +53,10 @@ export async function sendEmail({
           messageId: data.messageId,
         };
       }
-      console.warn("[Email] Brevo returned non-200, attempting Resend fallback...");
-    } catch (err) {
-      console.error("[Email] Brevo error:", err);
+      const errText = await res.text();
+      console.warn(`[Email] Brevo returned status ${res.status}: ${errText}, attempting Resend fallback...`);
+    } catch (err: any) {
+      console.error("[Email] Brevo error:", err.message || err);
     }
   }
 

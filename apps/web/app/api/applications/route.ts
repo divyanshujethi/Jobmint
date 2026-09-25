@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db, applications, applicationEvents, jobs, companies, candidateProfiles, users, eq, desc } from "@repo/database";
 import { auth } from "@/auth";
+import { sendEmail, applicationSubmittedTemplate } from "@repo/email";
 
 export async function GET(req: NextRequest) {
   try {
@@ -275,6 +276,36 @@ export async function POST(req: NextRequest) {
       eventType: "APPLIED",
       note: "Application successfully received by Role Nest telemetry with Truth Teller active.",
     });
+
+    // 5. Send confirmation email asynchronously via Brevo / Free Gateway
+    (async () => {
+      try {
+        const jobDetails = await db
+          .select({
+            jobTitle: jobs.title,
+            companyName: companies.name,
+          })
+          .from(jobs)
+          .innerJoin(companies, eq(jobs.companyId, companies.id))
+          .where(eq(jobs.id, jobId))
+          .limit(1);
+
+        if (jobDetails.length > 0 && candidateEmail) {
+          const { subject, html } = applicationSubmittedTemplate(
+            session.user?.name || candidateEmail.split("@")[0],
+            jobDetails[0].jobTitle,
+            jobDetails[0].companyName
+          );
+          await sendEmail({
+            to: candidateEmail,
+            subject,
+            html,
+          });
+        }
+      } catch (err: any) {
+        console.error("[Email Application Alert Error]:", err.message || err);
+      }
+    })();
 
     return NextResponse.json({
       success: true,

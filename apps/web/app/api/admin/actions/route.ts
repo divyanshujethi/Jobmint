@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db, companies, jobs, applications, applicationEvents, eq } from "@repo/database";
+import { db, companies, jobs, applications, applicationEvents, candidateProfiles, users, eq } from "@repo/database";
 import { auth } from "@/auth";
+import { sendEmail, applicationViewedTemplate, interviewInvitationTemplate } from "@repo/email";
 
 export async function POST(req: NextRequest) {
   try {
@@ -87,6 +88,48 @@ export async function POST(req: NextRequest) {
           note: "Candidate advanced to Round 1 Technical Architecture interview.",
         });
       }
+
+      // Dispatch real email alert to candidate asynchronously
+      (async () => {
+        try {
+          const appDetails = await db
+            .select({
+              candidateEmail: users.email,
+              candidateName: users.name,
+              jobTitle: jobs.title,
+              companyName: companies.name,
+            })
+            .from(applications)
+            .innerJoin(candidateProfiles, eq(applications.candidateProfileId, candidateProfiles.id))
+            .innerJoin(users, eq(candidateProfiles.userId, users.id))
+            .innerJoin(jobs, eq(applications.jobId, jobs.id))
+            .innerJoin(companies, eq(jobs.companyId, companies.id))
+            .where(eq(applications.id, applicationId))
+            .limit(1);
+
+          if (appDetails.length > 0 && appDetails[0].candidateEmail) {
+            const candidate = appDetails[0];
+            if (eventType === "RESUME_VIEWED") {
+              const { subject, html } = applicationViewedTemplate(
+                candidate.candidateName || "Candidate",
+                candidate.jobTitle,
+                candidate.companyName
+              );
+              await sendEmail({ to: candidate.candidateEmail, subject, html });
+            } else if (eventType === "SHORTLISTED") {
+              const { subject, html } = interviewInvitationTemplate(
+                candidate.candidateName || "Candidate",
+                candidate.jobTitle,
+                candidate.companyName,
+                "Our hiring team was impressed with your background and has advanced you to Round 1 Technical Architecture. Check your Role Nest dashboard for scheduling details."
+              );
+              await sendEmail({ to: candidate.candidateEmail, subject, html });
+            }
+          }
+        } catch (err: any) {
+          console.error("[Email Notification Error in Admin Action]:", err.message || err);
+        }
+      })();
 
       return NextResponse.json({
         success: true,
