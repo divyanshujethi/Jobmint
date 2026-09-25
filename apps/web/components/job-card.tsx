@@ -69,7 +69,13 @@ export function JobCard({ job }: JobCardProps) {
     : null;
 
   return (
-    <div className="group relative rounded-xl border border-slate-200 bg-white p-5 sm:p-6 shadow-sm transition-all hover:border-slate-300 hover:shadow-md">
+    <div
+      className={`group relative rounded-xl border p-5 sm:p-6 shadow-sm transition-all hover:shadow-md ${
+        job.isFeatured
+          ? "border-amber-300 bg-amber-50/20 ring-1 ring-amber-300/50 hover:border-amber-400"
+          : "border-slate-200 bg-white hover:border-slate-300"
+      }`}
+    >
       {/* TOP ROW: COMPANY & TITLE */}
       <div className="flex items-start justify-between gap-4">
         <div className="flex items-start gap-3.5">
@@ -80,6 +86,12 @@ export function JobCard({ job }: JobCardProps) {
 
           <div>
             <div className="flex items-center gap-1.5 flex-wrap">
+              {job.isFeatured && (
+                <span className="inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 px-2 py-0.5 text-[10px] font-black shadow-xs">
+                  <Sparkles className="h-3 w-3 fill-slate-950" />
+                  Featured
+                </span>
+              )}
               <span className="text-xs font-semibold text-slate-600">
                 {job.companyName}
               </span>

@@ -1,4 +1,4 @@
-import { pgTable, text, timestamp, primaryKey, integer } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, primaryKey, integer, boolean } from "drizzle-orm/pg-core";
 import { UserRole } from "@repo/shared";
 
 export const users = pgTable("users", {
@@ -9,6 +9,9 @@ export const users = pgTable("users", {
   image: text("image"),
   passwordHash: text("password_hash"),
   role: text("role").notNull().default(UserRole.CANDIDATE),
+  isPro: boolean("is_pro").default(false).notNull(),
+  proExpiresAt: timestamp("pro_expires_at", { mode: "date" }),
+  paddleCustomerId: text("paddle_customer_id"),
   createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
   updatedAt: timestamp("updated_at", { mode: "date" }).defaultNow().notNull(),
 });

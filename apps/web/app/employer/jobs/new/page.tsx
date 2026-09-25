@@ -17,6 +17,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { JobType, WorkMode, CANONICAL_SKILLS } from "@repo/shared";
+import {
+  openPaddleCheckout,
+  PADDLE_FEATURED_JOB_PRICE_ID,
+} from "@/components/paddle-provider";
 
 export default function PostNewJobPage() {
   const [sessionUser, setSessionUser] = useState<any>(null);
@@ -34,8 +38,10 @@ export default function PostNewJobPage() {
   const [requirements, setRequirements] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isFeaturedBoost, setIsFeaturedBoost] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [createdJobSlug, setCreatedJobSlug] = useState<string | null>(null);
+  const [createdJobId, setCreatedJobId] = useState<string | null>(null);
 
   useEffect(() => {
     fetch("/api/auth/session")
@@ -96,8 +102,21 @@ export default function PostNewJobPage() {
         throw new Error(data.error || "Failed to create job posting");
       }
 
+      const newJobId = data.job?.id || null;
       setCreatedJobSlug(data.job?.slug || null);
+      setCreatedJobId(newJobId);
       setIsSubmitted(true);
+
+      if (isFeaturedBoost && newJobId) {
+        setTimeout(() => {
+          openPaddleCheckout({
+            priceId: PADDLE_FEATURED_JOB_PRICE_ID,
+            jobId: newJobId,
+            plan: "featured_job",
+            userEmail: sessionUser?.email,
+          });
+        }, 500);
+      }
     } catch (err: any) {
       setErrorMessage(err.message || "An error occurred");
     } finally {
@@ -184,6 +203,35 @@ export default function PostNewJobPage() {
             <p className="text-sm text-slate-600 max-w-md mx-auto">
               Your posting for <strong>{title}</strong> is now active in PostgreSQL. Candidates with matching verified skills are being notified.
             </p>
+
+            {createdJobId && (
+              <div className="p-5 rounded-2xl border-2 border-amber-300 bg-amber-50/70 max-w-md mx-auto text-left space-y-2.5 shadow-sm">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2 text-xs font-bold text-amber-900">
+                    <Sparkles className="h-4 w-4 text-amber-600" />
+                    Boost Listing with 30-Day Featured Placement
+                  </div>
+                  <span className="text-xs font-black text-amber-900">₹1,499</span>
+                </div>
+                <p className="text-xs text-amber-800 leading-relaxed">
+                  Pin your opening to the top of all search results, get a gold badge, and reach 5x more verified applicants.
+                </p>
+                <Button
+                  onClick={() =>
+                    openPaddleCheckout({
+                      priceId: PADDLE_FEATURED_JOB_PRICE_ID,
+                      jobId: createdJobId,
+                      plan: "featured_job",
+                      userEmail: sessionUser?.email,
+                    })
+                  }
+                  className="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs"
+                >
+                  Pin to Top of Search — ₹1,499 ($19.00)
+                </Button>
+              </div>
+            )}
+
             <div className="pt-4 flex justify-center gap-3">
               <Link href={createdJobSlug ? `/jobs/${createdJobSlug}` : "/jobs"}>
                 <Button variant="default">View Live Job Board Listing</Button>
@@ -194,6 +242,8 @@ export default function PostNewJobPage() {
                   setIsSubmitted(false);
                   setTitle("");
                   setCreatedJobSlug(null);
+                  setCreatedJobId(null);
+                  setIsFeaturedBoost(false);
                 }}
               >
                 Post Another Job
@@ -376,6 +426,44 @@ export default function PostNewJobPage() {
                 </p>
               </div>
 
+              {/* FEATURED BOOST PROMOTION */}
+              <div
+                onClick={() => setIsFeaturedBoost(!isFeaturedBoost)}
+                className={`cursor-pointer rounded-2xl border-2 p-4 transition-all ${
+                  isFeaturedBoost
+                    ? "border-amber-500 bg-amber-50/70 ring-2 ring-amber-500/20"
+                    : "border-slate-200 bg-white hover:border-slate-300"
+                }`}
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex items-start gap-3">
+                    <input
+                      type="checkbox"
+                      checked={isFeaturedBoost}
+                      onChange={(e) => setIsFeaturedBoost(e.target.checked)}
+                      className="mt-1 h-4 w-4 rounded text-amber-600 focus:ring-amber-500 cursor-pointer"
+                    />
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm font-bold text-slate-900">
+                          Promote with 30-Day Featured Placement Boost
+                        </span>
+                        <span className="rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-bold text-amber-800">
+                          Recommended
+                        </span>
+                      </div>
+                      <p className="text-xs text-slate-500 mt-0.5">
+                        Pin to the top of all search results, get a gold badge, and reach 5x more verified applicants.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="text-right shrink-0">
+                    <div className="text-sm font-black text-slate-900">₹1,499</div>
+                    <div className="text-[10px] text-slate-400">($19.00 USD)</div>
+                  </div>
+                </div>
+              </div>
+
               {errorMessage && (
                 <div className="rounded-xl border border-red-200 bg-red-50 p-3 text-xs text-red-700">
                   {errorMessage}
@@ -383,7 +471,11 @@ export default function PostNewJobPage() {
               )}
 
               <Button type="submit" size="lg" disabled={isSubmitting} className="w-full font-bold">
-                {isSubmitting ? "Publishing to PostgreSQL..." : "Publish Opportunity"}
+                {isSubmitting
+                  ? "Publishing to PostgreSQL..."
+                  : isFeaturedBoost
+                    ? "Publish & Launch Paddle Checkout (₹1,499)"
+                    : "Publish Opportunity"}
               </Button>
             </CardContent>
           </form>

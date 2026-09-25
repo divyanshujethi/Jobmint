@@ -116,10 +116,24 @@ export default function TermsPage() {
               </p>
             </section>
 
+            <section className="space-y-2">
+              <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+                7. Payments, Subscriptions &amp; Merchant of Record
+              </h2>
+              <p>
+                Our order process is conducted by our online reseller <strong>Paddle.com</strong>. Paddle.com is the Merchant of Record for all our orders. Paddle provides all customer service inquiries and handles returns.
+              </p>
+              <p className="text-xs text-slate-600">
+                Purchases of Role Nest Pro candidate subscriptions and Employer Featured Job Boosts are governed by our official <Link href="/refund" className="text-emerald-700 underline font-semibold">Refund &amp; Cancellation Policy</Link>. First-time candidate subscribers are entitled to our 7-day 100% money-back satisfaction guarantee.
+              </p>
+            </section>
+
             <div className="pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
               <span>Questions regarding our terms? Email: admin@rolenest.in</span>
               <div className="flex items-center gap-3">
                 <Link href="/privacy" className="hover:text-emerald-600 underline">Privacy Policy</Link>
+                <Link href="/refund" className="hover:text-emerald-600 underline">Refund Policy</Link>
+                <Link href="/pricing" className="hover:text-emerald-600 underline">Pricing</Link>
                 <Link href="/settings/account" className="hover:text-emerald-600 underline">Manage / Delete Account</Link>
               </div>
             </div>

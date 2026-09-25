@@ -1,4 +1,4 @@
-﻿import { db, jobs, companies, jobSkills, skills, eq, desc } from "@repo/database";
+import { db, jobs, companies, jobSkills, skills, eq, desc } from "@repo/database";
 import { MockJob, MOCK_JOBS } from "./mock-jobs";
 import { JobType, WorkMode, JobSource } from "@repo/shared";
 
@@ -30,6 +30,7 @@ export async function getLiveJobs(): Promise<MockJob[]> {
         requirements: jobs.requirements,
         benefits: jobs.benefits,
         source: jobs.source,
+        isFeatured: jobs.isFeatured,
         createdAt: jobs.createdAt,
         companyName: companies.name,
         companySlug: companies.slug,
@@ -42,7 +43,7 @@ export async function getLiveJobs(): Promise<MockJob[]> {
       .from(jobs)
       .innerJoin(companies, eq(jobs.companyId, companies.id))
       .where(eq(jobs.isActive, true))
-      .orderBy(desc(jobs.createdAt));
+      .orderBy(desc(jobs.isFeatured), desc(jobs.createdAt));
 
     if (!rawJobs || rawJobs.length === 0) {
       return MOCK_JOBS;
@@ -83,6 +84,7 @@ export async function getLiveJobs(): Promise<MockJob[]> {
         companySlug: j.companySlug,
         companyLogoInitial: j.companyName.charAt(0).toUpperCase(),
         isVerified: j.isVerified,
+        isFeatured: Boolean(j.isFeatured),
         location: j.location,
         workMode: j.workMode as any,
         jobType: j.jobType as any,

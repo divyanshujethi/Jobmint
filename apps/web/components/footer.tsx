@@ -195,6 +195,16 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/refund" className="hover:text-emerald-600 font-medium text-slate-700">
+                  Refund &amp; Cancellation Policy
+                </Link>
+              </li>
+              <li>
+                <Link href="/pricing" className="hover:text-emerald-600 font-semibold text-emerald-800">
+                  Plans &amp; Pricing
+                </Link>
+              </li>
+              <li>
                 <Link href="/settings/account" className="hover:text-rose-600 font-medium text-slate-500">
                   Delete Account (DPDP Sec. 12)
                 </Link>

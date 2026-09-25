@@ -8,6 +8,7 @@ export interface MockJob {
   companySlug: string;
   companyLogoInitial: string;
   isVerified: boolean;
+  isFeatured?: boolean;
   location: string;
   workMode: (typeof WorkMode)[keyof typeof WorkMode];
   jobType: (typeof JobType)[keyof typeof JobType];

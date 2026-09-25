@@ -25,6 +25,8 @@ export const jobs = pgTable("jobs", {
   sourceUrl: text("source_url"),
   externalJobId: text("external_job_id"),
   isActive: boolean("is_active").default(true).notNull(),
+  isFeatured: boolean("is_featured").default(false).notNull(),
+  featuredExpiresAt: timestamp("featured_expires_at", { mode: "date" }),
   expiresAt: timestamp("expires_at", { mode: "date" }),
   firstSeenAt: timestamp("first_seen_at", { mode: "date" }).defaultNow().notNull(),
   lastCheckedAt: timestamp("last_checked_at", { mode: "date" }).defaultNow().notNull(),
