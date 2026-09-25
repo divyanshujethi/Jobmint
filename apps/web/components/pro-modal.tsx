@@ -24,8 +24,8 @@ interface ProModalProps {
   onClose: () => void;
   user?: {
     id?: string;
-    email?: string;
-    name?: string;
+    email?: string | null;
+    name?: string | null;
   } | null;
 }
 
@@ -39,7 +39,7 @@ export function ProModal({ isOpen, onClose, user }: ProModalProps) {
     openPaddleCheckout({
       priceId: PADDLE_PRO_PRICE_ID,
       userId: user?.id,
-      userEmail: user?.email,
+      userEmail: user?.email || undefined,
       plan: "pro",
     });
     setLoading(false);
