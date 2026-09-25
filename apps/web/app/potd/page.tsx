@@ -165,8 +165,17 @@ function POTDWorkspace() {
           fetch("/api/streak", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ questId: "potd" }),
-          }).catch(() => {});
+            body: JSON.stringify({ questId: "potd", problemSlug: currentProblem.slug }),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              if (data?.devScore) {
+                setSubmitMessage(
+                  `🎉 All ${execReport.totalTests} test cases passed! +50 XP Awarded & Dev Score boosted to ${data.devScore}/1000!`
+                );
+              }
+            })
+            .catch(() => {});
         } else {
           setSubmitMessage(`❌ ${execReport.passedTests}/${execReport.totalTests} test cases passed. Inspect failures and debug your code.`);
         }

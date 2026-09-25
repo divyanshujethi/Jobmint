@@ -5,6 +5,7 @@ import { Search, MapPin, Filter, Briefcase, Sparkles, X } from "lucide-react";
 import { MockJob } from "@/lib/mock-jobs";
 import { JobCard } from "@/components/job-card";
 import { Button } from "@/components/ui/button";
+import { InstantAlertsBanner } from "@/components/instant-alerts-modal";
 import { JobType, WorkMode } from "@repo/shared";
 
 export default function JobsPage() {
@@ -93,6 +94,9 @@ export default function JobsPage() {
           )}
         </div>
       </div>
+
+      {/* INSTANT WHATSAPP & TELEGRAM ALERTS */}
+      <InstantAlertsBanner />
 
       {/* FILTER BUTTONS & CONTROLS */}
       <div className="mt-6 flex flex-wrap items-center justify-between gap-4">

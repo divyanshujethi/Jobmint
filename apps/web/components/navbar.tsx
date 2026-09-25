@@ -29,6 +29,8 @@ import {
   School,
   Youtube,
   Crown,
+  Gift,
+  DollarSign,
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { NotificationBell } from "./notification-bell";
@@ -164,6 +166,22 @@ export function Navbar() {
             >
               <Flame className="h-4 w-4 text-amber-500 fill-amber-500" />
               Leaderboard
+            </Link>
+
+            <Link
+              href="/bounties"
+              className="flex items-center gap-1.5 text-sm font-semibold text-slate-600 hover:text-emerald-600 transition-colors"
+            >
+              <Gift className="h-4 w-4 text-amber-500" />
+              Bounties
+            </Link>
+
+            <Link
+              href="/salaries"
+              className="flex items-center gap-1.5 text-sm font-semibold text-slate-600 hover:text-emerald-600 transition-colors"
+            >
+              <DollarSign className="h-4 w-4 text-emerald-600" />
+              Salaries
             </Link>
 
             {/* Tools & Resources Dropdown */}
@@ -685,6 +703,28 @@ export function Navbar() {
                     Campus Battles &amp; Streaks
                   </span>
                   <span className="rounded bg-amber-50 text-amber-700 px-1.5 py-0.5 text-[9px] font-mono font-bold">Colleges</span>
+                </Link>
+                <Link
+                  href="/bounties"
+                  className="flex items-center justify-between py-1.5 px-3 rounded-xl text-xs font-semibold text-slate-700 hover:bg-slate-50"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <span className="flex items-center gap-2">
+                    <Gift className="h-3.5 w-3.5 text-amber-500" />
+                    Bounty Nest™ Referrals
+                  </span>
+                  <span className="rounded bg-amber-50 text-amber-700 px-1.5 py-0.5 text-[9px] font-mono font-bold">₹ Bonus</span>
+                </Link>
+                <Link
+                  href="/salaries"
+                  className="flex items-center justify-between py-1.5 px-3 rounded-xl text-xs font-semibold text-slate-700 hover:bg-slate-50"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <span className="flex items-center gap-2">
+                    <DollarSign className="h-3.5 w-3.5 text-emerald-600" />
+                    Verified Tech Salaries
+                  </span>
+                  <span className="rounded bg-emerald-50 text-emerald-700 px-1.5 py-0.5 text-[9px] font-mono font-bold">CTC</span>
                 </Link>
               </div>
             </div>

@@ -82,6 +82,16 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/bounties" className="hover:text-emerald-600 font-semibold text-amber-700 flex items-center gap-1.5">
+                  💰 Bounty Nest™ Employee Referrals
+                </Link>
+              </li>
+              <li>
+                <Link href="/salaries" className="hover:text-emerald-600 font-semibold text-emerald-700 flex items-center gap-1.5">
+                  💵 Real Tech Salaries &amp; Timelines
+                </Link>
+              </li>
+              <li>
                 <Link href="/potd" className="hover:text-emerald-600 font-semibold text-orange-700 flex items-center gap-1.5">
                   ⚡ Problem of the Day (POTD +50 XP)
                 </Link>

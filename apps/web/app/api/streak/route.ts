@@ -233,6 +233,13 @@ export async function POST(req: NextRequest) {
     yesterday.setDate(yesterday.getDate() - 1);
     const yesterdayStr = yesterday.toISOString().split("T")[0];
 
+    let body: any = {};
+    try {
+      body = await req.json();
+    } catch {}
+
+    const isPotdQuest = body?.questId === "potd";
+
     let [record] = await db
       .select()
       .from(userStreaks)
@@ -241,36 +248,75 @@ export async function POST(req: NextRequest) {
 
     if (!record) {
       const defaultRefCode = "JM-" + (session.user.name?.replace(/\s+/g, "").toUpperCase().slice(0, 6) || "DEV") + "-" + Math.random().toString(36).substring(2, 6).toUpperCase();
+      const initialXp = isPotdQuest ? 125 : 75;
+      const initialBadges = isPotdQuest ? ["FIRST_STEP", "ALGO_ACE"] : ["FIRST_STEP"];
       const [inserted] = await db
         .insert(userStreaks)
         .values({
           userId,
           currentStreak: 1,
           longestStreak: 1,
-          totalXp: 75,
+          totalXp: initialXp,
           lastCheckInDate: todayStr,
           streakFreezes: 1,
           referralCode: defaultRefCode,
-          unlockedBadges: ["FIRST_STEP"],
+          unlockedBadges: initialBadges,
         })
         .returning();
+
+      const devScore = Math.min(1000, 520 + Math.round(initialXp * 0.6));
       return NextResponse.json({
         success: true,
         currentStreak: 1,
-        totalXp: 75,
+        totalXp: initialXp,
         streakIncreased: true,
-        xpEarned: 25,
-        newBadgesUnlocked: ["FIRST_STEP"],
+        xpEarned: isPotdQuest ? 50 : 25,
+        devScore,
+        newBadgesUnlocked: initialBadges,
       });
     }
 
-    // Already checked in today
-    if (record.lastCheckInDate === todayStr) {
+    // If it's a POTD quest completion and already checked in today, award bonus POTD XP & Dev Score
+    if (isPotdQuest && record.lastCheckInDate === todayStr) {
+      const questXp = 50;
+      const updatedXp = record.totalXp + questXp;
+      const badges = [...record.unlockedBadges];
+      if (!badges.includes("ALGO_ACE")) {
+        badges.push("ALGO_ACE");
+      }
+
+      await db
+        .update(userStreaks)
+        .set({
+          totalXp: updatedXp,
+          unlockedBadges: badges,
+          updatedAt: new Date(),
+        })
+        .where(eq(userStreaks.userId, userId));
+
+      const devScore = Math.min(1000, 480 + Math.round((updatedXp * 0.5) + (record.currentStreak * 15)));
+
+      return NextResponse.json({
+        success: true,
+        questCompleted: "potd",
+        currentStreak: record.currentStreak,
+        totalXp: updatedXp,
+        xpEarned: questXp,
+        devScore,
+        devScoreGain: 15,
+        message: `+50 XP & +15 Dev Score added! Verified Dev Score is now ${devScore}/1000.`,
+      });
+    }
+
+    // Already checked in today for basic checkin
+    if (!isPotdQuest && record.lastCheckInDate === todayStr) {
+      const devScore = Math.min(1000, 480 + Math.round((record.totalXp * 0.5) + (record.currentStreak * 15)));
       return NextResponse.json({
         success: true,
         alreadyCheckedIn: true,
         currentStreak: record.currentStreak,
         totalXp: record.totalXp,
+        devScore,
       });
     }
 
@@ -321,11 +367,14 @@ export async function POST(req: NextRequest) {
       })
       .where(eq(userStreaks.userId, userId));
 
+    const devScore = Math.min(1000, 480 + Math.round((newXp * 0.5) + (newStreak * 20)));
+
     return NextResponse.json({
       success: true,
       currentStreak: newStreak,
       longestStreak: newLongest,
       totalXp: newXp,
+      devScore,
       xpEarned: xpGained,
       streakIncreased: true,
       freezeUsed,
