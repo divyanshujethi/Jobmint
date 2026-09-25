@@ -1,11 +1,15 @@
-const CACHE_NAME = "jobmint-cache-v1";
+const CACHE_NAME = "rolenest-cache-v2";
 const OFFLINE_URL = "/offline";
 
 const PRECACHE_ASSETS = [
   "/",
+  "/jobs",
   "/roadmaps",
   "/offline",
-  "/manifest.json"
+  "/manifest.json",
+  "/manifest.webmanifest",
+  "/icon-192.png",
+  "/icon-512.png"
 ];
 
 self.addEventListener("install", (event) => {

@@ -127,7 +127,7 @@ export function JobCard({ job }: JobCardProps) {
 
           <button
             onClick={() => setIsSaved(!isSaved)}
-            className={`rounded-lg p-2 transition-colors ${
+            className={`min-h-[44px] min-w-[44px] flex items-center justify-center rounded-xl p-2.5 transition-colors touch-manipulation ${
               isSaved
                 ? "bg-emerald-50 text-emerald-600"
                 : "text-slate-400 hover:bg-slate-100 hover:text-slate-700"

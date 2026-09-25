@@ -100,9 +100,9 @@ export default function JobsPage() {
         <div className="flex flex-wrap items-center gap-2">
           <button
             onClick={() => setSelectedType("ALL")}
-            className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors ${
+            className={`min-h-[44px] inline-flex items-center rounded-xl px-3.5 py-2 text-xs font-semibold transition-colors touch-manipulation ${
               selectedType === "ALL"
-                ? "bg-emerald-600 text-white"
+                ? "bg-emerald-600 text-white shadow-xs"
                 : "bg-white border border-slate-200 text-slate-700 hover:bg-slate-50"
             }`}
           >
@@ -110,9 +110,9 @@ export default function JobsPage() {
           </button>
           <button
             onClick={() => setSelectedType(JobType.INTERNSHIP)}
-            className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors ${
+            className={`min-h-[44px] inline-flex items-center gap-1.5 rounded-xl px-3.5 py-2 text-xs font-semibold transition-colors touch-manipulation ${
               selectedType === JobType.INTERNSHIP
-                ? "bg-emerald-600 text-white"
+                ? "bg-emerald-600 text-white shadow-xs"
                 : "bg-white border border-slate-200 text-slate-700 hover:bg-slate-50"
             }`}
           >
@@ -121,9 +121,9 @@ export default function JobsPage() {
           </button>
           <button
             onClick={() => setSelectedType(JobType.FULL_TIME)}
-            className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors ${
+            className={`min-h-[44px] inline-flex items-center rounded-xl px-3.5 py-2 text-xs font-semibold transition-colors touch-manipulation ${
               selectedType === JobType.FULL_TIME
-                ? "bg-emerald-600 text-white"
+                ? "bg-emerald-600 text-white shadow-xs"
                 : "bg-white border border-slate-200 text-slate-700 hover:bg-slate-50"
             }`}
           >
@@ -136,7 +136,7 @@ export default function JobsPage() {
           <select
             value={selectedMode}
             onChange={(e) => setSelectedMode(e.target.value)}
-            className="rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 font-medium text-slate-700 focus:outline-none"
+            className="min-h-[44px] rounded-xl border border-slate-200 bg-white px-3 py-2 font-medium text-slate-700 focus:outline-none focus:ring-1 focus:ring-emerald-500 touch-manipulation"
           >
             <option value="ALL">Any Work Mode</option>
             <option value={WorkMode.REMOTE}>Remote Only</option>
@@ -144,12 +144,12 @@ export default function JobsPage() {
             <option value={WorkMode.ON_SITE}>On-Site</option>
           </select>
 
-          <label className="flex items-center gap-1.5 cursor-pointer font-medium text-slate-700 select-none">
+          <label className="min-h-[44px] inline-flex items-center gap-2 cursor-pointer font-medium text-slate-700 select-none px-2 py-1 rounded-xl hover:bg-slate-100/60 transition-colors touch-manipulation">
             <input
               type="checkbox"
               checked={onlyVerified}
               onChange={(e) => setOnlyVerified(e.target.checked)}
-              className="rounded border-slate-300 text-emerald-600 focus:ring-emerald-500"
+              className="h-4 w-4 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500"
             />
             Verified Only
           </label>
