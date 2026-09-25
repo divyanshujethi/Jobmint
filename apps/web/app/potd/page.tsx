@@ -25,6 +25,9 @@ import {
   Award,
   ListOrdered,
   Layers,
+  School,
+  Building2,
+  ExternalLink,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LEETCODE_PROBLEMS, Problem } from "@/lib/problems-data";
@@ -43,6 +46,59 @@ const MonacoEditor = dynamic(() => import("@monaco-editor/react"), {
     </div>
   ),
 });
+
+interface CollegeLeaderboardItem {
+  collegeName: string;
+  buildersCount: number;
+  totalStreakDays: number;
+  avgDevScore: number;
+  topBuilder: { name: string; streak: number };
+}
+
+const DEFAULT_CAMPUS_BATTLES: CollegeLeaderboardItem[] = [
+  {
+    collegeName: "IIT Delhi",
+    buildersCount: 142,
+    totalStreakDays: 890,
+    avgDevScore: 840,
+    topBuilder: { name: "Aarav S.", streak: 42 },
+  },
+  {
+    collegeName: "BITS Pilani",
+    buildersCount: 118,
+    totalStreakDays: 760,
+    avgDevScore: 815,
+    topBuilder: { name: "Tanvi M.", streak: 38 },
+  },
+  {
+    collegeName: "DTU Delhi",
+    buildersCount: 96,
+    totalStreakDays: 610,
+    avgDevScore: 790,
+    topBuilder: { name: "Rohan V.", streak: 31 },
+  },
+  {
+    collegeName: "VIT Vellore",
+    buildersCount: 88,
+    totalStreakDays: 540,
+    avgDevScore: 765,
+    topBuilder: { name: "Pooja K.", streak: 27 },
+  },
+  {
+    collegeName: "NIT Trichy",
+    buildersCount: 74,
+    totalStreakDays: 480,
+    avgDevScore: 780,
+    topBuilder: { name: "Karthik R.", streak: 25 },
+  },
+  {
+    collegeName: "NSUT Delhi",
+    buildersCount: 65,
+    totalStreakDays: 410,
+    avgDevScore: 755,
+    topBuilder: { name: "Ananya B.", streak: 21 },
+  },
+];
 
 function POTDWorkspace() {
   const searchParams = useSearchParams();
@@ -63,7 +119,7 @@ function POTDWorkspace() {
     cpp: initialProblem.starterCodeCpp,
     java: initialProblem.starterCodeJava,
   });
-  const [activeLeftTab, setActiveLeftTab] = useState<"DESCRIPTION" | "HINTS" | "EDITORIAL" | "BADGES">("DESCRIPTION");
+  const [activeLeftTab, setActiveLeftTab] = useState<"DESCRIPTION" | "HINTS" | "EDITORIAL" | "CAMPUS" | "BADGES">("DESCRIPTION");
   const [activeBottomTab, setActiveBottomTab] = useState<"TEST_CASES" | "CONSOLE">("TEST_CASES");
   const [activeTestCaseIdx, setActiveTestCaseIdx] = useState<number>(0);
 
@@ -72,6 +128,39 @@ function POTDWorkspace() {
   const [submitMessage, setSubmitMessage] = useState<string | null>(null);
   const [badgeUnlocked, setBadgeUnlocked] = useState<string | null>(null);
   const [solvedList, setSolvedList] = useState<string[]>([]);
+
+  // Campus Battles & Dev Score State
+  const [selectedCampus, setSelectedCampus] = useState<string>("IIT Delhi");
+  const [userDevScore, setUserDevScore] = useState<number>(780);
+  const [collegeBattles, setCollegeBattles] = useState<CollegeLeaderboardItem[]>(DEFAULT_CAMPUS_BATTLES);
+
+  useEffect(() => {
+    try {
+      const storedCampus = localStorage.getItem("rolenest_user_campus");
+      if (storedCampus) setSelectedCampus(storedCampus);
+
+      const storedSolved = localStorage.getItem("jobmint_solved_problems");
+      if (storedSolved) setSolvedList(JSON.parse(storedSolved));
+    } catch (e) {}
+
+    // Fetch dynamic leaderboard for campus battles
+    fetch("/api/leaderboard")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data?.collegeBattles && Array.isArray(data.collegeBattles) && data.collegeBattles.length > 0) {
+          setCollegeBattles(data.collegeBattles);
+        }
+      })
+      .catch((err) => console.warn("Notice loading campus battles:", err));
+
+    // Fetch user streak for dev score
+    fetch("/api/streak")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data?.devScore) setUserDevScore(data.devScore);
+      })
+      .catch(() => {});
+  }, []);
 
   useEffect(() => {
     if (problemSlug) {
@@ -114,24 +203,17 @@ function POTDWorkspace() {
     }));
   };
 
-  const handleCodeChange = (newVal: string | undefined) => {
-    const val = newVal || "";
-    setLanguageCodeMap((prev) => ({
-      ...prev,
-      [selectedLanguage]: val,
-    }));
+  const handleCodeChange = (newCode: string | undefined) => {
+    if (typeof newCode === "string") {
+      setLanguageCodeMap((prev) => ({
+        ...prev,
+        [selectedLanguage]: newCode,
+      }));
+    }
   };
 
-  useEffect(() => {
-    try {
-      const stored = localStorage.getItem("jobmint_solved_problems");
-      if (stored) {
-        setSolvedList(JSON.parse(stored));
-      }
-    } catch (e) {}
-  }, []);
-
-  const handleRun = async (isSubmission = false) => {
+  const handleRun = async (isSubmission: boolean = false) => {
+    if (running) return;
     setRunning(true);
     setSubmitMessage(null);
 
@@ -170,6 +252,7 @@ function POTDWorkspace() {
             .then((res) => res.json())
             .then((data) => {
               if (data?.devScore) {
+                setUserDevScore(data.devScore);
                 setSubmitMessage(
                   `🎉 All ${execReport.totalTests} test cases passed! +50 XP Awarded & Dev Score boosted to ${data.devScore}/1000!`
                 );
@@ -211,6 +294,9 @@ function POTDWorkspace() {
             </span>
             <span className="rounded bg-emerald-950 border border-emerald-800 px-2 py-0.5 text-[10px] font-mono text-emerald-300 font-bold">
               +50 XP
+            </span>
+            <span className="rounded bg-slate-800 border border-slate-700 px-2 py-0.5 text-[10px] font-mono text-emerald-400 font-bold">
+              Dev Score: {userDevScore}/1000
             </span>
             {isCurrentSolved && (
               <span className="inline-flex items-center gap-1 rounded bg-emerald-900/60 border border-emerald-700 px-2 py-0.5 text-[10px] font-semibold text-emerald-300">
@@ -261,10 +347,10 @@ function POTDWorkspace() {
         {/* LEFT COLUMN: DESCRIPTION & TABS */}
         <div className="lg:col-span-5 border-r border-slate-800 bg-slate-950 flex flex-col h-full overflow-hidden">
           {/* Sub Navigation */}
-          <div className="flex items-center gap-1.5 border-b border-slate-800 px-4 pt-2.5 pb-2 bg-slate-950 shrink-0">
+          <div className="flex items-center gap-1.5 border-b border-slate-800 px-4 pt-2.5 pb-2 bg-slate-950 shrink-0 overflow-x-auto">
             <button
               onClick={() => setActiveLeftTab("DESCRIPTION")}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-colors ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-colors whitespace-nowrap ${
                 activeLeftTab === "DESCRIPTION"
                   ? "bg-slate-800 text-white"
                   : "text-slate-400 hover:text-white"
@@ -275,7 +361,7 @@ function POTDWorkspace() {
             </button>
             <button
               onClick={() => setActiveLeftTab("HINTS")}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-colors ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-colors whitespace-nowrap ${
                 activeLeftTab === "HINTS"
                   ? "bg-slate-800 text-white"
                   : "text-slate-400 hover:text-white"
@@ -286,7 +372,7 @@ function POTDWorkspace() {
             </button>
             <button
               onClick={() => setActiveLeftTab("EDITORIAL")}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-colors ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-colors whitespace-nowrap ${
                 activeLeftTab === "EDITORIAL"
                   ? "bg-slate-800 text-white"
                   : "text-slate-400 hover:text-white"
@@ -296,8 +382,19 @@ function POTDWorkspace() {
               Editorial
             </button>
             <button
+              onClick={() => setActiveLeftTab("CAMPUS")}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-colors whitespace-nowrap ${
+                activeLeftTab === "CAMPUS"
+                  ? "bg-slate-800 text-white"
+                  : "text-slate-400 hover:text-white"
+              }`}
+            >
+              <Trophy className="h-3.5 w-3.5 text-orange-400" />
+              Campus Battles
+            </button>
+            <button
               onClick={() => setActiveLeftTab("BADGES")}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-colors ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-colors whitespace-nowrap ${
                 activeLeftTab === "BADGES"
                   ? "bg-slate-800 text-white"
                   : "text-slate-400 hover:text-white"
@@ -348,50 +445,47 @@ function POTDWorkspace() {
                   <div className="leading-relaxed">{currentProblem.realWorldContext}</div>
                 </div>
 
-                {/* Description Body */}
-                <div className="whitespace-pre-line text-slate-300 leading-relaxed font-sans text-xs sm:text-sm">
+                {/* Markdown Description Body */}
+                <div className="whitespace-pre-line text-slate-300 leading-relaxed font-sans space-y-3">
                   {currentProblem.description}
                 </div>
 
-                {/* Examples */}
+                {/* Visible Test Case Examples */}
                 <div className="space-y-3 pt-2">
-                  <div className="font-bold text-white text-xs uppercase tracking-wider font-mono">
-                    Examples
-                  </div>
-                  {currentProblem.examples.map((ex, idx) => (
-                    <div
-                      key={idx}
-                      className="rounded-xl border border-slate-800 bg-slate-900/70 p-3.5 space-y-1.5 font-mono text-xs"
-                    >
-                      <div>
-                        <strong className="text-slate-400">Input:</strong>{" "}
-                        <span className="text-emerald-400">{ex.input}</span>
-                      </div>
-                      <div>
-                        <strong className="text-slate-400">Output:</strong>{" "}
-                        <span className="text-orange-400">{ex.output}</span>
-                      </div>
-                      {ex.explanation && (
-                        <div className="text-slate-400 text-[11px] pt-1.5 border-t border-slate-800/80 font-sans leading-relaxed">
-                          {ex.explanation}
+                  <h3 className="font-bold text-white text-xs uppercase tracking-wider font-mono">
+                    Sample Test Cases
+                  </h3>
+                  {currentProblem.testCases
+                    .filter((tc) => !tc.isHidden)
+                    .map((tc, idx) => (
+                      <div
+                        key={idx}
+                        className="rounded-xl border border-slate-800 bg-slate-900/60 p-3 text-xs font-mono space-y-1"
+                      >
+                        <div className="text-slate-400">
+                          <strong className="text-slate-300">Input:</strong>{" "}
+                          <span className="text-emerald-400">{JSON.stringify(tc.inputArgs)}</span>
                         </div>
-                      )}
-                    </div>
-                  ))}
+                        <div className="text-slate-400">
+                          <strong className="text-slate-300">Expected:</strong>{" "}
+                          <span className="text-orange-400">{JSON.stringify(tc.expected)}</span>
+                        </div>
+                      </div>
+                    ))}
                 </div>
 
                 {/* Constraints */}
                 <div className="space-y-2 pt-2">
-                  <div className="font-bold text-white text-xs uppercase tracking-wider font-mono">
+                  <h3 className="font-bold text-white text-xs uppercase tracking-wider font-mono">
                     Constraints
-                  </div>
-                  <ul className="list-disc pl-5 space-y-1 font-mono text-xs text-slate-400">
-                    {currentProblem.constraints.map((c, i) => (
-                      <li key={i}>{c}</li>
+                  </h3>
+                  <ul className="list-disc list-inside space-y-1 text-xs text-slate-400 font-mono">
+                    {currentProblem.constraints.map((c, idx) => (
+                      <li key={idx}>{c}</li>
                     ))}
                   </ul>
                 </div>
-              </> 
+              </>
             )}
 
             {activeLeftTab === "HINTS" && (
@@ -427,6 +521,146 @@ function POTDWorkspace() {
                 </div>
                 <div className="whitespace-pre-line text-slate-300 text-xs leading-relaxed font-sans rounded-2xl border border-slate-800 bg-slate-900/80 p-5 space-y-3">
                   {currentProblem.editorial}
+                </div>
+              </div>
+            )}
+
+            {/* TAB 4: CAMPUS BATTLES & DEV SCORE SHOWCASE */}
+            {activeLeftTab === "CAMPUS" && (
+              <div className="space-y-5">
+                <div>
+                  <div className="flex items-center justify-between">
+                    <h3 className="font-bold text-white text-base flex items-center gap-1.5">
+                      <Trophy className="h-4 w-4 text-orange-400" />
+                      Campus Battles &amp; Leaderboard
+                    </h3>
+                    <span className="text-[10px] font-mono text-emerald-400 bg-emerald-950 border border-emerald-800 px-2 py-0.5 rounded-full">
+                      Live Rankings
+                    </span>
+                  </div>
+                  <p className="text-xs text-slate-400 mt-1">
+                    Daily problem solves directly increase your college team's score and showcase your Verified Dev Score to hiring companies.
+                  </p>
+                </div>
+
+                {/* College Selector / Affiliation Card */}
+                <div className="rounded-2xl border border-slate-800 bg-slate-900/90 p-4 space-y-2.5">
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="font-bold text-slate-300 flex items-center gap-1.5">
+                      <School className="h-3.5 w-3.5 text-orange-400" /> Your College / Campus:
+                    </span>
+                    <span className="text-emerald-400 font-mono font-bold">
+                      Dev Score: {userDevScore}/1000
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="text"
+                      value={selectedCampus}
+                      onChange={(e) => {
+                        setSelectedCampus(e.target.value);
+                        try {
+                          localStorage.setItem("rolenest_user_campus", e.target.value);
+                        } catch (err) {}
+                      }}
+                      placeholder="e.g. IIT Delhi, BITS Pilani, DTU, VIT..."
+                      className="flex-1 rounded-xl border border-slate-700 bg-slate-950 px-3 py-1.5 text-xs text-white focus:outline-none focus:border-emerald-500 font-medium"
+                    />
+                    <span className="text-[11px] font-mono font-bold bg-orange-950/60 border border-orange-800/80 text-orange-300 px-2.5 py-1.5 rounded-xl whitespace-nowrap">
+                      🔥 Active Fighter
+                    </span>
+                  </div>
+                </div>
+
+                {/* National Rankings */}
+                <div className="space-y-2.5">
+                  <span className="text-xs font-bold text-slate-400 uppercase tracking-wider font-mono">
+                    Top Engineering Colleges
+                  </span>
+
+                  <div className="rounded-2xl border border-slate-800 bg-slate-950 overflow-hidden divide-y divide-slate-800/80">
+                    {collegeBattles.map((c, idx) => (
+                      <div
+                        key={c.collegeName}
+                        className={`p-3 flex items-center justify-between gap-3 text-xs transition-colors ${
+                          selectedCampus.toLowerCase() === c.collegeName.toLowerCase()
+                            ? "bg-emerald-950/40 border-l-2 border-emerald-500"
+                            : "hover:bg-slate-900/50"
+                        }`}
+                      >
+                        <div className="flex items-center gap-2.5">
+                          <span
+                            className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-lg font-mono font-black text-[11px] ${
+                              idx === 0
+                                ? "bg-amber-500 text-slate-950"
+                                : idx === 1
+                                ? "bg-slate-300 text-slate-950"
+                                : idx === 2
+                                ? "bg-amber-700 text-white"
+                                : "bg-slate-800 text-slate-400"
+                            }`}
+                          >
+                            #{idx + 1}
+                          </span>
+                          <div>
+                            <div className="font-bold text-white flex items-center gap-1.5">
+                              {c.collegeName}
+                              {selectedCampus.toLowerCase() === c.collegeName.toLowerCase() && (
+                                <span className="rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 text-[9px] px-1.5 py-0.2 font-mono">
+                                  YOUR CAMPUS
+                                </span>
+                              )}
+                            </div>
+                            <div className="text-[11px] text-slate-400">
+                              {c.buildersCount} builders • MVP: {c.topBuilder?.name || "Student"} ({c.topBuilder?.streak || 24}d streak)
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="text-right shrink-0">
+                          <div className="font-mono font-bold text-emerald-400">
+                            {c.avgDevScore} DevScore
+                          </div>
+                          <div className="text-[10px] text-slate-500 font-mono">
+                            {c.totalStreakDays} streak pts
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Showcase Dev Score to Employers */}
+                <div className="rounded-2xl border border-emerald-900/60 bg-gradient-to-br from-emerald-950/40 to-slate-900 p-4 space-y-2.5">
+                  <div className="flex items-center gap-2">
+                    <Award className="h-4 w-4 text-emerald-400" />
+                    <h4 className="font-bold text-white text-xs">
+                      Showcase Dev Score Directly to Employers
+                    </h4>
+                  </div>
+                  <p className="text-[11px] text-slate-300 leading-relaxed">
+                    Hiring companies on Role Nest (Swiggy, Razorpay, Google, Zepto) filter candidates by Verified Dev Score. Each POTD you solve increases your verified score, bypassing the ATS queue automatically.
+                  </p>
+                  <div className="flex flex-wrap items-center gap-2 pt-1">
+                    <Link
+                      href={`/dev-score?score=${userDevScore}`}
+                      target="_blank"
+                      className="inline-flex items-center gap-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1.5 text-xs font-bold transition-colors"
+                    >
+                      <span>View Verified Certificate</span>
+                      <ChevronRight className="h-3 w-3" />
+                    </Link>
+                    <button
+                      onClick={() => {
+                        const badgeCode = `[![Role Nest Verified Dev](https://img.shields.io/badge/Role%20Nest%20Dev%20Score-${userDevScore}%2F1000-10b981?style=for-the-badge&logo=github)](https://rolenest.in/dev-score?score=${userDevScore})`;
+                        navigator.clipboard.writeText(badgeCode);
+                        alert("GitHub / Resume Dev Score Badge Markdown copied to clipboard!");
+                      }}
+                      className="rounded-xl border border-slate-700 bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 text-xs font-bold transition-colors"
+                    >
+                      Copy Badge Markdown
+                    </button>
+                  </div>
                 </div>
               </div>
             )}
@@ -519,44 +753,37 @@ function POTDWorkspace() {
                 lineNumbers: "on",
                 scrollBeyondLastLine: false,
                 automaticLayout: true,
-                tabSize: selectedLanguage === "python" ? 4 : 2,
-                wordWrap: "on",
                 padding: { top: 12, bottom: 12 },
-                suggestOnTriggerCharacters: true,
-                formatOnType: true,
-                cursorBlinking: "smooth",
-                renderLineHighlight: "all",
+                tabSize: 2,
               }}
             />
           </div>
 
-          {/* BOTTOM TEST RUNNER & CONSOLE HUD */}
+          {/* TEST RUNNER HUD */}
           <div className="border-t border-slate-800 bg-slate-950 p-4 space-y-3 shrink-0">
             
-            {/* Top Bar: Tabs & Action Buttons */}
             <div className="flex flex-wrap items-center justify-between gap-3">
+              {/* Output Sub-Tabs */}
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => setActiveBottomTab("TEST_CASES")}
-                  className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold transition-colors ${
+                  className={`text-xs font-bold px-3 py-1.5 rounded-lg transition-colors ${
                     activeBottomTab === "TEST_CASES"
-                      ? "bg-slate-800 text-white border border-slate-700"
-                      : "text-slate-400 hover:text-slate-200"
+                      ? "bg-slate-800 text-white"
+                      : "text-slate-400 hover:text-white"
                   }`}
                 >
-                  <Layers className="h-3.5 w-3.5 text-emerald-400" />
-                  Test Cases
+                  Test Results
                 </button>
                 <button
                   onClick={() => setActiveBottomTab("CONSOLE")}
-                  className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold transition-colors ${
+                  className={`text-xs font-bold px-3 py-1.5 rounded-lg transition-colors ${
                     activeBottomTab === "CONSOLE"
-                      ? "bg-slate-800 text-white border border-slate-700"
-                      : "text-slate-400 hover:text-slate-200"
+                      ? "bg-slate-800 text-white"
+                      : "text-slate-400 hover:text-white"
                   }`}
                 >
-                  <Terminal className="h-3.5 w-3.5 text-indigo-400" />
-                  Console Output {report?.logs?.length ? `(${report.logs.length})` : ""}
+                  Console Logs
                 </button>
               </div>
 
@@ -590,17 +817,37 @@ function POTDWorkspace() {
               {/* Submission Banner */}
               {submitMessage && (
                 <div
-                  className={`p-2.5 rounded-lg text-xs font-bold flex items-center justify-between ${
+                  className={`p-2.5 rounded-lg text-xs font-bold space-y-2 ${
                     submitMessage.startsWith("🎉")
                       ? "bg-emerald-950/80 text-emerald-300 border border-emerald-800"
                       : "bg-rose-950/80 text-rose-300 border border-rose-800"
                   }`}
                 >
-                  <span>{submitMessage}</span>
-                  {badgeUnlocked && (
-                    <span className="text-[11px] font-mono bg-emerald-900/80 px-2 py-0.5 rounded text-white flex items-center gap-1">
-                      🏆 {badgeUnlocked}
-                    </span>
+                  <div className="flex items-center justify-between">
+                    <span>{submitMessage}</span>
+                    {badgeUnlocked && (
+                      <span className="text-[11px] font-mono bg-emerald-900/80 px-2 py-0.5 rounded text-white flex items-center gap-1">
+                        🏆 {badgeUnlocked}
+                      </span>
+                    )}
+                  </div>
+
+                  {submitMessage.startsWith("🎉") && (
+                    <div className="flex items-center gap-2 pt-1 font-sans">
+                      <button
+                        onClick={() => setActiveLeftTab("CAMPUS")}
+                        className="rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1 text-[11px] font-bold flex items-center gap-1 transition-colors"
+                      >
+                        <Trophy className="h-3 w-3" /> View Campus Rank
+                      </button>
+                      <Link
+                        href={`/dev-score?score=${userDevScore}`}
+                        target="_blank"
+                        className="rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3 py-1 text-[11px] font-bold flex items-center gap-1 transition-colors"
+                      >
+                        <Award className="h-3 w-3 text-amber-400" /> Showcase to Employers
+                      </Link>
+                    </div>
                   )}
                 </div>
               )}
@@ -620,42 +867,47 @@ function POTDWorkspace() {
                 </div>
               )}
 
-              {/* TEST CASES TAB */}
+              {/* TEST CASE SELECTOR & DETAILS */}
               {activeBottomTab === "TEST_CASES" && (
-                <div>
-                  {report?.results && report.results.length > 0 ? (
-                    <div className="space-y-2.5">
-                      {/* Case Selectors */}
-                      <div className="flex items-center gap-1.5 overflow-x-auto pb-1">
+                <div className="space-y-3">
+                  {report ? (
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2 border-b border-slate-800 pb-2">
                         {report.results.map((r, idx) => (
                           <button
                             key={idx}
                             onClick={() => setActiveTestCaseIdx(idx)}
                             className={`px-2.5 py-1 rounded text-xs font-mono font-bold flex items-center gap-1 transition-colors ${
                               activeTestCaseIdx === idx
-                                ? "bg-slate-800 text-white border border-slate-700"
-                                : "text-slate-400 hover:text-slate-200"
+                                ? "bg-slate-800 text-white ring-1 ring-slate-600"
+                                : "text-slate-400 hover:text-white"
                             }`}
                           >
                             {r.passed ? (
-                              <CheckCircle2 className="h-3 w-3 text-emerald-400" />
+                              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
                             ) : (
-                              <XCircle className="h-3 w-3 text-rose-400" />
+                              <XCircle className="h-3.5 w-3.5 text-rose-400" />
                             )}
-                            <span>Case {idx + 1}</span>
+                            Case #{idx + 1}
                           </button>
                         ))}
                       </div>
 
-                      {/* Selected Case Details */}
                       {report.results[activeTestCaseIdx] && (
-                        <div className="space-y-1.5 pt-1 border-t border-slate-800/80">
-                          <div className="flex items-center justify-between text-[11px] text-slate-400">
-                            <span>{report.results[activeTestCaseIdx].name}</span>
-                            <span className="flex items-center gap-1 text-slate-400">
-                              <Clock className="h-3 w-3" />{" "}
-                              {report.results[activeTestCaseIdx].durationMs}ms
+                        <div className="space-y-1.5 pt-1 text-[11px]">
+                          <div className="flex items-center gap-3 text-slate-400">
+                            <span>Status:</span>
+                            <span
+                              className={`font-bold ${
+                                report.results[activeTestCaseIdx].passed
+                                  ? "text-emerald-400"
+                                  : "text-rose-400"
+                              }`}
+                            >
+                              {report.results[activeTestCaseIdx].passed ? "Passed" : "Failed"}
                             </span>
+                            <span>•</span>
+                            <span>Time: {report.results[activeTestCaseIdx].durationMs}ms</span>
                           </div>
 
                           <div>
