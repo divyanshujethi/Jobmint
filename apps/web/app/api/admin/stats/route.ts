@@ -61,6 +61,36 @@ export async function GET() {
     const proUsersCount = allUsers.filter((u) => u.isPro).length;
     const featuredJobsCount = allJobs.filter((j) => (j as any).isFeatured).length;
 
+    const formattedResumes = allResumes.map((r) => {
+      const rawUrl = r.resumeUrl || "";
+      let cleanKey = "";
+      if (rawUrl.includes("key=")) {
+        try {
+          const u = new URL(rawUrl.startsWith("http") ? rawUrl : `https://rolenest.in${rawUrl}`);
+          cleanKey = u.searchParams.get("key") || "";
+        } catch {}
+      } else if (rawUrl.includes("token=")) {
+        try {
+          const u = new URL(rawUrl.startsWith("http") ? rawUrl : `https://rolenest.in${rawUrl}`);
+          cleanKey = u.searchParams.get("token") || "";
+        } catch {}
+      } else {
+        cleanKey = rawUrl.replace(/^.*[\\\/]/, "");
+      }
+
+      if (cleanKey && !cleanKey.endsWith(".pdf") && cleanKey.length === 64) {
+        cleanKey = `${cleanKey}.pdf`;
+      }
+
+      const streamUrl = cleanKey ? `/api/resumes/stream?key=${encodeURIComponent(cleanKey)}` : rawUrl;
+
+      return {
+        ...r,
+        resumeUrl: streamUrl,
+        key: cleanKey,
+      };
+    });
+
     return NextResponse.json({
       isAdmin: Boolean(isAdmin),
       currentUser: session?.user || null,
@@ -87,7 +117,7 @@ export async function GET() {
       companies: allCompanies,
       jobs: allJobs,
       applications: allApps,
-      resumes: allResumes,
+      resumes: formattedResumes,
     });
   } catch (error: any) {
     console.error("Error fetching admin stats:", error);
