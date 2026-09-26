@@ -60,7 +60,7 @@ export default function JobsPage() {
 
       return true;
     });
-  }, [searchTerm, selectedType, selectedMode, onlyVerified]);
+  }, [jobs, searchTerm, selectedType, selectedMode, onlyVerified]);
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">

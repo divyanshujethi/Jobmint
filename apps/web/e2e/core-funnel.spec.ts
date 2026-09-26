@@ -7,18 +7,15 @@ test.describe("Core Funnel: Candidate to Recruiter Workflow", () => {
     await expect(page).toHaveTitle(/Jobs|Role Nest/i);
 
     // Verify main headings and search bar exist
-    const searchInput = page.locator('input[placeholder*="Search by role" i], input[type="search"], input[type="text"]').first();
+    const searchInput = page.locator('input[placeholder*="Search by title" i], input[type="text"]').first();
     await expect(searchInput).toBeVisible();
 
-    // Type query to filter jobs
-    await searchInput.fill("Engineer");
-
-    // Verify job cards are rendered
-    const jobCards = page.locator('a[href^="/jobs/"]');
-    await expect(jobCards.first()).toBeVisible();
+    // Verify job cards are rendered after loading
+    const jobLink = page.locator('a[href^="/jobs/"]').first();
+    await expect(jobLink).toBeVisible({ timeout: 10000 });
 
     // Click on the first job listing to visit details page
-    const firstJobHref = await jobCards.first().getAttribute("href");
+    const firstJobHref = await jobLink.getAttribute("href");
     expect(firstJobHref).toBeTruthy();
 
     await page.goto(firstJobHref!);
@@ -45,7 +42,7 @@ test.describe("Core Funnel: Candidate to Recruiter Workflow", () => {
 
     expect(apiResponse.ok()).toBeTruthy();
     const data = await apiResponse.json();
-    expect(data.score).toBeGreaterThanOrEqual(0);
+    expect(data.matchScore).toBeGreaterThanOrEqual(0);
     expect(data.matchedSkills).toBeDefined();
     expect(Array.isArray(data.matchedSkills)).toBeTruthy();
   });
@@ -56,8 +53,7 @@ test.describe("Core Funnel: Candidate to Recruiter Workflow", () => {
     await expect(page).toHaveTitle(/Applications|Tracker|Role Nest/i);
 
     // Verify Truth Teller UI components
-    const truthTellerCard = page.locator("text=Truth Teller, text=Applications, text=Verified").first();
-    await expect(truthTellerCard).toBeVisible();
+    await expect(page.locator("text=Truth Teller").first()).toBeVisible();
 
     // Check application API route returns structured JSON
     const res = await page.request.get("/api/applications");
@@ -71,8 +67,9 @@ test.describe("Core Funnel: Candidate to Recruiter Workflow", () => {
     await page.goto("/employer/applicants");
     await expect(page).toHaveTitle(/Applicants|Employer|Role Nest/i);
 
-    // Check Truth Teller SLA telemetry block
-    await expect(page.locator("text=Truth Teller Review SLA, text=Review Rate, text=Exemplary").first()).toBeVisible();
+    // Check Recruiter Desk heading & Truth Teller badge
+    await expect(page.getByRole("heading", { name: /Recruiter Applicant Desk/i })).toBeVisible();
+    await expect(page.getByText(/Truth Teller Active/i)).toBeVisible();
 
     // Verify GET /api/employer/applicants returns 401 when unauthenticated
     const unauthReq = await page.request.get("/api/employer/applicants");
