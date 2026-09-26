@@ -415,7 +415,9 @@ export default function BountyNestPage() {
               </div>
 
               <div>
-                <h4 className="font-bold text-sm text-slate-900 line-clamp-1">{b.roleTitle}</h4>
+                <h4 className="font-bold text-sm text-slate-900 line-clamp-2 min-h-[2.5rem] leading-snug" title={b.roleTitle}>
+                  {b.roleTitle}
+                </h4>
                 <div className="mt-1 flex items-center gap-1.5 text-xs text-slate-500">
                   <span>Referrer:</span>
                   <span className="font-semibold text-slate-700">{b.referrerName}</span>

@@ -283,11 +283,22 @@ function POTDWorkspace() {
       <header className="border-b border-slate-800 bg-slate-950 px-4 py-2.5 flex items-center justify-between shrink-0">
         <div className="flex items-center gap-3">
           <Link
+            href="/jobs"
+            className="flex items-center gap-2 group mr-1 text-slate-300 hover:text-white transition-colors"
+            title="Return to Jobs & Career Hub"
+          >
+            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-600 text-white font-black text-sm shadow-sm group-hover:scale-105 transition-transform">
+              R
+            </div>
+            <span className="font-extrabold text-sm tracking-tight hidden md:inline">Role Nest</span>
+          </Link>
+          <span className="text-slate-700 hidden md:inline">|</span>
+          <Link
             href="/problems"
             className="flex items-center gap-1.5 text-xs font-semibold text-slate-400 hover:text-white transition-colors"
           >
             <ArrowLeft className="h-4 w-4" />
-            <span>Problem Catalog</span>
+            <span className="hidden sm:inline">Problem Catalog</span>
           </Link>
           <span className="text-slate-700">|</span>
           <div className="flex items-center gap-2">

@@ -1,10 +1,17 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { APP_CONFIG } from "@repo/shared";
 import { ShieldCheck, Heart, Award, Scale, Settings2, Download, Smartphone, Mail } from "lucide-react";
 
 export function Footer() {
+  const pathname = usePathname();
+
+  if (pathname?.startsWith("/potd") || pathname?.startsWith("/canvas")) {
+    return null;
+  }
+
   const triggerPwaInstall = () => {
     if (typeof window !== "undefined") {
       window.dispatchEvent(new CustomEvent("trigger-pwa-install"));
