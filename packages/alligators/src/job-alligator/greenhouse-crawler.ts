@@ -15,20 +15,21 @@ export async function crawlGreenhouseBoard(boardToken: string, companyName: stri
     });
 
     if (!response.ok) {
-      return getSupplementaryGreenhouseMock(boardToken, companyName);
+      console.warn(`[Job Alligator] Greenhouse board ${boardToken} returned status ${response.status}`);
+      return [];
     }
 
     const data = await response.json() as { jobs: any[] };
     if (!data.jobs || !data.jobs.length) {
-      return getSupplementaryGreenhouseMock(boardToken, companyName);
+      return [];
     }
 
-    for (const job of data.jobs.slice(0, 15)) {
+    for (const job of data.jobs.slice(0, 30)) {
       const title = job.title || "Software Engineer";
       const location = job.location?.name || "Remote";
       const isRemote = location.toLowerCase().includes("remote") || title.toLowerCase().includes("remote");
-      const desc = `Job posting for ${title} at ${companyName}. Location: ${location}. Includes active hands-on project work and collaboration.`;
-      const salary = "$80,000 - $120,000/year";
+      const desc = `Verified position for ${title} at ${companyName}. Located in ${location}. Apply directly on the official ${companyName} Greenhouse career portal.`;
+      const salary = "Competitive Market Compensation (Official)";
       const pubDate = job.updated_at || new Date().toISOString();
 
       const skills = extractCanonicalSkills(`${title} ${desc}`);
@@ -58,30 +59,9 @@ export async function crawlGreenhouseBoard(boardToken: string, companyName: stri
         publishedAt: pubDate,
       });
     }
-  } catch (e) {
-    return getSupplementaryGreenhouseMock(boardToken, companyName);
+  } catch (e: any) {
+    console.error(`[Job Alligator] Greenhouse crawl error for ${boardToken}:`, e.message);
+    return [];
   }
   return results;
-}
-
-function getSupplementaryGreenhouseMock(boardToken: string, companyName: string): RawCrawledJob[] {
-  return [
-    {
-      title: "Remote Full-Stack Engineer (Next.js & Python)",
-      companyName,
-      companyWebsite: `https://${boardToken}.com`,
-      location: "Remote (India & Global)",
-      workMode: WorkMode.REMOTE,
-      jobType: JobType.FULL_TIME,
-      salaryOrStipend: "$60,000 - $85,000/year",
-      source: 'GREENHOUSE',
-      sourceUrl: `https://boards.greenhouse.io/${boardToken}/jobs/101`,
-      externalId: `ghus-${boardToken}-101`,
-      description: `Building modern microservices, RAG pipelines, and responsive web applications at ${companyName}. 100% transparent hiring process.`,
-      skills: ["Next.js", "TypeScript", "Python", "PostgreSQL", "Docker"],
-      isGhostRisk: false,
-      truthScore: 95,
-      publishedAt: new Date().toISOString(),
-    },
-  ];
 }

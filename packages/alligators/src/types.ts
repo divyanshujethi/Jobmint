@@ -11,7 +11,7 @@ export interface RawCrawledJob {
   minSalary?: number;
   maxSalary?: number;
   currency?: string;
-  source: 'GREENHOUSE' | 'LEVER' | 'GITHUB_INTERNSHIPS' | 'REMOTE_RSS';
+  source: 'GREENHOUSE' | 'LEVER' | 'GITHUB_INTERNSHIPS' | 'REMOTE_RSS' | 'SIMPLIFY_TECH' | 'EXTERNAL';
   sourceUrl: string;
   externalId: string;
   description: string;

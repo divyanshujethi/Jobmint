@@ -11,20 +11,21 @@ export async function crawlLeverSite(siteName: string, companyName: string): Pro
     });
 
     if (!response.ok) {
-      return getSupplementaryLeverMock(siteName, companyName);
+      console.warn(`[Job Alligator] Lever site ${siteName} returned status ${response.status}`);
+      return [];
     }
 
     const data = (await response.json()) as any[];
     if (!data || !data.length) {
-      return getSupplementaryLeverMock(siteName, companyName);
+      return [];
     }
 
-    for (const posting of data.slice(0, 15)) {
+    for (const posting of data.slice(0, 30)) {
       const title = posting.text || 'Software Engineer';
       const location = posting.categories?.location || 'Remote';
       const isRemote = location.toLowerCase().includes('remote') || title.toLowerCase().includes('remote');
-      const desc = `Job posting for ${title} at ${companyName}. Location: ${location}. Building high-performance systems.`;
-      const salary = '$70,000 - $110,000/year';
+      const desc = `Verified position for ${title} at ${companyName}. Located in ${location}. Apply directly on the official ${companyName} Lever portal.`;
+      const salary = 'Competitive Market Compensation (Official)';
       const pubDate = posting.createdAt ? new Date(posting.createdAt).toISOString() : new Date().toISOString();
 
       const skills = extractCanonicalSkills(`${title} ${desc}`);
@@ -54,30 +55,9 @@ export async function crawlLeverSite(siteName: string, companyName: string): Pro
         publishedAt: pubDate,
       });
     }
-  } catch {
-    return getSupplementaryLeverMock(siteName, companyName);
+  } catch (e: any) {
+    console.error(`[Job Alligator] Lever crawl error for ${siteName}:`, e.message);
+    return [];
   }
   return results;
-}
-
-function getSupplementaryLeverMock(siteName: string, companyName: string): RawCrawledJob[] {
-  return [
-    {
-      title: 'AI & ML/LLM Research Engineer',
-      companyName,
-      companyWebsite: `https://${siteName}.com`,
-      location: 'Remote (Global)',
-      workMode: WorkMode.REMOTE,
-      jobType: JobType.FULL_TIME,
-      salaryOrStipend: '$90,000 - $135,000/year',
-      source: 'LEVER',
-      sourceUrl: `https://jobs.lever.co/${siteName}/202`,
-      externalId: `lever-${siteName}-202`,
-      description: 'Designing and deploying fine-tuned models with vLLM and Ollama. Transparent hiring process.',
-      skills: ['PyTorch', 'Python', 'Vector Databases', 'Generative AI'],
-      isGhostRisk: false,
-      truthScore: 98,
-      publishedAt: new Date().toISOString(),
-    },
-  ];
 }

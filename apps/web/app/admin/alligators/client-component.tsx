@@ -75,7 +75,9 @@ export function AdminAlligatorsClient() {
       const data = await res.json();
       if (data.success && data.data?.stats) {
         setJobStats(data.data.stats);
-        setMessage(`🐊 Job Alligator finished! ${data.data.stats.accepted} verified jobs ingested, ${data.data.stats.rejectedGhostJobs} ghost jobs rejected.`);
+        const inserted = data.data.stats.insertedToDatabase ?? 0;
+        const updated = data.data.stats.updatedInDatabase ?? 0;
+        setMessage(`🐊 Job Alligator finished! ${data.data.stats.accepted} verified jobs crawled (${inserted} new jobs saved to database, ${updated} refreshed).`);
       }
     } catch {
       setMessage("Job Alligator completed with default curated feeds.");

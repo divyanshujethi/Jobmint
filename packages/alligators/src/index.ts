@@ -1,6 +1,7 @@
 import { crawlGreenhouseBoard } from './job-alligator/greenhouse-crawler';
 import { crawlLeverSite } from './job-alligator/lever-crawler';
 import { crawlGitHubInternships } from './job-alligator/github-internships';
+import { crawlSimplifyInternships, crawlSimplifyNewGrad } from './job-alligator/simplify-crawler';
 
 export * from './types';
 export * from './job-alligator/skill-extractor';
@@ -8,19 +9,36 @@ export * from './job-alligator/truth-filter';
 export * from './job-alligator/greenhouse-crawler';
 export * from './job-alligator/lever-crawler';
 export * from './job-alligator/github-internships';
+export * from './job-alligator/simplify-crawler';
 export * from './study-alligator/curated-sources';
 export * from './study-alligator/canvas-binder';
 
 /**
- * Master Runner for Job Alligator
+ * Master Runner for Job Alligator:
+ * Aggregates real tech positions from SimplifyJobs, Greenhouse, and Lever
  */
-export async function runJobAlligator() {
+export async function runJobAlligator(options?: {
+  internshipLimit?: number;
+  newGradLimit?: number;
+}) {
   const startTime = Date.now();
+  const internshipLimit = options?.internshipLimit ?? 30;
+  const newGradLimit = options?.newGradLimit ?? 30;
+
+  const [internships, newGrads, gitlabJobs, canonicalJobs, spotifyJobs] = await Promise.all([
+    crawlSimplifyInternships({ limit: internshipLimit }).catch(() => []),
+    crawlSimplifyNewGrad({ limit: newGradLimit }).catch(() => []),
+    crawlGreenhouseBoard('gitlab', 'GitLab').catch(() => []),
+    crawlGreenhouseBoard('canonical', 'Canonical').catch(() => []),
+    crawlLeverSite('spotify', 'Spotify').catch(() => []),
+  ]);
+
   const allJobs = [
-    ...(await crawlGreenhouseBoard('gitlab', 'GitLab')),
-    ...(await crawlGreenhouseBoard('canonical', 'Canonical')),
-    ...(await crawlLeverSite('figma', 'Figma')),
-    ...(await crawlGitHubInternships()),
+    ...internships,
+    ...newGrads,
+    ...gitlabJobs,
+    ...canonicalJobs,
+    ...spotifyJobs,
   ];
 
   const acceptedJobs = allJobs.filter((j) => !j.isGhostRisk && j.truthScore >= 50);
@@ -33,7 +51,6 @@ export async function runJobAlligator() {
       skillCounts[s] = (skillCounts[s] || 0) + 1;
     }
   }
-
 
   const topDemanded = Object.entries(skillCounts)
     .sort((a, b) => b[1] - a[1])
