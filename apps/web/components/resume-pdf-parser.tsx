@@ -9,13 +9,10 @@ import {
   Phone,
   Linkedin,
   Github,
-  GraduationCap,
   Sparkles,
-  ArrowRight,
   ShieldCheck,
   Check,
   AlertCircle,
-  Zap,
   TrendingUp,
   Cpu,
   Target,
@@ -104,18 +101,18 @@ export function ResumePdfParser() {
 
       const data = await res.json();
       if (!res.ok) {
-        throw new Error(data.error || "Failed to analyze resume");
+        throw new Error(data.error || "Analysis failed");
       }
 
       setAnalysis(data.analysis);
-      setTelemetry(data.aiTelemetry);
-
+      if (data.telemetry) {
+        setTelemetry(data.telemetry);
+      }
       if (save) {
         setAppliedToProfile(true);
-        setTimeout(() => setAppliedToProfile(false), 4000);
       }
     } catch (err: any) {
-      setError(err.message || "Failed to connect to AI Inference Cascade");
+      setError(err.message || "Failed to analyze resume text");
     } finally {
       setParsing(false);
     }
@@ -142,31 +139,31 @@ export function ResumePdfParser() {
   return (
     <div className="space-y-8">
       {/* Banner */}
-      <div className="bg-emerald-950/40 border border-emerald-800/60 rounded-2xl p-4 flex items-start gap-3 text-sm text-emerald-200">
-        <ShieldCheck className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+      <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 flex items-start gap-3 text-sm text-emerald-900 shadow-xs">
+        <ShieldCheck className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
         <div>
-          <span className="font-semibold text-emerald-300">Real AI Inference: </span>
-          Evaluates resumes using our ultra-fast Groq Qwen/Llama 3.3 engine (Tier 1) with genuine ATS scoring, candidate contact parsing, and STAR-method impact rewrites.
+          <span className="font-bold text-emerald-900">Real AI Inference: </span>
+          Evaluates resumes using our ultra-fast Groq Qwen/Llama 3.3 engine with genuine ATS scoring, candidate contact parsing, and STAR-method impact rewrites.
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Upload / Paste Area */}
-        <div className="space-y-4 bg-neutral-900/80 border border-neutral-800 p-6 rounded-2xl">
+        <div className="space-y-4 bg-white border border-slate-200 p-6 rounded-2xl shadow-sm">
           <div className="flex items-center justify-between">
-            <h3 className="text-sm font-semibold text-white">Upload or Paste Resume</h3>
+            <h3 className="text-sm font-bold text-slate-900">Upload or Paste Resume</h3>
             <button
               onClick={handleLoadSample}
-              className="text-xs text-emerald-400 hover:text-emerald-300 font-mono transition-colors"
+              className="text-xs text-emerald-700 hover:text-emerald-800 font-semibold transition-colors"
             >
               Load Sample Resume
             </button>
           </div>
 
-          <label className="flex flex-col items-center justify-center border-2 border-dashed border-neutral-700 hover:border-emerald-500/50 bg-neutral-950/50 rounded-xl p-6 text-center cursor-pointer transition-colors group">
-            <Upload className="w-8 h-8 text-neutral-400 group-hover:text-emerald-400 mb-2 transition-colors" />
-            <span className="text-sm font-medium text-neutral-200">Click to select resume</span>
-            <span className="text-xs text-neutral-500 mt-1">Supports TXT, MD, PDF text</span>
+          <label className="flex flex-col items-center justify-center border-2 border-dashed border-slate-200 hover:border-emerald-500 bg-slate-50/50 rounded-xl p-6 text-center cursor-pointer transition-colors group">
+            <Upload className="w-8 h-8 text-slate-400 group-hover:text-emerald-600 mb-2 transition-colors" />
+            <span className="text-sm font-semibold text-slate-700">Click to select resume</span>
+            <span className="text-xs text-slate-500 mt-1">Supports TXT, MD, PDF text</span>
             <input
               type="file"
               accept=".txt,.md,.pdf"
@@ -176,7 +173,7 @@ export function ResumePdfParser() {
           </label>
 
           <div className="space-y-2">
-            <div className="flex items-center justify-between text-xs text-neutral-400">
+            <div className="flex items-center justify-between text-xs text-slate-500 font-medium">
               <span>Or paste raw resume text below:</span>
               <span>{inputText.length} chars</span>
             </div>
@@ -185,13 +182,13 @@ export function ResumePdfParser() {
               onChange={(e) => setInputText(e.target.value)}
               placeholder="Paste your full resume text here (education, experience, technical skills)..."
               rows={12}
-              className="w-full bg-neutral-950 border border-neutral-800 rounded-xl p-3 text-xs text-neutral-200 font-mono focus:outline-none focus:border-emerald-500 resize-none"
+              className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs text-slate-800 font-mono focus:outline-none focus:border-emerald-600 focus:bg-white resize-none"
             />
           </div>
 
           {error && (
-            <div className="p-3 rounded-xl bg-red-950/40 border border-red-800 text-xs text-red-200 flex items-center gap-2">
-              <AlertCircle className="w-4 h-4 text-red-400 shrink-0" />
+            <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-xs text-rose-800 flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 text-rose-600 shrink-0" />
               {error}
             </div>
           )}
@@ -199,7 +196,7 @@ export function ResumePdfParser() {
           <Button
             onClick={() => runAnalysis(inputText)}
             disabled={parsing || inputText.trim().length < 20}
-            className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-2.5 rounded-xl transition-colors flex items-center justify-center gap-2"
+            className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 rounded-xl transition-all shadow-xs flex items-center justify-center gap-2"
           >
             {parsing ? (
               <>
@@ -209,7 +206,7 @@ export function ResumePdfParser() {
             ) : (
               <>
                 <Sparkles className="w-4 h-4" />
-                Analyze Resume & ATS Score
+                Analyze Resume &amp; ATS Score
               </>
             )}
           </Button>
@@ -218,23 +215,25 @@ export function ResumePdfParser() {
         {/* Real AI Results Area */}
         <div className="space-y-6">
           {!analysis && !parsing && (
-            <div className="h-full min-h-[400px] border border-dashed border-neutral-800 rounded-2xl flex flex-col items-center justify-center text-center p-8 bg-neutral-900/30">
-              <FileText className="w-12 h-12 text-neutral-600 mb-3" />
-              <h4 className="text-sm font-semibold text-neutral-300">No Analysis Generated Yet</h4>
-              <p className="text-xs text-neutral-500 max-w-xs mt-1">
+            <div className="h-full min-h-[400px] border border-dashed border-slate-200 rounded-2xl flex flex-col items-center justify-center text-center p-8 bg-white shadow-sm">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-100 text-slate-400 mb-3">
+                <FileText className="w-6 h-6" />
+              </div>
+              <h4 className="text-sm font-bold text-slate-800">No Analysis Generated Yet</h4>
+              <p className="text-xs text-slate-500 max-w-xs mt-1">
                 Click &quot;Load Sample Resume&quot; or paste your text to get real ATS scoring, weaknesses, and bullet rewrites.
               </p>
             </div>
           )}
 
           {parsing && (
-            <div className="h-full min-h-[400px] border border-neutral-800 rounded-2xl flex flex-col items-center justify-center text-center p-8 bg-neutral-900/30 space-y-4">
-              <div className="relative">
-                <Sparkles className="w-12 h-12 text-emerald-400 animate-pulse" />
+            <div className="h-full min-h-[400px] border border-slate-200 rounded-2xl flex flex-col items-center justify-center text-center p-8 bg-white shadow-sm space-y-4">
+              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600">
+                <Sparkles className="w-7 h-7 animate-pulse" />
               </div>
               <div className="space-y-1">
-                <h4 className="text-sm font-semibold text-neutral-200">Analyzing Resume Content</h4>
-                <p className="text-xs text-neutral-500">
+                <h4 className="text-sm font-bold text-slate-800">Analyzing Resume Content</h4>
+                <p className="text-xs text-slate-500">
                   Routing through Groq Tier 1 Qwen/Llama 3.3 for real-time ATS scoring...
                 </p>
               </div>
@@ -242,41 +241,41 @@ export function ResumePdfParser() {
           )}
 
           {analysis && !parsing && (
-            <div className="space-y-6 bg-neutral-900/80 border border-neutral-800 p-6 rounded-2xl animate-in fade-in duration-200">
+            <div className="space-y-6 bg-white border border-slate-200 p-6 rounded-2xl shadow-sm animate-in fade-in duration-200">
               {/* Telemetry Header */}
               {telemetry && (
-                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-neutral-800 pb-4 text-xs font-mono text-neutral-400">
+                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-4 text-xs font-mono text-slate-500">
                   <div className="flex items-center gap-2">
-                    <Cpu className="w-3.5 h-3.5 text-emerald-400" />
-                    <span>{telemetry.modelUsed}</span>
-                    <span className="text-neutral-600">•</span>
-                    <span className="text-emerald-400">{telemetry.latencyMs}ms</span>
+                    <Cpu className="w-3.5 h-3.5 text-emerald-600" />
+                    <span className="font-semibold text-slate-700">{telemetry.modelUsed}</span>
+                    <span className="text-slate-300">•</span>
+                    <span className="text-emerald-700 font-bold">{telemetry.latencyMs}ms</span>
                   </div>
-                  <Badge className="bg-emerald-950 text-emerald-300 border-emerald-800 text-[10px]">
+                  <Badge className="bg-emerald-50 text-emerald-700 border-emerald-200 text-[10px] font-bold">
                     Tier {telemetry.tier} Active
                   </Badge>
                 </div>
               )}
 
               {/* Score Card */}
-              <div className="flex items-center justify-between p-4 rounded-xl bg-neutral-950 border border-neutral-800">
+              <div className="flex items-center justify-between p-4 rounded-xl bg-slate-50 border border-slate-200">
                 <div>
-                  <div className="text-xs font-semibold uppercase tracking-wider text-neutral-400">
+                  <div className="text-xs font-bold uppercase tracking-wider text-slate-500">
                     ATS Compatibility Score
                   </div>
-                  <h3 className="text-2xl font-extrabold text-white mt-0.5">
+                  <h3 className="text-2xl font-extrabold text-slate-900 mt-0.5">
                     {analysis.candidateName || "Candidate"}
                   </h3>
-                  <p className="text-xs text-neutral-400 mt-1">
+                  <p className="text-xs text-slate-500 mt-1">
                     Estimated Experience: {analysis.experienceYears} year(s)
                   </p>
                 </div>
 
                 <div className="text-right">
-                  <div className="text-3xl font-black text-emerald-400">
+                  <div className="text-3xl font-black text-emerald-600">
                     {analysis.atsScore ?? 84}%
                   </div>
-                  <span className="text-[10px] text-neutral-400 uppercase font-mono">
+                  <span className="text-[10px] text-slate-500 uppercase font-mono font-semibold">
                     {analysis.atsScore >= 80 ? "ATS Optimized" : "Needs Polish"}
                   </span>
                 </div>
@@ -285,26 +284,26 @@ export function ResumePdfParser() {
               {/* Contact Info */}
               <div className="grid grid-cols-2 gap-3 text-xs">
                 {analysis.email && (
-                  <div className="flex items-center gap-2 p-2.5 rounded-lg bg-neutral-950/60 border border-neutral-800 text-neutral-300">
-                    <Mail className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                  <div className="flex items-center gap-2 p-2.5 rounded-lg bg-slate-50 border border-slate-200 text-slate-700">
+                    <Mail className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                     <span className="truncate">{analysis.email}</span>
                   </div>
                 )}
                 {analysis.phone && (
-                  <div className="flex items-center gap-2 p-2.5 rounded-lg bg-neutral-950/60 border border-neutral-800 text-neutral-300">
-                    <Phone className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                  <div className="flex items-center gap-2 p-2.5 rounded-lg bg-slate-50 border border-slate-200 text-slate-700">
+                    <Phone className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                     <span className="truncate">{analysis.phone}</span>
                   </div>
                 )}
                 {analysis.githubUrl && (
-                  <div className="flex items-center gap-2 p-2.5 rounded-lg bg-neutral-950/60 border border-neutral-800 text-neutral-300">
-                    <Github className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                  <div className="flex items-center gap-2 p-2.5 rounded-lg bg-slate-50 border border-slate-200 text-slate-700">
+                    <Github className="w-3.5 h-3.5 text-slate-800 shrink-0" />
                     <span className="truncate">{analysis.githubUrl}</span>
                   </div>
                 )}
                 {analysis.linkedinUrl && (
-                  <div className="flex items-center gap-2 p-2.5 rounded-lg bg-neutral-950/60 border border-neutral-800 text-neutral-300">
-                    <Linkedin className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                  <div className="flex items-center gap-2 p-2.5 rounded-lg bg-slate-50 border border-slate-200 text-slate-700">
+                    <Linkedin className="w-3.5 h-3.5 text-blue-600 shrink-0" />
                     <span className="truncate">{analysis.linkedinUrl}</span>
                   </div>
                 )}
@@ -313,15 +312,15 @@ export function ResumePdfParser() {
               {/* Skills */}
               {analysis.detectedSkills && analysis.detectedSkills.length > 0 && (
                 <div className="space-y-2">
-                  <div className="text-xs font-semibold text-neutral-300 flex items-center gap-1.5">
-                    <Target className="w-3.5 h-3.5 text-emerald-400" />
+                  <div className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                    <Target className="w-3.5 h-3.5 text-emerald-600" />
                     Detected Canonical Skills ({analysis.detectedSkills.length})
                   </div>
                   <div className="flex flex-wrap gap-1.5">
                     {analysis.detectedSkills.map((s, i) => (
                       <span
                         key={i}
-                        className="px-2 py-0.5 rounded-md text-[11px] font-medium bg-neutral-800 text-emerald-300 border border-neutral-700"
+                        className="px-2 py-0.5 rounded-md text-[11px] font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200"
                       >
                         {s}
                       </span>
@@ -333,11 +332,11 @@ export function ResumePdfParser() {
               {/* Strengths & Weaknesses */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {analysis.strengths && (
-                  <div className="p-3.5 rounded-xl bg-emerald-950/30 border border-emerald-900/60 space-y-1.5">
-                    <span className="text-xs font-bold text-emerald-400 flex items-center gap-1.5">
-                      <CheckCircle2 className="w-3.5 h-3.5" /> Key Strengths
+                  <div className="p-3.5 rounded-xl bg-emerald-50/60 border border-emerald-200 space-y-1.5">
+                    <span className="text-xs font-bold text-emerald-800 flex items-center gap-1.5">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> Key Strengths
                     </span>
-                    <ul className="text-[11px] text-neutral-300 space-y-1 list-disc list-inside">
+                    <ul className="text-[11px] text-slate-700 space-y-1 list-disc list-inside">
                       {analysis.strengths.map((str, idx) => (
                         <li key={idx} className="leading-relaxed">{str}</li>
                       ))}
@@ -346,11 +345,11 @@ export function ResumePdfParser() {
                 )}
 
                 {analysis.criticalWeaknesses && (
-                  <div className="p-3.5 rounded-xl bg-amber-950/30 border border-amber-900/60 space-y-1.5">
-                    <span className="text-xs font-bold text-amber-400 flex items-center gap-1.5">
-                      <AlertCircle className="w-3.5 h-3.5" /> ATS Weaknesses Found
+                  <div className="p-3.5 rounded-xl bg-amber-50/60 border border-amber-200 space-y-1.5">
+                    <span className="text-xs font-bold text-amber-800 flex items-center gap-1.5">
+                      <AlertCircle className="w-3.5 h-3.5 text-amber-600" /> ATS Weaknesses Found
                     </span>
-                    <ul className="text-[11px] text-neutral-300 space-y-1 list-disc list-inside">
+                    <ul className="text-[11px] text-slate-700 space-y-1 list-disc list-inside">
                       {analysis.criticalWeaknesses.map((w, idx) => (
                         <li key={idx} className="leading-relaxed">{w}</li>
                       ))}
@@ -361,22 +360,22 @@ export function ResumePdfParser() {
 
               {/* Bullet Improvements */}
               {analysis.bulletImprovements && analysis.bulletImprovements.length > 0 && (
-                <div className="space-y-3 pt-2 border-t border-neutral-800">
-                  <div className="text-xs font-semibold text-neutral-300 flex items-center gap-1.5">
-                    <TrendingUp className="w-3.5 h-3.5 text-emerald-400" />
+                <div className="space-y-3 pt-2 border-t border-slate-100">
+                  <div className="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+                    <TrendingUp className="w-3.5 h-3.5 text-emerald-600" />
                     STAR-Method High Impact Bullet Rewrites
                   </div>
                   {analysis.bulletImprovements.map((b, idx) => (
-                    <div key={idx} className="p-3 rounded-xl bg-neutral-950 border border-neutral-800 space-y-2 text-xs">
+                    <div key={idx} className="p-3 rounded-xl bg-slate-50 border border-slate-200 space-y-2 text-xs">
                       <div>
-                        <span className="text-[10px] uppercase font-bold text-neutral-500">Before:</span>
-                        <p className="text-neutral-400 line-through">{b.original}</p>
+                        <span className="text-[10px] uppercase font-bold text-slate-400">Before:</span>
+                        <p className="text-slate-500 line-through">{b.original}</p>
                       </div>
-                      <div>
-                        <span className="text-[10px] uppercase font-bold text-emerald-400">After (AI Optimized):</span>
-                        <p className="text-neutral-100 font-medium text-[11px] leading-relaxed">{b.improved}</p>
+                      <div className="bg-emerald-50/50 p-2.5 rounded-lg border border-emerald-100">
+                        <span className="text-[10px] uppercase font-bold text-emerald-700">After (AI Optimized):</span>
+                        <p className="text-slate-900 font-semibold text-[11px] leading-relaxed mt-0.5">{b.improved}</p>
                       </div>
-                      <p className="text-[10px] text-emerald-500/80 italic">Why: {b.reason}</p>
+                      <p className="text-[10px] text-emerald-700 italic">Why: {b.reason}</p>
                     </div>
                   ))}
                 </div>
@@ -387,17 +386,17 @@ export function ResumePdfParser() {
                 <Button
                   onClick={() => runAnalysis(inputText, true)}
                   disabled={appliedToProfile}
-                  className="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-2 rounded-xl text-xs flex items-center justify-center gap-2"
+                  className="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2 rounded-xl text-xs flex items-center justify-center gap-2 shadow-xs"
                 >
                   {appliedToProfile ? (
                     <>
                       <Check className="w-4 h-4 text-white" />
-                      Saved to PostgreSQL Candidate Profile!
+                      Saved to Candidate Profile!
                     </>
                   ) : (
                     <>
                       <CheckCircle2 className="w-4 h-4" />
-                      Save to Candidate Profile
+                      Save Skills to Candidate Profile
                     </>
                   )}
                 </Button>

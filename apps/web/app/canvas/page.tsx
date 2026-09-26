@@ -13,7 +13,7 @@ export const viewport: Viewport = {
 
 export default function CanvasPage() {
   return (
-    <main className="min-h-screen bg-slate-900 text-slate-100 flex flex-col">
+    <main className="min-h-[calc(100vh-4rem)] bg-slate-50 text-slate-900 flex flex-col">
       <InteractiveStudyCanvas />
     </main>
   );

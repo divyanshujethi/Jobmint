@@ -155,7 +155,7 @@ export function Footer() {
               </li>
               <li>
                 <Link href="/profile/resume" className="hover:text-emerald-600 font-medium text-emerald-700">
-                  Resume Vault (OCI NVMe)
+                  Candidate Resume Vault
                 </Link>
               </li>
             </ul>

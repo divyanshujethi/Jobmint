@@ -109,7 +109,7 @@ export function Navbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  if (pathname?.startsWith("/potd") || pathname?.startsWith("/canvas")) {
+  if (pathname?.startsWith("/potd")) {
     return null;
   }
 

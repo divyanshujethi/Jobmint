@@ -168,7 +168,7 @@ export default function AccountSettingsPage() {
             </div>
 
             <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
-              <span>View Resume Files in NVMe Vault:</span>
+              <span>View Saved Resumes in Vault:</span>
               <Link href="/profile/resume" className="text-emerald-700 font-bold hover:underline">
                 Resume Vault →
               </Link>
@@ -248,7 +248,7 @@ export default function AccountSettingsPage() {
               Delete My Account &amp; Resume Data
             </CardTitle>
             <CardDescription className="text-xs text-slate-600">
-              Permanently and irreversibly deletes your account, login credentials, candidate profile, tracked applications, and uploaded resume files from our NVMe storage.
+              Permanently and irreversibly deletes your account, login credentials, candidate profile, tracked applications, and uploaded resume files from our secure storage.
             </CardDescription>
           </CardHeader>
 
@@ -260,7 +260,7 @@ export default function AccountSettingsPage() {
               </div>
               <ul className="list-disc pl-5 space-y-1 text-[11px] text-rose-800">
                 <li>All application histories and status updates will be permanently purged.</li>
-                <li>Your resume PDF will be erased from our OCI NVMe storage.</li>
+                <li>Your resume files will be permanently erased from our cloud storage vault.</li>
                 <li>All profile records, skills, and account credentials will be wiped from PostgreSQL.</li>
               </ul>
             </div>

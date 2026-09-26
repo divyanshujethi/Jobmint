@@ -5,8 +5,8 @@ import { HardDrive, ShieldCheck, Sparkles, FileSearch, ArrowRight, Lock } from "
 import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
-  title: "Persistent Resume Storage — Role Nest",
-  description: "Secure, zero-cost 200 GB OCI NVMe resume storage with cryptographic SHA-256 deduplication and token-gated recruiter access.",
+  title: "Candidate Resume Vault — Role Nest",
+  description: "Secure, private cloud storage for your verified PDF resumes with token-gated recruiter access and 1-click job applications.",
 };
 
 export default function ResumeStoragePage() {
@@ -17,54 +17,54 @@ export default function ResumeStoragePage() {
         <div className="flex flex-col gap-2">
           <div className="flex items-center gap-2">
             <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-800">
-              <HardDrive className="h-3.5 w-3.5" />
-              OCI 200 GB Persistent Disk
+              <ShieldCheck className="h-3.5 w-3.5" />
+              Private Cloud Vault
             </span>
             <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-800">
               <Lock className="h-3.5 w-3.5" />
-              Token-Gated Streaming
+              Encrypted &amp; Token-Gated
             </span>
           </div>
           <h1 className="text-3xl font-bold tracking-tight text-slate-900">
             Candidate Resume Vault
           </h1>
-          <p className="text-sm text-slate-600 max-w-2xl">
-            Store your official PDF resume on our zero-cost, high-speed Oracle Cloud NVMe storage. Resumes are protected by HMAC-SHA256 tokens and only shared with recruiters when you apply.
+          <p className="text-sm text-slate-600 max-w-2xl leading-relaxed">
+            Your personal, encrypted resume repository. Save your latest verified PDF resume here to enable instant 1-click applications across Role Nest. Your resume is never public and is only shared with companies you explicitly apply to.
           </p>
         </div>
 
         {/* Uploader Component */}
         <ResumeUploader />
 
-        {/* Zero-Cost Architecture Benefits */}
+        {/* Privacy & Speed Highlights */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-50 text-emerald-600 mb-3">
-              <HardDrive className="h-5 w-5" />
+              <Sparkles className="h-5 w-5" />
             </div>
-            <h3 className="text-sm font-semibold text-slate-900">200 GB NVMe Storage</h3>
+            <h3 className="text-sm font-semibold text-slate-900">Instant 1-Click Apply</h3>
             <p className="mt-1 text-xs text-slate-500 leading-relaxed">
-              Hosted on OCI Always Free NVMe block storage. Capacity for over 1,000,000 resumes with $0.00 cloud egress fees.
+              Keep your latest polished resume ready. Apply to verified jobs and high-stipend internships in seconds without re-uploading every time.
             </p>
           </div>
 
           <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-indigo-50 text-indigo-600 mb-3">
-              <ShieldCheck className="h-5 w-5" />
+              <Lock className="h-5 w-5" />
             </div>
-            <h3 className="text-sm font-semibold text-slate-900">SHA-256 Deduplication</h3>
+            <h3 className="text-sm font-semibold text-slate-900">100% Private &amp; Token-Gated</h3>
             <p className="mt-1 text-xs text-slate-500 leading-relaxed">
-              Binary magic-byte inspection prevents corrupted files, and cryptographic hashing saves disk I/O automatically.
+              Your resume files are completely hidden from public web scrapers and search engines. Only verified recruiters on active jobs can stream your resume.
             </p>
           </div>
 
           <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-purple-50 text-purple-600 mb-3">
-              <Lock className="h-5 w-5" />
+              <ShieldCheck className="h-5 w-5" />
             </div>
-            <h3 className="text-sm font-semibold text-slate-900">Private Token Streaming</h3>
+            <h3 className="text-sm font-semibold text-slate-900">ATS Quality Check</h3>
             <p className="mt-1 text-xs text-slate-500 leading-relaxed">
-              Resumes are never publicly exposed. Recruiters access resumes via time-limited, signed HMAC streaming tokens.
+              Uploaded files are verified for single-column Harvard ATS readability so applicant tracking systems parse your technical skills flawlessly.
             </p>
           </div>
         </div>
