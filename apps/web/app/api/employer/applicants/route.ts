@@ -95,8 +95,11 @@ export async function GET(req: NextRequest) {
     let rows: any[] = [];
     if (targetCompanyId && !isAdmin) {
       rows = await baseQuery.where(eq(companies.id, targetCompanyId));
-    } else {
+    } else if (isAdmin) {
       rows = await baseQuery;
+    } else {
+      // User is neither an admin nor member of any company
+      rows = [];
     }
 
     // Fetch streak records to enrich with live Dev Scores

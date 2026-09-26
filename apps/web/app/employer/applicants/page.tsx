@@ -76,7 +76,7 @@ export default function EmployerApplicantsPage() {
         if (data.metrics) {
           setMetrics(data.metrics);
         }
-        if (data.applicants && data.applicants.length > 0) {
+        if (Array.isArray(data.applicants)) {
           setApplicants(data.applicants);
         }
       })

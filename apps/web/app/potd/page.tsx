@@ -347,36 +347,36 @@ function POTDWorkspace() {
       </header>
 
       {/* MOBILE SEGMENTED CONTROL (< lg) */}
-      <div className="flex lg:hidden items-center justify-between p-1.5 bg-slate-950 border-b border-slate-800 shrink-0">
+      <div className="flex lg:hidden items-center justify-between p-1.5 bg-slate-950 border-b border-slate-800 shrink-0 sticky top-0 z-20">
         <button
           onClick={() => setMobileTab("PROBLEM")}
           className={`flex-1 py-2 text-xs font-bold rounded-lg flex items-center justify-center gap-1.5 transition-all ${
             mobileTab === "PROBLEM"
-              ? "bg-slate-800 text-white shadow-sm"
+              ? "bg-slate-800 text-white shadow-sm border border-slate-700"
               : "text-slate-400 hover:text-slate-200"
           }`}
         >
           <BookOpen className="h-3.5 w-3.5" />
-          <span>Problem Description</span>
+          <span>Description</span>
         </button>
         <button
           onClick={() => setMobileTab("CODE")}
           className={`flex-1 py-2 text-xs font-bold rounded-lg flex items-center justify-center gap-1.5 transition-all ${
             mobileTab === "CODE"
-              ? "bg-emerald-600 text-white shadow-sm"
+              ? "bg-emerald-600 text-white shadow-sm shadow-emerald-950"
               : "text-slate-400 hover:text-slate-200"
           }`}
         >
           <Code2 className="h-3.5 w-3.5" />
-          <span>Code Editor &amp; Test Runner</span>
+          <span>Code Editor &amp; Run</span>
         </button>
       </div>
 
       {/* SPLIT WORKSPACE */}
-      <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 overflow-hidden h-[calc(100vh-53px)]">
+      <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 overflow-y-auto lg:overflow-hidden h-auto lg:h-[calc(100vh-53px)] pb-24 lg:pb-0">
         
         {/* LEFT COLUMN: DESCRIPTION & TABS */}
-        <div className={`${mobileTab === "PROBLEM" ? "flex" : "hidden"} lg:flex lg:col-span-5 border-r border-slate-800 bg-slate-950 flex-col h-full overflow-hidden`}>
+        <div className={`${mobileTab === "PROBLEM" ? "flex" : "hidden"} lg:flex lg:col-span-5 border-r border-slate-800 bg-slate-950 flex-col h-auto lg:h-full overflow-y-auto lg:overflow-hidden`}>
           {/* Sub Navigation */}
           <div className="flex items-center gap-1.5 border-b border-slate-800 px-4 pt-2.5 pb-2 bg-slate-950 shrink-0 overflow-x-auto">
             <button
@@ -730,7 +730,7 @@ function POTDWorkspace() {
         </div>
 
         {/* RIGHT COLUMN: MONACO EDITOR + TEST RUNNER HUD */}
-        <div className={`${mobileTab === "CODE" ? "flex" : "hidden"} lg:flex lg:col-span-7 bg-slate-900 flex-col h-full overflow-hidden`}>
+        <div className={`${mobileTab === "CODE" ? "flex" : "hidden"} lg:flex lg:col-span-7 bg-slate-900 flex-col h-auto lg:h-full overflow-y-auto lg:overflow-hidden`}>
           
           {/* Editor Header Bar */}
           <div className="border-b border-slate-800 bg-slate-950 px-4 py-2 flex flex-wrap items-center justify-between gap-2 shrink-0">
@@ -770,7 +770,7 @@ function POTDWorkspace() {
           </div>
 
           {/* Lazy Monaco Editor Container */}
-          <div className="flex-1 relative bg-slate-950 overflow-hidden">
+          <div className="flex-1 min-h-[380px] lg:min-h-0 relative bg-slate-950 overflow-hidden">
             <MonacoEditor
               height="100%"
               language={SUPPORTED_LANGUAGES.find((l) => l.id === selectedLanguage)?.monacoLang || "javascript"}
@@ -791,7 +791,7 @@ function POTDWorkspace() {
           </div>
 
           {/* TEST RUNNER HUD */}
-          <div className="border-t border-slate-800 bg-slate-950 p-4 space-y-3 shrink-0">
+          <div className="border-t border-slate-800 bg-slate-950 p-4 space-y-3 shrink-0 pb-10 lg:pb-4">
             
             <div className="flex flex-wrap items-center justify-between gap-3">
               {/* Output Sub-Tabs */}
