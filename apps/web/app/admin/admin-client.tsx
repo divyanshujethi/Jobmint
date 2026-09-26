@@ -26,6 +26,12 @@ import {
   Zap,
   Flame,
   CheckCircle,
+  FileText,
+  Terminal,
+  Download,
+  Search,
+  Play,
+  Table as TableIcon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -34,10 +40,43 @@ export function SuperAdminPanelClient() {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState<any>(null);
   const [activeTab, setActiveTab] = useState<
-    "OVERVIEW" | "COMPANIES" | "JOBS" | "APPLICATIONS" | "SYSTEM" | "SECURITY"
+    "OVERVIEW" | "COMPANIES" | "JOBS" | "APPLICATIONS" | "RESUMES" | "SQL_CONSOLE" | "SYSTEM" | "SECURITY"
   >("OVERVIEW");
   const [actionLoading, setActionLoading] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
+
+  // Resume Search & SQL Console state
+  const [resumeSearch, setResumeSearch] = useState("");
+  const [sqlQuery, setSqlQuery] = useState(
+    "SELECT table_name FROM information_schema.tables WHERE table_schema = 'public' ORDER BY table_name;"
+  );
+  const [sqlLoading, setSqlLoading] = useState(false);
+  const [sqlResult, setSqlResult] = useState<any>(null);
+  const [sqlError, setSqlError] = useState<string | null>(null);
+
+  const handleRunSql = async (overrideQuery?: string) => {
+    const queryToRun = overrideQuery || sqlQuery;
+    if (!queryToRun.trim()) return;
+    setSqlLoading(true);
+    setSqlError(null);
+    try {
+      const res = await fetch("/api/admin/sql", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ query: queryToRun }),
+      });
+      const resData = await res.json();
+      if (!res.ok || resData.error) {
+        throw new Error(resData.error || "Failed to execute SQL query");
+      }
+      setSqlResult(resData);
+    } catch (err: any) {
+      setSqlError(err.message);
+      setSqlResult(null);
+    } finally {
+      setSqlLoading(false);
+    }
+  };
 
   const fetchAdminData = () => {
     setLoading(true);
@@ -130,6 +169,7 @@ export function SuperAdminPanelClient() {
   const companies = data?.companies || [];
   const jobs = data?.jobs || [];
   const applications = data?.applications || [];
+  const resumes = data?.resumes || [];
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 font-sans pb-16">
@@ -194,6 +234,8 @@ export function SuperAdminPanelClient() {
           { id: "COMPANIES", label: `Companies (${companies.length})`, icon: Building2 },
           { id: "JOBS", label: `Job Postings (${jobs.length})`, icon: Briefcase },
           { id: "APPLICATIONS", label: `Truth Teller Audit (${applications.length})`, icon: Eye },
+          { id: "RESUMES", label: `Resumes Vault (${resumes.length})`, icon: FileText },
+          { id: "SQL_CONSOLE", label: "SQL Console (Supabase)", icon: Terminal },
           { id: "SYSTEM", label: "System Health & Backups", icon: Activity },
           { id: "SECURITY", label: "Security & Compliance", icon: ShieldCheck },
         ].map((tab) => {
@@ -219,8 +261,8 @@ export function SuperAdminPanelClient() {
         {/* TAB 1: OVERVIEW */}
         {activeTab === "OVERVIEW" && (
           <div className="space-y-6">
-            {/* 6 High-Level Metric Cards */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
+            {/* 7 High-Level Metric Cards */}
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3 sm:gap-4">
               <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-4">
                 <span className="text-[11px] font-mono text-slate-400 block">Verified Companies</span>
                 <div className="mt-2 flex items-baseline justify-between">
@@ -242,6 +284,14 @@ export function SuperAdminPanelClient() {
                 <div className="mt-2 flex items-baseline justify-between">
                   <span className="text-2xl sm:text-3xl font-black text-amber-400">{stats.proUsers || 0}</span>
                   <span className="text-[10px] text-amber-300 font-mono">Paddle</span>
+                </div>
+              </div>
+
+              <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-4">
+                <span className="text-[11px] font-mono text-slate-400 block">Resumes in Vault</span>
+                <div className="mt-2 flex items-baseline justify-between">
+                  <span className="text-2xl sm:text-3xl font-black text-emerald-400">{stats.totalResumes || resumes.length || 0}</span>
+                  <span className="text-[10px] text-emerald-300 font-mono">PDFs</span>
                 </div>
               </div>
 
@@ -773,6 +823,384 @@ export function SuperAdminPanelClient() {
                   All requests pass through Cloudflare with DDoS shielding, bot challenge rules, and encrypted HTTP/2 proxying directly to origin Nginx.
                 </p>
               </div>
+            </div>
+          </div>
+        )}
+
+        {/* TAB 7: RESUMES */}
+        {activeTab === "RESUMES" && (
+          <div className="space-y-6">
+            <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-6">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-5">
+                <div>
+                  <div className="flex items-center gap-2 text-xs font-bold uppercase text-emerald-400 mb-1">
+                    <FileText className="h-4 w-4" /> Candidate Resume Vault
+                  </div>
+                  <h3 className="text-xl font-bold text-white">Parsed & Uploaded Resumes ({resumes.length})</h3>
+                  <p className="text-xs text-slate-400 mt-1">
+                    Direct access to candidate resumes stored in the vault. Inspect ATS readability, download PDFs, or test match algorithms.
+                  </p>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="relative">
+                    <Search className="h-4 w-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                    <input
+                      type="text"
+                      placeholder="Filter candidate or email..."
+                      value={resumeSearch}
+                      onChange={(e) => setResumeSearch(e.target.value)}
+                      className="pl-9 pr-4 py-2 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 w-56 sm:w-64"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Resume List Table */}
+              <div className="mt-5 overflow-x-auto">
+                <table className="w-full text-left text-xs">
+                  <thead className="bg-slate-950 text-slate-400 font-mono text-[11px] uppercase border-b border-slate-800">
+                    <tr>
+                      <th className="py-3 px-4">Candidate</th>
+                      <th className="py-3 px-4">Headline / Domain</th>
+                      <th className="py-3 px-4">Location</th>
+                      <th className="py-3 px-4">Experience Status</th>
+                      <th className="py-3 px-4">Uploaded / Updated</th>
+                      <th className="py-3 px-4 text-right">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-800/60 font-sans">
+                    {resumes
+                      .filter((r: any) => {
+                        if (!resumeSearch.trim()) return true;
+                        const term = resumeSearch.toLowerCase();
+                        return (
+                          (r.userName || "").toLowerCase().includes(term) ||
+                          (r.userEmail || "").toLowerCase().includes(term) ||
+                          (r.headline || "").toLowerCase().includes(term) ||
+                          (r.location || "").toLowerCase().includes(term)
+                        );
+                      })
+                      .map((r: any) => (
+                        <tr key={r.id} className="hover:bg-slate-800/30 transition-colors">
+                          <td className="py-3 px-4">
+                            <div className="flex items-center gap-3">
+                              <div className="h-8 w-8 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-bold flex items-center justify-center text-xs">
+                                {(r.userName || r.userEmail || "C")[0].toUpperCase()}
+                              </div>
+                              <div>
+                                <div className="font-bold text-white">{r.userName || "Anonymous Candidate"}</div>
+                                <div className="text-[11px] font-mono text-slate-400">{r.userEmail || "No email"}</div>
+                              </div>
+                            </div>
+                          </td>
+                          <td className="py-3 px-4 text-slate-300 max-w-xs truncate">
+                            {r.headline || <span className="text-slate-500 italic">Not set</span>}
+                          </td>
+                          <td className="py-3 px-4 text-slate-400">
+                            {r.location || <span className="text-slate-500">Global</span>}
+                          </td>
+                          <td className="py-3 px-4">
+                            {r.isFresher ? (
+                              <Badge variant="outline" className="bg-blue-500/10 text-blue-400 border-blue-500/30 text-[10px]">
+                                Fresher / 0 yrs
+                              </Badge>
+                            ) : (
+                              <Badge variant="outline" className="bg-emerald-500/10 text-emerald-400 border-emerald-500/30 text-[10px]">
+                                Experienced
+                              </Badge>
+                            )}
+                          </td>
+                          <td className="py-3 px-4 font-mono text-slate-400 text-[11px]">
+                            {r.updatedAt
+                              ? new Date(r.updatedAt).toLocaleDateString("en-US", {
+                                  month: "short",
+                                  day: "numeric",
+                                  year: "numeric",
+                                })
+                              : "N/A"}
+                          </td>
+                          <td className="py-3 px-4 text-right">
+                            <div className="flex items-center justify-end gap-2">
+                              <a
+                                href={r.resumeUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500 hover:text-slate-950 font-bold text-xs transition-colors border border-emerald-500/30"
+                              >
+                                <Eye className="h-3 w-3" /> View PDF
+                              </a>
+                              <a
+                                href={r.resumeUrl}
+                                download
+                                className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white text-xs transition-colors"
+                                title="Download Resume"
+                              >
+                                <Download className="h-3 w-3" />
+                              </a>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    {resumes.length === 0 && (
+                      <tr>
+                        <td colSpan={6} className="py-12 text-center text-slate-400">
+                          <FileText className="h-8 w-8 mx-auto text-slate-600 mb-2" />
+                          <p className="font-semibold text-white">No resumes in vault yet</p>
+                          <p className="text-xs text-slate-500 mt-1">
+                            When candidates upload their resumes via onboarding or profile, they will appear here.
+                          </p>
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* TAB 8: SQL CONSOLE */}
+        {activeTab === "SQL_CONSOLE" && (
+          <div className="space-y-6">
+            <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-6 space-y-5">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-5">
+                <div>
+                  <div className="flex items-center gap-2 text-xs font-bold uppercase text-emerald-400 mb-1">
+                    <Terminal className="h-4 w-4" /> Live PostgreSQL Console
+                  </div>
+                  <h3 className="text-xl font-bold text-white">Supabase-Style SQL Editor</h3>
+                  <p className="text-xs text-slate-400 mt-1">
+                    Directly query and inspect production PostgreSQL tables with raw SQL. Guardrails block accidental database drops.
+                  </p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Badge variant="outline" className="bg-emerald-950 border-emerald-800 text-emerald-300 font-mono text-[10px]">
+                    POSTGRESQL 16
+                  </Badge>
+                  <Badge variant="outline" className="bg-slate-950 border-slate-800 text-slate-400 font-mono text-[10px]">
+                    READ / WRITE SAFEGUARDED
+                  </Badge>
+                </div>
+              </div>
+
+              {/* Quick Template Chips */}
+              <div className="space-y-2">
+                <span className="text-[11px] font-mono text-slate-400 uppercase tracking-wider block">
+                  Quick Query Templates:
+                </span>
+                <div className="flex flex-wrap gap-2">
+                  {[
+                    {
+                      label: "List All Public Tables",
+                      q: "SELECT table_name FROM information_schema.tables WHERE table_schema = 'public' ORDER BY table_name;",
+                    },
+                    {
+                      label: "Recent Users (20)",
+                      q: "SELECT id, name, email, role, is_pro, created_at FROM users ORDER BY created_at DESC LIMIT 20;",
+                    },
+                    {
+                      label: "Candidate Profiles with Resumes",
+                      q: "SELECT cp.id, u.name, u.email, cp.headline, cp.resume_url, cp.updated_at FROM candidate_profiles cp JOIN users u ON cp.user_id = u.id WHERE cp.resume_url IS NOT NULL ORDER BY cp.updated_at DESC LIMIT 20;",
+                    },
+                    {
+                      label: "Live Tech Jobs (20)",
+                      q: "SELECT j.id, j.title, c.name as company, j.type, j.is_active, j.created_at FROM jobs j LEFT JOIN companies c ON j.company_id = c.id ORDER BY j.created_at DESC LIMIT 20;",
+                    },
+                    {
+                      label: "Applications Count by Status",
+                      q: "SELECT status, count(*) as count FROM applications GROUP BY status ORDER BY count DESC;",
+                    },
+                    {
+                      label: "Count Resumes in Vault",
+                      q: "SELECT count(*) as total_candidates, count(resume_url) as with_resumes FROM candidate_profiles;",
+                    },
+                  ].map((tmpl, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => {
+                        setSqlQuery(tmpl.q);
+                        handleRunSql(tmpl.q);
+                      }}
+                      className="px-2.5 py-1 rounded-lg bg-slate-950 hover:bg-slate-800 text-[11px] font-mono text-emerald-300 border border-slate-800 transition-colors"
+                    >
+                      {tmpl.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* SQL Editor Area */}
+              <div className="space-y-3">
+                <div className="relative rounded-xl border border-slate-800 bg-slate-950 p-3 font-mono text-xs focus-within:border-emerald-500 transition-colors">
+                  <div className="flex items-center justify-between text-[11px] text-slate-500 mb-2 border-b border-slate-900 pb-2">
+                    <span className="flex items-center gap-1.5 text-slate-400">
+                      <Terminal className="h-3 w-3 text-emerald-400" /> SQL Command Input
+                    </span>
+                    <span className="text-[10px] text-slate-500">Press Ctrl+Enter / ⌘+Enter to Run</span>
+                  </div>
+                  <textarea
+                    value={sqlQuery}
+                    onChange={(e) => setSqlQuery(e.target.value)}
+                    onKeyDown={(e) => {
+                      if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+                        e.preventDefault();
+                        handleRunSql();
+                      }
+                    }}
+                    rows={5}
+                    placeholder="Enter SQL query (e.g. SELECT * FROM users LIMIT 10;)"
+                    className="w-full bg-transparent text-emerald-300 font-mono text-xs focus:outline-none resize-y leading-relaxed"
+                  />
+                </div>
+
+                <div className="flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-2">
+                    <Button
+                      onClick={() => handleRunSql()}
+                      disabled={sqlLoading || !sqlQuery.trim()}
+                      className="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-2"
+                    >
+                      {sqlLoading ? (
+                        <>
+                          <RefreshCw className="h-3.5 w-3.5 animate-spin" /> Executing SQL...
+                        </>
+                      ) : (
+                        <>
+                          <Play className="h-3.5 w-3.5 fill-current" /> Run Query
+                        </>
+                      )}
+                    </Button>
+                    <button
+                      onClick={() => {
+                        setSqlQuery("");
+                        setSqlResult(null);
+                        setSqlError(null);
+                      }}
+                      className="px-3 py-2 rounded-xl bg-slate-950 hover:bg-slate-800 border border-slate-800 text-xs text-slate-400 transition-colors"
+                    >
+                      Clear
+                    </button>
+                  </div>
+
+                  {sqlResult && (
+                    <div className="flex items-center gap-3 text-xs font-mono">
+                      <span className="text-emerald-400 font-bold">
+                        ✓ {sqlResult.totalRowsCount} row{sqlResult.totalRowsCount !== 1 ? "s" : ""}
+                      </span>
+                      <span className="text-slate-500">•</span>
+                      <span className="text-slate-400">{sqlResult.durationMs}ms</span>
+                      <span className="text-slate-500">•</span>
+                      <span className="text-slate-400 uppercase">{sqlResult.command}</span>
+                      {sqlResult.rows && sqlResult.rows.length > 0 && (
+                        <button
+                          onClick={() => {
+                            const headers = sqlResult.columns.join(",");
+                            const csvRows = sqlResult.rows.map((row: any) =>
+                              sqlResult.columns
+                                .map((col: string) => {
+                                  const val = row[col];
+                                  if (val === null || val === undefined) return "";
+                                  const str = typeof val === "object" ? JSON.stringify(val) : String(val);
+                                  return `"${str.replace(/"/g, '""')}"`;
+                                })
+                                .join(",")
+                            );
+                            const blob = new Blob([headers + "\n" + csvRows.join("\n")], { type: "text/csv" });
+                            const url = URL.createObjectURL(blob);
+                            const a = document.createElement("a");
+                            a.href = url;
+                            a.download = `query_export_${Date.now()}.csv`;
+                            a.click();
+                          }}
+                          className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-[11px] transition-colors"
+                        >
+                          <Download className="h-3 w-3" /> Export CSV
+                        </button>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Error Box */}
+              {sqlError && (
+                <div className="p-4 rounded-xl bg-red-950/60 border border-red-800/80 text-xs font-mono text-red-200 space-y-1">
+                  <div className="font-bold flex items-center gap-2 text-red-400">
+                    <AlertTriangle className="h-4 w-4" /> SQL Execution Failed
+                  </div>
+                  <div className="text-[11px] text-red-300 whitespace-pre-wrap">{sqlError}</div>
+                </div>
+              )}
+
+              {/* Result Table */}
+              {sqlResult && sqlResult.columns && (
+                <div className="border border-slate-800 rounded-xl overflow-hidden bg-slate-950">
+                  <div className="overflow-x-auto max-h-[500px] overflow-y-auto">
+                    <table className="w-full text-left text-xs font-mono">
+                      <thead className="bg-slate-900 text-slate-300 border-b border-slate-800 sticky top-0 z-10 text-[11px]">
+                        <tr>
+                          <th className="py-2.5 px-3 text-slate-500 w-12 text-center">#</th>
+                          {sqlResult.columns.map((col: string) => (
+                            <th key={col} className="py-2.5 px-3 text-emerald-400 font-bold whitespace-nowrap">
+                              {col}
+                            </th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-900">
+                        {sqlResult.rows.map((row: any, rIdx: number) => (
+                          <tr key={rIdx} className="hover:bg-slate-900/60 transition-colors">
+                            <td className="py-2 px-3 text-slate-600 text-center text-[10px]">{rIdx + 1}</td>
+                            {sqlResult.columns.map((col: string) => {
+                              const val = row[col];
+                              let displayVal: any;
+                              if (val === null || val === undefined) {
+                                displayVal = <span className="text-slate-600 italic">NULL</span>;
+                              } else if (typeof val === "boolean") {
+                                displayVal = (
+                                  <span className={val ? "text-emerald-400 font-bold" : "text-red-400"}>
+                                    {String(val)}
+                                  </span>
+                                );
+                              } else if (typeof val === "object") {
+                                displayVal = (
+                                  <span className="text-amber-300 max-w-xs truncate block" title={JSON.stringify(val)}>
+                                    {JSON.stringify(val)}
+                                  </span>
+                                );
+                              } else {
+                                const str = String(val);
+                                displayVal = (
+                                  <span className="text-slate-200 max-w-xs truncate block" title={str}>
+                                    {str}
+                                  </span>
+                                );
+                              }
+                              return (
+                                <td key={col} className="py-2 px-3 text-[11px] whitespace-nowrap">
+                                  {displayVal}
+                                </td>
+                              );
+                            })}
+                          </tr>
+                        ))}
+                        {sqlResult.rows.length === 0 && (
+                          <tr>
+                            <td colSpan={sqlResult.columns.length + 1} className="py-8 text-center text-slate-500 text-xs">
+                              Query completed with zero rows returned.
+                            </td>
+                          </tr>
+                        )}
+                      </tbody>
+                    </table>
+                  </div>
+                  {sqlResult.totalRowsCount > 100 && (
+                    <div className="py-2 px-4 bg-slate-900/80 border-t border-slate-800 text-[11px] text-slate-400 font-mono text-center">
+                      Showing first 100 of {sqlResult.totalRowsCount} rows. Use LIMIT or pagination in your query for targeted slicing.
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         )}

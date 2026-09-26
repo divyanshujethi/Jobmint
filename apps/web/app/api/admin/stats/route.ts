@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { db, companies, jobs, applications, users, skills, desc, eq } from "@repo/database";
+import { db, companies, jobs, applications, users, skills, candidateProfiles, desc, eq, sql } from "@repo/database";
 import { auth } from "@/auth";
 import { checkDatabase, checkRedis } from "@/lib/health-check";
 
@@ -19,7 +19,7 @@ export async function GET() {
       return NextResponse.json({ error: "Forbidden: SuperAdmin required" }, { status: 403 });
     }
 
-    const [allCompanies, allJobs, allApps, allUsers, allSkills, dbHealth, redisHealth] = await Promise.all([
+    const [allCompanies, allJobs, allApps, allUsers, allSkills, allResumes, dbHealth, redisHealth] = await Promise.all([
       db.select().from(companies).orderBy(desc(companies.createdAt)),
       db.select().from(jobs).orderBy(desc(jobs.createdAt)),
       db
@@ -38,6 +38,22 @@ export async function GET() {
         .orderBy(desc(applications.appliedAt)),
       db.select().from(users),
       db.select().from(skills),
+      db
+        .select({
+          id: candidateProfiles.id,
+          userId: candidateProfiles.userId,
+          userName: users.name,
+          userEmail: users.email,
+          headline: candidateProfiles.headline,
+          location: candidateProfiles.location,
+          resumeUrl: candidateProfiles.resumeUrl,
+          isFresher: candidateProfiles.isFresher,
+          updatedAt: candidateProfiles.updatedAt,
+        })
+        .from(candidateProfiles)
+        .leftJoin(users, eq(candidateProfiles.userId, users.id))
+        .where(sql`${candidateProfiles.resumeUrl} IS NOT NULL AND ${candidateProfiles.resumeUrl} != ''`)
+        .orderBy(desc(candidateProfiles.updatedAt)),
       checkDatabase(),
       checkRedis(),
     ]);
@@ -58,6 +74,7 @@ export async function GET() {
         totalUsers: allUsers.length,
         proUsers: proUsersCount,
         totalSkills: allSkills.length,
+        totalResumes: allResumes.length,
       },
       health: {
         database: dbHealth,
@@ -70,6 +87,7 @@ export async function GET() {
       companies: allCompanies,
       jobs: allJobs,
       applications: allApps,
+      resumes: allResumes,
     });
   } catch (error: any) {
     console.error("Error fetching admin stats:", error);

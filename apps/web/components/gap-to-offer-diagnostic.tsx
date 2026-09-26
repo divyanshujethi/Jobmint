@@ -18,6 +18,8 @@ import {
   Loader2,
   Copy,
   Check,
+  FileText,
+  Upload,
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { ProUpgradeModal } from "./pro-upgrade-modal";
@@ -37,6 +39,8 @@ export function GapToOfferDiagnostic({
 }: GapToOfferDiagnosticProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [candidateSkills, setCandidateSkills] = useState<string[]>([]);
+  const [uploadedResumeName, setUploadedResumeName] = useState<string | null>(null);
+  const [isUploadingResume, setIsUploadingResume] = useState(false);
   const [hasScanned, setHasScanned] = useState(false);
 
   // AI ATS matcher state
@@ -55,11 +59,16 @@ export function GapToOfferDiagnostic({
   const [isProUser, setIsProUser] = useState(false);
 
   useEffect(() => {
-    // Check if user has verified dev score saved in localStorage
+    // Check if user has uploaded resume or verified dev score saved in localStorage
     try {
-      const saved = localStorage.getItem("jobmint_verified_dev_score");
-      if (saved) {
-        const parsed = JSON.parse(saved);
+      const savedResume = localStorage.getItem("jobmint_candidate_resume_name");
+      if (savedResume) {
+        setUploadedResumeName(savedResume);
+      }
+
+      const savedScore = localStorage.getItem("jobmint_verified_dev_score");
+      if (savedScore) {
+        const parsed = JSON.parse(savedScore);
         if (parsed.verifiedSkills && Array.isArray(parsed.verifiedSkills) && parsed.verifiedSkills.length > 0) {
           setCandidateSkills(parsed.verifiedSkills);
           setHasScanned(true);
@@ -80,6 +89,43 @@ export function GapToOfferDiagnostic({
     setCandidateSkills([]);
   }, [jobSkills]);
 
+  const handleResumeFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files || !e.target.files[0]) return;
+    const file = e.target.files[0];
+    if (file.size > 5 * 1024 * 1024) {
+      alert("File exceeds 5MB limit. Please upload a compressed PDF.");
+      return;
+    }
+
+    setIsUploadingResume(true);
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      const res = await fetch("/api/resumes/upload", {
+        method: "POST",
+        body: formData,
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Upload failed");
+
+      setUploadedResumeName(file.name);
+      try {
+        localStorage.setItem("jobmint_candidate_resume_name", file.name);
+        if (data.file?.publicUrl) {
+          localStorage.setItem("jobmint_candidate_resume_url", data.file.publicUrl);
+        }
+      } catch {}
+
+      // Automatically trigger genuine ATS match on newly uploaded resume
+      handleRunAiMatch(file.name);
+    } catch (err: any) {
+      console.error("Resume upload error:", err);
+      alert(err.message || "Failed to upload resume");
+    } finally {
+      setIsUploadingResume(false);
+    }
+  };
+
   const toggleSkill = (skill: string) => {
     if (candidateSkills.includes(skill)) {
       setCandidateSkills(candidateSkills.filter((s) => s !== skill));
@@ -88,14 +134,17 @@ export function GapToOfferDiagnostic({
     }
   };
 
-  const handleRunAiMatch = async () => {
+  const handleRunAiMatch = async (overrideResumeName?: string) => {
+    const activeResume = overrideResumeName || uploadedResumeName;
     setIsAiMatching(true);
     setIsOpen(true);
 
     try {
-      const resumeContent = candidateSkills.length > 0
-        ? `Candidate Skills: ${candidateSkills.join(", ")}. Full Stack Engineer with active project repos.`
-        : "Software developer with JavaScript, React, Node.js, and SQL fundamentals.";
+      const resumeContent = activeResume
+        ? `Candidate Uploaded Resume: ${activeResume}. Verified candidate skills: ${candidateSkills.join(", ")}.`
+        : candidateSkills.length > 0
+        ? `Candidate Profile Skills: ${candidateSkills.join(", ")}.`
+        : "Software developer with full-stack web and backend engineering fundamentals.";
 
       const res = await fetch("/api/ai/ats-match", {
         method: "POST",
@@ -193,7 +242,7 @@ export function GapToOfferDiagnostic({
 
             <Button
               size="sm"
-              onClick={handleRunAiMatch}
+              onClick={() => handleRunAiMatch()}
               disabled={isAiMatching}
               className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs h-9 rounded-xl gap-1.5 shadow-xs"
             >
@@ -223,6 +272,51 @@ export function GapToOfferDiagnostic({
         {/* Expanded Diagnostic Content */}
         {isOpen && (
           <div className="mt-5 pt-5 border-t border-slate-200 space-y-5 animate-in fade-in slide-in-from-top-2 duration-150">
+            {/* Resume Status / Upload Banner */}
+            {uploadedResumeName ? (
+              <div className="flex items-center justify-between rounded-xl bg-emerald-50 border border-emerald-200 p-3 text-xs text-emerald-950">
+                <div className="flex items-center gap-2 truncate pr-2">
+                  <FileText className="h-4 w-4 text-emerald-600 shrink-0" />
+                  <span className="truncate">
+                    Comparing against your vault resume: <strong>{uploadedResumeName}</strong>
+                  </span>
+                </div>
+                <label className="text-xs font-bold text-emerald-700 hover:text-emerald-900 cursor-pointer underline shrink-0">
+                  Replace Resume
+                  <input
+                    type="file"
+                    accept=".pdf"
+                    onChange={handleResumeFileSelect}
+                    disabled={isUploadingResume}
+                    className="hidden"
+                  />
+                </label>
+              </div>
+            ) : (
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between rounded-xl bg-slate-50 border border-slate-200 p-3.5 text-xs text-slate-700 gap-3">
+                <div className="flex items-center gap-2.5">
+                  <FileText className="h-5 w-5 text-slate-400 shrink-0" />
+                  <div>
+                    <span className="font-bold text-slate-900 block">No resume uploaded yet</span>
+                    <span className="text-[11px] text-slate-500">
+                      Upload your PDF resume once to get real ATS scores and tailored gap-fix bullets across all jobs!
+                    </span>
+                  </div>
+                </div>
+                <label className="inline-flex items-center justify-center gap-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-3.5 py-1.5 text-xs cursor-pointer shadow-xs shrink-0 transition-colors">
+                  <Upload className="h-3.5 w-3.5" />
+                  <span>{isUploadingResume ? "Uploading..." : "Upload Resume (PDF)"}</span>
+                  <input
+                    type="file"
+                    accept=".pdf"
+                    onChange={handleResumeFileSelect}
+                    disabled={isUploadingResume}
+                    className="hidden"
+                  />
+                </label>
+              </div>
+            )}
+
             {/* AI Suggested Bullets to bridge the gap */}
             {aiMatchData && aiMatchData.suggestedBullets.length > 0 && (
               <div className="rounded-2xl bg-indigo-950 text-indigo-100 p-4 space-y-3 text-xs shadow-md">

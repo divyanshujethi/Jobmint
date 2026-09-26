@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { uploadFile, validatePdfMagicBytes } from "@repo/storage";
 import { checkRateLimit } from "@/lib/rate-limit";
+import { auth } from "@/auth";
+import { db, candidateProfiles, eq } from "@repo/database";
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
 
@@ -61,12 +63,47 @@ export async function POST(req: NextRequest) {
       contentType: "application/pdf",
     });
 
+    const fileUrl = result.url || result.key;
+
+    // If candidate is logged in, attach resumeUrl to their candidate profile in DB
+    const session = await auth();
+    if (session?.user?.id) {
+      try {
+        const existing = await db
+          .select()
+          .from(candidateProfiles)
+          .where(eq(candidateProfiles.userId, session.user.id))
+          .limit(1);
+
+        if (existing.length > 0) {
+          await db
+            .update(candidateProfiles)
+            .set({
+              resumeUrl: fileUrl,
+              updatedAt: new Date(),
+            })
+            .where(eq(candidateProfiles.id, existing[0].id));
+        } else {
+          await db.insert(candidateProfiles).values({
+            userId: session.user.id,
+            resumeUrl: fileUrl,
+            headline: "Software Engineer",
+            preferredRoles: ["Full Stack Developer"],
+          });
+        }
+      } catch (dbErr) {
+        console.warn("Could not auto-link resume to candidate profile:", dbErr);
+      }
+    }
+
     return NextResponse.json({
       success: true,
       file: result,
+      resumeUrl: fileUrl,
+      filename: file.name,
       message: result.isDuplicate
-        ? "Resume already securely stored (Deduplicated on OCI disk)."
-        : "Resume uploaded successfully to OCI persistent storage.",
+        ? "Resume securely updated in your private vault."
+        : "Resume uploaded successfully to your private vault.",
     });
   } catch (error: any) {
     console.error("[Resume Upload Error]:", error);
