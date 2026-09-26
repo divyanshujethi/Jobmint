@@ -28,10 +28,12 @@ import {
   School,
   Building2,
   ExternalLink,
+  Crown,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LEETCODE_PROBLEMS, Problem } from "@/lib/problems-data";
 import { executeCodeInSandbox, ExecutionReport, SupportedLanguage, SUPPORTED_LANGUAGES } from "@/lib/code-runner";
+import { openPaddleCheckout, PADDLE_PRO_PRICE_ID } from "@/components/paddle-provider";
 
 // Lazy-load Monaco Editor on client side (no SSR, isolated bundle)
 const MonacoEditor = dynamic(() => import("@monaco-editor/react"), {
@@ -133,6 +135,8 @@ function POTDWorkspace() {
   const [selectedCampus, setSelectedCampus] = useState<string>("IIT Delhi");
   const [userDevScore, setUserDevScore] = useState<number>(780);
   const [collegeBattles, setCollegeBattles] = useState<CollegeLeaderboardItem[]>(DEFAULT_CAMPUS_BATTLES);
+  const [mobileTab, setMobileTab] = useState<"PROBLEM" | "CODE">("PROBLEM");
+  const [showProCelebration, setShowProCelebration] = useState(false);
 
   useEffect(() => {
     try {
@@ -242,6 +246,7 @@ function POTDWorkspace() {
           } catch (e) {}
 
           setBadgeUnlocked(currentProblem.badgeName);
+          setShowProCelebration(true);
           setSubmitMessage(`🎉 All ${execReport.totalTests} test cases passed! +50 XP Awarded & Habit Streak Saved!`);
 
           fetch("/api/streak", {
@@ -341,11 +346,37 @@ function POTDWorkspace() {
         </div>
       </header>
 
+      {/* MOBILE SEGMENTED CONTROL (< lg) */}
+      <div className="flex lg:hidden items-center justify-between p-1.5 bg-slate-950 border-b border-slate-800 shrink-0">
+        <button
+          onClick={() => setMobileTab("PROBLEM")}
+          className={`flex-1 py-2 text-xs font-bold rounded-lg flex items-center justify-center gap-1.5 transition-all ${
+            mobileTab === "PROBLEM"
+              ? "bg-slate-800 text-white shadow-sm"
+              : "text-slate-400 hover:text-slate-200"
+          }`}
+        >
+          <BookOpen className="h-3.5 w-3.5" />
+          <span>Problem Description</span>
+        </button>
+        <button
+          onClick={() => setMobileTab("CODE")}
+          className={`flex-1 py-2 text-xs font-bold rounded-lg flex items-center justify-center gap-1.5 transition-all ${
+            mobileTab === "CODE"
+              ? "bg-emerald-600 text-white shadow-sm"
+              : "text-slate-400 hover:text-slate-200"
+          }`}
+        >
+          <Code2 className="h-3.5 w-3.5" />
+          <span>Code Editor &amp; Test Runner</span>
+        </button>
+      </div>
+
       {/* SPLIT WORKSPACE */}
       <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 overflow-hidden h-[calc(100vh-53px)]">
         
         {/* LEFT COLUMN: DESCRIPTION & TABS */}
-        <div className="lg:col-span-5 border-r border-slate-800 bg-slate-950 flex flex-col h-full overflow-hidden">
+        <div className={`${mobileTab === "PROBLEM" ? "flex" : "hidden"} lg:flex lg:col-span-5 border-r border-slate-800 bg-slate-950 flex-col h-full overflow-hidden`}>
           {/* Sub Navigation */}
           <div className="flex items-center gap-1.5 border-b border-slate-800 px-4 pt-2.5 pb-2 bg-slate-950 shrink-0 overflow-x-auto">
             <button
@@ -699,7 +730,7 @@ function POTDWorkspace() {
         </div>
 
         {/* RIGHT COLUMN: MONACO EDITOR + TEST RUNNER HUD */}
-        <div className="lg:col-span-7 bg-slate-900 flex flex-col h-full overflow-hidden">
+        <div className={`${mobileTab === "CODE" ? "flex" : "hidden"} lg:flex lg:col-span-7 bg-slate-900 flex-col h-full overflow-hidden`}>
           
           {/* Editor Header Bar */}
           <div className="border-b border-slate-800 bg-slate-950 px-4 py-2 flex flex-wrap items-center justify-between gap-2 shrink-0">
@@ -833,7 +864,7 @@ function POTDWorkspace() {
                   </div>
 
                   {submitMessage.startsWith("🎉") && (
-                    <div className="flex items-center gap-2 pt-1 font-sans">
+                    <div className="flex flex-wrap items-center gap-2 pt-1 font-sans">
                       <button
                         onClick={() => setActiveLeftTab("CAMPUS")}
                         className="rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1 text-[11px] font-bold flex items-center gap-1 transition-colors"
@@ -845,8 +876,19 @@ function POTDWorkspace() {
                         target="_blank"
                         className="rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3 py-1 text-[11px] font-bold flex items-center gap-1 transition-colors"
                       >
-                        <Award className="h-3 w-3 text-amber-400" /> Showcase to Employers
+                        <Award className="h-3 w-3 text-amber-400" /> Showcase Dev Score
                       </Link>
+                      <button
+                        onClick={() =>
+                          openPaddleCheckout({
+                            priceId: PADDLE_PRO_PRICE_ID,
+                            plan: "pro",
+                          })
+                        }
+                        className="rounded-lg bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-slate-950 px-3 py-1 text-[11px] font-black flex items-center gap-1 transition-all shadow-sm"
+                      >
+                        <Crown className="h-3 w-3 text-slate-950 fill-current" /> Claim Pro Badge (₹499/mo)
+                      </button>
                     </div>
                   )}
                 </div>

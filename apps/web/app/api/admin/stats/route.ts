@@ -15,6 +15,13 @@ export async function GET() {
     const userEmail = session?.user?.email?.toLowerCase();
     const isAdmin = (session?.user as any)?.role === "ADMIN" || (userEmail && adminEmails.includes(userEmail));
 
+    if (!isAdmin) {
+      return NextResponse.json(
+        { error: "Forbidden: SuperAdmin privileges required to access platform telemetry." },
+        { status: 403 }
+      );
+    }
+
     const [allCompanies, allJobs, allApps, allUsers, allSkills, dbHealth, redisHealth] = await Promise.all([
       db.select().from(companies).orderBy(desc(companies.createdAt)),
       db.select().from(jobs).orderBy(desc(jobs.createdAt)),

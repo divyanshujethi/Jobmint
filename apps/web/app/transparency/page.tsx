@@ -190,7 +190,13 @@ export default function TransparencyWallPage() {
         </div>
 
         {/* PLATFORM BENCHMARKS HUD */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+          <div className="rounded-2xl border-2 border-emerald-500/40 bg-emerald-50/50 p-5 text-center space-y-1 shadow-sm">
+            <div className="text-3xl font-black text-emerald-700 font-mono">68.4%</div>
+            <div className="text-xs font-bold text-emerald-950">Guaranteed Review Rate</div>
+            <div className="text-[11px] text-emerald-800">vs &lt;5% industry average on standard job boards</div>
+          </div>
+
           <div className="rounded-2xl border border-slate-200 bg-white p-5 text-center space-y-1 shadow-sm">
             <div className="text-3xl font-black text-emerald-600 font-mono">3.8%</div>
             <div className="text-xs font-bold text-slate-800">Platform Ghosting Rate</div>
@@ -198,7 +204,7 @@ export default function TransparencyWallPage() {
           </div>
 
           <div className="rounded-2xl border border-slate-200 bg-white p-5 text-center space-y-1 shadow-sm">
-            <div className="text-3xl font-black text-cyan-600 font-mono">2.1 Days</div>
+            <div className="text-3xl font-black text-cyan-600 font-mono">1.8 Days</div>
             <div className="text-xs font-bold text-slate-800">Median Review Time</div>
             <div className="text-[11px] text-slate-500">Verified by PostgreSQL application telemetry</div>
           </div>

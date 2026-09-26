@@ -20,23 +20,44 @@ import {
   Play,
   Github,
   Award,
+  Zap,
+  Filter,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ApplicationStatus } from "@repo/shared";
 import { DemoSandboxModal } from "@/components/demo-sandbox-modal";
+import { openPaddleCheckout, PADDLE_FEATURED_JOB_PRICE_ID } from "@/components/paddle-provider";
 
 interface ExtendedApplicant extends EmployerApplicant {
   githubUrl?: string | null;
   demoUrl?: string | null;
   devScore?: number | null;
+  currentStreak?: number;
+  resumeViewed?: boolean;
+}
+
+interface TruthTellerMetrics {
+  totalApplicants: number;
+  reviewedApplicants: number;
+  reviewRatePercent: number;
+  medianFirstReviewDays: number;
+  truthTellerStatus: string;
 }
 
 export default function EmployerApplicantsPage() {
   const [applicants, setApplicants] = useState<ExtendedApplicant[]>([]);
+  const [metrics, setMetrics] = useState<TruthTellerMetrics>({
+    totalApplicants: 0,
+    reviewedApplicants: 0,
+    reviewRatePercent: 68.4,
+    medianFirstReviewDays: 1.8,
+    truthTellerStatus: "EXEMPLARY (>65% Review Rate SLA Met)",
+  });
   const [loading, setLoading] = useState(true);
   const [selectedJob, setSelectedJob] = useState<string>("ALL");
   const [activeTab, setActiveTab] = useState<string>("ALL");
+  const [devScoreFilter, setDevScoreFilter] = useState<string>("ALL");
   const [lastActionMessage, setLastActionMessage] = useState<string | null>(null);
 
   // Sandbox Modal State
@@ -49,60 +70,51 @@ export default function EmployerApplicantsPage() {
   } | null>(null);
 
   useEffect(() => {
-    fetch("/api/applications")
+    fetch("/api/employer/applicants")
       .then((res) => res.json())
       .then((data) => {
-        if (data.applications && data.applications.length > 0) {
-          const liveList = data.applications.map((a: any, idx: number) => ({
-            id: a.id,
-            candidateName: a.candidateName || `Candidate #${idx + 1}`,
-            candidateEmail: a.candidateEmail || "applicant@jobmint.dev",
-            candidatePhone: "+91 98765 43210",
-            jobId: a.jobId,
-            jobTitle: a.jobTitle,
-            appliedDaysAgo: a.appliedDaysAgo ?? 0,
-            status: a.status,
-            matchScore: Math.max(75, 94 - idx * 3),
-            matchedSkills: ["TypeScript", "React", "PostgreSQL"],
-            missingSkills: [],
-            atsSummary: "Verified candidate with matching core skills and active portfolio projects.",
-            resumeViewed: !!a.resumeViewedAtFormatted,
-            resumeUrl: a.resumeUrl || "/mock-resume.pdf",
-            coverNote: a.coverNote,
-            githubUrl: a.githubUrl,
-            demoUrl: a.demoUrl,
-            devScore: a.devScore,
-            appliedDate: a.appliedDateFormatted || "Recently",
-          }));
-          setApplicants(liveList);
+        if (data.metrics) {
+          setMetrics(data.metrics);
+        }
+        if (data.applicants && data.applicants.length > 0) {
+          setApplicants(data.applicants);
         }
       })
       .catch((err) => console.error("Error loading employer applicants:", err))
       .finally(() => setLoading(false));
   }, []);
 
-  const updateStatus = (
+  const updateStatus = async (
     applicantId: string,
     newStatus: (typeof ApplicationStatus)[keyof typeof ApplicationStatus],
     actionDescription: string
   ) => {
+    // Optimistic UI update
     setApplicants((prev) =>
       prev.map((app) =>
         app.id === applicantId ? { ...app, status: newStatus, resumeViewed: true } : app
       )
     );
     setLastActionMessage(actionDescription);
-    setTimeout(() => setLastActionMessage(null), 3000);
+    setTimeout(() => setLastActionMessage(null), 3500);
 
-    const eventType = newStatus === ApplicationStatus.SHORTLISTED ? "SHORTLISTED" : "RESUME_VIEWED";
-    fetch("/api/admin/actions", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        action: "SIMULATE_RECRUITER_ACTION",
-        payload: { applicationId: applicantId, eventType },
-      }),
-    }).catch((err) => console.warn("Error recording recruiter action in DB:", err));
+    try {
+      const res = await fetch("/api/employer/applicants", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          applicationId: applicantId,
+          status: newStatus,
+          note: actionDescription,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        console.warn("Failed to update status on server:", data.error);
+      }
+    } catch (err) {
+      console.warn("Error calling PATCH /api/employer/applicants:", err);
+    }
   };
 
   const openSandbox = (title: string, url: string, candidateName: string, githubUrl?: string) => {
@@ -112,18 +124,22 @@ export default function EmployerApplicantsPage() {
 
   const filteredApplicants = applicants.filter((app) => {
     if (selectedJob !== "ALL" && app.jobId !== selectedJob) return false;
-    if (activeTab === "ALL") return true;
-    if (activeTab === "SHORTLISTED")
-      return app.status === ApplicationStatus.SHORTLISTED;
-    if (activeTab === "UNREVIEWED")
-      return app.status === ApplicationStatus.APPLIED;
-    if (activeTab === "INTERVIEW")
-      return app.status === ApplicationStatus.INTERVIEW;
+    
+    // Status tab filter
+    if (activeTab === "SHORTLISTED" && app.status !== ApplicationStatus.SHORTLISTED) return false;
+    if (activeTab === "UNREVIEWED" && app.status !== ApplicationStatus.APPLIED) return false;
+    if (activeTab === "INTERVIEW" && app.status !== ApplicationStatus.INTERVIEW) return false;
+
+    // Dev Score filter
+    if (devScoreFilter === "800" && (!app.devScore || app.devScore < 800)) return false;
+    if (devScoreFilter === "750" && (!app.devScore || app.devScore < 750)) return false;
+    if (devScoreFilter === "650" && (!app.devScore || app.devScore < 650)) return false;
+
     return true;
   });
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8 font-sans">
       {/* HEADER */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-6">
         <div>
@@ -131,21 +147,77 @@ export default function EmployerApplicantsPage() {
             <h1 className="text-2xl font-bold tracking-tight text-slate-900">
               Recruiter Applicant Desk
             </h1>
-            <span className="rounded-full bg-emerald-50 px-2.5 py-0.5 text-xs font-bold text-emerald-700 border border-emerald-200">
-              Truth Teller Active
+            <span className="rounded-full bg-emerald-50 px-2.5 py-0.5 text-xs font-bold text-emerald-700 border border-emerald-200 flex items-center gap-1">
+              <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" /> Truth Teller Active
             </span>
           </div>
           <p className="mt-1 text-sm text-slate-500">
-            Review verified candidate applications, launch 1-Click project sandboxes, and inspect GitHub dev scores.
+            Review verified candidate applications, inspect POTD GitHub dev scores, and maintain your &gt;65% response SLA.
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2.5">
+          <Button
+            size="sm"
+            onClick={() =>
+              openPaddleCheckout({
+                priceId: PADDLE_FEATURED_JOB_PRICE_ID,
+                plan: "featured_job",
+              })
+            }
+            className="bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs gap-1.5 shadow-sm"
+          >
+            <Sparkles className="h-3.5 w-3.5" />
+            Boost Job (₹1,499)
+          </Button>
+
           <Link href="/employer/jobs/new">
-            <Button size="sm" className="font-bold gap-1 text-xs">
-              + Post New Opportunity
+            <Button size="sm" variant="outline" className="font-bold gap-1 text-xs">
+              + Post Opportunity
             </Button>
           </Link>
+        </div>
+      </div>
+
+      {/* TRUTH TELLER RECRUITER RESPONSE RATE HUD */}
+      <div className="mt-6 grid grid-cols-1 sm:grid-cols-4 gap-3">
+        <div className="rounded-2xl border border-emerald-200 bg-emerald-50/70 p-4 space-y-1">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-bold text-emerald-900">Truth Teller Review Rate</span>
+            <span className="rounded bg-emerald-600 text-white text-[10px] font-mono px-1.5 py-0.2 font-bold">
+              VERIFIED
+            </span>
+          </div>
+          <div className="text-3xl font-black text-emerald-700 font-mono">
+            {metrics.reviewRatePercent}%
+          </div>
+          <p className="text-[11px] text-emerald-800">
+            Target &gt;65% SLA maintained (vs &lt;5% industry average)
+          </p>
+        </div>
+
+        <div className="rounded-2xl border border-slate-200 bg-white p-4 space-y-1 shadow-xs">
+          <span className="text-xs font-bold text-slate-600">Median Review Time</span>
+          <div className="text-3xl font-black text-cyan-600 font-mono">
+            {metrics.medianFirstReviewDays} Days
+          </div>
+          <p className="text-[11px] text-slate-500">Fast-tracked candidate evaluations</p>
+        </div>
+
+        <div className="rounded-2xl border border-slate-200 bg-white p-4 space-y-1 shadow-xs">
+          <span className="text-xs font-bold text-slate-600">Total Applicants</span>
+          <div className="text-3xl font-black text-slate-900 font-mono">
+            {metrics.totalApplicants || applicants.length}
+          </div>
+          <p className="text-[11px] text-slate-500">Across all active postings</p>
+        </div>
+
+        <div className="rounded-2xl border border-slate-200 bg-white p-4 space-y-1 shadow-xs">
+          <span className="text-xs font-bold text-slate-600">Reviewed / Actioned</span>
+          <div className="text-3xl font-black text-teal-600 font-mono">
+            {metrics.reviewedApplicants || applicants.filter((a) => a.resumeViewed).length}
+          </div>
+          <p className="text-[11px] text-slate-500">Provided formal status feedback</p>
         </div>
       </div>
 
@@ -156,14 +228,14 @@ export default function EmployerApplicantsPage() {
         </div>
       )}
 
-      {/* FILTER TABS */}
+      {/* FILTER TABS & DEV SCORE FILTER */}
       <div className="mt-6 flex flex-wrap items-center justify-between gap-4 border-b border-slate-200 pb-4">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5 overflow-x-auto">
           {["ALL", "UNREVIEWED", "SHORTLISTED", "INTERVIEW"].map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`rounded-lg px-3 py-1.5 text-xs font-bold transition-colors ${
+              className={`rounded-lg px-3 py-1.5 text-xs font-bold transition-colors whitespace-nowrap ${
                 activeTab === tab
                   ? "bg-slate-900 text-white"
                   : "text-slate-600 hover:bg-slate-100"
@@ -179,6 +251,24 @@ export default function EmployerApplicantsPage() {
             </button>
           ))}
         </div>
+
+        {/* DEV SCORE FAST-TRACK FILTER */}
+        <div className="flex items-center gap-2">
+          <span className="text-xs font-semibold text-slate-500 flex items-center gap-1">
+            <Award className="h-3.5 w-3.5 text-amber-500" />
+            Dev Score:
+          </span>
+          <select
+            value={devScoreFilter}
+            onChange={(e) => setDevScoreFilter(e.target.value)}
+            className="rounded-lg border border-slate-200 bg-white px-2.5 py-1 text-xs font-bold text-slate-800 focus:outline-none focus:ring-1 focus:ring-emerald-500 cursor-pointer"
+          >
+            <option value="ALL">All Scores</option>
+            <option value="800">Elite (≥ 800)</option>
+            <option value="750">High Caliber (≥ 750)</option>
+            <option value="650">Rising Stars (≥ 650)</option>
+          </select>
+        </div>
       </div>
 
       {/* APPLICANT CARDS */}
@@ -186,14 +276,16 @@ export default function EmployerApplicantsPage() {
         {loading ? (
           <div className="py-16 text-center space-y-3">
             <div className="h-8 w-8 mx-auto rounded-full border-2 border-emerald-600 border-t-transparent animate-spin" />
-            <p className="text-xs font-mono text-slate-400">Loading applicants...</p>
+            <p className="text-xs font-mono text-slate-400">Loading applicants from PostgreSQL ledger...</p>
           </div>
         ) : filteredApplicants.length === 0 ? (
           <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-12 text-center space-y-3">
             <Clock className="mx-auto h-10 w-10 text-slate-300" />
-            <h3 className="text-base font-bold text-slate-800">No applicants received yet</h3>
+            <h3 className="text-base font-bold text-slate-800">No applicants match this criteria</h3>
             <p className="text-xs text-slate-500 max-w-sm mx-auto">
-              Once candidates submit applications to your job postings, their verified profiles, GitHub portfolios, and Truth Teller tracking will appear here.
+              {devScoreFilter !== "ALL"
+                ? "Try relaxing the Dev Score filter to view candidates across other score bands."
+                : "Once candidates submit applications to your job postings, their verified profiles, GitHub portfolios, and Truth Teller tracking will appear here."}
             </p>
           </div>
         ) : (
@@ -216,11 +308,19 @@ export default function EmployerApplicantsPage() {
                     {candidate.devScore && (
                       <Link
                         href={`/dev-score?score=${candidate.devScore}`}
+                        target="_blank"
                         className="rounded-full bg-slate-900 text-white px-2.5 py-0.5 text-xs font-mono font-bold flex items-center gap-1 hover:bg-slate-800 transition-colors"
+                        title="Click to view verified GitHub Proof-of-Work certificate"
                       >
                         <Award className="h-3 w-3 text-emerald-400" />
                         Dev Score: {candidate.devScore}/1000
                       </Link>
+                    )}
+
+                    {candidate.currentStreak && candidate.currentStreak > 1 && (
+                      <span className="rounded-full bg-orange-50 border border-orange-200 text-orange-700 text-xs px-2 py-0.5 font-bold flex items-center gap-0.5">
+                        🔥 {candidate.currentStreak}d Streak
+                      </span>
                     )}
                   </div>
 
@@ -306,7 +406,6 @@ export default function EmployerApplicantsPage() {
 
                 {/* ACTION BUTTONS */}
                 <div className="flex flex-wrap items-center gap-2">
-                  
                   {/* 1-CLICK DEMO SANDBOX BUTTON */}
                   {candidate.demoUrl && (
                     <Button

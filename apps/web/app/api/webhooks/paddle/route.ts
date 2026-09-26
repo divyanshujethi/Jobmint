@@ -2,9 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
 import { db, users, jobs, eq } from "@repo/database";
 
-const PADDLE_WEBHOOK_SECRET =
-  process.env.PADDLE_WEBHOOK_SECRET ||
-  "pdl_ntfset_01m3bwme1qf3ezpevv0aa7zevv_3LM3tMva0yjgphgQNOEKdz/mST8Erqe8";
+const PADDLE_WEBHOOK_SECRET = process.env.PADDLE_WEBHOOK_SECRET || "";
 
 const PRO_PRICE_ID =
   process.env.PADDLE_PRO_PRICE_ID || "pri_01m3bwpwtps09hkztpjz0d3dnd";

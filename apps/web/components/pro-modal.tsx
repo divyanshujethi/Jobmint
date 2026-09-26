@@ -127,7 +127,7 @@ export function ProModal({ isOpen, onClose, user }: ProModalProps) {
             className="w-full h-11 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-sm shadow-lg shadow-emerald-600/25 rounded-xl flex items-center justify-center gap-2"
           >
             <CreditCard className="h-4 w-4" />
-            {loading ? "Launching Paddle Checkout..." : "Upgrade to Pro — ₹299/mo"}
+            {loading ? "Launching Paddle Checkout..." : "Upgrade to Pro — ₹499/mo"}
             <ArrowRight className="h-4 w-4 ml-1" />
           </Button>
           <div className="flex items-center justify-center gap-2 text-[10px] text-slate-400">

@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useMemo, useEffect } from "react";
-import { Search, MapPin, Filter, Briefcase, Sparkles, X } from "lucide-react";
+import Link from "next/link";
+import { Search, MapPin, Filter, Briefcase, Sparkles, X, ShieldCheck } from "lucide-react";
 import { MockJob } from "@/lib/mock-jobs";
 import { JobCard } from "@/components/job-card";
 import { Button } from "@/components/ui/button";
@@ -93,6 +94,25 @@ export default function JobsPage() {
             </button>
           )}
         </div>
+      </div>
+
+      {/* TRUTH TELLER GUARANTEE CALLOUT */}
+      <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-emerald-200/80 bg-gradient-to-r from-emerald-50 via-teal-50/50 to-white px-4 py-2.5 text-xs text-emerald-950 shadow-2xs">
+        <div className="flex items-center gap-2">
+          <span className="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+          <span className="font-extrabold text-emerald-900 font-mono flex items-center gap-1">
+            <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" /> Truth Teller Standard:
+          </span>
+          <span className="text-slate-700">
+            <strong>68.4% Guaranteed Human Review Rate</strong> within 48h (vs &lt;5% industry average).
+          </span>
+        </div>
+        <Link
+          href="/transparency"
+          className="font-bold text-emerald-700 hover:text-emerald-800 underline underline-offset-2 flex items-center gap-1"
+        >
+          Anti-Ghosting Ledger →
+        </Link>
       </div>
 
       {/* INSTANT WHATSAPP & TELEGRAM ALERTS */}

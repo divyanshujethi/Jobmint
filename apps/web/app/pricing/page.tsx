@@ -139,9 +139,9 @@ export default function PricingPage() {
                 </div>
                 <div>
                   <div className="flex items-baseline gap-1.5">
-                    <span className="text-4xl font-black text-slate-900">₹299</span>
+                    <span className="text-4xl font-black text-slate-900">₹499</span>
                     <span className="text-xs text-slate-500 font-semibold">/ month</span>
-                    <span className="text-xs text-slate-400 font-normal ml-1">($4.99 USD)</span>
+                    <span className="text-xs text-slate-400 font-normal ml-1">($6.99 USD)</span>
                   </div>
                   <p className="text-[11px] text-slate-500 mt-1">7-Day Money Back Guarantee • Cancel anytime</p>
                 </div>
@@ -179,7 +179,7 @@ export default function PricingPage() {
                     className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold h-11 shadow-lg shadow-emerald-600/25"
                   >
                     <CreditCard className="h-4 w-4 mr-2" />
-                    Upgrade to Pro — ₹299/mo
+                    Upgrade to Pro — ₹499/mo
                   </Button>
                 )}
                 <p className="text-[10px] text-center text-slate-400">

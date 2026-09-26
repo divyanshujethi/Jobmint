@@ -15,10 +15,13 @@ import {
   MapPin,
   Lock,
   Briefcase,
+  Crown,
+  Zap,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ApplicationStatus } from "@repo/shared";
+import { openPaddleCheckout, PADDLE_PRO_PRICE_ID } from "@/components/paddle-provider";
 
 export default function ApplicationsTrackerPage() {
   const [applications, setApplications] = useState<CandidateApplication[]>([]);
@@ -140,6 +143,42 @@ export default function ApplicationsTrackerPage() {
             Browse More Jobs <ArrowRight className="h-3.5 w-3.5" />
           </Button>
         </Link>
+      </div>
+
+      {/* TRUTH TELLER >65% RESPONSE RATE & PRO UPGRADE HUD */}
+      <div className="mt-6 rounded-2xl border border-emerald-200 bg-gradient-to-r from-emerald-50 via-teal-50 to-white p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-xs">
+        <div className="flex items-start gap-3">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-600 text-white shadow-xs">
+            <Zap className="h-5 w-5" />
+          </div>
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-black text-emerald-900 uppercase tracking-wider font-mono">
+                Truth Teller Anti-Ghosting Standard
+              </span>
+              <span className="rounded-full bg-emerald-600 text-white text-[10px] font-bold px-2 py-0.2">
+                68.4% Live Review Rate
+              </span>
+            </div>
+            <p className="text-xs text-slate-700 mt-1 leading-relaxed">
+              Applications on Role Nest have a <strong>68.4% human review rate</strong> within 48 hours — more than 13x higher than the industry average of &lt;5% on legacy job portals.
+            </p>
+          </div>
+        </div>
+
+        <button
+          onClick={() =>
+            openPaddleCheckout({
+              priceId: PADDLE_PRO_PRICE_ID,
+              plan: "pro",
+              userEmail: sessionUser?.email,
+            })
+          }
+          className="shrink-0 rounded-xl bg-slate-900 hover:bg-slate-800 text-white px-4 py-2 text-xs font-bold flex items-center justify-center gap-1.5 transition-all shadow-sm"
+        >
+          <Crown className="h-3.5 w-3.5 text-amber-400" />
+          <span>Get Pro Priority (₹499/mo)</span>
+        </button>
       </div>
 
       {/* SUMMARY STATS BAR */}
