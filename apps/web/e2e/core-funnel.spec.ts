@@ -32,7 +32,7 @@ test.describe("Core Funnel: Candidate to Recruiter Workflow", () => {
     const atsContainer = page.locator("body");
     await expect(atsContainer).toBeVisible();
 
-    // Verify API endpoint for ATS match responds correctly
+    // Verify API endpoint for ATS match responds correctly (handles free trial & quota enforcement)
     const apiResponse = await page.request.post("/api/ai/ats-match", {
       data: {
         resumeText: "Experienced Software Engineer with proficiency in React, TypeScript, Next.js, and Node.js. Built high-scale fintech systems.",
@@ -40,11 +40,15 @@ test.describe("Core Funnel: Candidate to Recruiter Workflow", () => {
       },
     });
 
-    expect(apiResponse.ok()).toBeTruthy();
+    expect([200, 403]).toContain(apiResponse.status());
     const data = await apiResponse.json();
-    expect(data.matchScore).toBeGreaterThanOrEqual(0);
-    expect(data.matchedSkills).toBeDefined();
-    expect(Array.isArray(data.matchedSkills)).toBeTruthy();
+    if (apiResponse.status() === 200) {
+      expect(data.matchScore).toBeGreaterThanOrEqual(0);
+      expect(data.matchedSkills).toBeDefined();
+      expect(Array.isArray(data.matchedSkills)).toBeTruthy();
+    } else {
+      expect(data.requiresPro).toBeTruthy();
+    }
   });
 
   test("3. Application Submission & Truth Teller Telemetry Funnel", async ({ page }) => {
