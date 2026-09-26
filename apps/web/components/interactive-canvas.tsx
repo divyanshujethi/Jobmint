@@ -30,10 +30,14 @@ import {
   Lightbulb,
   Info,
   HelpCircle,
+  Network,
+  GitFork,
 } from "lucide-react";
 import { Button } from "./ui/button";
+import { KnowledgeGraphView } from "./knowledge-graph-view";
 
 export function InteractiveStudyCanvas() {
+  const [viewMode, setViewMode] = useState<"roadmap" | "graph">("roadmap");
   const [activeTrackId, setActiveTrackId] = useState<string>(CANVAS_TRACKS[0].id);
   const [selectedNode, setSelectedNode] = useState<CanvasNode | null>(null);
   const [completedNodes, setCompletedNodes] = useState<Set<string>>(new Set());
@@ -235,7 +239,8 @@ export function InteractiveStudyCanvas() {
           const endX = node.x;
           const endY = node.y + 60;
           const dx = endX - startX;
-          const d = `M ${startX} ${startY} C ${startX + dx * 0.5} ${startY}, ${endX - dx * 0.5} ${endY}, ${endX} ${endY}`;
+          const controlOffset = Math.max(dx * 0.45, 50);
+          const d = `M ${startX} ${startY} C ${startX + controlOffset} ${startY}, ${endX - controlOffset} ${endY}, ${endX} ${endY}`;
           const isCompleted = completedNodes.has(parent.id) && completedNodes.has(node.id);
           lines.push({
             id: `${parent.id}->${node.id}`,
@@ -267,47 +272,78 @@ export function InteractiveStudyCanvas() {
         }
       `}</style>
 
-      {/* Top Header & Track Selector */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between border-b border-slate-200 bg-white/95 px-6 py-3 backdrop-blur-md z-20 gap-3 shadow-2xs">
+      {/* Top Header & Mode / Track Selector */}
+      <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between border-b border-slate-200 bg-white/95 px-6 py-3 backdrop-blur-md z-20 gap-3 shadow-2xs">
         <div className="flex items-center gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100 text-emerald-700 shadow-2xs">
             <Compass className="h-5 w-5" />
           </div>
           <div>
             <h1 className="text-base font-extrabold text-slate-900 flex items-center gap-2">
-              Interactive Career Roadmap &amp; Skill Trees
+              Interactive Study &amp; Developer Skill Canvas
               <span className="rounded-full bg-emerald-50 border border-emerald-200 px-2 py-0.5 text-[10px] font-bold text-emerald-700 font-mono">
                 2026 Edition
               </span>
             </h1>
             <p className="text-xs text-slate-600">
-              Prerequisite knowledge graph: Click any skill node for tutorials, code patterns &amp; verified hiring companies.
+              Interactive visual learning: Explore linear career tracks or deep-dive into the interconnected knowledge network graph.
             </p>
           </div>
         </div>
 
-        {/* Track Switcher */}
-        <div className="flex flex-wrap items-center gap-2">
-          {CANVAS_TRACKS.map((track) => (
+        <div className="flex flex-wrap items-center gap-3">
+          {/* View Mode Switcher */}
+          <div className="flex items-center rounded-xl bg-slate-100 p-1 border border-slate-200 shadow-2xs">
             <button
-              key={track.id}
-              onClick={() => {
-                setActiveTrackId(track.id);
-                setSelectedNode(null);
-              }}
-              className={`rounded-xl px-3.5 py-1.5 text-xs font-bold transition-all ${
-                activeTrackId === track.id
-                  ? "bg-emerald-600 text-white shadow-xs"
-                  : "bg-slate-100 text-slate-700 hover:bg-slate-200 hover:text-slate-900"
+              onClick={() => setViewMode("roadmap")}
+              className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-bold transition-all ${
+                viewMode === "roadmap"
+                  ? "bg-white text-slate-900 shadow-xs"
+                  : "text-slate-600 hover:text-slate-900"
               }`}
             >
-              {track.title}
+              <GitFork className="h-3.5 w-3.5 text-emerald-600" />
+              <span>Roadmap Tree</span>
             </button>
-          ))}
+            <button
+              onClick={() => setViewMode("graph")}
+              className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-bold transition-all ${
+                viewMode === "graph"
+                  ? "bg-white text-slate-900 shadow-xs"
+                  : "text-slate-600 hover:text-slate-900"
+              }`}
+            >
+              <Network className="h-3.5 w-3.5 text-emerald-600" />
+              <span>Knowledge Graph (Network)</span>
+            </button>
+          </div>
+
+          {/* Track Switcher (Only visible in Roadmap mode) */}
+          {viewMode === "roadmap" && (
+            <div className="flex flex-wrap items-center gap-1.5">
+              {CANVAS_TRACKS.map((track) => (
+                <button
+                  key={track.id}
+                  onClick={() => {
+                    setActiveTrackId(track.id);
+                    setSelectedNode(null);
+                  }}
+                  className={`rounded-xl px-3 py-1.5 text-xs font-bold transition-all ${
+                    activeTrackId === track.id
+                      ? "bg-emerald-600 text-white shadow-xs"
+                      : "bg-slate-100 text-slate-700 hover:bg-slate-200 hover:text-slate-900"
+                  }`}
+                >
+                  {track.title}
+                </button>
+              ))}
+            </div>
+          )}
+
           <button
             onClick={() => setShowHelpBanner(!showHelpBanner)}
             title="What is this Canvas for?"
-            className="p-1.5 rounded-lg text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors ml-1"
+            className="p-1.5 rounded-lg text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors"
           >
             <HelpCircle className="h-4 w-4" />
           </button>
@@ -320,8 +356,7 @@ export function InteractiveStudyCanvas() {
           <div className="flex items-center gap-2.5">
             <Sparkles className="h-4 w-4 text-emerald-600 shrink-0" />
             <div className="leading-relaxed">
-              <strong>What is this for?</strong> This interactive skill tree maps out your exact engineering career path in prerequisite order.
-              <strong> Click any node</strong> to view free curated documentation, code patterns, and verified capstone tasks. Mark mastered skills to track your hire-readiness.
+              <strong>What is this for?</strong> Switch between the <strong>Roadmap Tree</strong> (step-by-step career path with capstone milestones) and the <strong>Knowledge Graph</strong> (interactive 2D concept network with Feynman mental models &amp; mini-quizzes).
             </div>
           </div>
           <button
@@ -334,91 +369,89 @@ export function InteractiveStudyCanvas() {
         </div>
       )}
 
-      {/* Subheader: Track Details & Progress Bar */}
-      <div className="flex items-center justify-between border-b border-slate-200 bg-white/70 px-6 py-2 text-xs text-slate-600 z-10">
-        <div className="flex items-center gap-2">
-          <span className="font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-            {activeTrack.badge}
-          </span>
-          <span className="text-slate-300">•</span>
-          <span className="text-slate-600 hidden md:inline">{activeTrack.description}</span>
-        </div>
+      {/* View Mode: Knowledge Graph Network */}
+      {viewMode === "graph" ? (
+        <KnowledgeGraphView />
+      ) : (
+        <>
+          {/* Subheader: Track Details & Progress Bar */}
+          <div className="flex items-center justify-between border-b border-slate-200 bg-white/70 px-6 py-2 text-xs text-slate-600 z-10">
+            <div className="flex items-center gap-2">
+              <span className="font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                {activeTrack.badge}
+              </span>
+              <span className="text-slate-300">•</span>
+              <span className="text-slate-600 hidden md:inline">{activeTrack.description}</span>
+            </div>
 
-        <div className="flex items-center gap-3 shrink-0">
-          <span className="font-mono text-[11px] text-slate-600">
-            Skills Mastered: <strong className="text-emerald-700 font-bold">{progressCount}/{activeTrack.nodes.length}</strong> ({progressPercentage}%)
-          </span>
-          <div className="w-28 bg-slate-200 rounded-full h-2 overflow-hidden">
-            <div
-              className="bg-emerald-600 h-full transition-all duration-300"
-              style={{ width: `${progressPercentage}%` }}
-            />
-          </div>
-        </div>
-      </div>
-
-      {/* Main Canvas Area */}
-      <div
-        ref={containerRef}
-        onMouseDown={handleMouseDown}
-        onWheel={handleWheel}
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleTouchEnd}
-        className="relative flex-1 cursor-grab active:cursor-grabbing overflow-hidden bg-slate-50 bg-[radial-gradient(#cbd5e1_1.5px,transparent_1.5px)] [background-size:24px_24px]"
-      >
-        {/* Transform Container */}
-        <div
-          style={{
-            transform: `translate(${pan.x}px, ${pan.y}px) scale(${scale})`,
-            transformOrigin: "0 0",
-            transition: isPanning ? "none" : "transform 0.05s ease-out",
-          }}
-          className="absolute inset-0 w-[2700px] h-[950px] pointer-events-auto"
-        >
-          {/* SVG Connection Lines */}
-          <svg className="absolute inset-0 w-full h-full pointer-events-none">
-            <defs>
-              <linearGradient id="activeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#059669" />
-                <stop offset="100%" stopColor="#0d9488" />
-              </linearGradient>
-            </defs>
-
-            {connections.map((conn) => (
-              <g key={conn.id}>
-                {/* Base connection line */}
-                <path
-                  d={conn.d}
-                  fill="none"
-                  stroke="#cbd5e1"
-                  strokeWidth="3"
+            <div className="flex items-center gap-3 shrink-0">
+              <span className="font-mono text-[11px] text-slate-600">
+                Skills Mastered: <strong className="text-emerald-700 font-bold">{progressCount}/{activeTrack.nodes.length}</strong> ({progressPercentage}%)
+              </span>
+              <div className="w-28 bg-slate-200 rounded-full h-2 overflow-hidden">
+                <div
+                  className="bg-emerald-600 h-full transition-all duration-300"
+                  style={{ width: `${progressPercentage}%` }}
                 />
-                {/* Animated active connection path */}
-                {conn.isCompleted ? (
-                  <path
-                    d={conn.d}
-                    fill="none"
-                    stroke="url(#activeGradient)"
-                    strokeWidth="3.5"
-                    className="canvas-line-flow"
-                  />
-                ) : (
-                  <path
-                    d={conn.d}
-                    fill="none"
-                    stroke="#94a3b8"
-                    strokeWidth="1.5"
-                    strokeDasharray="4 4"
-                    className="opacity-40"
-                  />
-                )}
-              </g>
-            ))}
-          </svg>
+              </div>
+            </div>
+          </div>
 
-          {/* Canvas Nodes */}
-          {activeTrack.nodes.map((node) => {
+          {/* Main Canvas Area */}
+          <div
+            ref={containerRef}
+            onMouseDown={handleMouseDown}
+            onWheel={handleWheel}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+            className="relative flex-1 cursor-grab active:cursor-grabbing overflow-hidden bg-slate-50 bg-[radial-gradient(#cbd5e1_1.5px,transparent_1.5px)] [background-size:24px_24px]"
+          >
+            {/* Transform Container */}
+            <div
+              style={{
+                transform: `translate(${pan.x}px, ${pan.y}px) scale(${scale})`,
+                transformOrigin: "0 0",
+                transition: isPanning ? "none" : "transform 0.05s ease-out",
+              }}
+              className="absolute inset-0 w-[2700px] h-[950px] pointer-events-auto"
+            >
+              {/* SVG Connection Lines */}
+              <svg className="absolute inset-0 w-full h-full pointer-events-none">
+                <defs>
+                  <linearGradient id="activeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="#059669" />
+                    <stop offset="100%" stopColor="#0d9488" />
+                  </linearGradient>
+                </defs>
+
+                {connections.map((conn) => (
+                  <g key={conn.id}>
+                    {conn.isCompleted ? (
+                      <path
+                        d={conn.d}
+                        fill="none"
+                        stroke="url(#activeGradient)"
+                        strokeWidth="3"
+                        strokeLinecap="round"
+                        className="canvas-line-flow"
+                      />
+                    ) : (
+                      <path
+                        d={conn.d}
+                        fill="none"
+                        stroke="#cbd5e1"
+                        strokeWidth="2"
+                        strokeDasharray="5 5"
+                        strokeLinecap="round"
+                      />
+                    )}
+                  </g>
+                ))}
+              </svg>
+
+              {/* Canvas Nodes */}
+              {activeTrack.nodes.map((node) => {
             const isCompleted = completedNodes.has(node.id);
             const isSelected = selectedNode?.id === node.id;
 
@@ -729,6 +762,8 @@ export function InteractiveStudyCanvas() {
           </div>
         )}
       </div>
+      </>
+      )}
     </div>
   );
 }
