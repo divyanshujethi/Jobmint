@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { db, companies, jobs, applications, users, skills, candidateProfiles, desc, eq, sql } from "@repo/database";
 import { auth } from "@/auth";
 import { checkDatabase, checkRedis } from "@/lib/health-check";
+import { signAccessToken } from "@repo/storage";
 
 export const dynamic = "force-dynamic";
 
@@ -82,7 +83,11 @@ export async function GET() {
         cleanKey = `${cleanKey}.pdf`;
       }
 
-      const streamUrl = cleanKey ? `/api/resumes/stream?key=${encodeURIComponent(cleanKey)}` : rawUrl;
+      const expiresAt = Math.floor(Date.now() / 1000) + 86400; // 24 hours
+      const token = cleanKey ? signAccessToken(cleanKey, expiresAt) : "";
+      const streamUrl = cleanKey
+        ? `/api/resumes/stream?key=${encodeURIComponent(cleanKey)}&token=${token}&expires=${expiresAt}`
+        : rawUrl;
 
       return {
         ...r,
