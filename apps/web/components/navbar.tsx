@@ -136,7 +136,9 @@ export function Navbar() {
           <div className="hidden lg:flex items-center gap-6">
             <Link
               href="/jobs"
-              className="flex items-center gap-1.5 text-sm font-semibold text-slate-600 hover:text-emerald-600 transition-colors"
+              className={`flex items-center gap-1.5 text-sm font-semibold transition-colors ${
+                pathname === "/jobs" ? "text-emerald-600 font-bold" : "text-slate-600 hover:text-emerald-600"
+              }`}
             >
               <Briefcase className="h-4 w-4 text-slate-400" />
               Jobs
@@ -144,39 +146,19 @@ export function Navbar() {
 
             <Link
               href="/internships"
-              className="flex items-center gap-1.5 text-sm font-semibold text-slate-600 hover:text-emerald-600 transition-colors"
+              className={`flex items-center gap-1.5 text-sm font-semibold transition-colors ${
+                pathname === "/internships" ? "text-emerald-600 font-bold" : "text-slate-600 hover:text-emerald-600"
+              }`}
             >
               <Sparkles className="h-4 w-4 text-amber-500" />
               Internships
             </Link>
 
             <Link
-              href="/companies"
-              className="flex items-center gap-1.5 text-sm font-semibold text-slate-600 hover:text-emerald-600 transition-colors"
-            >
-              <Building2 className="h-4 w-4 text-slate-400" />
-              Companies
-            </Link>
-
-            <Link
-              href="/recommendations"
-              className="flex items-center gap-1.5 text-sm font-semibold text-slate-600 hover:text-emerald-600 transition-colors"
-            >
-              <Zap className="h-4 w-4 text-emerald-600" />
-              For You
-            </Link>
-
-            <Link
-              href="/leaderboard"
-              className="flex items-center gap-1.5 text-sm font-semibold text-slate-600 hover:text-emerald-600 transition-colors"
-            >
-              <Flame className="h-4 w-4 text-amber-500 fill-amber-500" />
-              Leaderboard
-            </Link>
-
-            <Link
               href="/bounties"
-              className="flex items-center gap-1.5 text-sm font-semibold text-slate-600 hover:text-emerald-600 transition-colors"
+              className={`flex items-center gap-1.5 text-sm font-semibold transition-colors ${
+                pathname === "/bounties" ? "text-emerald-600 font-bold" : "text-slate-600 hover:text-emerald-600"
+              }`}
             >
               <Gift className="h-4 w-4 text-amber-500" />
               Bounties
@@ -184,7 +166,9 @@ export function Navbar() {
 
             <Link
               href="/salaries"
-              className="flex items-center gap-1.5 text-sm font-semibold text-slate-600 hover:text-emerald-600 transition-colors"
+              className={`flex items-center gap-1.5 text-sm font-semibold transition-colors ${
+                pathname === "/salaries" ? "text-emerald-600 font-bold" : "text-slate-600 hover:text-emerald-600"
+              }`}
             >
               <DollarSign className="h-4 w-4 text-emerald-600" />
               Salaries
@@ -197,7 +181,7 @@ export function Navbar() {
                 onClick={() => setToolsOpen(!toolsOpen)}
                 className="flex items-center gap-1 text-sm font-semibold text-slate-600 hover:text-emerald-600 transition-colors focus:outline-none"
               >
-                <span>Tools & Prep</span>
+                <span>Tools &amp; Prep</span>
                 <ChevronDown className={`h-3.5 w-3.5 transition-transform ${toolsOpen ? "rotate-180" : ""}`} />
               </button>
 
@@ -270,11 +254,11 @@ export function Navbar() {
                       </div>
                     </div>
 
-                    {/* COLUMN 2: RESUME & CAREER TOOLKIT */}
+                    {/* COLUMN 2: RESUME & DISCOVERY */}
                     <div className="space-y-3 border-l border-slate-100 pl-4">
                       <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-blue-700 flex items-center gap-1.5 px-2">
                         <FileText className="h-3.5 w-3.5" />
-                        <span>Resume &amp; Caliber</span>
+                        <span>Resume &amp; Discovery</span>
                       </div>
                       <div className="space-y-1">
                         <Link
@@ -320,14 +304,32 @@ export function Navbar() {
                         </Link>
 
                         <Link
-                          href="/placement-portal"
+                          href="/companies"
                           onClick={() => setToolsOpen(false)}
                           className="flex items-start gap-2.5 rounded-xl p-2 hover:bg-slate-50 transition-colors group"
                         >
-                          <GraduationCap className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                          <Building2 className="h-4 w-4 text-slate-500 shrink-0 mt-0.5" />
                           <div>
-                            <div className="text-xs font-bold text-slate-900 group-hover:text-blue-600 transition-colors">Placement Syndication</div>
-                            <div className="text-[11px] text-slate-500">College placement cell feed</div>
+                            <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5 group-hover:text-blue-600 transition-colors">
+                              Company Directory
+                              <span className="rounded bg-slate-100 text-slate-700 px-1 py-0.2 text-[9px] font-mono">Verified</span>
+                            </div>
+                            <div className="text-[11px] text-slate-500">Culture, tech stack &amp; rounds</div>
+                          </div>
+                        </Link>
+
+                        <Link
+                          href="/recommendations"
+                          onClick={() => setToolsOpen(false)}
+                          className="flex items-start gap-2.5 rounded-xl p-2 hover:bg-slate-50 transition-colors group"
+                        >
+                          <Zap className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                          <div>
+                            <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5 group-hover:text-blue-600 transition-colors">
+                              For You Matches
+                              <span className="rounded bg-emerald-50 text-emerald-700 px-1 py-0.2 text-[9px] font-mono">AI</span>
+                            </div>
+                            <div className="text-[11px] text-slate-500">Curated roles fitting your stack</div>
                           </div>
                         </Link>
                       </div>
@@ -399,6 +401,18 @@ export function Navbar() {
                             <div className="text-[11px] text-slate-500">Verified course diplomas</div>
                           </div>
                         </Link>
+
+                        <Link
+                          href="/placement-portal"
+                          onClick={() => setToolsOpen(false)}
+                          className="flex items-start gap-2.5 rounded-xl p-2 hover:bg-slate-50 transition-colors group"
+                        >
+                          <GraduationCap className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                          <div>
+                            <div className="text-xs font-bold text-slate-900 group-hover:text-purple-600 transition-colors">Placement Syndication</div>
+                            <div className="text-[11px] text-slate-500">College placement cell feed</div>
+                          </div>
+                        </Link>
                       </div>
                     </div>
                   </div>
@@ -425,14 +439,19 @@ export function Navbar() {
 
         {/* Right Action Bar */}
         <div className="hidden lg:flex items-center gap-3">
-          <Link href="/pricing" className="text-xs font-semibold text-slate-600 hover:text-emerald-700">
+          <Link
+            href="/pricing"
+            className={`text-xs font-semibold transition-colors ${
+              pathname === "/pricing" ? "text-emerald-600 font-bold" : "text-slate-600 hover:text-emerald-700"
+            }`}
+          >
             Pricing
           </Link>
 
           <Link href={user ? "/employer/jobs/new" : "/employer/login"}>
             <Button variant="outline" size="sm" className="gap-1.5 text-xs font-bold border-slate-300">
               <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />
-              Post an Opening
+              Post a Job
             </Button>
           </Link>
 

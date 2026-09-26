@@ -455,16 +455,10 @@ export default function VerifiedDevScorePage() {
                           <Button
                             size="sm"
                             variant="ghost"
-                            onClick={() =>
-                              openSandbox(
-                                repo.name,
-                                `https://htmlpreview.github.io/?${repo.url}`,
-                                repo.url
-                              )
-                            }
-                            className="text-slate-600 hover:text-slate-900 text-xs h-8 px-2"
+                            onClick={() => openSandbox(repo.name, repo.url, repo.url)}
+                            className="text-slate-600 hover:text-slate-900 text-xs h-8 px-2.5 font-semibold gap-1.5"
                           >
-                            Inspect Repo Sandbox
+                            <Github className="h-3.5 w-3.5 text-slate-500" /> Inspect Repository
                           </Button>
                         )}
                       </div>

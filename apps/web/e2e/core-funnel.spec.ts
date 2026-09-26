@@ -20,7 +20,7 @@ test.describe("Core Funnel: Candidate to Recruiter Workflow", () => {
 
     await page.goto(firstJobHref!);
     await expect(page.locator("h1")).toBeVisible();
-    await expect(page.locator('button:has-text("Apply"), a:has-text("Apply")').first()).toBeVisible();
+    await expect(page.locator('button:has-text("Apply"), a:has-text("Apply")').filter({ visible: true }).first()).toBeVisible();
   });
 
   test("2. Resume Upload & ATS Matcher Funnel", async ({ page }) => {
