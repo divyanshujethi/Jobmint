@@ -234,6 +234,8 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
                   companyName={job.companyName}
                   requiredSkills={job.skills}
                   jobDescription={job.description}
+                  source={job.source}
+                  sourceUrl={job.sourceUrl}
                   size="lg"
                   className="font-bold"
                 />
@@ -268,6 +270,17 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
               </div>
             </div>
 
+            {job.sourceUrl && (
+              <div className="mt-4 rounded-xl border border-emerald-100 bg-emerald-50/60 p-3 text-xs text-emerald-900 flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2">
+                  <ShieldCheck className="h-4 w-4 text-emerald-600 shrink-0" />
+                  <span>
+                    <strong>Verified Official Role:</strong> Clicking &quot;Apply on Official Site&quot; opens {job.companyName}&apos;s official careers portal directly.
+                  </span>
+                </div>
+              </div>
+            )}
+
             <div className="mt-5 sm:hidden">
               <JobApplyButton
                 jobId={job.id}
@@ -275,6 +288,8 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
                 companyName={job.companyName}
                 requiredSkills={job.skills}
                 jobDescription={job.description}
+                source={job.source}
+                sourceUrl={job.sourceUrl}
                 size="lg"
                 className="w-full font-bold"
               />

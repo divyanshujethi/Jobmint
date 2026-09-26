@@ -44,125 +44,10 @@ export interface BountyListing {
   activeRequestsCount: number;
 }
 
-const SAMPLE_BOUNTIES: BountyListing[] = [
-  {
-    id: "bounty-1",
-    companyName: "Razorpay",
-    companySlug: "razorpay",
-    roleTitle: "Backend Software Engineer (Payments Core)",
-    referrerName: "Aakash S.",
-    referrerTitle: "Staff Engineer @ Razorpay",
-    referrerCompanyEmailVerified: true,
-    totalReferralBonusInr: 80000,
-    candidateSplitBonusInr: 40000,
-    availableSlots: 2,
-    totalSlots: 5,
-    minDevScore: 650,
-    experienceLevel: "1-3 YRS",
-    location: "Bangalore",
-    workMode: "Hybrid (2 days/wk)",
-    postedAgo: "2h ago",
-    activeRequestsCount: 7,
-  },
-  {
-    id: "bounty-2",
-    companyName: "Swiggy",
-    companySlug: "swiggy",
-    roleTitle: "Frontend Engineer (Consumer Web & Mobile)",
-    referrerName: "Pooja M.",
-    referrerTitle: "Senior SDE @ Swiggy",
-    referrerCompanyEmailVerified: true,
-    totalReferralBonusInr: 75000,
-    candidateSplitBonusInr: 37500,
-    availableSlots: 1,
-    totalSlots: 4,
-    minDevScore: 600,
-    experienceLevel: "1-3 YRS",
-    location: "Bangalore",
-    workMode: "Remote / Hybrid",
-    postedAgo: "4h ago",
-    activeRequestsCount: 11,
-  },
-  {
-    id: "bounty-3",
-    companyName: "Zepto",
-    companySlug: "zepto",
-    roleTitle: "SDE-2 (Distributed Systems & Supply Chain)",
-    referrerName: "Rohan V.",
-    referrerTitle: "Engineering Lead @ Zepto",
-    referrerCompanyEmailVerified: true,
-    totalReferralBonusInr: 100000,
-    candidateSplitBonusInr: 50000,
-    availableSlots: 3,
-    totalSlots: 5,
-    minDevScore: 720,
-    experienceLevel: "3-5 YRS",
-    location: "Mumbai",
-    workMode: "On-site",
-    postedAgo: "1d ago",
-    activeRequestsCount: 14,
-  },
-  {
-    id: "bounty-4",
-    companyName: "Google India",
-    companySlug: "google",
-    roleTitle: "Software Engineer (Cloud Storage & Infrastructure)",
-    referrerName: "Siddharth K.",
-    referrerTitle: "Senior Software Engineer @ Google",
-    referrerCompanyEmailVerified: true,
-    totalReferralBonusInr: 150000,
-    candidateSplitBonusInr: 75000,
-    availableSlots: 1,
-    totalSlots: 2,
-    minDevScore: 780,
-    experienceLevel: "3-5 YRS",
-    location: "Hyderabad",
-    workMode: "Hybrid",
-    postedAgo: "1d ago",
-    activeRequestsCount: 29,
-  },
-  {
-    id: "bounty-5",
-    companyName: "PhonePe",
-    companySlug: "phonepe",
-    roleTitle: "Associate Software Engineer (Campus & Freshers)",
-    referrerName: "Neha G.",
-    referrerTitle: "Software Engineer @ PhonePe",
-    referrerCompanyEmailVerified: true,
-    totalReferralBonusInr: 50000,
-    candidateSplitBonusInr: 25000,
-    availableSlots: 4,
-    totalSlots: 6,
-    minDevScore: 550,
-    experienceLevel: "FRESHER",
-    location: "Bangalore",
-    workMode: "On-site",
-    postedAgo: "Just now",
-    activeRequestsCount: 19,
-  },
-  {
-    id: "bounty-6",
-    companyName: "CRED",
-    companySlug: "cred",
-    roleTitle: "Android Developer (Fintech App Platform)",
-    referrerName: "Varun D.",
-    referrerTitle: "Lead Mobile Architect @ CRED",
-    referrerCompanyEmailVerified: true,
-    totalReferralBonusInr: 90000,
-    candidateSplitBonusInr: 45000,
-    availableSlots: 2,
-    totalSlots: 3,
-    minDevScore: 700,
-    experienceLevel: "1-3 YRS",
-    location: "Bangalore",
-    workMode: "In-office",
-    postedAgo: "5h ago",
-    activeRequestsCount: 8,
-  },
-];
+const SAMPLE_BOUNTIES: BountyListing[] = [];
 
 export default function BountyNestPage() {
-  const [bounties, setBounties] = useState<BountyListing[]>(SAMPLE_BOUNTIES);
+  const [bounties, setBounties] = useState<BountyListing[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedExp, setSelectedExp] = useState<string>("ALL");
   const [activeRequestBounty, setActiveRequestBounty] = useState<BountyListing | null>(null);
@@ -472,6 +357,28 @@ export default function BountyNestPage() {
             </div>
           </div>
         ))}
+
+        {filteredBounties.length === 0 && (
+          <div className="col-span-full py-14 text-center bg-white rounded-3xl border border-slate-200 p-8 space-y-4 shadow-xs">
+            <div className="h-14 w-14 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center justify-center mx-auto">
+              <Users className="h-7 w-7" />
+            </div>
+            <div className="max-w-md mx-auto space-y-1">
+              <h3 className="text-base font-bold text-slate-900">No Active Referral Slots Listed Right Now</h3>
+              <p className="text-xs text-slate-500 leading-relaxed">
+                Referral slots on Role Nest are posted by verified software engineers at tech companies with official corporate work emails (@company.com).
+              </p>
+            </div>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+              <Button
+                onClick={() => setShowPostBountyModal(true)}
+                className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs"
+              >
+                <Plus className="h-4 w-4 mr-1.5" /> List a Referral Slot (Work Email Required)
+              </Button>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* REQUEST REFERRAL MODAL */}

@@ -23,138 +23,21 @@ interface BountyListing {
   activeRequestsCount: number;
 }
 
-const INITIAL_BOUNTIES: BountyListing[] = [
-  {
-    id: "bounty-1",
-    companyName: "Razorpay",
-    companySlug: "razorpay",
-    roleTitle: "Backend Software Engineer (Payments Core)",
-    referrerName: "Aakash S.",
-    referrerTitle: "Staff Engineer @ Razorpay",
-    referrerCompanyEmailVerified: true,
-    totalReferralBonusInr: 80000,
-    candidateSplitBonusInr: 40000,
-    availableSlots: 2,
-    totalSlots: 5,
-    minDevScore: 650,
-    experienceLevel: "1-3 YRS",
-    location: "Bangalore",
-    workMode: "Hybrid (2 days/wk)",
-    postedAgo: "2h ago",
-    activeRequestsCount: 7,
-  },
-  {
-    id: "bounty-2",
-    companyName: "Swiggy",
-    companySlug: "swiggy",
-    roleTitle: "Frontend Engineer (Consumer Web & Mobile)",
-    referrerName: "Pooja M.",
-    referrerTitle: "Senior SDE @ Swiggy",
-    referrerCompanyEmailVerified: true,
-    totalReferralBonusInr: 75000,
-    candidateSplitBonusInr: 37500,
-    availableSlots: 1,
-    totalSlots: 4,
-    minDevScore: 600,
-    experienceLevel: "1-3 YRS",
-    location: "Bangalore",
-    workMode: "Remote / Hybrid",
-    postedAgo: "4h ago",
-    activeRequestsCount: 11,
-  },
-  {
-    id: "bounty-3",
-    companyName: "Zepto",
-    companySlug: "zepto",
-    roleTitle: "SDE-2 (Distributed Systems & Supply Chain)",
-    referrerName: "Rohan V.",
-    referrerTitle: "Engineering Lead @ Zepto",
-    referrerCompanyEmailVerified: true,
-    totalReferralBonusInr: 100000,
-    candidateSplitBonusInr: 50000,
-    availableSlots: 3,
-    totalSlots: 5,
-    minDevScore: 720,
-    experienceLevel: "3-5 YRS",
-    location: "Mumbai",
-    workMode: "On-site",
-    postedAgo: "1d ago",
-    activeRequestsCount: 14,
-  },
-  {
-    id: "bounty-4",
-    companyName: "Google India",
-    companySlug: "google",
-    roleTitle: "Software Engineer (Cloud Storage & Infrastructure)",
-    referrerName: "Siddharth K.",
-    referrerTitle: "Senior Software Engineer @ Google",
-    referrerCompanyEmailVerified: true,
-    totalReferralBonusInr: 150000,
-    candidateSplitBonusInr: 75000,
-    availableSlots: 1,
-    totalSlots: 2,
-    minDevScore: 780,
-    experienceLevel: "3-5 YRS",
-    location: "Hyderabad",
-    workMode: "Hybrid",
-    postedAgo: "1d ago",
-    activeRequestsCount: 29,
-  },
-  {
-    id: "bounty-5",
-    companyName: "PhonePe",
-    companySlug: "phonepe",
-    roleTitle: "Associate Software Engineer (Campus & Freshers)",
-    referrerName: "Neha G.",
-    referrerTitle: "Software Engineer @ PhonePe",
-    referrerCompanyEmailVerified: true,
-    totalReferralBonusInr: 50000,
-    candidateSplitBonusInr: 25000,
-    availableSlots: 4,
-    totalSlots: 6,
-    minDevScore: 550,
-    experienceLevel: "FRESHER",
-    location: "Bangalore",
-    workMode: "On-site",
-    postedAgo: "Just now",
-    activeRequestsCount: 19,
-  },
-  {
-    id: "bounty-6",
-    companyName: "CRED",
-    companySlug: "cred",
-    roleTitle: "Android Developer (Fintech App Platform)",
-    referrerName: "Varun D.",
-    referrerTitle: "Lead Mobile Architect @ CRED",
-    referrerCompanyEmailVerified: true,
-    totalReferralBonusInr: 90000,
-    candidateSplitBonusInr: 45000,
-    availableSlots: 2,
-    totalSlots: 3,
-    minDevScore: 700,
-    experienceLevel: "1-3 YRS",
-    location: "Bangalore",
-    workMode: "In-office",
-    postedAgo: "5h ago",
-    activeRequestsCount: 8,
-  },
-];
+const INITIAL_BOUNTIES: BountyListing[] = [];
 
 const BOUNTIES_CACHE_KEY = "rolenest:bounties:all";
 
 export async function GET(req: NextRequest) {
   try {
     const cached = await getCache<BountyListing[]>(BOUNTIES_CACHE_KEY);
-    if (cached && Array.isArray(cached) && cached.length > 0) {
+    if (cached && Array.isArray(cached)) {
       return NextResponse.json({ bounties: cached, count: cached.length, source: "redis" });
     }
 
-    // Seed into cache
-    await setCache(BOUNTIES_CACHE_KEY, INITIAL_BOUNTIES, 7 * 24 * 60 * 60);
-    return NextResponse.json({ bounties: INITIAL_BOUNTIES, count: INITIAL_BOUNTIES.length, source: "seed" });
+    return NextResponse.json({ bounties: [], count: 0, source: "fresh" });
   } catch (err: any) {
     console.error("Error fetching bounties:", err);
-    return NextResponse.json({ bounties: INITIAL_BOUNTIES, count: INITIAL_BOUNTIES.length, source: "fallback" });
+    return NextResponse.json({ bounties: [], count: 0, source: "fallback" });
   }
 }
 

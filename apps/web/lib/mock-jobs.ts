@@ -23,6 +23,7 @@ export interface MockJob {
   requirements: string[];
   benefits: string[];
   source: (typeof JobSource)[keyof typeof JobSource];
+  sourceUrl?: string;
   postedAgo: string;
   postedAt: string;
   truthTeller: {

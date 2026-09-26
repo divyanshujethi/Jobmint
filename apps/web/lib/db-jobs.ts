@@ -47,6 +47,7 @@ export async function getLiveJobs(): Promise<MockJob[]> {
         requirements: jobs.requirements,
         benefits: jobs.benefits,
         source: jobs.source,
+        sourceUrl: jobs.sourceUrl,
         isFeatured: jobs.isFeatured,
         createdAt: jobs.createdAt,
         companyName: companies.name,
@@ -124,6 +125,7 @@ export async function getLiveJobs(): Promise<MockJob[]> {
           "Modern development hardware allowance"
         ],
         source: (j.source as any) || JobSource.DIRECT,
+        sourceUrl: j.sourceUrl || undefined,
         postedAgo: formatTimeAgo(j.createdAt),
         postedAt: j.createdAt.toISOString(),
         truthTeller: {

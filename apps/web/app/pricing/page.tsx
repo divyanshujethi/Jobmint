@@ -143,8 +143,8 @@ export default function PricingPage() {
             </div>
           </div>
 
-          {/* Candidate Plan Cards: 4 Variants */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* Candidate Plan Cards: 3 Honest, High-Value Variants */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Variant 1: Free Community */}
             <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm flex flex-col justify-between hover:border-slate-300 transition-all">
               <div className="space-y-5">
@@ -163,6 +163,10 @@ export default function PricingPage() {
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <span>Direct links to official company ATS career portals</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
                     <span>Daily Problem of the Day (POTD) code runner</span>
                   </li>
                   <li className="flex items-start gap-2">
@@ -171,7 +175,7 @@ export default function PricingPage() {
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
-                    <span>Curated roadmaps &amp; free study canvas</span>
+                    <span>Interactive DSA &amp; system design study canvas</span>
                   </li>
                 </ul>
               </div>
@@ -194,7 +198,7 @@ export default function PricingPage() {
                   <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
                     Role Nest Pro
                   </h3>
-                  <p className="text-xs text-slate-500 mt-1">Full AI suite, priority ranking, and direct messaging.</p>
+                  <p className="text-xs text-slate-500 mt-1">Full AI ATS match suite, priority ranking, and application tracking.</p>
                 </div>
                 <div>
                   <div className="flex items-baseline gap-1">
@@ -206,23 +210,23 @@ export default function PricingPage() {
                 <ul className="space-y-2.5 text-xs text-slate-700 font-medium">
                   <li className="flex items-start gap-2">
                     <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
-                    <span><strong>Unlimited AI Mock Technical Interviews</strong> with instant scores</span>
+                    <span><strong>Instant AI ATS Resume Matcher</strong> with keyword gap analysis</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
-                    <span><strong>Instant ATS Resume Matcher</strong> with 1-click tailored bullets</span>
+                    <span><strong>Gap-to-Offer Diagnostics</strong> with 1-click tailored accomplishment bullets</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
-                    <span><strong>Verified Pro Candidate Badge</strong> on recruiter dashboards</span>
+                    <span><strong>Verified Pro Candidate Badge</strong> on recruiter &amp; talent search</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
-                    <span><strong>Direct Recruiter Messaging</strong> to founders</span>
+                    <span><strong>Truth Teller Application Tracking</strong> with 7-day ghosting alerts</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
-                    <span><strong>Deep Truth Teller Metrics</strong> (exact ghosting dates)</span>
+                    <span><strong>Verified Dev Score &amp; Certificates</strong> exportable for LinkedIn and resumes</span>
                   </li>
                 </ul>
               </div>
@@ -246,56 +250,7 @@ export default function PricingPage() {
               </div>
             </div>
 
-            {/* Variant 3: Pro + 1-on-1 Mentorship */}
-            <div className="rounded-3xl border border-indigo-200 bg-white p-6 shadow-sm flex flex-col justify-between hover:border-indigo-300 transition-all">
-              <div className="space-y-5">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h3 className="text-lg font-bold text-slate-900">Pro + Mentorship</h3>
-                    <p className="text-xs text-slate-500 mt-1">Live FAANG mentor guidance &amp; personalized reviews.</p>
-                  </div>
-                  <span className="rounded-full bg-indigo-100 text-indigo-800 px-2 py-0.5 text-[9px] font-bold">
-                    Mentored
-                  </span>
-                </div>
-                <div>
-                  <div className="flex items-baseline gap-1">
-                    <span className="text-3xl font-black text-slate-900">₹1,999</span>
-                    <span className="text-xs text-slate-500 font-semibold">/ month</span>
-                  </div>
-                  <p className="text-[11px] text-indigo-700 font-medium mt-1">Includes all Pro features</p>
-                </div>
-                <ul className="space-y-2.5 text-xs text-slate-600">
-                  <li className="flex items-start gap-2">
-                    <Check className="h-4 w-4 text-indigo-600 shrink-0 mt-0.5" />
-                    <span><strong>Everything in Role Nest Pro</strong></span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Check className="h-4 w-4 text-indigo-600 shrink-0 mt-0.5" />
-                    <span><strong>1x Monthly 45-min Live Mock Technical Interview</strong> with senior FAANG engineer</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Check className="h-4 w-4 text-indigo-600 shrink-0 mt-0.5" />
-                    <span><strong>Line-by-line Resume Overhaul</strong> by engineering hiring managers</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Check className="h-4 w-4 text-indigo-600 shrink-0 mt-0.5" />
-                    <span><strong>Direct Warm Referrals</strong> to partner startup hiring pools</span>
-                  </li>
-                </ul>
-              </div>
-              <div className="pt-6">
-                <Button
-                  onClick={handleProCheckout}
-                  variant="outline"
-                  className="w-full font-bold text-xs border-indigo-300 text-indigo-700 hover:bg-indigo-50"
-                >
-                  Join Mentorship Track
-                </Button>
-              </div>
-            </div>
-
-            {/* Variant 4: Lifetime Founder's Pass */}
+            {/* Variant 3: Lifetime Founder's Pass */}
             <div className="relative rounded-3xl border border-amber-300 bg-linear-to-b from-amber-50/50 to-white p-6 shadow-sm flex flex-col justify-between hover:border-amber-400 transition-all">
               <div className="space-y-5">
                 <div className="flex items-center justify-between">
@@ -315,24 +270,24 @@ export default function PricingPage() {
                     <span className="text-3xl font-black text-slate-900">₹7,999</span>
                     <span className="text-xs text-slate-500 font-semibold">/ lifetime</span>
                   </div>
-                  <p className="text-[11px] text-amber-800 font-medium mt-1">Limited to first 100 early engineers</p>
+                  <p className="text-[11px] text-amber-800 font-medium mt-1">Limited early engineer pass</p>
                 </div>
                 <ul className="space-y-2.5 text-xs text-slate-600">
                   <li className="flex items-start gap-2">
                     <Check className="h-4 w-4 text-amber-600 shrink-0 mt-0.5" />
-                    <span><strong>Lifetime Unlimited Access</strong> to all future AI tools</span>
+                    <span><strong>Lifetime Unlimited Access</strong> to all Role Nest Pro features</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="h-4 w-4 text-amber-600 shrink-0 mt-0.5" />
-                    <span><strong>Gold Founder Verified Badge</strong> on profile and applications</span>
+                    <span><strong>Gold Founder Verified Badge</strong> on profile and public certificates</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="h-4 w-4 text-amber-600 shrink-0 mt-0.5" />
-                    <span><strong>Infinite AI Credits</strong> for resume ATS scoring and mock interviews</span>
+                    <span><strong>Zero Recurring Subscription Fees</strong> — pay once, keep forever</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="h-4 w-4 text-amber-600 shrink-0 mt-0.5" />
-                    <span><strong>Private Founder Discord Room</strong> directly with our product team</span>
+                    <span><strong>Direct Support Channel</strong> with the core founding engineering team</span>
                   </li>
                 </ul>
               </div>
@@ -426,7 +381,7 @@ export default function PricingPage() {
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="h-4 w-4 text-amber-600 shrink-0 mt-0.5" />
-                    <span><strong>Featured in Weekly Newsletter</strong> (15,000+ engineers)</span>
+                    <span><strong>Featured in Tech Feed</strong> and priority candidate recommendations</span>
                   </li>
                 </ul>
               </div>
@@ -552,7 +507,6 @@ export default function PricingPage() {
                   <th className="p-4 font-bold text-slate-900">Features</th>
                   <th className="p-4 font-bold text-slate-900 text-center">Free Community</th>
                   <th className="p-4 font-bold text-emerald-700 text-center bg-emerald-50/50">Role Nest Pro</th>
-                  <th className="p-4 font-bold text-indigo-700 text-center">Pro + Mentorship</th>
                   <th className="p-4 font-bold text-amber-700 text-center">Founder Pass</th>
                 </tr>
               </thead>
@@ -562,55 +516,41 @@ export default function PricingPage() {
                   <td className="p-4 text-center text-emerald-600 font-bold">✓</td>
                   <td className="p-4 text-center text-emerald-600 font-bold bg-emerald-50/30">✓</td>
                   <td className="p-4 text-center text-emerald-600 font-bold">✓</td>
-                  <td className="p-4 text-center text-emerald-600 font-bold">✓</td>
                 </tr>
                 <tr>
                   <td className="p-4 font-medium">Daily Coding Challenge (POTD)</td>
                   <td className="p-4 text-center text-emerald-600 font-bold">✓</td>
                   <td className="p-4 text-center text-emerald-600 font-bold bg-emerald-50/30">✓</td>
                   <td className="p-4 text-center text-emerald-600 font-bold">✓</td>
-                  <td className="p-4 text-center text-emerald-600 font-bold">✓</td>
                 </tr>
                 <tr>
-                  <td className="p-4 font-medium">AI Mock Technical Interviews</td>
-                  <td className="p-4 text-center text-slate-300">2 tries only</td>
+                  <td className="p-4 font-medium">AI Technical Interview Q&amp;A Prep</td>
+                  <td className="p-4 text-center text-slate-400">2 tries only</td>
                   <td className="p-4 text-center text-emerald-600 font-bold bg-emerald-50/30">Unlimited</td>
-                  <td className="p-4 text-center text-emerald-600 font-bold">Unlimited</td>
                   <td className="p-4 text-center text-emerald-600 font-bold">Lifetime Unlimited</td>
                 </tr>
                 <tr>
                   <td className="p-4 font-medium">Instant ATS Resume-to-Job Matcher</td>
-                  <td className="p-4 text-center text-slate-300">Basic score</td>
+                  <td className="p-4 text-center text-slate-400">Basic score</td>
                   <td className="p-4 text-center text-emerald-600 font-bold bg-emerald-50/30">Full 1-Click Fix</td>
-                  <td className="p-4 text-center text-emerald-600 font-bold">Full 1-Click Fix</td>
                   <td className="p-4 text-center text-emerald-600 font-bold">Full 1-Click Fix</td>
                 </tr>
                 <tr>
                   <td className="p-4 font-medium">Verified Profile Badge</td>
-                  <td className="p-4 text-center text-slate-300">—</td>
+                  <td className="p-4 text-center text-slate-400">—</td>
                   <td className="p-4 text-center text-emerald-600 font-bold bg-emerald-50/30">Pro Badge</td>
-                  <td className="p-4 text-center text-indigo-600 font-bold">Mentored Badge</td>
                   <td className="p-4 text-center text-amber-600 font-bold">Gold Founder Badge</td>
                 </tr>
                 <tr>
-                  <td className="p-4 font-medium">Direct Founder / Recruiter Messaging</td>
-                  <td className="p-4 text-center text-slate-300">—</td>
-                  <td className="p-4 text-center text-emerald-600 font-bold bg-emerald-50/30">✓</td>
-                  <td className="p-4 text-center text-emerald-600 font-bold">✓</td>
-                  <td className="p-4 text-center text-emerald-600 font-bold">✓</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-medium">Live 1-on-1 Senior Engineer Mock Interview</td>
-                  <td className="p-4 text-center text-slate-300">—</td>
-                  <td className="p-4 text-center text-slate-300 bg-emerald-50/30">—</td>
-                  <td className="p-4 text-center text-indigo-600 font-bold">1 Session / month</td>
-                  <td className="p-4 text-center text-slate-300">—</td>
+                  <td className="p-4 font-medium">Truth Teller Application Tracker</td>
+                  <td className="p-4 text-center text-emerald-600 font-bold">Basic</td>
+                  <td className="p-4 text-center text-emerald-600 font-bold bg-emerald-50/30">Automated 7-Day Alerts</td>
+                  <td className="p-4 text-center text-emerald-600 font-bold">Automated 7-Day Alerts</td>
                 </tr>
                 <tr>
                   <td className="p-4 font-medium">Billing Period</td>
                   <td className="p-4 text-center font-mono">Free Forever</td>
                   <td className="p-4 text-center font-mono bg-emerald-50/30">{proPricing.price}</td>
-                  <td className="p-4 text-center font-mono">₹1,999 / mo</td>
                   <td className="p-4 text-center font-mono">₹7,999 One-Time</td>
                 </tr>
               </tbody>

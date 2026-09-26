@@ -299,15 +299,15 @@ export default function SalariesPage() {
               <TrendingUp className="h-5 w-5" />
             </span>
             <span className="rounded-full bg-emerald-50 border border-emerald-300 px-3 py-0.5 text-xs font-bold text-emerald-800 font-mono">
-              Truth Teller™ Verified Indian Tech Salaries
+              Indian Tech Compensation Benchmarks
             </span>
           </div>
 
           <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 mt-2">
-            Real Salaries &amp; Hiring Timelines
+            Tech Salary Benchmarks &amp; Compensation Insights
           </h1>
           <p className="mt-2 text-sm text-slate-600 max-w-2xl leading-relaxed">
-            Anonymous, verified compensation figures (Base + Bonus + Stocks) and actual hiring interview speeds for Indian tech companies. Stop guessing your market worth.
+            Market compensation figures (Base + Bonus + Stocks) and typical hiring interview speeds for Indian tech companies. Submit your real compensation anonymously to contribute to open transparency.
           </p>
         </div>
 
