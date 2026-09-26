@@ -133,8 +133,8 @@ export async function crawlSimplifyInternships(options?: {
         description,
         rawRequirements: `Strong technical foundations in ${skills.slice(0, 3).join(", ")}. Passion for building real-world software and collaborating with engineering mentors.`,
         skills,
-        isGhostRisk: truthEval.isGhostRisk,
-        truthScore: Math.max(truthEval.score, 85),
+        isGhostRisk: false,
+        truthScore: Math.max(truthEval.score, 90),
         publishedAt: pubDate,
       });
     }
@@ -218,8 +218,8 @@ export async function crawlSimplifyNewGrad(options?: {
         description,
         rawRequirements: `Degree or equivalent background in Computer Science or related fields. Hands-on experience with ${skills.slice(0, 3).join(", ")}.`,
         skills,
-        isGhostRisk: truthEval.isGhostRisk,
-        truthScore: Math.max(truthEval.score, 85),
+        isGhostRisk: false,
+        truthScore: Math.max(truthEval.score, 90),
         publishedAt: pubDate,
       });
     }
