@@ -634,26 +634,25 @@ export function InteractiveStudyCanvas() {
               </div>
 
               {/* Verified Capstone Challenge */}
-              <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 space-y-2">
-                <div className="flex items-center justify-between">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
-                    <GraduationCap className="h-4 w-4 text-emerald-600" />
-                    <span>Capstone Project Challenge</span>
-                  </span>
-                  <span className="rounded bg-emerald-100 text-emerald-800 px-1.5 py-0.5 text-[9px] font-bold font-mono">
-                    Portfolio
-                  </span>
+              {selectedNode.projectTask && (
+                <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
+                      <GraduationCap className="h-4 w-4 text-emerald-600" />
+                      <span>Hands-on Project Challenge</span>
+                    </span>
+                    <span className="rounded bg-emerald-100 text-emerald-800 px-1.5 py-0.5 text-[9px] font-bold font-mono">
+                      Portfolio
+                    </span>
+                  </div>
+                  <p className="text-xs text-slate-700 leading-relaxed font-medium">
+                    {selectedNode.projectTask}
+                  </p>
                 </div>
-                <h4 className="text-xs font-bold text-slate-900">
-                  {selectedNode.capstoneProject.title}
-                </h4>
-                <p className="text-[11px] text-slate-600 leading-relaxed">
-                  {selectedNode.capstoneProject.description}
-                </p>
-              </div>
+              )}
 
               {/* Interactive Code Blueprint */}
-              {selectedNode.codeSnippet && (
+              {selectedNode.mentalModelSnippet && (
                 <div className="space-y-2">
                   <div className="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-slate-700">
                     <span className="flex items-center gap-1.5">
@@ -661,7 +660,7 @@ export function InteractiveStudyCanvas() {
                       <span>Code Blueprint &amp; Pattern</span>
                     </span>
                     <button
-                      onClick={() => copySnippet(selectedNode.codeSnippet!)}
+                      onClick={() => copySnippet(selectedNode.mentalModelSnippet!)}
                       className="flex items-center gap-1 text-[11px] text-slate-500 hover:text-emerald-600 transition-colors lowercase font-mono"
                     >
                       {copiedCode ? <Check className="h-3.5 w-3.5 text-emerald-600" /> : <Copy className="h-3.5 w-3.5" />}
@@ -669,7 +668,7 @@ export function InteractiveStudyCanvas() {
                     </button>
                   </div>
                   <pre className="rounded-xl bg-slate-900 text-slate-100 p-3.5 text-xs font-mono overflow-x-auto leading-relaxed border border-slate-800 shadow-inner">
-                    <code>{selectedNode.codeSnippet}</code>
+                    <code>{selectedNode.mentalModelSnippet}</code>
                   </pre>
                 </div>
               )}
