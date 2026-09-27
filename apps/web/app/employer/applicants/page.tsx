@@ -27,7 +27,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ApplicationStatus } from "@repo/shared";
 import { DemoSandboxModal } from "@/components/demo-sandbox-modal";
-import { openPaddleCheckout, PADDLE_FEATURED_JOB_PRICE_ID } from "@/components/paddle-provider";
+import { openCashfreeCheckout } from "@/components/cashfree-provider";
 
 interface ExtendedApplicant extends EmployerApplicant {
   githubUrl?: string | null;
@@ -160,8 +160,7 @@ export default function EmployerApplicantsPage() {
           <Button
             size="sm"
             onClick={() =>
-              openPaddleCheckout({
-                priceId: PADDLE_FEATURED_JOB_PRICE_ID,
+              openCashfreeCheckout({
                 plan: "featured_job",
               })
             }

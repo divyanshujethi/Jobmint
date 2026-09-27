@@ -33,7 +33,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { LEETCODE_PROBLEMS, Problem } from "@/lib/problems-data";
 import { executeCodeInSandbox, ExecutionReport, SupportedLanguage, SUPPORTED_LANGUAGES } from "@/lib/code-runner";
-import { openPaddleCheckout, PADDLE_PRO_PRICE_ID } from "@/components/paddle-provider";
+import { openCashfreeCheckout } from "@/components/cashfree-provider";
 
 // Lazy-load Monaco Editor on client side (no SSR, isolated bundle)
 const MonacoEditor = dynamic(() => import("@monaco-editor/react"), {
@@ -891,8 +891,7 @@ function POTDWorkspace() {
                       </Link>
                       <button
                         onClick={() =>
-                          openPaddleCheckout({
-                            priceId: PADDLE_PRO_PRICE_ID,
+                          openCashfreeCheckout({
                             plan: "pro",
                           })
                         }

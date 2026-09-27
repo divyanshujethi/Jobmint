@@ -22,7 +22,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ApplicationStatus } from "@repo/shared";
-import { openPaddleCheckout, PADDLE_PRO_PRICE_ID } from "@/components/paddle-provider";
+import { openCashfreeCheckout } from "@/components/cashfree-provider";
 
 export default function ApplicationsTrackerPage() {
   const [applications, setApplications] = useState<CandidateApplication[]>([]);
@@ -169,10 +169,8 @@ export default function ApplicationsTrackerPage() {
 
         <button
           onClick={() =>
-            openPaddleCheckout({
-              priceId: PADDLE_PRO_PRICE_ID,
+            openCashfreeCheckout({
               plan: "pro",
-              userEmail: sessionUser?.email,
             })
           }
           className="shrink-0 rounded-xl bg-slate-900 hover:bg-slate-800 text-white px-4 py-2 text-xs font-bold flex items-center justify-center gap-1.5 transition-all shadow-sm"

@@ -2,7 +2,7 @@
 
 import { X, Sparkles, Check, ShieldCheck, Zap, ArrowRight, Lock } from "lucide-react";
 import { Button } from "./ui/button";
-import { openPaddleCheckout, PADDLE_PRO_PRICE_ID } from "./paddle-provider";
+import { openCashfreeCheckout } from "./cashfree-provider";
 import Link from "next/link";
 
 interface ProUpgradeModalProps {
@@ -21,8 +21,7 @@ export function ProUpgradeModal({
   if (!isOpen) return null;
 
   const handleUpgrade = () => {
-    openPaddleCheckout({
-      priceId: PADDLE_PRO_PRICE_ID,
+    openCashfreeCheckout({
       plan: "pro",
     });
   };
@@ -105,7 +104,7 @@ export function ProUpgradeModal({
 
           <div className="flex items-center justify-center gap-1.5 text-[11px] text-slate-400">
             <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />
-            <span>Backed by 7-Day Money-Back Guarantee via Paddle</span>
+            <span>14-Day Money-Back Guarantee • Secured by Cashfree Payments</span>
           </div>
         </div>
       </div>

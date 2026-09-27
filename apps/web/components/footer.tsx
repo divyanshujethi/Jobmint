@@ -49,7 +49,7 @@ export function Footer() {
               🇮🇳 DPDP Act 2023 Compliant
             </div>
 
-            {/* PADDLE SUPPORT CONTACT DETAILS */}
+            {/* CASHFREE & SUPPORT CONTACT DETAILS */}
             <div className="pt-3 border-t border-slate-100 text-xs text-slate-500 space-y-1">
               <div className="font-bold text-slate-900 flex items-center gap-1.5">
                 <Mail className="h-3.5 w-3.5 text-emerald-600" /> Support &amp; Customer Care
@@ -257,7 +257,7 @@ export function Footer() {
         </div>
 
         <div className="mt-12 border-t border-slate-100 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-          <p>© {new Date().getFullYear()} {APP_CONFIG.name}. Payments securely processed by Paddle.com (Merchant of Record).</p>
+          <p>© {new Date().getFullYear()} {APP_CONFIG.name}. Payments securely processed via Cashfree Payments (RBI Authorized Payment Aggregator).</p>
           <p className="flex items-center gap-1.5">
             Support: <a href="mailto:support@rolenest.in" className="text-emerald-700 font-semibold underline">support@rolenest.in</a> • Built with <Heart className="h-3.5 w-3.5 text-rose-500 fill-rose-500" /> for students &amp; freshers.
           </p>

@@ -29,14 +29,14 @@ export default function TermsPage() {
           </p>
         </div>
 
-        {/* PADDLE MERCHANT OF RECORD MANDATORY DISCLOSURE */}
+        {/* CASHFREE PAYMENT GATEWAY MANDATORY DISCLOSURE */}
         <div className="rounded-2xl border-2 border-emerald-500/30 bg-emerald-50/70 p-6 space-y-2 shadow-sm">
           <div className="flex items-center gap-2 font-bold text-emerald-950 text-base">
             <CreditCard className="h-5 w-5 text-emerald-700 shrink-0" />
-            Merchant of Record Disclosure
+            Payment Processing Partner (Cashfree Payments)
           </div>
           <p className="text-xs sm:text-sm text-emerald-900 leading-relaxed font-medium">
-            Our order process is conducted by our online reseller Paddle.com. Paddle.com is the Merchant of Record for all our orders. Paddle provides all customer service inquiries and handles returns.
+            All online payments, UPI transactions, cards, and NetBanking on Role Nest are securely processed by <strong>Cashfree Payments India Pvt. Ltd.</strong>, an RBI-authorized Payment Aggregator. Customer support and service inquiries are handled directly by Role Nest.
           </p>
         </div>
 
@@ -103,22 +103,22 @@ export default function TermsPage() {
                 All digital goods and services provided by Role Nest are delivered <strong>immediately upon successful payment authorization</strong>. No physical goods are shipped.
               </p>
               <p className="text-xs text-slate-600">
-                Upon transaction completion via Paddle.com, your Role Nest account is instantly upgraded to Pro status, and an official transaction confirmation email containing your tax invoice and order reference number is immediately dispatched to your billing email address by Paddle.com.
+                Upon transaction completion via Cashfree Payments, your Role Nest account is instantly upgraded to Pro status, and an official transaction confirmation email containing your tax invoice and order reference number is immediately dispatched to your billing email address.
               </p>
             </section>
 
             <section className="space-y-2">
               <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-                5. Payments, Recurring Billing &amp; Taxes (Paddle.com)
+                5. Payments, Billing &amp; Taxes (Cashfree Payments)
               </h2>
               <p>
-                Our order process is conducted by our online reseller <strong>Paddle.com</strong>. Paddle.com is the Merchant of Record for all our orders. Paddle handles all customer service inquiries and returns related to payments.
+                All digital transactions are processed through <strong>Cashfree Payments India Pvt. Ltd.</strong>, an RBI-licensed Payment Aggregator supporting UPI (Google Pay, PhonePe, Paytm, CRED, BHIM), RuPay/Visa/Mastercard debit and credit cards, and NetBanking across all Indian banks.
               </p>
               <ul className="list-disc pl-5 space-y-1.5 text-xs sm:text-sm text-slate-600">
-                <li><strong>Pricing:</strong> Role Nest Pro is offered at ₹499/month (or equivalent currency displayed at checkout).</li>
-                <li><strong>Recurring Billing:</strong> Subscriptions auto-renew monthly until cancelled. You may cancel at any time with 1-click via the self-service link in your Paddle receipt or in <Link href="/settings/account" className="text-emerald-700 underline font-semibold">Account Settings</Link>.</li>
-                <li><strong>Taxes:</strong> All applicable Goods and Services Tax (GST), Value Added Tax (VAT), and sales taxes are calculated and collected by Paddle.com as Merchant of Record at checkout based on your geographic location.</li>
-                <li><strong>Payment Security:</strong> Role Nest never collects, stores, or accesses your credit card, debit card, or UPI banking credentials. All payment processing conforms to strict PCI-DSS Level 1 certification managed by Paddle.</li>
+                <li><strong>Pricing:</strong> Role Nest Pro is offered at ₹499/month, ₹1,199/quarter, or ₹3,999/year. Employer Featured Boosts are ₹7,999 for 30 days.</li>
+                <li><strong>Billing &amp; Access:</strong> Subscriptions grant instant access for the duration purchased (30, 90, or 365 days). You can renew or manage your plan inside <Link href="/settings/account" className="text-emerald-700 underline font-semibold">Account Settings</Link>.</li>
+                <li><strong>Taxes:</strong> All prices displayed on Role Nest are in Indian National Rupees (INR) and include all statutory taxes where applicable.</li>
+                <li><strong>Payment Security:</strong> Role Nest never stores or accesses your raw card numbers, CVVs, or UPI MPINs. All payment processing takes place via Cashfree&apos;s RBI-compliant and PCI-DSS Level 1 certified infrastructure.</li>
               </ul>
             </section>
 
@@ -130,7 +130,7 @@ export default function TermsPage() {
                 We stand behind the quality of Role Nest Pro. First-time subscribers are protected by our <strong>14-Day 100% Money-Back Guarantee</strong>.
               </p>
               <p className="text-xs text-slate-600">
-                If you are not satisfied for any reason within 14 days of your initial purchase, you may claim a full refund by contacting <a href="mailto:support@rolenest.in" className="text-emerald-700 underline font-semibold">support@rolenest.in</a> with your Paddle Order ID, or by contacting Paddle directly at <a href="https://paddle.net" target="_blank" rel="noopener noreferrer" className="text-emerald-700 underline font-semibold">https://paddle.net</a>. Refunds are credited back to your original payment method within 3 to 7 business days. For complete terms, see our <Link href="/refund" className="text-emerald-700 underline font-semibold">Refund &amp; Cancellation Policy</Link>.
+                If you are not satisfied for any reason within 14 days of your initial purchase, you may claim a full refund by contacting <a href="mailto:support@rolenest.in" className="text-emerald-700 underline font-semibold">support@rolenest.in</a> with your Order ID or Payment reference number. Refunds are credited back to your original payment method (UPI account or bank card) within 3 to 7 business days via Cashfree Payments. For complete terms, see our <Link href="/refund" className="text-emerald-700 underline font-semibold">Refund &amp; Cancellation Policy</Link>.
               </p>
             </section>
 

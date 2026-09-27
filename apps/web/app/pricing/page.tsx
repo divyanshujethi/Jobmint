@@ -22,11 +22,7 @@ import {
   CheckCircle2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  openPaddleCheckout,
-  PADDLE_PRO_PRICE_ID,
-  PADDLE_FEATURED_JOB_PRICE_ID,
-} from "@/components/paddle-provider";
+import { openCashfreeCheckout } from "@/components/cashfree-provider";
 
 type BillingCycle = "monthly" | "quarterly" | "annual";
 
@@ -56,19 +52,19 @@ export default function PricingPage() {
   }, []);
 
   const handleProCheckout = () => {
-    openPaddleCheckout({
-      priceId: PADDLE_PRO_PRICE_ID,
-      userId: sessionUser?.id,
-      userEmail: sessionUser?.email,
-      plan: "pro",
+    const planKey =
+      billingCycle === "annual"
+        ? "pro_annual"
+        : billingCycle === "quarterly"
+          ? "pro_quarterly"
+          : "pro";
+    openCashfreeCheckout({
+      plan: planKey,
     });
   };
 
   const handleFeaturedCheckout = () => {
-    openPaddleCheckout({
-      priceId: PADDLE_FEATURED_JOB_PRICE_ID,
-      userId: sessionUser?.id,
-      userEmail: sessionUser?.email,
+    openCashfreeCheckout({
       plan: "featured_job",
     });
   };
@@ -564,15 +560,15 @@ export default function PricingPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 text-xs text-slate-600">
             <div className="space-y-1.5 p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs">
               <h4 className="font-bold text-slate-900">How does the 14-day refund guarantee work?</h4>
-              <p>Every first-time subscriber is covered by our unconditional 14-Day Money-Back Guarantee. If you are not satisfied for any reason, email support@rolenest.in or help@paddle.com within 14 days for a 100% full refund.</p>
+              <p>Every first-time subscriber is covered by our unconditional 14-Day Money-Back Guarantee. If you are not satisfied for any reason, email support@rolenest.in within 14 days for a 100% full refund directly to your original payment method.</p>
             </div>
             <div className="space-y-1.5 p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs">
               <h4 className="font-bold text-slate-900">What payment methods are supported in India?</h4>
-              <p>Via Paddle.com (Merchant of Record), we support UPI (Google Pay, PhonePe, Paytm, BHIM), Indian NetBanking, and all major debit &amp; credit cards (Visa, Mastercard, RuPay, Amex).</p>
+              <p>Via Cashfree Payments, we support all Indian UPI apps (Google Pay, PhonePe, Paytm, CRED, BHIM), Indian RuPay &amp; Visa/Mastercard debit and credit cards, and NetBanking across 50+ Indian banks.</p>
             </div>
             <div className="space-y-1.5 p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs">
               <h4 className="font-bold text-slate-900">Can I cancel my subscription at any time?</h4>
-              <p>Yes. You can cancel with 1-click at any time from your settings or via the self-service Paddle link in your email receipt. You retain full access until the end of your billing cycle.</p>
+              <p>Yes. You can cancel with 1-click at any time from your account settings. You retain full Pro access until the end of your billing cycle with zero penalty fees.</p>
             </div>
             <div className="space-y-1.5 p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs">
               <h4 className="font-bold text-slate-900">What is the difference between Free and Pro AI usage?</h4>
@@ -580,10 +576,10 @@ export default function PricingPage() {
             </div>
           </div>
 
-          {/* PADDLE MERCHANT OF RECORD MANDATORY DISCLOSURE */}
+          {/* CASHFREE PAYMENTS SECURE DISCLOSURE */}
           <div className="rounded-2xl border border-emerald-500/30 bg-emerald-50/70 p-5 text-center space-y-2 text-xs text-emerald-900">
             <p className="font-medium">
-              Our order process is conducted by our online reseller <strong>Paddle.com</strong>. Paddle.com is the Merchant of Record for all our orders. Paddle provides all customer service inquiries and handles returns.
+              Payments are securely processed by <strong>Cashfree Payments India Pvt. Ltd.</strong> (RBI Authorized Payment Aggregator &amp; PCI-DSS Level 1 Certified). Instant UPI, Cards &amp; NetBanking.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-4 text-[11px] text-emerald-700 pt-2 border-t border-emerald-200/60">
               <Link href="/terms" className="hover:underline font-semibold">Terms of Service</Link>

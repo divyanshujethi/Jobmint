@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 
 export const metadata = {
   title: "Refund and Cancellation Policy — Role Nest",
-  description: "Official 14-day refund and cancellation policy for Role Nest Pro subscriptions and featured job boosts via Paddle.com.",
+  description: "Official 14-day refund and cancellation policy for Role Nest Pro subscriptions and featured job boosts via Cashfree Payments.",
 };
 
 export default function RefundPage() {
@@ -29,14 +29,14 @@ export default function RefundPage() {
           </p>
         </div>
 
-        {/* PADDLE MANDATORY MERCHANT OF RECORD NOTICE */}
+        {/* CASHFREE PAYMENT GATEWAY MANDATORY DISCLOSURE */}
         <div className="rounded-2xl border-2 border-emerald-500/30 bg-emerald-50/70 p-6 space-y-2 shadow-sm">
           <div className="flex items-center gap-2 font-bold text-emerald-950 text-base">
             <CreditCard className="h-5 w-5 text-emerald-700 shrink-0" />
-            Merchant of Record Notice
+            Payment Gateway Notice
           </div>
           <p className="text-xs sm:text-sm text-emerald-900 leading-relaxed font-medium">
-            Our order process is conducted by our online reseller Paddle.com. Paddle.com is the Merchant of Record for all our orders. Paddle provides all customer service inquiries and handles returns.
+            Transactions are processed through Cashfree Payments India Pvt. Ltd. (RBI Authorized Payment Aggregator). Role Nest directly handles all candidate customer service inquiries, billing support, and refund processing.
           </p>
         </div>
 
@@ -60,8 +60,8 @@ export default function RefundPage() {
                   <strong>How to Claim Your Refund:</strong>
                 </p>
                 <ol className="list-decimal pl-5 space-y-1 text-xs text-slate-700">
-                  <li>Email our support desk at <a href="mailto:support@rolenest.in" className="text-emerald-700 underline font-semibold">support@rolenest.in</a> or <a href="mailto:contact@rolenest.in" className="text-emerald-700 underline font-semibold">contact@rolenest.in</a> with your <strong>Paddle Order ID</strong> (found in your email receipt).</li>
-                  <li>Alternatively, contact Paddle Buyer Support directly at <a href="https://paddle.net" target="_blank" rel="noopener noreferrer" className="text-emerald-700 underline font-semibold">https://paddle.net</a> or via email at <a href="mailto:help@paddle.com" className="text-emerald-700 underline font-semibold">help@paddle.com</a>.</li>
+                  <li>Email our support desk at <a href="mailto:support@rolenest.in" className="text-emerald-700 underline font-semibold">support@rolenest.in</a> or <a href="mailto:contact@rolenest.in" className="text-emerald-700 underline font-semibold">contact@rolenest.in</a> with your <strong>Role Nest Order ID or Cashfree Reference ID</strong> (found in your email receipt).</li>
+                  <li>Our team will verify the payment and authorize the refund back to your source account within 24 hours.</li>
                 </ol>
               </div>
             </section>
@@ -76,9 +76,9 @@ export default function RefundPage() {
                 Once approved, refunds are initiated immediately:
               </p>
               <ul className="list-disc pl-5 space-y-1.5 text-xs sm:text-sm text-slate-600">
-                <li>Refunds are credited back to the <strong>original payment method</strong> used during checkout (Credit Card, Debit Card, NetBanking, or UPI).</li>
-                <li>Processing times depend on your financial institution and typically reflect in your account within <strong>3 to 7 business days</strong>.</li>
-                <li>You will receive an automated refund confirmation email directly from Paddle.com as proof of the processed credit.</li>
+                <li>Refunds are credited back to the <strong>original payment method</strong> used during checkout (UPI ID, Debit Card, Credit Card, or NetBanking).</li>
+                <li>Processing times depend on your bank and UPI network, typically reflecting in your account within <strong>3 to 7 business days</strong>.</li>
+                <li>You will receive an automated refund notification once Cashfree Payments completes the transfer.</li>
               </ul>
             </section>
 
@@ -89,20 +89,17 @@ export default function RefundPage() {
                 3. Subscription Cancellation Policy
               </h2>
               <p>
-                You have complete freedom to cancel your recurring monthly subscription at any time without fees, penalties, or questions:
+                You have complete freedom to manage or cancel your subscription plan at any time:
               </p>
               <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 space-y-2 text-xs text-slate-700">
                 <div>
-                  <strong>Method 1 (Self-Service Link in Receipt):</strong> Every receipt emailed to you by Paddle.com contains a direct, secure 1-click subscription management and cancellation link.
+                  <strong>Method 1 (Account Settings):</strong> You can review your plan status and expiry date inside your Role Nest dashboard under <Link href="/settings/account" className="text-emerald-700 underline font-semibold">Settings &gt; Account &gt; Billing</Link>.
                 </div>
                 <div>
-                  <strong>Method 2 (Account Settings):</strong> You can cancel your subscription inside your Role Nest dashboard under <Link href="/settings/account" className="text-emerald-700 underline font-semibold">Settings &gt; Account &gt; Billing</Link>.
-                </div>
-                <div>
-                  <strong>Method 3 (Email Support):</strong> Contact us at <a href="mailto:support@rolenest.in" className="text-emerald-700 underline font-semibold">support@rolenest.in</a> requesting cancellation, and our team will process it within 24 hours.
+                  <strong>Method 2 (Email Support):</strong> Contact us at <a href="mailto:support@rolenest.in" className="text-emerald-700 underline font-semibold">support@rolenest.in</a> requesting cancellation or non-renewal, and our team will process it within 24 hours.
                 </div>
                 <div className="pt-2 text-[11px] text-slate-500 border-t border-slate-200">
-                  <strong>Effective Date:</strong> Upon cancellation, your subscription will remain active until the end of your current monthly billing period. You will not be billed again.
+                  <strong>Effective Date:</strong> Upon cancellation or expiration, your Pro benefits remain active until the end of your prepaid period (30, 90, or 365 days).
                 </div>
               </div>
             </section>
@@ -117,7 +114,7 @@ export default function RefundPage() {
               </p>
               <ul className="list-disc pl-5 space-y-1 text-xs text-slate-600">
                 <li>Your Role Nest account is instantly upgraded to Pro status with unrestricted access to recruiter response rates, ATS resume diagnostics, and tracking tools.</li>
-                <li>Your official payment receipt and tax invoice are immediately dispatched by email via Paddle.com.</li>
+                <li>Your official payment receipt and tax invoice are immediately dispatched by email.</li>
                 <li>Because services are 100% digital, there are no physical shipping fees, packaging costs, or delivery delays.</li>
               </ul>
             </section>
@@ -146,9 +143,6 @@ export default function RefundPage() {
                 <div><strong>Customer Support Email:</strong> <a href="mailto:support@rolenest.in" className="text-emerald-700 underline font-semibold">support@rolenest.in</a></div>
                 <div><strong>Corporate Inquiries:</strong> <a href="mailto:contact@rolenest.in" className="text-emerald-700 underline font-semibold">contact@rolenest.in</a></div>
                 <div><strong>Support SLA:</strong> Guaranteed reply within 24 to 48 business hours</div>
-                <div className="pt-2 text-[11px] text-slate-500 border-t border-slate-200">
-                  <strong>Paddle Buyer Portal &amp; Support:</strong> For direct order management or transaction assistance, visit <a href="https://paddle.net" target="_blank" rel="noopener noreferrer" className="text-emerald-700 underline font-semibold">https://paddle.net</a> or email <a href="mailto:help@paddle.com" className="text-emerald-700 underline font-semibold">help@paddle.com</a>.
-                </div>
               </div>
             </section>
 

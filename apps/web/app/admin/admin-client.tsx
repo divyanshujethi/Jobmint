@@ -283,7 +283,7 @@ export function SuperAdminPanelClient() {
                 <span className="text-[11px] font-mono text-slate-400 block">Pro Candidates</span>
                 <div className="mt-2 flex items-baseline justify-between">
                   <span className="text-2xl sm:text-3xl font-black text-amber-400">{stats.proUsers || 0}</span>
-                  <span className="text-[10px] text-amber-300 font-mono">Paddle</span>
+                  <span className="text-[10px] text-amber-300 font-mono">Cashfree</span>
                 </div>
               </div>
 

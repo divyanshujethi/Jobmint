@@ -18,7 +18,7 @@ import { Card, CardContent } from "@/components/ui/card";
 export const metadata = {
   title: "Privacy Policy & DPDP Disclosures — Role Nest",
   description:
-    "Comprehensive Privacy Policy, Payment Processing disclosures via Paddle.com, and Statutory Compliance with the Indian DPDP Act 2023 and GDPR.",
+    "Comprehensive Privacy Policy, Payment Processing disclosures via Cashfree Payments, and Statutory Compliance with the Indian DPDP Act 2023 and GDPR.",
 };
 
 export default function PrivacyPage() {
@@ -43,14 +43,14 @@ export default function PrivacyPage() {
           </p>
         </div>
 
-        {/* PADDLE MERCHANT OF RECORD NOTICE */}
+        {/* CASHFREE PAYMENT GATEWAY NOTICE */}
         <div className="rounded-2xl border-2 border-emerald-500/30 bg-emerald-50/70 p-6 space-y-2 shadow-sm">
           <div className="flex items-center gap-2 font-bold text-emerald-950 text-base">
             <CreditCard className="h-5 w-5 text-emerald-700 shrink-0" />
-            Payment Processing &amp; Merchant of Record Notice
+            Payment Gateway &amp; Processing Notice
           </div>
           <p className="text-xs sm:text-sm text-emerald-900 leading-relaxed font-medium">
-            Our order process is conducted by our online reseller Paddle.com. Paddle.com is the Merchant of Record for all our orders. Paddle provides all customer service inquiries and handles returns.
+            All online payments, UPI transactions, cards, and NetBanking on Role Nest are securely handled through Cashfree Payments India Pvt. Ltd., an RBI-authorized Payment Aggregator. Role Nest never stores your sensitive payment credentials.
           </p>
         </div>
 
@@ -131,24 +131,24 @@ export default function PrivacyPage() {
               </ul>
             </section>
 
-            {/* SECTION 2: PAYMENT PROCESSING & PADDLE */}
+            {/* SECTION 2: PAYMENT PROCESSING & CASHFREE */}
             <section className="space-y-3">
               <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
                 <CreditCard className="h-5 w-5 text-emerald-600" />
-                2. Payment Data &amp; Merchant of Record (Paddle.com)
+                2. Payment Data &amp; Payment Aggregator (Cashfree Payments)
               </h2>
               <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 space-y-2 text-xs sm:text-sm text-slate-700">
                 <p>
-                  <strong>Merchant of Record:</strong> Our order process is conducted by our online reseller Paddle.com. Paddle.com is the Merchant of Record for all our orders. Paddle provides all customer service inquiries and handles returns.
+                  <strong>Payment Aggregator:</strong> All digital transactions on Role Nest are processed securely by <strong>Cashfree Payments India Pvt. Ltd.</strong>, an RBI-licensed Payment Aggregator operating in compliance with Reserve Bank of India (RBI) payment and settlement directives.
                 </p>
                 <p>
-                  <strong>Zero Card Storage on Role Nest:</strong> When you purchase Role Nest Pro or an Employer Boost, your payment credentials (credit/debit card numbers, CVV, expiry dates, NetBanking credentials, and UPI information) are entered directly into Paddle&apos;s PCI-DSS Level 1 compliant secure checkout iframe.
+                  <strong>Zero Card Storage on Role Nest:</strong> When you purchase Role Nest Pro or an Employer Boost, your payment credentials (credit/debit card numbers, CVV, expiry dates, NetBanking credentials, and UPI information) are entered directly into Cashfree&apos;s RBI-compliant and PCI-DSS Level 1 certified secure checkout component.
                 </p>
                 <p>
-                  <strong>Role Nest NEVER receives, processes, or stores your raw card numbers or financial security codes.</strong> Role Nest only receives an encrypted customer ID, subscription status, and transaction reference from Paddle via secure webhooks to activate your digital features.
+                  <strong>Role Nest NEVER receives, processes, or stores your raw card numbers, CVVs, or UPI PINs.</strong> Role Nest only receives an encrypted customer ID, payment session token, order ID, and transaction confirmation from Cashfree via secure server webhooks to activate your digital features.
                 </p>
                 <p className="text-xs text-slate-500">
-                  Paddle&apos;s processing of your data is governed by the <a href="https://www.paddle.com/legal/privacy" target="_blank" rel="noopener noreferrer" className="text-emerald-700 underline font-semibold">Paddle Privacy Policy</a>. Paddle operates via Paddle.com Market Ltd (UK) and Paddle Payments Ireland Ltd (EU).
+                  Cashfree&apos;s processing of your data is governed by the <a href="https://www.cashfree.com/privacy-policy/" target="_blank" rel="noopener noreferrer" className="text-emerald-700 underline font-semibold">Cashfree Privacy Policy</a>. Cashfree Payments India Pvt. Ltd. is headquartered in Bengaluru, Karnataka, India.
                 </p>
               </div>
             </section>

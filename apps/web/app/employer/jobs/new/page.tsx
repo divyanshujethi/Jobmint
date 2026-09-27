@@ -19,10 +19,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { JobType, WorkMode, CANONICAL_SKILLS } from "@repo/shared";
-import {
-  openPaddleCheckout,
-  PADDLE_FEATURED_JOB_PRICE_ID,
-} from "@/components/paddle-provider";
+import { openCashfreeCheckout } from "@/components/cashfree-provider";
 import { ProUpgradeModal } from "@/components/pro-upgrade-modal";
 
 export default function PostNewJobPage() {
@@ -184,11 +181,9 @@ export default function PostNewJobPage() {
 
       if (isFeaturedBoost && newJobId) {
         setTimeout(() => {
-          openPaddleCheckout({
-            priceId: PADDLE_FEATURED_JOB_PRICE_ID,
+          openCashfreeCheckout({
             jobId: newJobId,
             plan: "featured_job",
-            userEmail: sessionUser?.email,
           });
         }, 500);
       }
@@ -294,16 +289,14 @@ export default function PostNewJobPage() {
                   </p>
                   <Button
                     onClick={() =>
-                      openPaddleCheckout({
-                        priceId: PADDLE_FEATURED_JOB_PRICE_ID,
+                      openCashfreeCheckout({
                         jobId: createdJobId,
                         plan: "featured_job",
-                        userEmail: sessionUser?.email,
                       })
                     }
                     className="w-full bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs"
                   >
-                    Pin to Top of Search — ₹1,499 ($19.00)
+                    Pin to Top of Search — ₹1,499 (Instant UPI &amp; Cards)
                   </Button>
                 </div>
               )}

@@ -14,10 +14,7 @@ import {
   CreditCard,
 } from "lucide-react";
 import { Button } from "./ui/button";
-import {
-  openPaddleCheckout,
-  PADDLE_PRO_PRICE_ID,
-} from "./paddle-provider";
+import { openCashfreeCheckout } from "./cashfree-provider";
 
 interface ProModalProps {
   isOpen: boolean;
@@ -36,10 +33,7 @@ export function ProModal({ isOpen, onClose, user }: ProModalProps) {
 
   const handleCheckout = () => {
     setLoading(true);
-    openPaddleCheckout({
-      priceId: PADDLE_PRO_PRICE_ID,
-      userId: user?.id,
-      userEmail: user?.email || undefined,
+    openCashfreeCheckout({
       plan: "pro",
     });
     setLoading(false);
@@ -127,12 +121,12 @@ export function ProModal({ isOpen, onClose, user }: ProModalProps) {
             className="w-full h-11 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-sm shadow-lg shadow-emerald-600/25 rounded-xl flex items-center justify-center gap-2"
           >
             <CreditCard className="h-4 w-4" />
-            {loading ? "Launching Paddle Checkout..." : "Upgrade to Pro — ₹499/mo"}
+            {loading ? "Launching Cashfree..." : "Upgrade to Pro — ₹499/mo"}
             <ArrowRight className="h-4 w-4 ml-1" />
           </Button>
           <div className="flex items-center justify-center gap-2 text-[10px] text-slate-400">
             <ShieldCheck className="h-3 w-3 text-emerald-600" />
-            <span>Secured by Paddle.com (Merchant of Record). All cards, UPI, & NetBanking accepted.</span>
+            <span>Secured by Cashfree Payments. Instant UPI (GPay/PhonePe), RuPay &amp; Cards.</span>
           </div>
         </div>
       </div>
