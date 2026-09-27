@@ -42,6 +42,18 @@ export async function GET(req: NextRequest) {
       }
     }
 
+    const isStillActive = Boolean(
+      user.isPro && (!user.proExpiresAt || new Date(user.proExpiresAt) > new Date())
+    );
+
+    // If subscription has expired, update database record to reflect free tier
+    if (user.isPro && user.proExpiresAt && new Date(user.proExpiresAt) <= new Date()) {
+      await db
+        .update(users)
+        .set({ isPro: false, updatedAt: new Date() })
+        .where(eq(users.id, user.id));
+    }
+
     return NextResponse.json({
       success: true,
       profile: {
@@ -50,7 +62,7 @@ export async function GET(req: NextRequest) {
         email: user.email,
         phone: userPhone,
         role: user.role,
-        isPro: Boolean(user.isPro && (!user.proExpiresAt || new Date(user.proExpiresAt) > new Date())),
+        isPro: isStillActive,
         proExpiresAt: user.proExpiresAt,
         emailVerified: user.emailVerified,
         createdAt: user.createdAt,

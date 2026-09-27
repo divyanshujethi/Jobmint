@@ -28,6 +28,14 @@ export async function GET(req: NextRequest) {
       userRecord.isPro &&
       (!userRecord.proExpiresAt || new Date(userRecord.proExpiresAt) > new Date());
 
+    // If subscription has expired, update database record to reflect free tier
+    if (userRecord.isPro && userRecord.proExpiresAt && new Date(userRecord.proExpiresAt) <= new Date()) {
+      await db
+        .update(users)
+        .set({ isPro: false, updatedAt: new Date() })
+        .where(eq(users.id, userRecord.id));
+    }
+
     return NextResponse.json({
       authenticated: true,
       isPro: Boolean(isStillActive),

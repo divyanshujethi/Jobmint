@@ -23,15 +23,17 @@ export async function POST(req: NextRequest) {
       const customerEmail = order.customer_details.customer_email?.toLowerCase();
       const customerId = order.customer_details.customer_id;
 
-      let durationDays = 30;
+      let durationMs = 30 * 24 * 60 * 60 * 1000;
       let isFeaturedJob = false;
 
-      if (orderId.includes("test_10") || orderId.includes("test")) {
-        durationDays = 7;
+      if (orderId.includes("test_5")) {
+        durationMs = 10 * 60 * 1000; // 10 minutes
+      } else if (orderId.includes("test_10") || orderId.includes("test")) {
+        durationMs = 7 * 24 * 60 * 60 * 1000;
       } else if (orderId.includes("pro_annual")) {
-        durationDays = 365;
+        durationMs = 365 * 24 * 60 * 60 * 1000;
       } else if (orderId.includes("pro_quarterly")) {
-        durationDays = 90;
+        durationMs = 90 * 24 * 60 * 60 * 1000;
       } else if (orderId.includes("featured_job")) {
         isFeaturedJob = true;
       }
@@ -60,7 +62,7 @@ export async function POST(req: NextRequest) {
             ? new Date(existingUser.proExpiresAt)
             : now;
 
-        const expiresAt = new Date(baseDate.getTime() + durationDays * 24 * 60 * 60 * 1000);
+        const expiresAt = new Date(baseDate.getTime() + durationMs);
 
         if (existingUser?.id) {
           const updatePayload: Record<string, any> = {

@@ -8,44 +8,50 @@ const PLAN_CONFIGS: Record<
   {
     name: string;
     amount: number;
-    days: number;
+    durationMs: number;
     description: string;
   }
 > = {
+  test_5: {
+    name: "Role Nest Pro (10-Minute Rapid Test)",
+    amount: 5,
+    durationMs: 10 * 60 * 1000, // 10 minutes
+    description: "10-minute instant Role Nest Pro test • Live ₹5 UPI gateway test • Auto-cancels after 10 mins",
+  },
   test_10: {
     name: "Role Nest Pro (7-Day Trial Pass)",
     amount: 10,
-    days: 7,
-    description: "7 days full Role Nest Pro access • Instant UPI test • Unlimited AI ATS & Verified Job Access",
+    durationMs: 7 * 24 * 60 * 60 * 1000,
+    description: "7 days full Role Nest Pro access • One-time introductory trial • Unlimited AI ATS & Verified Job Access",
   },
   test: {
     name: "Role Nest Pro (7-Day Trial Pass)",
     amount: 10,
-    days: 7,
-    description: "7 days full Role Nest Pro access • Instant UPI test • Unlimited AI ATS & Verified Job Access",
+    durationMs: 7 * 24 * 60 * 60 * 1000,
+    description: "7 days full Role Nest Pro access • One-time introductory trial • Unlimited AI ATS & Verified Job Access",
   },
   pro: {
     name: "Role Nest Pro (Monthly Membership)",
     amount: 499,
-    days: 30,
+    durationMs: 30 * 24 * 60 * 60 * 1000,
     description: "1 month of Pro access • AI ATS Resume Matcher • Direct Verified Referral Links • Ghosting Protection",
   },
   pro_quarterly: {
     name: "Role Nest Pro (Quarterly Sprint - 3 Months)",
     amount: 1199,
-    days: 90,
+    durationMs: 90 * 24 * 60 * 60 * 1000,
     description: "3 months Pro sprint access • Save 20% • Priority Recruiter Visibility • Full AI Interview Suite",
   },
   pro_annual: {
     name: "Role Nest Pro (Annual Pass - 1 Year)",
     amount: 3999,
-    days: 365,
+    durationMs: 365 * 24 * 60 * 60 * 1000,
     description: "1 full year Pro access • Save 33% • Lifetime Proof-of-Work Verification • 1-Click Tailored Bullets",
   },
   featured_job: {
     name: "Role Nest Featured Job Listing (30 Days)",
     amount: 7999,
-    days: 30,
+    durationMs: 30 * 24 * 60 * 60 * 1000,
     description: "30-day top-of-feed featured job listing • Verified company badge • Direct distribution to active devs",
   },
 };
@@ -86,10 +92,28 @@ export async function POST(req: NextRequest) {
         name: users.name,
         email: users.email,
         phone: users.phone,
+        isPro: users.isPro,
+        proExpiresAt: users.proExpiresAt,
       })
       .from(users)
       .where(eq(users.id, session.user.id))
       .limit(1);
+
+    const isCurrentlyPro = Boolean(
+      dbUser?.isPro &&
+        (!dbUser?.proExpiresAt || new Date(dbUser.proExpiresAt) > new Date())
+    );
+
+    // If user already has an active Pro subscription and tries to buy the 7-day trial pass again, lock it!
+    if ((plan === "test_10" || plan === "test") && isCurrentlyPro) {
+      return NextResponse.json(
+        {
+          error: "The 7-day trial pass is a one-time introductory offer. You already have an active Pro membership. Please choose Monthly, Quarterly, or Annual to extend.",
+          code: "TRIAL_LOCKED",
+        },
+        { status: 400 }
+      );
+    }
 
     const userId = session.user.id;
     const userEmail = (dbUser?.email || session.user.email).trim().toLowerCase();
@@ -159,7 +183,7 @@ export async function POST(req: NextRequest) {
     const tags: Record<string, string> = {
       plan,
       planName: planConfig.name,
-      planDurationDays: String(planConfig.days),
+      planDurationMs: String(planConfig.durationMs),
       userId,
       userEmail,
       customerPhone: resolvedPhone,

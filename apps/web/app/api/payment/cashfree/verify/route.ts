@@ -21,18 +21,21 @@ export async function GET(req: NextRequest) {
       const customerId = order.customer_details.customer_id;
 
       // Determine duration based on order_id pattern
-      let durationDays = 30; // default 1 month
+      let durationMs = 30 * 24 * 60 * 60 * 1000; // default 1 month
       let isFeaturedJob = false;
       let planName = "pro";
 
-      if (orderId.includes("test_10") || orderId.includes("test")) {
-        durationDays = 7;
+      if (orderId.includes("test_5")) {
+        durationMs = 10 * 60 * 1000; // 10 minutes
+        planName = "test_5";
+      } else if (orderId.includes("test_10") || orderId.includes("test")) {
+        durationMs = 7 * 24 * 60 * 60 * 1000; // 7 days
         planName = "test_10";
       } else if (orderId.includes("pro_annual")) {
-        durationDays = 365;
+        durationMs = 365 * 24 * 60 * 60 * 1000;
         planName = "pro_annual";
       } else if (orderId.includes("pro_quarterly")) {
-        durationDays = 90;
+        durationMs = 90 * 24 * 60 * 60 * 1000;
         planName = "pro_quarterly";
       } else if (orderId.includes("featured_job")) {
         isFeaturedJob = true;
@@ -40,7 +43,7 @@ export async function GET(req: NextRequest) {
       }
 
       // 1. Activate Pro for the candidate with seamless extension/upgrading
-      let expiresAt = new Date(Date.now() + durationDays * 24 * 60 * 60 * 1000);
+      let expiresAt = new Date(Date.now() + durationMs);
 
       if (!isFeaturedJob) {
         const targetUserId =
@@ -70,7 +73,7 @@ export async function GET(req: NextRequest) {
             ? new Date(existingUser.proExpiresAt)
             : now;
 
-        expiresAt = new Date(baseDate.getTime() + durationDays * 24 * 60 * 60 * 1000);
+        expiresAt = new Date(baseDate.getTime() + durationMs);
 
         if (existingUser?.id) {
           const updatePayload: Record<string, any> = {

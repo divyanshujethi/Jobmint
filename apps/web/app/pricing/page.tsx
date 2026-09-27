@@ -28,7 +28,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { openCashfreeCheckout } from "@/components/cashfree-provider";
 
-type BillingCycle = "test" | "monthly" | "quarterly" | "annual";
+type BillingCycle = "test_5" | "test" | "monthly" | "quarterly" | "annual";
 
 export default function PricingPage() {
   const [sessionUser, setSessionUser] = useState<any>(null);
@@ -123,13 +123,15 @@ export default function PricingPage() {
 
   const handleProCheckout = () => {
     const planKey =
-      billingCycle === "test"
-        ? "test_10"
-        : billingCycle === "annual"
-          ? "pro_annual"
-          : billingCycle === "quarterly"
-            ? "pro_quarterly"
-            : "pro";
+      billingCycle === "test_5"
+        ? "test_5"
+        : billingCycle === "test"
+          ? "test_10"
+          : billingCycle === "annual"
+            ? "pro_annual"
+            : billingCycle === "quarterly"
+              ? "pro_quarterly"
+              : "pro";
     initiatePlanCheckout(planKey);
   };
 
@@ -143,7 +145,8 @@ export default function PricingPage() {
 
   // Pricing calculations per cycle
   const proPricing = {
-    test: { price: "₹10", period: "/ 7 days", subtext: "Quick verification • 7 days full Pro access", saveTag: "🧪 10 Rs Live Test" },
+    test_5: { price: "₹5", period: "/ 10 mins", subtext: "Quick verification • 10 minutes Pro access (Auto-cancels)", saveTag: "⚡ 5 Rs 10-Min Test" },
+    test: { price: "₹10", period: "/ 7 days", subtext: "One-time trial • 7 days full Pro access", saveTag: "🧪 10 Rs Trial Pass" },
     monthly: { price: "₹499", period: "/ month", subtext: "Billed monthly • Cancel anytime", saveTag: null },
     quarterly: { price: "₹1,199", period: "/ 3 months", subtext: "Equivalent to ₹399/mo • Save 20%", saveTag: "Save 20% • Most Popular" },
     annual: { price: "₹3,999", period: "/ year", subtext: "Equivalent to ₹333/mo • Save 33%", saveTag: "Save 33% • Best Value" },
@@ -174,6 +177,17 @@ export default function PricingPage() {
             {/* Billing Cycle Switcher */}
             <div className="inline-flex flex-wrap items-center justify-center rounded-2xl bg-white p-1.5 border border-slate-200 shadow-sm gap-1">
               <button
+                onClick={() => setBillingCycle("test_5")}
+                className={`flex items-center gap-1 rounded-xl px-3 py-1.5 text-xs font-bold transition-all ${
+                  billingCycle === "test_5"
+                    ? "bg-amber-500 text-slate-950 shadow-xs font-black"
+                    : "text-amber-800 bg-amber-50 hover:bg-amber-100"
+                }`}
+              >
+                <Zap className="h-3 w-3 fill-current" />
+                <span>₹5 (10 Mins)</span>
+              </button>
+              <button
                 onClick={() => setBillingCycle("test")}
                 className={`flex items-center gap-1 rounded-xl px-3.5 py-1.5 text-xs font-bold transition-all ${
                   billingCycle === "test"
@@ -182,7 +196,7 @@ export default function PricingPage() {
                 }`}
               >
                 <Zap className="h-3 w-3 fill-current" />
-                <span>₹10 Test Plan</span>
+                <span>₹10 (7 Days)</span>
               </button>
               <button
                 onClick={() => setBillingCycle("monthly")}
@@ -268,32 +282,46 @@ export default function PricingPage() {
               </div>
             </div>
 
-            {/* Variant 2: ₹10 LIVE TEST PASS */}
+            {/* Variant 2: TEST & TRIAL PASSES */}
             <div className="relative rounded-3xl border-2 border-amber-400 bg-amber-50/40 p-6 shadow-sm flex flex-col justify-between hover:border-amber-500 transition-all">
               <div className="absolute -top-3 right-4 rounded-full bg-amber-500 px-2.5 py-0.5 text-[9px] font-extrabold uppercase tracking-wider text-slate-950 shadow-sm flex items-center gap-1">
-                <Zap className="h-3 w-3 fill-slate-950" /> Live Gateway Test
+                <Zap className="h-3 w-3 fill-slate-950" /> Instant Gateway Test
               </div>
-              <div className="space-y-5">
+              <div className="space-y-4">
                 <div>
-                  <h3 className="text-lg font-bold text-slate-900">7-Day Test Pass</h3>
-                  <p className="text-xs text-slate-500 mt-1">Live UPI payment test with real account Pro activation.</p>
+                  <h3 className="text-lg font-bold text-slate-900">Developer &amp; Trial Passes</h3>
+                  <p className="text-xs text-slate-500 mt-1">Live UPI payment testing, instant Pro activation, and auto-expiry.</p>
                 </div>
-                <div className="flex items-baseline gap-1">
-                  <span className="text-3xl font-black text-slate-900">₹10</span>
-                  <span className="text-xs text-slate-500 font-semibold">/ 7 days</span>
+
+                {/* ₹5 vs ₹10 Mini Grid */}
+                <div className="grid grid-cols-2 gap-2 text-left">
+                  <div className="p-2.5 rounded-xl bg-white border border-amber-300/80 shadow-2xs space-y-1">
+                    <span className="text-[10px] font-black uppercase text-amber-900 tracking-wider">⚡ Rapid Test</span>
+                    <div className="flex items-baseline gap-1">
+                      <span className="text-xl font-black text-slate-900">₹5</span>
+                      <span className="text-[10px] text-slate-500 font-semibold">/ 10 mins</span>
+                    </div>
+                    <p className="text-[10px] text-slate-600 leading-tight">Instant 10-min Pro pass. Cancels automatically after 10 mins.</p>
+                  </div>
+
+                  <div className="p-2.5 rounded-xl bg-white border border-amber-300/80 shadow-2xs space-y-1">
+                    <span className="text-[10px] font-black uppercase text-emerald-800 tracking-wider">🧪 1-Time Trial</span>
+                    <div className="flex items-baseline gap-1">
+                      <span className="text-xl font-black text-slate-900">₹10</span>
+                      <span className="text-[10px] text-slate-500 font-semibold">/ 7 days</span>
+                    </div>
+                    <p className="text-[10px] text-slate-600 leading-tight">One-time trial for new candidates. Locks once claimed.</p>
+                  </div>
                 </div>
-                <ul className="space-y-2.5 text-xs text-slate-700">
+
+                <ul className="space-y-2 text-xs text-slate-700">
                   <li className="flex items-start gap-2">
                     <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
-                    <span><strong>Full 7 days of Role Nest Pro</strong></span>
+                    <span>Instant UPI (Google Pay, PhonePe, Paytm, QR)</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
-                    <span>Instant UPI (GPay, PhonePe, Paytm, QR)</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
-                    <span>AI ATS Resume Matcher &amp; gap analysis</span>
+                    <span>AI ATS Resume Matcher &amp; full tool access</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
@@ -301,18 +329,43 @@ export default function PricingPage() {
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
-                    <span>Truth Teller response tracking</span>
+                    <span>Auto-expires after time duration with zero recurring bills</span>
                   </li>
                 </ul>
               </div>
-              <div className="pt-6">
+
+              <div className="pt-5 space-y-2">
+                {/* 1. ₹5 10-Minute Rapid Test Button */}
                 <Button
-                  onClick={handleTestCheckout}
-                  className="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs h-10 shadow-sm"
+                  onClick={() => initiatePlanCheckout("test_5")}
+                  className="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs h-9 shadow-sm"
                 >
-                  <CreditCard className="h-3.5 w-3.5 mr-1.5" />
-                  {isPro ? "Extend 7 Days (₹10 Test)" : "Pay ₹10 (Test UPI)"}
+                  <Zap className="h-3.5 w-3.5 mr-1 text-amber-400 fill-amber-400" />
+                  Pay ₹5 (10-Min Rapid Test)
                 </Button>
+
+                {/* 2. ₹10 7-Day Trial Pass (Locked if currently active) */}
+                {isPro ? (
+                  <div className="space-y-1">
+                    <Button
+                      disabled
+                      className="w-full bg-slate-100 text-slate-400 font-bold text-xs h-9 cursor-not-allowed border border-slate-200 shadow-none"
+                    >
+                      🔒 7-Day Trial (Already Claimed)
+                    </Button>
+                    <p className="text-[10px] text-center text-slate-500 font-medium">
+                      One-time trial pass is locked. Use monthly/quarterly to extend.
+                    </p>
+                  </div>
+                ) : (
+                  <Button
+                    onClick={handleTestCheckout}
+                    className="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs h-9 shadow-sm"
+                  >
+                    <CreditCard className="h-3.5 w-3.5 mr-1" />
+                    Pay ₹10 (7-Day Trial Pass)
+                  </Button>
+                )}
               </div>
             </div>
 

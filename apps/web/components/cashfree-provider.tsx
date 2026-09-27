@@ -18,7 +18,7 @@ export const CASHFREE_CLIENT_ENV =
   (process.env.NEXT_PUBLIC_CASHFREE_ENV as "production" | "sandbox") || "production";
 
 export interface CheckoutOptions {
-  plan?: "pro" | "pro_quarterly" | "pro_annual" | "featured_job" | "test_10" | "test";
+  plan?: "pro" | "pro_quarterly" | "pro_annual" | "featured_job" | "test_10" | "test" | "test_5" | string;
   jobId?: string;
   phone?: string;
   onSuccess?: () => void;
