@@ -52,6 +52,10 @@ export default function PricingPage() {
   }, []);
 
   const handleProCheckout = () => {
+    if (!sessionUser) {
+      window.location.href = `/login?callbackUrl=${encodeURIComponent("/pricing")}`;
+      return;
+    }
     const planKey =
       billingCycle === "annual"
         ? "pro_annual"
@@ -64,8 +68,22 @@ export default function PricingPage() {
   };
 
   const handleFeaturedCheckout = () => {
+    if (!sessionUser) {
+      window.location.href = `/login?callbackUrl=${encodeURIComponent("/pricing")}`;
+      return;
+    }
     openCashfreeCheckout({
       plan: "featured_job",
+    });
+  };
+
+  const handleTestCheckout = () => {
+    if (!sessionUser) {
+      window.location.href = `/login?callbackUrl=${encodeURIComponent("/pricing")}`;
+      return;
+    }
+    openCashfreeCheckout({
+      plan: "test_10",
     });
   };
 
@@ -90,6 +108,28 @@ export default function PricingPage() {
           <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
             Accelerate your tech job search or scale your engineering team with zero recruiter spam. Clear pricing, instant activation, and 100% money-back guarantee.
           </p>
+        </div>
+
+        {/* DEVELOPER TESTING BANNER: ₹10 LIVE TEST CHECKOUT */}
+        <div className="rounded-2xl border-2 border-dashed border-emerald-500/50 bg-emerald-50/80 p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xs">
+          <div className="space-y-1 text-center sm:text-left">
+            <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-600 text-white font-mono text-[10px] font-black uppercase tracking-wider">
+              🧪 Live Gateway Testing
+            </div>
+            <h4 className="text-sm font-bold text-slate-900">
+              ₹10 Live Test Payment (Instant UPI &amp; Cards)
+            </h4>
+            <p className="text-xs text-slate-600">
+              Test real end-to-end UPI money transfer via PhonePe, GPay, Paytm, or cards with a minimal ₹10 charge. Activates 7 days of Pro status.
+            </p>
+          </div>
+          <Button
+            onClick={handleTestCheckout}
+            className="shrink-0 bg-emerald-700 hover:bg-emerald-600 text-white font-bold text-xs h-9 px-5 shadow-sm"
+          >
+            <Zap className="h-3.5 w-3.5 mr-1 text-amber-300" />
+            Test Live Payment (₹10)
+          </Button>
         </div>
 
         {/* Section 1: Candidates */}

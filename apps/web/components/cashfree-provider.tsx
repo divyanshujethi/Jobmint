@@ -18,7 +18,7 @@ export const CASHFREE_CLIENT_ENV =
   (process.env.NEXT_PUBLIC_CASHFREE_ENV as "production" | "sandbox") || "production";
 
 export interface CheckoutOptions {
-  plan?: "pro" | "pro_quarterly" | "pro_annual" | "featured_job";
+  plan?: "pro" | "pro_quarterly" | "pro_annual" | "featured_job" | "test_10" | "test";
   jobId?: string;
   phone?: string;
   onSuccess?: () => void;
@@ -39,6 +39,13 @@ export async function openCashfreeCheckout(options: CheckoutOptions = {}) {
         phone: options.phone,
       }),
     });
+
+    if (res.status === 401) {
+      const data = await res.json().catch(() => ({}));
+      const currentUrl = typeof window !== "undefined" ? window.location.pathname + window.location.search : "/pricing";
+      window.location.href = data.redirectUrl || `/login?callbackUrl=${encodeURIComponent(currentUrl)}`;
+      return;
+    }
 
     const data = await res.json();
     if (!res.ok || !data.paymentSessionId) {

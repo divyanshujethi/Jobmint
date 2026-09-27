@@ -4,6 +4,8 @@ import { createCashfreeOrder } from "@/lib/cashfree";
 import crypto from "node:crypto";
 
 const PLAN_AMOUNTS: Record<string, number> = {
+  test_10: 10,
+  test: 10,
   pro: 499,
   pro_quarterly: 1199,
   pro_annual: 3999,
@@ -13,15 +15,35 @@ const PLAN_AMOUNTS: Record<string, number> = {
 export async function POST(req: NextRequest) {
   try {
     const session = await auth();
+    if (!session?.user?.id || !session?.user?.email) {
+      const referer = req.headers.get("referer");
+      let callbackPath = "/pricing";
+      try {
+        if (referer) {
+          const refUrl = new URL(referer);
+          callbackPath = refUrl.pathname + refUrl.search;
+        }
+      } catch {}
+
+      return NextResponse.json(
+        {
+          error: "Please sign in or create an account before proceeding with payment.",
+          code: "UNAUTHORIZED",
+          redirectUrl: `/login?callbackUrl=${encodeURIComponent(callbackPath)}`,
+        },
+        { status: 401 }
+      );
+    }
+
     const body = await req.json();
     const { plan = "pro", jobId, phone } = body;
 
-    const amount = PLAN_AMOUNTS[plan] || 499;
+    const amount = PLAN_AMOUNTS[plan] ?? 499;
 
-    // Determine customer details
-    const userId = session?.user?.id || `guest_${crypto.randomBytes(4).toString("hex")}`;
-    const userEmail = session?.user?.email || "customer@rolenest.in";
-    const userName = session?.user?.name || "Role Nest Candidate";
+    // Determine customer details from authenticated session
+    const userId = session.user.id;
+    const userEmail = session.user.email;
+    const userName = session.user.name || "Role Nest Candidate";
 
     // Clean Indian phone number (default 9876543210 if empty)
     let cleanPhone = (phone || "").replace(/\D/g, "");

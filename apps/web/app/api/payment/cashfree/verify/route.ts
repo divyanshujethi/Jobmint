@@ -25,7 +25,10 @@ export async function GET(req: NextRequest) {
       let isFeaturedJob = false;
       let planName = "pro";
 
-      if (orderId.includes("pro_annual")) {
+      if (orderId.includes("test_10") || orderId.includes("test")) {
+        durationDays = 7;
+        planName = "test_10";
+      } else if (orderId.includes("pro_annual")) {
         durationDays = 365;
         planName = "pro_annual";
       } else if (orderId.includes("pro_quarterly")) {

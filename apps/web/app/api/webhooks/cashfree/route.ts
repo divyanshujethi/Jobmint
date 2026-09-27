@@ -26,7 +26,9 @@ export async function POST(req: NextRequest) {
       let durationDays = 30;
       let isFeaturedJob = false;
 
-      if (orderId.includes("pro_annual")) {
+      if (orderId.includes("test_10") || orderId.includes("test")) {
+        durationDays = 7;
+      } else if (orderId.includes("pro_annual")) {
         durationDays = 365;
       } else if (orderId.includes("pro_quarterly")) {
         durationDays = 90;
