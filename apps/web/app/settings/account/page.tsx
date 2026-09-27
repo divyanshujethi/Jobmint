@@ -285,6 +285,10 @@ export default function AccountSettingsPage() {
                         <Crown className="h-4 w-4 text-amber-500 fill-amber-500" />
                         <span>Role Nest Pro Active</span>
                       </>
+                    ) : profile?.proExpiresAt && new Date(profile.proExpiresAt) <= new Date() ? (
+                      <>
+                        <span className="text-amber-600 font-bold">⚠️ Pro Subscription Expired</span>
+                      </>
                     ) : (
                       <>
                         <Sparkles className="h-4 w-4 text-slate-500" />
@@ -301,24 +305,37 @@ export default function AccountSettingsPage() {
                             year: "numeric",
                           })}`
                         : "Lifetime Pro Access Active"
+                      : profile?.proExpiresAt && new Date(profile.proExpiresAt) <= new Date()
+                      ? `Your Pro subscription ended on ${new Date(profile.proExpiresAt).toLocaleDateString("en-IN", {
+                          day: "numeric",
+                          month: "short",
+                          year: "numeric",
+                        })}. Renew now to resume AI interview practice and recruiter direct messaging.`
                       : "Upgrade to Pro to unlock direct recruiter referrals, AI auto-apply, and priority ranking."}
                   </p>
                 </div>
-                {!profile?.isPro ? (
-                  <Link
-                    href="/pricing"
-                    className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-sm transition-all whitespace-nowrap"
-                  >
-                    <Crown className="h-3.5 w-3.5" />
-                    Upgrade to Pro
-                  </Link>
-                ) : (
+                {profile?.isPro ? (
                   <Link
                     href="/pricing"
                     className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow-sm transition-all whitespace-nowrap"
                   >
                     <Crown className="h-3.5 w-3.5 fill-slate-950" />
                     Extend / Upgrade Plan →
+                  </Link>
+                ) : profile?.proExpiresAt && new Date(profile.proExpiresAt) <= new Date() ? (
+                  <Link
+                    href="/pricing"
+                    className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs shadow-sm transition-all whitespace-nowrap"
+                  >
+                    Renew Pro Subscription →
+                  </Link>
+                ) : (
+                  <Link
+                    href="/pricing"
+                    className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-sm transition-all whitespace-nowrap"
+                  >
+                    <Crown className="h-3.5 w-3.5" />
+                    Upgrade to Pro
                   </Link>
                 )}
               </div>

@@ -420,12 +420,24 @@ export default function PricingPage() {
                     </p>
                   </div>
                 )}
+                {!isPro && proExpiresAt && new Date(proExpiresAt) <= new Date() && (
+                  <div className="rounded-xl border border-amber-200 bg-amber-50/90 p-2.5 text-center text-xs text-amber-950 font-semibold space-y-0.5">
+                    <div className="text-amber-900 font-bold">⚠️ Your Pro Subscription Expired</div>
+                    <p className="text-[10px] text-amber-800 font-normal">
+                      Expired on {new Date(proExpiresAt).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}. Reactivate below to regain full AI interview practice and recruiter direct messaging.
+                    </p>
+                  </div>
+                )}
                 <Button
                   onClick={handleProCheckout}
                   className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs h-10 shadow-md shadow-emerald-600/25"
                 >
                   <CreditCard className="h-3.5 w-3.5 mr-1.5" />
-                  {isPro ? `Extend / Upgrade Plan — ${proPricing.price}` : `Upgrade to Pro — ${proPricing.price}`}
+                  {isPro
+                    ? `Extend / Upgrade Plan — ${proPricing.price}`
+                    : proExpiresAt && new Date(proExpiresAt) <= new Date()
+                    ? `Renew Pro Plan — ${proPricing.price}`
+                    : `Upgrade to Pro — ${proPricing.price}`}
                 </Button>
                 <p className="text-[10px] text-center text-slate-400">
                   7-Day Money Back Guarantee • Cancel anytime

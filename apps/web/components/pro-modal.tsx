@@ -89,14 +89,13 @@ export function ProModal({ isOpen, onClose, user }: ProModalProps) {
         <div className="flex items-center justify-between border-b border-slate-100 bg-slate-50/70 px-6 py-4">
           <div>
             <div className="flex items-baseline gap-1.5">
-              <span className="text-3xl font-black text-slate-900">₹299</span>
+              <span className="text-3xl font-black text-slate-900">₹499</span>
               <span className="text-xs font-semibold text-slate-500">/ month</span>
-              <span className="text-xs text-slate-400 ml-1">($4.99 USD)</span>
             </div>
             <p className="text-[11px] text-slate-500">Cancel anytime with 1-click. 7-day money back guarantee.</p>
           </div>
           <div className="rounded-xl bg-emerald-100/70 px-2.5 py-1 text-[11px] font-bold text-emerald-800">
-            Most Popular
+            Full Pro Access
           </div>
         </div>
 
@@ -114,7 +113,7 @@ export function ProModal({ isOpen, onClose, user }: ProModalProps) {
           ))}
         </div>
 
-        <div className="p-6 pt-2 bg-white border-t border-slate-100 space-y-2">
+        <div className="p-6 pt-3 bg-white border-t border-slate-100 space-y-2.5">
           <Button
             onClick={handleCheckout}
             disabled={loading}
@@ -124,6 +123,15 @@ export function ProModal({ isOpen, onClose, user }: ProModalProps) {
             {loading ? "Launching Cashfree..." : "Upgrade to Pro — ₹499/mo"}
             <ArrowRight className="h-4 w-4 ml-1" />
           </Button>
+          <div className="text-center">
+            <a
+              href="/pricing"
+              onClick={onClose}
+              className="text-xs font-semibold text-emerald-700 hover:text-emerald-800 hover:underline"
+            >
+              Explore all passes (including ₹5 Rapid Pass &amp; ₹10 Trial) →
+            </a>
+          </div>
           <div className="flex items-center justify-center gap-2 text-[10px] text-slate-400">
             <ShieldCheck className="h-3 w-3 text-emerald-600" />
             <span>Secured by Cashfree Payments. Instant UPI (GPay/PhonePe), RuPay &amp; Cards.</span>

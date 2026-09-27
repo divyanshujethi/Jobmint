@@ -13,15 +13,6 @@ export default function RegisterPage() {
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [consentError, setConsentError] = useState<string | null>(null);
 
-  // Email registration state
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [password, setPassword] = useState("");
-  const [isEmailSubmitting, setIsEmailSubmitting] = useState(false);
-  const [registrationSuccess, setRegistrationSuccess] = useState(false);
-  const [apiError, setApiError] = useState<string | null>(null);
-
   const handleOAuthSignUp = async (provider: string) => {
     if (!agreedToTerms) {
       setConsentError("Please agree to the Terms of Service & Privacy Policy to create your account.");
@@ -38,48 +29,12 @@ export default function RegisterPage() {
     }
   };
 
-  const handleEmailSignUp = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!agreedToTerms) {
-      setConsentError("Please agree to the Terms of Service & Privacy Policy to create your account.");
-      return;
-    }
-    setConsentError(null);
-    setApiError(null);
-    setIsEmailSubmitting(true);
-
-    try {
-      const res = await fetch("/api/auth/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: name.trim(),
-          email: email.trim().toLowerCase(),
-          phone: phone.trim(),
-          password,
-          role,
-        }),
-      });
-
-      const data = await res.json();
-      if (!res.ok) {
-        throw new Error(data.error || "Failed to register account.");
-      }
-
-      setRegistrationSuccess(true);
-    } catch (err: any) {
-      setApiError(err.message || "Failed to create account. Please try again.");
-    } finally {
-      setIsEmailSubmitting(false);
-    }
-  };
-
   return (
     <div className="flex min-h-[85vh] items-center justify-center px-4 py-12">
-      <Card className="w-full max-w-md border-slate-200/80 shadow-lg">
+      <Card className="w-full max-w-md border-slate-200/80 shadow-lg bg-white">
         <CardHeader className="text-center space-y-2">
           <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-500 text-white font-black text-xl shadow-md">
-            J
+            R
           </div>
           <CardTitle className="text-2xl font-bold tracking-tight text-slate-900">
             Join {APP_CONFIG.name}
@@ -90,199 +45,82 @@ export default function RegisterPage() {
         </CardHeader>
 
         <CardContent className="space-y-5">
-          {registrationSuccess ? (
-            <div className="rounded-2xl border border-emerald-200 bg-emerald-50/80 p-5 text-center space-y-3 animate-in fade-in">
-              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
-                <ShieldCheck className="h-7 w-7" />
-              </div>
-              <h3 className="text-base font-bold text-emerald-950">
-                Confirmation Email Sent!
-              </h3>
-              <p className="text-xs text-emerald-800 leading-relaxed">
-                We sent a secure activation link to <span className="font-semibold text-emerald-950">{email}</span>. Click the link to verify your account and start exploring verified tech roles.
-              </p>
-              <div className="pt-3">
-                <Link
-                  href="/login"
-                  className="w-full inline-flex items-center justify-center py-2.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow-md transition-all"
-                >
-                  Proceed to Sign In →
+          {/* ROLE TOGGLE */}
+          <div className="grid grid-cols-2 gap-3">
+            <button
+              type="button"
+              onClick={() => setRole(UserRole.CANDIDATE)}
+              className={`flex flex-col items-center justify-center rounded-xl border p-3.5 text-center transition-all ${
+                role === UserRole.CANDIDATE
+                  ? "border-emerald-600 bg-emerald-50/80 text-emerald-900 shadow-sm ring-1 ring-emerald-600"
+                  : "border-slate-200 hover:border-slate-300 text-slate-600 bg-white"
+              }`}
+            >
+              <GraduationCap className="h-5 w-5 mb-1.5 text-emerald-600" />
+              <span className="text-xs font-bold">Candidate / Student</span>
+              <span className="text-[10px] text-slate-500">Find jobs &amp; roadmaps</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setRole(UserRole.EMPLOYER)}
+              className={`flex flex-col items-center justify-center rounded-xl border p-3.5 text-center transition-all ${
+                role === UserRole.EMPLOYER
+                  ? "border-emerald-600 bg-emerald-50/80 text-emerald-900 shadow-sm ring-1 ring-emerald-600"
+                  : "border-slate-200 hover:border-slate-300 text-slate-600 bg-white"
+              }`}
+            >
+              <Building className="h-5 w-5 mb-1.5 text-emerald-600" />
+              <span className="text-xs font-bold">Employer / Company</span>
+              <span className="text-[10px] text-slate-500">Hire verified talent</span>
+            </button>
+          </div>
+
+          {/* CONSENT CHECKBOX (DPDP ACT 2023 COMPLIANT) */}
+          <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-3 space-y-1.5 transition-all">
+            <div className="flex items-start gap-2.5">
+              <input
+                type="checkbox"
+                id="consent-checkbox"
+                checked={agreedToTerms}
+                onChange={(e) => {
+                  setAgreedToTerms(e.target.checked);
+                  if (e.target.checked) setConsentError(null);
+                }}
+                className="mt-0.5 h-4 w-4 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500 cursor-pointer shrink-0 accent-emerald-600"
+              />
+              <label htmlFor="consent-checkbox" className="text-xs text-slate-700 cursor-pointer select-none leading-relaxed">
+                I agree to the{" "}
+                <Link href="/terms" target="_blank" className="font-semibold text-emerald-600 underline underline-offset-2 hover:text-emerald-700">
+                  Terms of Service
+                </Link>{" "}
+                and{" "}
+                <Link href="/privacy" target="_blank" className="font-semibold text-emerald-600 underline underline-offset-2 hover:text-emerald-700">
+                  Privacy Policy
                 </Link>
-              </div>
+                <span className="block text-[10px] text-slate-500 mt-0.5">
+                  🇮🇳 DPDP Act 2023 Compliant: Right to Erasure, Zero Data Selling, Token-Gated Resumes.
+                </span>
+              </label>
             </div>
-          ) : (
-            <>
-              {/* ROLE TOGGLE */}
-              <div className="grid grid-cols-2 gap-3">
-                <button
-                  type="button"
-                  onClick={() => setRole(UserRole.CANDIDATE)}
-                  className={`flex flex-col items-center justify-center rounded-xl border p-3.5 text-center transition-all ${
-                    role === UserRole.CANDIDATE
-                      ? "border-emerald-600 bg-emerald-50/80 text-emerald-900 shadow-sm ring-1 ring-emerald-600"
-                      : "border-slate-200 hover:border-slate-300 text-slate-600 bg-white"
-                  }`}
-                >
-                  <GraduationCap className="h-5 w-5 mb-1.5 text-emerald-600" />
-                  <span className="text-xs font-bold">Candidate / Student</span>
-                  <span className="text-[10px] text-slate-500">Find jobs & roadmaps</span>
-                </button>
+            {consentError && (
+              <p className="text-[11px] font-semibold text-rose-600 pl-6 animate-pulse">
+                {consentError}
+              </p>
+            )}
+          </div>
 
-                <button
-                  type="button"
-                  onClick={() => setRole(UserRole.EMPLOYER)}
-                  className={`flex flex-col items-center justify-center rounded-xl border p-3.5 text-center transition-all ${
-                    role === UserRole.EMPLOYER
-                      ? "border-emerald-600 bg-emerald-50/80 text-emerald-900 shadow-sm ring-1 ring-emerald-600"
-                      : "border-slate-200 hover:border-slate-300 text-slate-600 bg-white"
-                  }`}
-                >
-                  <Building className="h-5 w-5 mb-1.5 text-emerald-600" />
-                  <span className="text-xs font-bold">Employer / Company</span>
-                  <span className="text-[10px] text-slate-500">Hire young talent</span>
-                </button>
-              </div>
-
-              {/* CONSENT CHECKBOX (DPDP ACT 2023 COMPLIANT) */}
-              <div className="rounded-xl border border-slate-200 bg-slate-50/70 p-3 space-y-1.5 transition-all">
-                <div className="flex items-start gap-2.5">
-                  <input
-                    type="checkbox"
-                    id="consent-checkbox"
-                    checked={agreedToTerms}
-                    onChange={(e) => {
-                      setAgreedToTerms(e.target.checked);
-                      if (e.target.checked) setConsentError(null);
-                    }}
-                    className="mt-0.5 h-4 w-4 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500 cursor-pointer shrink-0 accent-emerald-600"
-                  />
-                  <label htmlFor="consent-checkbox" className="text-xs text-slate-700 cursor-pointer select-none leading-relaxed">
-                    I agree to the{" "}
-                    <Link href="/terms" target="_blank" className="font-semibold text-emerald-600 underline underline-offset-2 hover:text-emerald-700">
-                      Terms of Service
-                    </Link>{" "}
-                    and{" "}
-                    <Link href="/privacy" target="_blank" className="font-semibold text-emerald-600 underline underline-offset-2 hover:text-emerald-700">
-                      Privacy Policy
-                    </Link>
-                    <span className="block text-[10px] text-slate-500 mt-0.5">
-                      🇮🇳 DPDP Act 2023 Compliant: Right to Erasure, Zero Data Selling, Token-Gated Resumes.
-                    </span>
-                  </label>
-                </div>
-                {consentError && (
-                  <p className="text-[11px] font-semibold text-rose-600 pl-6 animate-pulse">
-                    {consentError}
-                  </p>
-                )}
-              </div>
-
-              {/* EMAIL & PASSWORD REGISTRATION FORM */}
-              <form onSubmit={handleEmailSignUp} className="space-y-3">
-                {apiError && (
-                  <div className="rounded-xl border border-rose-200 bg-rose-50 p-2.5 text-xs text-rose-700">
-                    {apiError}
-                  </div>
-                )}
-
-                <div className="space-y-1">
-                  <label className="text-[11px] font-semibold text-slate-700">Full Name</label>
-                  <input
-                    type="text"
-                    required
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Aditya Sharma"
-                    className="w-full px-3.5 py-2 rounded-xl border border-slate-200 bg-slate-50/50 text-sm focus:border-emerald-600 focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-600 text-slate-900 transition-all placeholder:text-slate-400"
-                  />
-                </div>
-
-                <div className="space-y-1">
-                  <label className="text-[11px] font-semibold text-slate-700">Email Address</label>
-                  <input
-                    type="email"
-                    required
-                    autoComplete="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="aditya@example.com"
-                    className="w-full px-3.5 py-2 rounded-xl border border-slate-200 bg-slate-50/50 text-sm focus:border-emerald-600 focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-600 text-slate-900 transition-all placeholder:text-slate-400"
-                  />
-                </div>
-
-                <div className="space-y-1">
-                  <label className="text-[11px] font-semibold text-slate-700">
-                    Phone Number <span className="text-slate-400 font-normal">(for job alerts &amp; SMS)</span>
-                  </label>
-                  <div className="relative">
-                    <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-xs font-semibold text-slate-500">
-                      +91
-                    </span>
-                    <input
-                      type="tel"
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value.replace(/\D/g, "").slice(0, 10))}
-                      placeholder="9876543210"
-                      maxLength={10}
-                      className="w-full pl-12 pr-3.5 py-2 rounded-xl border border-slate-200 bg-slate-50/50 text-sm focus:border-emerald-600 focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-600 text-slate-900 transition-all placeholder:text-slate-400 font-mono"
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-1">
-                  <label className="text-[11px] font-semibold text-slate-700">Password</label>
-                  <input
-                    type="password"
-                    required
-                    autoComplete="new-password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="At least 6 characters"
-                    className="w-full px-3.5 py-2 rounded-xl border border-slate-200 bg-slate-50/50 text-sm focus:border-emerald-600 focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-600 text-slate-900 transition-all"
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={isEmailSubmitting || activeProvider !== null}
-                  className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 active:scale-[0.99] text-white text-sm font-semibold shadow-md transition-all disabled:opacity-60"
-                >
-                  {isEmailSubmitting ? (
-                    <>
-                      <Loader2 className="h-4 w-4 animate-spin" />
-                      <span>Creating Account & Dispatching Verification...</span>
-                    </>
-                  ) : (
-                    <span>Register with Email</span>
-                  )}
-                </button>
-              </form>
-
-              <div className="relative my-2">
-                <div className="absolute inset-0 flex items-center">
-                  <span className="w-full border-t border-slate-200" />
-                </div>
-                <div className="relative flex justify-center text-[11px] uppercase tracking-wider">
-                  <span className="bg-white px-3 text-slate-400 font-semibold">
-                    Or sign up with
-                  </span>
-                </div>
-              </div>
-            </>
-          )}
-
-          {/* OAUTH PROVIDERS */}
-          {!registrationSuccess && (
-            <div className="space-y-2.5">
-              {/* GOOGLE */}
-              <button
-                type="button"
-                disabled={activeProvider !== null || isEmailSubmitting}
-                onClick={() => handleOAuthSignUp("google")}
-                className="w-full flex items-center justify-center gap-3 px-4 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 hover:border-slate-300 font-medium text-sm text-slate-700 transition-all shadow-sm active:scale-[0.99] disabled:opacity-60"
-              >
-                {activeProvider === "google" ? (
-                  <Loader2 className="h-4 w-4 animate-spin text-slate-600" />
+          {/* OAUTH SIGN UP PROVIDERS */}
+          <div className="space-y-2.5">
+            {/* GOOGLE */}
+            <button
+              type="button"
+              disabled={activeProvider !== null}
+              onClick={() => handleOAuthSignUp("google")}
+              className="w-full flex items-center justify-center gap-3 px-4 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 hover:border-slate-300 font-medium text-sm text-slate-700 transition-all shadow-sm active:scale-[0.99] disabled:opacity-60"
+            >
+              {activeProvider === "google" ? (
+                <Loader2 className="h-4 w-4 animate-spin text-slate-600" />
               ) : (
                 <svg className="h-4 w-4" viewBox="0 0 24 24">
                   <path
@@ -360,12 +198,11 @@ export default function RegisterPage() {
               <span>Continue with Microsoft</span>
             </button>
           </div>
-          )}
 
           <div className="flex items-center gap-2 rounded-xl bg-emerald-50/60 p-3 text-[11px] text-emerald-800 border border-emerald-100">
             <Sparkles className="h-4 w-4 text-emerald-600 shrink-0" />
             <span>
-              100% Free Forever. Your verified identity helps fast-track your applications and eliminates spam recruiters.
+              100% Free Forever. Your verified identity fast-tracks applications and ensures zero recruiter spam.
             </span>
           </div>
         </CardContent>

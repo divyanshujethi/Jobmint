@@ -52,8 +52,11 @@ export function Navbar() {
   const [user, setUser] = useState<SessionUser | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [isPro, setIsPro] = useState(false);
+  const [proExpiresAt, setProExpiresAt] = useState<string | null>(null);
   const [proModalOpen, setProModalOpen] = useState(false);
   const [streakCount, setStreakCount] = useState<number | null>(null);
+
+  const isExpired = !isPro && Boolean(proExpiresAt && new Date(proExpiresAt) <= new Date());
 
   const toolsRef = useRef<HTMLDivElement>(null);
   const userRef = useRef<HTMLDivElement>(null);
@@ -90,8 +93,9 @@ export function Navbar() {
     fetch("/api/user/pro-status")
       .then((res) => res.json())
       .then((data) => {
-        if (data?.isPro) {
-          setIsPro(true);
+        setIsPro(Boolean(data?.isPro));
+        if (data?.proExpiresAt) {
+          setProExpiresAt(data.proExpiresAt);
         }
       })
       .catch(() => {});
@@ -458,18 +462,34 @@ export function Navbar() {
           {user ? (
             <div className="flex items-center gap-2.5">
               {isPro ? (
-                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-black bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 shadow-xs border border-amber-300">
+                <Link
+                  href="/pricing"
+                  title={`Active Pro Plan${proExpiresAt ? ` (Valid until ${new Date(proExpiresAt).toLocaleDateString()})` : ""}`}
+                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-black bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 shadow-xs border border-amber-300 hover:brightness-105 transition-all"
+                >
                   <Crown className="h-3.5 w-3.5 fill-slate-950" />
                   <span>PRO</span>
-                </span>
+                </Link>
+              ) : isExpired ? (
+                <Link
+                  href="/pricing"
+                  title="Your Pro subscription has ended. Click to renew."
+                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 shadow-xs transition-all hover:scale-105"
+                >
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
+                  </span>
+                  <span>Pro Expired • Renew</span>
+                </Link>
               ) : (
                 <button
                   type="button"
                   onClick={() => setProModalOpen(true)}
                   className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-xs transition-all hover:scale-105"
                 >
-                  <Crown className="h-3.5 w-3.5 text-amber-300" />
-                  <span>Pro</span>
+                  <Zap className="h-3.5 w-3.5 text-amber-300 fill-amber-300" />
+                  <span>Get Pro</span>
                 </button>
               )}
 
@@ -501,7 +521,7 @@ export function Navbar() {
                 </button>
 
                 {userMenuOpen && (
-                  <div className="absolute right-0 mt-2 w-56 rounded-2xl border border-slate-200 bg-white p-2 shadow-xl ring-1 ring-black/5 animate-in fade-in slide-in-from-top-2 duration-150 z-50">
+                  <div className="absolute right-0 mt-2 w-64 rounded-2xl border border-slate-200 bg-white p-2 shadow-xl ring-1 ring-black/5 animate-in fade-in slide-in-from-top-2 duration-150 z-50">
                     <div className="px-3 py-2 border-b border-slate-100">
                       <div className="flex items-center justify-between">
                         <div className="text-xs font-bold text-slate-900 truncate">{user.name}</div>
@@ -510,12 +530,45 @@ export function Navbar() {
                             PRO
                           </span>
                         )}
+                        {isExpired && (
+                          <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-800 border border-amber-300">
+                            EXPIRED
+                          </span>
+                        )}
                       </div>
                       <div className="text-[11px] text-slate-500 truncate">{user.email}</div>
                     </div>
 
                     <div className="py-1">
-                      {!isPro ? (
+                      {isPro ? (
+                        <div className="flex flex-col gap-0.5 px-3 py-2 mb-1 rounded-xl bg-amber-50 text-[11px] font-bold text-amber-900 border border-amber-200">
+                          <div className="flex items-center gap-1.5">
+                            <Crown className="h-3.5 w-3.5 text-amber-600" />
+                            <span>Role Nest Pro Member</span>
+                          </div>
+                          {proExpiresAt && (
+                            <span className="text-[10px] text-amber-700 font-normal">
+                              Valid until {new Date(proExpiresAt).toLocaleDateString()}
+                            </span>
+                          )}
+                        </div>
+                      ) : isExpired ? (
+                        <div className="p-2.5 mb-1 rounded-xl bg-amber-50 border border-amber-200 text-amber-950 space-y-1.5">
+                          <div className="flex items-center gap-1 text-[11px] font-bold text-amber-900">
+                            <span>⚠️ Pro Subscription Ended</span>
+                          </div>
+                          <p className="text-[10px] text-amber-800 leading-snug">
+                            Your Pro benefits ended{proExpiresAt ? ` on ${new Date(proExpiresAt).toLocaleDateString()}` : ""}. Renew now to resume AI interviews and recruiter visibility.
+                          </p>
+                          <Link
+                            href="/pricing"
+                            onClick={() => setUserMenuOpen(false)}
+                            className="inline-flex w-full items-center justify-center gap-1 py-1.5 px-2 rounded-lg bg-amber-600 hover:bg-amber-700 text-white text-[11px] font-bold transition-all shadow-xs"
+                          >
+                            Renew Pro Subscription →
+                          </Link>
+                        </div>
+                      ) : (
                         <button
                           type="button"
                           onClick={() => {
@@ -525,18 +578,13 @@ export function Navbar() {
                           className="w-full flex items-center justify-between rounded-xl px-3 py-2 text-xs font-bold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 transition-colors mb-1 text-left"
                         >
                           <span className="flex items-center gap-1.5">
-                            <Crown className="h-4 w-4 text-amber-500" />
+                            <Zap className="h-4 w-4 text-amber-500 fill-amber-500" />
                             Upgrade to Pro
                           </span>
                           <span className="text-[10px] bg-emerald-600 text-white px-1.5 py-0.5 rounded font-bold">
-                            ₹299
+                            Plans
                           </span>
                         </button>
-                      ) : (
-                        <div className="flex items-center gap-1.5 px-3 py-1.5 mb-1 rounded-xl bg-amber-50 text-[11px] font-bold text-amber-800 border border-amber-200">
-                          <Crown className="h-3.5 w-3.5 text-amber-600" />
-                          <span>Role Nest Pro Member</span>
-                        </div>
                       )}
 
                       <Link
@@ -874,6 +922,23 @@ export function Navbar() {
                   <div className="px-3 py-1 text-xs text-slate-500">
                     Signed in as <strong>{user.email}</strong>
                   </div>
+                  {isExpired && (
+                    <div className="mx-1 my-2 p-2.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-950 space-y-1">
+                      <div className="flex items-center gap-1 text-xs font-bold text-amber-900">
+                        <span>⚠️ Pro Subscription Ended</span>
+                      </div>
+                      <p className="text-[11px] text-amber-800 leading-snug">
+                        Your Pro access expired. Renew now to resume AI practice &amp; recruiter visibility.
+                      </p>
+                      <Link
+                        href="/pricing"
+                        onClick={() => setIsOpen(false)}
+                        className="mt-1 flex items-center justify-center py-1.5 px-3 rounded-lg bg-amber-600 text-white font-bold text-xs shadow-xs"
+                      >
+                        Renew Pro Subscription →
+                      </Link>
+                    </div>
+                  )}
                   <Link
                     href="/applications"
                     onClick={() => setIsOpen(false)}

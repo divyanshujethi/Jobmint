@@ -4,17 +4,14 @@ import Link from "next/link";
 import { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
-import { APP_CONFIG, UserRole } from "@repo/shared";
+import { APP_CONFIG } from "@repo/shared";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import {
   GraduationCap,
   Building2,
   ShieldCheck,
   Loader2,
-  Sparkles,
   ArrowRight,
-  Code2,
-  Briefcase,
 } from "lucide-react";
 
 function LoginForm() {
@@ -30,10 +27,6 @@ function LoginForm() {
   });
 
   const [activeProvider, setActiveProvider] = useState<string | null>(null);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [isEmailLoading, setIsEmailLoading] = useState(false);
-  const [authError, setAuthError] = useState<string | null>(null);
 
   const handleOAuthSignIn = async (provider: string) => {
     setActiveProvider(provider);
@@ -45,38 +38,8 @@ function LoginForm() {
     }
   };
 
-  const handleEmailSignIn = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email || !password) {
-      setAuthError("Please enter both email and password.");
-      return;
-    }
-    setAuthError(null);
-    setIsEmailLoading(true);
-
-    try {
-      const res = await signIn("credentials", {
-        email: email.trim().toLowerCase(),
-        password,
-        redirect: false,
-        callbackUrl,
-      });
-
-      if (res?.error) {
-        setAuthError("Invalid email or password. Please verify your credentials or reset your password.");
-        setIsEmailLoading(false);
-      } else {
-        window.location.href = callbackUrl;
-      }
-    } catch (err: any) {
-      setAuthError(err.message || "Sign in failed. Please try again.");
-      setIsEmailLoading(false);
-    }
-  };
-
   return (
     <div className="flex min-h-[82vh] flex-col items-center justify-center px-4 py-10">
-      
       {/* Recruiter Switcher Banner */}
       <div className="mb-6 w-full max-w-md">
         <Link
@@ -129,7 +92,7 @@ function LoginForm() {
               Peer Invite Active ({refCode})
             </div>
             <div className="text-[11px] text-emerald-700">
-              Sign in with Google, GitHub, or Email to activate your account with 1 Free Streak Freeze & +50 bonus XP!
+              Sign in with Google, GitHub, LinkedIn, or Microsoft to activate your account with 1 Free Streak Freeze &amp; +50 bonus XP!
             </div>
           </div>
         </div>
@@ -138,97 +101,27 @@ function LoginForm() {
       <Card className="w-full max-w-md border-slate-200/90 shadow-xl bg-white">
         <CardHeader className="text-center space-y-2 pb-4">
           <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-500 text-white font-black text-xl shadow-md">
-            J
+            R
           </div>
           <div className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 border border-emerald-200 px-3 py-0.5 text-[11px] font-bold text-emerald-800 mx-auto">
             <GraduationCap className="h-3.5 w-3.5 text-emerald-600" />
-            Candidate & Student Portal
+            Candidate &amp; Student Portal
           </div>
           <CardTitle className="text-2xl font-bold tracking-tight text-slate-900">
             Sign in to {APP_CONFIG.name}
           </CardTitle>
           <CardDescription className="text-xs text-slate-500">
-            Enter your credentials or choose one-click developer login
+            Direct one-click sign in with your verified profile
           </CardDescription>
         </CardHeader>
 
         <CardContent className="space-y-4">
-          {/* EMAIL & PASSWORD LOGIN FORM */}
-          <form onSubmit={handleEmailSignIn} className="space-y-3">
-            {authError && (
-              <div className="rounded-xl border border-rose-200 bg-rose-50 p-3 text-xs text-rose-700">
-                {authError}
-              </div>
-            )}
-
-            <div className="space-y-1">
-              <label className="text-[11px] font-semibold text-slate-700">Email Address</label>
-              <input
-                type="email"
-                required
-                autoComplete="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="you@example.com"
-                className="w-full px-3.5 py-2 rounded-xl border border-slate-200 bg-slate-50/50 text-sm focus:border-emerald-600 focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-600 text-slate-900 transition-all placeholder:text-slate-400"
-              />
-            </div>
-
-            <div className="space-y-1">
-              <div className="flex items-center justify-between">
-                <label className="text-[11px] font-semibold text-slate-700">Password</label>
-                <Link
-                  href="/forgot-password"
-                  className="text-[11px] font-medium text-emerald-600 hover:text-emerald-700 hover:underline"
-                >
-                  Forgot password?
-                </Link>
-              </div>
-              <input
-                type="password"
-                required
-                autoComplete="current-password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
-                className="w-full px-3.5 py-2 rounded-xl border border-slate-200 bg-slate-50/50 text-sm focus:border-emerald-600 focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-600 text-slate-900 transition-all"
-              />
-            </div>
-
-            <button
-              type="submit"
-              disabled={isEmailLoading || activeProvider !== null}
-              className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 active:scale-[0.99] text-white text-sm font-semibold shadow-sm transition-all disabled:opacity-60"
-            >
-              {isEmailLoading ? (
-                <>
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                  <span>Signing in...</span>
-                </>
-              ) : (
-                <span>Sign in with Email</span>
-              )}
-            </button>
-          </form>
-
-          {/* DIVIDER */}
-          <div className="relative my-2">
-            <div className="absolute inset-0 flex items-center">
-              <span className="w-full border-t border-slate-200" />
-            </div>
-            <div className="relative flex justify-center text-[10px] uppercase tracking-wider">
-              <span className="bg-white px-3 text-slate-400 font-semibold">
-                Or continue with
-              </span>
-            </div>
-          </div>
-
-          {/* OAUTH PROVIDERS */}
+          {/* DIRECT OAUTH PROVIDERS ONLY */}
           <div className="space-y-2.5">
             {/* GOOGLE */}
             <button
               type="button"
-              disabled={activeProvider !== null || isEmailLoading}
+              disabled={activeProvider !== null}
               onClick={() => handleOAuthSignIn("google")}
               className="w-full flex items-center justify-center gap-3 px-4 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 hover:border-slate-300 font-medium text-sm text-slate-700 transition-all shadow-sm active:scale-[0.99] disabled:opacity-60"
             >
@@ -315,7 +208,7 @@ function LoginForm() {
           <div className="flex items-center gap-2 rounded-xl bg-slate-50 p-3 text-[11px] text-slate-500 border border-slate-100">
             <ShieldCheck className="h-4 w-4 text-emerald-600 shrink-0" />
             <span>
-              Zero passwords to memorize. One-click verified login with automated ATS resume sync.
+              Zero passwords to memorize. Direct one-click login with automatic ATS sync.
             </span>
           </div>
         </CardContent>
@@ -343,6 +236,7 @@ function LoginForm() {
     </div>
   );
 }
+
 export default function LoginPage() {
   return (
     <Suspense fallback={<div className="flex min-h-[82vh] items-center justify-center text-xs font-mono text-slate-400">Loading sign in...</div>}>
