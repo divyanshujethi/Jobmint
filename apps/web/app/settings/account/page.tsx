@@ -14,6 +14,12 @@ import {
   UserCheck,
   ShieldCheck,
   Lock,
+  Phone,
+  Mail,
+  Crown,
+  Save,
+  Loader2,
+  Sparkles,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
@@ -26,6 +32,14 @@ export default function AccountSettingsPage() {
   const [error, setError] = useState<string | null>(null);
   const [exportSuccess, setExportSuccess] = useState(false);
 
+  // Profile details state
+  const [profile, setProfile] = useState<any>(null);
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [isUpdatingProfile, setIsUpdatingProfile] = useState(false);
+  const [profileSuccess, setProfileSuccess] = useState(false);
+  const [profileError, setProfileError] = useState<string | null>(null);
+
   // DPDP Section 14 Nominee state
   const [nomineeName, setNomineeName] = useState("");
   const [nomineeEmail, setNomineeEmail] = useState("");
@@ -35,6 +49,17 @@ export default function AccountSettingsPage() {
   const [isAdultAffirmed, setIsAdultAffirmed] = useState(true);
 
   useEffect(() => {
+    fetch("/api/account/profile")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success && data.profile) {
+          setProfile(data.profile);
+          setName(data.profile.name || "");
+          setPhone(data.profile.phone || "");
+        }
+      })
+      .catch((err) => console.error("Error loading profile:", err));
+
     const savedNominee = localStorage.getItem("jobmint_dpdp_nominee");
     if (savedNominee) {
       try {
@@ -80,6 +105,33 @@ export default function AccountSettingsPage() {
     );
     setNomineeSaved(true);
     setTimeout(() => setNomineeSaved(false), 3000);
+  };
+
+  const handleUpdateProfile = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsUpdatingProfile(true);
+    setProfileSuccess(false);
+    setProfileError(null);
+    try {
+      const res = await fetch("/api/account/profile", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: name.trim(),
+          phone: phone.trim(),
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to update profile");
+      }
+      setProfileSuccess(true);
+      setTimeout(() => setProfileSuccess(false), 3000);
+    } catch (err: any) {
+      setProfileError(err.message || "Failed to save profile changes");
+    } finally {
+      setIsUpdatingProfile(false);
+    }
   };
 
   const handleDeleteAccount = async () => {
@@ -131,6 +183,174 @@ export default function AccountSettingsPage() {
             Exercise your statutory rights under Sections 11, 12, and 14 of the Indian Digital Personal Data Protection Act, 2023.
           </p>
         </div>
+
+        {/* PERSONAL PROFILE & CONTACT INFO */}
+        <Card className="border-slate-200 shadow-sm">
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <CardTitle className="text-base font-bold text-slate-900 flex items-center gap-2">
+                <User className="h-4 w-4 text-emerald-600" />
+                Personal Profile &amp; Contact Details
+              </CardTitle>
+              {profile?.isPro ? (
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-600 text-xs font-bold">
+                  <Crown className="h-3.5 w-3.5 fill-amber-500" />
+                  Pro Member
+                </span>
+              ) : (
+                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-600 text-xs font-semibold">
+                  Standard Account
+                </span>
+              )}
+            </div>
+            <CardDescription className="text-xs">
+              Manage your personal identification and communication channels used across applications and recruiter outreach.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleUpdateProfile} className="space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {/* Full Name */}
+                <div className="space-y-1.5">
+                  <label className="text-xs font-semibold text-slate-700 flex items-center gap-1.5">
+                    <User className="h-3.5 w-3.5 text-slate-400" />
+                    Full Name
+                  </label>
+                  <Input
+                    type="text"
+                    required
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="e.g. Aditya Sharma"
+                    className="text-xs h-9 bg-white"
+                  />
+                  <p className="text-[10px] text-slate-400">Displayed on your applications and verified certificates.</p>
+                </div>
+
+                {/* Email Address */}
+                <div className="space-y-1.5">
+                  <label className="text-xs font-semibold text-slate-700 flex items-center justify-between">
+                    <span className="flex items-center gap-1.5">
+                      <Mail className="h-3.5 w-3.5 text-slate-400" />
+                      Email Address
+                    </span>
+                    {profile?.emailVerified ? (
+                      <span className="text-[10px] font-bold text-emerald-600 flex items-center gap-0.5">
+                        <CheckCircle2 className="h-3 w-3" /> Verified
+                      </span>
+                    ) : (
+                      <span className="text-[10px] text-amber-600">Pending Verification</span>
+                    )}
+                  </label>
+                  <Input
+                    type="email"
+                    disabled
+                    value={profile?.email || ""}
+                    className="text-xs h-9 bg-slate-100 text-slate-600 cursor-not-allowed font-mono"
+                  />
+                  <p className="text-[10px] text-slate-400">Account login ID (cannot be changed).</p>
+                </div>
+
+                {/* Phone Number */}
+                <div className="space-y-1.5 sm:col-span-2">
+                  <label className="text-xs font-semibold text-slate-700 flex items-center gap-1.5">
+                    <Phone className="h-3.5 w-3.5 text-slate-400" />
+                    Phone Number (WhatsApp / SMS)
+                  </label>
+                  <div className="flex gap-2">
+                    <div className="flex items-center px-3 rounded-md border border-slate-200 bg-slate-100 text-xs font-semibold text-slate-600 select-none h-9">
+                      +91
+                    </div>
+                    <Input
+                      type="tel"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value.replace(/\D/g, "").slice(0, 10))}
+                      placeholder="9876543210"
+                      maxLength={10}
+                      className="text-xs h-9 bg-white font-mono flex-1"
+                    />
+                  </div>
+                  <p className="text-[10px] text-slate-400">
+                    Used for interview schedules, real-time recruiter notifications, and WhatsApp updates.
+                  </p>
+                </div>
+              </div>
+
+              {/* Membership Status Callout */}
+              <div className="rounded-xl border border-slate-100 bg-slate-50 p-3.5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
+                <div>
+                  <div className="font-bold text-slate-800 flex items-center gap-1.5">
+                    {profile?.isPro ? (
+                      <>
+                        <Crown className="h-4 w-4 text-amber-500 fill-amber-500" />
+                        <span>Role Nest Pro Active</span>
+                      </>
+                    ) : (
+                      <>
+                        <Sparkles className="h-4 w-4 text-slate-500" />
+                        <span>Free Community Membership</span>
+                      </>
+                    )}
+                  </div>
+                  <p className="text-[11px] text-slate-500 mt-0.5">
+                    {profile?.isPro
+                      ? profile?.proExpiresAt
+                        ? `Valid until ${new Date(profile.proExpiresAt).toLocaleDateString("en-IN", {
+                            day: "numeric",
+                            month: "short",
+                            year: "numeric",
+                          })}`
+                        : "Lifetime Pro Access Active"
+                      : "Upgrade to Pro to unlock direct recruiter referrals, AI auto-apply, and priority ranking."}
+                  </p>
+                </div>
+                {!profile?.isPro && (
+                  <Link
+                    href="/pricing"
+                    className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-sm transition-all whitespace-nowrap"
+                  >
+                    <Crown className="h-3.5 w-3.5" />
+                    Upgrade to Pro
+                  </Link>
+                )}
+              </div>
+
+              {/* Feedback States */}
+              {profileSuccess && (
+                <div className="p-3 rounded-lg bg-emerald-50 border border-emerald-200 text-xs font-semibold text-emerald-800 flex items-center gap-2">
+                  <CheckCircle2 className="h-4 w-4 text-emerald-600 flex-shrink-0" />
+                  Profile and contact details saved successfully!
+                </div>
+              )}
+              {profileError && (
+                <div className="p-3 rounded-lg bg-red-50 border border-red-200 text-xs font-semibold text-red-800 flex items-center gap-2">
+                  <AlertTriangle className="h-4 w-4 text-red-600 flex-shrink-0" />
+                  {profileError}
+                </div>
+              )}
+
+              <div className="pt-2 flex justify-end">
+                <Button
+                  type="submit"
+                  disabled={isUpdatingProfile}
+                  className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs gap-1.5 rounded-xl h-9 shadow-sm"
+                >
+                  {isUpdatingProfile ? (
+                    <>
+                      <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                      Saving Profile...
+                    </>
+                  ) : (
+                    <>
+                      <Save className="h-3.5 w-3.5" />
+                      Save Changes
+                    </>
+                  )}
+                </Button>
+              </div>
+            </form>
+          </CardContent>
+        </Card>
 
         {/* 1. DATA PORTABILITY & ACCESS (DPDP SECTION 11) */}
         <Card className="border-slate-200 shadow-sm">

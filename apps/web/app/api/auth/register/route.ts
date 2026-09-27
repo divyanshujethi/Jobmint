@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db, users, verificationTokens, eq } from "@repo/database";
+import { db, users, candidateProfiles, verificationTokens, eq } from "@repo/database";
 import { sendEmail, candidateWelcomeConfirmationTemplate } from "@repo/email";
 import { hashPassword } from "@/lib/password";
 import crypto from "node:crypto";
@@ -7,7 +7,7 @@ import crypto from "node:crypto";
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { email, password, name, role } = body;
+    const { email, password, name, phone, role } = body;
 
     if (!email || !password) {
       return NextResponse.json(
@@ -30,6 +30,8 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
     }
+
+    const cleanPhone = phone ? String(phone).replace(/\D/g, "").slice(-10) : null;
 
     // Check if user already exists
     const existingUsers = await db
@@ -58,6 +60,7 @@ export async function POST(req: NextRequest) {
         .set({
           passwordHash,
           name: existing.name || displayName,
+          phone: cleanPhone || existing.phone,
           updatedAt: new Date(),
         })
         .where(eq(users.id, existing.id));
@@ -68,12 +71,37 @@ export async function POST(req: NextRequest) {
         .values({
           email: normalizedEmail,
           name: displayName,
+          phone: cleanPhone,
           passwordHash,
           role: userRole,
           emailVerified: null,
         })
         .returning();
       userId = newUser.id;
+    }
+
+    if (cleanPhone && userRole === "CANDIDATE") {
+      try {
+        const [existingProfile] = await db
+          .select({ id: candidateProfiles.id })
+          .from(candidateProfiles)
+          .where(eq(candidateProfiles.userId, userId))
+          .limit(1);
+
+        if (existingProfile) {
+          await db
+            .update(candidateProfiles)
+            .set({ phone: cleanPhone, updatedAt: new Date() })
+            .where(eq(candidateProfiles.id, existingProfile.id));
+        } else {
+          await db.insert(candidateProfiles).values({
+            userId,
+            phone: cleanPhone,
+          });
+        }
+      } catch (profileErr) {
+        console.warn("[Register Profile Sync Warning]:", profileErr);
+      }
     }
 
     // Generate secure one-time verification token
