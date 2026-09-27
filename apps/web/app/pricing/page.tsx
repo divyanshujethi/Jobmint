@@ -24,7 +24,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { openCashfreeCheckout } from "@/components/cashfree-provider";
 
-type BillingCycle = "monthly" | "quarterly" | "annual";
+type BillingCycle = "test" | "monthly" | "quarterly" | "annual";
 
 export default function PricingPage() {
   const [sessionUser, setSessionUser] = useState<any>(null);
@@ -57,11 +57,13 @@ export default function PricingPage() {
       return;
     }
     const planKey =
-      billingCycle === "annual"
-        ? "pro_annual"
-        : billingCycle === "quarterly"
-          ? "pro_quarterly"
-          : "pro";
+      billingCycle === "test"
+        ? "test_10"
+        : billingCycle === "annual"
+          ? "pro_annual"
+          : billingCycle === "quarterly"
+            ? "pro_quarterly"
+            : "pro";
     openCashfreeCheckout({
       plan: planKey,
     });
@@ -89,6 +91,7 @@ export default function PricingPage() {
 
   // Pricing calculations per cycle
   const proPricing = {
+    test: { price: "₹10", period: "/ 7 days", subtext: "Quick verification • 7 days full Pro access", saveTag: "🧪 10 Rs Live Test" },
     monthly: { price: "₹499", period: "/ month", subtext: "Billed monthly • Cancel anytime", saveTag: null },
     quarterly: { price: "₹1,199", period: "/ 3 months", subtext: "Equivalent to ₹399/mo • Save 20%", saveTag: "Save 20% • Most Popular" },
     annual: { price: "₹3,999", period: "/ year", subtext: "Equivalent to ₹333/mo • Save 33%", saveTag: "Save 33% • Best Value" },
@@ -96,7 +99,7 @@ export default function PricingPage() {
 
   return (
     <div className="min-h-screen bg-slate-50/50 py-16 px-4 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-6xl space-y-16">
+      <div className="mx-auto max-w-7xl space-y-16">
         {/* Header */}
         <div className="text-center space-y-4 max-w-2xl mx-auto">
           <div className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 border border-emerald-200 px-3.5 py-1 text-xs font-bold text-emerald-800">
@@ -110,28 +113,6 @@ export default function PricingPage() {
           </p>
         </div>
 
-        {/* DEVELOPER TESTING BANNER: ₹10 LIVE TEST CHECKOUT */}
-        <div className="rounded-2xl border-2 border-dashed border-emerald-500/50 bg-emerald-50/80 p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xs">
-          <div className="space-y-1 text-center sm:text-left">
-            <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-600 text-white font-mono text-[10px] font-black uppercase tracking-wider">
-              🧪 Live Gateway Testing
-            </div>
-            <h4 className="text-sm font-bold text-slate-900">
-              ₹10 Live Test Payment (Instant UPI &amp; Cards)
-            </h4>
-            <p className="text-xs text-slate-600">
-              Test real end-to-end UPI money transfer via PhonePe, GPay, Paytm, or cards with a minimal ₹10 charge. Activates 7 days of Pro status.
-            </p>
-          </div>
-          <Button
-            onClick={handleTestCheckout}
-            className="shrink-0 bg-emerald-700 hover:bg-emerald-600 text-white font-bold text-xs h-9 px-5 shadow-sm"
-          >
-            <Zap className="h-3.5 w-3.5 mr-1 text-amber-300" />
-            Test Live Payment (₹10)
-          </Button>
-        </div>
-
         {/* Section 1: Candidates */}
         <div className="space-y-8">
           <div className="text-center space-y-3">
@@ -139,7 +120,18 @@ export default function PricingPage() {
             <p className="text-xs text-slate-500">Master technical interviews, optimize your resume ATS score, and apply directly to verified founders.</p>
 
             {/* Billing Cycle Switcher */}
-            <div className="inline-flex items-center rounded-2xl bg-white p-1.5 border border-slate-200 shadow-sm gap-1">
+            <div className="inline-flex flex-wrap items-center justify-center rounded-2xl bg-white p-1.5 border border-slate-200 shadow-sm gap-1">
+              <button
+                onClick={() => setBillingCycle("test")}
+                className={`flex items-center gap-1 rounded-xl px-3.5 py-1.5 text-xs font-bold transition-all ${
+                  billingCycle === "test"
+                    ? "bg-amber-500 text-slate-950 shadow-xs font-black"
+                    : "text-amber-800 bg-amber-50 hover:bg-amber-100"
+                }`}
+              >
+                <Zap className="h-3 w-3 fill-current" />
+                <span>₹10 Test Plan</span>
+              </button>
               <button
                 onClick={() => setBillingCycle("monthly")}
                 className={`rounded-xl px-4 py-1.5 text-xs font-bold transition-all ${
@@ -179,8 +171,8 @@ export default function PricingPage() {
             </div>
           </div>
 
-          {/* Candidate Plan Cards: 3 Honest, High-Value Variants */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Candidate Plan Cards: 4 Variants (including ₹10 Test Plan) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Variant 1: Free Community */}
             <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm flex flex-col justify-between hover:border-slate-300 transition-all">
               <div className="space-y-5">
@@ -211,7 +203,7 @@ export default function PricingPage() {
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
-                    <span>Interactive DSA &amp; system design study canvas</span>
+                    <span>Interactive DSA study canvas</span>
                   </li>
                 </ul>
               </div>
@@ -221,6 +213,54 @@ export default function PricingPage() {
                     Get Started Free
                   </Button>
                 </Link>
+              </div>
+            </div>
+
+            {/* Variant 2: ₹10 LIVE TEST PASS */}
+            <div className="relative rounded-3xl border-2 border-amber-400 bg-amber-50/40 p-6 shadow-sm flex flex-col justify-between hover:border-amber-500 transition-all">
+              <div className="absolute -top-3 right-4 rounded-full bg-amber-500 px-2.5 py-0.5 text-[9px] font-extrabold uppercase tracking-wider text-slate-950 shadow-sm flex items-center gap-1">
+                <Zap className="h-3 w-3 fill-slate-950" /> Live Gateway Test
+              </div>
+              <div className="space-y-5">
+                <div>
+                  <h3 className="text-lg font-bold text-slate-900">7-Day Test Pass</h3>
+                  <p className="text-xs text-slate-500 mt-1">Live UPI payment test with real account Pro activation.</p>
+                </div>
+                <div className="flex items-baseline gap-1">
+                  <span className="text-3xl font-black text-slate-900">₹10</span>
+                  <span className="text-xs text-slate-500 font-semibold">/ 7 days</span>
+                </div>
+                <ul className="space-y-2.5 text-xs text-slate-700">
+                  <li className="flex items-start gap-2">
+                    <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <span><strong>Full 7 days of Role Nest Pro</strong></span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <span>Instant UPI (GPay, PhonePe, Paytm, QR)</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <span>AI ATS Resume Matcher &amp; gap analysis</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <span>Verified Pro Candidate badge</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <span>Truth Teller response tracking</span>
+                  </li>
+                </ul>
+              </div>
+              <div className="pt-6">
+                <Button
+                  onClick={handleTestCheckout}
+                  className="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs h-10 shadow-sm"
+                >
+                  <CreditCard className="h-3.5 w-3.5 mr-1.5" />
+                  Pay ₹10 (Test UPI)
+                </Button>
               </div>
             </div>
 
