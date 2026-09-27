@@ -304,13 +304,21 @@ export default function AccountSettingsPage() {
                       : "Upgrade to Pro to unlock direct recruiter referrals, AI auto-apply, and priority ranking."}
                   </p>
                 </div>
-                {!profile?.isPro && (
+                {!profile?.isPro ? (
                   <Link
                     href="/pricing"
                     className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-sm transition-all whitespace-nowrap"
                   >
                     <Crown className="h-3.5 w-3.5" />
                     Upgrade to Pro
+                  </Link>
+                ) : (
+                  <Link
+                    href="/pricing"
+                    className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow-sm transition-all whitespace-nowrap"
+                  >
+                    <Crown className="h-3.5 w-3.5 fill-slate-950" />
+                    Extend / Upgrade Plan →
                   </Link>
                 )}
               </div>

@@ -20,8 +20,12 @@ import {
   Gift,
   Flame,
   CheckCircle2,
+  Phone,
+  X,
+  Loader2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { openCashfreeCheckout } from "@/components/cashfree-provider";
 
 type BillingCycle = "test" | "monthly" | "quarterly" | "annual";
@@ -29,7 +33,16 @@ type BillingCycle = "test" | "monthly" | "quarterly" | "annual";
 export default function PricingPage() {
   const [sessionUser, setSessionUser] = useState<any>(null);
   const [isPro, setIsPro] = useState(false);
+  const [proExpiresAt, setProExpiresAt] = useState<string | null>(null);
+  const [userPhone, setUserPhone] = useState("");
   const [billingCycle, setBillingCycle] = useState<BillingCycle>("quarterly");
+
+  // Phone confirmation modal state if user has no phone saved
+  const [isPhoneModalOpen, setIsPhoneModalOpen] = useState(false);
+  const [pendingPlan, setPendingPlan] = useState<string | null>(null);
+  const [inputPhone, setInputPhone] = useState("");
+  const [phoneError, setPhoneError] = useState<string | null>(null);
+  const [isSubmittingCheckout, setIsSubmittingCheckout] = useState(false);
 
   useEffect(() => {
     fetch("/api/auth/session")
@@ -41,21 +54,74 @@ export default function PricingPage() {
       })
       .catch(() => {});
 
-    fetch("/api/user/pro-status")
+    fetch("/api/account/profile")
       .then((res) => res.json())
       .then((data) => {
-        if (data?.isPro) {
-          setIsPro(true);
+        if (data?.success && data?.profile) {
+          setIsPro(Boolean(data.profile.isPro));
+          setProExpiresAt(data.profile.proExpiresAt || null);
+          if (data.profile.phone) {
+            setUserPhone(data.profile.phone);
+            setInputPhone(data.profile.phone);
+          }
         }
       })
-      .catch(() => {});
+      .catch(() => {
+        fetch("/api/user/pro-status")
+          .then((res) => res.json())
+          .then((data) => {
+            if (data?.isPro) {
+              setIsPro(true);
+              setProExpiresAt(data.proExpiresAt || null);
+            }
+          })
+          .catch(() => {});
+      });
   }, []);
 
-  const handleProCheckout = () => {
+  const initiatePlanCheckout = (planKey: string) => {
     if (!sessionUser) {
       window.location.href = `/login?callbackUrl=${encodeURIComponent("/pricing")}`;
       return;
     }
+
+    const cleanPhone = (userPhone || inputPhone).replace(/\D/g, "").slice(-10);
+    if (cleanPhone.length === 10) {
+      openCashfreeCheckout({
+        plan: planKey as any,
+        phone: cleanPhone,
+      });
+    } else {
+      setPendingPlan(planKey);
+      setPhoneError(null);
+      setIsPhoneModalOpen(true);
+    }
+  };
+
+  const handleConfirmPhoneAndPay = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const clean = inputPhone.replace(/\D/g, "").slice(-10);
+    if (clean.length !== 10) {
+      setPhoneError("Please enter a valid 10-digit Indian mobile number.");
+      return;
+    }
+    setPhoneError(null);
+    setIsSubmittingCheckout(true);
+    setUserPhone(clean);
+    setIsPhoneModalOpen(false);
+
+    try {
+      await openCashfreeCheckout({
+        plan: (pendingPlan || "pro") as any,
+        phone: clean,
+      });
+    } finally {
+      setIsSubmittingCheckout(false);
+      setPendingPlan(null);
+    }
+  };
+
+  const handleProCheckout = () => {
     const planKey =
       billingCycle === "test"
         ? "test_10"
@@ -64,29 +130,15 @@ export default function PricingPage() {
           : billingCycle === "quarterly"
             ? "pro_quarterly"
             : "pro";
-    openCashfreeCheckout({
-      plan: planKey,
-    });
+    initiatePlanCheckout(planKey);
   };
 
   const handleFeaturedCheckout = () => {
-    if (!sessionUser) {
-      window.location.href = `/login?callbackUrl=${encodeURIComponent("/pricing")}`;
-      return;
-    }
-    openCashfreeCheckout({
-      plan: "featured_job",
-    });
+    initiatePlanCheckout("featured_job");
   };
 
   const handleTestCheckout = () => {
-    if (!sessionUser) {
-      window.location.href = `/login?callbackUrl=${encodeURIComponent("/pricing")}`;
-      return;
-    }
-    openCashfreeCheckout({
-      plan: "test_10",
-    });
+    initiatePlanCheckout("test_10");
   };
 
   // Pricing calculations per cycle
@@ -259,7 +311,7 @@ export default function PricingPage() {
                   className="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs h-10 shadow-sm"
                 >
                   <CreditCard className="h-3.5 w-3.5 mr-1.5" />
-                  Pay ₹10 (Test UPI)
+                  {isPro ? "Extend 7 Days (₹10 Test)" : "Pay ₹10 (Test UPI)"}
                 </Button>
               </div>
             </div>
@@ -307,19 +359,21 @@ export default function PricingPage() {
                 </ul>
               </div>
               <div className="pt-6 space-y-2">
-                {isPro ? (
-                  <Button disabled className="w-full bg-emerald-100 text-emerald-800 font-bold text-xs">
-                    ✓ Role Nest Pro Active
-                  </Button>
-                ) : (
-                  <Button
-                    onClick={handleProCheckout}
-                    className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs h-10 shadow-md shadow-emerald-600/25"
-                  >
-                    <CreditCard className="h-3.5 w-3.5 mr-1.5" />
-                    Upgrade to Pro — {proPricing.price}
-                  </Button>
+                {isPro && proExpiresAt && (
+                  <div className="rounded-xl border border-emerald-200 bg-emerald-50/80 p-2.5 text-center text-xs text-emerald-900 font-semibold">
+                    👑 Pro Active until {new Date(proExpiresAt).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}
+                    <p className="text-[10px] text-emerald-700 font-normal mt-0.5">
+                      Upgrading or extending adds days to your current plan with zero lost time.
+                    </p>
+                  </div>
                 )}
+                <Button
+                  onClick={handleProCheckout}
+                  className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs h-10 shadow-md shadow-emerald-600/25"
+                >
+                  <CreditCard className="h-3.5 w-3.5 mr-1.5" />
+                  {isPro ? `Extend / Upgrade Plan — ${proPricing.price}` : `Upgrade to Pro — ${proPricing.price}`}
+                </Button>
                 <p className="text-[10px] text-center text-slate-400">
                   7-Day Money Back Guarantee • Cancel anytime
                 </p>
@@ -675,6 +729,103 @@ export default function PricingPage() {
           </div>
         </div>
       </div>
+
+      {/* PHONE NUMBER CONFIRMATION MODAL */}
+      {isPhoneModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4 animate-in fade-in duration-200">
+          <div className="relative w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl border border-slate-200 space-y-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2.5">
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-100 text-emerald-700">
+                  <Phone className="h-4 w-4" />
+                </div>
+                <div>
+                  <h3 className="text-base font-bold text-slate-900">Confirm Mobile Number</h3>
+                  <p className="text-[11px] text-slate-500">Required for Cashfree invoice, UPI intent &amp; SMS alerts</p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsPhoneModalOpen(false)}
+                className="rounded-lg p-1.5 text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+
+            <form onSubmit={handleConfirmPhoneAndPay} className="space-y-4">
+              <div className="space-y-1.5">
+                <label className="text-xs font-semibold text-slate-700">
+                  Indian Mobile Number (for UPI Gateway &amp; Receipt)
+                </label>
+                <div className="flex gap-2">
+                  <div className="flex items-center px-3 rounded-xl border border-slate-200 bg-slate-100 text-xs font-bold text-slate-600 select-none h-10">
+                    +91
+                  </div>
+                  <Input
+                    type="tel"
+                    required
+                    autoFocus
+                    value={inputPhone}
+                    onChange={(e) => {
+                      setInputPhone(e.target.value.replace(/\D/g, "").slice(0, 10));
+                      setPhoneError(null);
+                    }}
+                    placeholder="9876543210"
+                    maxLength={10}
+                    className="h-10 text-sm font-mono flex-1 rounded-xl"
+                  />
+                </div>
+                <p className="text-[10px] text-slate-400">
+                  Cashfree will link this number to your UPI apps (GPay, PhonePe, Paytm) and send your payment confirmation.
+                </p>
+                {phoneError && (
+                  <p className="text-xs font-semibold text-rose-600">{phoneError}</p>
+                )}
+              </div>
+
+              <div className="rounded-xl bg-slate-50 border border-slate-100 p-3 text-xs space-y-1 text-slate-600">
+                <div className="flex justify-between">
+                  <span>Selected Plan:</span>
+                  <span className="font-bold text-slate-900 uppercase">{pendingPlan || "Role Nest Pro"}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Payment Gateway:</span>
+                  <span className="font-semibold text-emerald-700">Cashfree Payments (India)</span>
+                </div>
+              </div>
+
+              <div className="flex gap-2 pt-1">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => setIsPhoneModalOpen(false)}
+                  className="w-1/3 text-xs h-10 rounded-xl"
+                >
+                  Cancel
+                </Button>
+                <Button
+                  type="submit"
+                  disabled={isSubmittingCheckout || inputPhone.replace(/\D/g, "").length !== 10}
+                  className="w-2/3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs h-10 rounded-xl shadow-md gap-1.5"
+                >
+                  {isSubmittingCheckout ? (
+                    <>
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                      Opening Gateway...
+                    </>
+                  ) : (
+                    <>
+                      <CreditCard className="h-4 w-4" />
+                      Proceed to Pay →
+                    </>
+                  )}
+                </Button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

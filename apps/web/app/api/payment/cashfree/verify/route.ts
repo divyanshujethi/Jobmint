@@ -39,37 +39,55 @@ export async function GET(req: NextRequest) {
         planName = "featured_job";
       }
 
-      const expiresAt = new Date(Date.now() + durationDays * 24 * 60 * 60 * 1000);
+      // 1. Activate Pro for the candidate with seamless extension/upgrading
+      let expiresAt = new Date(Date.now() + durationDays * 24 * 60 * 60 * 1000);
 
-      // 1. Activate Pro for the candidate
       if (!isFeaturedJob) {
-        if (session?.user?.id) {
-          await db
-            .update(users)
-            .set({
-              isPro: true,
-              proExpiresAt: expiresAt,
-              updatedAt: new Date(),
-            })
-            .where(eq(users.id, session.user.id));
-        } else if (customerId && !customerId.startsWith("guest_")) {
-          await db
-            .update(users)
-            .set({
-              isPro: true,
-              proExpiresAt: expiresAt,
-              updatedAt: new Date(),
-            })
-            .where(eq(users.id, customerId));
+        const targetUserId =
+          session?.user?.id ||
+          (customerId && !customerId.startsWith("guest_") ? customerId : null);
+
+        let existingUser: any = null;
+        if (targetUserId) {
+          const [u] = await db
+            .select({ id: users.id, isPro: users.isPro, proExpiresAt: users.proExpiresAt, phone: users.phone })
+            .from(users)
+            .where(eq(users.id, targetUserId))
+            .limit(1);
+          existingUser = u;
         } else if (customerEmail) {
+          const [u] = await db
+            .select({ id: users.id, isPro: users.isPro, proExpiresAt: users.proExpiresAt, phone: users.phone })
+            .from(users)
+            .where(eq(users.email, customerEmail))
+            .limit(1);
+          existingUser = u;
+        }
+
+        const now = new Date();
+        const baseDate =
+          existingUser?.proExpiresAt && new Date(existingUser.proExpiresAt) > now
+            ? new Date(existingUser.proExpiresAt)
+            : now;
+
+        expiresAt = new Date(baseDate.getTime() + durationDays * 24 * 60 * 60 * 1000);
+
+        if (existingUser?.id) {
+          const updatePayload: Record<string, any> = {
+            isPro: true,
+            proExpiresAt: expiresAt,
+            updatedAt: new Date(),
+          };
+
+          const rawPhone = order.customer_details.customer_phone?.replace(/\D/g, "").slice(-10);
+          if (rawPhone && rawPhone.length === 10 && !existingUser.phone) {
+            updatePayload.phone = rawPhone;
+          }
+
           await db
             .update(users)
-            .set({
-              isPro: true,
-              proExpiresAt: expiresAt,
-              updatedAt: new Date(),
-            })
-            .where(eq(users.email, customerEmail));
+            .set(updatePayload)
+            .where(eq(users.id, existingUser.id));
         }
       }
 
