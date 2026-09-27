@@ -563,8 +563,8 @@ export default function PricingPage() {
           <h2 className="text-2xl font-black text-center text-slate-900">Frequently Asked Questions</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 text-xs text-slate-600">
             <div className="space-y-1.5 p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs">
-              <h4 className="font-bold text-slate-900">How does the 7-day refund guarantee work?</h4>
-              <p>If you subscribe to Role Nest Pro and feel it hasn&apos;t accelerated your preparation, email us within 7 days for a 100% full refund, no questions asked.</p>
+              <h4 className="font-bold text-slate-900">How does the 14-day refund guarantee work?</h4>
+              <p>Every first-time subscriber is covered by our unconditional 14-Day Money-Back Guarantee. If you are not satisfied for any reason, email support@rolenest.in or help@paddle.com within 14 days for a 100% full refund.</p>
             </div>
             <div className="space-y-1.5 p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs">
               <h4 className="font-bold text-slate-900">What payment methods are supported in India?</h4>
@@ -577,6 +577,24 @@ export default function PricingPage() {
             <div className="space-y-1.5 p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs">
               <h4 className="font-bold text-slate-900">What is the difference between Free and Pro AI usage?</h4>
               <p>Free users get 2 try-outs of the AI ATS Matcher and Mock Interviewer. Pro users unlock unlimited mock technical interviews, AI resume bullet tailoring, and direct recruiter contact.</p>
+            </div>
+          </div>
+
+          {/* PADDLE MERCHANT OF RECORD MANDATORY DISCLOSURE */}
+          <div className="rounded-2xl border border-emerald-500/30 bg-emerald-50/70 p-5 text-center space-y-2 text-xs text-emerald-900">
+            <p className="font-medium">
+              Our order process is conducted by our online reseller <strong>Paddle.com</strong>. Paddle.com is the Merchant of Record for all our orders. Paddle provides all customer service inquiries and handles returns.
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-4 text-[11px] text-emerald-700 pt-2 border-t border-emerald-200/60">
+              <Link href="/terms" className="hover:underline font-semibold">Terms of Service</Link>
+              <span>•</span>
+              <Link href="/privacy" className="hover:underline font-semibold">Privacy Policy</Link>
+              <span>•</span>
+              <Link href="/refund" className="hover:underline font-semibold">Refund Policy</Link>
+              <span>•</span>
+              <Link href="/cancellation" className="hover:underline font-semibold">Cancellation Policy</Link>
+              <span>•</span>
+              <a href="mailto:support@rolenest.in" className="hover:underline font-semibold">support@rolenest.in</a>
             </div>
           </div>
         </div>
