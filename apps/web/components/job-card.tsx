@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { ShieldCheck, Bookmark, ArrowRight, Clock, MapPin, Sparkles } from "lucide-react";
+import { ShieldCheck, Bookmark, ArrowRight, Clock, MapPin, Sparkles, ExternalLink } from "lucide-react";
 import { MockJob } from "@/lib/mock-jobs";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
@@ -176,6 +176,18 @@ export function JobCard({ job }: JobCardProps) {
         </div>
 
         <div className="flex items-center gap-2">
+          {job.sourceUrl && (
+            <a
+              href={job.sourceUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs px-3 py-2 shadow-xs transition-colors shrink-0"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <span>Apply Official</span>
+              <ExternalLink className="h-3 w-3" />
+            </a>
+          )}
           <Link href={`/jobs/${job.slug}`} className="w-full sm:w-auto">
             <Button size="sm" variant="outline" className="w-full sm:w-auto text-xs font-semibold gap-1">
               View & Match <ArrowRight className="h-3 w-3" />

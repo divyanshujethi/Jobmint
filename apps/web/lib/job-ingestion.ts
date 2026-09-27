@@ -155,7 +155,7 @@ export async function persistCrawledJobs(crawledJobs: RawCrawledJob[]): Promise<
         workMode: job.workMode,
         location: job.location || "Remote",
         salaryOrStipend: job.salaryOrStipend || "Competitive (Official)",
-        experienceYears: 0,
+        experienceYears: job.experienceYears ?? 0,
         description: job.description,
         requirements:
           job.rawRequirements ||
