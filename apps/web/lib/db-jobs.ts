@@ -89,10 +89,11 @@ export async function getLiveJobs(): Promise<MockJob[]> {
 
     const formattedJobs = rawJobs.map((j) => {
       const skillData = skillsByJobId.get(j.id) || { names: ["TypeScript", "React"], slugs: ["typescript", "react"] };
-      const totalApps = parseInt(j.totalApplications || "0", 10) || 120;
-      const reviewedApps = parseInt(j.reviewedApplications || "0", 10) || 105;
-      const reviewRate = Math.round((reviewedApps / Math.max(totalApps, 1)) * 100);
-      const medianDays = parseFloat(j.medianFirstReviewDays || "2.1") || 2.1;
+      const isExternal = Boolean(j.sourceUrl);
+      const totalApps = parseInt(j.totalApplications || "0", 10);
+      const reviewedApps = parseInt(j.reviewedApplications || "0", 10);
+      const reviewRate = totalApps > 0 ? Math.round((reviewedApps / totalApps) * 100) : 0;
+      const medianDays = parseFloat(j.medianFirstReviewDays || "0") || 0;
 
       return {
         id: j.id,
@@ -129,11 +130,17 @@ export async function getLiveJobs(): Promise<MockJob[]> {
         postedAgo: formatTimeAgo(j.createdAt),
         postedAt: j.createdAt.toISOString(),
         truthTeller: {
+          isExternal,
+          channel: isExternal ? (j.source || "OFFICIAL_CAREERS") : "DIRECT_ROLENEST",
           totalApplications: totalApps,
           reviewedApplications: reviewedApps,
           reviewRate,
           medianFirstReviewDays: medianDays,
-          lastRecruiterActivity: `Active ${Math.min((totalApps % 6) + 1, 5)} hours ago`,
+          lastRecruiterActivity: isExternal
+            ? "Verified Direct Career Portal"
+            : totalApps > 0
+              ? `Active recently`
+              : "Direct Role Nest Application",
         },
       };
     });

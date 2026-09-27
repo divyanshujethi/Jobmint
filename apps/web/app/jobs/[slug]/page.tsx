@@ -437,49 +437,81 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
             <div className="flex items-center gap-2">
               <span className="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
               <h3 className="text-xs font-bold uppercase tracking-wider text-emerald-800">
-                Truth Teller Transparency
+                {job.sourceUrl ? "Verified Direct Application Link" : "Truth Teller Transparency"}
               </h3>
             </div>
             <p className="mt-1 text-xs text-slate-500">
-              Verifiable hiring activity recorded for {job.companyName}.
+              {job.sourceUrl
+                ? `Official position sourced directly from ${job.companyName}'s verified career portal.`
+                : `Verifiable hiring activity recorded for ${job.companyName}.`}
             </p>
 
-            <div className="mt-4 space-y-3 text-xs">
-              <div className="flex justify-between border-b border-slate-100 pb-2">
-                <span className="text-slate-600">Applications Received</span>
-                <span className="font-bold text-slate-900">
-                  {job.truthTeller.totalApplications}
-                </span>
-              </div>
-              <div className="flex justify-between border-b border-slate-100 pb-2">
-                <span className="text-slate-600">Applications Reviewed</span>
-                <span className="font-bold text-slate-900">
-                  {job.truthTeller.reviewedApplications}
-                </span>
-              </div>
-              <div className="flex justify-between border-b border-slate-100 pb-2">
-                <span className="text-slate-600">Candidate Review Rate</span>
-                <span className="font-bold text-emerald-700">
-                  {job.truthTeller.reviewRate}%
-                </span>
-              </div>
-              <div className="flex justify-between border-b border-slate-100 pb-2">
-                <span className="text-slate-600">Median First Review Time</span>
-                <span className="font-bold text-slate-900">
-                  {job.truthTeller.medianFirstReviewDays} days
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-slate-600">Recruiter Activity</span>
-                <span className="font-medium text-emerald-600">
-                  {job.truthTeller.lastRecruiterActivity}
-                </span>
-              </div>
-            </div>
+            {job.sourceUrl ? (
+              <div className="mt-4 space-y-3 text-xs">
+                <div className="flex justify-between border-b border-slate-100 pb-2">
+                  <span className="text-slate-600">Application Source</span>
+                  <span className="font-bold text-emerald-700">
+                    Official {job.source || "Careers"} Portal
+                  </span>
+                </div>
+                <div className="flex justify-between border-b border-slate-100 pb-2">
+                  <span className="text-slate-600">Company Verification</span>
+                  <span className="font-bold text-slate-900 flex items-center gap-1">
+                    <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />
+                    Verified Employer
+                  </span>
+                </div>
+                <div className="flex justify-between border-b border-slate-100 pb-2">
+                  <span className="text-slate-600">Middleman Traps</span>
+                  <span className="font-bold text-emerald-700">
+                    None (Direct Employer ATS)
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-600">Dashboard Tracking</span>
+                  <span className="font-medium text-slate-800">
+                    1-Click Submission &amp; Reminders
+                  </span>
+                </div>
 
-            <div className="mt-5 rounded-lg bg-slate-50 p-3 text-[11px] text-slate-600">
-              🛡️ <strong>Role Nest Ghosting Guarantee:</strong> If the employer does not review your application within 7 days, we alert you and suggest similar active openings.
-            </div>
+                <div className="mt-5 rounded-xl border border-emerald-100 bg-emerald-50/50 p-3.5 text-[11px] text-emerald-950 space-y-1.5">
+                  <div className="flex items-center gap-1.5 font-bold text-emerald-900">
+                    <ShieldCheck className="h-4 w-4 text-emerald-600 shrink-0" />
+                    Truth Teller Candidate Tracking
+                  </div>
+                  <p className="text-slate-600 leading-relaxed">
+                    Apply directly on <strong>{job.companyName}</strong>&apos;s portal using the link above. Use &quot;Track with Truth Teller&quot; to log your submission timestamp and automated 7-day follow-up countdown in your dashboard.
+                  </p>
+                </div>
+              </div>
+            ) : (
+              <div className="mt-4 space-y-3 text-xs">
+                <div className="flex justify-between border-b border-slate-100 pb-2">
+                  <span className="text-slate-600">Applications Received</span>
+                  <span className="font-bold text-slate-900">
+                    {job.truthTeller.totalApplications}
+                  </span>
+                </div>
+                <div className="flex justify-between border-b border-slate-100 pb-2">
+                  <span className="text-slate-600">Applications Reviewed</span>
+                  <span className="font-bold text-slate-900">
+                    {job.truthTeller.reviewedApplications}
+                  </span>
+                </div>
+                <div className="flex justify-between border-b border-slate-100 pb-2">
+                  <span className="text-slate-600">Candidate Review Rate</span>
+                  <span className="font-bold text-emerald-700">
+                    {job.truthTeller.reviewRate > 0 ? `${job.truthTeller.reviewRate}%` : "Direct Role Nest"}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-600">Hiring Channel</span>
+                  <span className="font-medium text-emerald-600">
+                    Direct Role Nest Recruiter
+                  </span>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

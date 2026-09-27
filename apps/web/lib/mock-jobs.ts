@@ -27,6 +27,8 @@ export interface MockJob {
   postedAgo: string;
   postedAt: string;
   truthTeller: {
+    isExternal?: boolean;
+    channel?: string;
     totalApplications: number;
     reviewedApplications: number;
     reviewRate: number; // e.g. 88%

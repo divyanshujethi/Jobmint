@@ -17,6 +17,7 @@ import {
   Briefcase,
   Crown,
   Zap,
+  ExternalLink,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -145,23 +146,23 @@ export default function ApplicationsTrackerPage() {
         </Link>
       </div>
 
-      {/* TRUTH TELLER >65% RESPONSE RATE & PRO UPGRADE HUD */}
+      {/* TRUTH TELLER VERIFIED APPLICATION LEDGER HUD */}
       <div className="mt-6 rounded-2xl border border-emerald-200 bg-gradient-to-r from-emerald-50 via-teal-50 to-white p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-xs">
         <div className="flex items-start gap-3">
           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-600 text-white shadow-xs">
-            <Zap className="h-5 w-5" />
+            <ShieldCheck className="h-5 w-5" />
           </div>
           <div>
             <div className="flex items-center gap-2">
               <span className="text-xs font-black text-emerald-900 uppercase tracking-wider font-mono">
-                Truth Teller Anti-Ghosting Standard
+                Truth Teller Application Ledger
               </span>
               <span className="rounded-full bg-emerald-600 text-white text-[10px] font-bold px-2 py-0.2">
-                68.4% Live Review Rate
+                Verified Telemetry Active
               </span>
             </div>
             <p className="text-xs text-slate-700 mt-1 leading-relaxed">
-              Applications on Role Nest have a <strong>68.4% human review rate</strong> within 48 hours — more than 13x higher than the industry average of &lt;5% on legacy job portals.
+              Track your job applications across official company career portals in one unified ledger. Automated 7-day follow-up countdowns and direct career links ensure you stay on top of every opportunity.
             </p>
           </div>
         </div>
@@ -287,6 +288,11 @@ export default function ApplicationsTrackerPage() {
                           <ShieldCheck className="h-3 w-3 text-emerald-600" /> Verified
                         </span>
                       )}
+                      {(app as any).isExternal && (
+                        <span className="inline-flex items-center gap-0.5 rounded-full bg-blue-50 px-2 py-0.5 text-[10px] font-bold text-blue-700">
+                          Official {(app as any).source || "Company"} Portal
+                        </span>
+                      )}
                     </div>
                     <Link href={`/jobs/${app.jobSlug}`}>
                       <h2 className="text-lg font-bold text-slate-900 hover:text-emerald-600 transition-colors">
@@ -303,9 +309,31 @@ export default function ApplicationsTrackerPage() {
                   </div>
                 </div>
 
-                {/* STATUS BADGE */}
-                <div className="shrink-0">
-                  {app.isGhosted ? (
+                {/* STATUS & ACTIONS */}
+                <div className="shrink-0 flex flex-wrap items-center gap-2">
+                  {(app as any).sourceUrl && (
+                    <a
+                      href={(app as any).sourceUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-xs font-bold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-3 py-1.5 rounded-xl transition-colors"
+                    >
+                      <span>Official Listing</span>
+                      <ExternalLink className="h-3 w-3" />
+                    </a>
+                  )}
+
+                  {(app as any).isExternal ? (
+                    (app as any).followUpDueDays === 0 ? (
+                      <Badge variant="warning" className="gap-1 py-1 font-bold">
+                        <AlertCircle className="h-3.5 w-3.5" /> Follow Up Recommended (7d+)
+                      </Badge>
+                    ) : (
+                      <Badge variant="secondary" className="gap-1 py-1 font-bold bg-slate-100 text-slate-800">
+                        <Clock className="h-3.5 w-3.5 text-slate-500" /> Follow Up in {(app as any).followUpDueDays}d
+                      </Badge>
+                    )
+                  ) : app.isGhosted ? (
                     <Badge variant="warning" className="gap-1 py-1 font-bold">
                       <AlertCircle className="h-3.5 w-3.5" /> No Activity (7+ Days)
                     </Badge>

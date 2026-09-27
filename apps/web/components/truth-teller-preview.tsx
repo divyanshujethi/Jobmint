@@ -1,4 +1,4 @@
-﻿import { CheckCircle2, Clock, AlertCircle, ArrowRight, Eye, Sparkles } from "lucide-react";
+import { CheckCircle2, Clock, AlertCircle, ArrowRight, Eye, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { Badge } from "./ui/badge";
 
@@ -33,71 +33,71 @@ export function TruthTellerPreview() {
       </div>
 
       <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Real Sample Application 1: Razorpay Active & Shortlisted */}
-        <div className="rounded-xl border border-emerald-100 bg-emerald-50/30 p-5">
+        {/* Feature Showcase 1: 1-Click Official Portal Tracking */}
+        <div className="rounded-xl border border-emerald-100 bg-emerald-50/30 p-5 space-y-4">
           <div className="flex items-start justify-between">
             <div>
-              <span className="text-xs font-semibold text-emerald-800">
-                Razorpay
+              <span className="text-xs font-semibold text-emerald-800 uppercase tracking-wider font-mono">
+                Verified Direct Link
               </span>
-              <h4 className="text-base font-bold text-slate-900">
-                Frontend Engineer Intern
+              <h4 className="text-base font-bold text-slate-900 mt-0.5">
+                Official Company ATS Application
               </h4>
-              <p className="text-xs text-slate-500 mt-0.5">Remote • ₹45,000/month</p>
+              <p className="text-xs text-slate-500 mt-0.5">Direct to Greenhouse, Lever, Workday &amp; Careers Sites</p>
             </div>
             <span className="rounded-md bg-emerald-100 px-2 py-0.5 text-xs font-bold text-emerald-800">
-              🔥 95% Match
+              Zero Middlemen
             </span>
           </div>
 
-          <div className="mt-5 space-y-3">
-            <div className="flex items-center gap-3 text-xs text-slate-700">
+          <div className="space-y-2.5 text-xs text-slate-700">
+            <div className="flex items-center gap-3">
               <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
-              <span>Applied — <strong>Sep 22, 10:24 AM</strong></span>
+              <span>Apply directly at the verified employer portal — no intermediate forms</span>
             </div>
-            <div className="flex items-center gap-3 text-xs text-slate-700">
-              <Eye className="h-4 w-4 text-emerald-600 shrink-0" />
-              <span>Resume Viewed — <strong>Sep 23, 02:10 PM (by Lead Eng.)</strong></span>
+            <div className="flex items-center gap-3">
+              <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
+              <span>1-Click &quot;Track with Truth Teller&quot; records your submission timestamp</span>
             </div>
-            <div className="flex items-center gap-3 text-xs text-emerald-800 font-medium">
-              <Sparkles className="h-4 w-4 text-emerald-600 shrink-0" />
-              <span>Shortlisted for Technical Round — <strong>Sep 24</strong></span>
+            <div className="flex items-center gap-3">
+              <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
+              <span>Free Forever — no hidden application paywalls or credits</span>
             </div>
           </div>
         </div>
 
-        {/* Real Sample Application 2: Inactive (Truth Teller Alert!) */}
-        <div className="rounded-xl border border-amber-200 bg-amber-50/40 p-5">
+        {/* Feature Showcase 2: Automated 7-Day Follow-Up Alerts */}
+        <div className="rounded-xl border border-slate-200 bg-slate-50/50 p-5 space-y-4">
           <div className="flex items-start justify-between">
             <div>
-              <span className="text-xs font-semibold text-slate-700">
-                Postman
+              <span className="text-xs font-semibold text-slate-600 uppercase tracking-wider font-mono">
+                Candidate Follow-Up Engine
               </span>
-              <h4 className="text-base font-bold text-slate-900">
-                Full Stack Engineer
+              <h4 className="text-base font-bold text-slate-900 mt-0.5">
+                Automated Reminders &amp; Deadlines
               </h4>
-              <p className="text-xs text-slate-500 mt-0.5">Bengaluru • Hybrid (₹16 - 26 LPA)</p>
+              <p className="text-xs text-slate-500 mt-0.5">Never lose track of where and when you applied</p>
             </div>
             <span className="rounded-md bg-slate-100 px-2 py-0.5 text-xs font-bold text-slate-700">
-              91% Match
+              7-Day Smart Tracker
             </span>
           </div>
 
-          <div className="mt-4 rounded-lg border border-amber-200 bg-white p-3.5 text-xs text-slate-700 space-y-2">
-            <div className="flex items-center gap-1.5 font-semibold text-amber-800">
-              <AlertCircle className="h-4 w-4 text-amber-600 shrink-0" />
-              Truth Teller Inactivity Alert
+          <div className="rounded-lg border border-slate-200 bg-white p-3.5 text-xs text-slate-700 space-y-2">
+            <div className="flex items-center gap-1.5 font-semibold text-slate-900">
+              <Clock className="h-4 w-4 text-emerald-600 shrink-0" />
+              Smart Follow-up Countdown
             </div>
-            <p className="text-slate-600 leading-relaxed">
-              Applied <strong>8 days ago</strong>. The employer has not viewed your application. Their median response time is usually 1.6 days.
+            <p className="text-slate-600 leading-relaxed text-[11px]">
+              Every tracked application starts an automatic 7-day countdown with follow-up email templates and tips for connecting with hiring managers.
             </p>
             <div className="pt-1 flex items-center justify-between">
-              <span className="font-semibold text-slate-800">12 similar active roles found</span>
+              <span className="font-semibold text-slate-800 text-[11px]">Track unlimited external roles</span>
               <Link
-                href="/jobs?q=fullstack"
+                href="/applications"
                 className="inline-flex items-center gap-1 text-emerald-700 font-bold hover:underline"
               >
-                Apply Now <ArrowRight className="h-3 w-3" />
+                Open Dashboard <ArrowRight className="h-3 w-3" />
               </Link>
             </div>
           </div>

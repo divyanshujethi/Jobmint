@@ -101,10 +101,17 @@ export function JobCard({ job }: JobCardProps) {
                   Verified
                 </span>
               )}
-              <span className="inline-flex items-center gap-1 text-[11px] text-slate-500 font-medium">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                {job.truthTeller.lastRecruiterActivity}
-              </span>
+              {job.sourceUrl ? (
+                <span className="inline-flex items-center gap-1 text-[11px] text-emerald-700 font-semibold bg-emerald-50 px-2 py-0.5 rounded-full">
+                  <ShieldCheck className="h-3 w-3 text-emerald-600" />
+                  Official Career Portal
+                </span>
+              ) : (
+                <span className="inline-flex items-center gap-1 text-[11px] text-slate-500 font-medium">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                  {job.truthTeller.lastRecruiterActivity}
+                </span>
+              )}
             </div>
 
             <Link href={`/jobs/${job.slug}`}>
@@ -170,9 +177,19 @@ export function JobCard({ job }: JobCardProps) {
           <Clock className="h-3.5 w-3.5 text-slate-400" />
           <span>Posted {job.postedAgo}</span>
           <span>•</span>
-          <span className="text-emerald-700 font-medium">
-            {job.truthTeller.reviewRate}% review rate
-          </span>
+          {job.sourceUrl ? (
+            <span className="text-emerald-700 font-semibold inline-flex items-center gap-1">
+              Verified Direct Application Link
+            </span>
+          ) : job.truthTeller.reviewRate > 0 ? (
+            <span className="text-emerald-700 font-medium">
+              {job.truthTeller.reviewRate}% review rate
+            </span>
+          ) : (
+            <span className="text-slate-600 font-medium">
+              Direct Role Nest Opening
+            </span>
+          )}
         </div>
 
         <div className="flex items-center gap-2">

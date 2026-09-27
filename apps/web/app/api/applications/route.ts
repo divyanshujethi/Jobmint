@@ -66,6 +66,8 @@ export async function GET(req: NextRequest) {
         workMode: jobs.workMode,
         salaryOrStipend: jobs.salaryOrStipend,
         location: jobs.location,
+        source: jobs.source,
+        sourceUrl: jobs.sourceUrl,
         companyName: companies.name,
         companySlug: companies.slug,
         isVerified: companies.isVerified,
@@ -101,7 +103,9 @@ export async function GET(req: NextRequest) {
       const daysSinceApplied = Math.floor(
         (now - new Date(app.appliedAt).getTime()) / (1000 * 60 * 60 * 24)
       );
-      const isGhosted = !app.lastViewedAt && daysSinceApplied >= 7;
+      const isExternal = Boolean(app.sourceUrl);
+      const isGhosted = !isExternal && !app.lastViewedAt && daysSinceApplied >= 7;
+      const followUpDueDays = Math.max(0, 7 - daysSinceApplied);
 
       const appEvents = eventsMap.get(app.id) || [
         {
@@ -113,7 +117,9 @@ export async function GET(req: NextRequest) {
             hour: "2-digit",
             minute: "2-digit",
           }),
-          note: "Application submitted and received with Truth Teller telemetry active.",
+          note: isExternal
+            ? `Logged via official company portal. Truth Teller 7-day follow-up scheduled (${followUpDueDays > 0 ? `${followUpDueDays}d remaining` : "Follow-up recommended"}).`
+            : "Application submitted directly on Role Nest with Truth Teller telemetry active.",
         },
       ];
 
@@ -140,6 +146,11 @@ export async function GET(req: NextRequest) {
         companySlug: app.companySlug,
         companyLogoInitial: app.companyName.charAt(0).toUpperCase(),
         isVerifiedCompany: app.isVerified,
+        isExternal,
+        source: app.source || "EXTERNAL",
+        sourceUrl: app.sourceUrl || null,
+        followUpDueDays,
+        followUpStatus: daysSinceApplied >= 7 ? "FOLLOW_UP_NOW" : "SCHEDULED",
         appliedDateFormatted: new Date(app.appliedAt).toLocaleDateString("en-US", {
           month: "short",
           day: "numeric",
