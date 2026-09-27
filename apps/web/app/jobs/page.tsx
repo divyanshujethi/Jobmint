@@ -13,6 +13,8 @@ export default function JobsPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedType, setSelectedType] = useState<string>("ALL");
   const [selectedMode, setSelectedMode] = useState<string>("ALL");
+  const [selectedExp, setSelectedExp] = useState<string>("ALL");
+  const [selectedLocation, setSelectedLocation] = useState<string>("ALL");
   const [onlyVerified, setOnlyVerified] = useState(false);
   const [jobs, setJobs] = useState<MockJob[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -48,9 +50,57 @@ export default function JobsPage() {
         return false;
       }
 
-      // Work Mode
-      if (selectedMode !== "ALL" && job.workMode !== selectedMode) {
-        return false;
+      // Work Mode (normalizing REMOTE, HYBRID, ONSITE/ON_SITE)
+      if (selectedMode !== "ALL") {
+        const targetMode = selectedMode.toUpperCase().replace(/[-_]/g, "");
+        const jMode = (job.workMode || "").toUpperCase().replace(/[-_]/g, "");
+        if (targetMode === "ONSITE") {
+          if (!jMode.includes("ONSITE") && !jMode.includes("OFFICE")) return false;
+        } else if (targetMode === "REMOTE") {
+          if (!jMode.includes("REMOTE")) return false;
+        } else if (targetMode === "HYBRID") {
+          if (!jMode.includes("HYBRID")) return false;
+        } else if (job.workMode !== selectedMode) {
+          return false;
+        }
+      }
+
+      // Experience Level
+      if (selectedExp !== "ALL") {
+        const exp = job.experienceYears ?? 0;
+        if (selectedExp === "0" || selectedExp === "FRESHER") {
+          if (exp > 0 && job.jobType !== JobType.INTERNSHIP) return false;
+        } else if (selectedExp === "1-2") {
+          if (exp < 1 || exp > 2) return false;
+        } else if (selectedExp === "3-5") {
+          if (exp < 3 || exp > 5) return false;
+        } else if (selectedExp === "5+") {
+          if (exp < 5) return false;
+        }
+      }
+
+      // Location Filter
+      if (selectedLocation !== "ALL") {
+        const jLoc = (job.location || "").toLowerCase();
+        const loc = selectedLocation.toLowerCase();
+        if (loc === "bengaluru") {
+          if (!jLoc.includes("bengaluru") && !jLoc.includes("bangalore")) return false;
+        } else if (loc === "delhi_ncr") {
+          if (!jLoc.includes("delhi") && !jLoc.includes("noida") && !jLoc.includes("gurgaon") && !jLoc.includes("gurugram") && !jLoc.includes("ncr")) return false;
+        } else if (loc === "hyderabad") {
+          if (!jLoc.includes("hyderabad")) return false;
+        } else if (loc === "pune") {
+          if (!jLoc.includes("pune")) return false;
+        } else if (loc === "mumbai") {
+          if (!jLoc.includes("mumbai")) return false;
+        } else if (loc === "remote") {
+          const jMode = (job.workMode || "").toUpperCase();
+          if (!jMode.includes("REMOTE") && !jLoc.includes("remote")) return false;
+        } else if (loc === "india") {
+          if (!jLoc.includes("india")) return false;
+        } else if (!jLoc.includes(loc)) {
+          return false;
+        }
       }
 
       // Only Verified Companies
@@ -60,7 +110,24 @@ export default function JobsPage() {
 
       return true;
     });
-  }, [jobs, searchTerm, selectedType, selectedMode, onlyVerified]);
+  }, [jobs, searchTerm, selectedType, selectedMode, selectedExp, selectedLocation, onlyVerified]);
+
+  const hasActiveFilters =
+    Boolean(searchTerm) ||
+    selectedType !== "ALL" ||
+    selectedMode !== "ALL" ||
+    selectedExp !== "ALL" ||
+    selectedLocation !== "ALL" ||
+    onlyVerified;
+
+  const resetAllFilters = () => {
+    setSearchTerm("");
+    setSelectedType("ALL");
+    setSelectedMode("ALL");
+    setSelectedExp("ALL");
+    setSelectedLocation("ALL");
+    setOnlyVerified(false);
+  };
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
@@ -104,7 +171,7 @@ export default function JobsPage() {
             <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" /> Truth Teller Standard:
           </span>
           <span className="text-slate-700">
-            <strong>68.4% Guaranteed Human Review Rate</strong> within 48h (vs &lt;5% industry average).
+            Direct application tracking with real-time status updates and zero recruiter ghosting.
           </span>
         </div>
         <Link
@@ -118,66 +185,175 @@ export default function JobsPage() {
       {/* INSTANT WHATSAPP & TELEGRAM ALERTS */}
       <InstantAlertsBanner />
 
-      {/* FILTER BUTTONS & CONTROLS */}
-      <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
-        {/* Job Type Pills */}
-        <div className="flex flex-wrap items-center gap-2">
-          <button
-            onClick={() => setSelectedType("ALL")}
-            className={`min-h-[44px] inline-flex items-center rounded-xl px-3.5 py-2 text-xs font-semibold transition-colors touch-manipulation ${
-              selectedType === "ALL"
-                ? "bg-emerald-600 text-white shadow-xs"
-                : "bg-white border border-slate-200 text-slate-700 hover:bg-slate-50"
-            }`}
-          >
-            All Opportunities ({jobs.length})
-          </button>
-          <button
-            onClick={() => setSelectedType(JobType.INTERNSHIP)}
-            className={`min-h-[44px] inline-flex items-center gap-1.5 rounded-xl px-3.5 py-2 text-xs font-semibold transition-colors touch-manipulation ${
-              selectedType === JobType.INTERNSHIP
-                ? "bg-emerald-600 text-white shadow-xs"
-                : "bg-white border border-slate-200 text-slate-700 hover:bg-slate-50"
-            }`}
-          >
-            <Sparkles className="h-3.5 w-3.5 text-amber-500" />
-            Internships
-          </button>
-          <button
-            onClick={() => setSelectedType(JobType.FULL_TIME)}
-            className={`min-h-[44px] inline-flex items-center rounded-xl px-3.5 py-2 text-xs font-semibold transition-colors touch-manipulation ${
-              selectedType === JobType.FULL_TIME
-                ? "bg-emerald-600 text-white shadow-xs"
-                : "bg-white border border-slate-200 text-slate-700 hover:bg-slate-50"
-            }`}
-          >
-            Full-Time (Fresher)
-          </button>
+      {/* FILTER CONTROLS BAR */}
+      <div className="mt-6 rounded-2xl border border-slate-200 bg-white p-4 shadow-2xs space-y-3.5">
+        {/* Row 1: Job Types & Quick Selectors */}
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div className="flex flex-wrap items-center gap-2">
+            <button
+              onClick={() => setSelectedType("ALL")}
+              className={`min-h-[38px] inline-flex items-center rounded-xl px-3.5 py-1.5 text-xs font-semibold transition-colors touch-manipulation ${
+                selectedType === "ALL"
+                  ? "bg-emerald-600 text-white shadow-xs"
+                  : "bg-slate-50 border border-slate-200 text-slate-700 hover:bg-slate-100"
+              }`}
+            >
+              All Opportunities ({jobs.length})
+            </button>
+            <button
+              onClick={() => setSelectedType(JobType.INTERNSHIP)}
+              className={`min-h-[38px] inline-flex items-center gap-1.5 rounded-xl px-3.5 py-1.5 text-xs font-semibold transition-colors touch-manipulation ${
+                selectedType === JobType.INTERNSHIP
+                  ? "bg-emerald-600 text-white shadow-xs"
+                  : "bg-slate-50 border border-slate-200 text-slate-700 hover:bg-slate-100"
+              }`}
+            >
+              <Sparkles className="h-3.5 w-3.5 text-amber-500" />
+              Internships
+            </button>
+            <button
+              onClick={() => setSelectedType(JobType.FULL_TIME)}
+              className={`min-h-[38px] inline-flex items-center rounded-xl px-3.5 py-1.5 text-xs font-semibold transition-colors touch-manipulation ${
+                selectedType === JobType.FULL_TIME
+                  ? "bg-emerald-600 text-white shadow-xs"
+                  : "bg-slate-50 border border-slate-200 text-slate-700 hover:bg-slate-100"
+              }`}
+            >
+              Full-Time Roles
+            </button>
+          </div>
+
+          {/* Results count & Reset */}
+          <div className="flex items-center gap-2 text-xs">
+            <span className="font-semibold text-slate-500">
+              Showing <strong className="text-slate-900">{filteredJobs.length}</strong> of {jobs.length} roles
+            </span>
+            {hasActiveFilters && (
+              <button
+                onClick={resetAllFilters}
+                className="text-xs font-bold text-emerald-600 hover:text-emerald-700 underline ml-2"
+              >
+                Reset All
+              </button>
+            )}
+          </div>
         </div>
 
-        {/* Work Mode & Verified Toggles */}
-        <div className="flex items-center gap-3 text-xs">
-          <select
-            value={selectedMode}
-            onChange={(e) => setSelectedMode(e.target.value)}
-            className="min-h-[44px] rounded-xl border border-slate-200 bg-white px-3 py-2 font-medium text-slate-700 focus:outline-none focus:ring-1 focus:ring-emerald-500 touch-manipulation"
-          >
-            <option value="ALL">Any Work Mode</option>
-            <option value={WorkMode.REMOTE}>Remote Only</option>
-            <option value={WorkMode.HYBRID}>Hybrid</option>
-            <option value={WorkMode.ON_SITE}>On-Site</option>
-          </select>
+        {/* Row 2: Detailed Filters (Experience, Location, Work Mode, Verified) */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 pt-1 border-t border-slate-100">
+          {/* Experience Filter */}
+          <div>
+            <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1">
+              Experience Level
+            </label>
+            <select
+              value={selectedExp}
+              onChange={(e) => setSelectedExp(e.target.value)}
+              className="w-full min-h-[40px] rounded-xl border border-slate-200 bg-slate-50/50 px-3 py-2 text-xs font-medium text-slate-800 focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
+            >
+              <option value="ALL">Any Experience</option>
+              <option value="0">Fresher / 0 Years (Entry Level)</option>
+              <option value="1-2">1–2 Years Experience</option>
+              <option value="3-5">3–5 Years Experience</option>
+              <option value="5+">5+ Years Experience</option>
+            </select>
+          </div>
 
-          <label className="min-h-[44px] inline-flex items-center gap-2 cursor-pointer font-medium text-slate-700 select-none px-2 py-1 rounded-xl hover:bg-slate-100/60 transition-colors touch-manipulation">
-            <input
-              type="checkbox"
-              checked={onlyVerified}
-              onChange={(e) => setOnlyVerified(e.target.checked)}
-              className="h-4 w-4 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500"
-            />
-            Verified Only
-          </label>
+          {/* Location Filter */}
+          <div>
+            <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1">
+              Location / City
+            </label>
+            <select
+              value={selectedLocation}
+              onChange={(e) => setSelectedLocation(e.target.value)}
+              className="w-full min-h-[40px] rounded-xl border border-slate-200 bg-slate-50/50 px-3 py-2 text-xs font-medium text-slate-800 focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
+            >
+              <option value="ALL">Any Location</option>
+              <option value="bengaluru">Bengaluru / Bangalore</option>
+              <option value="delhi_ncr">Delhi NCR (Gurgaon / Noida)</option>
+              <option value="hyderabad">Hyderabad</option>
+              <option value="pune">Pune</option>
+              <option value="mumbai">Mumbai</option>
+              <option value="remote">Remote (India & Worldwide)</option>
+              <option value="india">All India (Pan-India)</option>
+            </select>
+          </div>
+
+          {/* Work Mode Filter */}
+          <div>
+            <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1">
+              Work Mode
+            </label>
+            <select
+              value={selectedMode}
+              onChange={(e) => setSelectedMode(e.target.value)}
+              className="w-full min-h-[40px] rounded-xl border border-slate-200 bg-slate-50/50 px-3 py-2 text-xs font-medium text-slate-800 focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
+            >
+              <option value="ALL">Any Work Mode</option>
+              <option value={WorkMode.REMOTE}>Remote</option>
+              <option value={WorkMode.HYBRID}>Hybrid</option>
+              <option value={WorkMode.ON_SITE}>On-Site (Office)</option>
+            </select>
+          </div>
+
+          {/* Verified Toggle */}
+          <div className="flex flex-col justify-end">
+            <label className="min-h-[40px] inline-flex items-center gap-2.5 cursor-pointer font-semibold text-xs text-slate-700 select-none px-3 py-2 rounded-xl border border-slate-200 bg-slate-50/50 hover:bg-slate-100/60 transition-colors">
+              <input
+                type="checkbox"
+                checked={onlyVerified}
+                onChange={(e) => setOnlyVerified(e.target.checked)}
+                className="h-4 w-4 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500"
+              />
+              <ShieldCheck className="h-4 w-4 text-emerald-600" />
+              <span>Verified Companies Only</span>
+            </label>
+          </div>
         </div>
+
+        {/* Active Filter Chips */}
+        {hasActiveFilters && (
+          <div className="flex flex-wrap items-center gap-1.5 pt-2 border-t border-slate-100 text-xs">
+            <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mr-1">Active:</span>
+            {searchTerm && (
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 font-medium">
+                Keyword: &quot;{searchTerm}&quot;
+                <X className="h-3 w-3 cursor-pointer hover:text-emerald-950" onClick={() => setSearchTerm("")} />
+              </span>
+            )}
+            {selectedType !== "ALL" && (
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 font-medium">
+                Type: {selectedType.replace("_", " ")}
+                <X className="h-3 w-3 cursor-pointer hover:text-emerald-950" onClick={() => setSelectedType("ALL")} />
+              </span>
+            )}
+            {selectedExp !== "ALL" && (
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 font-medium">
+                Exp: {selectedExp === "0" ? "Fresher" : `${selectedExp} Yrs`}
+                <X className="h-3 w-3 cursor-pointer hover:text-emerald-950" onClick={() => setSelectedExp("ALL")} />
+              </span>
+            )}
+            {selectedLocation !== "ALL" && (
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 font-medium">
+                Location: {selectedLocation.replace("_", " ").toUpperCase()}
+                <X className="h-3 w-3 cursor-pointer hover:text-emerald-950" onClick={() => setSelectedLocation("ALL")} />
+              </span>
+            )}
+            {selectedMode !== "ALL" && (
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 font-medium">
+                Mode: {selectedMode.replace("_", " ")}
+                <X className="h-3 w-3 cursor-pointer hover:text-emerald-950" onClick={() => setSelectedMode("ALL")} />
+              </span>
+            )}
+            {onlyVerified && (
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 font-medium">
+                Verified Only
+                <X className="h-3 w-3 cursor-pointer hover:text-emerald-950" onClick={() => setOnlyVerified(false)} />
+              </span>
+            )}
+          </div>
+        )}
       </div>
 
       {/* JOBS GRID / LIST */}
