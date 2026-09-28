@@ -12,24 +12,6 @@ const PLAN_CONFIGS: Record<
     description: string;
   }
 > = {
-  test_5: {
-    name: "Role Nest Pro (10-Minute Rapid Test)",
-    amount: 5,
-    durationMs: 10 * 60 * 1000, // 10 minutes
-    description: "10-minute instant Role Nest Pro test • Live ₹5 UPI gateway test • Auto-cancels after 10 mins",
-  },
-  test_10: {
-    name: "Role Nest Pro (7-Day Trial Pass)",
-    amount: 10,
-    durationMs: 7 * 24 * 60 * 60 * 1000,
-    description: "7 days full Role Nest Pro access • One-time introductory trial • Unlimited AI ATS & Verified Job Access",
-  },
-  test: {
-    name: "Role Nest Pro (7-Day Trial Pass)",
-    amount: 10,
-    durationMs: 7 * 24 * 60 * 60 * 1000,
-    description: "7 days full Role Nest Pro access • One-time introductory trial • Unlimited AI ATS & Verified Job Access",
-  },
   pro: {
     name: "Role Nest Pro (Monthly Membership)",
     amount: 499,
@@ -59,7 +41,22 @@ const PLAN_CONFIGS: Record<
 export async function POST(req: NextRequest) {
   try {
     const session = await auth();
-    if (!session?.user?.id || !session?.user?.email) {
+    const body = await req.json();
+    const {
+      plan = "pro",
+      jobId,
+      phone,
+      amount: customAmount,
+      donorName,
+      donorEmail,
+      donorPhone,
+      donorNote,
+    } = body;
+
+    const isDonation = plan === "donation";
+
+    // 1. For subscription plans, user must be authenticated so we can attach Pro access
+    if (!isDonation && (!session?.user?.id || !session?.user?.email)) {
       const referer = req.headers.get("referer");
       let callbackPath = "/pricing";
       try {
@@ -71,7 +68,7 @@ export async function POST(req: NextRequest) {
 
       return NextResponse.json(
         {
-          error: "Please sign in or create an account before proceeding with payment.",
+          error: "Please sign in or create an account before proceeding with subscription.",
           code: "UNAUTHORIZED",
           redirectUrl: `/login?callbackUrl=${encodeURIComponent(callbackPath)}`,
         },
@@ -79,69 +76,76 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const body = await req.json();
-    const { plan = "pro", jobId, phone } = body;
+    let finalAmount: number;
+    let planName: string;
+    let planDurationMs = 0;
+    let orderNoteText: string;
 
-    const planConfig = PLAN_CONFIGS[plan] ?? PLAN_CONFIGS.pro;
-    const amount = planConfig.amount;
-
-    // Fetch user from DB to obtain accurate profile information
-    const [dbUser] = await db
-      .select({
-        id: users.id,
-        name: users.name,
-        email: users.email,
-        phone: users.phone,
-        isPro: users.isPro,
-        proExpiresAt: users.proExpiresAt,
-      })
-      .from(users)
-      .where(eq(users.id, session.user.id))
-      .limit(1);
-
-    const isCurrentlyPro = Boolean(
-      dbUser?.isPro &&
-        (!dbUser?.proExpiresAt || new Date(dbUser.proExpiresAt) > new Date())
-    );
-
-    // If user already has an active Pro subscription and tries to buy the 7-day trial pass again, lock it!
-    if ((plan === "test_10" || plan === "test") && isCurrentlyPro) {
-      return NextResponse.json(
-        {
-          error: "The 7-day trial pass is a one-time introductory offer. You already have an active Pro membership. Please choose Monthly, Quarterly, or Annual to extend.",
-          code: "TRIAL_LOCKED",
-        },
-        { status: 400 }
-      );
+    if (isDonation) {
+      const parsedAmount = Math.round(Number(customAmount));
+      if (!parsedAmount || isNaN(parsedAmount) || parsedAmount < 10) {
+        return NextResponse.json(
+          { error: "Minimum donation amount is ₹10.", code: "INVALID_AMOUNT" },
+          { status: 400 }
+        );
+      }
+      finalAmount = parsedAmount;
+      planName = "Community Support Donation (RitualDev & Role Nest)";
+      orderNoteText = `Role Nest & RitualDev Contribution - ₹${finalAmount} - Backing free developer tooling & transparent tech hiring (ritualdev.in / rolenest.in)`;
+    } else {
+      const planConfig = PLAN_CONFIGS[plan] ?? PLAN_CONFIGS.pro;
+      finalAmount = planConfig.amount;
+      planName = planConfig.name;
+      planDurationMs = planConfig.durationMs;
+      orderNoteText = `${planConfig.name} - ${planConfig.description}`;
     }
 
-    const userId = session.user.id;
-    const userEmail = (dbUser?.email || session.user.email).trim().toLowerCase();
-    const userName = (dbUser?.name || session.user.name || "Candidate").trim();
+    // Resolve user details
+    let userId = session?.user?.id;
+    let userEmail = (session?.user?.email || donorEmail || "").trim().toLowerCase();
+    let userName = (session?.user?.name || donorName || "Community Supporter").trim();
+    let resolvedPhone = (phone || donorPhone || "").replace(/\D/g, "").slice(-10);
 
-    // Determine candidate phone:
-    // 1. Explicit phone passed in checkout body
-    // 2. Saved user.phone
-    // 3. Saved candidate_profiles.phone
-    let resolvedPhone = (phone || "").replace(/\D/g, "").slice(-10);
-
-    if (resolvedPhone.length !== 10 && dbUser?.phone) {
-      resolvedPhone = dbUser.phone.replace(/\D/g, "").slice(-10);
-    }
-
-    if (resolvedPhone.length !== 10) {
-      const [candProfile] = await db
-        .select({ phone: candidateProfiles.phone })
-        .from(candidateProfiles)
-        .where(eq(candidateProfiles.userId, userId))
+    // If logged in, fetch accurate profile from DB
+    if (userId) {
+      const [dbUser] = await db
+        .select({
+          id: users.id,
+          name: users.name,
+          email: users.email,
+          phone: users.phone,
+          isPro: users.isPro,
+          proExpiresAt: users.proExpiresAt,
+        })
+        .from(users)
+        .where(eq(users.id, userId))
         .limit(1);
 
-      if (candProfile?.phone) {
-        resolvedPhone = candProfile.phone.replace(/\D/g, "").slice(-10);
+      if (dbUser) {
+        if (!userEmail && dbUser.email) userEmail = dbUser.email.toLowerCase();
+        if ((!userName || userName === "Community Supporter") && dbUser.name) userName = dbUser.name;
+        if (resolvedPhone.length !== 10 && dbUser.phone) {
+          resolvedPhone = dbUser.phone.replace(/\D/g, "").slice(-10);
+        }
       }
+
+      if (resolvedPhone.length !== 10) {
+        const [candProfile] = await db
+          .select({ phone: candidateProfiles.phone })
+          .from(candidateProfiles)
+          .where(eq(candidateProfiles.userId, userId))
+          .limit(1);
+
+        if (candProfile?.phone) {
+          resolvedPhone = candProfile.phone.replace(/\D/g, "").slice(-10);
+        }
+      }
+    } else {
+      // Guest donor
+      userId = `guest_${Date.now().toString(36)}`;
     }
 
-    // If still no valid 10-digit Indian phone number, ask user to provide their phone
+    // Require valid 10-digit mobile number for Cashfree UPI / SMS
     if (resolvedPhone.length !== 10) {
       return NextResponse.json(
         {
@@ -152,29 +156,29 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // If phone was supplied in checkout, persist it to user record & candidate profile for future use
-    if (phone && resolvedPhone.length === 10) {
+    // If email is missing for guest donor
+    if (!userEmail || !userEmail.includes("@")) {
+      return NextResponse.json(
+        {
+          error: "Please provide a valid email address for transaction receipt and donor acknowledgment.",
+          code: "EMAIL_REQUIRED",
+        },
+        { status: 400 }
+      );
+    }
+
+    // If phone was supplied and user is logged in, persist phone to user record
+    if (session?.user?.id && phone && resolvedPhone.length === 10) {
       await db
         .update(users)
         .set({ phone: resolvedPhone, updatedAt: new Date() })
-        .where(eq(users.id, userId));
-
-      const [existingProfile] = await db
-        .select({ id: candidateProfiles.id })
-        .from(candidateProfiles)
-        .where(eq(candidateProfiles.userId, userId))
-        .limit(1);
-
-      if (existingProfile) {
-        await db
-          .update(candidateProfiles)
-          .set({ phone: resolvedPhone, updatedAt: new Date() })
-          .where(eq(candidateProfiles.userId, userId));
-      }
+        .where(eq(users.id, session.user.id));
     }
 
     const uniqueSuffix = Date.now().toString(36);
-    const orderId = `rn_${plan}_${uniqueSuffix}`;
+    const orderId = isDonation
+      ? `rn_don_${finalAmount}_${uniqueSuffix}`
+      : `rn_${plan}_${uniqueSuffix}`;
 
     const origin = req.headers.get("origin") || process.env.NEXTAUTH_URL || "https://rolenest.in";
     const returnUrl = `${origin}/payment/verify?order_id={order_id}`;
@@ -182,19 +186,23 @@ export async function POST(req: NextRequest) {
 
     const tags: Record<string, string> = {
       plan,
-      planName: planConfig.name,
-      planDurationMs: String(planConfig.durationMs),
+      planName,
+      planDurationMs: String(planDurationMs),
       userId,
       userEmail,
       customerPhone: resolvedPhone,
+      community: "RitualDev & Role Nest",
     };
+    if (isDonation && donorNote) {
+      tags.donorNote = String(donorNote).slice(0, 100);
+    }
     if (jobId) {
       tags.jobId = jobId;
     }
 
     const order = await createCashfreeOrder({
       orderId,
-      orderAmount: amount,
+      orderAmount: finalAmount,
       customerDetails: {
         customerId: userId,
         customerName: userName,
@@ -203,7 +211,7 @@ export async function POST(req: NextRequest) {
       },
       returnUrl,
       notifyUrl,
-      orderNote: `${planConfig.name} - ${planConfig.description}`,
+      orderNote: orderNoteText,
       orderTags: tags,
     });
 
@@ -212,9 +220,9 @@ export async function POST(req: NextRequest) {
       paymentSessionId: order.payment_session_id,
       orderId: order.order_id,
       cfOrderId: order.cf_order_id,
-      amount,
+      amount: finalAmount,
       plan,
-      planName: planConfig.name,
+      planName,
       customerPhone: resolvedPhone,
     });
   } catch (error: any) {

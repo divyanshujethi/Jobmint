@@ -18,7 +18,12 @@ export const CASHFREE_CLIENT_ENV =
   (process.env.NEXT_PUBLIC_CASHFREE_ENV as "production" | "sandbox") || "production";
 
 export interface CheckoutOptions {
-  plan?: "pro" | "pro_quarterly" | "pro_annual" | "featured_job" | "test_10" | "test" | "test_5" | string;
+  plan?: "pro" | "pro_quarterly" | "pro_annual" | "featured_job" | "donation" | string;
+  amount?: number;
+  donorName?: string;
+  donorEmail?: string;
+  donorPhone?: string;
+  donorNote?: string;
   jobId?: string;
   phone?: string;
   onSuccess?: () => void;
@@ -35,8 +40,13 @@ export async function openCashfreeCheckout(options: CheckoutOptions = {}) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         plan: options.plan || "pro",
+        amount: options.amount,
+        donorName: options.donorName,
+        donorEmail: options.donorEmail,
+        donorPhone: options.donorPhone,
+        donorNote: options.donorNote,
         jobId: options.jobId,
-        phone: options.phone,
+        phone: options.phone || options.donorPhone,
       }),
     });
 

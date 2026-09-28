@@ -23,12 +23,13 @@ import {
   Phone,
   X,
   Loader2,
+  Heart,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { openCashfreeCheckout } from "@/components/cashfree-provider";
 
-type BillingCycle = "test_5" | "test" | "monthly" | "quarterly" | "annual";
+type BillingCycle = "monthly" | "quarterly" | "annual";
 
 export default function PricingPage() {
   const [sessionUser, setSessionUser] = useState<any>(null);
@@ -123,15 +124,11 @@ export default function PricingPage() {
 
   const handleProCheckout = () => {
     const planKey =
-      billingCycle === "test_5"
-        ? "test_5"
-        : billingCycle === "test"
-          ? "test_10"
-          : billingCycle === "annual"
-            ? "pro_annual"
-            : billingCycle === "quarterly"
-              ? "pro_quarterly"
-              : "pro";
+      billingCycle === "annual"
+        ? "pro_annual"
+        : billingCycle === "quarterly"
+          ? "pro_quarterly"
+          : "pro";
     initiatePlanCheckout(planKey);
   };
 
@@ -139,14 +136,8 @@ export default function PricingPage() {
     initiatePlanCheckout("featured_job");
   };
 
-  const handleTestCheckout = () => {
-    initiatePlanCheckout("test_10");
-  };
-
   // Pricing calculations per cycle
   const proPricing = {
-    test_5: { price: "₹5", period: "/ 10 mins", subtext: "Quick verification • 10 minutes Pro access (Auto-cancels)", saveTag: "⚡ 5 Rs 10-Min Test" },
-    test: { price: "₹10", period: "/ 7 days", subtext: "One-time trial • 7 days full Pro access", saveTag: "🧪 10 Rs Trial Pass" },
     monthly: { price: "₹499", period: "/ month", subtext: "Billed monthly • Cancel anytime", saveTag: null },
     quarterly: { price: "₹1,199", period: "/ 3 months", subtext: "Equivalent to ₹399/mo • Save 20%", saveTag: "Save 20% • Most Popular" },
     annual: { price: "₹3,999", period: "/ year", subtext: "Equivalent to ₹333/mo • Save 33%", saveTag: "Save 33% • Best Value" },
@@ -176,28 +167,6 @@ export default function PricingPage() {
 
             {/* Billing Cycle Switcher */}
             <div className="inline-flex flex-wrap items-center justify-center rounded-2xl bg-white p-1.5 border border-slate-200 shadow-sm gap-1">
-              <button
-                onClick={() => setBillingCycle("test_5")}
-                className={`flex items-center gap-1 rounded-xl px-3 py-1.5 text-xs font-bold transition-all ${
-                  billingCycle === "test_5"
-                    ? "bg-amber-500 text-slate-950 shadow-xs font-black"
-                    : "text-amber-800 bg-amber-50 hover:bg-amber-100"
-                }`}
-              >
-                <Zap className="h-3 w-3 fill-current" />
-                <span>₹5 (10 Mins)</span>
-              </button>
-              <button
-                onClick={() => setBillingCycle("test")}
-                className={`flex items-center gap-1 rounded-xl px-3.5 py-1.5 text-xs font-bold transition-all ${
-                  billingCycle === "test"
-                    ? "bg-amber-500 text-slate-950 shadow-xs font-black"
-                    : "text-amber-800 bg-amber-50 hover:bg-amber-100"
-                }`}
-              >
-                <Zap className="h-3 w-3 fill-current" />
-                <span>₹10 (7 Days)</span>
-              </button>
               <button
                 onClick={() => setBillingCycle("monthly")}
                 className={`rounded-xl px-4 py-1.5 text-xs font-bold transition-all ${
@@ -237,8 +206,33 @@ export default function PricingPage() {
             </div>
           </div>
 
-          {/* Candidate Plan Cards: 4 Variants (including ₹10 Test Plan) */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* RitualDev & Role Nest Community Backer Banner */}
+          <div className="rounded-2xl border border-emerald-200 bg-linear-to-r from-emerald-50 via-teal-50 to-white p-4 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+            <div className="flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-600 text-white font-bold shrink-0">
+                <Heart className="h-5 w-5 fill-white" />
+              </div>
+              <div>
+                <div className="font-bold text-slate-900 flex items-center gap-2">
+                  <span>An Open Community Initiative by RitualDev &amp; Role Nest</span>
+                  <span className="rounded bg-emerald-100 text-emerald-800 px-1.5 py-0.5 text-[10px] font-mono font-bold">100% Ad-Free</span>
+                </div>
+                <p className="text-slate-600 text-[11px] mt-0.5">
+                  <strong>Role Nest</strong> (<a href="https://rolenest.in" className="text-emerald-700 underline font-semibold">rolenest.in</a>) is backed by <strong>RitualDev</strong> (<a href="https://ritualdev.in" target="_blank" rel="noreferrer" className="text-emerald-700 underline font-semibold">ritualdev.in</a>) to keep developer jobs free from recruiter paywalls.
+                </p>
+              </div>
+            </div>
+            <Link
+              href="/donate"
+              className="whitespace-nowrap rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-4 py-2 text-xs shadow-xs transition-all flex items-center gap-1.5 shrink-0"
+            >
+              <Heart className="h-3.5 w-3.5 fill-current" />
+              <span>Custom Donation Page →</span>
+            </Link>
+          </div>
+
+          {/* Candidate Plan Cards: 3 Clean Pillars */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Variant 1: Free Community */}
             <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm flex flex-col justify-between hover:border-slate-300 transition-all">
               <div className="space-y-5">
@@ -269,7 +263,7 @@ export default function PricingPage() {
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
-                    <span>Interactive DSA study canvas</span>
+                    <span>Interactive DSA study canvas &amp; roadmaps</span>
                   </li>
                 </ul>
               </div>
@@ -279,93 +273,6 @@ export default function PricingPage() {
                     Get Started Free
                   </Button>
                 </Link>
-              </div>
-            </div>
-
-            {/* Variant 2: TEST & TRIAL PASSES */}
-            <div className="relative rounded-3xl border-2 border-amber-400 bg-amber-50/40 p-6 shadow-sm flex flex-col justify-between hover:border-amber-500 transition-all">
-              <div className="absolute -top-3 right-4 rounded-full bg-amber-500 px-2.5 py-0.5 text-[9px] font-extrabold uppercase tracking-wider text-slate-950 shadow-sm flex items-center gap-1">
-                <Zap className="h-3 w-3 fill-slate-950" /> Instant Gateway Test
-              </div>
-              <div className="space-y-4">
-                <div>
-                  <h3 className="text-lg font-bold text-slate-900">Developer &amp; Trial Passes</h3>
-                  <p className="text-xs text-slate-500 mt-1">Live UPI payment testing, instant Pro activation, and auto-expiry.</p>
-                </div>
-
-                {/* ₹5 vs ₹10 Mini Grid */}
-                <div className="grid grid-cols-2 gap-2 text-left">
-                  <div className="p-2.5 rounded-xl bg-white border border-amber-300/80 shadow-2xs space-y-1">
-                    <span className="text-[10px] font-black uppercase text-amber-900 tracking-wider">⚡ Rapid Test</span>
-                    <div className="flex items-baseline gap-1">
-                      <span className="text-xl font-black text-slate-900">₹5</span>
-                      <span className="text-[10px] text-slate-500 font-semibold">/ 10 mins</span>
-                    </div>
-                    <p className="text-[10px] text-slate-600 leading-tight">Instant 10-min Pro pass. Cancels automatically after 10 mins.</p>
-                  </div>
-
-                  <div className="p-2.5 rounded-xl bg-white border border-amber-300/80 shadow-2xs space-y-1">
-                    <span className="text-[10px] font-black uppercase text-emerald-800 tracking-wider">🧪 1-Time Trial</span>
-                    <div className="flex items-baseline gap-1">
-                      <span className="text-xl font-black text-slate-900">₹10</span>
-                      <span className="text-[10px] text-slate-500 font-semibold">/ 7 days</span>
-                    </div>
-                    <p className="text-[10px] text-slate-600 leading-tight">One-time trial for new candidates. Locks once claimed.</p>
-                  </div>
-                </div>
-
-                <ul className="space-y-2 text-xs text-slate-700">
-                  <li className="flex items-start gap-2">
-                    <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
-                    <span>Instant UPI (Google Pay, PhonePe, Paytm, QR)</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
-                    <span>AI ATS Resume Matcher &amp; full tool access</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
-                    <span>Verified Pro Candidate badge</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
-                    <span>Auto-expires after time duration with zero recurring bills</span>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="pt-5 space-y-2">
-                {/* 1. ₹5 10-Minute Rapid Test Button */}
-                <Button
-                  onClick={() => initiatePlanCheckout("test_5")}
-                  className="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs h-9 shadow-sm"
-                >
-                  <Zap className="h-3.5 w-3.5 mr-1 text-amber-400 fill-amber-400" />
-                  Pay ₹5 (10-Min Rapid Test)
-                </Button>
-
-                {/* 2. ₹10 7-Day Trial Pass (Locked if currently active) */}
-                {isPro ? (
-                  <div className="space-y-1">
-                    <Button
-                      disabled
-                      className="w-full bg-slate-100 text-slate-400 font-bold text-xs h-9 cursor-not-allowed border border-slate-200 shadow-none"
-                    >
-                      🔒 7-Day Trial (Already Claimed)
-                    </Button>
-                    <p className="text-[10px] text-center text-slate-500 font-medium">
-                      One-time trial pass is locked. Use monthly/quarterly to extend.
-                    </p>
-                  </div>
-                ) : (
-                  <Button
-                    onClick={handleTestCheckout}
-                    className="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs h-9 shadow-sm"
-                  >
-                    <CreditCard className="h-3.5 w-3.5 mr-1" />
-                    Pay ₹10 (7-Day Trial Pass)
-                  </Button>
-                )}
               </div>
             </div>
 
@@ -445,54 +352,54 @@ export default function PricingPage() {
               </div>
             </div>
 
-            {/* Variant 3: Lifetime Founder's Pass */}
+            {/* Variant 3: Community Backer & Custom Donation */}
             <div className="relative rounded-3xl border border-amber-300 bg-linear-to-b from-amber-50/50 to-white p-6 shadow-sm flex flex-col justify-between hover:border-amber-400 transition-all">
               <div className="space-y-5">
                 <div className="flex items-center justify-between">
                   <div>
                     <h3 className="text-lg font-bold text-slate-900 flex items-center gap-1.5">
-                      <Star className="h-4 w-4 text-amber-500 fill-amber-500" />
-                      <span>Founder Pass</span>
+                      <Heart className="h-4 w-4 text-rose-500 fill-rose-500" />
+                      <span>Community Backer</span>
                     </h3>
-                    <p className="text-xs text-slate-500 mt-1">Pay once, own Pro forever with no recurring bills.</p>
+                    <p className="text-xs text-slate-500 mt-1">Support open-source developer tooling &amp; transparent hiring.</p>
                   </div>
                   <span className="rounded-full bg-amber-100 text-amber-900 px-2 py-0.5 text-[9px] font-bold">
-                    One-Time
+                    Custom Amount
                   </span>
                 </div>
                 <div>
                   <div className="flex items-baseline gap-1">
-                    <span className="text-3xl font-black text-slate-900">₹7,999</span>
-                    <span className="text-xs text-slate-500 font-semibold">/ lifetime</span>
+                    <span className="text-3xl font-black text-slate-900">Custom</span>
+                    <span className="text-xs text-slate-500 font-semibold">(₹10+)</span>
                   </div>
-                  <p className="text-[11px] text-amber-800 font-medium mt-1">Limited early engineer pass</p>
+                  <p className="text-[11px] text-amber-800 font-medium mt-1">Backing RitualDev &amp; Role Nest</p>
                 </div>
                 <ul className="space-y-2.5 text-xs text-slate-600">
                   <li className="flex items-start gap-2">
                     <Check className="h-4 w-4 text-amber-600 shrink-0 mt-0.5" />
-                    <span><strong>Lifetime Unlimited Access</strong> to all Role Nest Pro features</span>
+                    <span><strong>Directly Supports Students &amp; Freshers</strong> with free career infrastructure</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="h-4 w-4 text-amber-600 shrink-0 mt-0.5" />
-                    <span><strong>Gold Founder Verified Badge</strong> on profile and public certificates</span>
+                    <span><strong>100% Ad-Free Experience</strong> with zero data selling or recruiter spam</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="h-4 w-4 text-amber-600 shrink-0 mt-0.5" />
-                    <span><strong>Zero Recurring Subscription Fees</strong> — pay once, keep forever</span>
+                    <span><strong>Covers GPU &amp; AI Token Costs</strong> for free Harvard ATS resume builder</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="h-4 w-4 text-amber-600 shrink-0 mt-0.5" />
-                    <span><strong>Direct Support Channel</strong> with the core founding engineering team</span>
+                    <span><strong>Community Supporter Recognition</strong> from RitualDev &amp; Role Nest</span>
                   </li>
                 </ul>
               </div>
               <div className="pt-6">
-                <Button
-                  onClick={handleProCheckout}
-                  className="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs h-10 shadow-sm"
-                >
-                  Claim Lifetime Pass
-                </Button>
+                <Link href="/donate">
+                  <Button className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-xs h-10 shadow-sm">
+                    <Heart className="h-3.5 w-3.5 mr-1.5 fill-slate-950" />
+                    Custom Donation Page →
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>

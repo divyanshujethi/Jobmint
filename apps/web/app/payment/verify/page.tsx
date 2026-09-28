@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
-import { CheckCircle2, XCircle, Loader2, Sparkles, ArrowRight, ShieldCheck } from "lucide-react";
+import { CheckCircle2, XCircle, Loader2, Sparkles, ArrowRight, ShieldCheck, Heart } from "lucide-react";
 
 function PaymentVerificationContent() {
   const searchParams = useSearchParams();
@@ -62,17 +62,23 @@ function PaymentVerificationContent() {
           <>
             <CardHeader className="space-y-2 pb-3">
               <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-100 text-emerald-600 shadow-sm animate-in zoom-in-50">
-                <CheckCircle2 className="h-8 w-8" />
+                {details?.plan === "donation" ? (
+                  <Heart className="h-8 w-8 text-rose-600 fill-rose-500" />
+                ) : (
+                  <CheckCircle2 className="h-8 w-8" />
+                )}
               </div>
               <div className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 border border-emerald-200 px-3 py-0.5 text-[11px] font-bold text-emerald-800 mx-auto">
                 <Sparkles className="h-3.5 w-3.5 text-emerald-600" />
-                Role Nest Pro Activated
+                {details?.plan === "donation" ? "RitualDev & Role Nest Supporter" : "Role Nest Pro Activated"}
               </div>
               <CardTitle className="text-2xl font-black text-slate-900">
-                Payment Successful!
+                {details?.plan === "donation" ? "Donation Received! Thank You ❤️" : "Payment Successful!"}
               </CardTitle>
               <CardDescription className="text-xs text-slate-600">
-                Thank you for your purchase. Your account has been upgraded.
+                {details?.plan === "donation"
+                  ? "Your contribution powers free developer tools and ad-free career resources for students across India."
+                  : "Thank you for your purchase. Your account has been upgraded."}
               </CardDescription>
             </CardHeader>
 
@@ -88,11 +94,16 @@ function PaymentVerificationContent() {
                 </div>
                 {details?.amount && (
                   <div className="flex justify-between">
-                    <span className="text-slate-500 font-medium">Amount Paid:</span>
+                    <span className="text-slate-500 font-medium">Amount:</span>
                     <span className="font-bold text-slate-900">₹{details.amount}</span>
                   </div>
                 )}
-                {details?.expiresAt && (
+                {details?.plan === "donation" ? (
+                  <div className="flex justify-between">
+                    <span className="text-slate-500 font-medium">Initiative:</span>
+                    <span className="font-semibold text-emerald-900">RitualDev Lab &amp; Role Nest</span>
+                  </div>
+                ) : details?.expiresAt && (
                   <div className="flex justify-between">
                     <span className="text-slate-500 font-medium">Pro Valid Until:</span>
                     <span className="font-semibold text-slate-800">
@@ -109,24 +120,29 @@ function PaymentVerificationContent() {
               <div className="flex items-center gap-2 rounded-xl bg-slate-50 p-3 text-[11px] text-slate-600 border border-slate-100 text-left">
                 <ShieldCheck className="h-4 w-4 text-emerald-600 shrink-0" />
                 <span>
-                  All Pro features are now unlocked on your profile: Unlimited ATS matching, POTD streaks, and priority application tracking.
+                  {details?.plan === "donation"
+                    ? "On behalf of the engineering teams at RitualDev (ritualdev.in) and Role Nest (rolenest.in), we deeply appreciate your generosity."
+                    : "All Pro features are now unlocked on your profile: Unlimited ATS matching, POTD streaks, and priority application tracking."}
                 </span>
               </div>
             </CardContent>
 
             <CardFooter className="flex flex-col gap-2 pt-2">
               <Link
-                href="/recommendations"
+                href="/jobs"
                 className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow-md transition-all"
               >
-                Go to Recommended Jobs <ArrowRight className="h-4 w-4" />
+                <span>Explore Verified Job Links</span>
+                <ArrowRight className="h-4 w-4" />
               </Link>
-              <Link
-                href="/applications"
-                className="w-full py-2 text-xs font-medium text-slate-600 hover:text-slate-900 transition-colors"
+              <a
+                href="https://ritualdev.in"
+                target="_blank"
+                rel="noreferrer"
+                className="text-xs text-slate-500 hover:text-emerald-700 transition-colors"
               >
-                View Tracked Applications
-              </Link>
+                Visit RitualDev Lab (ritualdev.in) →
+              </a>
             </CardFooter>
           </>
         ) : (

@@ -20,18 +20,25 @@ export async function GET(req: NextRequest) {
       const customerEmail = order.customer_details.customer_email?.toLowerCase();
       const customerId = order.customer_details.customer_id;
 
+      // Handle Community Donation
+      if (orderId.includes("don_") || orderId.includes("donation")) {
+        return NextResponse.json({
+          success: true,
+          orderStatus: order.order_status,
+          isPaid: true,
+          plan: "donation",
+          amount: order.order_amount,
+          orderId: order.order_id,
+          donorName: order.customer_details.customer_name,
+        });
+      }
+
       // Determine duration based on order_id pattern
       let durationMs = 30 * 24 * 60 * 60 * 1000; // default 1 month
       let isFeaturedJob = false;
       let planName = "pro";
 
-      if (orderId.includes("test_5")) {
-        durationMs = 10 * 60 * 1000; // 10 minutes
-        planName = "test_5";
-      } else if (orderId.includes("test_10") || orderId.includes("test")) {
-        durationMs = 7 * 24 * 60 * 60 * 1000; // 7 days
-        planName = "test_10";
-      } else if (orderId.includes("pro_annual")) {
+      if (orderId.includes("pro_annual")) {
         durationMs = 365 * 24 * 60 * 60 * 1000;
         planName = "pro_annual";
       } else if (orderId.includes("pro_quarterly")) {

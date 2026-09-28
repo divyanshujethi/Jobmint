@@ -245,6 +245,12 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/donate" className="hover:text-rose-600 font-semibold text-rose-700 flex items-center gap-1">
+                  <Heart className="h-3 w-3 fill-rose-600 text-rose-600" />
+                  Community Donation
+                </Link>
+              </li>
+              <li>
                 <Link href="/settings/account" className="hover:text-rose-600 font-medium text-slate-500">
                   Delete Account (DPDP Sec. 12)
                 </Link>
@@ -257,10 +263,28 @@ export function Footer() {
         </div>
 
         <div className="mt-12 border-t border-slate-100 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-          <p>© {new Date().getFullYear()} {APP_CONFIG.name}. Payments securely processed via Cashfree Payments (RBI Authorized Payment Aggregator).</p>
-          <p className="flex items-center gap-1.5">
-            Support: <a href="mailto:support@rolenest.in" className="text-emerald-700 font-semibold underline">support@rolenest.in</a> • Built with <Heart className="h-3.5 w-3.5 text-rose-500 fill-rose-500" /> for students &amp; freshers.
-          </p>
+          <div>
+            <p>© {new Date().getFullYear()} <strong className="text-slate-700 font-bold">Role Nest</strong> (<a href="https://rolenest.in" className="text-emerald-700 hover:underline">rolenest.in</a>) — Engineered &amp; Maintained by <strong className="text-slate-700 font-bold">RitualDev Lab</strong> (<a href="https://ritualdev.in" target="_blank" rel="noreferrer" className="text-emerald-700 hover:underline">ritualdev.in</a>).</p>
+            <p className="text-[11px] text-slate-400 mt-0.5">Payments &amp; contributions securely processed via Cashfree Payments (RBI Authorized Payment Aggregator).</p>
+          </div>
+          <div className="flex flex-col sm:items-end gap-1">
+            <p className="flex items-center gap-1.5">
+              Support: <a href="mailto:support@rolenest.in" className="text-emerald-700 font-semibold underline">support@rolenest.in</a> • Built with <Heart className="h-3.5 w-3.5 text-rose-500 fill-rose-500" /> for freshers.
+            </p>
+            <div className="flex items-center gap-2 text-[11px]">
+              <Link href="/donate" className="text-rose-600 hover:underline font-semibold flex items-center gap-1">
+                <Heart className="h-3 w-3 fill-rose-500 text-rose-500" /> Community Donation
+              </Link>
+              <span>•</span>
+              <a href="https://ritualdev.in" target="_blank" rel="noreferrer" className="text-slate-500 hover:text-emerald-700">
+                ritualdev.in
+              </a>
+              <span>•</span>
+              <a href="https://rolenest.in" className="text-slate-500 hover:text-emerald-700">
+                rolenest.in
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </footer>

@@ -123,13 +123,21 @@ export function ProModal({ isOpen, onClose, user }: ProModalProps) {
             {loading ? "Launching Cashfree..." : "Upgrade to Pro — ₹499/mo"}
             <ArrowRight className="h-4 w-4 ml-1" />
           </Button>
-          <div className="text-center">
+          <div className="flex items-center justify-center gap-3 text-xs font-semibold">
             <a
               href="/pricing"
               onClick={onClose}
-              className="text-xs font-semibold text-emerald-700 hover:text-emerald-800 hover:underline"
+              className="text-emerald-700 hover:text-emerald-800 hover:underline"
             >
-              Explore all passes (including ₹5 Rapid Pass &amp; ₹10 Trial) →
+              Explore all plans (Quarterly &amp; Annual) →
+            </a>
+            <span className="text-slate-300">•</span>
+            <a
+              href="/donate"
+              onClick={onClose}
+              className="text-amber-800 hover:text-amber-900 hover:underline"
+            >
+              Support via Donation →
             </a>
           </div>
           <div className="flex items-center justify-center gap-2 text-[10px] text-slate-400">
