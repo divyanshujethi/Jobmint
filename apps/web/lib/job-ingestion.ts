@@ -1,5 +1,5 @@
 import { db, jobs, companies, skills, jobSkills, eq, or, ilike } from "@repo/database";
-import { RawCrawledJob } from "@repo/alligators";
+import { RawCrawledJob, normalizeIndiaLocation } from "@repo/alligators";
 import { JobSource } from "@repo/shared";
 import { invalidateJobsCache } from "./db-jobs";
 import crypto from "crypto";
@@ -66,6 +66,15 @@ export async function persistCrawledJobs(crawledJobs: RawCrawledJob[]): Promise<
         result.skipped++;
         continue;
       }
+
+      // Mandatory Safety Check: Strictly require India or Remote
+      const locInfo = normalizeIndiaLocation(job.location);
+      if (!locInfo.isIndiaOrRemote) {
+        result.skipped++;
+        continue;
+      }
+      job.location = locInfo.location;
+      job.workMode = locInfo.workMode;
 
       // 1. Company Upsert
       const companyCleanName = job.companyName.trim();

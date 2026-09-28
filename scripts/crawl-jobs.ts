@@ -7,7 +7,7 @@
  * npx tsx scripts/crawl-jobs.ts [internshipLimit] [newGradLimit]
  */
 
-import { runJobAlligator } from "../packages/alligators/src/index";
+import { runJobAlligator, normalizeIndiaLocation } from "../packages/alligators/src/index";
 import { db, jobs, companies, skills, jobSkills, eq, or } from "../packages/database/src/index";
 import { JobSource } from "../packages/shared/src/index";
 import crypto from "crypto";
@@ -72,6 +72,15 @@ async function main() {
         skipped++;
         continue;
       }
+
+      // Mandatory Safety Check: Strictly require India or Remote
+      const locInfo = normalizeIndiaLocation(job.location);
+      if (!locInfo.isIndiaOrRemote) {
+        skipped++;
+        continue;
+      }
+      job.location = locInfo.location;
+      job.workMode = locInfo.workMode;
 
       // 1. Company
       const companyCleanName = job.companyName.trim();

@@ -87,12 +87,28 @@ export default function JobsPage() {
           if (!jLoc.includes("bengaluru") && !jLoc.includes("bangalore")) return false;
         } else if (loc === "delhi_ncr") {
           if (!jLoc.includes("delhi") && !jLoc.includes("noida") && !jLoc.includes("gurgaon") && !jLoc.includes("gurugram") && !jLoc.includes("ncr")) return false;
+        } else if (loc === "tricity") {
+          if (!jLoc.includes("chandigarh") && !jLoc.includes("mohali") && !jLoc.includes("panchkula") && !jLoc.includes("tricity")) return false;
+        } else if (loc === "dehradun") {
+          if (!jLoc.includes("dehradun")) return false;
         } else if (loc === "hyderabad") {
           if (!jLoc.includes("hyderabad")) return false;
         } else if (loc === "pune") {
           if (!jLoc.includes("pune")) return false;
         } else if (loc === "mumbai") {
           if (!jLoc.includes("mumbai")) return false;
+        } else if (loc === "chennai") {
+          if (!jLoc.includes("chennai")) return false;
+        } else if (loc === "ahmedabad") {
+          if (!jLoc.includes("ahmedabad") && !jLoc.includes("gandhinagar")) return false;
+        } else if (loc === "kolkata") {
+          if (!jLoc.includes("kolkata")) return false;
+        } else if (loc === "jaipur") {
+          if (!jLoc.includes("jaipur")) return false;
+        } else if (loc === "indore") {
+          if (!jLoc.includes("indore")) return false;
+        } else if (loc === "kochi") {
+          if (!jLoc.includes("kochi") && !jLoc.includes("cochin") && !jLoc.includes("kerala")) return false;
         } else if (loc === "remote") {
           const jMode = (job.workMode || "").toUpperCase();
           if (!jMode.includes("REMOTE") && !jLoc.includes("remote")) return false;
@@ -170,16 +186,18 @@ export default function JobsPage() {
         </span>
         {[
           { label: "🏛️ Govt & PSU Tech", href: "/gov-tech" },
+          { label: "📍 Chandigarh / Tricity", action: () => setSelectedLocation("tricity") },
+          { label: "📍 Dehradun", action: () => setSelectedLocation("dehradun") },
           { label: "🇮🇳 Bengaluru", action: () => setSelectedLocation("bengaluru") },
+          { label: "📍 Delhi NCR", action: () => setSelectedLocation("delhi_ncr") },
+          { label: "📍 Hyderabad", action: () => setSelectedLocation("hyderabad") },
+          { label: "📍 Pune", action: () => setSelectedLocation("pune") },
           { label: "🌐 Remote India", action: () => { setSelectedMode(WorkMode.REMOTE); setSelectedLocation("india"); } },
           { label: "🎓 Freshers (0 YOE)", action: () => setSelectedExp("0") },
           { label: "🚀 Startups", action: () => setSearchTerm("Startup") },
           { label: "React / Next.js", action: () => setSearchTerm("React") },
           { label: "Python / AI", action: () => setSearchTerm("Python") },
-          { label: "Golang", action: () => setSearchTerm("Go") },
           { label: "Internships", action: () => setSelectedType(JobType.INTERNSHIP) },
-          { label: "Delhi NCR", action: () => setSelectedLocation("delhi_ncr") },
-          { label: "Hyderabad", action: () => setSelectedLocation("hyderabad") },
         ].map((chip) =>
           chip.href ? (
             <Link
@@ -309,11 +327,19 @@ export default function JobsPage() {
               className="w-full min-h-[40px] rounded-xl border border-slate-200 bg-slate-50/50 px-3 py-2 text-xs font-medium text-slate-800 focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
             >
               <option value="ALL">Any Location</option>
+              <option value="tricity">Chandigarh / Tricity (Mohali & Panchkula)</option>
+              <option value="dehradun">Dehradun</option>
               <option value="bengaluru">Bengaluru / Bangalore</option>
               <option value="delhi_ncr">Delhi NCR (Gurgaon / Noida)</option>
               <option value="hyderabad">Hyderabad</option>
               <option value="pune">Pune</option>
               <option value="mumbai">Mumbai</option>
+              <option value="chennai">Chennai</option>
+              <option value="ahmedabad">Ahmedabad / Gandhinagar</option>
+              <option value="kolkata">Kolkata</option>
+              <option value="jaipur">Jaipur</option>
+              <option value="indore">Indore</option>
+              <option value="kochi">Kochi / Kerala</option>
               <option value="remote">Remote (India & Worldwide)</option>
               <option value="india">All India (Pan-India)</option>
             </select>
@@ -375,7 +401,7 @@ export default function JobsPage() {
             )}
             {selectedLocation !== "ALL" && (
               <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 font-medium">
-                Location: {selectedLocation.replace("_", " ").toUpperCase()}
+                Location: {selectedLocation === "tricity" ? "Chandigarh / Tricity" : selectedLocation === "delhi_ncr" ? "Delhi NCR" : selectedLocation.charAt(0).toUpperCase() + selectedLocation.slice(1)}
                 <X className="h-3 w-3 cursor-pointer hover:text-emerald-950" onClick={() => setSelectedLocation("ALL")} />
               </span>
             )}

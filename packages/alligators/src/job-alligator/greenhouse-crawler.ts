@@ -2,16 +2,17 @@ import { JobType, WorkMode } from '@repo/shared';
 import { RawCrawledJob } from '../types';
 import { extractCanonicalSkills } from './skill-extractor';
 import { evaluateJobTruth } from './truth-filter';
+import { normalizeIndiaLocation, isTechRole, detectExperienceAndType } from './india-crawler';
 
 /**
- * Crawls public Greenhouse JOB Board APIs (Completely Keyless & Free)
- * Example URLs: https://api.greenhouse.io/v1/boards/{boardToken}/jobs
+ * Crawls public Greenhouse JOB Board APIs.
+ * Strictly filters out foreign on-site positions and non-tech titles.
  */
 export async function crawlGreenhouseBoard(boardToken: string, companyName: string): Promise<RawCrawledJob[]> {
   const results: RawCrawledJob[] = [];
   try {
     const response = await fetch(`https://api.greenhouse.io/v1/boards/${boardToken}/jobs`, {
-      headers: { 'User-Agent': 'Role Nest-TruthAligator/1.0' },
+      headers: { 'User-Agent': 'RoleNest-TruthAlligator/1.0' },
     });
 
     if (!response.ok) {
@@ -24,12 +25,23 @@ export async function crawlGreenhouseBoard(boardToken: string, companyName: stri
       return [];
     }
 
-    for (const job of data.jobs.slice(0, 30)) {
-      const title = job.title || "Software Engineer";
-      const location = job.location?.name || "Remote";
-      const isRemote = location.toLowerCase().includes("remote") || title.toLowerCase().includes("remote");
-      const desc = `Verified position for ${title} at ${companyName}. Located in ${location}. Apply directly on the official ${companyName} Greenhouse career portal.`;
-      const salary = "Competitive Market Compensation (Official)";
+    for (const job of data.jobs) {
+      const title = job.title?.trim() || "";
+      if (!isTechRole(title)) continue;
+
+      const locRaw = job.location?.name || "";
+      const locInfo = normalizeIndiaLocation(locRaw);
+
+      // MANDATORY: STRICT INDIA OR REMOTE ONLY - SKIP FOREIGN ON-SITE
+      if (!locInfo.isIndiaOrRemote) {
+        continue;
+      }
+
+      const { experienceYears, jobType } = detectExperienceAndType(title);
+      const desc = `Verified position for ${title} at ${companyName}. Location: ${locInfo.location}. Apply directly on the official ${companyName} Greenhouse career portal.`;
+      const salary = jobType === JobType.INTERNSHIP 
+        ? "Competitive Internship Stipend (Official)" 
+        : "Competitive Market Compensation (Official)";
       const pubDate = job.updated_at || new Date().toISOString();
 
       const skills = extractCanonicalSkills(`${title} ${desc}`);
@@ -45,10 +57,11 @@ export async function crawlGreenhouseBoard(boardToken: string, companyName: stri
         title,
         companyName,
         companyWebsite: `https://${boardToken}.com`,
-        location,
-        workMode: isRemote ? WorkMode.REMOTE : WorkMode.HYBRID,
-        jobType: title.toLowerCase().includes("intern") ? JobType.INTERNSHIP : JobType.FULL_TIME,
+        location: locInfo.location,
+        workMode: locInfo.workMode,
+        jobType,
         salaryOrStipend: salary,
+        experienceYears,
         source: 'GREENHOUSE',
         sourceUrl: job.absolute_url || `https://boards.greenhouse.io/${boardToken}/jobs/${job.id}`,
         externalId: String(job.id || `gh-${boardToken}-${Math.random()}`),

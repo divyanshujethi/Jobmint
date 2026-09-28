@@ -2,6 +2,7 @@ import { JobType, WorkMode } from "@repo/shared";
 import { RawCrawledJob } from "../types";
 import { extractCanonicalSkills } from "./skill-extractor";
 import { evaluateJobTruth } from "./truth-filter";
+import { normalizeIndiaLocation, isTechRole } from "./india-crawler";
 
 interface SimplifyRawItem {
   id?: string;
@@ -31,13 +32,6 @@ const TECH_CATEGORIES = new Set([
   "Product Management",
 ]);
 
-function detectWorkMode(locationStr: string, titleStr: string): WorkMode {
-  const combined = `${locationStr} ${titleStr}`.toLowerCase();
-  if (combined.includes("remote")) return WorkMode.REMOTE;
-  if (combined.includes("hybrid")) return WorkMode.HYBRID;
-  return WorkMode.ON_SITE;
-}
-
 function getDefaultSkills(category?: string, title?: string): string[] {
   const cat = (category || "").toLowerCase();
   const t = (title || "").toLowerCase();
@@ -61,12 +55,14 @@ function getDefaultSkills(category?: string, title?: string): string[] {
 }
 
 /**
- * Crawl active Tech Internships from SimplifyJobs repository
+ * Crawl active Tech Internships from SimplifyJobs repository.
+ * Only accepts positions that are strictly Remote or physically located in India.
+ * Blocks all foreign on-site listings (e.g. San Francisco, New York, Seattle).
  */
 export async function crawlSimplifyInternships(options?: {
   limit?: number;
 }): Promise<RawCrawledJob[]> {
-  const limit = options?.limit ?? 100;
+  const limit = options?.limit ?? 50;
   const results: RawCrawledJob[] = [];
 
   try {
@@ -92,15 +88,25 @@ export async function crawlSimplifyInternships(options?: {
         (!item.category || TECH_CATEGORIES.has(item.category))
     );
 
-    for (const item of activeTech.slice(0, limit)) {
-      const companyName = item.company_name.trim();
-      const title = item.title.trim();
-      const locations = Array.isArray(item.locations) && item.locations.length > 0
-        ? item.locations.join(", ")
-        : "Remote / Multiple Locations";
-      const workMode = detectWorkMode(locations, title);
-      const url = item.url.trim();
+    for (const item of activeTech) {
+      if (results.length >= limit) break;
 
+      const title = item.title.trim();
+      if (!isTechRole(title)) continue;
+
+      const companyName = item.company_name.trim();
+      const rawLoc = Array.isArray(item.locations) && item.locations.length > 0
+        ? item.locations.join(", ")
+        : "Remote";
+
+      const locInfo = normalizeIndiaLocation(rawLoc);
+
+      // MANDATORY: Skip foreign on-site jobs
+      if (!locInfo.isIndiaOrRemote) {
+        continue;
+      }
+
+      const url = item.url.trim();
       const extracted = extractCanonicalSkills(`${title} ${item.category || ""}`);
       const skills = extracted.length > 0 ? extracted : getDefaultSkills(item.category, title);
 
@@ -109,7 +115,7 @@ export async function crawlSimplifyInternships(options?: {
         : new Date().toISOString();
 
       const stipend = "Competitive Internship Stipend (Official)";
-      const description = `Verified internship position for ${title} at ${companyName}. Locations: ${locations}. Apply directly through the official ${companyName} career portal.`;
+      const description = `Verified internship position for ${title} at ${companyName}. Locations: ${locInfo.location}. Apply directly through the official ${companyName} career portal.`;
 
       const truthEval = evaluateJobTruth({
         title,
@@ -123,8 +129,8 @@ export async function crawlSimplifyInternships(options?: {
         title,
         companyName,
         companyWebsite: item.company_url || `https://${companyName.toLowerCase().replace(/[^a-z0-9]/g, "")}.com`,
-        location: locations,
-        workMode,
+        location: locInfo.location,
+        workMode: locInfo.workMode,
         jobType: JobType.INTERNSHIP,
         salaryOrStipend: stipend,
         source: "SIMPLIFY_TECH",
@@ -146,12 +152,14 @@ export async function crawlSimplifyInternships(options?: {
 }
 
 /**
- * Crawl active New Grad Tech Positions from SimplifyJobs repository
+ * Crawl active New Grad Tech Positions from SimplifyJobs repository.
+ * Only accepts positions that are strictly Remote or physically located in India.
+ * Blocks all foreign on-site listings.
  */
 export async function crawlSimplifyNewGrad(options?: {
   limit?: number;
 }): Promise<RawCrawledJob[]> {
-  const limit = options?.limit ?? 100;
+  const limit = options?.limit ?? 50;
   const results: RawCrawledJob[] = [];
 
   try {
@@ -177,15 +185,25 @@ export async function crawlSimplifyNewGrad(options?: {
         (!item.category || TECH_CATEGORIES.has(item.category))
     );
 
-    for (const item of activeTech.slice(0, limit)) {
-      const companyName = item.company_name.trim();
-      const title = item.title.trim();
-      const locations = Array.isArray(item.locations) && item.locations.length > 0
-        ? item.locations.join(", ")
-        : "Remote / Multiple Locations";
-      const workMode = detectWorkMode(locations, title);
-      const url = item.url.trim();
+    for (const item of activeTech) {
+      if (results.length >= limit) break;
 
+      const title = item.title.trim();
+      if (!isTechRole(title)) continue;
+
+      const companyName = item.company_name.trim();
+      const rawLoc = Array.isArray(item.locations) && item.locations.length > 0
+        ? item.locations.join(", ")
+        : "Remote";
+
+      const locInfo = normalizeIndiaLocation(rawLoc);
+
+      // MANDATORY: Skip foreign on-site jobs
+      if (!locInfo.isIndiaOrRemote) {
+        continue;
+      }
+
+      const url = item.url.trim();
       const extracted = extractCanonicalSkills(`${title} ${item.category || ""}`);
       const skills = extracted.length > 0 ? extracted : getDefaultSkills(item.category, title);
 
@@ -194,7 +212,7 @@ export async function crawlSimplifyNewGrad(options?: {
         : new Date().toISOString();
 
       const salary = "Competitive Market Compensation (Official)";
-      const description = `Verified full-time early career software position for ${title} at ${companyName}. Locations: ${locations}. Apply directly through the official ${companyName} career portal.`;
+      const description = `Verified full-time early career software position for ${title} at ${companyName}. Locations: ${locInfo.location}. Apply directly through the official ${companyName} career portal.`;
 
       const truthEval = evaluateJobTruth({
         title,
@@ -208,8 +226,8 @@ export async function crawlSimplifyNewGrad(options?: {
         title,
         companyName,
         companyWebsite: item.company_url || `https://${companyName.toLowerCase().replace(/[^a-z0-9]/g, "")}.com`,
-        location: locations,
-        workMode,
+        location: locInfo.location,
+        workMode: locInfo.workMode,
         jobType: JobType.FULL_TIME,
         salaryOrStipend: salary,
         source: "SIMPLIFY_TECH",

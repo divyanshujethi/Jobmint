@@ -2,7 +2,7 @@ import { crawlGreenhouseBoard } from './job-alligator/greenhouse-crawler';
 import { crawlLeverSite } from './job-alligator/lever-crawler';
 import { crawlGitHubInternships } from './job-alligator/github-internships';
 import { crawlSimplifyInternships, crawlSimplifyNewGrad } from './job-alligator/simplify-crawler';
-import { crawlIndiaTechBoards } from './job-alligator/india-crawler';
+import { crawlIndiaTechBoards, normalizeIndiaLocation } from './job-alligator/india-crawler';
 
 export * from './types';
 export * from './job-alligator/skill-extractor';
@@ -49,7 +49,11 @@ export async function runJobAlligator(options?: {
     ...canonicalJobs,
   ];
 
-  const acceptedJobs = allJobs.filter((j) => !j.isGhostRisk && j.truthScore >= 50);
+  const acceptedJobs = allJobs.filter((j) => {
+    if (j.isGhostRisk || j.truthScore < 50) return false;
+    const locInfo = normalizeIndiaLocation(j.location);
+    return locInfo.isIndiaOrRemote;
+  });
   const rejected = allJobs.length - acceptedJobs.length;
 
   // Compute skill demand frequency

@@ -2,12 +2,17 @@ import { JobType, WorkMode } from '@repo/shared';
 import { RawCrawledJob } from '../types';
 import { extractCanonicalSkills } from './skill-extractor';
 import { evaluateJobTruth } from './truth-filter';
+import { normalizeIndiaLocation, isTechRole, detectExperienceAndType } from './india-crawler';
 
+/**
+ * Crawls public Lever boards.
+ * Strictly filters out foreign on-site positions and non-tech titles.
+ */
 export async function crawlLeverSite(siteName: string, companyName: string): Promise<RawCrawledJob[]> {
   const results: RawCrawledJob[] = [];
   try {
     const response = await fetch(`https://api.lever.co/v0/postings/${siteName}?mode=json`, {
-      headers: { 'User-Agent': 'Role Nest-TruthAligator/1.0' },
+      headers: { 'User-Agent': 'RoleNest-TruthAlligator/1.0' },
     });
 
     if (!response.ok) {
@@ -20,12 +25,23 @@ export async function crawlLeverSite(siteName: string, companyName: string): Pro
       return [];
     }
 
-    for (const posting of data.slice(0, 30)) {
-      const title = posting.text || 'Software Engineer';
-      const location = posting.categories?.location || 'Remote';
-      const isRemote = location.toLowerCase().includes('remote') || title.toLowerCase().includes('remote');
-      const desc = `Verified position for ${title} at ${companyName}. Located in ${location}. Apply directly on the official ${companyName} Lever portal.`;
-      const salary = 'Competitive Market Compensation (Official)';
+    for (const posting of data) {
+      const title = posting.text?.trim() || "";
+      if (!isTechRole(title)) continue;
+
+      const locRaw = posting.categories?.location || "";
+      const locInfo = normalizeIndiaLocation(locRaw);
+
+      // MANDATORY: STRICT INDIA OR REMOTE ONLY - SKIP FOREIGN ON-SITE
+      if (!locInfo.isIndiaOrRemote) {
+        continue;
+      }
+
+      const { experienceYears, jobType } = detectExperienceAndType(title);
+      const desc = `Verified position for ${title} at ${companyName}. Location: ${locInfo.location}. Apply directly on the official ${companyName} Lever portal.`;
+      const salary = jobType === JobType.INTERNSHIP 
+        ? "Competitive Internship Stipend (Official)" 
+        : "Competitive Market Compensation (Official)";
       const pubDate = posting.createdAt ? new Date(posting.createdAt).toISOString() : new Date().toISOString();
 
       const skills = extractCanonicalSkills(`${title} ${desc}`);
@@ -41,10 +57,11 @@ export async function crawlLeverSite(siteName: string, companyName: string): Pro
         title,
         companyName,
         companyWebsite: `https://${siteName}.com`,
-        location,
-        workMode: isRemote ? WorkMode.REMOTE : WorkMode.ON_SITE,
-        jobType: title.toLowerCase().includes('intern') ? JobType.INTERNSHIP : JobType.FULL_TIME,
+        location: locInfo.location,
+        workMode: locInfo.workMode,
+        jobType,
         salaryOrStipend: salary,
+        experienceYears,
         source: 'LEVER',
         sourceUrl: posting.hostedUrl || `https://jobs.lever.co/${siteName}/${posting.id}`,
         externalId: String(posting.id || `lever-${siteName}-${Math.random()}`),
