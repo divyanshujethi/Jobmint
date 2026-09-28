@@ -2,46 +2,46 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { ShieldCheck, Bookmark, ArrowRight, Clock, MapPin, Sparkles, ExternalLink } from "lucide-react";
+import { ShieldCheck, Bookmark, ArrowRight, Clock, MapPin, Sparkles, ExternalLink, Zap } from "lucide-react";
 import { MockJob } from "@/lib/mock-jobs";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { calculateJobMatch } from "@repo/matching";
 import { MatchScoreBadge } from "./match-score-badge";
+import {
+  CandidateIntelProfile,
+  loadCandidateIntel,
+  scoreJobForCandidate,
+} from "@/lib/candidate-intelligence";
 
 interface JobCardProps {
   job: MockJob;
+  candidateIntel?: CandidateIntelProfile;
 }
 
-export function JobCard({ job }: JobCardProps) {
+export function JobCard({ job, candidateIntel }: JobCardProps) {
   const [isSaved, setIsSaved] = useState(false);
   const [imageError, setImageError] = useState(false);
-  const [candidateProfile, setCandidateProfile] = useState<{
-    skills: string[];
-    experienceYears?: number;
-  } | null>(null);
+  const [activeIntel, setActiveIntel] = useState<CandidateIntelProfile | null>(
+    candidateIntel || null
+  );
 
   useEffect(() => {
-    try {
-      const savedDev = localStorage.getItem("jobmint_verified_dev_score");
-      if (savedDev) {
-        const parsed = JSON.parse(savedDev);
-        if (Array.isArray(parsed.verifiedSkills) && parsed.verifiedSkills.length > 0) {
-          setCandidateProfile({ skills: parsed.verifiedSkills, experienceYears: 0 });
-          return;
-        }
+    if (candidateIntel) {
+      setActiveIntel(candidateIntel);
+    } else {
+      setActiveIntel(loadCandidateIntel());
+    }
+  }, [candidateIntel]);
+
+  const candidateProfile = activeIntel
+    ? {
+        skills: activeIntel.skills,
+        experienceYears: activeIntel.experienceLevel === "FRESHER" ? 0 : 2,
       }
-      const savedSkills = localStorage.getItem("jobmint_candidate_skills");
-      if (savedSkills) {
-        const parsed = JSON.parse(savedSkills);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          setCandidateProfile({ skills: parsed, experienceYears: 0 });
-          return;
-        }
-      }
-    } catch {}
-    setCandidateProfile(null);
-  }, []);
+    : null;
+
+  const intelScore = activeIntel ? scoreJobForCandidate(job, activeIntel) : null;
 
   const matchResult = candidateProfile
     ? calculateJobMatch(
@@ -69,11 +69,15 @@ export function JobCard({ job }: JobCardProps) {
       )
     : null;
 
+  const userSkillsLower = new Set((activeIntel?.skills || []).map((s) => s.toLowerCase().trim()));
+
   return (
     <div
       className={`group relative rounded-xl border p-5 sm:p-6 shadow-sm transition-all hover:shadow-md ${
         job.isFeatured
           ? "border-amber-300 bg-amber-50/20 ring-1 ring-amber-300/50 hover:border-amber-400"
+          : intelScore && intelScore.totalScore >= 85
+          ? "border-emerald-300/90 bg-emerald-50/15 ring-1 ring-emerald-300/40 hover:border-emerald-400"
           : "border-slate-200 bg-white hover:border-slate-300"
       }`}
     >
@@ -170,18 +174,33 @@ export function JobCard({ job }: JobCardProps) {
         <span className="flex items-center gap-1 text-slate-500">
           <MapPin className="h-3 w-3 text-slate-400" /> {job.location}
         </span>
+
+        {intelScore && intelScore.summary && (
+          <span className="hidden sm:inline-flex items-center gap-1 text-[11px] font-bold text-emerald-700 bg-emerald-50/80 px-2 py-0.5 rounded-md border border-emerald-200/60 ml-auto">
+            <Zap className="h-3 w-3 fill-emerald-600 text-emerald-600" />
+            {intelScore.summary}
+          </span>
+        )}
       </div>
 
-      {/* SKILL TAGS */}
+      {/* SKILL TAGS (HIGHLIGHT CANDIDATE MATCHES) */}
       <div className="mt-3 flex flex-wrap gap-1.5">
-        {job.skills.map((skill) => (
-          <span
-            key={skill}
-            className="rounded-md border border-slate-200 bg-slate-50 px-2 py-0.5 text-[11px] font-medium text-slate-600"
-          >
-            {skill}
-          </span>
-        ))}
+        {job.skills.map((skill) => {
+          const isMatched = userSkillsLower.has(skill.toLowerCase().trim());
+          return (
+            <span
+              key={skill}
+              className={`rounded-md border px-2 py-0.5 text-[11px] font-medium transition-colors ${
+                isMatched
+                  ? "border-emerald-300 bg-emerald-100/70 text-emerald-950 font-bold shadow-2xs"
+                  : "border-slate-200 bg-slate-50 text-slate-600"
+              }`}
+            >
+              {isMatched && <span className="text-emerald-700 mr-1">✓</span>}
+              {skill}
+            </span>
+          );
+        })}
       </div>
 
       {/* CARD FOOTER: TRUTH TELLER & CTA */}

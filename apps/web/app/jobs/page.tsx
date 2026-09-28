@@ -2,12 +2,40 @@
 
 import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
-import { Search, MapPin, Filter, Briefcase, Sparkles, X, ShieldCheck } from "lucide-react";
+import {
+  Search,
+  MapPin,
+  Filter,
+  Briefcase,
+  Sparkles,
+  X,
+  ShieldCheck,
+  Building2,
+  Zap,
+  Layers,
+  LayoutGrid,
+  List,
+  SlidersHorizontal,
+  Flame,
+  ArrowRight,
+} from "lucide-react";
 import { MockJob } from "@/lib/mock-jobs";
 import { JobCard } from "@/components/job-card";
 import { Button } from "@/components/ui/button";
 import { InstantAlertsBanner } from "@/components/instant-alerts-modal";
 import { JobType, WorkMode } from "@repo/shared";
+import {
+  CandidateIntelProfile,
+  DEFAULT_INTEL_PROFILE,
+  loadCandidateIntel,
+  interleaveJobsByCompany,
+  groupJobsByCompany,
+  scoreJobForCandidate,
+} from "@/lib/candidate-intelligence";
+import { CandidateIntelBar } from "@/components/candidate-intel-bar";
+import { CompanyJobGroupCard } from "@/components/company-job-group-card";
+
+type ViewMode = "DIVERSIFIED" | "COMPANY_GROUPED" | "RECOMMENDED";
 
 export default function JobsPage() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -19,7 +47,14 @@ export default function JobsPage() {
   const [jobs, setJobs] = useState<MockJob[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  // Candidate Intelligence System state
+  const [intelProfile, setIntelProfile] = useState<CandidateIntelProfile>(DEFAULT_INTEL_PROFILE);
+  const [viewMode, setViewMode] = useState<ViewMode>("DIVERSIFIED");
+
   useEffect(() => {
+    // Load candidate intelligence profile from local storage or verified dev score
+    setIntelProfile(loadCandidateIntel());
+
     fetch("/api/jobs")
       .then((res) => res.json())
       .then((data) => {
@@ -31,6 +66,7 @@ export default function JobsPage() {
       .finally(() => setIsLoading(false));
   }, []);
 
+  // Filtered jobs based on user's query and filter chips
   const filteredJobs = useMemo(() => {
     return jobs.filter((job) => {
       // Search term
@@ -50,7 +86,7 @@ export default function JobsPage() {
         return false;
       }
 
-      // Work Mode (normalizing REMOTE, HYBRID, ONSITE/ON_SITE)
+      // Work Mode
       if (selectedMode !== "ALL") {
         const targetMode = selectedMode.toUpperCase().replace(/[-_]/g, "");
         const jMode = (job.workMode || "").toUpperCase().replace(/[-_]/g, "");
@@ -128,6 +164,32 @@ export default function JobsPage() {
     });
   }, [jobs, searchTerm, selectedType, selectedMode, selectedExp, selectedLocation, onlyVerified]);
 
+  // Diversified Feed: Interleaved round-robin by company so no 20 GitLab / 10 MongoDB in a row
+  const diversifiedJobs = useMemo(() => {
+    return interleaveJobsByCompany(filteredJobs);
+  }, [filteredJobs]);
+
+  // Recommended Jobs: Filtered for score >= 60%, sorted highest score first
+  const recommendedJobsWithScores = useMemo(() => {
+    return filteredJobs
+      .map((job) => ({
+        job,
+        scoreInfo: scoreJobForCandidate(job, intelProfile),
+      }))
+      .filter(({ scoreInfo }) => scoreInfo.totalScore >= 55)
+      .sort((a, b) => b.scoreInfo.totalScore - a.scoreInfo.totalScore);
+  }, [filteredJobs, intelProfile]);
+
+  // Grouped by Company
+  const companyGroups = useMemo(() => {
+    return groupJobsByCompany(filteredJobs, intelProfile);
+  }, [filteredJobs, intelProfile]);
+
+  // Top AI Recommendations (Top 3 for carousel/banner)
+  const topAIRecommendations = useMemo(() => {
+    return recommendedJobsWithScores.slice(0, 3);
+  }, [recommendedJobsWithScores]);
+
   const hasActiveFilters =
     Boolean(searchTerm) ||
     selectedType !== "ALL" ||
@@ -146,7 +208,7 @@ export default function JobsPage() {
   };
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 space-y-6">
       {/* PAGE HEADER */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-6">
         <div>
@@ -154,7 +216,7 @@ export default function JobsPage() {
             Explore Opportunities
           </h1>
           <p className="mt-1 text-sm text-slate-600">
-            Discover verified jobs and internships with honest activity stats.
+            Verified Indian engineering roles &amp; remote global teams with honest recruiter stats.
           </p>
         </div>
 
@@ -166,7 +228,7 @@ export default function JobsPage() {
             placeholder="Search by title, skill, company..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full rounded-xl border border-slate-200 bg-white py-2 pl-9 pr-8 text-sm placeholder:text-slate-400 focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+            className="w-full rounded-xl border border-slate-200 bg-white py-2 pl-9 pr-8 text-sm placeholder:text-slate-400 focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500 shadow-2xs"
           />
           {searchTerm && (
             <button
@@ -179,8 +241,15 @@ export default function JobsPage() {
         </div>
       </div>
 
+      {/* CANDIDATE INTELLIGENCE SYSTEM BAR */}
+      <CandidateIntelBar
+        profile={intelProfile}
+        onChange={setIntelProfile}
+        totalMatchedRoles={recommendedJobsWithScores.length}
+      />
+
       {/* QUICK CANDIDATE 1-CLICK SEARCH CHIPS */}
-      <div className="mt-3 flex flex-wrap items-center gap-1.5 pt-1">
+      <div className="flex flex-wrap items-center gap-1.5 pt-1">
         <span className="text-[11px] font-bold text-slate-500 mr-1 flex items-center gap-1">
           <Sparkles className="h-3 w-3 text-emerald-600" /> Quick Filter:
         </span>
@@ -220,36 +289,153 @@ export default function JobsPage() {
         )}
       </div>
 
-      {/* TRUTH TELLER GUARANTEE CALLOUT */}
-      <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-emerald-200/80 bg-gradient-to-r from-emerald-50 via-teal-50/50 to-white px-4 py-2.5 text-xs text-emerald-950 shadow-2xs">
-        <div className="flex items-center gap-2">
-          <span className="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-          <span className="font-extrabold text-emerald-900 font-mono flex items-center gap-1">
-            <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" /> Truth Teller Standard:
-          </span>
-          <span className="text-slate-700">
-            Direct application tracking with real-time status updates and zero recruiter ghosting.
-          </span>
+      {/* TOP AI PICKS HIGHLIGHT BANNER (When relevant matches exist) */}
+      {topAIRecommendations.length > 0 && viewMode !== "COMPANY_GROUPED" && (
+        <div className="rounded-2xl border border-amber-300/80 bg-gradient-to-r from-amber-50/70 via-orange-50/30 to-amber-50/40 p-4 shadow-xs">
+          <div className="flex items-center justify-between pb-3 border-b border-amber-200/60">
+            <div className="flex items-center gap-2">
+              <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-amber-500 text-white shadow-2xs">
+                <Flame className="h-4 w-4 fill-white text-white" />
+              </span>
+              <div>
+                <h3 className="text-xs sm:text-sm font-extrabold text-slate-900 flex items-center gap-1.5">
+                  Top AI Matches For You
+                  <span className="rounded-full bg-amber-200 text-amber-950 px-2 py-0.2 text-[10px] font-black">
+                    85%+ FIT
+                  </span>
+                </h3>
+                <p className="text-[11px] text-slate-600">
+                  Calculated against your active skills: {intelProfile.skills.slice(0, 4).join(", ")}
+                </p>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={() => setViewMode("RECOMMENDED")}
+              className="text-xs font-bold text-amber-900 hover:text-amber-950 underline flex items-center gap-1 cursor-pointer"
+            >
+              <span>View All Recommended ({recommendedJobsWithScores.length})</span>
+              <ArrowRight className="h-3.5 w-3.5" />
+            </button>
+          </div>
+
+          <div className="mt-3 grid grid-cols-1 md:grid-cols-3 gap-3">
+            {topAIRecommendations.map(({ job, scoreInfo }) => (
+              <div
+                key={job.id}
+                className="rounded-xl border border-amber-200 bg-white p-3.5 shadow-2xs hover:shadow-xs transition-all flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-xs font-bold text-slate-600 truncate">
+                      {job.companyName}
+                    </span>
+                    <span className="px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 text-[10px] font-black shrink-0">
+                      {scoreInfo.badgeLabel}
+                    </span>
+                  </div>
+                  <Link href={`/jobs/${job.slug}`}>
+                    <h4 className="mt-1 text-xs sm:text-sm font-extrabold text-slate-900 hover:text-emerald-700 line-clamp-1">
+                      {job.title}
+                    </h4>
+                  </Link>
+                  <p className="text-[11px] text-slate-500 mt-1 line-clamp-1">
+                    {job.location} • {job.salaryOrStipend}
+                  </p>
+                </div>
+
+                <div className="mt-3 pt-2.5 border-t border-slate-100 flex items-center justify-between">
+                  <span className="text-[10px] text-emerald-700 font-bold truncate max-w-[150px]">
+                    {scoreInfo.summary}
+                  </span>
+                  <Link
+                    href={`/jobs/${job.slug}`}
+                    className="text-[11px] font-extrabold text-emerald-700 hover:underline shrink-0"
+                  >
+                    View &rarr;
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
-        <Link
-          href="/transparency"
-          className="font-bold text-emerald-700 hover:text-emerald-800 underline underline-offset-2 flex items-center gap-1"
-        >
-          Anti-Ghosting Ledger →
-        </Link>
+      )}
+
+      {/* VIEW MODE SWITCHER & COUNTERS */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2">
+        {/* Toggle Pills: Recommended vs Diversified vs Grouped */}
+        <div className="inline-flex items-center rounded-2xl border border-slate-200 bg-slate-100/80 p-1 text-xs font-bold">
+          <button
+            type="button"
+            onClick={() => setViewMode("DIVERSIFIED")}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl transition-all cursor-pointer ${
+              viewMode === "DIVERSIFIED"
+                ? "bg-white text-slate-900 shadow-xs"
+                : "text-slate-600 hover:text-slate-900"
+            }`}
+          >
+            <List className="h-3.5 w-3.5 text-slate-500" />
+            <span>Feed View (Diversified)</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setViewMode("COMPANY_GROUPED")}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl transition-all cursor-pointer ${
+              viewMode === "COMPANY_GROUPED"
+                ? "bg-white text-emerald-900 shadow-xs"
+                : "text-slate-600 hover:text-slate-900"
+            }`}
+          >
+            <Building2 className="h-3.5 w-3.5 text-emerald-600" />
+            <span>Group by Company ({companyGroups.length})</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setViewMode("RECOMMENDED")}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl transition-all cursor-pointer ${
+              viewMode === "RECOMMENDED"
+                ? "bg-emerald-600 text-white shadow-xs"
+                : "text-slate-600 hover:text-emerald-700"
+            }`}
+          >
+            <Sparkles className="h-3.5 w-3.5 text-amber-300" />
+            <span>Recommended for You ({recommendedJobsWithScores.length})</span>
+          </button>
+        </div>
+
+        {/* Results count & Reset */}
+        <div className="flex items-center gap-2 text-xs">
+          <span className="font-semibold text-slate-500">
+            Showing{" "}
+            <strong className="text-slate-900">
+              {viewMode === "COMPANY_GROUPED"
+                ? `${companyGroups.length} companies (${filteredJobs.length} roles)`
+                : viewMode === "RECOMMENDED"
+                ? `${recommendedJobsWithScores.length} matched roles`
+                : `${filteredJobs.length} roles`}
+            </strong>
+          </span>
+          {hasActiveFilters && (
+            <button
+              onClick={resetAllFilters}
+              className="text-xs font-bold text-emerald-600 hover:text-emerald-700 underline ml-2 cursor-pointer"
+            >
+              Reset All Filters
+            </button>
+          )}
+        </div>
       </div>
 
-      {/* INSTANT WHATSAPP & TELEGRAM ALERTS */}
-      <InstantAlertsBanner />
-
       {/* FILTER CONTROLS BAR */}
-      <div className="mt-6 rounded-2xl border border-slate-200 bg-white p-4 shadow-2xs space-y-3.5">
+      <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-2xs space-y-3.5">
         {/* Row 1: Job Types & Quick Selectors */}
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex flex-wrap items-center gap-2">
             <button
               onClick={() => setSelectedType("ALL")}
-              className={`min-h-[38px] inline-flex items-center rounded-xl px-3.5 py-1.5 text-xs font-semibold transition-colors touch-manipulation ${
+              className={`min-h-[38px] inline-flex items-center rounded-xl px-3.5 py-1.5 text-xs font-semibold transition-colors touch-manipulation cursor-pointer ${
                 selectedType === "ALL"
                   ? "bg-emerald-600 text-white shadow-xs"
                   : "bg-slate-50 border border-slate-200 text-slate-700 hover:bg-slate-100"
@@ -259,7 +445,7 @@ export default function JobsPage() {
             </button>
             <button
               onClick={() => setSelectedType(JobType.INTERNSHIP)}
-              className={`min-h-[38px] inline-flex items-center gap-1.5 rounded-xl px-3.5 py-1.5 text-xs font-semibold transition-colors touch-manipulation ${
+              className={`min-h-[38px] inline-flex items-center gap-1.5 rounded-xl px-3.5 py-1.5 text-xs font-semibold transition-colors touch-manipulation cursor-pointer ${
                 selectedType === JobType.INTERNSHIP
                   ? "bg-emerald-600 text-white shadow-xs"
                   : "bg-slate-50 border border-slate-200 text-slate-700 hover:bg-slate-100"
@@ -270,7 +456,7 @@ export default function JobsPage() {
             </button>
             <button
               onClick={() => setSelectedType(JobType.FULL_TIME)}
-              className={`min-h-[38px] inline-flex items-center rounded-xl px-3.5 py-1.5 text-xs font-semibold transition-colors touch-manipulation ${
+              className={`min-h-[38px] inline-flex items-center rounded-xl px-3.5 py-1.5 text-xs font-semibold transition-colors touch-manipulation cursor-pointer ${
                 selectedType === JobType.FULL_TIME
                   ? "bg-emerald-600 text-white shadow-xs"
                   : "bg-slate-50 border border-slate-200 text-slate-700 hover:bg-slate-100"
@@ -279,24 +465,9 @@ export default function JobsPage() {
               Full-Time Roles
             </button>
           </div>
-
-          {/* Results count & Reset */}
-          <div className="flex items-center gap-2 text-xs">
-            <span className="font-semibold text-slate-500">
-              Showing <strong className="text-slate-900">{filteredJobs.length}</strong> of {jobs.length} roles
-            </span>
-            {hasActiveFilters && (
-              <button
-                onClick={resetAllFilters}
-                className="text-xs font-bold text-emerald-600 hover:text-emerald-700 underline ml-2"
-              >
-                Reset All
-              </button>
-            )}
-          </div>
         </div>
 
-        {/* Row 2: Detailed Filters (Experience, Location, Work Mode, Verified) */}
+        {/* Row 2: Detailed Filters */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 pt-1 border-t border-slate-100">
           {/* Experience Filter */}
           <div>
@@ -421,8 +592,8 @@ export default function JobsPage() {
         )}
       </div>
 
-      {/* JOBS GRID / LIST */}
-      <div className="mt-6 space-y-4">
+      {/* JOBS CONTENT: DIVERSIFIED FEED, GROUPED BY COMPANY, OR RECOMMENDED */}
+      <div className="space-y-4">
         {isLoading ? (
           <div className="space-y-4">
             {[1, 2, 3].map((i) => (
@@ -438,33 +609,105 @@ export default function JobsPage() {
               </div>
             ))}
           </div>
-        ) : filteredJobs.length > 0 ? (
-          filteredJobs.map((job) => <JobCard key={job.id} job={job} />)
+        ) : viewMode === "COMPANY_GROUPED" ? (
+          /* COMPANY GROUPED VIEW */
+          companyGroups.length > 0 ? (
+            <div className="space-y-4">
+              {companyGroups.map((group, idx) => (
+                <CompanyJobGroupCard
+                  key={group.companyName}
+                  group={group}
+                  defaultExpanded={idx === 0}
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="rounded-2xl border border-dashed border-slate-200 bg-white p-12 text-center">
+              <Building2 className="mx-auto h-10 w-10 text-slate-300" />
+              <h3 className="mt-3 text-base font-bold text-slate-800">
+                No companies match your filters
+              </h3>
+              <p className="mt-1 text-xs text-slate-500 max-w-sm mx-auto">
+                Try clearing your location or work mode filters.
+              </p>
+              <Button variant="outline" size="sm" className="mt-4" onClick={resetAllFilters}>
+                Reset Filters
+              </Button>
+            </div>
+          )
+        ) : viewMode === "RECOMMENDED" ? (
+          /* RECOMMENDED VIEW (High Match Scores Only) */
+          recommendedJobsWithScores.length > 0 ? (
+            <div className="space-y-4">
+              {recommendedJobsWithScores.map(({ job }) => (
+                <JobCard key={job.id} job={job} candidateIntel={intelProfile} />
+              ))}
+            </div>
+          ) : (
+            <div className="rounded-2xl border border-dashed border-slate-200 bg-white p-12 text-center">
+              <Zap className="mx-auto h-10 w-10 text-slate-300" />
+              <h3 className="mt-3 text-base font-bold text-slate-800">
+                No high-match roles for this stack combination
+              </h3>
+              <p className="mt-1 text-xs text-slate-500 max-w-sm mx-auto">
+                Try adding more skills in the Candidate Intelligence Bar above or switch to Diversified Feed.
+              </p>
+              <Button
+                variant="outline"
+                size="sm"
+                className="mt-4"
+                onClick={() => setViewMode("DIVERSIFIED")}
+              >
+                Show All Opportunities
+              </Button>
+            </div>
+          )
         ) : (
-          <div className="rounded-2xl border border-dashed border-slate-200 bg-white p-12 text-center">
-            <Briefcase className="mx-auto h-10 w-10 text-slate-300" />
-            <h3 className="mt-3 text-base font-bold text-slate-800">
-              No matching opportunities found
-            </h3>
-            <p className="mt-1 text-xs text-slate-500 max-w-sm mx-auto">
-              Try adjusting your search terms or clearing work mode filters.
-            </p>
-            <Button
-              variant="outline"
-              size="sm"
-              className="mt-4"
-              onClick={() => {
-                setSearchTerm("");
-                setSelectedType("ALL");
-                setSelectedMode("ALL");
-                setOnlyVerified(false);
-              }}
-            >
-              Reset Filters
-            </Button>
-          </div>
+          /* DIVERSIFIED FEED VIEW (Round-Robin Interleaved) */
+          diversifiedJobs.length > 0 ? (
+            <div className="space-y-4">
+              {diversifiedJobs.map((job) => (
+                <JobCard key={job.id} job={job} candidateIntel={intelProfile} />
+              ))}
+            </div>
+          ) : (
+            <div className="rounded-2xl border border-dashed border-slate-200 bg-white p-12 text-center">
+              <Briefcase className="mx-auto h-10 w-10 text-slate-300" />
+              <h3 className="mt-3 text-base font-bold text-slate-800">
+                No matching opportunities found
+              </h3>
+              <p className="mt-1 text-xs text-slate-500 max-w-sm mx-auto">
+                Try adjusting your search terms or clearing work mode filters.
+              </p>
+              <Button variant="outline" size="sm" className="mt-4" onClick={resetAllFilters}>
+                Reset Filters
+              </Button>
+            </div>
+          )
         )}
       </div>
+
+      {/* TRUTH TELLER GUARANTEE CALLOUT */}
+      <div className="mt-8 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-emerald-200/80 bg-gradient-to-r from-emerald-50 via-teal-50/50 to-white px-4 py-3 text-xs text-emerald-950 shadow-2xs">
+        <div className="flex items-center gap-2">
+          <span className="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+          <span className="font-extrabold text-emerald-900 font-mono flex items-center gap-1">
+            <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" /> Truth Teller Standard:
+          </span>
+          <span className="text-slate-700">
+            Direct application tracking with real-time status updates and zero recruiter ghosting.
+          </span>
+        </div>
+        <Link
+          href="/transparency"
+          className="font-bold text-emerald-700 hover:text-emerald-800 underline underline-offset-2 flex items-center gap-1"
+        >
+          Anti-Ghosting Ledger &rarr;
+        </Link>
+      </div>
+
+      {/* INSTANT WHATSAPP & TELEGRAM ALERTS */}
+      <InstantAlertsBanner />
     </div>
   );
 }

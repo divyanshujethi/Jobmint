@@ -127,15 +127,15 @@ export function Navbar() {
 
   return (
     <nav className="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur-md print:hidden">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-3 sm:px-6 lg:px-8">
         {/* Brand Logo & Core Nav */}
-        <div className="flex items-center gap-8">
-          <Link href="/" className="flex items-center gap-2.5 group shrink-0">
+        <div className="flex items-center gap-3 sm:gap-4 xl:gap-8 min-w-0 shrink-0">
+          <Link href="/" className="flex items-center gap-2 group shrink-0">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-600 text-white font-extrabold text-lg shadow-sm transition-transform group-hover:scale-105">
               R
             </div>
             <div className="flex flex-col">
-              <span className="text-xl font-extrabold tracking-tight text-slate-900 leading-tight">
+              <span className="text-lg sm:text-xl font-extrabold tracking-tight text-slate-900 leading-tight">
                 {APP_CONFIG.name}
               </span>
               <span className="hidden text-[10px] font-bold text-emerald-600 sm:block tracking-wide">
@@ -145,71 +145,51 @@ export function Navbar() {
           </Link>
 
           {/* Core Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-6">
+          <div className="hidden lg:flex items-center gap-3 xl:gap-5 text-sm font-semibold shrink-0">
             <Link
               href="/jobs"
-              className={`flex items-center gap-1.5 text-sm font-semibold transition-colors ${
+              className={`flex items-center gap-1.5 transition-colors shrink-0 ${
                 pathname === "/jobs" ? "text-emerald-600 font-bold" : "text-slate-600 hover:text-emerald-600"
               }`}
             >
               <Briefcase className="h-4 w-4 text-slate-400" />
-              Jobs
+              <span>Jobs</span>
             </Link>
 
             <Link
               href="/internships"
-              className={`flex items-center gap-1.5 text-sm font-semibold transition-colors ${
+              className={`flex items-center gap-1.5 transition-colors shrink-0 ${
                 pathname === "/internships" ? "text-emerald-600 font-bold" : "text-slate-600 hover:text-emerald-600"
               }`}
             >
               <Sparkles className="h-4 w-4 text-amber-500" />
-              Internships
-            </Link>
-
-            <Link
-              href="/bounties"
-              className={`flex items-center gap-1.5 text-sm font-semibold transition-colors ${
-                pathname === "/bounties" ? "text-emerald-600 font-bold" : "text-slate-600 hover:text-emerald-600"
-              }`}
-            >
-              <Gift className="h-4 w-4 text-amber-500" />
-              Bounties
-            </Link>
-
-            <Link
-              href="/salaries"
-              className={`flex items-center gap-1.5 text-sm font-semibold transition-colors ${
-                pathname === "/salaries" ? "text-emerald-600 font-bold" : "text-slate-600 hover:text-emerald-600"
-              }`}
-            >
-              <DollarSign className="h-4 w-4 text-emerald-600" />
-              Salaries
+              <span>Internships</span>
             </Link>
 
             <Link
               href="/gov-tech"
-              className={`flex items-center gap-1.5 text-sm font-semibold transition-colors ${
+              className={`flex items-center gap-1.5 transition-colors shrink-0 ${
                 pathname === "/gov-tech" ? "text-emerald-600 font-bold" : "text-slate-600 hover:text-emerald-600"
               }`}
             >
               <Building2 className="h-4 w-4 text-emerald-700" />
               <span>Govt Tech</span>
-              <span className="rounded-full bg-emerald-100 text-emerald-800 px-1.5 py-0.2 text-[9px] font-bold">🇮🇳 NEW</span>
+              <span className="rounded-full bg-emerald-100 text-emerald-800 px-1.5 py-0.2 text-[9px] font-bold">🇮🇳</span>
             </Link>
 
             {/* Tools & Resources Dropdown */}
-            <div className="relative" ref={toolsRef}>
+            <div className="relative shrink-0" ref={toolsRef}>
               <button
                 type="button"
                 onClick={() => setToolsOpen(!toolsOpen)}
-                className="flex items-center gap-1 text-sm font-semibold text-slate-600 hover:text-emerald-600 transition-colors focus:outline-none"
+                className="flex items-center gap-1 text-slate-600 hover:text-emerald-600 transition-colors focus:outline-none cursor-pointer"
               >
                 <span>Tools &amp; Prep</span>
                 <ChevronDown className={`h-3.5 w-3.5 transition-transform ${toolsOpen ? "rotate-180" : ""}`} />
               </button>
 
               {toolsOpen && (
-                <div className="absolute -left-64 sm:-left-48 mt-3 w-[780px] rounded-3xl border border-slate-200 bg-white p-5 shadow-2xl ring-1 ring-black/5 animate-in fade-in slide-in-from-top-2 duration-150 z-50">
+                <div className="absolute left-0 xl:-left-20 mt-3 w-[min(820px,calc(100vw-32px))] rounded-3xl border border-slate-200 bg-white p-5 shadow-2xl ring-1 ring-black/5 animate-in fade-in slide-in-from-top-2 duration-150 z-50">
                   <div className="grid grid-cols-3 gap-6">
                     {/* COLUMN 1: CODING & INTERVIEWS */}
                     <div className="space-y-3">
@@ -277,13 +257,43 @@ export function Navbar() {
                       </div>
                     </div>
 
-                    {/* COLUMN 2: RESUME & DISCOVERY */}
+                    {/* COLUMN 2: RESUME, SALARIES & DISCOVERY */}
                     <div className="space-y-3 border-l border-slate-100 pl-4">
                       <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-blue-700 flex items-center gap-1.5 px-2">
                         <FileText className="h-3.5 w-3.5" />
-                        <span>Resume &amp; Discovery</span>
+                        <span>Resume, Salaries &amp; Earning</span>
                       </div>
                       <div className="space-y-1">
+                        <Link
+                          href="/salaries"
+                          onClick={() => setToolsOpen(false)}
+                          className="flex items-start gap-2.5 rounded-xl p-2 hover:bg-slate-50 transition-colors group"
+                        >
+                          <DollarSign className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                          <div>
+                            <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5 group-hover:text-blue-600 transition-colors">
+                              Tech Salaries &amp; CTC
+                              <span className="rounded bg-emerald-50 text-emerald-700 px-1 py-0.2 text-[9px] font-mono">Real</span>
+                            </div>
+                            <div className="text-[11px] text-slate-500">Compensation benchmarks &amp; perks</div>
+                          </div>
+                        </Link>
+
+                        <Link
+                          href="/bounties"
+                          onClick={() => setToolsOpen(false)}
+                          className="flex items-start gap-2.5 rounded-xl p-2 hover:bg-slate-50 transition-colors group"
+                        >
+                          <Gift className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
+                          <div>
+                            <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5 group-hover:text-blue-600 transition-colors">
+                              Bounties &amp; Micro-Tasks
+                              <span className="rounded bg-amber-50 text-amber-700 px-1 py-0.2 text-[9px] font-mono">Earn</span>
+                            </div>
+                            <div className="text-[11px] text-slate-500">Paid open source &amp; code bounties</div>
+                          </div>
+                        </Link>
+
                         <Link
                           href="/resume/builder"
                           onClick={() => setToolsOpen(false)}
@@ -293,7 +303,7 @@ export function Navbar() {
                           <div>
                             <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5 group-hover:text-blue-600 transition-colors">
                               Harvard ATS Resume
-                              <span className="rounded bg-blue-50 text-blue-700 px-1 py-0.2 text-[9px] font-mono">LaTeX/PDF</span>
+                              <span className="rounded bg-blue-50 text-blue-700 px-1 py-0.2 text-[9px] font-mono">LaTeX</span>
                             </div>
                             <div className="text-[11px] text-slate-500">1-click single-column builder</div>
                           </div>
@@ -338,21 +348,6 @@ export function Navbar() {
                               <span className="rounded bg-slate-100 text-slate-700 px-1 py-0.2 text-[9px] font-mono">Verified</span>
                             </div>
                             <div className="text-[11px] text-slate-500">Culture, tech stack &amp; rounds</div>
-                          </div>
-                        </Link>
-
-                        <Link
-                          href="/recommendations"
-                          onClick={() => setToolsOpen(false)}
-                          className="flex items-start gap-2.5 rounded-xl p-2 hover:bg-slate-50 transition-colors group"
-                        >
-                          <Zap className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
-                          <div>
-                            <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5 group-hover:text-blue-600 transition-colors">
-                              For You Matches
-                              <span className="rounded bg-emerald-50 text-emerald-700 px-1 py-0.2 text-[9px] font-mono">AI</span>
-                            </div>
-                            <div className="text-[11px] text-slate-500">Curated roles fitting your stack</div>
                           </div>
                         </Link>
                       </div>
@@ -476,10 +471,10 @@ export function Navbar() {
         </div>
 
         {/* Right Action Bar */}
-        <div className="hidden lg:flex items-center gap-3">
+        <div className="hidden lg:flex items-center gap-2 xl:gap-3 shrink-0">
           <Link
             href="/pricing"
-            className={`text-xs font-semibold transition-colors ${
+            className={`text-xs xl:text-sm font-semibold transition-colors shrink-0 ${
               pathname === "/pricing" ? "text-emerald-600 font-bold" : "text-slate-600 hover:text-emerald-700"
             }`}
           >
@@ -488,18 +483,20 @@ export function Navbar() {
 
           <Link
             href="/donate"
-            className={`text-xs font-semibold transition-colors flex items-center gap-1 ${
-              pathname === "/donate" ? "text-rose-600 font-bold" : "text-slate-600 hover:text-rose-600"
+            title="Support Role Nest"
+            className={`flex items-center gap-1 text-xs font-bold transition-colors shrink-0 py-1.5 px-2.5 rounded-full border border-rose-200/80 bg-rose-50/80 hover:bg-rose-100 ${
+              pathname === "/donate" ? "text-rose-700 bg-rose-100" : "text-rose-600"
             }`}
           >
-            <Heart className="h-3 w-3 text-rose-500 fill-rose-500" />
-            <span>Donate</span>
+            <Heart className="h-3.5 w-3.5 text-rose-500 fill-rose-500 shrink-0" />
+            <span className="hidden xl:inline">Donate</span>
           </Link>
 
-          <Link href={user ? "/employer/jobs/new" : "/employer/login"}>
-            <Button variant="outline" size="sm" className="gap-1.5 text-xs font-bold border-slate-300">
+          <Link href={user ? "/employer/jobs/new" : "/employer/login"} className="shrink-0">
+            <Button variant="outline" size="sm" className="gap-1 text-xs font-bold border-slate-300 h-8 px-2.5 shrink-0">
               <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />
-              Post a Job
+              <span className="hidden xl:inline">Post a Job</span>
+              <span className="xl:hidden">Post Job</span>
             </Button>
           </Link>
 
@@ -549,19 +546,19 @@ export function Navbar() {
               <NotificationBell />
 
               {/* User Dropdown */}
-              <div className="relative" ref={userRef}>
+              <div className="relative shrink-0" ref={userRef}>
                 <button
                   type="button"
                   onClick={() => setUserMenuOpen(!userMenuOpen)}
-                  className="flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 py-1.5 px-3 hover:bg-slate-100 transition-colors focus:outline-none"
+                  className="flex items-center gap-1.5 sm:gap-2 rounded-xl border border-slate-200 bg-slate-50 py-1.5 px-2.5 sm:px-3 hover:bg-slate-100 transition-colors focus:outline-none shrink-0"
                 >
-                  <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-600 text-xs font-bold text-white uppercase">
+                  <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-600 text-xs font-bold text-white uppercase shrink-0">
                     {user.name?.[0] || user.email?.[0] || "U"}
                   </div>
-                  <span className="text-xs font-bold text-slate-800 max-w-[100px] truncate">
+                  <span className="text-xs font-bold text-slate-800 max-w-[75px] xl:max-w-[110px] truncate">
                     {user.name || user.email?.split("@")[0]}
                   </span>
-                  <ChevronDown className="h-3.5 w-3.5 text-slate-400" />
+                  <ChevronDown className="h-3.5 w-3.5 text-slate-400 shrink-0" />
                 </button>
 
                 {userMenuOpen && (
@@ -778,6 +775,22 @@ export function Navbar() {
                 Salaries
               </Link>
               <Link
+                href="/bounties"
+                className="flex items-center gap-2 py-2 px-3 rounded-xl text-xs font-semibold text-slate-700 hover:bg-slate-50"
+                onClick={() => setIsOpen(false)}
+              >
+                <Gift className="h-4 w-4 text-amber-500" />
+                Bounties
+              </Link>
+              <Link
+                href="/pricing"
+                className="flex items-center gap-2 py-2 px-3 rounded-xl text-xs font-semibold text-slate-700 hover:bg-slate-50"
+                onClick={() => setIsOpen(false)}
+              >
+                <Crown className="h-4 w-4 text-amber-600" />
+                Pricing
+              </Link>
+              <Link
                 href="/companies"
                 className="flex items-center gap-2 py-2 px-3 rounded-xl text-xs font-semibold text-slate-700 hover:bg-slate-50"
                 onClick={() => setIsOpen(false)}
@@ -786,12 +799,12 @@ export function Navbar() {
                 Companies
               </Link>
               <Link
-                href="/recommendations"
-                className="flex items-center gap-2 py-2 px-3 rounded-xl text-xs font-semibold text-slate-700 hover:bg-slate-50"
+                href="/donate"
+                className="flex items-center gap-2 py-2 px-3 rounded-xl text-xs font-semibold text-rose-700 bg-rose-50/70 hover:bg-rose-100"
                 onClick={() => setIsOpen(false)}
               >
-                <Zap className="h-4 w-4 text-emerald-600" />
-                For You
+                <Heart className="h-4 w-4 text-rose-500 fill-rose-500" />
+                Donate
               </Link>
             </div>
 
