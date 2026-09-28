@@ -56,19 +56,19 @@ export const SHOWCASE_INTERNSHIP_CERTIFICATES: InternshipCertificate[] = [
     trackId: "ai-ml",
     trackTitle: "AI & Machine Learning Engineering Industrial Internship",
     certificateTitle: "Certified AI & Machine Learning Engineering Intern",
-    recipientName: "Divyanshu Jethi",
-    recipientEmail: "divyanshu@rolenest.in",
-    collegeName: "Chitkara University Institute of Engineering & Technology",
+    recipientName: "John Dao",
+    recipientEmail: "john.dao@example.com",
+    collegeName: "Apex Institute of Engineering & Technology",
     degreeBranch: "B.Tech Computer Science & Engineering",
-    rollNumber: "2110990452",
+    rollNumber: "2022-CSE-1042",
     issuedAt: "2026-09-24T12:00:00.000Z",
     durationLabel: "4 Weeks / 160 Hours Intensive Industrial Internship",
     skills: ["PyTorch", "Transformers", "NumPy & Vector Math", "Vector Databases", "LangChain", "FastAPI", "Model Deployment"],
     capstoneTitle: "Enterprise Multi-Modal RAG & Agentic Knowledge Core",
-    githubUrl: "https://github.com/divyanshujethi/Jobmint",
+    githubUrl: "https://github.com/johndao/enterprise-multimodal-rag",
     verificationHash: computeInternshipVerificationHash(
       "RN-INT-2026-AIML-9F2B84",
-      "Divyanshu Jethi",
+      "John Dao",
       "ai-ml",
       "2026-09-24T12:00:00.000Z"
     ),
@@ -174,7 +174,20 @@ export const SHOWCASE_INTERNSHIP_CERTIFICATES: InternshipCertificate[] = [
 ];
 
 export function lookupInternshipCertificate(id: string): InternshipCertificate | null {
-  const normalized = id.trim().toUpperCase();
+  const normalized = id.trim().toUpperCase().replace(/[^A-Z0-9-]/g, "");
   const match = SHOWCASE_INTERNSHIP_CERTIFICATES.find((c) => c.id === normalized);
-  return match || null;
+  if (match) return match;
+
+  if (
+    normalized === "JOHN-DAO" ||
+    normalized === "JOHNDAO" ||
+    normalized === "JOHN-DOE" ||
+    normalized === "JOHNDOE" ||
+    normalized === "AIML-SAMPLE" ||
+    normalized === "SAMPLE"
+  ) {
+    return SHOWCASE_INTERNSHIP_CERTIFICATES[0] || null;
+  }
+
+  return null;
 }

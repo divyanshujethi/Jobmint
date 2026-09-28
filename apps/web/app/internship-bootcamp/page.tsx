@@ -458,7 +458,7 @@ export default function InternshipBootcampPage() {
                   Inspect an Authentic Graduate Certificate
                 </strong>
                 <span className="text-[11px] text-slate-400 font-mono">
-                  Credential ID: RN-INT-2026-AIML-9F2B84 (Divyanshu Jethi, Chitkara University)
+                  Credential ID: RN-INT-2026-AIML-9F2B84 (John Dao, Apex Institute of Technology)
                 </span>
               </div>
             </div>
