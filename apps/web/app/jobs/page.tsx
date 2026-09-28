@@ -34,6 +34,8 @@ import {
 } from "@/lib/candidate-intelligence";
 import { CandidateIntelBar } from "@/components/candidate-intel-bar";
 import { CompanyJobGroupCard } from "@/components/company-job-group-card";
+import { SpotlightSearch, useSpotlight } from "@/components/spotlight-search";
+import { RoloMascot } from "@/components/rolo-mascot";
 
 type ViewMode = "DIVERSIFIED" | "COMPANY_GROUPED" | "RECOMMENDED";
 
@@ -46,6 +48,9 @@ export default function JobsPage() {
   const [onlyVerified, setOnlyVerified] = useState(false);
   const [jobs, setJobs] = useState<MockJob[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  // Spotlight search (Cmd/Ctrl+K or "/" shortcut)
+  const spotlight = useSpotlight();
 
   // Candidate Intelligence System state
   const [intelProfile, setIntelProfile] = useState<CandidateIntelProfile>(DEFAULT_INTEL_PROFILE);
@@ -208,6 +213,22 @@ export default function JobsPage() {
   };
 
   return (
+    <>
+      {/* Spotlight Search Modal — Cmd/Ctrl+K */}
+      <SpotlightSearch
+        jobs={jobs}
+        isOpen={spotlight.isOpen}
+        onClose={spotlight.close}
+      />
+
+      {/* Rolo floating mascot */}
+      <RoloMascot
+        floating
+        mood="search"
+        message="Tip: Press Cmd+K (or /) for instant spotlight search! 🔍"
+        onDismiss={() => {}}
+      />
+
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 space-y-6">
       {/* PAGE HEADER */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-6">
@@ -220,25 +241,18 @@ export default function JobsPage() {
           </p>
         </div>
 
-        {/* SEARCH BAR */}
-        <div className="relative w-full md:w-80">
-          <Search className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
-          <input
-            type="text"
-            placeholder="Search by title, skill, company..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full rounded-xl border border-slate-200 bg-white py-2 pl-9 pr-8 text-sm placeholder:text-slate-400 focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500 shadow-2xs"
-          />
-          {searchTerm && (
-            <button
-              onClick={() => setSearchTerm("")}
-              className="absolute right-2.5 top-2.5 text-slate-400 hover:text-slate-600"
-            >
-              <X className="h-4 w-4" />
-            </button>
-          )}
-        </div>
+        {/* SPOTLIGHT SEARCH TRIGGER */}
+        <button
+          type="button"
+          onClick={spotlight.open}
+          className="group flex items-center gap-2 w-full md:w-80 rounded-xl border border-slate-200 bg-white py-2.5 pl-3 pr-3 text-sm text-slate-400 shadow-2xs hover:border-emerald-400 hover:shadow-emerald-100/60 hover:shadow-md transition-all"
+        >
+          <Search className="h-4 w-4 text-slate-400 group-hover:text-emerald-500 transition-colors shrink-0" />
+          <span className="flex-1 text-left text-sm text-slate-400">Search jobs, skills, companies…</span>
+          <kbd className="shrink-0 hidden sm:inline-flex items-center gap-0.5 rounded border border-slate-200 bg-slate-100 px-1.5 py-0.5 text-[11px] font-mono text-slate-400">
+            ⌘K
+          </kbd>
+        </button>
       </div>
 
       {/* CANDIDATE INTELLIGENCE SYSTEM BAR */}
@@ -709,5 +723,6 @@ export default function JobsPage() {
       {/* INSTANT WHATSAPP & TELEGRAM ALERTS */}
       <InstantAlertsBanner />
     </div>
+    </>
   );
 }

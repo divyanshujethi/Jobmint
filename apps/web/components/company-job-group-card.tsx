@@ -49,7 +49,10 @@ export function CompanyJobGroupCard({
               />
             </div>
           ) : (
-            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-emerald-100 text-emerald-900 text-lg font-extrabold border border-emerald-200">
+            <div
+              className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-lg font-black text-white border-0 shadow-sm"
+              style={{ background: group.companyLogoColor || "#10b981" }}
+            >
               {group.companyLogoInitial}
             </div>
           )}

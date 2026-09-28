@@ -98,6 +98,7 @@ export async function getLiveJobs(): Promise<MockJob[]> {
       const reviewRate = totalApps > 0 ? Math.round((reviewedApps / totalApps) * 100) : 0;
       const medianDays = parseFloat(j.medianFirstReviewDays || "0") || 0;
 
+      // Resolve company logo: logo.dev (high-quality, 100k+ companies) → undefined
       let resolvedLogo = j.companyLogoUrl;
       if (!resolvedLogo) {
         let domain = j.companyDomain;
@@ -107,9 +108,22 @@ export async function getLiveJobs(): Promise<MockJob[]> {
           } catch {}
         }
         if (domain) {
-          resolvedLogo = `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
+          // logo.dev returns high-quality logos for 100k+ companies incl. Indian startups
+          resolvedLogo = `https://img.logo.dev/${domain}?token=pk_public&retina=true`;
         }
       }
+
+      // Compute deterministic background color for initial avatar fallback
+      const LOGO_COLORS = [
+        "#10b981","#3b82f6","#8b5cf6","#f59e0b","#ef4444",
+        "#06b6d4","#ec4899","#84cc16","#f97316","#6366f1",
+      ];
+      let nameHash = 0;
+      for (let ci = 0; ci < j.companyName.length; ci++) {
+        nameHash = ((nameHash << 5) - nameHash) + j.companyName.charCodeAt(ci);
+        nameHash |= 0;
+      }
+      const logoAvatarColor = LOGO_COLORS[Math.abs(nameHash) % LOGO_COLORS.length];
 
       return {
         id: j.id,
@@ -120,6 +134,7 @@ export async function getLiveJobs(): Promise<MockJob[]> {
         companyLogoUrl: resolvedLogo || undefined,
         companyWebsite: j.companyWebsite || undefined,
         companyLogoInitial: j.companyName.charAt(0).toUpperCase(),
+        companyLogoColor: logoAvatarColor,
         isVerified: j.isVerified,
         isFeatured: Boolean(j.isFeatured),
         location: j.location,

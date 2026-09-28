@@ -96,7 +96,10 @@ export function JobCard({ job, candidateIntel }: JobCardProps) {
               />
             </div>
           ) : (
-            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-slate-100 text-lg font-bold text-slate-800 border border-slate-200 group-hover:border-emerald-200 transition-colors">
+            <div
+              className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-lg font-black text-white border-0 group-hover:brightness-110 transition-all shadow-sm"
+              style={{ background: job.companyLogoColor || "#10b981" }}
+            >
               {job.companyLogoInitial}
             </div>
           )}

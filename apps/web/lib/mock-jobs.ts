@@ -9,6 +9,7 @@ export interface MockJob {
   companyLogoUrl?: string;
   companyWebsite?: string;
   companyLogoInitial: string;
+  companyLogoColor?: string; // Deterministic brand color for initial avatar fallback
   isVerified: boolean;
   isFeatured?: boolean;
   location: string;

@@ -26,6 +26,7 @@ export interface CompanyJobGroup {
   companySlug: string;
   companyLogoUrl?: string;
   companyLogoInitial: string;
+  companyLogoColor?: string; // Deterministic brand color for initial avatar
   isVerified: boolean;
   totalRoles: number;
   locations: string[];
@@ -431,6 +432,7 @@ export function groupJobsByCompany(
       companySlug: firstJob.companySlug || companyName.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
       companyLogoUrl: firstJob.companyLogoUrl,
       companyLogoInitial: firstJob.companyLogoInitial || companyName[0] || "C",
+      companyLogoColor: firstJob.companyLogoColor,
       isVerified: companyJobs.some((j) => j.isVerified),
       totalRoles: companyJobs.length,
       locations,
