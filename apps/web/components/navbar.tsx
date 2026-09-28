@@ -411,6 +411,21 @@ export function Navbar() {
                         </Link>
 
                         <Link
+                          href="/study"
+                          onClick={() => setToolsOpen(false)}
+                          className="flex items-start gap-2.5 rounded-xl p-2 bg-emerald-50/60 hover:bg-emerald-100/70 transition-colors group border border-emerald-200/60"
+                        >
+                          <Sparkles className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                          <div>
+                            <div className="text-xs font-bold text-emerald-950 flex items-center gap-1.5">
+                              Study Hub &amp; Course Studio
+                              <span className="rounded bg-emerald-600 text-white px-1 py-0.2 text-[9px] font-mono font-bold">HOT</span>
+                            </div>
+                            <div className="text-[11px] text-emerald-800">Job-to-Course generator &amp; daily streak</div>
+                          </div>
+                        </Link>
+
+                        <Link
                           href="/courses"
                           onClick={() => setToolsOpen(false)}
                           className="flex items-start gap-2.5 rounded-xl p-2 hover:bg-slate-50 transition-colors group"

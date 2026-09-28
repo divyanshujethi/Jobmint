@@ -59,6 +59,27 @@ export default function CoursesPage() {
             Structured hands-on curricula with required Proof-of-Work project benchmarks, code implementations, and verified cryptographic Role Nest completion certificates.
           </p>
 
+          {/* JOB-SPECIFIC 30-DAY COURSE GENERATOR CALLOUT */}
+          <div className="mx-auto max-w-3xl rounded-2xl bg-gradient-to-r from-emerald-950 via-slate-900 to-teal-950 border border-emerald-500/40 p-4 text-xs sm:text-sm text-white flex flex-col sm:flex-row items-center justify-between gap-3 shadow-lg">
+            <div className="flex items-center gap-2.5 text-left">
+              <Sparkles className="h-6 w-6 text-emerald-400 shrink-0" />
+              <div>
+                <span className="font-bold text-white flex items-center gap-1.5">
+                  Target Any Job: Interactive 30-Day Course Studio
+                  <span className="bg-emerald-400 text-slate-950 font-extrabold text-[10px] px-1.5 py-0.2 rounded-full">NEW</span>
+                </span>
+                <p className="text-[11px] text-slate-300">
+                  Enter any job or company to automatically generate a tailored 30-day interactive daily curriculum with coding tasks, streak tracking, and interview questions.
+                </p>
+              </div>
+            </div>
+            <Link href="/study" className="shrink-0">
+              <Button size="sm" className="bg-emerald-500 text-slate-950 hover:bg-emerald-400 font-bold text-xs rounded-xl shadow-sm">
+                Open Course Studio →
+              </Button>
+            </Link>
+          </div>
+
           {/* DEDICATED SEPARATION CALLOUT TO YOUTUBE PLAYLISTS */}
           <div className="mx-auto max-w-3xl rounded-2xl bg-gradient-to-r from-red-50 via-white to-amber-50/60 border border-red-200/80 p-4 text-xs sm:text-sm text-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-sm">
             <div className="flex items-center gap-2.5 text-left">
