@@ -1,6 +1,12 @@
-import { db, sql } from "../packages/database/src/index";
+import * as dotenv from "dotenv";
+import path from "path";
+
+dotenv.config({ path: path.resolve(process.cwd(), ".env") });
 
 async function main() {
+  console.log("Loading database client with loaded environment...");
+  const { db, sql } = await import("../packages/database/src/index");
+
   console.log("Creating bootcamp tables if not exist...");
 
   await db.execute(sql`
