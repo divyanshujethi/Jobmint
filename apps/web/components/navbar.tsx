@@ -186,6 +186,17 @@ export function Navbar() {
               Salaries
             </Link>
 
+            <Link
+              href="/gov-tech"
+              className={`flex items-center gap-1.5 text-sm font-semibold transition-colors ${
+                pathname === "/gov-tech" ? "text-emerald-600 font-bold" : "text-slate-600 hover:text-emerald-600"
+              }`}
+            >
+              <Building2 className="h-4 w-4 text-emerald-700" />
+              <span>Govt Tech</span>
+              <span className="rounded-full bg-emerald-100 text-emerald-800 px-1.5 py-0.2 text-[9px] font-bold">🇮🇳 NEW</span>
+            </Link>
+
             {/* Tools & Resources Dropdown */}
             <div className="relative" ref={toolsRef}>
               <button
@@ -728,12 +739,28 @@ export function Navbar() {
                 Jobs
               </Link>
               <Link
+                href="/gov-tech"
+                className="flex items-center gap-2 py-2 px-3 rounded-xl text-xs font-semibold text-emerald-800 bg-emerald-50 hover:bg-emerald-100"
+                onClick={() => setIsOpen(false)}
+              >
+                <Building2 className="h-4 w-4 text-emerald-600" />
+                Govt Tech 🇮🇳
+              </Link>
+              <Link
                 href="/internships"
                 className="flex items-center gap-2 py-2 px-3 rounded-xl text-xs font-semibold text-slate-700 hover:bg-slate-50"
                 onClick={() => setIsOpen(false)}
               >
                 <Sparkles className="h-4 w-4 text-amber-500" />
                 Internships
+              </Link>
+              <Link
+                href="/salaries"
+                className="flex items-center gap-2 py-2 px-3 rounded-xl text-xs font-semibold text-slate-700 hover:bg-slate-50"
+                onClick={() => setIsOpen(false)}
+              >
+                <DollarSign className="h-4 w-4 text-emerald-600" />
+                Salaries
               </Link>
               <Link
                 href="/companies"

@@ -169,6 +169,7 @@ export default function JobsPage() {
           <Sparkles className="h-3 w-3 text-emerald-600" /> Quick Filter:
         </span>
         {[
+          { label: "🏛️ Govt & PSU Tech", href: "/gov-tech" },
           { label: "🇮🇳 Bengaluru", action: () => setSelectedLocation("bengaluru") },
           { label: "🌐 Remote India", action: () => { setSelectedMode(WorkMode.REMOTE); setSelectedLocation("india"); } },
           { label: "🎓 Freshers (0 YOE)", action: () => setSelectedExp("0") },
@@ -179,16 +180,26 @@ export default function JobsPage() {
           { label: "Internships", action: () => setSelectedType(JobType.INTERNSHIP) },
           { label: "Delhi NCR", action: () => setSelectedLocation("delhi_ncr") },
           { label: "Hyderabad", action: () => setSelectedLocation("hyderabad") },
-        ].map((chip) => (
-          <button
-            key={chip.label}
-            type="button"
-            onClick={chip.action}
-            className="rounded-full bg-slate-100 hover:bg-emerald-50 hover:text-emerald-700 hover:border-emerald-300 border border-slate-200 px-2.5 py-1 text-[11px] font-semibold text-slate-700 transition-colors cursor-pointer"
-          >
-            {chip.label}
-          </button>
-        ))}
+        ].map((chip) =>
+          chip.href ? (
+            <Link
+              key={chip.label}
+              href={chip.href}
+              className="rounded-full bg-emerald-100 hover:bg-emerald-200 border border-emerald-300 px-2.5 py-1 text-[11px] font-bold text-emerald-900 transition-colors"
+            >
+              {chip.label}
+            </Link>
+          ) : (
+            <button
+              key={chip.label}
+              type="button"
+              onClick={chip.action}
+              className="rounded-full bg-slate-100 hover:bg-emerald-50 hover:text-emerald-700 hover:border-emerald-300 border border-slate-200 px-2.5 py-1 text-[11px] font-semibold text-slate-700 transition-colors cursor-pointer"
+            >
+              {chip.label}
+            </button>
+          )
+        )}
       </div>
 
       {/* TRUTH TELLER GUARANTEE CALLOUT */}
