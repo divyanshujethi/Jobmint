@@ -42,6 +42,12 @@ const PLAN_CONFIGS: Record<
     durationMs: 30 * 24 * 60 * 60 * 1000,
     description: "30-day top-of-feed featured job listing • Verified company badge • Direct distribution to active devs",
   },
+  hiring_sprint: {
+    name: "Role Nest Hiring Sprint Bundle (3 Featured Jobs)",
+    amount: 3499,
+    durationMs: 60 * 24 * 60 * 60 * 1000,
+    description: "3 featured jobs boost • Direct candidate outreach • Priority applicant review dashboard",
+  },
 };
 
 export async function POST(req: NextRequest) {
