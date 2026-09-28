@@ -115,7 +115,7 @@ export default function TermsPage() {
                 All digital transactions are processed through <strong>Cashfree Payments India Pvt. Ltd.</strong>, an RBI-licensed Payment Aggregator supporting UPI (Google Pay, PhonePe, Paytm, CRED, BHIM), RuPay/Visa/Mastercard debit and credit cards, and NetBanking across all Indian banks.
               </p>
               <ul className="list-disc pl-5 space-y-1.5 text-xs sm:text-sm text-slate-600">
-                <li><strong>Pricing:</strong> Role Nest Pro is offered at ₹499/month, ₹1,199/quarter, or ₹3,999/year. Employer Featured Boosts are ₹7,999 for 30 days.</li>
+                <li><strong>Pricing:</strong> Role Nest Pro is offered at ₹199/month, Role Nest Plus (Career Accelerator - 3 Months Sprint) is ₹499/quarter, or ₹1,499/year (Annual Pass). Employer Featured Job Listings are ₹1,499 for 30 days.</li>
                 <li><strong>Billing &amp; Access:</strong> Subscriptions grant instant access for the duration purchased (30, 90, or 365 days). You can renew or manage your plan inside <Link href="/settings/account" className="text-emerald-700 underline font-semibold">Account Settings</Link>.</li>
                 <li><strong>Taxes:</strong> All prices displayed on Role Nest are in Indian National Rupees (INR) and include all statutory taxes where applicable.</li>
                 <li><strong>Payment Security:</strong> Role Nest never stores or accesses your raw card numbers, CVVs, or UPI MPINs. All payment processing takes place via Cashfree&apos;s RBI-compliant and PCI-DSS Level 1 certified infrastructure.</li>

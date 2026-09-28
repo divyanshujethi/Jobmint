@@ -63,9 +63,9 @@ export async function GET(req: NextRequest) {
       if (orderId.includes("pro_annual")) {
         durationMs = 365 * 24 * 60 * 60 * 1000;
         planName = "pro_annual";
-      } else if (orderId.includes("pro_quarterly")) {
+      } else if (orderId.includes("pro_quarterly") || orderId.includes("pro_plus")) {
         durationMs = 90 * 24 * 60 * 60 * 1000;
-        planName = "pro_quarterly";
+        planName = "pro_plus";
       } else if (orderId.includes("featured_job")) {
         isFeaturedJob = true;
         planName = "featured_job";

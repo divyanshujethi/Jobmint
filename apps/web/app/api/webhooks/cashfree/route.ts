@@ -56,7 +56,7 @@ export async function POST(req: NextRequest) {
 
       if (orderId.includes("pro_annual")) {
         durationMs = 365 * 24 * 60 * 60 * 1000;
-      } else if (orderId.includes("pro_quarterly")) {
+      } else if (orderId.includes("pro_quarterly") || orderId.includes("pro_plus")) {
         durationMs = 90 * 24 * 60 * 60 * 1000;
       } else if (orderId.includes("featured_job")) {
         isFeaturedJob = true;

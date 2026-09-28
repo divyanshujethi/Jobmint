@@ -27,6 +27,7 @@ interface ProModalProps {
 }
 
 export function ProModal({ isOpen, onClose, user }: ProModalProps) {
+  const [selectedPlan, setSelectedPlan] = useState<"pro" | "pro_plus">("pro");
   const [loading, setLoading] = useState(false);
 
   if (!isOpen) return null;
@@ -34,7 +35,7 @@ export function ProModal({ isOpen, onClose, user }: ProModalProps) {
   const handleCheckout = () => {
     setLoading(true);
     openCashfreeCheckout({
-      plan: "pro",
+      plan: selectedPlan,
     });
     setLoading(false);
   };
@@ -56,14 +57,14 @@ export function ProModal({ isOpen, onClose, user }: ProModalProps) {
       desc: "Stand out to hiring managers with verified technical skills and project badges.",
     },
     {
-      icon: <MessageSquare className="h-4 w-4 text-emerald-600" />,
-      title: "Direct Recruiter Outreach",
-      desc: "Message hiring managers and founders directly on posted opportunities.",
+      icon: <Zap className="h-4 w-4 text-emerald-600" />,
+      title: "Custom 30-Day Job Course Generator",
+      desc: "Generate targeted study courses for any company or tech stack.",
     },
     {
-      icon: <Zap className="h-4 w-4 text-emerald-600" />,
-      title: "Truth Teller Deep Recruiter Analytics",
-      desc: "Full insight into employer response times, ghosting rates, and interview steps.",
+      icon: <MessageSquare className="h-4 w-4 text-emerald-600" />,
+      title: "Truth Teller Anti-Ghosting Telemetry",
+      desc: "Real-time employer response times and 7-day recruiter inactivity alerts.",
     },
   ];
 
@@ -78,25 +79,46 @@ export function ProModal({ isOpen, onClose, user }: ProModalProps) {
             <X className="h-5 w-5" />
           </button>
           <div className="inline-flex items-center gap-1.5 rounded-full bg-amber-400/20 px-3 py-1 text-xs font-bold text-amber-300 backdrop-blur-md mb-2 border border-amber-300/30">
-            <Crown className="h-3.5 w-3.5" /> ROLE NEST PRO
+            <Crown className="h-3.5 w-3.5" /> ROLE NEST PRO &amp; PLUS
           </div>
           <h2 className="text-2xl font-black tracking-tight">Supercharge Your Career</h2>
           <p className="text-xs text-emerald-100 mt-1">
-            Stand out in tech hiring with automated AI preparation and verified proof-of-work.
+            Stand out in tech hiring with automated AI preparation, ATS matching, and verified proof-of-work.
           </p>
         </div>
 
-        <div className="flex items-center justify-between border-b border-slate-100 bg-slate-50/70 px-6 py-4">
-          <div>
-            <div className="flex items-baseline gap-1.5">
-              <span className="text-3xl font-black text-slate-900">₹499</span>
-              <span className="text-xs font-semibold text-slate-500">/ month</span>
-            </div>
-            <p className="text-[11px] text-slate-500">Cancel anytime with 1-click. 7-day money back guarantee.</p>
-          </div>
-          <div className="rounded-xl bg-emerald-100/70 px-2.5 py-1 text-[11px] font-bold text-emerald-800">
-            Full Pro Access
-          </div>
+        {/* PLAN SELECTOR TOGGLE */}
+        <div className="p-4 bg-slate-50 border-b border-slate-200 grid grid-cols-2 gap-2">
+          <button
+            type="button"
+            onClick={() => setSelectedPlan("pro")}
+            className={`rounded-2xl p-3 text-left border transition-all ${
+              selectedPlan === "pro"
+                ? "bg-white border-emerald-500 shadow-sm ring-1 ring-emerald-500/20"
+                : "bg-slate-100/70 border-slate-200 text-slate-600"
+            }`}
+          >
+            <div className="text-[10px] font-bold uppercase text-emerald-700">Pro Monthly</div>
+            <div className="text-xl font-black text-slate-900">₹199<span className="text-xs font-normal text-slate-500">/mo</span></div>
+            <div className="text-[10px] text-slate-500 mt-0.5">30-day full access</div>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setSelectedPlan("pro_plus")}
+            className={`rounded-2xl p-3 text-left border transition-all relative ${
+              selectedPlan === "pro_plus"
+                ? "bg-white border-emerald-500 shadow-sm ring-1 ring-emerald-500/20"
+                : "bg-slate-100/70 border-slate-200 text-slate-600"
+            }`}
+          >
+            <span className="absolute -top-2 right-2 rounded-full bg-emerald-600 text-white text-[8px] font-bold px-1.5 py-0.2">
+              SAVE 16%
+            </span>
+            <div className="text-[10px] font-bold uppercase text-amber-700">Plus 3-Mo Sprint</div>
+            <div className="text-xl font-black text-slate-900">₹499<span className="text-xs font-normal text-slate-500">/3 mos</span></div>
+            <div className="text-[10px] text-slate-500 mt-0.5">₹166/mo • Best Value</div>
+          </button>
         </div>
 
         <div className="p-6 space-y-3.5 max-h-[340px] overflow-y-auto">
@@ -120,7 +142,11 @@ export function ProModal({ isOpen, onClose, user }: ProModalProps) {
             className="w-full h-11 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-sm shadow-lg shadow-emerald-600/25 rounded-xl flex items-center justify-center gap-2"
           >
             <CreditCard className="h-4 w-4" />
-            {loading ? "Launching Cashfree..." : "Upgrade to Pro — ₹499/mo"}
+            {loading
+              ? "Launching Cashfree..."
+              : selectedPlan === "pro"
+                ? "Activate Pro — ₹199/mo"
+                : "Activate Plus — ₹499 (3 Mos)"}
             <ArrowRight className="h-4 w-4 ml-1" />
           </Button>
           <div className="flex items-center justify-center gap-3 text-xs font-semibold">
