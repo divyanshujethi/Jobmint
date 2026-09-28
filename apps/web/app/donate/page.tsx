@@ -6,7 +6,6 @@ import {
   Heart,
   Sparkles,
   ShieldCheck,
-  CheckCircle2,
   Building2,
   Code2,
   Server,
@@ -15,16 +14,14 @@ import {
   ArrowRight,
   ExternalLink,
   Loader2,
-  CreditCard,
-  MessageSquare,
   HelpCircle,
   TrendingUp,
-  Users,
-  Compass,
   Layers,
   BookOpen,
   ChevronDown,
-  Gift,
+  Scale,
+  FileCheck2,
+  UserCheck,
   Check,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -34,35 +31,39 @@ import { openCashfreeCheckout } from "@/components/cashfree-provider";
 const PRESET_AMOUNTS = [50, 100, 250, 500, 1000, 2500, 5000];
 
 const IMPACT_TIERS: Record<number, string> = {
-  50: "Provides 50 free AI resume scans and ATS feedback to college job seekers.",
-  100: "Powers 1,000 automated recruiter verification and fraud-detection scans.",
-  250: "Funds 24 hours of uninterrupted high-speed cloud server and database uptime.",
-  500: "Covers free coding sandbox and DSA runner tokens for 25 engineering students.",
-  1000: "Maintains open-source roadmaps and cheat sheets on DevShelf for 100+ devs.",
-  2500: "Sponsors continuous infrastructure scaling & anti-ghosting telemetry for a week.",
-  5000: "Major community pillar: funds core infrastructure and free candidate tooling for an entire month.",
+  50: "Subsidizes 50 free AI resume analyses and ATS bullet optimizations for college freshers.",
+  100: "Powers 1,000 automated recruiter verification scans across tech company portals.",
+  250: "Funds 24 hours of high-availability cloud compute, database indexing, and server operations.",
+  500: "Covers free coding sandbox and DSA runner tokens for 25 student developers.",
+  1000: "Maintains open-source interview kits, roadmaps, and cheat sheets on DevShelf for 100+ devs.",
+  2500: "Sponsors continuous infrastructure scaling & anti-ghosting telemetry for a full week.",
+  5000: "Major community pillar: fuels core server clusters and free candidate tooling for an entire month.",
 };
 
 const FAQS = [
   {
-    q: "Why should I donate to Role Nest, DevShelf, and RitualDev?",
-    a: "Unlike traditional placement agencies that charge candidates ₹10,000–₹50,000 or sell candidate emails and phone numbers to recruiters, our platforms believe tech careers and learning resources must remain 100% free and open. Your contribution directly funds high-speed server infrastructure, AI compute tokens, and continuous development.",
+    q: "Why should I contribute to the RitualDev Lab, DevShelf & Role Nest Fund?",
+    a: "Unlike traditional placement agencies that charge job seekers ₹10,000–₹50,000 or sell candidate phone numbers to spam recruiters, our collective believes developer learning resources and verified hiring must remain 100% free, open, and ad-free. Your contribution directly funds cloud server clusters, AI compute tokens, and continuous development.",
   },
   {
-    q: "How does my payment work? What payment methods are supported?",
-    a: "Payments are processed securely via Cashfree Payments (authorized by the Reserve Bank of India). You can pay in 1-tap using UPI (Google Pay, PhonePe, Paytm, BHIM, CRED), all Indian and International Debit/Credit Cards (RuPay, Visa, Mastercard), and NetBanking.",
+    q: "How does payment work? What payment methods are supported?",
+    a: "Payments are processed securely via Cashfree Payments (authorized by the Reserve Bank of India). You can pay in 1-tap using UPI (Google Pay, PhonePe, Paytm, BHIM, CRED), Indian & International Debit/Credit Cards (RuPay, Visa, Mastercard), and NetBanking.",
   },
   {
-    q: "Will I get an official receipt for my donation?",
+    q: "How is my personal data protected under the DPDP Act 2023?",
+    a: "We adhere strictly to India's Digital Personal Data Protection Act, 2023. Your contact details (name, email, phone) are collected solely for transaction confirmation, RBI compliance, and digital receipt delivery. We NEVER sell, rent, or cross-market your personal data to any third party.",
+  },
+  {
+    q: "Will I get an official receipt for my contribution?",
     a: "Yes! Immediately upon completing your payment, Cashfree generates an instant digital payment receipt sent directly to your email and SMS with a verified Order ID.",
   },
   {
     q: "Can I donate anonymously?",
-    a: "Yes. Simply enter 'Anonymous Supporter' or leave your name generic in the donor details field. Your contribution will still be securely processed and allocated to community infrastructure.",
+    a: "Yes. You can enter 'Anonymous Supporter' in the donor name field. Your contribution will be processed securely and attributed to the community fund without public disclosure.",
   },
   {
-    q: "What is the relationship between rolenest.in, devshelf.ritualdev.in, and ritualdev.in?",
-    a: "RitualDev Lab (ritualdev.in) is the parent developer collective and engineering team. Role Nest (rolenest.in) is the flagship job intelligence and career platform. DevShelf (devshelf.ritualdev.in) is our free developer library containing engineering roadmaps, interview prep kits, and open-source cheat sheets.",
+    q: "What is the relationship between ritualdev.in, devshelf.ritualdev.in, and rolenest.in?",
+    a: "RitualDev Lab (ritualdev.in) is the parent developer collective and engineering studio. DevShelf (devshelf.ritualdev.in) is our free developer shelf for roadmaps, cheat sheets, and interview prep. Role Nest (rolenest.in) is the flagship tech careers and job verification platform.",
   },
 ];
 
@@ -75,6 +76,7 @@ export default function DonatePage() {
   const [donorPhone, setDonorPhone] = useState<string>("");
   const [donorNote, setDonorNote] = useState<string>("");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [showDpdpDetails, setShowDpdpDetails] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
@@ -169,99 +171,97 @@ export default function DonatePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50 text-slate-900 flex flex-col justify-between">
-      {/* 1. Standalone Portal Top Bar */}
-      <header className="sticky top-0 z-40 w-full border-b border-slate-200/80 bg-white/90 backdrop-blur-md">
+    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col justify-between selection:bg-emerald-500 selection:text-white">
+      {/* 1. Standalone Top Bar - Distinct from Role Nest Job Board */}
+      <header className="sticky top-0 z-40 w-full border-b border-slate-800/80 bg-slate-950/90 backdrop-blur-md">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-500 text-white shadow-md shadow-emerald-500/20">
-              <Heart className="h-5 w-5 fill-white text-white animate-pulse" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-tr from-emerald-500 via-teal-500 to-indigo-600 text-white shadow-lg shadow-emerald-500/20">
+              <Heart className="h-5 w-5 fill-white text-white" />
             </div>
             <div>
-              <div className="flex items-center gap-1.5">
-                <span className="font-black text-base sm:text-lg tracking-tight text-slate-900">
-                  Role Nest <span className="text-emerald-700">Donations</span>
+              <div className="flex items-center gap-2">
+                <span className="font-black text-sm sm:text-base tracking-tight text-white">
+                  RitualDev <span className="text-emerald-400">×</span> Role Nest
                 </span>
-                <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-black uppercase text-emerald-800 hidden sm:inline-block">
-                  Community Portal
+                <span className="rounded-full bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 text-[10px] font-black uppercase tracking-wider text-emerald-400 hidden sm:inline-block">
+                  Community Fund
                 </span>
               </div>
-              <p className="text-[11px] text-slate-500 font-medium hidden sm:block">
-                Powered by RitualDev Lab • Backing Open-Access Tech Tools
+              <p className="text-[11px] text-slate-400 font-medium hidden sm:block">
+                Backing Free Developer Tooling, DevShelf &amp; Transparent Hiring
               </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 sm:gap-3 text-xs font-bold">
+          <div className="flex items-center gap-2 sm:gap-4 text-xs font-semibold">
             <a
-              href="https://rolenest.in"
-              className="px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors hidden md:inline-flex items-center gap-1"
+              href="https://ritualdev.in"
+              target="_blank"
+              rel="noreferrer"
+              className="text-slate-300 hover:text-white px-2.5 py-1.5 rounded-lg hover:bg-slate-900 transition-colors hidden md:inline-flex items-center gap-1"
             >
-              <span>rolenest.in</span>
-              <ExternalLink className="h-3 w-3 text-slate-400" />
+              <span>ritualdev.in</span>
+              <ExternalLink className="h-3 w-3 text-slate-500" />
             </a>
             <a
               href="https://devshelf.ritualdev.in"
               target="_blank"
               rel="noreferrer"
-              className="px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors hidden md:inline-flex items-center gap-1"
+              className="text-slate-300 hover:text-white px-2.5 py-1.5 rounded-lg hover:bg-slate-900 transition-colors hidden md:inline-flex items-center gap-1"
             >
               <span>devshelf.ritualdev.in</span>
-              <ExternalLink className="h-3 w-3 text-slate-400" />
+              <ExternalLink className="h-3 w-3 text-slate-500" />
             </a>
             <a
-              href="https://ritualdev.in"
-              target="_blank"
-              rel="noreferrer"
-              className="px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors hidden md:inline-flex items-center gap-1"
+              href="https://rolenest.in"
+              className="text-slate-300 hover:text-white px-2.5 py-1.5 rounded-lg hover:bg-slate-900 transition-colors hidden md:inline-flex items-center gap-1"
             >
-              <span>ritualdev.in</span>
-              <ExternalLink className="h-3 w-3 text-slate-400" />
+              <span>rolenest.in</span>
+              <ExternalLink className="h-3 w-3 text-slate-500" />
             </a>
-            <a
-              href="https://rolenest.in/jobs"
-              className="px-3.5 py-1.5 rounded-xl bg-slate-900 text-white hover:bg-slate-800 transition-all shadow-xs"
-            >
-              Explore Jobs →
-            </a>
+
+            <div className="inline-flex items-center gap-1.5 rounded-full bg-slate-900 border border-emerald-500/30 px-3 py-1 text-[11px] font-bold text-emerald-400">
+              <ShieldCheck className="h-3.5 w-3.5 text-emerald-400" />
+              <span>DPDP Act 2023 Verified</span>
+            </div>
           </div>
         </div>
       </header>
 
       {/* Main Content Area */}
-      <main className="flex-1 py-10 px-4 sm:px-6 lg:px-8">
+      <main className="flex-1 py-12 px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-5xl space-y-12">
           {/* Hero Section */}
           <div className="text-center space-y-4 max-w-3xl mx-auto pt-2">
-            <div className="inline-flex items-center gap-2 rounded-full bg-rose-50 border border-rose-200 px-4 py-1.5 text-xs font-bold text-rose-800 shadow-xs">
-              <Heart className="h-3.5 w-3.5 text-rose-500 fill-rose-500" />
-              <span>100% Direct Allocation • Ad-Free Community Fund</span>
+            <div className="inline-flex items-center gap-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 px-4 py-1.5 text-xs font-bold text-emerald-400 shadow-xs">
+              <Sparkles className="h-3.5 w-3.5 text-emerald-400" />
+              <span>Open-Access Collective • 100% Direct Infrastructure Allocation</span>
             </div>
 
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 leading-[1.15]">
-              Empowering Freshers &amp; Developers with{" "}
-              <span className="bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 bg-clip-text text-transparent">
-                Zero Paywalls
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-[1.15]">
+              Empowering Developers with{" "}
+              <span className="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent">
+                Open Tools &amp; Zero Paywalls
               </span>
             </h1>
 
-            <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-2xl mx-auto">
-              Your contribution fuels open-access engineering across <strong>Role Nest</strong> (verified tech hiring),{" "}
-              <strong>DevShelf</strong> (free developer resources &amp; roadmaps), and <strong>RitualDev Lab</strong> (independent research &amp; anti-fraud tools).
+            <p className="text-sm sm:text-base text-slate-300 leading-relaxed max-w-2xl mx-auto">
+              Jointly supported by <strong>RitualDev Lab</strong>, <strong>Role Nest</strong>, and <strong>DevShelf</strong>. Your contribution keeps tech career telemetry, Harvard ATS tools, and developer learning roadmaps completely free for students.
             </p>
 
             {/* Monthly Goal Progress Bar */}
-            <div className="rounded-2xl border border-slate-200 bg-white p-4 max-w-xl mx-auto shadow-xs text-left space-y-2">
+            <div className="rounded-2xl border border-slate-800 bg-slate-900/90 p-4 max-w-xl mx-auto shadow-xl text-left space-y-2">
               <div className="flex items-center justify-between text-xs">
-                <span className="font-bold text-slate-700 flex items-center gap-1.5">
-                  <TrendingUp className="h-3.5 w-3.5 text-emerald-600" />
+                <span className="font-bold text-slate-300 flex items-center gap-1.5">
+                  <TrendingUp className="h-3.5 w-3.5 text-emerald-400" />
                   Monthly Cloud &amp; Token Fund
                 </span>
-                <span className="font-mono font-bold text-emerald-700">₹24,350 / ₹35,000 (70%)</span>
+                <span className="font-mono font-bold text-emerald-400">₹24,350 / ₹35,000 (70%)</span>
               </div>
-              <div className="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
+              <div className="w-full bg-slate-800 rounded-full h-2.5 overflow-hidden">
                 <div
-                  className="bg-gradient-to-r from-emerald-500 to-teal-500 h-2.5 rounded-full transition-all duration-500"
+                  className="bg-gradient-to-r from-emerald-500 to-teal-400 h-2.5 rounded-full transition-all duration-500"
                   style={{ width: "70%" }}
                 />
               </div>
@@ -272,57 +272,57 @@ export default function DonatePage() {
             </div>
           </div>
 
-          {/* "HOW IT WORKS / WHAT TO DO" - Step-by-Step Interactive Guide */}
+          {/* "HOW IT WORKS / WHAT TO DO" - Step-by-Step Guide */}
           <div className="space-y-4">
             <div className="text-center space-y-1">
-              <div className="text-[11px] font-black uppercase tracking-widest text-emerald-700">
-                Simple &amp; Transparent
+              <div className="text-[11px] font-black uppercase tracking-widest text-emerald-400 font-mono">
+                Simple &amp; Direct
               </div>
-              <h2 className="text-2xl sm:text-3xl font-black text-slate-900">
+              <h2 className="text-2xl sm:text-3xl font-black text-white">
                 How It Works — What You Need To Do
               </h2>
-              <p className="text-xs sm:text-sm text-slate-500">
-                Contributing takes less than 30 seconds with zero signup hurdles.
+              <p className="text-xs sm:text-sm text-slate-400">
+                Contributing takes less than 30 seconds with zero signup hurdles or spam.
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 pt-2">
-              <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs relative space-y-2">
-                <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-emerald-100 text-emerald-800 font-black text-xs">
+              <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-5 shadow-xs relative space-y-2 hover:border-slate-700 transition-colors">
+                <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-emerald-500/20 text-emerald-400 font-black text-xs border border-emerald-500/30">
                   1
                 </div>
-                <h3 className="font-bold text-sm text-slate-900">Choose Your Impact</h3>
-                <p className="text-xs text-slate-500 leading-normal">
+                <h3 className="font-bold text-sm text-white">Choose Your Impact</h3>
+                <p className="text-xs text-slate-400 leading-normal">
                   Tap any preset contribution (₹50 to ₹5,000) or type any custom amount (min ₹10).
                 </p>
               </div>
 
-              <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs relative space-y-2">
-                <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-blue-100 text-blue-800 font-black text-xs">
+              <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-5 shadow-xs relative space-y-2 hover:border-slate-700 transition-colors">
+                <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-blue-500/20 text-blue-400 font-black text-xs border border-blue-500/30">
                   2
                 </div>
-                <h3 className="font-bold text-sm text-slate-900">Enter Receipt Info</h3>
-                <p className="text-xs text-slate-500 leading-normal">
-                  Provide your name, email, and 10-digit mobile number for instant Cashfree UPI/SMS receipts.
+                <h3 className="font-bold text-sm text-white">Enter Receipt Info</h3>
+                <p className="text-xs text-slate-400 leading-normal">
+                  Provide name, email, and 10-digit mobile number for immediate Cashfree UPI/SMS receipts.
                 </p>
               </div>
 
-              <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs relative space-y-2">
-                <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-purple-100 text-purple-800 font-black text-xs">
+              <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-5 shadow-xs relative space-y-2 hover:border-slate-700 transition-colors">
+                <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-purple-500/20 text-purple-400 font-black text-xs border border-purple-500/30">
                   3
                 </div>
-                <h3 className="font-bold text-sm text-slate-900">1-Tap UPI Payment</h3>
-                <p className="text-xs text-slate-500 leading-normal">
-                  Pay instantly via Google Pay, PhonePe, Paytm, BHIM, RuPay, or any card with 0% platform surcharge.
+                <h3 className="font-bold text-sm text-white">1-Tap UPI Payment</h3>
+                <p className="text-xs text-slate-400 leading-normal">
+                  Pay instantly via Google Pay, PhonePe, Paytm, BHIM, RuPay, or any card with 0% gateway fees.
                 </p>
               </div>
 
-              <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs relative space-y-2">
-                <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-amber-100 text-amber-800 font-black text-xs">
+              <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-5 shadow-xs relative space-y-2 hover:border-slate-700 transition-colors">
+                <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-amber-500/20 text-amber-400 font-black text-xs border border-amber-500/30">
                   4
                 </div>
-                <h3 className="font-bold text-sm text-slate-900">Instant Verification</h3>
-                <p className="text-xs text-slate-500 leading-normal">
+                <h3 className="font-bold text-sm text-white">Instant Verification</h3>
+                <p className="text-xs text-slate-400 leading-normal">
                   Get your official digital donation receipt with Order ID and honorary Community Supporter status.
                 </p>
               </div>
@@ -331,97 +331,135 @@ export default function DonatePage() {
 
           {/* Main 2-Column Donation & Impact Section */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            {/* Left Column: Mission Breakdown & Ecosystem */}
+            {/* Left Column: The 3 Projects & DPDP Act Notice */}
             <div className="lg:col-span-6 space-y-6">
               {/* Three Projects Showcase Card */}
-              <div className="rounded-3xl border border-slate-200 bg-white p-6 sm:p-7 shadow-xs space-y-5">
+              <div className="rounded-3xl border border-slate-800 bg-slate-900/80 p-6 sm:p-7 shadow-xl space-y-5">
                 <div className="space-y-1">
-                  <div className="text-xs font-mono font-bold uppercase tracking-wider text-emerald-700 flex items-center gap-1.5">
+                  <div className="text-xs font-mono font-bold uppercase tracking-wider text-emerald-400 flex items-center gap-1.5">
                     <Layers className="h-3.5 w-3.5" />
-                    <span>The Connected Ecosystem</span>
+                    <span>The Three Pillars</span>
                   </div>
-                  <h3 className="text-xl font-black text-slate-900">
-                    What Your Donation Powers
+                  <h3 className="text-xl font-black text-white">
+                    Where Every Rupee Is Deployed
                   </h3>
-                  <p className="text-xs text-slate-500">
-                    Every rupee supports three complementary initiatives engineered for developers:
+                  <p className="text-xs text-slate-400">
+                    Supporting three complementary non-paywalled engineering initiatives:
                   </p>
                 </div>
 
                 <div className="space-y-3.5 text-xs">
-                  {/* Pillar 1: Role Nest */}
-                  <div className="p-4 rounded-2xl border border-slate-100 bg-slate-50/70 hover:bg-slate-50 transition-colors space-y-1.5">
+                  {/* Pillar 1: RitualDev Lab */}
+                  <div className="p-4 rounded-2xl border border-slate-800 bg-slate-950/60 hover:border-purple-500/40 transition-colors space-y-1.5">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <div className="h-2 w-2 rounded-full bg-emerald-500" />
-                        <span className="font-black text-sm text-slate-900">Role Nest</span>
-                      </div>
-                      <a
-                        href="https://rolenest.in"
-                        className="text-[11px] font-bold text-emerald-700 hover:underline flex items-center gap-0.5"
-                      >
-                        <span>rolenest.in</span>
-                        <ExternalLink className="h-2.5 w-2.5" />
-                      </a>
-                    </div>
-                    <p className="text-slate-600 leading-relaxed text-[11.5px]">
-                      Transparent tech career intelligence, verified direct company links, Harvard ATS resume analyzer, and anti-ghosting Truth Teller telemetry. 100% free for applicants.
-                    </p>
-                  </div>
-
-                  {/* Pillar 2: DevShelf */}
-                  <div className="p-4 rounded-2xl border border-slate-100 bg-slate-50/70 hover:bg-slate-50 transition-colors space-y-1.5">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <div className="h-2 w-2 rounded-full bg-blue-500" />
-                        <span className="font-black text-sm text-slate-900">DevShelf</span>
-                      </div>
-                      <a
-                        href="https://devshelf.ritualdev.in"
-                        target="_blank"
-                        rel="noreferrer"
-                        className="text-[11px] font-bold text-blue-700 hover:underline flex items-center gap-0.5"
-                      >
-                        <span>devshelf.ritualdev.in</span>
-                        <ExternalLink className="h-2.5 w-2.5" />
-                      </a>
-                    </div>
-                    <p className="text-slate-600 leading-relaxed text-[11.5px]">
-                      The digital developer shelf. Curated system design roadmaps, DSA cheat sheets, engineering interview kits, code snippets, and free student dev tools.
-                    </p>
-                  </div>
-
-                  {/* Pillar 3: RitualDev Lab */}
-                  <div className="p-4 rounded-2xl border border-slate-100 bg-slate-50/70 hover:bg-slate-50 transition-colors space-y-1.5">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <div className="h-2 w-2 rounded-full bg-purple-500" />
-                        <span className="font-black text-sm text-slate-900">RitualDev Lab</span>
+                        <div className="h-2 w-2 rounded-full bg-purple-400" />
+                        <span className="font-black text-sm text-white">RitualDev Lab</span>
                       </div>
                       <a
                         href="https://ritualdev.in"
                         target="_blank"
                         rel="noreferrer"
-                        className="text-[11px] font-bold text-purple-700 hover:underline flex items-center gap-0.5"
+                        className="text-[11px] font-bold text-purple-400 hover:underline flex items-center gap-0.5"
                       >
                         <span>ritualdev.in</span>
                         <ExternalLink className="h-2.5 w-2.5" />
                       </a>
                     </div>
-                    <p className="text-slate-600 leading-relaxed text-[11.5px]">
-                      The parent engineering collective. Operates daily scrapers, maintains cloud compute clusters, audits recruiter legitimacy, and ensures strict DPDP Act 2023 privacy.
+                    <p className="text-slate-400 leading-relaxed text-[11.5px]">
+                      The parent engineering studio. Powers cloud scraping infrastructure, recruiter fraud intelligence, and privacy-first digital developer tooling.
+                    </p>
+                  </div>
+
+                  {/* Pillar 2: DevShelf */}
+                  <div className="p-4 rounded-2xl border border-slate-800 bg-slate-950/60 hover:border-blue-500/40 transition-colors space-y-1.5">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="h-2 w-2 rounded-full bg-blue-400" />
+                        <span className="font-black text-sm text-white">DevShelf</span>
+                      </div>
+                      <a
+                        href="https://devshelf.ritualdev.in"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-[11px] font-bold text-blue-400 hover:underline flex items-center gap-0.5"
+                      >
+                        <span>devshelf.ritualdev.in</span>
+                        <ExternalLink className="h-2.5 w-2.5" />
+                      </a>
+                    </div>
+                    <p className="text-slate-400 leading-relaxed text-[11.5px]">
+                      The open digital developer shelf. Curated system design roadmaps, DSA cheat sheets, engineering interview kits, code snippets, and free student dev tools.
+                    </p>
+                  </div>
+
+                  {/* Pillar 3: Role Nest */}
+                  <div className="p-4 rounded-2xl border border-slate-800 bg-slate-950/60 hover:border-emerald-500/40 transition-colors space-y-1.5">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="h-2 w-2 rounded-full bg-emerald-400" />
+                        <span className="font-black text-sm text-white">Role Nest</span>
+                      </div>
+                      <a
+                        href="https://rolenest.in"
+                        className="text-[11px] font-bold text-emerald-400 hover:underline flex items-center gap-0.5"
+                      >
+                        <span>rolenest.in</span>
+                        <ExternalLink className="h-2.5 w-2.5" />
+                      </a>
+                    </div>
+                    <p className="text-slate-400 leading-relaxed text-[11.5px]">
+                      Career intelligence platform. 100% verified direct job links, Harvard ATS resume analyzer, and Truth Teller anti-ghosting telemetry. Zero recruiter fees for freshers.
                     </p>
                   </div>
                 </div>
               </div>
 
-              {/* Live Impact Calculator Box */}
-              <div className="rounded-3xl border border-emerald-200 bg-emerald-50/60 p-5 space-y-2">
-                <div className="flex items-center gap-2 text-xs font-bold text-emerald-900">
-                  <Sparkles className="h-4 w-4 text-emerald-600" />
-                  <span>Your Selected Impact (₹{activeAmount > 0 ? activeAmount : 250})</span>
+              {/* DPDP Act 2023 Compliance Box */}
+              <div className="rounded-3xl border border-emerald-500/30 bg-slate-900/90 p-5 space-y-3 text-xs">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2 font-bold text-emerald-400">
+                    <Scale className="h-4 w-4" />
+                    <span>DPDP Act, 2023 Compliance &amp; Privacy Notice</span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setShowDpdpDetails(!showDpdpDetails)}
+                    className="text-[11px] text-slate-400 hover:text-white underline font-medium"
+                  >
+                    {showDpdpDetails ? "Hide Details" : "Read Notice"}
+                  </button>
                 </div>
-                <p className="text-xs text-emerald-800 leading-relaxed">
+
+                <p className="text-slate-300 leading-relaxed text-[11.5px]">
+                  <strong>Data Fiduciary:</strong> Role Nest &amp; RitualDev Technologies (Sector 62, Noida, UP 201301). Under Section 5 &amp; 6 of the DPDP Act 2023, your contact information is exclusively processed for Cashfree UPI payment processing and digital receipt generation.
+                </p>
+
+                {showDpdpDetails && (
+                  <div className="pt-2 border-t border-slate-800 space-y-2 text-[11px] text-slate-400 animate-in fade-in">
+                    <div className="flex items-start gap-1.5">
+                      <Check className="h-3.5 w-3.5 text-emerald-400 shrink-0 mt-0.5" />
+                      <span><strong>Purpose Limitation:</strong> Zero marketing calls, zero third-party recruiter data sharing, and zero tracking cookies.</span>
+                    </div>
+                    <div className="flex items-start gap-1.5">
+                      <Check className="h-3.5 w-3.5 text-emerald-400 shrink-0 mt-0.5" />
+                      <span><strong>Data Principal Rights:</strong> Right to access, correction, or erasure under Section 12 can be exercised via <code>privacy@rolenest.in</code>.</span>
+                    </div>
+                    <div className="flex items-start gap-1.5">
+                      <Check className="h-3.5 w-3.5 text-emerald-400 shrink-0 mt-0.5" />
+                      <span><strong>Grievance Redressal:</strong> Dedicated Data Protection Officer reachable at <code>grievance@rolenest.in</code>.</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Dynamic Impact Tier Preview */}
+              <div className="rounded-3xl border border-slate-800 bg-slate-900/50 p-5 space-y-1.5">
+                <div className="flex items-center gap-2 text-xs font-bold text-slate-200">
+                  <Sparkles className="h-4 w-4 text-emerald-400" />
+                  <span>Selected Impact (₹{activeAmount > 0 ? activeAmount : 250})</span>
+                </div>
+                <p className="text-xs text-slate-400 leading-relaxed">
                   {getImpactDescription(activeAmount)}
                 </p>
               </div>
@@ -429,19 +467,19 @@ export default function DonatePage() {
 
             {/* Right Column: Custom Payment Form */}
             <div className="lg:col-span-6">
-              <div className="rounded-3xl border-2 border-emerald-500/80 bg-white p-6 sm:p-8 shadow-xl space-y-6 relative">
+              <div className="rounded-3xl border border-emerald-500/40 bg-slate-900 p-6 sm:p-8 shadow-2xl space-y-6 relative">
                 <div className="space-y-1 text-center">
-                  <div className="inline-flex items-center gap-1 text-[11px] font-black uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
+                  <div className="inline-flex items-center gap-1 text-[11px] font-black uppercase tracking-wider text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/30">
                     <Sparkles className="h-3 w-3" /> Quick &amp; Custom Contribution
                   </div>
-                  <h2 className="text-2xl font-black text-slate-900">Make a Donation</h2>
-                  <p className="text-xs text-slate-500">
+                  <h2 className="text-2xl font-black text-white">Make a Donation</h2>
+                  <p className="text-xs text-slate-400">
                     Choose a preset or enter any custom amount via Cashfree UPI.
                   </p>
                 </div>
 
                 {error && (
-                  <div className="rounded-xl border border-rose-200 bg-rose-50 p-3 text-xs text-rose-700 font-medium animate-in fade-in">
+                  <div className="rounded-xl border border-rose-500/40 bg-rose-950/60 p-3 text-xs text-rose-300 font-medium animate-in fade-in">
                     {error}
                   </div>
                 )}
@@ -449,9 +487,9 @@ export default function DonatePage() {
                 <form onSubmit={handleDonate} className="space-y-5">
                   {/* 1. Quick Presets */}
                   <div className="space-y-2">
-                    <label className="text-xs font-bold text-slate-800 flex items-center justify-between">
+                    <label className="text-xs font-bold text-slate-300 flex items-center justify-between">
                       <span>Select Preset Contribution</span>
-                      <span className="text-[10px] text-emerald-700 font-semibold">Most Popular: ₹250</span>
+                      <span className="text-[10px] text-emerald-400 font-semibold">Most Popular: ₹250</span>
                     </label>
                     <div className="grid grid-cols-4 gap-2">
                       {PRESET_AMOUNTS.map((amt) => {
@@ -463,8 +501,8 @@ export default function DonatePage() {
                             onClick={() => handleSelectPreset(amt)}
                             className={`py-2 px-1 rounded-xl text-xs font-black border transition-all ${
                               isSelected
-                                ? "border-emerald-600 bg-emerald-600 text-white shadow-xs scale-102"
-                                : "border-slate-200 hover:border-emerald-300 text-slate-700 bg-slate-50/50 hover:bg-white"
+                                ? "border-emerald-500 bg-emerald-500 text-slate-950 shadow-md shadow-emerald-500/20 scale-102 font-extrabold"
+                                : "border-slate-800 hover:border-slate-700 text-slate-300 bg-slate-950/60 hover:bg-slate-800"
                             }`}
                           >
                             ₹{amt}
@@ -476,12 +514,12 @@ export default function DonatePage() {
 
                   {/* 2. Custom Amount Input */}
                   <div className="space-y-1.5">
-                    <label className="text-xs font-bold text-slate-800 flex items-center justify-between">
+                    <label className="text-xs font-bold text-slate-300 flex items-center justify-between">
                       <span>Or Enter Custom Amount (₹)</span>
-                      <span className="text-[10px] text-slate-400 font-normal">Min ₹10</span>
+                      <span className="text-[10px] text-slate-500 font-normal">Min ₹10</span>
                     </label>
                     <div className="relative">
-                      <span className="absolute left-4 top-1/2 -translate-y-1/2 text-base font-black text-slate-500">
+                      <span className="absolute left-4 top-1/2 -translate-y-1/2 text-base font-black text-slate-400">
                         ₹
                       </span>
                       <Input
@@ -490,44 +528,44 @@ export default function DonatePage() {
                         placeholder="e.g. 350, 750, 1500"
                         value={customAmountInput}
                         onChange={handleCustomAmountChange}
-                        className="pl-9 h-11 text-base font-bold border-slate-300 focus-visible:ring-emerald-600 rounded-xl"
+                        className="pl-9 h-11 text-base font-bold bg-slate-950 border-slate-800 text-white focus-visible:ring-emerald-500 rounded-xl"
                       />
                     </div>
                   </div>
 
                   {/* 3. Donor Details */}
-                  <div className="space-y-3 pt-2 border-t border-slate-100">
-                    <div className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                  <div className="space-y-3 pt-2 border-t border-slate-800">
+                    <div className="text-[11px] font-bold uppercase tracking-wider text-slate-500 font-mono">
                       Donor Details (for Instant UPI Receipt)
                     </div>
 
                     <div className="space-y-1">
-                      <label className="text-[11px] font-semibold text-slate-700">Full Name</label>
+                      <label className="text-[11px] font-semibold text-slate-300">Full Name</label>
                       <Input
                         type="text"
                         required
                         placeholder="Your Name / Anonymous Supporter"
                         value={donorName}
                         onChange={(e) => setDonorName(e.target.value)}
-                        className="h-10 text-xs rounded-xl"
+                        className="h-10 text-xs bg-slate-950 border-slate-800 text-white rounded-xl focus-visible:ring-emerald-500"
                       />
                     </div>
 
                     <div className="space-y-1">
-                      <label className="text-[11px] font-semibold text-slate-700">Email Address</label>
+                      <label className="text-[11px] font-semibold text-slate-300">Email Address</label>
                       <Input
                         type="email"
                         required
                         placeholder="you@example.com"
                         value={donorEmail}
                         onChange={(e) => setDonorEmail(e.target.value)}
-                        className="h-10 text-xs rounded-xl"
+                        className="h-10 text-xs bg-slate-950 border-slate-800 text-white rounded-xl focus-visible:ring-emerald-500"
                       />
                     </div>
 
                     <div className="space-y-1">
-                      <label className="text-[11px] font-semibold text-slate-700">
-                        Mobile Number <span className="text-slate-400 font-normal">(for Cashfree UPI / SMS)</span>
+                      <label className="text-[11px] font-semibold text-slate-300">
+                        Mobile Number <span className="text-slate-500 font-normal">(for Cashfree UPI / SMS)</span>
                       </label>
                       <div className="relative">
                         <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-xs font-semibold text-slate-500">
@@ -540,15 +578,15 @@ export default function DonatePage() {
                           placeholder="9876543210"
                           value={donorPhone}
                           onChange={(e) => setDonorPhone(e.target.value.replace(/\D/g, "").slice(0, 10))}
-                          className="pl-12 h-10 text-xs rounded-xl font-mono"
+                          className="pl-12 h-10 text-xs bg-slate-950 border-slate-800 text-white rounded-xl font-mono focus-visible:ring-emerald-500"
                         />
                       </div>
                     </div>
 
                     <div className="space-y-1">
-                      <label className="text-[11px] font-semibold text-slate-700 flex items-center justify-between">
+                      <label className="text-[11px] font-semibold text-slate-300 flex items-center justify-between">
                         <span>Message for the Engineering Team (Optional)</span>
-                        <span className="text-[10px] text-slate-400 font-normal">Optional</span>
+                        <span className="text-[10px] text-slate-500 font-normal">Optional</span>
                       </label>
                       <Input
                         type="text"
@@ -556,7 +594,7 @@ export default function DonatePage() {
                         placeholder="e.g. Keep fighting for transparency and freshers!"
                         value={donorNote}
                         onChange={(e) => setDonorNote(e.target.value)}
-                        className="h-10 text-xs rounded-xl"
+                        className="h-10 text-xs bg-slate-950 border-slate-800 text-white rounded-xl focus-visible:ring-emerald-500"
                       />
                     </div>
                   </div>
@@ -566,24 +604,24 @@ export default function DonatePage() {
                     <Button
                       type="submit"
                       disabled={isSubmitting || activeAmount < 10}
-                      className="w-full h-12 bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 hover:from-emerald-500 hover:to-teal-500 text-white font-extrabold text-sm shadow-lg shadow-emerald-600/25 rounded-2xl flex items-center justify-center gap-2 transition-all hover:scale-[1.01]"
+                      className="w-full h-12 bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-sm shadow-xl shadow-emerald-500/20 rounded-2xl flex items-center justify-center gap-2 transition-all hover:scale-[1.01]"
                     >
                       {isSubmitting ? (
                         <>
-                          <Loader2 className="h-4 w-4 animate-spin" />
+                          <Loader2 className="h-4 w-4 animate-spin text-slate-950" />
                           <span>Connecting to Cashfree...</span>
                         </>
                       ) : (
                         <>
-                          <Heart className="h-4 w-4 fill-white text-white" />
+                          <Heart className="h-4 w-4 fill-slate-950 text-slate-950" />
                           <span>Donate ₹{activeAmount > 0 ? activeAmount : 250} via UPI / Cards</span>
-                          <ArrowRight className="h-4 w-4 ml-0.5" />
+                          <ArrowRight className="h-4 w-4 ml-0.5 text-slate-950" />
                         </>
                       )}
                     </Button>
 
                     <div className="flex items-center justify-center gap-2 text-[10px] text-slate-400 text-center">
-                      <ShieldCheck className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
+                      <ShieldCheck className="h-3.5 w-3.5 text-emerald-400 shrink-0" />
                       <span>
                         Secured by Cashfree Payments (RBI Authorized). Supports Google Pay, PhonePe, Paytm, RuPay &amp; NetBanking.
                       </span>
@@ -595,18 +633,18 @@ export default function DonatePage() {
           </div>
 
           {/* Interactive FAQ Section */}
-          <div className="rounded-3xl border border-slate-200 bg-white p-6 sm:p-8 shadow-xs space-y-6">
+          <div className="rounded-3xl border border-slate-800 bg-slate-900/60 p-6 sm:p-8 shadow-xl space-y-6">
             <div className="text-center space-y-1">
-              <div className="inline-flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-wider text-emerald-700">
+              <div className="inline-flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-wider text-emerald-400">
                 <HelpCircle className="h-3.5 w-3.5" />
                 <span>Frequently Asked Questions</span>
               </div>
-              <h3 className="text-xl sm:text-2xl font-black text-slate-900">
+              <h3 className="text-xl sm:text-2xl font-black text-white">
                 Everything You Need to Know About Contributing
               </h3>
             </div>
 
-            <div className="divide-y divide-slate-100 max-w-3xl mx-auto">
+            <div className="divide-y divide-slate-800 max-w-3xl mx-auto">
               {FAQS.map((faq, idx) => {
                 const isOpen = openFaq === idx;
                 return (
@@ -614,17 +652,17 @@ export default function DonatePage() {
                     <button
                       type="button"
                       onClick={() => setOpenFaq(isOpen ? null : idx)}
-                      className="w-full text-left flex items-center justify-between gap-4 font-bold text-sm text-slate-800 hover:text-emerald-700 transition-colors"
+                      className="w-full text-left flex items-center justify-between gap-4 font-bold text-sm text-slate-200 hover:text-emerald-400 transition-colors"
                     >
                       <span>{faq.q}</span>
                       <ChevronDown
-                        className={`h-4 w-4 text-slate-400 shrink-0 transition-transform ${
-                          isOpen ? "rotate-180 text-emerald-600" : ""
+                        className={`h-4 w-4 text-slate-500 shrink-0 transition-transform ${
+                          isOpen ? "rotate-180 text-emerald-400" : ""
                         }`}
                       />
                     </button>
                     {isOpen && (
-                      <p className="mt-2 text-xs text-slate-600 leading-relaxed pr-6 animate-in fade-in">
+                      <p className="mt-2 text-xs text-slate-400 leading-relaxed pr-6 animate-in fade-in">
                         {faq.a}
                       </p>
                     )}
@@ -634,50 +672,63 @@ export default function DonatePage() {
             </div>
           </div>
 
-          {/* Bottom Banner: Community Gratitude & Reciprocal Links */}
-          <div className="rounded-3xl border border-slate-200 bg-white p-8 text-center space-y-4 shadow-xs">
-            <h3 className="text-xl font-black text-slate-900">
+          {/* Bottom Banner: Gratitude & Reciprocal Links */}
+          <div className="rounded-3xl border border-slate-800 bg-slate-900/80 p-8 text-center space-y-4 shadow-xl">
+            <h3 className="text-xl font-black text-white">
               A Thank You from the RitualDev, Role Nest &amp; DevShelf Teams
             </h3>
-            <p className="text-xs sm:text-sm text-slate-600 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-xs sm:text-sm text-slate-400 max-w-2xl mx-auto leading-relaxed">
               Every single rupee contributed empowers college engineering candidates who cannot afford expensive ₹10,000+ placement courses or paid recruiter spam services. We remain accountable to our developer community.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
               <a
-                href="https://rolenest.in"
-                className="text-xs font-bold text-emerald-700 hover:text-emerald-800 underline flex items-center gap-1"
+                href="https://ritualdev.in"
+                target="_blank"
+                rel="noreferrer"
+                className="text-xs font-bold text-purple-400 hover:text-purple-300 underline flex items-center gap-1"
               >
-                Role Nest Careers (rolenest.in) <ExternalLink className="h-3 w-3" />
+                RitualDev Technologies (ritualdev.in) <ExternalLink className="h-3 w-3" />
               </a>
-              <span className="text-slate-300">•</span>
+              <span className="text-slate-700">•</span>
               <a
                 href="https://devshelf.ritualdev.in"
                 target="_blank"
                 rel="noreferrer"
-                className="text-xs font-bold text-blue-700 hover:text-blue-800 underline flex items-center gap-1"
+                className="text-xs font-bold text-blue-400 hover:text-blue-300 underline flex items-center gap-1"
               >
                 DevShelf Knowledge Hub (devshelf.ritualdev.in) <ExternalLink className="h-3 w-3" />
               </a>
-              <span className="text-slate-300">•</span>
+              <span className="text-slate-700">•</span>
               <a
-                href="https://ritualdev.in"
-                target="_blank"
-                rel="noreferrer"
-                className="text-xs font-bold text-purple-700 hover:text-purple-800 underline flex items-center gap-1"
+                href="https://rolenest.in"
+                className="text-xs font-bold text-emerald-400 hover:text-emerald-300 underline flex items-center gap-1"
               >
-                RitualDev Technologies (ritualdev.in) <ExternalLink className="h-3 w-3" />
+                Role Nest Platform (rolenest.in) <ExternalLink className="h-3 w-3" />
               </a>
             </div>
           </div>
         </div>
       </main>
 
-      {/* Standalone Footer */}
-      <footer className="border-t border-slate-200 bg-white py-6 px-4 text-center text-xs text-slate-500">
-        <div className="mx-auto max-w-5xl space-y-2">
-          <p>© {new Date().getFullYear()} Role Nest &amp; DevShelf — Engineered &amp; Maintained by RitualDev Lab.</p>
-          <p className="text-[11px] text-slate-400">
-            Operating Business: Role Nest / RitualDev Technologies (Divyanshu Jethi) • DPDP Act 2023 Compliant • Verified Merchant on Cashfree
+      {/* Standalone Distinct Footer */}
+      <footer className="border-t border-slate-800 bg-slate-950 py-8 px-4 text-center text-xs text-slate-400">
+        <div className="mx-auto max-w-5xl space-y-3">
+          <div className="flex flex-wrap items-center justify-center gap-4 text-xs font-bold text-slate-300">
+            <a href="https://ritualdev.in" target="_blank" rel="noreferrer" className="hover:text-white">RitualDev Lab</a>
+            <span>•</span>
+            <a href="https://devshelf.ritualdev.in" target="_blank" rel="noreferrer" className="hover:text-white">DevShelf</a>
+            <span>•</span>
+            <a href="https://rolenest.in" className="hover:text-white">Role Nest</a>
+            <span>•</span>
+            <a href="https://rolenest.in/privacy" className="hover:text-white">DPDP Privacy Policy</a>
+            <span>•</span>
+            <a href="https://rolenest.in/terms" className="hover:text-white">Terms of Contribution</a>
+          </div>
+          <p className="text-[11px] text-slate-500">
+            © {new Date().getFullYear()} Community Infrastructure Fund — Jointly Operated by RitualDev Lab &amp; Role Nest (Founder: Divyanshu Jethi).
+          </p>
+          <p className="text-[11px] text-slate-600 max-w-2xl mx-auto">
+            DPDP Act 2023 Compliant • Registered Office: Sector 62, Noida, Gautam Buddha Nagar, Uttar Pradesh 201301 • RBI-Authorized Cashfree Payments Processing
           </p>
         </div>
       </footer>

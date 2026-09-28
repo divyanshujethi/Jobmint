@@ -47,6 +47,10 @@ interface SessionUser {
 
 export function Navbar() {
   const pathname = usePathname();
+
+  if (pathname?.startsWith("/donate")) {
+    return null;
+  }
   const [isOpen, setIsOpen] = useState(false);
   const [toolsOpen, setToolsOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);

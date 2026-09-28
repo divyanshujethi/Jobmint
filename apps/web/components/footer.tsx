@@ -8,7 +8,7 @@ import { ShieldCheck, Heart, Award, Scale, Settings2, Download, Smartphone, Mail
 export function Footer() {
   const pathname = usePathname();
 
-  if (pathname?.startsWith("/potd") || pathname?.startsWith("/canvas")) {
+  if (pathname?.startsWith("/potd") || pathname?.startsWith("/canvas") || pathname?.startsWith("/donate")) {
     return null;
   }
 

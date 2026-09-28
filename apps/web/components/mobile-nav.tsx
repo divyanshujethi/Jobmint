@@ -7,6 +7,10 @@ import { Briefcase, Flame, Layers, Crown, User, ShieldCheck } from "lucide-react
 export function MobileNav() {
   const pathname = usePathname();
 
+  if (pathname?.startsWith("/donate")) {
+    return null;
+  }
+
   const navItems = [
     {
       name: "Jobs",
