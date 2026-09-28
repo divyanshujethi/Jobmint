@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getCashfreeOrder } from "@/lib/cashfree";
-import { db, users, jobs, eq } from "@repo/database";
+import { db, users, jobs, eq, sql } from "@repo/database";
 
 export async function POST(req: NextRequest) {
   try {
@@ -23,14 +23,38 @@ export async function POST(req: NextRequest) {
       const customerEmail = order.customer_details.customer_email?.toLowerCase();
       const customerId = order.customer_details.customer_id;
 
+      // Handle Community Donation
+      if (orderId.includes("don_") || orderId.includes("donation")) {
+        console.log(`[Cashfree Webhook] Verified donation received: ₹${order.order_amount} for order ${orderId}`);
+        try {
+          await db.execute(sql`
+            CREATE TABLE IF NOT EXISTS community_donations (
+              id VARCHAR(64) PRIMARY KEY,
+              order_id VARCHAR(128) UNIQUE NOT NULL,
+              amount NUMERIC(10, 2) NOT NULL,
+              donor_name VARCHAR(255),
+              donor_email VARCHAR(255),
+              donor_phone VARCHAR(32),
+              donor_note TEXT,
+              gateway VARCHAR(32) DEFAULT 'cashfree',
+              status VARCHAR(32) DEFAULT 'PAID',
+              created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+            );
+            INSERT INTO community_donations (id, order_id, amount, donor_name, donor_email, donor_phone, donor_note, gateway, status)
+            VALUES (${order.order_id}, ${order.order_id}, ${order.order_amount}, ${order.customer_details?.customer_name || 'Community Supporter'}, ${customerEmail || ''}, ${order.customer_details?.customer_phone || ''}, ${order.order_note || ''}, 'cashfree', 'PAID')
+            ON CONFLICT (order_id) DO NOTHING;
+          `);
+        } catch (e) {
+          console.error("[Donation Webhook Save Error]:", e);
+        }
+
+        return NextResponse.json({ received: true, type: "donation", amount: order.order_amount }, { status: 200 });
+      }
+
       let durationMs = 30 * 24 * 60 * 60 * 1000;
       let isFeaturedJob = false;
 
-      if (orderId.includes("test_5")) {
-        durationMs = 10 * 60 * 1000; // 10 minutes
-      } else if (orderId.includes("test_10") || orderId.includes("test")) {
-        durationMs = 7 * 24 * 60 * 60 * 1000;
-      } else if (orderId.includes("pro_annual")) {
+      if (orderId.includes("pro_annual")) {
         durationMs = 365 * 24 * 60 * 60 * 1000;
       } else if (orderId.includes("pro_quarterly")) {
         durationMs = 90 * 24 * 60 * 60 * 1000;

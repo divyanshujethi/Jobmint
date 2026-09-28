@@ -77,10 +77,20 @@ export default function DonatePage() {
   const [donorNote, setDonorNote] = useState<string>("");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [showDpdpDetails, setShowDpdpDetails] = useState<boolean>(false);
+  const [realStats, setRealStats] = useState<{ totalAmount: number; donorCount: number } | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   useEffect(() => {
+    fetch("/api/payment/donations/stats")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data?.success) {
+          setRealStats({ totalAmount: data.totalAmount, donorCount: data.donorCount });
+        }
+      })
+      .catch(() => {});
+
     fetch("/api/auth/session")
       .then((res) => res.json())
       .then((data) => {
@@ -172,8 +182,18 @@ export default function DonatePage() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col justify-between selection:bg-emerald-500 selection:text-white">
+      {/* Forcibly hide default headers, footers and navbars on donation portal */}
+      <style jsx global>{`
+        header.sticky:not(.donation-header),
+        nav.fixed,
+        footer.print\\:hidden,
+        .mobile-bottom-nav {
+          display: none !important;
+        }
+      `}</style>
+
       {/* 1. Standalone Top Bar - Distinct from Role Nest Job Board */}
-      <header className="sticky top-0 z-40 w-full border-b border-slate-800/80 bg-slate-950/90 backdrop-blur-md">
+      <header className="donation-header sticky top-0 z-40 w-full border-b border-slate-800/80 bg-slate-950/90 backdrop-blur-md">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-tr from-emerald-500 via-teal-500 to-indigo-600 text-white shadow-lg shadow-emerald-500/20">
@@ -250,24 +270,31 @@ export default function DonatePage() {
               Jointly supported by <strong>RitualDev Lab</strong>, <strong>Role Nest</strong>, and <strong>DevShelf</strong>. Your contribution keeps tech career telemetry, Harvard ATS tools, and developer learning roadmaps completely free for students.
             </p>
 
-            {/* Monthly Goal Progress Bar */}
+            {/* Real Live Community Ledger - Zero Fake Funding */}
             <div className="rounded-2xl border border-slate-800 bg-slate-900/90 p-4 max-w-xl mx-auto shadow-xl text-left space-y-2">
               <div className="flex items-center justify-between text-xs">
                 <span className="font-bold text-slate-300 flex items-center gap-1.5">
                   <TrendingUp className="h-3.5 w-3.5 text-emerald-400" />
-                  Monthly Cloud &amp; Token Fund
+                  Live Verified Contributions (Current Month)
                 </span>
-                <span className="font-mono font-bold text-emerald-400">₹24,350 / ₹35,000 (70%)</span>
+                <span className="font-mono font-bold text-emerald-400 text-sm">
+                  ₹{realStats ? realStats.totalAmount.toLocaleString() : "0"}
+                </span>
               </div>
-              <div className="w-full bg-slate-800 rounded-full h-2.5 overflow-hidden">
-                <div
-                  className="bg-gradient-to-r from-emerald-500 to-teal-400 h-2.5 rounded-full transition-all duration-500"
-                  style={{ width: "70%" }}
-                />
+              <div className="text-[11.5px] text-slate-400 leading-relaxed">
+                {realStats && realStats.totalAmount > 0 ? (
+                  <span>
+                    <strong>₹{realStats.totalAmount.toLocaleString()}</strong> contributed by <strong>{realStats.donorCount}</strong> community backer(s). 100% genuine and verified via RBI Cashfree gateway.
+                  </span>
+                ) : (
+                  <span>
+                    <strong>₹0 Raised so far this cycle</strong> (100% Genuine Ledger • Zero Fake Counters). Be the founding supporter to fuel our high-speed servers, DevShelf cheat sheets, and free student AI tools!
+                  </span>
+                )}
               </div>
-              <div className="flex items-center justify-between text-[11px] text-slate-400">
-                <span>Backed by 164 students &amp; engineers this month</span>
-                <span>Next server renewal: Oct 1, 2026</span>
+              <div className="flex items-center justify-between text-[10px] text-slate-500 pt-1 border-t border-slate-800/80">
+                <span>Zero Platform Markup • Direct Server Allocation</span>
+                <span>Live DB Sync • RBI Authorized</span>
               </div>
             </div>
           </div>

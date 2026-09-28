@@ -48,9 +48,12 @@ interface SessionUser {
 export function Navbar() {
   const pathname = usePathname();
 
-  if (pathname?.startsWith("/donate")) {
-    return null;
-  }
+  const isDonation =
+    pathname?.startsWith("/donate") ||
+    (typeof window !== "undefined" &&
+      (window.location.hostname.includes("donation.") ||
+        window.location.hostname.includes("donate.")));
+
   const [isOpen, setIsOpen] = useState(false);
   const [toolsOpen, setToolsOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
@@ -118,7 +121,7 @@ export function Navbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  if (pathname?.startsWith("/potd")) {
+  if (pathname?.startsWith("/potd") || isDonation) {
     return null;
   }
 

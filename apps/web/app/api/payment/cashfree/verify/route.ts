@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { getCashfreeOrder } from "@/lib/cashfree";
-import { db, users, jobs, eq } from "@repo/database";
+import { db, users, jobs, eq, sql } from "@repo/database";
 
 export async function GET(req: NextRequest) {
   try {
@@ -22,6 +22,28 @@ export async function GET(req: NextRequest) {
 
       // Handle Community Donation
       if (orderId.includes("don_") || orderId.includes("donation")) {
+        try {
+          await db.execute(sql`
+            CREATE TABLE IF NOT EXISTS community_donations (
+              id VARCHAR(64) PRIMARY KEY,
+              order_id VARCHAR(128) UNIQUE NOT NULL,
+              amount NUMERIC(10, 2) NOT NULL,
+              donor_name VARCHAR(255),
+              donor_email VARCHAR(255),
+              donor_phone VARCHAR(32),
+              donor_note TEXT,
+              gateway VARCHAR(32) DEFAULT 'cashfree',
+              status VARCHAR(32) DEFAULT 'PAID',
+              created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+            );
+            INSERT INTO community_donations (id, order_id, amount, donor_name, donor_email, donor_phone, donor_note, gateway, status)
+            VALUES (${order.order_id}, ${order.order_id}, ${order.order_amount}, ${order.customer_details?.customer_name || 'Community Supporter'}, ${customerEmail || ''}, ${order.customer_details?.customer_phone || ''}, ${order.order_note || ''}, 'cashfree', 'PAID')
+            ON CONFLICT (order_id) DO NOTHING;
+          `);
+        } catch (e) {
+          console.error("[Donation Save Error]:", e);
+        }
+
         return NextResponse.json({
           success: true,
           orderStatus: order.order_status,

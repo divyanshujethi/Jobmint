@@ -141,11 +141,24 @@ const jsonLd = {
   ],
 };
 
-export default function RootLayout({
+import { headers } from "next/headers";
+
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const headersList = await headers();
+  const host = headersList.get("host") || "";
+  const forwardedHost = headersList.get("x-forwarded-host") || "";
+  const isDonationHeader = headersList.get("x-is-donation") === "1";
+  const isDonationHost =
+    isDonationHeader ||
+    host.includes("donation.") ||
+    host.includes("donate.") ||
+    forwardedHost.includes("donation.") ||
+    forwardedHost.includes("donate.");
+
   return (
     <html lang="en" className="h-full">
       <head>
@@ -156,13 +169,14 @@ export default function RootLayout({
       </head>
       <body className="flex min-h-full flex-col font-sans antialiased bg-slate-50/50 text-slate-900">
         <CashfreeProvider />
-        <Navbar />
+        {!isDonationHost && <Navbar />}
         <main className="flex-1 pb-16 md:pb-0">{children}</main>
-        <Footer />
-        <MobileNav />
+        {!isDonationHost && <Footer />}
+        {!isDonationHost && <MobileNav />}
         <PwaInstallPrompt />
         <DPDPConsentManager />
       </body>
     </html>
   );
 }
+
