@@ -100,7 +100,7 @@ export default function InternshipCertificateVerificationPage({
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchId.trim()) {
-      window.location.href = `/internship-bootcamp/verify/${searchId.trim().toUpperCase()}`;
+      window.location.href = `/verify/${searchId.trim().toUpperCase()}`;
     }
   };
 
@@ -114,7 +114,7 @@ export default function InternshipCertificateVerificationPage({
       {/* TOP NAVIGATION & SEARCH */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4 print:hidden">
         <Link
-          href="/internship-bootcamp"
+          href="/"
           className="inline-flex items-center gap-1.5 text-xs text-slate-400 hover:text-emerald-400 transition-colors font-medium"
         >
           <ArrowLeft className="h-4 w-4" /> Back to RoleNest Internship Labs
@@ -155,7 +155,7 @@ export default function InternshipCertificateVerificationPage({
           </p>
           <div className="pt-2">
             <Link
-              href="/internship-bootcamp/verify/RN-INT-2026-AIML-9F2B84"
+              href="/verify/RN-INT-2026-AIML-9F2B84"
               className="text-xs text-emerald-400 underline font-semibold"
             >
               View Sample Verified Certificate (RN-INT-2026-AIML-9F2B84) &rarr;

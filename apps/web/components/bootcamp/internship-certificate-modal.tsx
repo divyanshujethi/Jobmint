@@ -332,7 +332,7 @@ export function InternshipCertificateModal({
                 <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
                   <div className="flex items-center gap-2">
                     <Link
-                      href={`/internship-bootcamp/verify/${cert?.id}`}
+                      href={`/verify/${cert?.id}`}
                       target="_blank"
                       className="rounded-xl border border-emerald-500/40 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-300 font-bold text-xs h-10 px-4 inline-flex items-center gap-1.5 transition-colors"
                     >

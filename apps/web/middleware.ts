@@ -19,15 +19,30 @@ export function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  // If accessed via internship.rolenest.in, rewrite paths to /internship-bootcamp
+  // 1. If accessed on internship.rolenest.in subdomain:
   if (isInternshipSubdomain) {
+    // If someone types /internship-bootcamp/..., redirect to clean URL /...
+    if (pathname.startsWith("/internship-bootcamp")) {
+      const cleanPath = pathname.replace(/^\/internship-bootcamp/, "") || "/";
+      const redirectUrl = req.nextUrl.clone();
+      redirectUrl.pathname = cleanPath;
+      return NextResponse.redirect(redirectUrl, 308);
+    }
+
+    // Rewrite root to /internship-bootcamp
     if (pathname === "/") {
       return NextResponse.rewrite(new URL("/internship-bootcamp", req.url));
     }
 
-    if (!pathname.startsWith("/internship-bootcamp")) {
-      return NextResponse.rewrite(new URL(`/internship-bootcamp${pathname}`, req.url));
-    }
+    // Rewrite /:slug (e.g. /ai-ml, /portal, /verify/...) to /internship-bootcamp/:slug
+    return NextResponse.rewrite(new URL(`/internship-bootcamp${pathname}`, req.url));
+  }
+
+  // 2. If accessed on main web (rolenest.in):
+  // User explicitly requested: "this will not we rolenest.in/internship-bootcamp in this, only in internship.rolenest.in"
+  if (pathname === "/internship-bootcamp" || pathname.startsWith("/internship-bootcamp/")) {
+    const subpath = pathname.replace(/^\/internship-bootcamp/, "") || "/";
+    return NextResponse.redirect(new URL(`https://internship.rolenest.in${subpath}`), 308);
   }
 
   return NextResponse.next();

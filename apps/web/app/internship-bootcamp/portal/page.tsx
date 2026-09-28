@@ -67,7 +67,7 @@ export default function InternshipStudentPortalPage() {
 
         <div className="flex items-center gap-3">
           <Link
-            href="/internship-bootcamp#tracks"
+            href="/#tracks"
             className="rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs h-9 px-4 inline-flex items-center gap-1.5 transition-colors"
           >
             <span>Browse All Tracks</span>
@@ -149,7 +149,7 @@ export default function InternshipStudentPortalPage() {
 
                 <div className="pt-2 border-t border-slate-800/80 flex items-center justify-between">
                   <Link
-                    href={`/internship-bootcamp/verify/${cert.id}`}
+                    href={`/verify/${cert.id}`}
                     className="text-xs text-emerald-400 hover:underline font-bold inline-flex items-center gap-1"
                   >
                     <span>View Public Letter &amp; Credential</span>
@@ -209,7 +209,7 @@ export default function InternshipStudentPortalPage() {
 
               <div className="pt-4 border-t border-slate-800 flex items-center justify-between">
                 <Link
-                  href={`/internship-bootcamp/${track.slug}`}
+                  href={`/${track.slug}`}
                   className="rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs h-9 px-4 inline-flex items-center gap-1.5 transition-colors"
                 >
                   <span>Enter Track Workspace</span>

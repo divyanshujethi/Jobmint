@@ -58,7 +58,7 @@ export default function InternshipBootcampLayout({
           {/* BRAND LOGO */}
           <div className="flex items-center gap-3">
             <Link
-              href="/internship-bootcamp"
+              href="/"
               className="flex items-center gap-2.5 text-white group"
             >
               <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-lg shadow-emerald-500/20 group-hover:scale-105 transition-transform">
@@ -83,35 +83,35 @@ export default function InternshipBootcampLayout({
           {/* DESKTOP NAVIGATION */}
           <nav className="hidden md:flex items-center gap-6 text-xs font-semibold text-slate-300">
             <Link
-              href="/internship-bootcamp#tracks"
+              href="/#tracks"
               className="hover:text-emerald-400 transition-colors flex items-center gap-1"
             >
               <Code2 className="h-3.5 w-3.5 text-emerald-400" />
               Tracks &amp; Syllabus
             </Link>
             <Link
-              href="/internship-bootcamp#code-arena"
+              href="/#code-arena"
               className="hover:text-emerald-400 transition-colors flex items-center gap-1"
             >
               <Terminal className="h-3.5 w-3.5 text-teal-400" />
               Code Competition Arena
             </Link>
             <Link
-              href="/internship-bootcamp#study-material"
+              href="/#study-material"
               className="hover:text-emerald-400 transition-colors flex items-center gap-1"
             >
               <BookOpen className="h-3.5 w-3.5 text-blue-400" />
               PDF Study Material
             </Link>
             <Link
-              href="/internship-bootcamp#college-recognition"
+              href="/#college-recognition"
               className="hover:text-emerald-400 transition-colors flex items-center gap-1"
             >
               <FileCheck2 className="h-3.5 w-3.5 text-purple-400" />
               College Recognition
             </Link>
             <Link
-              href="/internship-bootcamp/verify/RN-INT-2026-AIML-9F2B84"
+              href="/verify/RN-INT-2026-AIML-9F2B84"
               className="hover:text-emerald-400 transition-colors flex items-center gap-1"
             >
               <Award className="h-3.5 w-3.5 text-amber-400" />
@@ -132,14 +132,14 @@ export default function InternshipBootcampLayout({
             </a>
 
             <Link
-              href="/internship-bootcamp/portal"
+              href="/portal"
               className="rounded-xl border border-slate-700 bg-slate-900 hover:bg-slate-800 px-3.5 py-1.5 text-xs font-bold text-white transition-colors"
             >
               Student Portal
             </Link>
 
             <Link
-              href="/internship-bootcamp#tracks"
+              href="/#tracks"
               className="hidden sm:inline-flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 px-4 py-1.5 text-xs font-extrabold text-slate-950 shadow-md shadow-emerald-500/20 transition-all hover:scale-105"
             >
               <span>Enroll (₹499)</span>
@@ -180,32 +180,32 @@ export default function InternshipBootcampLayout({
             </h4>
             <ul className="space-y-2 text-slate-400">
               <li>
-                <Link href="/internship-bootcamp/ai-ml" className="hover:text-emerald-400 transition-colors">
+                <Link href="/ai-ml" className="hover:text-emerald-400 transition-colors">
                   AI &amp; Machine Learning (4 Wks)
                 </Link>
               </li>
               <li>
-                <Link href="/internship-bootcamp/cyber-security" className="hover:text-emerald-400 transition-colors">
+                <Link href="/cyber-security" className="hover:text-emerald-400 transition-colors">
                   Cyber Security &amp; Ethical Hacking (4 Wks)
                 </Link>
               </li>
               <li>
-                <Link href="/internship-bootcamp/prompt-engineering" className="hover:text-emerald-400 transition-colors">
+                <Link href="/prompt-engineering" className="hover:text-emerald-400 transition-colors">
                   Prompt Engineering &amp; GenAI (3 Wks)
                 </Link>
               </li>
               <li>
-                <Link href="/internship-bootcamp/python-automation" className="hover:text-emerald-400 transition-colors">
+                <Link href="/python-automation" className="hover:text-emerald-400 transition-colors">
                   Python Full-Stack &amp; Automation (4 Wks)
                 </Link>
               </li>
               <li>
-                <Link href="/internship-bootcamp/enterprise-java" className="hover:text-emerald-400 transition-colors">
+                <Link href="/enterprise-java" className="hover:text-emerald-400 transition-colors">
                   Enterprise Java 21 &amp; Spring Boot 3 (4 Wks)
                 </Link>
               </li>
               <li>
-                <Link href="/internship-bootcamp/fullstack-nextjs" className="hover:text-emerald-400 transition-colors">
+                <Link href="/fullstack-nextjs" className="hover:text-emerald-400 transition-colors">
                   Full-Stack Next.js 15 &amp; Cloud (4 Wks)
                 </Link>
               </li>
@@ -218,22 +218,22 @@ export default function InternshipBootcampLayout({
             </h4>
             <ul className="space-y-2 text-slate-400">
               <li>
-                <Link href="/internship-bootcamp/verify/RN-INT-2026-AIML-9F2B84" className="hover:text-emerald-400 transition-colors">
+                <Link href="/verify/RN-INT-2026-AIML-9F2B84" className="hover:text-emerald-400 transition-colors">
                   Public Certificate Verification Ledger
                 </Link>
               </li>
               <li>
-                <Link href="/internship-bootcamp#college-recognition" className="hover:text-emerald-400 transition-colors">
+                <Link href="/#college-recognition" className="hover:text-emerald-400 transition-colors">
                   University Recommendation Letter Format
                 </Link>
               </li>
               <li>
-                <Link href="/internship-bootcamp#college-recognition" className="hover:text-emerald-400 transition-colors">
+                <Link href="/#college-recognition" className="hover:text-emerald-400 transition-colors">
                   AICTE / UGC 4-Credit Policy Guide
                 </Link>
               </li>
               <li>
-                <Link href="/internship-bootcamp#college-recognition" className="hover:text-emerald-400 transition-colors">
+                <Link href="/#college-recognition" className="hover:text-emerald-400 transition-colors">
                   NOC &amp; College HOD Approval Packet
                 </Link>
               </li>

@@ -76,7 +76,7 @@ export default function BootcampTrackDetailPage({
       {/* TOP NAVIGATION BREADCRUMB */}
       <div className="flex items-center justify-between border-b border-slate-800 pb-4">
         <Link
-          href="/internship-bootcamp#tracks"
+          href="/#tracks"
           className="inline-flex items-center gap-1.5 text-xs text-slate-400 hover:text-emerald-400 transition-colors font-medium"
         >
           <ArrowLeft className="h-4 w-4" /> Back to All 6 Tracks

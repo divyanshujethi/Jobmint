@@ -42,7 +42,7 @@ export default function InternshipBootcampPage() {
   const handleCertSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchCertId.trim()) {
-      window.location.href = `/internship-bootcamp/verify/${searchCertId.trim().toUpperCase()}`;
+      window.location.href = `/verify/${searchCertId.trim().toUpperCase()}`;
     }
   };
 
@@ -238,7 +238,7 @@ export default function InternshipBootcampPage() {
                   <span className="text-[11px] font-mono font-bold text-slate-500 uppercase tracking-wider block">
                     {track.domain}
                   </span>
-                  <Link href={`/internship-bootcamp/${track.slug}`}>
+                  <Link href={`/${track.slug}`}>
                     <h3 className="text-base sm:text-lg font-black text-white group-hover:text-emerald-400 transition-colors mt-0.5 leading-snug">
                       {track.title}
                     </h3>
@@ -307,7 +307,7 @@ export default function InternshipBootcampPage() {
                 </div>
 
                 <Link
-                  href={`/internship-bootcamp/${track.slug}`}
+                  href={`/${track.slug}`}
                   className="rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs h-9 px-4 inline-flex items-center gap-1.5 shadow-md transition-all hover:scale-105"
                 >
                   <span>View Syllabus</span>
@@ -464,7 +464,7 @@ export default function InternshipBootcampPage() {
             </div>
 
             <Link
-              href="/internship-bootcamp/verify/RN-INT-2026-AIML-9F2B84"
+              href="/verify/RN-INT-2026-AIML-9F2B84"
               className="rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-extrabold text-xs h-9 px-4 inline-flex items-center gap-1.5 shrink-0 transition-colors"
             >
               <span>View Live Credential</span>
