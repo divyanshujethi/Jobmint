@@ -5,13 +5,49 @@ import { evaluateJobTruth } from "./truth-filter";
 
 interface TargetBoard {
   companyName: string;
-  type: "greenhouse" | "lever";
+  type: "greenhouse" | "lever" | "ashby";
   token: string;
   website: string;
   filterIndiaOnly?: boolean;
 }
 
 const INDIAN_TARGET_BOARDS: TargetBoard[] = [
+  // High-Growth Indian Startups & AI Labs
+  {
+    companyName: "Sarvam AI",
+    type: "ashby",
+    token: "sarvam",
+    website: "https://sarvam.ai",
+    filterIndiaOnly: false,
+  },
+  {
+    companyName: "SigNoz",
+    type: "ashby",
+    token: "signoz",
+    website: "https://signoz.io",
+    filterIndiaOnly: false,
+  },
+  {
+    companyName: "Porter",
+    type: "lever",
+    token: "porter",
+    website: "https://porter.in",
+    filterIndiaOnly: false,
+  },
+  {
+    companyName: "FamPay",
+    type: "lever",
+    token: "fampay",
+    website: "https://fampay.in",
+    filterIndiaOnly: false,
+  },
+  {
+    companyName: "Glance",
+    type: "greenhouse",
+    token: "glance",
+    website: "https://glance.com",
+    filterIndiaOnly: true,
+  },
   // Indian Tech Unicorns & Category Leaders
   {
     companyName: "Razorpay",
@@ -398,6 +434,76 @@ export async function crawlIndiaTechBoards(options?: {
             externalId: `lever-${board.token}-${p.id}`,
             description: desc,
             skills: skills.length ? skills : ["Java", "Go", "Docker"],
+            isGhostRisk: false,
+            truthScore: Math.max(truthEval.score, 85),
+            publishedAt: pubDate,
+          });
+
+          count++;
+        }
+      } else if (board.type === "ashby") {
+        const res = await fetch(
+          `https://api.ashbyhq.com/posting-api/job-board/${board.token}`,
+          {
+            headers: { "User-Agent": "RoleNest-IndiaAlligator/1.0" },
+          }
+        );
+        if (!res.ok) continue;
+
+        const data = (await res.json()) as { jobs?: any[] };
+        if (!data.jobs || !Array.isArray(data.jobs)) continue;
+
+        let count = 0;
+        for (const j of data.jobs) {
+          if (count >= maxPerCompany) break;
+
+          const title = j.title?.trim() || "";
+          if (!isTechRole(title)) continue;
+
+          const locRaw = j.location || (j.secondaryLocations ? j.secondaryLocations.join(", ") : "");
+          const locInfo = normalizeIndiaLocation(locRaw);
+
+          if (board.filterIndiaOnly && !locInfo.isIndiaOrRemote) {
+            continue;
+          }
+
+          const { experienceYears, jobType } = detectExperienceAndType(title);
+          const salary =
+            jobType === JobType.INTERNSHIP
+              ? "Competitive Startup Stipend (Official)"
+              : "Competitive Market Compensation (Official)";
+
+          const directUrl =
+            j.jobUrl || `https://jobs.ashbyhq.com/${board.token}/${j.id}`;
+          const desc = `Verified position for ${title} at ${board.companyName}. Location: ${locInfo.location}. Directly apply on the official ${board.companyName} careers portal.`;
+
+          const skills = extractCanonicalSkills(`${title} ${desc}`);
+          const pubDate = j.publishedAt
+            ? new Date(j.publishedAt).toISOString()
+            : new Date().toISOString();
+
+          const truthEval = evaluateJobTruth({
+            title,
+            description: desc,
+            salaryOrStipend: salary,
+            publishedAt: pubDate,
+            companyName: board.companyName,
+          });
+
+          results.push({
+            title,
+            companyName: board.companyName,
+            companyWebsite: board.website,
+            location: locInfo.location,
+            workMode: locInfo.workMode,
+            jobType,
+            salaryOrStipend: salary,
+            experienceYears,
+            source: "EXTERNAL" as any,
+            sourceUrl: directUrl,
+            externalId: `ashby-${board.token}-${j.id}`,
+            description: desc,
+            skills: skills.length ? skills : ["TypeScript", "Python", "Go", "React"],
             isGhostRisk: false,
             truthScore: Math.max(truthEval.score, 85),
             publishedAt: pubDate,

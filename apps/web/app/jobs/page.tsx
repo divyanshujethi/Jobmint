@@ -147,7 +147,7 @@ export default function JobsPage() {
           <Search className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
           <input
             type="text"
-            placeholder="Search by title, skill (e.g. React)..."
+            placeholder="Search by title, skill, company..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full rounded-xl border border-slate-200 bg-white py-2 pl-9 pr-8 text-sm placeholder:text-slate-400 focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
@@ -161,6 +161,34 @@ export default function JobsPage() {
             </button>
           )}
         </div>
+      </div>
+
+      {/* QUICK CANDIDATE 1-CLICK SEARCH CHIPS */}
+      <div className="mt-3 flex flex-wrap items-center gap-1.5 pt-1">
+        <span className="text-[11px] font-bold text-slate-500 mr-1 flex items-center gap-1">
+          <Sparkles className="h-3 w-3 text-emerald-600" /> Quick Filter:
+        </span>
+        {[
+          { label: "🇮🇳 Bengaluru", action: () => setSelectedLocation("bengaluru") },
+          { label: "🌐 Remote India", action: () => { setSelectedMode(WorkMode.REMOTE); setSelectedLocation("india"); } },
+          { label: "🎓 Freshers (0 YOE)", action: () => setSelectedExp("0") },
+          { label: "🚀 Startups", action: () => setSearchTerm("Startup") },
+          { label: "React / Next.js", action: () => setSearchTerm("React") },
+          { label: "Python / AI", action: () => setSearchTerm("Python") },
+          { label: "Golang", action: () => setSearchTerm("Go") },
+          { label: "Internships", action: () => setSelectedType(JobType.INTERNSHIP) },
+          { label: "Delhi NCR", action: () => setSelectedLocation("delhi_ncr") },
+          { label: "Hyderabad", action: () => setSelectedLocation("hyderabad") },
+        ].map((chip) => (
+          <button
+            key={chip.label}
+            type="button"
+            onClick={chip.action}
+            className="rounded-full bg-slate-100 hover:bg-emerald-50 hover:text-emerald-700 hover:border-emerald-300 border border-slate-200 px-2.5 py-1 text-[11px] font-semibold text-slate-700 transition-colors cursor-pointer"
+          >
+            {chip.label}
+          </button>
+        ))}
       </div>
 
       {/* TRUTH TELLER GUARANTEE CALLOUT */}
