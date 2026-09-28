@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { db, courseCertificates, eq } from "@repo/database";
 import { CURATED_COURSES } from "@/lib/courses-data";
 import { SHOWCASE_CERTIFICATES } from "@/lib/certificates-issuer";
+import { SHOWCASE_INTERNSHIP_CERTIFICATES } from "@/lib/bootcamp-certificates";
 
 export async function GET(
   req: NextRequest,
@@ -42,12 +43,42 @@ export async function GET(
       });
     }
 
-    // 2. Check Showcase certificates
+    // 2. Check Showcase course certificates
     const showcase = SHOWCASE_CERTIFICATES.find((c) => c.id.toUpperCase() === certId);
     if (showcase) {
       return NextResponse.json({
         success: true,
         certificate: showcase,
+      });
+    }
+
+    // 3. Check Showcase industrial internship certificates
+    const internshipShowcase = SHOWCASE_INTERNSHIP_CERTIFICATES.find((c) => c.id.toUpperCase() === certId);
+    if (internshipShowcase) {
+      return NextResponse.json({
+        success: true,
+        certificate: {
+          id: internshipShowcase.id,
+          courseId: internshipShowcase.trackId,
+          courseTitle: internshipShowcase.trackTitle,
+          certificateTitle: internshipShowcase.certificateTitle,
+          recipientName: internshipShowcase.recipientName,
+          recipientEmail: internshipShowcase.recipientEmail,
+          collegeName: internshipShowcase.collegeName,
+          degreeBranch: internshipShowcase.degreeBranch,
+          issuedAt: internshipShowcase.issuedAt,
+          durationLabel: internshipShowcase.durationLabel,
+          skills: internshipShowcase.skills,
+          creatorAttribution: `Industrial Program Directed by ${internshipShowcase.mentorName} • Verified by RoleNest Technical Education`,
+          githubProofUrl: internshipShowcase.githubUrl,
+          verificationHash: internshipShowcase.verificationHash,
+          score: internshipShowcase.score,
+          grade: internshipShowcase.grade,
+          verified: true,
+          status: internshipShowcase.status,
+          academicCredits: internshipShowcase.academicCredits,
+          aicteCompliant: internshipShowcase.aicteCompliant,
+        },
       });
     }
 
