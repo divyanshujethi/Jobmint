@@ -15,6 +15,7 @@ interface JobCardProps {
 
 export function JobCard({ job }: JobCardProps) {
   const [isSaved, setIsSaved] = useState(false);
+  const [imageError, setImageError] = useState(false);
   const [candidateProfile, setCandidateProfile] = useState<{
     skills: string[];
     experienceYears?: number;
@@ -79,10 +80,22 @@ export function JobCard({ job }: JobCardProps) {
       {/* TOP ROW: COMPANY & TITLE */}
       <div className="flex items-start justify-between gap-4">
         <div className="flex items-start gap-3.5">
-          {/* Company Avatar */}
-          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-slate-100 text-lg font-bold text-slate-800 border border-slate-200 group-hover:border-emerald-200 transition-colors">
-            {job.companyLogoInitial}
-          </div>
+          {/* Company Avatar / Real Logo */}
+          {job.companyLogoUrl && !imageError ? (
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-white p-1.5 border border-slate-200 group-hover:border-emerald-200 transition-colors shadow-xs overflow-hidden">
+              <img
+                src={job.companyLogoUrl}
+                alt={`${job.companyName} logo`}
+                className="h-full w-full object-contain rounded-lg"
+                loading="lazy"
+                onError={() => setImageError(true)}
+              />
+            </div>
+          ) : (
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-slate-100 text-lg font-bold text-slate-800 border border-slate-200 group-hover:border-emerald-200 transition-colors">
+              {job.companyLogoInitial}
+            </div>
+          )}
 
           <div>
             <div className="flex items-center gap-1.5 flex-wrap">

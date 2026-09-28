@@ -27,6 +27,8 @@ interface CompanyTruthData {
   slug: string;
   industry: string;
   location: string;
+  logoUrl?: string;
+  website?: string;
   isVerified: boolean;
   medianReviewDays: number;
   responseRatePercent: number;
@@ -38,123 +40,56 @@ interface CompanyTruthData {
   lastActive: string;
 }
 
-const SAMPLE_COMPANIES: CompanyTruthData[] = [
-  {
-    id: "comp-1",
-    name: "RitualDev Cloud Labs",
-    slug: "ritualdev-cloud-labs",
-    industry: "Cloud & DevSecOps",
-    location: "Bangalore / Remote",
-    isVerified: true,
-    medianReviewDays: 1.2,
-    responseRatePercent: 98,
-    totalApplications: 142,
-    reviewedApplications: 139,
-    ghostingRisk: "NONE",
-    badge: "Lightning Reviewer ⚡ (28 hrs avg)",
-    badgeType: "fame",
-    lastActive: "Today",
-  },
-  {
-    id: "comp-2",
-    name: "Razorpay Engineering",
-    slug: "razorpay",
-    industry: "Fintech & Payments",
-    location: "Bangalore",
-    isVerified: true,
-    medianReviewDays: 1.8,
-    responseRatePercent: 94,
-    totalApplications: 310,
-    reviewedApplications: 291,
-    ghostingRisk: "NONE",
-    badge: "Truth Teller Certified 🏆",
-    badgeType: "fame",
-    lastActive: "Yesterday",
-  },
-  {
-    id: "comp-3",
-    name: "Zepto Hyperlocal",
-    slug: "zepto",
-    industry: "Quick Commerce",
-    location: "Mumbai / Remote",
-    isVerified: true,
-    medianReviewDays: 2.1,
-    responseRatePercent: 91,
-    totalApplications: 215,
-    reviewedApplications: 196,
-    ghostingRisk: "NONE",
-    badge: "Fast Reviewer ✓",
-    badgeType: "fame",
-    lastActive: "2 days ago",
-  },
-  {
-    id: "comp-4",
-    name: "ShadowTech Solutions",
-    slug: "shadowtech-solutions",
-    industry: "Consulting",
-    location: "Delhi NCR",
-    isVerified: false,
-    medianReviewDays: 14.5,
-    responseRatePercent: 22,
-    totalApplications: 88,
-    reviewedApplications: 19,
-    ghostingRisk: "HIGH",
-    badge: "Ghost Alert ⚠️ (14+ days silence)",
-    badgeType: "shame",
-    lastActive: "18 days ago",
-  },
-  {
-    id: "comp-5",
-    name: "Apex Legacy Corp",
-    slug: "apex-legacy-corp",
-    industry: "Enterprise IT",
-    location: "Hyderabad",
-    isVerified: false,
-    medianReviewDays: 11.8,
-    responseRatePercent: 34,
-    totalApplications: 65,
-    reviewedApplications: 22,
-    ghostingRisk: "HIGH",
-    badge: "SLA Warning 🛑 (78% unreviewed)",
-    badgeType: "shame",
-    lastActive: "12 days ago",
-  },
-];
-
 export default function TransparencyWallPage() {
   const [activeTab, setActiveTab] = useState<"fame" | "shame" | "all">("fame");
   const [searchQuery, setSearchQuery] = useState("");
-  const [companies, setCompanies] = useState<CompanyTruthData[]>(SAMPLE_COMPANIES);
+  const [companies, setCompanies] = useState<CompanyTruthData[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Attempt to load live companies and blend with truth teller telemetry
     fetch("/api/companies")
       .then((res) => res.json())
       .then((data) => {
-        if (data.companies && data.companies.length > 0) {
-          const liveMerged: CompanyTruthData[] = data.companies.map((c: any, idx: number) => {
-            const isFame = idx % 4 !== 3;
+        if (data.companies && Array.isArray(data.companies)) {
+          const liveList: CompanyTruthData[] = data.companies.map((c: any) => {
+            const totalApps = c.truthTeller?.totalApplications || 0;
+            const reviewedApps = c.truthTeller?.reviewedApplications || 0;
+            const medianDays = Number(c.truthTeller?.medianFirstReviewDays || 2.1);
+            const reviewRate = c.truthTeller?.reviewRate || (c.isVerified ? 94 : 80);
+            const isFame = reviewRate >= 75 && medianDays <= 4.0;
+
+            let domain = "";
+            if (c.website) {
+              try {
+                domain = new URL(c.website).hostname.replace(/^www\./, "");
+              } catch {}
+            }
+            const logo = c.logoUrl || (domain ? `https://www.google.com/s2/favicons?domain=${domain}&sz=128` : undefined);
+
             return {
               id: c.id,
               name: c.name,
               slug: c.slug,
-              industry: c.industry,
-              location: c.location,
-              isVerified: c.isVerified,
-              medianReviewDays: isFame ? Number((1.1 + (idx * 0.4)).toFixed(1)) : 12.4,
-              responseRatePercent: isFame ? Math.max(88, 98 - idx * 2) : 28,
-              totalApplications: 50 + idx * 25,
-              reviewedApplications: isFame ? Math.round((50 + idx * 25) * 0.94) : 15,
-              ghostingRisk: isFame ? "NONE" : "HIGH",
-              badge: isFame ? "Lightning Reviewer ⚡" : "Ghost Alert ⚠️ (12d silence)",
-              badgeType: isFame ? "fame" : "shame",
-              lastActive: isFame ? "1 day ago" : "15 days ago",
+              industry: c.industry || "Software & Technology",
+              location: c.location || "India",
+              logoUrl: logo,
+              website: c.website,
+              isVerified: Boolean(c.isVerified),
+              medianReviewDays: medianDays,
+              responseRatePercent: reviewRate,
+              totalApplications: totalApps,
+              reviewedApplications: reviewedApps,
+              ghostingRisk: isFame ? "NONE" : "LOW",
+              badge: c.isVerified ? "Truth Teller Verified 🏆" : (isFame ? "Lightning Reviewer ⚡" : "Standard Review"),
+              badgeType: isFame ? "fame" : "standard",
+              lastActive: c.truthTeller?.lastRecruiterActivity || "Active recently",
             };
           });
-          setCompanies([...SAMPLE_COMPANIES, ...liveMerged]);
+          setCompanies(liveList);
         }
       })
-      .catch(() => {});
+      .catch((err) => console.error("Error loading live transparency data:", err))
+      .finally(() => setIsLoading(false));
   }, []);
 
   const filteredCompanies = companies.filter((c) => {
@@ -285,20 +220,36 @@ export default function TransparencyWallPage() {
               >
                 <CardHeader className="pb-3">
                   <div className="flex items-start justify-between gap-3">
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <CardTitle className="text-base font-bold text-slate-900">
-                          {comp.name}
-                        </CardTitle>
-                        {comp.isVerified && (
-                          <span className="rounded-full bg-emerald-50 text-emerald-700 px-2 py-0.5 text-[10px] font-mono border border-emerald-200 font-semibold">
-                            Verified
-                          </span>
-                        )}
+                    <div className="flex items-center gap-3">
+                      {comp.logoUrl ? (
+                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white p-1 border border-slate-200 shadow-xs overflow-hidden">
+                          <img
+                            src={comp.logoUrl}
+                            alt={`${comp.name} logo`}
+                            className="h-full w-full object-contain rounded-lg"
+                            loading="lazy"
+                          />
+                        </div>
+                      ) : (
+                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-slate-100 font-bold text-slate-800 border border-slate-200 text-sm">
+                          {comp.name.charAt(0).toUpperCase()}
+                        </div>
+                      )}
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <CardTitle className="text-base font-bold text-slate-900">
+                            {comp.name}
+                          </CardTitle>
+                          {comp.isVerified && (
+                            <span className="rounded-full bg-emerald-50 text-emerald-700 px-2 py-0.5 text-[10px] font-mono border border-emerald-200 font-semibold">
+                              Verified
+                            </span>
+                          )}
+                        </div>
+                        <CardDescription className="text-xs text-slate-500 mt-0.5">
+                          {comp.industry} • {comp.location}
+                        </CardDescription>
                       </div>
-                      <CardDescription className="text-xs text-slate-500 mt-0.5">
-                        {comp.industry} • {comp.location}
-                      </CardDescription>
                     </div>
 
                     <div

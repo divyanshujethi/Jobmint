@@ -6,6 +6,8 @@ export interface MockJob {
   title: string;
   companyName: string;
   companySlug: string;
+  companyLogoUrl?: string;
+  companyWebsite?: string;
   companyLogoInitial: string;
   isVerified: boolean;
   isFeatured?: boolean;

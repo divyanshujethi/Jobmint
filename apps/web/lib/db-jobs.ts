@@ -52,6 +52,9 @@ export async function getLiveJobs(): Promise<MockJob[]> {
         createdAt: jobs.createdAt,
         companyName: companies.name,
         companySlug: companies.slug,
+        companyLogoUrl: companies.logoUrl,
+        companyWebsite: companies.website,
+        companyDomain: companies.domain,
         isVerified: companies.isVerified,
         totalApplications: companies.totalApplications,
         reviewedApplications: companies.reviewedApplications,
@@ -95,12 +98,27 @@ export async function getLiveJobs(): Promise<MockJob[]> {
       const reviewRate = totalApps > 0 ? Math.round((reviewedApps / totalApps) * 100) : 0;
       const medianDays = parseFloat(j.medianFirstReviewDays || "0") || 0;
 
+      let resolvedLogo = j.companyLogoUrl;
+      if (!resolvedLogo) {
+        let domain = j.companyDomain;
+        if (!domain && j.companyWebsite) {
+          try {
+            domain = new URL(j.companyWebsite).hostname.replace(/^www\./, "");
+          } catch {}
+        }
+        if (domain) {
+          resolvedLogo = `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
+        }
+      }
+
       return {
         id: j.id,
         slug: j.slug,
         title: j.title,
         companyName: j.companyName,
         companySlug: j.companySlug,
+        companyLogoUrl: resolvedLogo || undefined,
+        companyWebsite: j.companyWebsite || undefined,
         companyLogoInitial: j.companyName.charAt(0).toUpperCase(),
         isVerified: j.isVerified,
         isFeatured: Boolean(j.isFeatured),
