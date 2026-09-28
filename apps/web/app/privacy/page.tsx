@@ -54,6 +54,25 @@ export default function PrivacyPage() {
           </p>
         </div>
 
+        {/* INTERNSHIP BOOTCAMP & EMPLOYMENT NON-GUARANTEE DISCLAIMER */}
+        <div className="rounded-2xl border-2 border-amber-500/40 bg-amber-50/80 p-6 space-y-3 shadow-sm">
+          <div className="flex items-center gap-2 font-bold text-amber-950 text-base">
+            <Scale className="h-5 w-5 text-amber-700 shrink-0" />
+            Industrial Internship Bootcamp — Mandatory Employment Non-Guarantee Disclaimer
+          </div>
+          <div className="text-xs sm:text-sm text-amber-900 leading-relaxed space-y-2">
+            <p>
+              <strong>1. Educational &amp; Academic Credit Purpose:</strong> All RoleNest 3–4 week industrial internship bootcamps (offered via <code>internship.rolenest.in</code>) are applied software engineering training, algorithmic problem-solving labs, and university credit fulfillment programs aligned with UGC/AICTE guidelines.
+            </p>
+            <p>
+              <strong>2. Strict Non-Guarantee of Employment:</strong> Enrollment in, participation in, or completion of any bootcamp program and receipt of an Internship Certificate ID <strong>DOES NOT</strong> constitute an offer of permanent employment, job placement guarantee, or hiring promise by RoleNest or any affiliated enterprise. Hiring decisions are made solely by independent third-party employers based on their internal evaluation criteria and candidate interview merit.
+            </p>
+            <p>
+              <strong>3. 7-Day Refund Protection:</strong> All internship program enrollments are covered by a 100% 7-Day Money-Back Guarantee prior to final certificate generation, as detailed in our Refund Policy.
+            </p>
+          </div>
+        </div>
+
         {/* SECURITY PILLARS */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="rounded-2xl border border-slate-200 bg-white p-5 space-y-2 shadow-sm">

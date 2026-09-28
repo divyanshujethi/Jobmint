@@ -82,7 +82,29 @@ export default function RefundPage() {
               </ul>
             </section>
 
-            {/* SECTION 3 */}
+            {/* SECTION 2.5: INTERNSHIP BOOTCAMPS */}
+            <section className="space-y-3">
+              <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+                <CheckCircle2 className="h-5 w-5 text-teal-600" />
+                3. Industrial Internship Bootcamps — 7-Day Money-Back Guarantee
+              </h2>
+              <p>
+                All student enrollments in RoleNest 3–4 Week Industrial Internship Bootcamps (hosted at <code>internship.rolenest.in</code>) are backed by our transparent <strong>7-Day Money-Back Guarantee</strong>:
+              </p>
+              <div className="rounded-xl border border-teal-200 bg-teal-50/50 p-4 text-xs sm:text-sm text-teal-950 space-y-2">
+                <p>
+                  <strong>Eligibility:</strong> Students may request a 100% full refund within <strong>7 calendar days</strong> of enrollment if unsatisfied with the curriculum or practical labs.
+                </p>
+                <p>
+                  <strong>Certificate Exception:</strong> Once a student has submitted their final Capstone Project and generated an official verifiable Certificate ID registered on the public ledger, fees become non-refundable to maintain academic integrity and university trust.
+                </p>
+                <p>
+                  <strong>Claim Process:</strong> Email <a href="mailto:refunds@rolenest.in" className="text-teal-700 underline font-semibold">refunds@rolenest.in</a> with your enrolled track and order details for instant processing within 5–7 banking days via Cashfree Payments.
+                </p>
+              </div>
+            </section>
+
+            {/* SECTION 4 */}
             <section className="space-y-3">
               <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
                 <RefreshCw className="h-5 w-5 text-purple-600" />

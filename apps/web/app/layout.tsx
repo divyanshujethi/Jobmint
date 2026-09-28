@@ -151,6 +151,7 @@ export default async function RootLayout({
   const headersList = await headers();
   const host = headersList.get("host") || "";
   const forwardedHost = headersList.get("x-forwarded-host") || "";
+
   const isDonationHeader = headersList.get("x-is-donation") === "1";
   const isDonationHost =
     isDonationHeader ||
@@ -158,6 +159,16 @@ export default async function RootLayout({
     host.includes("donate.") ||
     forwardedHost.includes("donation.") ||
     forwardedHost.includes("donate.");
+
+  const isInternshipHeader = headersList.get("x-is-internship") === "1";
+  const isInternshipHost =
+    isInternshipHeader ||
+    host.includes("internship.") ||
+    host.includes("internships.") ||
+    forwardedHost.includes("internship.") ||
+    forwardedHost.includes("internships.");
+
+  const isIsolatedHost = isDonationHost || isInternshipHost;
 
   return (
     <html lang="en" className="h-full">
@@ -169,11 +180,11 @@ export default async function RootLayout({
       </head>
       <body className="flex min-h-full flex-col font-sans antialiased bg-slate-50/50 text-slate-900">
         <CashfreeProvider />
-        {!isDonationHost && <Navbar />}
-        <main className="flex-1 pb-16 md:pb-0">{children}</main>
-        {!isDonationHost && <Footer />}
-        {!isDonationHost && <MobileNav />}
-        <PwaInstallPrompt />
+        {!isIsolatedHost && <Navbar />}
+        <main className={isInternshipHost ? "flex-1 pb-0" : "flex-1 pb-16 md:pb-0"}>{children}</main>
+        {!isIsolatedHost && <Footer />}
+        {!isIsolatedHost && <MobileNav />}
+        {!isIsolatedHost && <PwaInstallPrompt />}
         <DPDPConsentManager />
       </body>
     </html>

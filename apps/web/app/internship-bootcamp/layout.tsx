@@ -262,14 +262,24 @@ export default function InternshipBootcampLayout({
           </div>
         </div>
 
-        <div className="mx-auto max-w-7xl border-t border-slate-900 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-400 text-[11px]">
+        <div className="mx-auto max-w-7xl border-t border-slate-900 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-slate-400 text-[11px]">
           <div>
             &copy; 2026 RoleNest Virtual Internship Labs. All rights reserved. Registered Indian Technical Education &amp; Verification Platform.
           </div>
-          <div className="flex items-center gap-4">
-            <span className="font-mono text-emerald-400">SHA-256 Ledger Authenticated</span>
+          <div className="flex flex-wrap items-center gap-4 text-slate-400">
+            <Link href="/privacy" className="hover:text-emerald-400 transition-colors">
+              Privacy Policy &amp; Non-Guarantee Disclaimer
+            </Link>
             <span>•</span>
-            <span className="text-slate-400">Zero Third-Party YouTube Embeds</span>
+            <Link href="/refund" className="hover:text-emerald-400 transition-colors">
+              7-Day Refund Policy
+            </Link>
+            <span>•</span>
+            <Link href="/terms" className="hover:text-emerald-400 transition-colors">
+              Terms &amp; Honor Code
+            </Link>
+            <span>•</span>
+            <span className="font-mono text-emerald-400">SHA-256 Ledger Authenticated</span>
           </div>
         </div>
       </footer>
