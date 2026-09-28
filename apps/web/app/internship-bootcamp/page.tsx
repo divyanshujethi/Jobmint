@@ -138,6 +138,83 @@ export default function InternshipBootcampPage() {
         </div>
       </section>
 
+      {/* HOW THE VIRTUAL INTERNSHIP OPERATES (DAY-BY-DAY ARCHITECTURE) */}
+      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-6">
+        <div className="text-center max-w-3xl mx-auto space-y-2">
+          <span className="text-xs font-mono uppercase tracking-wider text-emerald-400 font-bold">
+            Real Industrial Workflow
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-black text-white">
+            How Your 4-Week Engineering Internship Works
+          </h2>
+          <p className="text-xs sm:text-sm text-slate-400">
+            A real virtual apprenticeship with sequential day-by-day unlocking, GitHub commit audits, open-source collaboration, and institutional accreditation.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+          <div className="rounded-2xl border border-slate-800 bg-slate-900/80 p-5 space-y-3">
+            <div className="h-9 w-9 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 font-bold text-xs">
+              01
+            </div>
+            <h3 className="text-sm font-bold text-white">
+              Enroll &amp; Get Offer Letter + NOC
+            </h3>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Create an account, submit your college roll number, and instantly download your verifiable <strong>Appointment Letter</strong> and <strong>College NOC</strong> for HOD credit sanction.
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-slate-800 bg-slate-900/80 p-5 space-y-3">
+            <div className="h-9 w-9 rounded-xl bg-teal-500/10 border border-teal-500/30 flex items-center justify-center text-teal-400 font-bold text-xs">
+              02
+            </div>
+            <h3 className="text-sm font-bold text-white">
+              Day-by-Day Progression
+            </h3>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              No bingeing in one day. Study daily theory, download in-depth PDF guides, and run interactive in-browser compiler challenges with automated test cases.
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-slate-800 bg-slate-900/80 p-5 space-y-3">
+            <div className="h-9 w-9 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 font-bold text-xs">
+              03
+            </div>
+            <h3 className="text-sm font-bold text-white">
+              Daily GitHub Task Audits
+            </h3>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Complete real engineering tasks in your own GitHub repository. Submit your commit / PR link daily to unlock the next day&apos;s module.
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-slate-800 bg-slate-900/80 p-5 space-y-3">
+            <div className="h-9 w-9 rounded-xl bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center text-indigo-400 font-bold text-xs">
+              04
+            </div>
+            <h3 className="text-sm font-bold text-white">
+              DevShelf Open Source PR
+            </h3>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Mandatory milestone: fork <strong>RitualDev-Lab/DevShelf</strong> on GitHub, contribute a developer resource, and get featured in the contributors roster.
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-slate-800 bg-slate-900/80 p-5 space-y-3">
+            <div className="h-9 w-9 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 font-bold text-xs">
+              05
+            </div>
+            <h3 className="text-sm font-bold text-white">
+              Recognized Certificate ID
+            </h3>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Deliver your production capstone to earn an AICTE/UGC credit-recommended Certificate with verifiable SHA-256 ledger ID recognized by colleges and employers.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* QUICK CERTIFICATE LOOKUP SECTION */}
       <section className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <div className="rounded-2xl border border-emerald-500/30 bg-gradient-to-r from-emerald-950/40 via-slate-900 to-slate-900 p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
