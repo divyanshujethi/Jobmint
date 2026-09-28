@@ -23,6 +23,7 @@ import {
   FileCheck2,
   UserCheck,
   Check,
+  Trophy,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -78,6 +79,14 @@ export default function DonatePage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [showDpdpDetails, setShowDpdpDetails] = useState<boolean>(false);
   const [realStats, setRealStats] = useState<{ totalAmount: number; donorCount: number } | null>(null);
+  const [leaderboard, setLeaderboard] = useState<Array<{
+    rank: number;
+    displayName: string;
+    totalAmount: number;
+    donationCount: number;
+    lastDonatedAt: string;
+    isAnonymous: boolean;
+  }>>([]);
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
@@ -87,6 +96,15 @@ export default function DonatePage() {
       .then((data) => {
         if (data?.success) {
           setRealStats({ totalAmount: data.totalAmount, donorCount: data.donorCount });
+        }
+      })
+      .catch(() => {});
+
+    fetch("/api/payment/donations/leaderboard")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data?.success && Array.isArray(data.leaderboard)) {
+          setLeaderboard(data.leaderboard);
         }
       })
       .catch(() => {});
@@ -697,6 +715,123 @@ export default function DonatePage() {
                 );
               })}
             </div>
+          </div>
+
+          {/* Contribution Leaderboard */}
+          <div className="rounded-3xl border border-slate-800 bg-slate-900/60 p-6 sm:p-8 shadow-xl space-y-6">
+            <div className="text-center space-y-1">
+              <div className="inline-flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-wider text-amber-400">
+                <Trophy className="h-3.5 w-3.5" />
+                <span>Community Leaderboard</span>
+              </div>
+              <h3 className="text-xl sm:text-2xl font-black text-white">
+                Our Top Community Backers
+              </h3>
+              <p className="text-xs text-slate-400 max-w-xl mx-auto">
+                Every contribution is verified via RBI-authorized Cashfree gateway and recorded live in our open ledger. Thank you for keeping developer tools free.
+              </p>
+            </div>
+
+            {leaderboard.length === 0 ? (
+              <div className="rounded-2xl border border-dashed border-slate-700 bg-slate-950/40 p-8 text-center space-y-3">
+                <div className="text-4xl">🏆</div>
+                <p className="text-sm font-bold text-slate-300">No contributions yet — be the first!</p>
+                <p className="text-xs text-slate-500">Your name will appear here the moment your contribution is verified. It takes under 30 seconds.</p>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {/* Top 3 Podium */}
+                {leaderboard.length >= 1 && (
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pb-2">
+                    {/* 2nd place - left */}
+                    {leaderboard[1] ? (
+                      <div className="rounded-2xl border border-slate-700 bg-slate-900/80 p-4 text-center space-y-1.5 sm:order-1 order-2">
+                        <div className="text-2xl">🥈</div>
+                        <div className="text-xs font-black text-slate-200 truncate">
+                          {leaderboard[1].displayName}
+                        </div>
+                        <div className="text-sm font-black text-slate-300">
+                          ₹{leaderboard[1].totalAmount.toLocaleString()}
+                        </div>
+                        {leaderboard[1].donationCount > 1 && (
+                          <div className="text-[10px] text-slate-500">{leaderboard[1].donationCount} contributions</div>
+                        )}
+                      </div>
+                    ) : <div className="sm:order-1 order-2" />}
+
+                    {/* 1st place - center (taller) */}
+                    <div className="rounded-2xl border border-amber-500/40 bg-amber-500/5 p-5 text-center space-y-1.5 sm:order-2 order-1 ring-1 ring-amber-500/20">
+                      <div className="text-3xl">🥇</div>
+                      <div className="text-xs font-black text-amber-200 truncate">
+                        {leaderboard[0].displayName}
+                      </div>
+                      <div className="text-base font-black text-amber-400">
+                        ₹{leaderboard[0].totalAmount.toLocaleString()}
+                      </div>
+                      {leaderboard[0].donationCount > 1 && (
+                        <div className="text-[10px] text-amber-600">{leaderboard[0].donationCount} contributions</div>
+                      )}
+                      <div className="text-[9px] font-bold uppercase tracking-widest text-amber-500/70 pt-0.5">Top Backer</div>
+                    </div>
+
+                    {/* 3rd place - right */}
+                    {leaderboard[2] ? (
+                      <div className="rounded-2xl border border-slate-700 bg-slate-900/80 p-4 text-center space-y-1.5 sm:order-3 order-3">
+                        <div className="text-2xl">🥉</div>
+                        <div className="text-xs font-black text-slate-200 truncate">
+                          {leaderboard[2].displayName}
+                        </div>
+                        <div className="text-sm font-black text-slate-300">
+                          ₹{leaderboard[2].totalAmount.toLocaleString()}
+                        </div>
+                        {leaderboard[2].donationCount > 1 && (
+                          <div className="text-[10px] text-slate-500">{leaderboard[2].donationCount} contributions</div>
+                        )}
+                      </div>
+                    ) : <div className="sm:order-3 order-3" />}
+                  </div>
+                )}
+
+                {/* Rank 4–20 list */}
+                {leaderboard.slice(3).length > 0 && (
+                  <div className="rounded-2xl border border-slate-800 bg-slate-950/50 overflow-hidden">
+                    <div className="grid grid-cols-[2rem_1fr_auto] gap-x-3 px-4 py-2 border-b border-slate-800 text-[10px] font-bold uppercase tracking-wider text-slate-500">
+                      <span>#</span>
+                      <span>Name</span>
+                      <span>Total</span>
+                    </div>
+                    {leaderboard.slice(3).map((entry) => (
+                      <div
+                        key={entry.rank}
+                        className="grid grid-cols-[2rem_1fr_auto] gap-x-3 px-4 py-2.5 border-b border-slate-800/50 last:border-0 hover:bg-slate-900/60 transition-colors items-center"
+                      >
+                        <span className="text-xs font-black text-slate-500">{entry.rank}</span>
+                        <div className="min-w-0">
+                          <span className="text-xs font-semibold text-slate-200 truncate block">
+                            {entry.isAnonymous ? (
+                              <span className="flex items-center gap-1">
+                                <Lock className="h-3 w-3 text-slate-500 shrink-0" />
+                                Anonymous Supporter
+                              </span>
+                            ) : entry.displayName}
+                          </span>
+                          {entry.donationCount > 1 && (
+                            <span className="text-[10px] text-slate-500">{entry.donationCount}× contributor</span>
+                          )}
+                        </div>
+                        <span className="text-xs font-black text-emerald-400 tabular-nums">
+                          ₹{entry.totalAmount.toLocaleString()}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                <p className="text-[10px] text-slate-600 text-center pt-1">
+                  Leaderboard updates live after each verified contribution. Names shown as entered — use &quot;Anonymous Supporter&quot; as your name for privacy.
+                </p>
+              </div>
+            )}
           </div>
 
           {/* Bottom Banner: Gratitude & Reciprocal Links */}
