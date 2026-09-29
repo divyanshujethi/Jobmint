@@ -1,4 +1,4 @@
-import { db, jobs, companies, skills, jobSkills, eq, or, ilike } from "@repo/database";
+import { db, jobs, companies, skills, jobSkills, applications, eq, or, and, lt, sql } from "@repo/database";
 import { RawCrawledJob, normalizeIndiaLocation } from "@repo/alligators";
 import { JobSource } from "@repo/shared";
 import { invalidateJobsCache } from "./db-jobs";
@@ -238,4 +238,77 @@ export async function persistCrawledJobs(crawledJobs: RawCrawledJob[]): Promise<
   }
 
   return result;
+}
+
+export interface CleanupResult {
+  deactivated: number;
+  purged: number;
+}
+
+/**
+ * Automatically marks un-crawled jobs as inactive and purges dead expired jobs.
+ * - If an external job was not refreshed in the last `staleDaysThreshold` (default 7 days),
+ *   it has been taken down / filled on the employer's ATS portal -> set isActive = false.
+ * - If an external job has been inactive for >30 days and has 0 applications, purge it completely.
+ */
+export async function cleanupStaleJobs(staleDaysThreshold = 7): Promise<CleanupResult> {
+  const thresholdDate = new Date(Date.now() - staleDaysThreshold * 24 * 60 * 60 * 1000);
+  const purgeDate = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+
+  // 1. Deactivate jobs not seen in the ATS crawls for > staleDaysThreshold
+  const deactivatedResult = await db
+    .update(jobs)
+    .set({
+      isActive: false,
+      updatedAt: new Date(),
+    })
+    .where(
+      and(
+        eq(jobs.isActive, true),
+        eq(jobs.source, JobSource.EXTERNAL),
+        lt(jobs.lastCheckedAt, thresholdDate)
+      )
+    );
+
+  // 2. Permanently delete dead jobs that are inactive, older than 30 days, with 0 applications
+  const deadJobs = await db
+    .select({ id: jobs.id })
+    .from(jobs)
+    .where(
+      and(
+        eq(jobs.isActive, false),
+        eq(jobs.source, JobSource.EXTERNAL),
+        lt(jobs.lastCheckedAt, purgeDate)
+      )
+    );
+
+  let purgedCount = 0;
+  for (const dead of deadJobs) {
+    const appsCount = await db
+      .select({ count: sql<number>`count(*)` })
+      .from(applications)
+      .where(eq(applications.jobId, dead.id));
+
+    if (Number(appsCount[0]?.count || 0) === 0) {
+      try {
+        await db.delete(jobSkills).where(eq(jobSkills.jobId, dead.id));
+        await db.delete(jobs).where(eq(jobs.id, dead.id));
+        purgedCount++;
+      } catch (err: any) {
+        console.warn(`Failed to purge dead job ${dead.id}:`, err.message);
+      }
+    }
+  }
+
+  // 3. Invalidate Redis cache so deactivated jobs immediately disappear from all feeds
+  try {
+    await invalidateJobsCache();
+  } catch (err: any) {
+    console.warn("Failed to invalidate cache after cleanup:", err.message);
+  }
+
+  return {
+    deactivated: (deactivatedResult as any)?.rowCount ?? 0,
+    purged: purgedCount,
+  };
 }

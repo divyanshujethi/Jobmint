@@ -25,9 +25,9 @@ async function executeCrawl() {
 
     const data = await res.json();
     if (data.success && data.data?.stats) {
-      const { totalCrawled, accepted, insertedToDatabase, updatedInDatabase } = data.data.stats;
+      const { totalCrawled, accepted, insertedToDatabase, updatedInDatabase, closedDeactivated, deadPurged } = data.data.stats;
       console.log(
-        `[${new Date().toISOString()}] [AutoCrawler] Success: ${totalCrawled} crawled, ${accepted} accepted, +${insertedToDatabase} new inserted, ~${updatedInDatabase} updated.`
+        `[${new Date().toISOString()}] [AutoCrawler] Success: ${totalCrawled} crawled, ${accepted} accepted, +${insertedToDatabase} new, ~${updatedInDatabase} refreshed, -${closedDeactivated || 0} closed deactivated, -${deadPurged || 0} purged.`
       );
     } else {
       console.log(`[${new Date().toISOString()}] [AutoCrawler] Response:`, data);
