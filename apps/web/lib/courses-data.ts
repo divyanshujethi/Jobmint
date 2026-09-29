@@ -3,12 +3,13 @@ export interface CoursePlaylist {
   title: string;
   creator: string;
   creatorSubscribers: string;
-  category: "AI_ML" | "WEB_DEV" | "DSA" | "DEVOPS_CLOUD" | "CYBERSECURITY" | "PYTHON_DATA";
+  category: "AI_ML" | "WEB_DEV" | "DSA" | "DEVOPS_CLOUD" | "CYBERSECURITY" | "PYTHON_DATA" | "SYSTEM_DESIGN";
   subcategory: string;
   youtubeUrl: string;
+  embedPlaylistId?: string;
   duration: string;
   totalVideos: number;
-  difficulty: "Beginner" | "Intermediate" | "Advanced" | "Beginner to Intermediate" | "Beginner to Advanced" | "All Levels";
+  difficulty: "Beginner" | "Intermediate" | "Advanced" | "Beginner to Intermediate" | "Beginner to Advanced" | "Intermediate to Advanced" | "All Levels";
   skillsLearned: string[];
   description: string;
   certificateTitle: string;
@@ -20,10 +21,11 @@ export interface CoursePlaylist {
     stars: string;
     description: string;
   }[];
+  relatedProblemCategory?: string;
 }
 
 export const CURATED_COURSES: CoursePlaylist[] = [
-  // 1. AI & MACHINE LEARNING - KARPATHY
+  // 1. AI & MACHINE LEARNING - ANDREJ KARPATHY
   {
     id: "karpathy-nn",
     title: "Neural Networks: Zero to Hero",
@@ -32,6 +34,7 @@ export const CURATED_COURSES: CoursePlaylist[] = [
     category: "AI_ML",
     subcategory: "Deep Learning & Transformer Architectures",
     youtubeUrl: "https://www.youtube.com/playlist?list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ",
+    embedPlaylistId: "PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ",
     duration: "20+ Hours",
     totalVideos: 8,
     difficulty: "Intermediate",
@@ -60,43 +63,45 @@ export const CURATED_COURSES: CoursePlaylist[] = [
         description: "A tiny scalar-valued autograd engine with a small PyTorch-like neural net library.",
       },
     ],
+    relatedProblemCategory: "Dynamic Programming",
   },
 
-  // 2. GENERATIVE AI - KRISH NAIK
+  // 2. KRISH NAIK - COMPLETE GENERATIVE AI & RAG
   {
-    id: "krish-genai",
-    title: "Complete Generative AI & LangChain Playlist",
+    id: "krish-naik-genai",
+    title: "Complete Generative AI, LangChain & LLM Masterclass",
     creator: "Krish Naik",
-    creatorSubscribers: "1M+",
+    creatorSubscribers: "1.1M+",
     category: "AI_ML",
-    subcategory: "Generative AI & LLMs",
-    youtubeUrl: "https://www.youtube.com/playlist?list=PLZoTAELRMXVORE4VDCg1h34W889kCgnQU",
+    subcategory: "Generative AI, RAG & Agents",
+    youtubeUrl: "https://www.youtube.com/playlist?list=PLZoTAELRMXVNbDMGZlUVbUxsXsvgleF_5",
+    embedPlaylistId: "PLZoTAELRMXVNbDMGZlUVbUxsXsvgleF_5",
     duration: "35+ Hours",
     totalVideos: 42,
     difficulty: "Beginner to Intermediate",
-    certificateTitle: "Certified Generative AI & LLM Systems Engineer",
-    projectBenchmark: "Build an end-to-end Retrieval-Augmented Generation (RAG) agent using LangChain, Vector DB & Open-Weights LLM.",
+    certificateTitle: "Certified Generative AI & Retrieval-Augmented Generation (RAG) Specialist",
+    projectBenchmark: "Build an enterprise Multi-Document RAG QA assistant with LangChain, ChromaDB, and Llama-3.",
     curriculumModules: [
-      "Foundations of LLMs, Prompt Engineering & Tokenomics",
-      "LangChain Architecture, Chains, Memory & Tools",
-      "Vector Embeddings, ChromaDB, FAISS & Hybrid Search",
-      "Production Multi-Document RAG Application Deployment",
+      "Foundations of LLMs, Prompt Engineering & Temperature tuning",
+      "LangChain Prompts, Output Parsers, LCEL and Memory Components",
+      "Vector Databases: ChromaDB, FAISS and Pinecone Embeddings",
+      "Multi-Modal RAG Pipelines & Autonomous Multi-Agent Workflows",
     ],
-    skillsLearned: ["OpenAI API", "Hugging Face", "LangChain", "Llama 3", "Vector Databases (Chroma/FAISS)", "RAG Systems"],
+    skillsLearned: ["LangChain", "Llama-3", "RAG Architecture", "ChromaDB", "Vector Math", "Prompt Engineering", "Ollama"],
     description:
-      "End-to-end practical Generative AI roadmap covering RAG pipelines, agents, fine-tuning open-weights models, and deploying production conversational AI apps.",
+      "Industry-tested, step-by-step masterclass covering open-source LLMs, local inference with Ollama, vector search, and production agent architectures.",
     recommendedGithubRepos: [
       {
         name: "langchain-ai/langchain",
         repoUrl: "https://github.com/langchain-ai/langchain",
-        stars: "96k ⭐",
-        description: "Building applications with LLMs through composability and RAG pipelines.",
+        stars: "94k ⭐",
+        description: "Building applications with LLMs through composability and tool-augmented agents.",
       },
       {
-        name: "vllm-project/vllm",
-        repoUrl: "https://github.com/vllm-project/vllm",
-        stars: "32k ⭐",
-        description: "A high-throughput and memory-efficient inference and serving engine for LLMs.",
+        name: "chroma-core/chroma",
+        repoUrl: "https://github.com/chroma-core/chroma",
+        stars: "18k ⭐",
+        description: "The AI-native open-source embedding database.",
       },
     ],
   },
@@ -104,14 +109,15 @@ export const CURATED_COURSES: CoursePlaylist[] = [
   // 3. 3BLUE1BROWN - MATHEMATICAL FOUNDATIONS
   {
     id: "3b1b-dl",
-    title: "Essence of Neural Networks & Calculus",
+    title: "Essence of Neural Networks & Linear Algebra",
     creator: "3Blue1Brown (Grant Sanderson)",
     creatorSubscribers: "6.2M+",
     category: "AI_ML",
     subcategory: "Mathematical Foundations",
     youtubeUrl: "https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi",
-    duration: "4 Hours",
-    totalVideos: 5,
+    embedPlaylistId: "PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi",
+    duration: "6 Hours",
+    totalVideos: 6,
     difficulty: "Beginner",
     certificateTitle: "Certified Neural Network Mathematical Foundations Specialist",
     projectBenchmark: "Implement forward pass and gradient descent optimization from raw mathematical matrices without libraries.",
@@ -120,8 +126,9 @@ export const CURATED_COURSES: CoursePlaylist[] = [
       "Gradient Descent and Loss Surface Geometry",
       "What is Backpropagation really doing?",
       "Matrix Calculus of the Backpropagation Algorithm",
+      "Visualizing Attention & Transformers",
     ],
-    skillsLearned: ["Gradient Descent", "Loss Functions", "Matrix Transformations", "Backpropagation Intuition"],
+    skillsLearned: ["Gradient Descent", "Loss Functions", "Matrix Transformations", "Backpropagation Intuition", "Attention Mechanism"],
     description:
       "The undisputed gold standard visual explanation of neural network mathematics, weights, biases, and high-dimensional loss geometry.",
     recommendedGithubRepos: [
@@ -134,15 +141,16 @@ export const CURATED_COURSES: CoursePlaylist[] = [
     ],
   },
 
-  // 4. FULL-STACK WEB - HITESH CHOUDHARY
+  // 4. FULL-STACK WEB - HITESH CHOUDHARY (CHAI AUR CODE)
   {
     id: "hitesh-chai-fullstack",
-    title: "Chai aur Full Stack Next.js & Node.js",
+    title: "Chai aur Full Stack Next.js 15 & Node.js",
     creator: "Hitesh Choudhary (Chai aur Code)",
     creatorSubscribers: "1.2M+",
     category: "WEB_DEV",
-    subcategory: "Full-Stack React & Next.js",
+    subcategory: "Full-Stack React 19 & Next.js 15",
     youtubeUrl: "https://www.youtube.com/playlist?list=PLu71SKxNbfoBAaWGtn9GA2PTw0HO0tXzq",
+    embedPlaylistId: "PLu71SKxNbfoBAaWGtn9GA2PTw0HO0tXzq",
     duration: "28+ Hours",
     totalVideos: 30,
     difficulty: "Beginner to Intermediate",
@@ -154,7 +162,7 @@ export const CURATED_COURSES: CoursePlaylist[] = [
       "PostgreSQL Integration with Drizzle ORM & Migrations",
       "Session Security, JWT Cookies & Production Deployment",
     ],
-    skillsLearned: ["React 19", "Next.js App Router", "Server Actions", "PostgreSQL", "Prisma/Drizzle", "Auth.js"],
+    skillsLearned: ["React 19", "Next.js App Router", "Server Actions", "PostgreSQL", "Drizzle ORM", "Auth.js"],
     description:
       "Production-focused comprehensive guide to building modern full-stack web applications with authentication, serverless backends, and deployment.",
     recommendedGithubRepos: [
@@ -171,132 +179,236 @@ export const CURATED_COURSES: CoursePlaylist[] = [
         description: "TypeScript ORM for SQL databases with maximum performance and zero overhead.",
       },
     ],
+    relatedProblemCategory: "Arrays & Hashing",
   },
 
-  // 5. TRAVERSY MEDIA - FULL STACK CRASH COURSES
+  // 5. HARKIRAT SINGH - 100XDEVS FULL STACK & WEB3
   {
-    id: "traversy-modern-web",
-    title: "Traversy Media Full-Stack Crash Courses",
-    creator: "Traversy Media (Brad Traversy)",
-    creatorSubscribers: "2.2M+",
+    id: "harkirat-100xdevs",
+    title: "100xDevs: Complete Full-Stack & DevOps Cohort",
+    creator: "Harkirat Singh",
+    creatorSubscribers: "550K+",
     category: "WEB_DEV",
-    subcategory: "Modern Web Foundations & APIs",
-    youtubeUrl: "https://www.youtube.com/@TraversyMedia/playlists",
+    subcategory: "Full Stack & Microservices",
+    youtubeUrl: "https://www.youtube.com/playlist?list=PLinedj3B30sCOs6l1r24sM_J_vUq04iS3",
+    embedPlaylistId: "PLinedj3B30sCOs6l1r24sM_J_vUq04iS3",
     duration: "40+ Hours",
-    totalVideos: 25,
-    difficulty: "Beginner",
-    certificateTitle: "Certified Modern Web Architecture & REST API Engineer",
-    projectBenchmark: "Build and document a production-ready REST API with Express/Node and connect it to a responsive frontend UI.",
+    totalVideos: 35,
+    difficulty: "Intermediate",
+    certificateTitle: "Certified Scalable Full Stack & Microservices Engineer",
+    projectBenchmark: "Build an event-driven payment processing microservice with Redis Pub/Sub, WebSockets, and Turborepo.",
     curriculumModules: [
-      "Modern JavaScript ES6+ & Async/Await Deep Dive",
-      "RESTful API Design & Express Middleware Architecture",
-      "Database Modeling, Validation & Error Handling",
-      "Deployment with Docker Containers and Environment Management",
+      "Turborepo Monorepo Architecture for Enterprise Apps",
+      "Real-Time WebSockets & Stateful Node.js Microservices",
+      "Message Queues with Redis Streams & BullMQ",
+      "Containerization & CI/CD with Docker & GitHub Actions",
     ],
-    skillsLearned: ["Modern JavaScript", "REST APIs", "Node.js", "Express", "Docker for Web Developers"],
+    skillsLearned: ["TypeScript", "Turborepo", "WebSockets", "Redis", "Docker", "PostgreSQL", "Microservices"],
     description:
-      "Crystal-clear, no-nonsense practical project tutorials by veteran educator Brad Traversy. Learn how real backends and frontends glue together.",
+      "Deep dive into production engineering practices used at high-growth Indian startups: Monorepos, real-time messaging, Redis queues, and distributed backends.",
     recommendedGithubRepos: [
       {
-        name: "goldbergyoni/nodebestpractices",
-        repoUrl: "https://github.com/goldbergyoni/nodebestpractices",
-        stars: "98k ⭐",
-        description: "The largest compilation of Node.js best practices, security guidelines, and architectural rules.",
+        name: "vercel/turborepo",
+        repoUrl: "https://github.com/vercel/turborepo",
+        stars: "16k ⭐",
+        description: "The high-performance build system for JavaScript & TypeScript codebases.",
       },
     ],
   },
 
-  // 6. STRIVER - A2Z DSA
+  // 6. STRIVER - A2Z DSA SHEET (TAKEOFOWARD)
   {
     id: "striver-a2z-dsa",
-    title: "A2Z DSA Course & Sheet",
-    creator: "Striver (takeUforward)",
-    creatorSubscribers: "800K+",
+    title: "Striver's A2Z DSA Course & 450+ Problem Sheet",
+    creator: "takeUforward (Raj Vikramaditya)",
+    creatorSubscribers: "1.4M+",
     category: "DSA",
-    subcategory: "Complete Coding Interview Prep",
+    subcategory: "Data Structures & Algorithms",
     youtubeUrl: "https://www.youtube.com/playlist?list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BHz",
-    duration: "80+ Hours",
+    embedPlaylistId: "PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BHz",
+    duration: "85+ Hours",
     totalVideos: 120,
     difficulty: "Beginner to Advanced",
-    certificateTitle: "Certified Algorithmic Problem Solving & Data Structures Specialist",
-    projectBenchmark: "Solve and document optimal solutions for 50+ core algorithmic patterns including DP, Graphs, and Trees.",
+    certificateTitle: "Certified Data Structures & Algorithms Master Specialist",
+    projectBenchmark: "Solve and verify all 450+ coding interview benchmarks across Arrays, Trees, Graphs, and DP.",
     curriculumModules: [
-      "Arrays, Hashing, Two Pointers & Sliding Window",
-      "Binary Search & Recursion Backtracking Paradigms",
-      "Binary Trees, BSTs & Disjoint Set Union Graphs",
-      "Dynamic Programming (1D, 2D, Grids, Subsequences, MCM)",
+      "Step 1 & 2: Learn the basics, C++/Java STL, Math & Recursion",
+      "Step 3 & 4: Arrays Easy/Medium/Hard & Binary Search on Answers",
+      "Step 5 to 9: Strings, LinkedList, Bit Manipulation, Stack & Queues",
+      "Step 10 to 16: Binary Trees, BSTs, Graphs, and Dynamic Programming",
     ],
-    skillsLearned: ["Arrays", "Sliding Window", "Trees & Graphs", "Dynamic Programming", "Bit Manipulation", "Recursion"],
+    skillsLearned: ["Binary Search", "Dynamic Programming", "Graphs & BFS/DFS", "Binary Trees", "Recursion", "Two Pointers"],
     description:
-      "The #1 coding interview preparation syllabus for Indian and global tech placements (FAANG/MAANG, Unicorns). Step-by-step intuition, brute to optimal approaches.",
+      "The undisputed most popular DSA interview curriculum in India. Trusted by over 1,000,000 engineering students placing into Google, Amazon, Microsoft, and Uber.",
     recommendedGithubRepos: [
       {
-        name: "kamyu104/LeetCode-Solutions",
-        repoUrl: "https://github.com/kamyu104/LeetCode-Solutions",
-        stars: "45k ⭐",
-        description: "Python and C++ clean optimal solutions to all LeetCode algorithm problems.",
-      },
-      {
-        name: "jwasham/coding-interview-university",
-        repoUrl: "https://github.com/jwasham/coding-interview-university",
-        stars: "310k ⭐",
-        description: "A complete multi-month study plan to become a software engineer for large tech companies.",
+        name: "kdn251/interviews",
+        repoUrl: "https://github.com/kdn251/interviews",
+        stars: "62k ⭐",
+        description: "Everything you need to know to get the software engineering job.",
       },
     ],
+    relatedProblemCategory: "Dynamic Programming",
   },
 
-  // 7. NEETCODE - BLIND 75
+  // 7. NEETCODE 150 - ALGORITHMIC PATTERNS
   {
-    id: "neetcode-blind75",
-    title: "NeetCode Blind 75 / Roadmap Playlist",
+    id: "neetcode-150",
+    title: "NeetCode 150: Coding Interview Patterns",
     creator: "NeetCode",
     creatorSubscribers: "850K+",
     category: "DSA",
-    subcategory: "Pattern Recognition & LeetCode",
+    subcategory: "FAANG Coding Interview Prep",
     youtubeUrl: "https://www.youtube.com/playlist?list=PLot-Xpze53ldVwtstag2TL4HQhAnC8ATf",
-    duration: "30+ Hours",
-    totalVideos: 75,
+    embedPlaylistId: "PLot-Xpze53ldVwtstag2TL4HQhAnC8ATf",
+    duration: "45+ Hours",
+    totalVideos: 150,
     difficulty: "Intermediate",
-    certificateTitle: "Certified Technical Interview Algorithmic Master",
-    projectBenchmark: "Pass the Blind 75 Pattern Assessment with optimal space/time complexity explanations.",
+    certificateTitle: "Certified Algorithmic Problem Solving & Pattern Specialist",
+    projectBenchmark: "Complete the 15 core algorithmic patterns including Sliding Window, Two Pointers, and Monotonic Stack.",
     curriculumModules: [
-      "Blind 75 Core Arrays & String Inversion Techniques",
-      "Linked List Reversal, Fast/Slow Pointers & Cycle Detection",
-      "Depth-First Search (DFS) & Breadth-First Search (BFS) on Graphs",
-      "Intervals, Greedy Algorithms & Dynamic Programming Memorization",
+      "Arrays & Hashing (Two Sum, Group Anagrams, Top K Elements)",
+      "Two Pointers & Sliding Window (3Sum, Trapping Rain Water, Min Window)",
+      "Trees & Tries (Invert Tree, Word Search II, Lowest Common Ancestor)",
+      "Dynamic Programming (Coin Change, Longest Increasing Subsequence)",
     ],
-    skillsLearned: ["Two Pointers", "Binary Search", "Heap / Priority Queue", "Trie", "Backtracking", "Graph DFS/BFS"],
+    skillsLearned: ["Sliding Window", "Two Pointers", "Monotonic Stack", "Dynamic Programming", "Heap / Priority Queue"],
     description:
-      "Taught by an ex-Google software engineer. Visual whiteboard code walkthroughs categorizing interview questions by fundamental algorithmic patterns.",
+      "The world's most structured pattern-based coding interview curriculum. Categorizes 150 problems into repeatable algorithmic mental models.",
+    recommendedGithubRepos: [
+      {
+        name: "neetcode-gh/leetcode",
+        repoUrl: "https://github.com/neetcode-gh/leetcode",
+        stars: "22k ⭐",
+        description: "Complete solutions in Python, C++, Java, and JavaScript for NeetCode 150.",
+      },
+    ],
+    relatedProblemCategory: "Sliding Window",
+  },
+
+  // 8. KUNAL KUSHWAHA - JAVA & DSA
+  {
+    id: "kunal-java-dsa",
+    title: "Complete Java + DSA + Open Source Masterclass",
+    creator: "Kunal Kushwaha",
+    creatorSubscribers: "600K+",
+    category: "DSA",
+    subcategory: "Java Foundations & Competitive Programming",
+    youtubeUrl: "https://www.youtube.com/playlist?list=PL9gnSGHSqcnr_DxHsP7AW9ftq0AtAyYqJ",
+    embedPlaylistId: "PL9gnSGHSqcnr_DxHsP7AW9ftq0AtAyYqJ",
+    duration: "60+ Hours",
+    totalVideos: 65,
+    difficulty: "Beginner to Intermediate",
+    certificateTitle: "Certified Java & Algorithmic Foundations Developer",
+    projectBenchmark: "Implement all fundamental data structures in pure Java from scratch and submit open source PRs.",
+    curriculumModules: [
+      "Java Language Syntax, Memory Model & Garbage Collection",
+      "Time & Space Complexity with Big-O Analysis",
+      "Linear & Binary Search with Real Interview Questions",
+      "Recursion, Backtracking & Object-Oriented System Architecture",
+    ],
+    skillsLearned: ["Java", "Time Complexity", "Recursion", "OOP Design", "Trees & Graphs", "Git & Open Source"],
+    description:
+      "Comprehensive, beginner-friendly masterclass taking students from zero coding experience all the way to solving LeetCode Medium/Hard problems in Java.",
+    recommendedGithubRepos: [
+      {
+        name: "kunal-kushwaha/DSA-Bootcamp-Java",
+        repoUrl: "https://github.com/kunal-kushwaha/DSA-Bootcamp-Java",
+        stars: "18k ⭐",
+        description: "Complete notes, practice assignments, and code solutions for the Java DSA bootcamp.",
+      },
+    ],
+    relatedProblemCategory: "Binary Search",
+  },
+
+  // 9. BYTEBYTEGO - SYSTEM DESIGN INTERVIEW FUNDAMENTALS
+  {
+    id: "bytebytego-system-design",
+    title: "System Design Interview Architecture Masterclass",
+    creator: "ByteByteGo (Alex Xu)",
+    creatorSubscribers: "1.2M+",
+    category: "SYSTEM_DESIGN",
+    subcategory: "Large-Scale Distributed Systems",
+    youtubeUrl: "https://www.youtube.com/playlist?list=PL4cUxeGkcC9gU0K_R6cO453YF8F59eWj-",
+    embedPlaylistId: "PL4cUxeGkcC9gU0K_R6cO453YF8F59eWj-",
+    duration: "18+ Hours",
+    totalVideos: 25,
+    difficulty: "Intermediate to Advanced",
+    certificateTitle: "Certified Distributed Systems & High-Scale Architect",
+    projectBenchmark: "Design and document a high-availability URL Shortener or Distributed Rate Limiter handling 100k QPS.",
+    curriculumModules: [
+      "Vertical vs Horizontal Scaling, Load Balancers & Reverse Proxies",
+      "Consistent Hashing & Distributed Caching with Redis",
+      "Database Sharding, Replication & CAP Theorem Tradeoffs",
+      "Message Queues (Kafka vs RabbitMQ) & Idempotent API Design",
+    ],
+    skillsLearned: ["Load Balancing", "Consistent Hashing", "Rate Limiting", "Distributed Caching", "Kafka", "Database Sharding"],
+    description:
+      "The definitive visual guide to cracking senior engineering and staff architecture interviews at tier-1 tech companies.",
     recommendedGithubRepos: [
       {
         name: "donnemartin/system-design-primer",
         repoUrl: "https://github.com/donnemartin/system-design-primer",
-        stars: "275k ⭐",
-        description: "Learn how to design large-scale systems and prepare for the system design interview.",
+        stars: "270k ⭐",
+        description: "Learn how to design large-scale systems. Prep for the system design interview.",
       },
     ],
   },
 
-  // 8. TECHWORLD WITH NANA - DEVOPS
+  // 10. HUSSEIN NASSER - BACKEND ARCHITECTURE & DB INTERNALS
   {
-    id: "nana-devops-bootcamp",
-    title: "DevOps Full Course & Kubernetes Mastery",
+    id: "hussein-backend",
+    title: "Backend Engineering, Protocols & Database Internals",
+    creator: "Hussein Nasser",
+    creatorSubscribers: "450K+",
+    category: "SYSTEM_DESIGN",
+    subcategory: "Networking, Databases & Protocols",
+    youtubeUrl: "https://www.youtube.com/playlist?list=PLQnljOFTspQXjD0twZq44zRMTzEGu83jO",
+    embedPlaylistId: "PLQnljOFTspQXjD0twZq44zRMTzEGu83jO",
+    duration: "25+ Hours",
+    totalVideos: 35,
+    difficulty: "Advanced",
+    certificateTitle: "Certified Advanced Backend Systems Engineer",
+    projectBenchmark: "Build an event-driven TCP/HTTP reverse proxy with connection pooling and TLS termination.",
+    curriculumModules: [
+      "HTTP/1.1 vs HTTP/2 vs HTTP/3 (QUIC) Transport Protocols",
+      "Database Internals: B-Trees, LSM Trees, WAL & Isolation Levels",
+      "Connection Pooling, Keep-Alive & TCP Three-Way Handshakes",
+      "gRPC vs Protocol Buffers vs WebSockets Performance Benchmarks",
+    ],
+    skillsLearned: ["HTTP/3 & QUIC", "Database Internals", "B-Trees", "Connection Pooling", "gRPC", "TCP/IP"],
+    description:
+      "Deep architectural exploration of how backend servers, operating system sockets, network protocols, and database storage engines really work.",
+    recommendedGithubRepos: [
+      {
+        name: "danistefanovic/build-your-own-x",
+        repoUrl: "https://github.com/danistefanovic/build-your-own-x",
+        stars: "315k ⭐",
+        description: "Master programming by recreating your favorite technologies from scratch.",
+      },
+    ],
+  },
+
+  // 11. TECHWORLD WITH NANA - DOCKER & KUBERNETES
+  {
+    id: "nana-devops",
+    title: "Complete Docker & Kubernetes Cloud Native Bootcamp",
     creator: "TechWorld with Nana",
     creatorSubscribers: "1.1M+",
     category: "DEVOPS_CLOUD",
-    subcategory: "Containers & Orchestration",
-    youtubeUrl: "https://www.youtube.com/playlist?list=PLy7NrLnytVU7YfU7pX9K_n2ZzG_Jq76K_",
-    duration: "24+ Hours",
-    totalVideos: 18,
+    subcategory: "Containerization & Orchestration",
+    youtubeUrl: "https://www.youtube.com/playlist?list=PLy7NrYWoggjwPggqtPfAhkwLBI342A5Mr",
+    embedPlaylistId: "PLy7NrYWoggjwPggqtPfAhkwLBI342A5Mr",
+    duration: "22+ Hours",
+    totalVideos: 24,
     difficulty: "Beginner to Intermediate",
-    certificateTitle: "Certified Cloud Native DevOps & Kubernetes Associate",
-    projectBenchmark: "Containerize a multi-tier microservice with Docker and configure a Kubernetes deployment with Ingress and ConfigMaps.",
+    certificateTitle: "Certified Cloud Native Containers & Kubernetes Specialist",
+    projectBenchmark: "Containerize a multi-tier web application, write Helm charts, and deploy to a production Kubernetes cluster with ingress.",
     curriculumModules: [
-      "Docker Architecture, Multi-Stage Builds & Volume Management",
-      "Kubernetes Pods, Deployments, Services & Ingress Controllers",
-      "Automated CI/CD Pipelines with GitHub Actions & Webhooks",
-      "Monitoring & Metrics Gathering with Prometheus and Grafana",
+      "Docker Core: Images, Containers, Multi-Stage Builds & Volumes",
+      "Docker Compose for Local Multi-Service Development Environments",
+      "Kubernetes Architecture: Pods, Deployments, Services & Ingress",
+      "ConfigMaps, Secrets, Persistent Volumes & Helm Package Management",
     ],
     skillsLearned: ["Docker", "Kubernetes", "YAML Configs", "CI/CD Pipelines", "Helm Charts", "Prometheus"],
     description:
@@ -311,62 +423,98 @@ export const CURATED_COURSES: CoursePlaylist[] = [
     ],
   },
 
-  // 9. NETWORKCHUCK - LINUX & NETWORKING
+  // 12. ABHISHEK VEERAMALLA - ZERO TO HERO DEVOPS ON AWS
   {
-    id: "networkchuck-linux",
-    title: "Linux for Hackers & Cloud Engineers",
-    creator: "NetworkChuck",
-    creatorSubscribers: "3.5M+",
+    id: "abhishek-devops-aws",
+    title: "DevOps Zero to Hero with AWS, Terraform & CI/CD",
+    creator: "Abhishek Veeramalla",
+    creatorSubscribers: "420K+",
     category: "DEVOPS_CLOUD",
-    subcategory: "Linux CLI & Networking",
-    youtubeUrl: "https://www.youtube.com/playlist?list=PLS1QulWo1RIZqA0q9XQoVb1vG2rB_x6qC",
-    duration: "15+ Hours",
-    totalVideos: 15,
-    difficulty: "Beginner",
-    certificateTitle: "Certified Linux Systems & Server Security Practitioner",
-    projectBenchmark: "Deploy and secure a headless Linux server with SSH key-only access, UFW firewall, and automated Bash maintenance cron scripts.",
+    subcategory: "AWS Cloud & Infrastructure as Code",
+    youtubeUrl: "https://www.youtube.com/playlist?list=PLdpzxOOAlwvIcETUpywJ9FxnJpks5X_jE",
+    embedPlaylistId: "PLdpzxOOAlwvIcETUpywJ9FxnJpks5X_jE",
+    duration: "30+ Hours",
+    totalVideos: 40,
+    difficulty: "Beginner to Intermediate",
+    certificateTitle: "Certified AWS Cloud & Infrastructure Automation Engineer",
+    projectBenchmark: "Provision complete AWS infrastructure using Terraform and deploy a containerized app with GitHub Actions.",
     curriculumModules: [
-      "Linux Filesystem Hierarchy, Permissions (chmod/chown) & Sudoers",
-      "SSH Key Pairs, Hardened Configurations & Port Forwarding",
-      "Bash Scripting Automation & Environment Variables",
-      "Network Routing, DNS, Netcat & Packet Inspection",
+      "AWS Core Services: EC2, S3, IAM, VPC & Security Groups",
+      "Infrastructure as Code (IaC) with Terraform & State Management",
+      "CI/CD Automation Pipelines using GitHub Actions & SonarQube",
+      "Production Monitoring with Prometheus, Node Exporter & Grafana",
     ],
-    skillsLearned: ["Bash Scripting", "SSH Keys", "Permissions (chmod/chown)", "Networking (DNS/TCP)", "Firewalls (ufw)"],
+    skillsLearned: ["AWS", "Terraform", "GitHub Actions", "CI/CD", "Linux", "Prometheus", "Grafana"],
     description:
-      "Energetic, engaging terminal mastery for developers. Learn the core Linux command line skills needed for cloud computing, AWS, and server management.",
+      "Hands-on, project-heavy curriculum built specifically for Indian tech students targeting high-paying Cloud Engineer & DevOps roles.",
     recommendedGithubRepos: [
       {
-        name: "awesome-selfhosted/awesome-selfhosted",
-        repoUrl: "https://github.com/awesome-selfhosted/awesome-selfhosted",
-        stars: "215k ⭐",
-        description: "A list of Free Software network services and web applications which can be hosted locally on Linux servers.",
+        name: "iam-veeramalla/complete-devops-zero-to-hero",
+        repoUrl: "https://github.com/iam-veeramalla/complete-devops-zero-to-hero",
+        stars: "14k ⭐",
+        description: "Hands-on projects and tutorials for AWS, Terraform, Docker, and Kubernetes.",
       },
     ],
   },
 
-  // 10. ANGELA YU - PYTHON
+  // 13. NETWORKCHUCK - ETHICAL HACKING & SECURITY
   {
-    id: "angela-python",
-    title: "100 Days of Code: Complete Python Pro Mastery",
-    creator: "Dr. Angela Yu (London App Brewery)",
-    creatorSubscribers: "700K+",
-    category: "PYTHON_DATA",
-    subcategory: "Python Programming & Automation",
-    youtubeUrl: "https://www.youtube.com/@TheAppBrewery/playlists",
-    duration: "55+ Hours",
-    totalVideos: 60,
+    id: "networkchuck-hacking",
+    title: "Certified Ethical Hacking & Cybersecurity Foundations",
+    creator: "NetworkChuck",
+    creatorSubscribers: "3.5M+",
+    category: "CYBERSECURITY",
+    subcategory: "Penetration Testing & Network Defense",
+    youtubeUrl: "https://www.youtube.com/playlist?list=PLS1QulWo1RIZLfZ5k8_p2hGzpF3hN11fF",
+    embedPlaylistId: "PLS1QulWo1RIZLfZ5k8_p2hGzpF3hN11fF",
+    duration: "20+ Hours",
+    totalVideos: 22,
     difficulty: "Beginner to Intermediate",
-    certificateTitle: "Certified Python Applications & Automation Specialist",
-    projectBenchmark: "Develop a Python web scraper and data visualization pipeline with Pandas and Matplotlib.",
+    certificateTitle: "Certified Cybersecurity & Network Defense Specialist",
+    projectBenchmark: "Conduct a vulnerability assessment on a local sandbox lab with Nmap, Wireshark, and Metasploit.",
     curriculumModules: [
-      "Python Core Syntax, Object-Oriented Programming (OOP) & Error Handling",
-      "Web Scraping with BeautifulSoup & Automated Selenium Bots",
-      "Data Analysis & Visualization with Pandas and NumPy",
-      "Building RESTful APIs with Flask and FastAPI",
+      "Networking Fundamentals: Subnetting, TCP Handshakes & Port Scans",
+      "Reconnaissance with Nmap, Gobuster & OSINT Frameworks",
+      "Packet Sniffing and Protocol Analysis with Wireshark",
+      "Exploitation, Metasploit Payloads & Defensive Hardening",
     ],
-    skillsLearned: ["Python 3", "OOP", "Pandas", "NumPy", "Web Scraping", "FastAPI"],
+    skillsLearned: ["Nmap", "Wireshark", "Metasploit", "Network Defense", "Kali Linux", "Vulnerability Scanning"],
     description:
-      "The premier interactive project-driven Python syllabus. Master Python from scratch by building automation scripts, APIs, and data analysis tools.",
+      "Fast-paced, hyper-engaging introduction to cybersecurity, ethical hacking, and defending servers against modern exploits.",
+    recommendedGithubRepos: [
+      {
+        name: "swisskyrepo/PayloadsAllTheThings",
+        repoUrl: "https://github.com/swisskyrepo/PayloadsAllTheThings",
+        stars: "58k ⭐",
+        description: "A list of useful payloads and bypasses for Web Application Security and Pentesting.",
+      },
+    ],
+  },
+
+  // 14. COREY SCHAFER - ADVANCED PYTHON PROGRAMMING
+  {
+    id: "corey-python",
+    title: "Python Programming Masterclass & Engineering Patterns",
+    creator: "Corey Schafer",
+    creatorSubscribers: "1.3M+",
+    category: "PYTHON_DATA",
+    subcategory: "Python Systems & Architecture",
+    youtubeUrl: "https://www.youtube.com/playlist?list=PL-osiE80TeTt2d9bfVyMTDIRhPWOoE3v7",
+    embedPlaylistId: "PL-osiE80TeTt2d9bfVyMTDIRhPWOoE3v7",
+    duration: "24+ Hours",
+    totalVideos: 32,
+    difficulty: "Beginner to Advanced",
+    certificateTitle: "Certified Python Systems & Software Engineering Specialist",
+    projectBenchmark: "Build an asynchronous web scraping and ETL data pipeline with custom decorators, generators, and unit tests.",
+    curriculumModules: [
+      "Object-Oriented Python: Inheritance, Dunder Methods & Encapsulation",
+      "Advanced Functions: Decorators, Closures, Generators & Iterators",
+      "Multithreading vs Multiprocessing & Asynchronous IO",
+      "Python Logging, Unit Testing & Virtual Environment Management",
+    ],
+    skillsLearned: ["Python OOP", "Decorators", "Generators", "Multithreading", "Unit Testing", "Logging"],
+    description:
+      "Universally acclaimed as the cleanest Python programming series ever created. Teaches true software engineering design patterns in Python.",
     recommendedGithubRepos: [
       {
         name: "vinta/awesome-python",
@@ -375,5 +523,6 @@ export const CURATED_COURSES: CoursePlaylist[] = [
         description: "A curated list of awesome Python frameworks, libraries, software and resources.",
       },
     ],
+    relatedProblemCategory: "Arrays & Hashing",
   },
 ];
