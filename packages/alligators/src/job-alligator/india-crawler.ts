@@ -679,7 +679,7 @@ export async function crawlGrazittiJobs(): Promise<RawCrawledJob[]> {
     if (!res.ok) return [];
 
     const html = await res.text();
-    const rowRegex = /<tr[^>]*>(.*?)<\/tr>/gis;
+    const rowRegex = /<tr[^>]*>([\s\S]*?)<\/tr>/gi;
     const rows = [...html.matchAll(rowRegex)];
     const jobs: RawCrawledJob[] = [];
 
@@ -694,7 +694,7 @@ export async function crawlGrazittiJobs(): Promise<RawCrawledJob[]> {
 
       if (!title || !jobUrl || !isTechRole(title)) continue;
 
-      const tds = [...rowHtml.matchAll(/<td[^>]*>(.*?)<\/td>/gis)]
+      const tds = [...rowHtml.matchAll(/<td[^>]*>([\s\S]*?)<\/td>/gi)]
         .map((td) => td[1].replace(/<[^>]+>/g, "").trim())
         .filter(Boolean);
 
