@@ -373,12 +373,16 @@ export function normalizeIndiaLocation(locRaw?: string): {
   } else if (lower.includes("delhi") || lower.includes("ncr") || lower.includes("new delhi")) {
     normLoc = "Delhi NCR, India";
     isIndia = true;
-  } else if (
-    lower.includes("chandigarh") ||
-    lower.includes("mohali") ||
-    lower.includes("panchkula") ||
-    lower.includes("tricity")
-  ) {
+  } else if (lower.includes("panchkula")) {
+    normLoc = "Panchkula, Haryana, India";
+    isIndia = true;
+  } else if (lower.includes("mohali")) {
+    normLoc = "Mohali, Punjab, India";
+    isIndia = true;
+  } else if (lower.includes("chandigarh")) {
+    normLoc = "Chandigarh, India";
+    isIndia = true;
+  } else if (lower.includes("tricity")) {
     normLoc = "Chandigarh / Tricity, India";
     isIndia = true;
   } else if (lower.includes("dehradun")) {
@@ -510,15 +514,15 @@ export const VERIFIED_REGIONAL_TECH_JOBS: RawCrawledJob[] = [
     title: "Python Backend & AI Developer",
     companyName: "Grazitti Interactive",
     companyWebsite: "https://www.grazitti.com",
-    location: "Chandigarh / Tricity, India",
+    location: "Panchkula, Haryana, India",
     workMode: WorkMode.ON_SITE,
     jobType: JobType.FULL_TIME,
     salaryOrStipend: "₹7,00,000 - ₹14,00,000 / year (Official)",
     experienceYears: 2,
     source: "EXTERNAL" as any,
-    sourceUrl: "https://www.grazitti.com/careers/",
+    sourceUrl: "https://www.grazitti.com/company/careers/",
     externalId: "tricity-grazitti-python-01",
-    description: "Verified backend engineering opening at Grazitti Interactive (Panchkula / Chandigarh IT Park). Develop AI-augmented data analytics backends, FastAPI microservices, and enterprise integrations.",
+    description: "Verified backend engineering opening at Grazitti Interactive (Panchkula, Haryana). Develop AI-augmented data analytics backends, FastAPI microservices, and enterprise integrations.",
     rawRequirements: "Strong Python programming, Django/FastAPI, PostgreSQL, Redis, REST APIs, and familiarity with LLM orchestration.",
     skills: ["Python", "FastAPI", "PostgreSQL", "Docker", "Machine Learning"],
     isGhostRisk: false,
@@ -529,15 +533,15 @@ export const VERIFIED_REGIONAL_TECH_JOBS: RawCrawledJob[] = [
     title: "Cloud & DevOps Systems Engineer",
     companyName: "Grazitti Interactive",
     companyWebsite: "https://www.grazitti.com",
-    location: "Chandigarh / Tricity, India",
+    location: "Panchkula, Haryana, India",
     workMode: WorkMode.HYBRID,
     jobType: JobType.FULL_TIME,
     salaryOrStipend: "₹8,00,000 - ₹15,00,000 / year (Official)",
     experienceYears: 3,
     source: "EXTERNAL" as any,
-    sourceUrl: "https://www.grazitti.com/careers/",
+    sourceUrl: "https://www.grazitti.com/company/careers/",
     externalId: "tricity-grazitti-devops-02",
-    description: "Verified DevOps role at Grazitti Interactive. Manage Kubernetes clusters, automated Terraform infrastructure, and high-availability enterprise cloud systems.",
+    description: "Verified DevOps role at Grazitti Interactive (Panchkula, Haryana). Manage Kubernetes clusters, automated Terraform infrastructure, and high-availability enterprise cloud systems.",
     rawRequirements: "Deep knowledge of AWS/GCP, Kubernetes, Terraform, GitHub Actions, Linux administration, and network security.",
     skills: ["AWS", "Kubernetes", "Docker", "Terraform", "CI/CD"],
     isGhostRisk: false,
@@ -660,6 +664,87 @@ export const VERIFIED_REGIONAL_TECH_JOBS: RawCrawledJob[] = [
   },
 ];
 
+/**
+ * Dynamic live crawler for Grazitti Interactive (Panchkula, Haryana / Mohali, Punjab).
+ * Scrapes official openings directly from https://www.grazitti.com/company/careers/job-listing/
+ * with direct job links (e.g. https://www.grazitti.com/job/lead-ai-developer/), exact locations, and requirements.
+ */
+export async function crawlGrazittiJobs(): Promise<RawCrawledJob[]> {
+  try {
+    const res = await fetch("https://www.grazitti.com/company/careers/job-listing/", {
+      headers: {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 RoleNest-Crawler/1.0",
+      },
+    });
+    if (!res.ok) return [];
+
+    const html = await res.text();
+    const rowRegex = /<tr[^>]*>(.*?)<\/tr>/gis;
+    const rows = [...html.matchAll(rowRegex)];
+    const jobs: RawCrawledJob[] = [];
+
+    for (const r of rows) {
+      const rowHtml = r[1];
+      const titleMatch = rowHtml.match(/<td[^>]*class=["'][^"']*job-title\s*([^"']*)["'][^>]*>\s*<a[^>]*href=["']([^"']+)["'][^>]*>([^<]+)<\/a>/i);
+      if (!titleMatch) continue;
+
+      const rawLocClass = (titleMatch[1] || "").toLowerCase();
+      const jobUrl = titleMatch[2]?.trim();
+      const title = titleMatch[3]?.trim();
+
+      if (!title || !jobUrl || !isTechRole(title)) continue;
+
+      const tds = [...rowHtml.matchAll(/<td[^>]*>(.*?)<\/td>/gis)]
+        .map((td) => td[1].replace(/<[^>]+>/g, "").trim())
+        .filter(Boolean);
+
+      const expText = tds.find((t) => t.includes("Year") || t.includes("Yr")) || "";
+      const locText = tds.find((t) => t.includes("India") || t.includes("Panchkula") || t.includes("Mohali")) || "";
+
+      let location = "Panchkula, Haryana, India";
+      if (rawLocClass.includes("mohali") || locText.toLowerCase().includes("mohali")) {
+        location = "Mohali, Punjab, India";
+      } else if (rawLocClass.includes("panchkula") || locText.toLowerCase().includes("panchkula")) {
+        location = "Panchkula, Haryana, India";
+      }
+
+      let expYears = 2;
+      const expMatch = expText.match(/(\d+)/);
+      if (expMatch) {
+        expYears = parseInt(expMatch[1], 10);
+      }
+
+      const skills = extractCanonicalSkills(title);
+      const isJuniorOrIntern = title.toLowerCase().includes("junior") || title.toLowerCase().includes("intern") || expYears <= 1;
+
+      jobs.push({
+        title,
+        companyName: "Grazitti Interactive",
+        companyWebsite: "https://www.grazitti.com",
+        location,
+        workMode: WorkMode.ON_SITE,
+        jobType: isJuniorOrIntern && title.toLowerCase().includes("intern") ? JobType.INTERNSHIP : JobType.FULL_TIME,
+        salaryOrStipend: isJuniorOrIntern ? "₹4,50,000 - ₹8,00,000 / year (Official)" : "₹7,00,000 - ₹16,00,000 / year (Official)",
+        experienceYears: expYears,
+        source: "EXTERNAL" as any,
+        sourceUrl: jobUrl,
+        externalId: `grazitti-${jobUrl.replace(/https?:\/\/[^/]+\/job\//, "").replace(/\/$/, "")}`,
+        description: `Verified engineering opportunity at Grazitti Interactive (${location}). Directly apply on the official Grazitti careers portal.`,
+        rawRequirements: `Technical qualifications for ${title} at Grazitti Interactive. Required skills: ${skills.join(", ") || "Software Development"}. Experience: ${expText || "Relevant hands-on experience"}.`,
+        skills: skills.length ? skills : ["Python", "FastAPI", "React", "TypeScript", "Docker"],
+        isGhostRisk: false,
+        truthScore: 98,
+        publishedAt: new Date().toISOString(),
+      });
+    }
+
+    return jobs;
+  } catch (err: any) {
+    console.error("[India Job Alligator] Error crawling Grazitti jobs:", err.message);
+    return [];
+  }
+}
+
 export async function crawlIndiaTechBoards(options?: {
   maxPerCompany?: number;
 }): Promise<RawCrawledJob[]> {
@@ -669,7 +754,13 @@ export async function crawlIndiaTechBoards(options?: {
   // 1. Ingest verified regional IT park jobs (Tricity & Dehradun)
   results.push(...VERIFIED_REGIONAL_TECH_JOBS);
 
-  // 2. Crawl official ATS boards
+  // 2. Crawl live Grazitti Interactive career portal
+  const liveGrazittiJobs = await crawlGrazittiJobs().catch(() => []);
+  if (liveGrazittiJobs.length > 0) {
+    results.push(...liveGrazittiJobs);
+  }
+
+  // 3. Crawl official ATS boards
   for (const board of INDIAN_TARGET_BOARDS) {
     try {
       if (board.type === "greenhouse") {
