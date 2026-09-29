@@ -91,6 +91,7 @@ export function CashfreeProvider() {
     <Script
       src="https://sdk.cashfree.com/js/v3/cashfree.js"
       strategy="afterInteractive"
+      crossOrigin="anonymous"
     />
   );
 }

@@ -127,7 +127,7 @@ export function DemoSandboxModal({
                   <a
                     href={effectiveGithubUrl}
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                     className="hover:text-emerald-400 underline flex items-center gap-1"
                   >
                     <Github className="h-3 w-3" /> View Source
@@ -211,7 +211,7 @@ export function DemoSandboxModal({
           <a
             href={normalizedUrl}
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 px-3 py-1.5 text-xs font-bold text-white transition-all shadow-sm hover:scale-[1.02]"
           >
             <ExternalLink className="h-3.5 w-3.5" />
@@ -292,7 +292,7 @@ export function DemoSandboxModal({
                   <a
                     href={normalizedUrl}
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs px-4 py-2.5 transition-all shadow-md hover:scale-105"
                   >
                     <Github className="h-4 w-4" /> Open on GitHub ↗
@@ -383,7 +383,7 @@ export function DemoSandboxModal({
               <a
                 href={normalizedUrl}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-400 hover:text-emerald-300 underline"
               >
                 Inspect Full Source Code on GitHub &rarr;
@@ -425,7 +425,7 @@ export function DemoSandboxModal({
               <a
                 href={normalizedUrl}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="text-emerald-700 hover:text-emerald-800 font-bold underline shrink-0 inline-flex items-center gap-1"
               >
                 Open Direct Demo ↗
@@ -480,7 +480,7 @@ export function DemoSandboxModal({
           <a
             href={normalizedUrl}
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             className="text-emerald-400 hover:underline font-semibold"
           >
             Launch in new tab &rarr;

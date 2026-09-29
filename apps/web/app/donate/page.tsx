@@ -236,7 +236,7 @@ export default function DonatePage() {
             <a
               href="https://ritualdev.in"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="text-slate-300 hover:text-white px-2.5 py-1.5 rounded-lg hover:bg-slate-900 transition-colors hidden md:inline-flex items-center gap-1"
             >
               <span>ritualdev.in</span>
@@ -245,7 +245,7 @@ export default function DonatePage() {
             <a
               href="https://devshelf.ritualdev.in"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="text-slate-300 hover:text-white px-2.5 py-1.5 rounded-lg hover:bg-slate-900 transition-colors hidden md:inline-flex items-center gap-1"
             >
               <span>devshelf.ritualdev.in</span>
@@ -404,7 +404,7 @@ export default function DonatePage() {
                       <a
                         href="https://ritualdev.in"
                         target="_blank"
-                        rel="noreferrer"
+                        rel="noopener noreferrer"
                         className="text-[11px] font-bold text-purple-400 hover:underline flex items-center gap-0.5"
                       >
                         <span>ritualdev.in</span>
@@ -426,7 +426,7 @@ export default function DonatePage() {
                       <a
                         href="https://devshelf.ritualdev.in"
                         target="_blank"
-                        rel="noreferrer"
+                        rel="noopener noreferrer"
                         className="text-[11px] font-bold text-blue-400 hover:underline flex items-center gap-0.5"
                       >
                         <span>devshelf.ritualdev.in</span>
@@ -846,7 +846,7 @@ export default function DonatePage() {
               <a
                 href="https://ritualdev.in"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="text-xs font-bold text-purple-400 hover:text-purple-300 underline flex items-center gap-1"
               >
                 RitualDev Technologies (ritualdev.in) <ExternalLink className="h-3 w-3" />
@@ -855,7 +855,7 @@ export default function DonatePage() {
               <a
                 href="https://devshelf.ritualdev.in"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="text-xs font-bold text-blue-400 hover:text-blue-300 underline flex items-center gap-1"
               >
                 DevShelf Knowledge Hub (devshelf.ritualdev.in) <ExternalLink className="h-3 w-3" />
@@ -876,9 +876,9 @@ export default function DonatePage() {
       <footer className="border-t border-slate-800 bg-slate-950 py-8 px-4 text-center text-xs text-slate-400">
         <div className="mx-auto max-w-5xl space-y-3">
           <div className="flex flex-wrap items-center justify-center gap-4 text-xs font-bold text-slate-300">
-            <a href="https://ritualdev.in" target="_blank" rel="noreferrer" className="hover:text-white">RitualDev Lab</a>
+            <a href="https://ritualdev.in" target="_blank" rel="noopener noreferrer" className="hover:text-white">RitualDev Lab</a>
             <span>•</span>
-            <a href="https://devshelf.ritualdev.in" target="_blank" rel="noreferrer" className="hover:text-white">DevShelf</a>
+            <a href="https://devshelf.ritualdev.in" target="_blank" rel="noopener noreferrer" className="hover:text-white">DevShelf</a>
             <span>•</span>
             <a href="https://rolenest.in" className="hover:text-white">Role Nest</a>
             <span>•</span>

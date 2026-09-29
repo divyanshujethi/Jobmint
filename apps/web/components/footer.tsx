@@ -188,7 +188,7 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/api/feed/rss" target="_blank" className="hover:text-emerald-600 flex items-center gap-1 text-amber-700">
+                <Link href="/api/feed/rss" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-600 flex items-center gap-1 text-amber-700">
                   Standard RSS 2.0 Feed
                 </Link>
               </li>
@@ -275,7 +275,7 @@ export function Footer() {
 
         <div className="mt-12 border-t border-slate-100 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <div>
-            <p>© {new Date().getFullYear()} <strong className="text-slate-700 font-bold">Role Nest</strong> (<a href="https://rolenest.in" className="text-emerald-700 hover:underline">rolenest.in</a>) — Engineered &amp; Maintained by <strong className="text-slate-700 font-bold">RitualDev Lab</strong> (<a href="https://ritualdev.in" target="_blank" rel="noreferrer" className="text-emerald-700 hover:underline">ritualdev.in</a>).</p>
+            <p>© {new Date().getFullYear()} <strong className="text-slate-700 font-bold">Role Nest</strong> (<a href="https://rolenest.in" className="text-emerald-700 hover:underline">rolenest.in</a>) — Engineered &amp; Maintained by <strong className="text-slate-700 font-bold">RitualDev Lab</strong> (<a href="https://ritualdev.in" target="_blank" rel="noopener noreferrer" className="text-emerald-700 hover:underline">ritualdev.in</a>).</p>
             <p className="text-[11px] text-slate-400 mt-0.5">Payments &amp; contributions securely processed via Cashfree Payments (RBI Authorized Payment Aggregator).</p>
           </div>
           <div className="flex flex-col sm:items-end gap-1">
@@ -292,13 +292,13 @@ export function Footer() {
                 <Heart className="h-3 w-3 fill-rose-500 text-rose-500" /> Community Donation
               </Link>
               <span>•</span>
-              <a href="https://ritualdev.in" target="_blank" rel="noreferrer" className="text-slate-500 hover:text-emerald-700">
-                ritualdev.in
-              </a>
+              <Link href="/transparency" className="text-slate-500 hover:text-emerald-700">
+                Transparency Pledge
+              </Link>
               <span>•</span>
-              <a href="https://rolenest.in" className="text-slate-500 hover:text-emerald-700">
-                rolenest.in
-              </a>
+              <Link href="/privacy" className="text-slate-500 hover:text-emerald-700">
+                Privacy Policy
+              </Link>
             </div>
           </div>
         </div>

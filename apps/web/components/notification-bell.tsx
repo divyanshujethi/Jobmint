@@ -43,9 +43,11 @@ export function NotificationBell() {
   return (
     <div className="relative">
       <button
+        type="button"
         onClick={() => setIsOpen(!isOpen)}
         className="relative rounded-lg p-2 text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors focus:outline-none"
         title="Notifications"
+        aria-label="View notifications"
       >
         <Bell className="h-5 w-5" />
         {unreadCount > 0 && (
@@ -73,6 +75,7 @@ export function NotificationBell() {
               </div>
               {unreadCount > 0 && (
                 <button
+                  type="button"
                   onClick={markAllRead}
                   className="text-xs text-slate-500 hover:text-emerald-600 flex items-center gap-1 font-medium"
                 >
@@ -81,7 +84,12 @@ export function NotificationBell() {
               )}
             </div>
 
-            <div className="divide-y divide-slate-100 max-h-80 overflow-y-auto my-1">
+            <div
+              className="divide-y divide-slate-100 max-h-80 overflow-y-auto my-1 focus:outline-none focus:ring-1 focus:ring-slate-200 rounded-lg"
+              tabIndex={0}
+              role="region"
+              aria-label="Notifications list"
+            >
               {notifications.length === 0 ? (
                 <div className="py-8 text-center text-xs text-slate-400">
                   No notifications yet.

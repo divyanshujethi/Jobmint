@@ -276,7 +276,7 @@ export default function PricingPage() {
                       <span className="rounded bg-emerald-100 text-emerald-800 px-1.5 py-0.5 text-[10px] font-mono font-bold">100% Ad-Free</span>
                     </div>
                     <p className="text-slate-600 text-[11px] mt-0.5">
-                      <strong>Role Nest</strong> (<a href="https://rolenest.in" className="text-emerald-700 underline font-semibold">rolenest.in</a>) is backed by <strong>RitualDev</strong> (<a href="https://ritualdev.in" target="_blank" rel="noreferrer" className="text-emerald-700 underline font-semibold">ritualdev.in</a>) to keep developer jobs free from recruiter paywalls.
+                      <strong>Role Nest</strong> (<a href="https://rolenest.in" className="text-emerald-700 underline font-semibold">rolenest.in</a>) is backed by <strong>RitualDev</strong> (<a href="https://ritualdev.in" target="_blank" rel="noopener noreferrer" className="text-emerald-700 underline font-semibold">ritualdev.in</a>) to keep developer jobs free from recruiter paywalls.
                     </p>
                   </div>
                 </div>

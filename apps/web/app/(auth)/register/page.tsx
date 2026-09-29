@@ -91,11 +91,11 @@ export default function RegisterPage() {
               />
               <label htmlFor="consent-checkbox" className="text-xs text-slate-700 cursor-pointer select-none leading-relaxed">
                 I agree to the{" "}
-                <Link href="/terms" target="_blank" className="font-semibold text-emerald-600 underline underline-offset-2 hover:text-emerald-700">
+                <Link href="/terms" target="_blank" rel="noopener noreferrer" className="font-semibold text-emerald-600 underline underline-offset-2 hover:text-emerald-700">
                   Terms of Service
                 </Link>{" "}
                 and{" "}
-                <Link href="/privacy" target="_blank" className="font-semibold text-emerald-600 underline underline-offset-2 hover:text-emerald-700">
+                <Link href="/privacy" target="_blank" rel="noopener noreferrer" className="font-semibold text-emerald-600 underline underline-offset-2 hover:text-emerald-700">
                   Privacy Policy
                 </Link>
                 <span className="block text-[10px] text-slate-500 mt-0.5">

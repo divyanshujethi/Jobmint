@@ -56,6 +56,21 @@ const nextConfig = {
             value: "camera=(), microphone=(), geolocation=()",
           },
           {
+            key: "Content-Security-Policy",
+            value: [
+              "default-src 'self'",
+              "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://cdn.jsdelivr.net https://sdk.cashfree.com https://challenges.cloudflare.com",
+              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+              "img-src 'self' data: blob: https: https://avatars.githubusercontent.com https://images.unsplash.com https://lh3.googleusercontent.com https://rolenest.in https://www.google.com",
+              "font-src 'self' https://fonts.gstatic.com data:",
+              "connect-src 'self' https://api.cashfree.com https://sandbox.cashfree.com https://*.sentry.io https://rolenest.in https://api.github.com",
+              "frame-src 'self' https://sdk.cashfree.com https://www.youtube-nocookie.com https://www.youtube.com",
+              "object-src 'none'",
+              "base-uri 'self'",
+              "form-action 'self'",
+            ].join("; "),
+          },
+          {
             key: "X-DNS-Prefetch-Control",
             value: "on",
           },

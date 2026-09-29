@@ -287,7 +287,7 @@ export function InstantAlertsModal({ onClose }: { onClose: () => void }) {
               <a
                 href={successResult.actionUrl}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white px-5 py-3 text-xs font-bold shadow-md transition-all w-full min-h-[44px]"
               >
                 {channel === "WHATSAPP" ? (

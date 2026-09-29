@@ -195,7 +195,7 @@ export function ResumeUploader({
             </div>
 
             <div className="flex items-center gap-2">
-              <a href={uploadedFile.url} target="_blank" rel="noreferrer">
+              <a href={uploadedFile.url} target="_blank" rel="noopener noreferrer">
                 <Button size="sm" variant="outline" className="gap-1.5 text-xs">
                   <ExternalLink className="h-3.5 w-3.5" />
                   View PDF

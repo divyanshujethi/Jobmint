@@ -319,6 +319,7 @@ export function RoloMascot({
               setHasInteracted(true);
             }}
             title="Open Rolo AI Copilot"
+            aria-label="Open Rolo AI Copilot"
             className="relative flex h-14 w-14 md:h-16 md:md:w-16 items-center justify-center rounded-full bg-gradient-to-br from-emerald-400 via-teal-500 to-emerald-600 p-0.5 shadow-2xl transition-all duration-300 cursor-pointer animate-rolo-float animate-rolo-glow hover:scale-110 active:scale-95 group"
           >
             {/* Inner avatar badge */}

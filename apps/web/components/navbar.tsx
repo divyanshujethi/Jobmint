@@ -132,8 +132,8 @@ export function Navbar() {
   }
 
   return (
-    <nav className="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur-md print:hidden">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-3 sm:px-6 lg:px-8">
+    <nav className="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur-md print:hidden overflow-x-clip">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-3 sm:px-5 lg:px-6 xl:px-8">
         {/* Brand Logo & Core Nav */}
         <div className="flex items-center gap-3 sm:gap-4 xl:gap-8 min-w-0 shrink-0">
           <Link href="/" className="flex items-center gap-2 group shrink-0">
@@ -151,7 +151,7 @@ export function Navbar() {
           </Link>
 
           {/* Core Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-3 xl:gap-5 text-sm font-semibold shrink-0">
+          <div className="hidden lg:flex items-center gap-2.5 xl:gap-5 text-sm font-semibold shrink-0">
             <Link
               href="/jobs"
               className={`flex items-center gap-1.5 transition-colors shrink-0 ${
@@ -741,9 +741,11 @@ export function Navbar() {
         <div className="flex lg:hidden items-center gap-2">
           {user && <NotificationBell />}
           <button
+            type="button"
             onClick={() => setIsOpen(!isOpen)}
             className="inline-flex items-center justify-center rounded-xl p-2 text-slate-700 hover:bg-slate-100 focus:outline-none"
             aria-expanded={isOpen}
+            aria-label={isOpen ? "Close main navigation menu" : "Open main navigation menu"}
           >
             {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>

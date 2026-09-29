@@ -115,9 +115,11 @@ export function PwaInstallPrompt() {
               </div>
             </div>
             <button
+              type="button"
               onClick={handleDismiss}
               className="text-slate-400 hover:text-slate-700 transition-colors p-1"
               title="Don't show again"
+              aria-label="Dismiss app install banner"
             >
               <X className="w-4 h-4" />
             </button>
@@ -125,6 +127,7 @@ export function PwaInstallPrompt() {
 
           <div className="mt-3.5 flex items-center gap-2">
             <button
+              type="button"
               onClick={handleInstallClick}
               className="flex-1 flex items-center justify-center gap-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 px-3 py-2 text-xs font-bold text-white transition-all shadow-sm"
             >
@@ -132,6 +135,7 @@ export function PwaInstallPrompt() {
               Install on Device
             </button>
             <button
+              type="button"
               onClick={handleDismiss}
               className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-medium text-slate-600 hover:bg-slate-100 transition-colors"
             >
@@ -151,8 +155,10 @@ export function PwaInstallPrompt() {
                 How to Install Role Nest App
               </div>
               <button
+                type="button"
                 onClick={() => setManualInstructions(false)}
                 className="text-slate-400 hover:text-slate-700 p-1"
+                aria-label="Close installation instructions"
               >
                 <X className="h-5 w-5" />
               </button>
@@ -178,6 +184,7 @@ export function PwaInstallPrompt() {
             </div>
 
             <button
+              type="button"
               onClick={() => setManualInstructions(false)}
               className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs py-2.5 rounded-xl shadow-sm transition-all"
             >

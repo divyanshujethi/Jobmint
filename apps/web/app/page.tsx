@@ -42,6 +42,10 @@ export default function HomePage() {
               <div className="flex flex-1 items-center gap-2 px-3 py-2 border-b sm:border-b-0 sm:border-r border-slate-100">
                 <Search className="h-5 w-5 text-slate-400 shrink-0" />
                 <input
+                  id="home-search-keyword"
+                  name="keyword"
+                  aria-label="Job title, tech stack or skill"
+                  autoComplete="off"
                   type="text"
                   placeholder="Job title, skill (e.g. React, AI, Python)..."
                   className="w-full text-sm outline-none placeholder:text-slate-400"
@@ -51,6 +55,10 @@ export default function HomePage() {
               <div className="flex flex-1 items-center gap-2 px-3 py-2 border-b sm:border-b-0 sm:border-r border-slate-100">
                 <MapPin className="h-5 w-5 text-slate-400 shrink-0" />
                 <input
+                  id="home-search-location"
+                  name="location"
+                  aria-label="City location or Remote"
+                  autoComplete="off"
                   type="text"
                   placeholder="Location or 'Remote'..."
                   className="w-full text-sm outline-none placeholder:text-slate-400"
@@ -85,20 +93,20 @@ export default function HomePage() {
       </section>
 
       {/* THE TRUTH TELLER SECTION */}
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full overflow-hidden">
         <TruthTellerPreview />
       </section>
 
       {/* 1-CLICK HARVARD / ATS RESUME BUILDER SHOWCASE */}
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="relative overflow-hidden rounded-3xl border border-slate-800 bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 p-8 sm:p-12 text-white shadow-2xl">
-          {/* Subtle background glow */}
-          <div className="absolute top-0 right-0 -mr-20 -mt-20 h-72 w-72 rounded-full bg-emerald-500/10 blur-3xl pointer-events-none" />
-          <div className="absolute bottom-0 left-0 -ml-20 -mb-20 h-72 w-72 rounded-full bg-blue-500/10 blur-3xl pointer-events-none" />
+      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full overflow-hidden">
+        <div className="relative overflow-hidden rounded-3xl border border-slate-800 bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 p-6 sm:p-10 lg:p-12 text-white shadow-2xl max-w-full">
+          {/* Subtle background glow with transforms instead of negative margins to prevent scrollWidth blowout */}
+          <div className="absolute top-0 right-0 translate-x-1/4 -translate-y-1/4 h-72 w-72 rounded-full bg-emerald-500/10 blur-3xl pointer-events-none" />
+          <div className="absolute bottom-0 left-0 -translate-x-1/4 translate-y-1/4 h-72 w-72 rounded-full bg-blue-500/10 blur-3xl pointer-events-none" />
 
-          <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center min-w-0 max-w-full">
             {/* Left Content */}
-            <div className="lg:col-span-6 space-y-5">
+            <div className="lg:col-span-6 space-y-5 min-w-0">
               <div className="inline-flex items-center gap-2 rounded-full border border-blue-400/30 bg-blue-500/10 px-3.5 py-1 text-xs font-bold text-blue-300">
                 <Sparkles className="h-3.5 w-3.5 text-blue-400" />
                 <span>Flagship Career Tool • 100% Free Forever</span>
@@ -121,28 +129,28 @@ export default function HomePage() {
                   <CheckCircle className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
                   <div>
                     <strong className="text-white block font-semibold">100% ATS Single-Column</strong>
-                    <span className="text-slate-400">Zero multi-column or table parsing traps</span>
+                    <span className="text-slate-300">Zero multi-column or table parsing traps</span>
                   </div>
                 </div>
                 <div className="flex items-start gap-2.5 text-slate-200">
                   <CheckCircle className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
                   <div>
                     <strong className="text-white block font-semibold">Live LaTeX &amp; PDF Export</strong>
-                    <span className="text-slate-400">Copy Jake&apos;s Resume .tex code or 1-click print</span>
+                    <span className="text-slate-300">Copy Jake&apos;s Resume .tex code or 1-click print</span>
                   </div>
                 </div>
                 <div className="flex items-start gap-2.5 text-slate-200">
                   <CheckCircle className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
                   <div>
                     <strong className="text-white block font-semibold">Auto-DevScore &amp; GitHub Sync</strong>
-                    <span className="text-slate-400">Embed verified commits &amp; solved badges</span>
+                    <span className="text-slate-300">Embed verified commits &amp; solved badges</span>
                   </div>
                 </div>
                 <div className="flex items-start gap-2.5 text-slate-200">
                   <CheckCircle className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
                   <div>
                     <strong className="text-white block font-semibold">Zero Watermarks or Paywalls</strong>
-                    <span className="text-slate-400">No premium tier, no subscription traps</span>
+                    <span className="text-slate-300">No premium tier, no subscription traps</span>
                   </div>
                 </div>
               </div>
@@ -166,8 +174,8 @@ export default function HomePage() {
             </div>
 
             {/* Right Interactive Mockup */}
-            <div className="lg:col-span-6 relative">
-              <div className="relative mx-auto max-w-md rounded-2xl border border-slate-700 bg-white p-6 text-slate-900 shadow-2xl scale-[0.95] sm:scale-100 transition-transform font-serif select-none">
+            <div className="lg:col-span-6 relative min-w-0 max-w-full">
+              <div className="relative mx-auto max-w-md w-full rounded-2xl border border-slate-700 bg-white p-5 sm:p-6 text-slate-900 shadow-2xl scale-[0.95] sm:scale-100 transition-transform font-serif select-none overflow-hidden">
                 {/* Header watermark pill */}
                 <div className="absolute top-3 right-3 flex items-center gap-1.5 rounded-full bg-emerald-100 border border-emerald-300 px-2 py-0.5 text-[10px] font-sans font-bold text-emerald-800">
                   <ShieldCheck className="h-3 w-3 text-emerald-600" />
