@@ -22,6 +22,7 @@ import {
   Award,
   Zap,
   Filter,
+  Lock,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -46,6 +47,7 @@ interface TruthTellerMetrics {
 }
 
 export default function EmployerApplicantsPage() {
+  const [sessionUser, setSessionUser] = useState<any>(null);
   const [applicants, setApplicants] = useState<ExtendedApplicant[]>([]);
   const [metrics, setMetrics] = useState<TruthTellerMetrics>({
     totalApplicants: 0,
@@ -70,6 +72,13 @@ export default function EmployerApplicantsPage() {
   } | null>(null);
 
   useEffect(() => {
+    fetch("/api/auth/session")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data?.user) setSessionUser(data.user);
+      })
+      .catch(() => {});
+
     fetch("/api/employer/applicants")
       .then((res) => res.json())
       .then((data) => {
@@ -137,6 +146,38 @@ export default function EmployerApplicantsPage() {
 
     return true;
   });
+
+  if (sessionUser?.role === "CANDIDATE") {
+    return (
+      <div className="mx-auto max-w-md px-4 py-20 text-center space-y-6">
+        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-amber-50 border border-amber-200 text-amber-600 shadow-sm">
+          <Lock className="h-8 w-8" />
+        </div>
+        <div className="space-y-2">
+          <span className="rounded-full bg-amber-50 border border-amber-200 px-3 py-1 text-xs font-mono font-bold text-amber-700 uppercase tracking-wider">
+            Employer Portal Only
+          </span>
+          <h1 className="text-2xl font-bold text-slate-900">Recruiter Desk Restricted</h1>
+          <p className="text-xs text-slate-600 leading-relaxed">
+            You are signed in as Candidate (<span className="font-mono text-slate-800 font-semibold">{sessionUser.email}</span>). 
+            The applicant desk and hiring pipeline are reserved for verified employers.
+          </p>
+        </div>
+        <div className="pt-2 flex flex-col gap-2">
+          <Link href="/applications">
+            <Button size="lg" className="w-full font-bold bg-emerald-600 hover:bg-emerald-500">
+              View My Job Applications →
+            </Button>
+          </Link>
+          <a href="/api/auth/signout">
+            <Button variant="outline" className="w-full text-xs">
+              Sign Out &amp; Log In as Employer
+            </Button>
+          </a>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8 font-sans">

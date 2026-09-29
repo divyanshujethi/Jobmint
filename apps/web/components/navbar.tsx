@@ -43,6 +43,7 @@ interface SessionUser {
   name?: string | null;
   email?: string | null;
   image?: string | null;
+  role?: string | null;
 }
 
 export function Navbar() {
@@ -59,6 +60,11 @@ export function Navbar() {
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [user, setUser] = useState<SessionUser | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
+
+  const isCandidate = Boolean(user && (!user.role || user.role === "CANDIDATE"));
+  const isEmployerOrAdmin = Boolean(
+    isAdmin || user?.role === "EMPLOYER" || user?.role === "ADMIN"
+  );
   const [isPro, setIsPro] = useState(false);
   const [proExpiresAt, setProExpiresAt] = useState<string | null>(null);
   const [proModalOpen, setProModalOpen] = useState(false);
@@ -494,13 +500,15 @@ export function Navbar() {
             <span className="hidden xl:inline">Donate</span>
           </Link>
 
-          <Link href={user ? "/employer/jobs/new" : "/employer/login"} className="shrink-0">
-            <Button variant="outline" size="sm" className="gap-1 text-xs font-bold border-slate-300 h-8 px-2.5 shrink-0">
-              <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />
-              <span className="hidden xl:inline">Post a Job</span>
-              <span className="xl:hidden">Post Job</span>
-            </Button>
-          </Link>
+          {!isCandidate && (
+            <Link href={user ? "/employer/jobs/new" : "/employer/login"} className="shrink-0">
+              <Button variant="outline" size="sm" className="gap-1 text-xs font-bold border-slate-300 h-8 px-2.5 shrink-0">
+                <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />
+                <span className="hidden xl:inline">Post a Job</span>
+                <span className="xl:hidden">Post Job</span>
+              </Button>
+            </Link>
+          )}
 
           {user ? (
             <div className="flex items-center gap-2.5">
@@ -657,14 +665,16 @@ export function Navbar() {
                         Resume Vault & ATS
                       </Link>
 
-                      <Link
-                        href="/employer/applicants"
-                        onClick={() => setUserMenuOpen(false)}
-                        className="flex items-center gap-2 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition-colors"
-                      >
-                        <Users className="h-4 w-4 text-purple-600" />
-                        Recruiter Dashboard
-                      </Link>
+                      {isEmployerOrAdmin && (
+                        <Link
+                          href="/employer/applicants"
+                          onClick={() => setUserMenuOpen(false)}
+                          className="flex items-center gap-2 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition-colors"
+                        >
+                          <Users className="h-4 w-4 text-purple-600" />
+                          Recruiter Dashboard
+                        </Link>
+                      )}
 
                       <Link
                         href="/settings/account"
@@ -999,12 +1009,14 @@ export function Navbar() {
             </div>
 
             <div className="pt-3 border-t border-slate-100 flex flex-col gap-2">
-              <Link href={user ? "/employer/jobs/new" : "/employer/login"} onClick={() => setIsOpen(false)}>
-                <Button variant="outline" className="w-full text-xs font-bold gap-1.5 border-slate-300">
-                  <ShieldCheck className="h-4 w-4 text-emerald-600" />
-                  Post an Opening (Employers)
-                </Button>
-              </Link>
+              {!isCandidate && (
+                <Link href={user ? "/employer/jobs/new" : "/employer/login"} onClick={() => setIsOpen(false)}>
+                  <Button variant="outline" className="w-full text-xs font-bold gap-1.5 border-slate-300">
+                    <ShieldCheck className="h-4 w-4 text-emerald-600" />
+                    Post an Opening (Employers)
+                  </Button>
+                </Link>
+              )}
               {user ? (
                 <div className="space-y-1 pt-1">
                   <div className="px-3 py-1 text-xs text-slate-500">

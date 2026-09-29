@@ -185,12 +185,16 @@ export async function GET(req: NextRequest) {
     }
 
     const canCheckInToday = record.lastCheckInDate !== todayStr;
+    const devScore = (record.totalXp && record.totalXp > 50)
+      ? Math.min(1000, Math.round((record.totalXp - 50) * 2 + (record.currentStreak || 0) * 15))
+      : 0;
 
     return NextResponse.json({
       isAuthenticated: true,
       currentStreak: record.currentStreak,
       longestStreak: record.longestStreak,
       totalXp: record.totalXp,
+      devScore,
       lastCheckInDate: record.lastCheckInDate,
       streakFreezes: record.streakFreezes,
       canCheckInToday,
@@ -264,7 +268,7 @@ export async function POST(req: NextRequest) {
         })
         .returning();
 
-      const devScore = Math.min(1000, 520 + Math.round(initialXp * 0.6));
+      const devScore = isPotdQuest ? 50 : 0;
       return NextResponse.json({
         success: true,
         currentStreak: 1,
@@ -294,7 +298,7 @@ export async function POST(req: NextRequest) {
         })
         .where(eq(userStreaks.userId, userId));
 
-      const devScore = Math.min(1000, 480 + Math.round((updatedXp * 0.5) + (record.currentStreak * 15)));
+      const devScore = Math.min(1000, Math.round((updatedXp - 50) * 2 + (record.currentStreak * 15)));
 
       return NextResponse.json({
         success: true,
@@ -303,14 +307,14 @@ export async function POST(req: NextRequest) {
         totalXp: updatedXp,
         xpEarned: questXp,
         devScore,
-        devScoreGain: 15,
-        message: `+50 XP & +15 Dev Score added! Verified Dev Score is now ${devScore}/1000.`,
+        devScoreGain: 50,
+        message: `+50 XP & +50 Dev Score added! Verified Dev Score is now ${devScore}/1000.`,
       });
     }
 
     // Already checked in today for basic checkin
     if (!isPotdQuest && record.lastCheckInDate === todayStr) {
-      const devScore = Math.min(1000, 480 + Math.round((record.totalXp * 0.5) + (record.currentStreak * 15)));
+      const devScore = record.totalXp > 50 ? Math.min(1000, Math.round((record.totalXp - 50) * 2 + (record.currentStreak * 15))) : 0;
       return NextResponse.json({
         success: true,
         alreadyCheckedIn: true,
@@ -367,7 +371,7 @@ export async function POST(req: NextRequest) {
       })
       .where(eq(userStreaks.userId, userId));
 
-    const devScore = Math.min(1000, 480 + Math.round((newXp * 0.5) + (newStreak * 20)));
+    const devScore = newXp > 50 ? Math.min(1000, Math.round((newXp - 50) * 2 + (newStreak * 20))) : 0;
 
     return NextResponse.json({
       success: true,

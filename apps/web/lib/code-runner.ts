@@ -41,7 +41,7 @@ export const SUPPORTED_LANGUAGES: LanguageOption[] = [
     name: "C++",
     monacoLang: "cpp",
     version: "C++20 (GCC 13)",
-    badge: "Editor Ready",
+    badge: "Syntax Only",
     isExecutable: false,
   },
   {
@@ -49,7 +49,7 @@ export const SUPPORTED_LANGUAGES: LanguageOption[] = [
     name: "Java",
     monacoLang: "java",
     version: "OpenJDK 21",
-    badge: "Editor Ready",
+    badge: "Syntax Only",
     isExecutable: false,
   },
 ];
@@ -302,12 +302,17 @@ async function runPythonViaPyodide(
 
     const pyodide = window.__pyodideInstance;
 
+    // Safely bridge code and test cases into Pyodide globals without JS-to-Python literal syntax mismatch
+    pyodide.globals.set("__USER_CODE__", code);
+    pyodide.globals.set("__TEST_CASES_JSON__", JSON.stringify(testCases));
+
     const runnerPy = `
 import json
 import time
+import sys
 
-user_code = ${JSON.stringify(code)}
-test_cases_json = ${JSON.stringify(testCases)}
+user_code = __USER_CODE__
+test_cases_json = json.loads(__TEST_CASES_JSON__)
 
 scope = {}
 logs = []
@@ -319,7 +324,6 @@ class CustomStdout:
     def flush(self):
         pass
 
-import sys
 old_stdout = sys.stdout
 sys.stdout = CustomStdout()
 
@@ -433,14 +437,22 @@ export function executeCodeInSandbox(
       allPassed: false,
       totalTests: testCases.length,
       passedTests: 0,
-      results: [],
+      results: testCases.map((tc) => ({
+        name: tc.name,
+        inputArgs: tc.inputArgs,
+        expected: tc.expected,
+        actual: "Not executed (Server-side Judge required)",
+        passed: false,
+        error: null,
+        durationMs: 0,
+      })),
       logs: [
-        `[INFO] ${langName} syntax editing is fully active with Monaco syntax highlighting and code completion.`,
+        `[INFO] ${langName} syntax editing is active with Monaco syntax highlighting and code completion.`,
         `[SANDBOX] In-browser instant test runner currently supports JavaScript, TypeScript, and Python 3 (WASM).`,
-        `[TIP] Switch the language dropdown to JavaScript, TypeScript, or Python 3 to run live test cases!`,
+        `[TIP] Switch the language dropdown to Python 3, JavaScript, or TypeScript to run live test cases!`,
       ],
-      compilationError: `${langName} compilation requires server-side isolated Linux containers (Judge0). Select JavaScript, TypeScript, or Python 3 for live in-browser test evaluation.`,
-      runtimeError: null,
+      compilationError: null,
+      runtimeError: `💡 ${langName} code compilation requires server-side isolated Linux execution containers. Select Python 3, JavaScript, or TypeScript for instant live in-browser test evaluation!`,
     });
   }
 

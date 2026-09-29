@@ -214,13 +214,13 @@ export default function PostNewJobPage() {
           </span>
           <h1 className="text-2xl font-bold text-slate-900">Sign In to Post Opportunities</h1>
           <p className="text-xs text-slate-600 leading-relaxed">
-            Posting an opportunity on Role Nest creates a verifiable company record with Truth Teller transparency. Please sign in to verify your identity.
+            Posting an opportunity on Role Nest creates a verifiable company record with Truth Teller transparency. Please sign in with your employer account.
           </p>
         </div>
         <div className="pt-2 flex flex-col gap-2">
-          <Link href="/login?callbackUrl=/employer/jobs/new">
+          <Link href="/employer/login">
             <Button size="lg" className="w-full font-bold bg-emerald-600 hover:bg-emerald-500">
-              Sign In to Continue
+              Employer Sign In →
             </Button>
           </Link>
           <Link href="/">
@@ -228,6 +228,38 @@ export default function PostNewJobPage() {
               Return to Job Board
             </Button>
           </Link>
+        </div>
+      </div>
+    );
+  }
+
+  if (sessionUser?.role === "CANDIDATE") {
+    return (
+      <div className="mx-auto max-w-md px-4 py-16 text-center space-y-6">
+        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-amber-50 border border-amber-200 text-amber-600 shadow-sm">
+          <Lock className="h-8 w-8" />
+        </div>
+        <div className="space-y-2">
+          <span className="rounded-full bg-amber-50 border border-amber-200 px-3 py-1 text-xs font-mono font-bold text-amber-700 uppercase tracking-wider">
+            Employer Portal Only
+          </span>
+          <h1 className="text-2xl font-bold text-slate-900">Recruiter Access Required</h1>
+          <p className="text-xs text-slate-600 leading-relaxed">
+            You are signed in with candidate account <strong className="text-slate-800">{sessionUser.email}</strong>. 
+            Job creation and candidate management are restricted to verified employer organizations.
+          </p>
+        </div>
+        <div className="pt-2 flex flex-col gap-2">
+          <Link href="/jobs">
+            <Button size="lg" className="w-full font-bold bg-emerald-600 hover:bg-emerald-500">
+              Browse Open Jobs &amp; Internships →
+            </Button>
+          </Link>
+          <a href="/api/auth/signout">
+            <Button variant="outline" className="w-full text-xs">
+              Sign Out &amp; Log In as Recruiter
+            </Button>
+          </a>
         </div>
       </div>
     );

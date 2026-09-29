@@ -133,7 +133,7 @@ function POTDWorkspace() {
 
   // Campus Battles & Dev Score State
   const [selectedCampus, setSelectedCampus] = useState<string>("IIT Delhi");
-  const [userDevScore, setUserDevScore] = useState<number>(780);
+  const [userDevScore, setUserDevScore] = useState<number>(0);
   const [collegeBattles, setCollegeBattles] = useState<CollegeLeaderboardItem[]>(DEFAULT_CAMPUS_BATTLES);
   const [mobileTab, setMobileTab] = useState<"PROBLEM" | "CODE">("PROBLEM");
   const [showProCelebration, setShowProCelebration] = useState(false);
@@ -144,7 +144,21 @@ function POTDWorkspace() {
       if (storedCampus) setSelectedCampus(storedCampus);
 
       const storedSolved = localStorage.getItem("jobmint_solved_problems");
-      if (storedSolved) setSolvedList(JSON.parse(storedSolved));
+      if (storedSolved) {
+        const parsedSolved = JSON.parse(storedSolved);
+        if (Array.isArray(parsedSolved) && parsedSolved.length > 0) {
+          setSolvedList(parsedSolved);
+          setUserDevScore(Math.min(1000, parsedSolved.length * 50));
+        }
+      }
+
+      const storedGithubScore = localStorage.getItem("jobmint_github_dev_score");
+      if (storedGithubScore) {
+        const parsedGScore = parseInt(storedGithubScore, 10);
+        if (!isNaN(parsedGScore) && parsedGScore > 0) {
+          setUserDevScore(parsedGScore);
+        }
+      }
     } catch (e) {}
 
     // Fetch dynamic leaderboard for campus battles
@@ -161,7 +175,9 @@ function POTDWorkspace() {
     fetch("/api/streak")
       .then((res) => res.json())
       .then((data) => {
-        if (data?.devScore) setUserDevScore(data.devScore);
+        if (typeof data?.devScore === "number") {
+          setUserDevScore(data.devScore);
+        }
       })
       .catch(() => {});
   }, []);
@@ -312,7 +328,7 @@ function POTDWorkspace() {
               +50 XP
             </span>
             <span className="rounded bg-slate-800 border border-slate-700 px-2 py-0.5 text-[10px] font-mono text-emerald-400 font-bold">
-              Dev Score: {userDevScore}/1000
+              Dev Score: {userDevScore > 0 ? `${userDevScore}/1000` : "0/1000 (Unranked)"}
             </span>
             {isCurrentSolved && (
               <span className="inline-flex items-center gap-1 rounded bg-emerald-900/60 border border-emerald-700 px-2 py-0.5 text-[10px] font-semibold text-emerald-300">
@@ -592,7 +608,7 @@ function POTDWorkspace() {
                       <School className="h-3.5 w-3.5 text-orange-400" /> Your College / Campus:
                     </span>
                     <span className="text-emerald-400 font-mono font-bold">
-                      Dev Score: {userDevScore}/1000
+                      Dev Score: {userDevScore > 0 ? `${userDevScore}/1000` : "0/1000 (Unranked)"}
                     </span>
                   </div>
                   <div className="flex items-center gap-2">
