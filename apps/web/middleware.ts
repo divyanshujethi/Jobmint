@@ -45,6 +45,22 @@ export function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL(`https://internship.rolenest.in${subpath}`), 308);
   }
 
+  // 3. If accessed on donate page or donate subdomain:
+  if (
+    pathname === "/donate" ||
+    pathname.startsWith("/donate/") ||
+    host.startsWith("donate.") ||
+    host.startsWith("donation.")
+  ) {
+    const requestHeaders = new Headers(req.headers);
+    requestHeaders.set("x-is-donation", "1");
+    return NextResponse.next({
+      request: {
+        headers: requestHeaders,
+      },
+    });
+  }
+
   return NextResponse.next();
 }
 

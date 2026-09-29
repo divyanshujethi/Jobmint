@@ -251,7 +251,12 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/donate" className="hover:text-rose-600 font-semibold text-rose-700 flex items-center gap-1">
+                <Link
+                  href="/donate"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-rose-600 font-semibold text-rose-700 flex items-center gap-1"
+                >
                   <Heart className="h-3 w-3 fill-rose-600 text-rose-600" />
                   Community Donation
                 </Link>
@@ -278,7 +283,12 @@ export function Footer() {
               Support: <a href="mailto:support@rolenest.in" className="text-emerald-700 font-semibold underline">support@rolenest.in</a> • Built with <Heart className="h-3.5 w-3.5 text-rose-500 fill-rose-500" /> for freshers.
             </p>
             <div className="flex items-center gap-2 text-[11px]">
-              <Link href="/donate" className="text-rose-600 hover:underline font-semibold flex items-center gap-1">
+              <Link
+                href="/donate"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-rose-600 hover:underline font-semibold flex items-center gap-1"
+              >
                 <Heart className="h-3 w-3 fill-rose-500 text-rose-500" /> Community Donation
               </Link>
               <span>•</span>

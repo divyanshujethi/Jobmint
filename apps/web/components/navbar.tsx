@@ -483,6 +483,8 @@ export function Navbar() {
 
           <Link
             href="/donate"
+            target="_blank"
+            rel="noopener noreferrer"
             title="Support Role Nest"
             className={`flex items-center gap-1 text-xs font-bold transition-colors shrink-0 py-1.5 px-2.5 rounded-full border border-rose-200/80 bg-rose-50/80 hover:bg-rose-100 ${
               pathname === "/donate" ? "text-rose-700 bg-rose-100" : "text-rose-600"
@@ -675,6 +677,8 @@ export function Navbar() {
 
                       <Link
                         href="/donate"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         onClick={() => setUserMenuOpen(false)}
                         className="flex items-center gap-2 rounded-xl px-3 py-2 text-xs font-semibold text-rose-700 bg-rose-50/60 hover:bg-rose-100/80 transition-colors"
                       >
@@ -800,6 +804,8 @@ export function Navbar() {
               </Link>
               <Link
                 href="/donate"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center gap-2 py-2 px-3 rounded-xl text-xs font-semibold text-rose-700 bg-rose-50/70 hover:bg-rose-100"
                 onClick={() => setIsOpen(false)}
               >
@@ -1030,6 +1036,8 @@ export function Navbar() {
                   </Link>
                   <Link
                     href="/donate"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     onClick={() => setIsOpen(false)}
                     className="flex items-center gap-2 py-2 px-3 rounded-xl text-xs font-bold text-rose-700 bg-rose-50/70 hover:bg-rose-100"
                   >

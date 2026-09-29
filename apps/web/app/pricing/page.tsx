@@ -282,6 +282,8 @@ export default function PricingPage() {
                 </div>
                 <Link
                   href="/donate"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="whitespace-nowrap rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-4 py-2 text-xs shadow-xs transition-all flex items-center gap-1.5 shrink-0"
                 >
                   <Heart className="h-3.5 w-3.5 fill-current" />

@@ -160,6 +160,8 @@ export function ProModal({ isOpen, onClose, user }: ProModalProps) {
             <span className="text-slate-300">•</span>
             <a
               href="/donate"
+              target="_blank"
+              rel="noopener noreferrer"
               onClick={onClose}
               className="text-amber-800 hover:text-amber-900 hover:underline"
             >

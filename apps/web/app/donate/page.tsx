@@ -71,7 +71,7 @@ const FAQS = [
 export default function DonatePage() {
   const [sessionUser, setSessionUser] = useState<any>(null);
   const [selectedAmount, setSelectedAmount] = useState<number>(250);
-  const [customAmountInput, setCustomAmountInput] = useState<string>("");
+  const [customAmountInput, setCustomAmountInput] = useState<string>("250");
   const [donorName, setDonorName] = useState<string>("");
   const [donorEmail, setDonorEmail] = useState<string>("");
   const [donorPhone, setDonorPhone] = useState<string>("");
@@ -133,7 +133,7 @@ export default function DonatePage() {
 
   const handleSelectPreset = (amount: number) => {
     setSelectedAmount(amount);
-    setCustomAmountInput("");
+    setCustomAmountInput(String(amount));
     setError(null);
   };
 
@@ -538,13 +538,13 @@ export default function DonatePage() {
                     </label>
                     <div className="grid grid-cols-4 gap-2">
                       {PRESET_AMOUNTS.map((amt) => {
-                        const isSelected = !customAmountInput && selectedAmount === amt;
+                        const isSelected = Number(customAmountInput) === amt;
                         return (
                           <button
                             key={amt}
                             type="button"
                             onClick={() => handleSelectPreset(amt)}
-                            className={`py-2 px-1 rounded-xl text-xs font-black border transition-all ${
+                            className={`py-2 px-1 rounded-xl text-xs font-black border transition-all cursor-pointer select-none active:scale-95 ${
                               isSelected
                                 ? "border-emerald-500 bg-emerald-500 text-slate-950 shadow-md shadow-emerald-500/20 scale-102 font-extrabold"
                                 : "border-slate-800 hover:border-slate-700 text-slate-300 bg-slate-950/60 hover:bg-slate-800"
