@@ -108,8 +108,8 @@ export async function getLiveJobs(): Promise<MockJob[]> {
           } catch {}
         }
         if (domain) {
-          // logo.dev returns high-quality logos for 100k+ companies incl. Indian startups
-          resolvedLogo = `https://img.logo.dev/${domain}?token=pk_public&retina=true`;
+          // Google Favicon service returns high-res logos reliably without 401 token authentication errors
+          resolvedLogo = `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
         }
       }
 

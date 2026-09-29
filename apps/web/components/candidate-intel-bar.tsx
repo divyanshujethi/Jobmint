@@ -269,6 +269,9 @@ export function CandidateIntelBar({
               {/* Add Custom Skill Form */}
               <div className="mt-2 flex gap-2">
                 <input
+                  id="custom-skill-input"
+                  name="customSkill"
+                  aria-label="Add custom skill"
                   type="text"
                   placeholder="Type a skill (e.g. Next.js, Django, Rust)..."
                   value={customSkillInput}

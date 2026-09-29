@@ -193,10 +193,12 @@ export function InstantAlertsModal({ onClose }: { onClose: () => void }) {
 
             {/* TARGET INPUT */}
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-slate-700">
+              <label htmlFor="alert-target-input" className="text-xs font-bold text-slate-700">
                 {channel === "WHATSAPP" ? "WhatsApp Number (+91)" : "Telegram Username (@handle)"}
               </label>
               <input
+                id="alert-target-input"
+                name="alertTarget"
                 type="text"
                 placeholder={channel === "WHATSAPP" ? "+91 98765 43210" : "@your_telegram_id"}
                 value={target}

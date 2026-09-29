@@ -141,19 +141,29 @@ export function KnowledgeGraphView() {
     };
   }, [isPanning]);
 
-  // Trackpad / Wheel zoom & pan
-  const handleWheel = useCallback((e: React.WheelEvent) => {
-    if ((e.target as HTMLElement).closest(".drawer-content")) return;
-    e.preventDefault();
-    if (e.ctrlKey || Math.abs(e.deltaY) > 80) {
-      const zoomFactor = e.deltaY < 0 ? 0.08 : -0.08;
-      setScale((prev) => Math.min(1.8, Math.max(0.4, prev + zoomFactor)));
-    } else {
-      setPan((prev) => ({
-        x: prev.x - e.deltaX * 0.8,
-        y: prev.y - e.deltaY * 0.8,
-      }));
-    }
+  // Trackpad / Wheel zoom & pan with explicit passive: false
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const onWheel = (e: WheelEvent) => {
+      if ((e.target as HTMLElement)?.closest(".drawer-content")) return;
+      e.preventDefault();
+      if (e.ctrlKey || Math.abs(e.deltaY) > 80) {
+        const zoomFactor = e.deltaY < 0 ? 0.08 : -0.08;
+        setScale((prev) => Math.min(1.8, Math.max(0.4, prev + zoomFactor)));
+      } else {
+        setPan((prev) => ({
+          x: prev.x - e.deltaX * 0.8,
+          y: prev.y - e.deltaY * 0.8,
+        }));
+      }
+    };
+
+    el.addEventListener("wheel", onWheel, { passive: false });
+    return () => {
+      el.removeEventListener("wheel", onWheel);
+    };
   }, []);
 
   // Touch handlers
@@ -268,7 +278,6 @@ export function KnowledgeGraphView() {
       <div
         ref={containerRef}
         onMouseDown={handleMouseDown}
-        onWheel={handleWheel}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={() => (touchStartRef.current = { x: 0, y: 0 })}

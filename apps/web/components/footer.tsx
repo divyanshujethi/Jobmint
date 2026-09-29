@@ -178,7 +178,7 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/employer" className="hover:text-emerald-600">
+                <Link href="/employer/applicants" className="hover:text-emerald-600">
                   Employer Dashboard
                 </Link>
               </li>

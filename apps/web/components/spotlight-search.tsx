@@ -279,6 +279,9 @@ export function SpotlightSearch({ jobs, isOpen, onClose }: SpotlightSearchProps)
             <Search className="h-5 w-5 shrink-0 text-emerald-500" />
             <input
               ref={inputRef}
+              id="spotlight-search-input"
+              name="search"
+              aria-label="Search jobs, companies, skills, locations"
               value={query}
               onChange={(e) => { setQuery(e.target.value); setActiveIdx(0); }}
               onKeyDown={handleKeyDown}

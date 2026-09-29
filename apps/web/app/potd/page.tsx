@@ -604,15 +604,17 @@ function POTDWorkspace() {
                 {/* College Selector / Affiliation Card */}
                 <div className="rounded-2xl border border-slate-800 bg-slate-900/90 p-4 space-y-2.5">
                   <div className="flex items-center justify-between text-xs">
-                    <span className="font-bold text-slate-300 flex items-center gap-1.5">
+                    <label htmlFor="potd-campus-input" className="font-bold text-slate-300 flex items-center gap-1.5 cursor-pointer">
                       <School className="h-3.5 w-3.5 text-orange-400" /> Your College / Campus:
-                    </span>
+                    </label>
                     <span className="text-emerald-400 font-mono font-bold">
                       Dev Score: {userDevScore > 0 ? `${userDevScore}/1000` : "0/1000 (Unranked)"}
                     </span>
                   </div>
                   <div className="flex items-center gap-2">
                     <input
+                      id="potd-campus-input"
+                      name="campus"
                       type="text"
                       value={selectedCampus}
                       onChange={(e) => {

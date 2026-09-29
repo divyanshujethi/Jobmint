@@ -10,7 +10,7 @@ export interface Problem {
   slug: string;
   title: string;
   difficulty: "Easy" | "Medium" | "Hard";
-  category: "Arrays & Hashing" | "Two Pointers" | "Sliding Window" | "Stack" | "Binary Search" | "Dynamic Programming" | "Trees & Graphs" | "Intervals";
+  category: "Arrays & Hashing" | "Two Pointers" | "Sliding Window" | "Stack" | "Binary Search" | "Dynamic Programming" | "Trees & Graphs" | "Intervals" | "AI & Machine Learning" | "Web Engineering" | "System Design";
   acceptance: string;
   description: string;
   realWorldContext: string;
@@ -758,5 +758,334 @@ export const LEETCODE_PROBLEMS: Problem[] = [
     ],
     "editorial": "### Optimal Approach: Classical Binary Search\n\n```js\nlet left = 0;\nlet right = nums.length - 1;\nwhile (left <= right) {\n  const mid = Math.floor((left + right) / 2);\n  if (nums[mid] === target) return mid;\n  if (nums[mid] < target) left = mid + 1;\n  else right = mid - 1;\n}\nreturn -1;\n```\n\n- **Time Complexity:** $O(\\log n)$\n- **Space Complexity:** $O(1)$",
     "badgeName": "Algorithmist: Binary Search"
+  },
+  // ── AI & MACHINE LEARNING ──
+  {
+    "id": "cosine-similarity",
+    "slug": "cosine-similarity",
+    "title": "Vector Cosine Similarity (RAG & Embeddings)",
+    "difficulty": "Easy",
+    "category": "AI & Machine Learning",
+    "acceptance": "64.8%",
+    "description": "Given two numeric vectors `vecA` and `vecB` of identical length, compute their Cosine Similarity rounded to 4 decimal places:\n\n$$\\text{similarity} = \\frac{\\vec{a} \\cdot \\vec{b}}{\\|\\vec{a}\\| \\|\\vec{b}\\|}$$\n\nIf either vector norm is 0, return `0.0`.",
+    "realWorldContext": "Used in Retrieval-Augmented Generation (RAG) and Pinecone/Qdrant vector stores to calculate semantic similarity between user queries and stored chunk embeddings.",
+    "examples": [
+      {
+        "input": "vecA = [1, 2, 3], vecB = [1, 2, 3]",
+        "output": "1.0",
+        "explanation": "Identical vectors have an angle of 0 degrees and cosine similarity of 1.0."
+      },
+      {
+        "input": "vecA = [1, 0], vecB = [0, 1]",
+        "output": "0.0",
+        "explanation": "Orthogonal vectors have a dot product of 0."
+      }
+    ],
+    "constraints": [
+      "1 <= vecA.length == vecB.length <= 10^4",
+      "-1000 <= vecA[i], vecB[i] <= 1000"
+    ],
+    "hints": [
+      "First compute dot product sum(a[i] * b[i]).",
+      "Compute Euclidean norm sqrt(sum(a[i]^2)) and sqrt(sum(b[i]^2)).",
+      "Divide dot product by norm product, handling division by zero."
+    ],
+    "starterCodeJs": "/**\n * @param {number[]} vecA\n * @param {number[]} vecB\n * @return {number}\n */\nfunction cosineSimilarity(vecA, vecB) {\n  // Compute vector cosine similarity\n  \n}",
+    "starterCodeTs": "function cosineSimilarity(vecA: number[], vecB: number[]): number {\n  // Compute vector cosine similarity\n  \n}",
+    "starterCodePy": "import math\n\nclass Solution:\n    def cosineSimilarity(self, vecA: list[float], vecB: list[float]) -> float:\n        # Compute vector cosine similarity\n        pass",
+    "starterCodeCpp": "#include <vector>\n#include <cmath>\nusing namespace std;\n\nclass Solution {\npublic:\n    double cosineSimilarity(vector<double>& vecA, vector<double>& vecB) {\n        \n    }\n};",
+    "starterCodeJava": "class Solution {\n    public double cosineSimilarity(double[] vecA, double[] vecB) {\n        return 0.0;\n    }\n}",
+    "testCases": [
+      {
+        "name": "Identical Vectors",
+        "inputArgs": [[1, 2, 3], [1, 2, 3]],
+        "expected": 1.0
+      },
+      {
+        "name": "Orthogonal Vectors",
+        "inputArgs": [[1, 0], [0, 1]],
+        "expected": 0.0
+      },
+      {
+        "name": "Scaled Parallel Vectors",
+        "inputArgs": [[1, 2, 3], [2, 4, 6]],
+        "expected": 1.0
+      }
+    ],
+    "editorial": "### Vector Math\n\nCompute dot product and norms in a single pass:\n\n```python\ndot = sum(a * b for a, b in zip(vecA, vecB))\nnormA = math.sqrt(sum(a * a for a in vecA))\nnormB = math.sqrt(sum(b * b for b in vecB))\nreturn round(dot / (normA * normB), 4) if normA and normB else 0.0\n```",
+    "badgeName": "AI Architect: Vector Math"
+  },
+  {
+    "id": "softmax-layer",
+    "slug": "softmax-layer",
+    "title": "Stable Softmax & Temperature (LLM Sampling)",
+    "difficulty": "Medium",
+    "category": "AI & Machine Learning",
+    "acceptance": "58.1%",
+    "description": "Given a 1D array of float `logits` and a positive `temperature`, compute the numerically stable Softmax probability distribution. Each element should be rounded to 4 decimal places:\n\n$$P(i) = \\frac{\\exp((\\text{logits}[i] - \\max(\\text{logits})) / T)}{\\sum_j \\exp((\\text{logits}[j] - \\max(\\text{logits})) / T)}$$",
+    "realWorldContext": "Directly implements the final token sampling layer of ChatGPT and Llama-3, translating raw transformer unnormalized log-probabilities into categorical next-token predictions.",
+    "examples": [
+      {
+        "input": "logits = [10.0, 10.0], temperature = 1.0",
+        "output": "[0.5, 0.5]",
+        "explanation": "Equal logits yield uniform probability distribution."
+      }
+    ],
+    "constraints": [
+      "1 <= logits.length <= 1000",
+      "-1000.0 <= logits[i] <= 1000.0",
+      "0.1 <= temperature <= 5.0"
+    ],
+    "hints": [
+      "Subtract max(logits) before exponentiation to prevent 64-bit float overflow.",
+      "Divide scaled exponents by temperature T before exp()."
+    ],
+    "starterCodeJs": "/**\n * @param {number[]} logits\n * @param {number} temperature\n * @return {number[]}\n */\nfunction softmax(logits, temperature) {\n  \n}",
+    "starterCodeTs": "function softmax(logits: number[], temperature: number): number[] {\n  \n}",
+    "starterCodePy": "import math\n\nclass Solution:\n    def softmax(self, logits: list[float], temperature: float) -> list[float]:\n        pass",
+    "starterCodeCpp": "#include <vector>\n#include <cmath>\n#include <algorithm>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<double> softmax(vector<double>& logits, double temperature) {\n        \n    }\n};",
+    "starterCodeJava": "class Solution {\n    public double[] softmax(double[] logits, double temperature) {\n        return new double[]{};\n    }\n}",
+    "testCases": [
+      {
+        "name": "Uniform Distribution",
+        "inputArgs": [[10.0, 10.0], 1.0],
+        "expected": [0.5, 0.5]
+      },
+      {
+        "name": "Extreme Logits (Numerical Stability Check)",
+        "inputArgs": [[1000.0, 1000.0], 1.0],
+        "expected": [0.5, 0.5]
+      }
+    ],
+    "editorial": "Subtract `max(logits)` to guard against floating-point overflow during `exp()`.",
+    "badgeName": "GenAI Pioneer: Token Sampling"
+  },
+  {
+    "id": "bpe-tokenizer-freq",
+    "slug": "bpe-tokenizer-freq",
+    "title": "BPE Token Pair Frequency (Tokenizer Engine)",
+    "difficulty": "Medium",
+    "category": "AI & Machine Learning",
+    "acceptance": "61.3%",
+    "description": "In Byte-Pair Encoding (BPE), tokenizers repeatedly merge the most frequent adjacent character pair. Given an array of space-separated token strings `words` and a target 2-element pair `[char1, char2]`, count how many times this exact adjacent pair appears across all words.",
+    "realWorldContext": "Core subword vocabulary generation step used by OpenAI's tiktoken and Hugging Face tokenizers.",
+    "examples": [
+      {
+        "input": "words = [\"l o w\", \"l o w e r\"], pair = [\"l\", \"o\"]",
+        "output": "2",
+        "explanation": "'l o' appears once in 'l o w' and once in 'l o w e r'."
+      }
+    ],
+    "constraints": [
+      "1 <= words.length <= 1000",
+      "pair.length == 2"
+    ],
+    "hints": [
+      "Split each word by space to get individual tokens.",
+      "Scan tokens with adjacent indices `tokens[i]` and `tokens[i+1]`."
+    ],
+    "starterCodeJs": "/**\n * @param {string[]} words\n * @param {string[]} pair\n * @return {number}\n */\nfunction countPairFrequency(words, pair) {\n  \n}",
+    "starterCodeTs": "function countPairFrequency(words: string[], pair: string[]): number {\n  \n}",
+    "starterCodePy": "class Solution:\n    def countPairFrequency(self, words: list[str], pair: list[str]) -> int:\n        pass",
+    "starterCodeCpp": "#include <vector>\n#include <string>\nusing namespace std;\n\nclass Solution {\npublic:\n    int countPairFrequency(vector<string>& words, vector<string>& pair) {\n        \n    }\n};",
+    "starterCodeJava": "class Solution {\n    public int countPairFrequency(String[] words, String[] pair) {\n        return 0;\n    }\n}",
+    "testCases": [
+      {
+        "name": "Standard Pair Count",
+        "inputArgs": [["l o w", "l o w e r"], ["l", "o"]],
+        "expected": 2
+      },
+      {
+        "name": "Repeated Adjacent Pairs",
+        "inputArgs": [["a b a b", "a b c"], ["a", "b"]],
+        "expected": 3
+      }
+    ],
+    "editorial": "Iterate tokens and check `tokens[i] == pair[0] and tokens[i+1] == pair[1]`.",
+    "badgeName": "NLP Specialist: Tokenizer Engine"
+  },
+  // ── WEB ENGINEERING ──
+  {
+    "id": "flatten-nested-array",
+    "slug": "flatten-nested-array",
+    "title": "Flatten Multi-Dimensional Array (DOM & AST Engine)",
+    "difficulty": "Easy",
+    "category": "Web Engineering",
+    "acceptance": "72.4%",
+    "description": "Given a deeply nested multi-dimensional array with arbitrary nesting depth, return a flattened 1-dimensional array preserving original element order without using native `.flat(Infinity)`.",
+    "realWorldContext": "Used in React virtual DOM reconciliation, AST compilers (Babel), and CSS-in-JS rule unrolling.",
+    "examples": [
+      {
+        "input": "arr = [1, [2, [3, [4]], 5]]",
+        "output": "[1, 2, 3, 4, 5]"
+      }
+    ],
+    "constraints": [
+      "0 <= arr.length <= 10^4",
+      "Total nested elements <= 10^5"
+    ],
+    "hints": [
+      "Use recursion or an iterative stack to traverse nested arrays."
+    ],
+    "starterCodeJs": "/**\n * @param {any[]} arr\n * @return {any[]}\n */\nfunction flattenArray(arr) {\n  \n}",
+    "starterCodeTs": "function flattenArray(arr: any[]): any[] {\n  \n}",
+    "starterCodePy": "class Solution:\n    def flattenArray(self, arr: list) -> list:\n        pass",
+    "starterCodeCpp": "#include <vector>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> flattenArray(vector<int>& arr) {\n        \n    }\n};",
+    "starterCodeJava": "import java.util.*;\n\nclass Solution {\n    public List<Object> flattenArray(List<Object> arr) {\n        return new ArrayList<>();\n    }\n}",
+    "testCases": [
+      {
+        "name": "Deeply Nested",
+        "inputArgs": [[1, [2, [3, [4]], 5]]],
+        "expected": [1, 2, 3, 4, 5]
+      },
+      {
+        "name": "Shallow Mixed",
+        "inputArgs": [[[1, 2], [3, 4], [5]]],
+        "expected": [1, 2, 3, 4, 5]
+      }
+    ],
+    "editorial": "Recursively check `Array.isArray()` and push items to the accumulator.",
+    "badgeName": "Frontend Architect: Tree Traversal"
+  },
+  {
+    "id": "deep-clone-object",
+    "slug": "deep-clone-object",
+    "title": "Structured Deep Clone (State Immutability)",
+    "difficulty": "Medium",
+    "category": "Web Engineering",
+    "acceptance": "59.3%",
+    "description": "Given a JSON-compatible nested dictionary/object `obj`, implement a deep clone that produces an independent copy. Mutating the clone must never affect the original.",
+    "realWorldContext": "Essential for predictable React Redux/Zustand state immutability, undo-redo histories, and form drafts.",
+    "examples": [
+      {
+        "input": "obj = {\"a\": 1, \"b\": [2, 3]}",
+        "output": "{\"a\": 1, \"b\": [2, 3]}"
+      }
+    ],
+    "constraints": [
+      "Object contains only primitive types, lists, and dicts."
+    ],
+    "hints": [
+      "Check types: if dictionary, recursively clone values; if list, recursively clone items."
+    ],
+    "starterCodeJs": "/**\n * @param {any} obj\n * @return {any}\n */\nfunction deepClone(obj) {\n  \n}",
+    "starterCodeTs": "function deepClone(obj: any): any {\n  \n}",
+    "starterCodePy": "class Solution:\n    def deepClone(self, obj):\n        pass",
+    "starterCodeCpp": "class Solution {\npublic:\n    // C++ clone demonstration\n};",
+    "starterCodeJava": "class Solution {\n    public Object deepClone(Object obj) {\n        return obj;\n    }\n}",
+    "testCases": [
+      {
+        "name": "Nested Dict and List",
+        "inputArgs": [{"a": 1, "b": [2, 3]}],
+        "expected": {"a": 1, "b": [2, 3]}
+      },
+      {
+        "name": "Deep User Profile",
+        "inputArgs": [{"user": {"name": "Alex", "roles": ["admin"]}}],
+        "expected": {"user": {"name": "Alex", "roles": ["admin"]}}
+      }
+    ],
+    "editorial": "Recursively construct new dictionaries and lists without object references.",
+    "badgeName": "Full-Stack Engineer: Immutability"
+  },
+  // ── SYSTEM DESIGN & DISTRIBUTED SYSTEMS ──
+  {
+    "id": "token-bucket-rate-limiter",
+    "slug": "token-bucket-rate-limiter",
+    "title": "Token Bucket Rate Limiter (API Gateway)",
+    "difficulty": "Medium",
+    "category": "System Design",
+    "acceptance": "54.2%",
+    "description": "Simulate an API Gateway Token Bucket rate limiter. Given `capacity`, `refillRate` (tokens per second), and an ascending list of arrival timestamps `timestamps` (seconds), return an array of booleans indicating if each request was accepted (`true`) or throttled (`false`). Bucket starts at full capacity.",
+    "realWorldContext": "Deployed in Cloudflare WAF and Stripe API Gateways to prevent DDoS and API quota exhaustion.",
+    "examples": [
+      {
+        "input": "capacity = 2, refillRate = 1.0, timestamps = [0.0, 0.1, 0.2, 1.5]",
+        "output": "[true, true, false, true]",
+        "explanation": "At t=0.0: token consumed (1 left). At t=0.1: token consumed (0 left). At t=0.2: bucket empty -> rejected (false). At t=1.5: 1.3 tokens refilled (capped at 2) -> accepted (true)."
+      }
+    ],
+    "constraints": [
+      "1 <= capacity <= 1000",
+      "0.1 <= refillRate <= 100.0",
+      "timestamps are in non-decreasing order."
+    ],
+    "hints": [
+      "Track `tokens` and `lastTimestamp`. For each arrival, tokens = min(capacity, tokens + (now - last) * refillRate).",
+      "If tokens >= 1.0, decrement by 1 and accept. Else reject."
+    ],
+    "starterCodeJs": "/**\n * @param {number} capacity\n * @param {number} refillRate\n * @param {number[]} timestamps\n * @return {boolean[]}\n */\nfunction rateLimiter(capacity, refillRate, timestamps) {\n  \n}",
+    "starterCodeTs": "function rateLimiter(capacity: number, refillRate: number, timestamps: number[]): boolean[] {\n  \n}",
+    "starterCodePy": "class Solution:\n    def rateLimiter(self, capacity: int, refillRate: float, timestamps: list[float]) -> list[bool]:\n        pass",
+    "starterCodeCpp": "#include <vector>\n#include <algorithm>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<bool> rateLimiter(int capacity, double refillRate, vector<double>& timestamps) {\n        \n    }\n};",
+    "starterCodeJava": "import java.util.*;\n\nclass Solution {\n    public List<Boolean> rateLimiter(int capacity, double refillRate, double[] timestamps) {\n        return new ArrayList<>();\n    }\n}",
+    "testCases": [
+      {
+        "name": "Standard Burst and Refill",
+        "inputArgs": [2, 1.0, [0.0, 0.1, 0.2, 1.5]],
+        "expected": [true, true, false, true]
+      },
+      {
+        "name": "Instant Exhaustion",
+        "inputArgs": [1, 0.5, [0.0, 0.05]],
+        "expected": [true, false]
+      }
+    ],
+    "editorial": "Lazy refill calculation: `tokens = min(capacity, current_tokens + delta_t * rate)`.",
+    "badgeName": "Gateway Architect: Traffic Control"
+  },
+  {
+    "id": "consistent-hashing-lookup",
+    "slug": "consistent-hashing-lookup",
+    "title": "Consistent Hashing Ring Lookup (Distributed Sharding)",
+    "difficulty": "Medium",
+    "category": "System Design",
+    "acceptance": "56.7%",
+    "description": "In a distributed cache cluster with server nodes placed on a 360-degree hash ring `nodes` (e.g. `[30, 90, 180, 270]`), given a key hash `keyHash` (0 <= keyHash < 360), return the server node that owns the key (the first node with position >= keyHash, or node 0 if keyHash exceeds all nodes due to clockwise circular ring wrap-around).",
+    "realWorldContext": "Used by Discord, DynamoDB, and Memcached to distribute billions of cache keys across server nodes with minimal cache invalidation when nodes are added or removed.",
+    "examples": [
+      {
+        "input": "nodes = [30, 90, 180, 270], keyHash = 50",
+        "output": "90"
+      },
+      {
+        "input": "nodes = [30, 90, 180, 270], keyHash = 300",
+        "output": "30",
+        "explanation": "Key wraps around the 360 ring to the first server at 30."
+      }
+    ],
+    "constraints": [
+      "1 <= nodes.length <= 1000",
+      "nodes is sorted in strictly ascending order.",
+      "0 <= nodes[i], keyHash < 360"
+    ],
+    "hints": [
+      "Use Binary Search (bisect) to find the first node >= keyHash in O(log N) time.",
+      "If no node is >= keyHash, return nodes[0]."
+    ],
+    "starterCodeJs": "/**\n * @param {number[]} nodes\n * @param {number} keyHash\n * @return {number}\n */\nfunction routeKeyToNode(nodes, keyHash) {\n  \n}",
+    "starterCodeTs": "function routeKeyToNode(nodes: number[], keyHash: number): number {\n  \n}",
+    "starterCodePy": "import bisect\n\nclass Solution:\n    def routeKeyToNode(self, nodes: list[int], keyHash: int) -> int:\n        pass",
+    "starterCodeCpp": "#include <vector>\n#include <algorithm>\nusing namespace std;\n\nclass Solution {\npublic:\n    int routeKeyToNode(vector<int>& nodes, int keyHash) {\n        \n    }\n};",
+    "starterCodeJava": "class Solution {\n    public int routeKeyToNode(int[] nodes, int keyHash) {\n        return 0;\n    }\n}",
+    "testCases": [
+      {
+        "name": "Mid Ring Route",
+        "inputArgs": [[30, 90, 180, 270], 50],
+        "expected": 90
+      },
+      {
+        "name": "Wrap Around Ring",
+        "inputArgs": [[30, 90, 180, 270], 300],
+        "expected": 30
+      },
+      {
+        "name": "Exact Node Match",
+        "inputArgs": [[30, 90, 180, 270], 90],
+        "expected": 90
+      }
+    ],
+    "editorial": "Use binary search `bisect_left(nodes, keyHash)` and return `nodes[idx % len(nodes)]`.",
+    "badgeName": "Distributed Systems: Consistent Hashing"
   }
 ];

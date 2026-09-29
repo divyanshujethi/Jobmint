@@ -143,24 +143,34 @@ export function InteractiveStudyCanvas() {
     };
   }, [isPanning]);
 
-  // ── Trackpad / Mouse Wheel Zoom & Pan ──
-  const handleWheel = useCallback((e: React.WheelEvent) => {
-    if ((e.target as HTMLElement).closest(".drawer-content")) {
-      return; // allow drawer to scroll naturally
-    }
-    e.preventDefault();
+  // ── Trackpad / Mouse Wheel Zoom & Pan with explicit passive: false ──
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
 
-    if (e.ctrlKey || Math.abs(e.deltaY) > 80) {
-      // Zoom
-      const zoomFactor = e.deltaY < 0 ? 0.08 : -0.08;
-      setScale((prev) => Math.min(1.8, Math.max(0.4, prev + zoomFactor)));
-    } else {
-      // 2-finger pan on trackpad
-      setPan((prev) => ({
-        x: prev.x - e.deltaX * 0.8,
-        y: prev.y - e.deltaY * 0.8,
-      }));
-    }
+    const onWheel = (e: WheelEvent) => {
+      if ((e.target as HTMLElement)?.closest(".drawer-content")) {
+        return; // allow drawer to scroll naturally
+      }
+      e.preventDefault();
+
+      if (e.ctrlKey || Math.abs(e.deltaY) > 80) {
+        // Zoom
+        const zoomFactor = e.deltaY < 0 ? 0.08 : -0.08;
+        setScale((prev) => Math.min(1.8, Math.max(0.4, prev + zoomFactor)));
+      } else {
+        // 2-finger pan on trackpad
+        setPan((prev) => ({
+          x: prev.x - e.deltaX * 0.8,
+          y: prev.y - e.deltaY * 0.8,
+        }));
+      }
+    };
+
+    el.addEventListener("wheel", onWheel, { passive: false });
+    return () => {
+      el.removeEventListener("wheel", onWheel);
+    };
   }, []);
 
   // ── Mobile Touch Pan & Pinch Zoom ──
@@ -401,7 +411,6 @@ export function InteractiveStudyCanvas() {
           <div
             ref={containerRef}
             onMouseDown={handleMouseDown}
-            onWheel={handleWheel}
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
