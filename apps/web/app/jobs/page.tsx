@@ -36,6 +36,7 @@ import { CandidateIntelBar } from "@/components/candidate-intel-bar";
 import { CompanyJobGroupCard } from "@/components/company-job-group-card";
 import { SpotlightSearch, useSpotlight } from "@/components/spotlight-search";
 import { RoloMascot } from "@/components/rolo-mascot";
+import { ScrollToTop } from "@/components/scroll-to-top";
 
 type ViewMode = "DIVERSIFIED" | "COMPANY_GROUPED" | "RECOMMENDED";
 
@@ -48,6 +49,8 @@ export default function JobsPage() {
   const [onlyVerified, setOnlyVerified] = useState(false);
   const [jobs, setJobs] = useState<MockJob[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const PAGE_SIZE = 15;
 
   // Spotlight search (Cmd/Ctrl+K or "/" shortcut)
   const spotlight = useSpotlight();
@@ -195,6 +198,27 @@ export default function JobsPage() {
     return recommendedJobsWithScores.slice(0, 3);
   }, [recommendedJobsWithScores]);
 
+  // Reset pagination to page 1 whenever any filter changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, selectedType, selectedMode, selectedExp, selectedLocation, onlyVerified, viewMode]);
+
+  // Paginated Diversified Jobs
+  const paginatedJobs = useMemo(() => {
+    const start = (currentPage - 1) * PAGE_SIZE;
+    return diversifiedJobs.slice(start, start + PAGE_SIZE);
+  }, [diversifiedJobs, currentPage]);
+
+  const totalPages = Math.max(1, Math.ceil(diversifiedJobs.length / PAGE_SIZE));
+
+  // Paginated Recommended Jobs
+  const paginatedRecommended = useMemo(() => {
+    const start = (currentPage - 1) * PAGE_SIZE;
+    return recommendedJobsWithScores.slice(start, start + PAGE_SIZE);
+  }, [recommendedJobsWithScores, currentPage]);
+
+  const totalRecommendedPages = Math.max(1, Math.ceil(recommendedJobsWithScores.length / PAGE_SIZE));
+
   const hasActiveFilters =
     Boolean(searchTerm) ||
     selectedType !== "ALL" ||
@@ -210,6 +234,7 @@ export default function JobsPage() {
     setSelectedExp("ALL");
     setSelectedLocation("ALL");
     setOnlyVerified(false);
+    setCurrentPage(1);
   };
 
   return (
@@ -221,12 +246,19 @@ export default function JobsPage() {
         onClose={spotlight.close}
       />
 
-      {/* Rolo floating mascot */}
+      {/* Floating Scroll to Top Arrow Button */}
+      <ScrollToTop className="bottom-36 right-5 md:bottom-28 md:right-9" />
+
+      {/* Rolo interactive floating mascot */}
       <RoloMascot
         floating
-        mood="search"
-        message="Tip: Press Cmd+K (or /) for instant spotlight search! 🔍"
-        onDismiss={() => {}}
+        onQuickFilter={(f) => {
+          if (f.exp !== undefined) setSelectedExp(f.exp);
+          if (f.mode !== undefined) setSelectedMode(f.mode);
+          if (f.search !== undefined) setSearchTerm(f.search);
+          if (f.type !== undefined) setSelectedType(f.type);
+          setCurrentPage(1);
+        }}
       />
 
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 space-y-6">
@@ -653,9 +685,76 @@ export default function JobsPage() {
           /* RECOMMENDED VIEW (High Match Scores Only) */
           recommendedJobsWithScores.length > 0 ? (
             <div className="space-y-4">
-              {recommendedJobsWithScores.map(({ job }) => (
-                <JobCard key={job.id} job={job} candidateIntel={intelProfile} />
-              ))}
+              <div className="space-y-4">
+                {paginatedRecommended.map(({ job }) => (
+                  <JobCard key={job.id} job={job} candidateIntel={intelProfile} />
+                ))}
+              </div>
+
+              {/* Recommended Pagination Bar */}
+              {totalRecommendedPages > 1 && (
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 pb-2 border-t border-slate-200 text-xs text-slate-600">
+                  <div className="font-mono font-medium">
+                    Showing <span className="font-bold text-slate-900">{(currentPage - 1) * PAGE_SIZE + 1}</span> to{" "}
+                    <span className="font-bold text-slate-900">{Math.min(currentPage * PAGE_SIZE, recommendedJobsWithScores.length)}</span> of{" "}
+                    <span className="font-bold text-slate-900">{recommendedJobsWithScores.length}</span> high-match roles
+                  </div>
+
+                  <div className="flex items-center gap-1.5">
+                    <button
+                      type="button"
+                      disabled={currentPage === 1}
+                      onClick={() => {
+                        setCurrentPage((p) => Math.max(1, p - 1));
+                        window.scrollTo({ top: 380, behavior: "smooth" });
+                      }}
+                      className="px-3 py-1.5 rounded-xl border border-slate-200 bg-white font-semibold hover:bg-slate-50 disabled:opacity-40 disabled:pointer-events-none transition-colors cursor-pointer"
+                    >
+                      ← Previous
+                    </button>
+
+                    <div className="flex items-center gap-1">
+                      {Array.from({ length: totalRecommendedPages }, (_, i) => i + 1)
+                        .filter((p) => p === 1 || p === totalRecommendedPages || Math.abs(p - currentPage) <= 1)
+                        .map((pageNumber, idx, arr) => {
+                          const prevPage = arr[idx - 1];
+                          const isEllipsis = prevPage && pageNumber - prevPage > 1;
+                          return (
+                            <div key={pageNumber} className="flex items-center gap-1">
+                              {isEllipsis && <span className="px-1 text-slate-400">...</span>}
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setCurrentPage(pageNumber);
+                                  window.scrollTo({ top: 380, behavior: "smooth" });
+                                }}
+                                className={`h-8 w-8 rounded-xl font-bold transition-all cursor-pointer ${
+                                  currentPage === pageNumber
+                                    ? "bg-emerald-600 text-white shadow-xs"
+                                    : "border border-slate-200 bg-white hover:bg-slate-50 text-slate-700"
+                                }`}
+                              >
+                                {pageNumber}
+                              </button>
+                            </div>
+                          );
+                        })}
+                    </div>
+
+                    <button
+                      type="button"
+                      disabled={currentPage === totalRecommendedPages}
+                      onClick={() => {
+                        setCurrentPage((p) => Math.min(totalRecommendedPages, p + 1));
+                        window.scrollTo({ top: 380, behavior: "smooth" });
+                      }}
+                      className="px-3 py-1.5 rounded-xl border border-slate-200 bg-white font-semibold hover:bg-slate-50 disabled:opacity-40 disabled:pointer-events-none transition-colors cursor-pointer"
+                    >
+                      Next →
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           ) : (
             <div className="rounded-2xl border border-dashed border-slate-200 bg-white p-12 text-center">
@@ -680,9 +779,76 @@ export default function JobsPage() {
           /* DIVERSIFIED FEED VIEW (Round-Robin Interleaved) */
           diversifiedJobs.length > 0 ? (
             <div className="space-y-4">
-              {diversifiedJobs.map((job) => (
-                <JobCard key={job.id} job={job} candidateIntel={intelProfile} />
-              ))}
+              <div className="space-y-4">
+                {paginatedJobs.map((job) => (
+                  <JobCard key={job.id} job={job} candidateIntel={intelProfile} />
+                ))}
+              </div>
+
+              {/* Diversified Feed Pagination Bar */}
+              {totalPages > 1 && (
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 pb-2 border-t border-slate-200 text-xs text-slate-600">
+                  <div className="font-mono font-medium">
+                    Showing <span className="font-bold text-slate-900">{(currentPage - 1) * PAGE_SIZE + 1}</span> to{" "}
+                    <span className="font-bold text-slate-900">{Math.min(currentPage * PAGE_SIZE, diversifiedJobs.length)}</span> of{" "}
+                    <span className="font-bold text-slate-900">{diversifiedJobs.length}</span> opportunities
+                  </div>
+
+                  <div className="flex items-center gap-1.5">
+                    <button
+                      type="button"
+                      disabled={currentPage === 1}
+                      onClick={() => {
+                        setCurrentPage((p) => Math.max(1, p - 1));
+                        window.scrollTo({ top: 380, behavior: "smooth" });
+                      }}
+                      className="px-3 py-1.5 rounded-xl border border-slate-200 bg-white font-semibold hover:bg-slate-50 disabled:opacity-40 disabled:pointer-events-none transition-colors cursor-pointer"
+                    >
+                      ← Previous
+                    </button>
+
+                    <div className="flex items-center gap-1">
+                      {Array.from({ length: totalPages }, (_, i) => i + 1)
+                        .filter((p) => p === 1 || p === totalPages || Math.abs(p - currentPage) <= 1)
+                        .map((pageNumber, idx, arr) => {
+                          const prevPage = arr[idx - 1];
+                          const isEllipsis = prevPage && pageNumber - prevPage > 1;
+                          return (
+                            <div key={pageNumber} className="flex items-center gap-1">
+                              {isEllipsis && <span className="px-1 text-slate-400">...</span>}
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setCurrentPage(pageNumber);
+                                  window.scrollTo({ top: 380, behavior: "smooth" });
+                                }}
+                                className={`h-8 w-8 rounded-xl font-bold transition-all cursor-pointer ${
+                                  currentPage === pageNumber
+                                    ? "bg-emerald-600 text-white shadow-xs"
+                                    : "border border-slate-200 bg-white hover:bg-slate-50 text-slate-700"
+                                }`}
+                              >
+                                {pageNumber}
+                              </button>
+                            </div>
+                          );
+                        })}
+                    </div>
+
+                    <button
+                      type="button"
+                      disabled={currentPage === totalPages}
+                      onClick={() => {
+                        setCurrentPage((p) => Math.min(totalPages, p + 1));
+                        window.scrollTo({ top: 380, behavior: "smooth" });
+                      }}
+                      className="px-3 py-1.5 rounded-xl border border-slate-200 bg-white font-semibold hover:bg-slate-50 disabled:opacity-40 disabled:pointer-events-none transition-colors cursor-pointer"
+                    >
+                      Next →
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           ) : (
             <div className="rounded-2xl border border-dashed border-slate-200 bg-white p-12 text-center">

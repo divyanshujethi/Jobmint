@@ -82,3 +82,72 @@ nav, header, main {
   }
 }
 
+/* Rolo Mascot & Floating UI Animations */
+@keyframes rolo-float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-8px) rotate(-2deg);
+  }
+  50% {
+    transform: translateY(-14px) rotate(0deg) scale(1.03);
+  }
+  75% {
+    transform: translateY(-6px) rotate(2deg);
+  }
+}
+
+@keyframes rolo-glow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.4), 0 0 30px rgba(52, 211, 153, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(16, 185, 129, 0.75), 0 0 45px rgba(52, 211, 153, 0.45);
+  }
+}
+
+@keyframes rolo-wiggle {
+  0%, 100% {
+    transform: rotate(0deg) scale(1);
+  }
+  20% {
+    transform: rotate(-8deg) scale(1.1);
+  }
+  40% {
+    transform: rotate(8deg) scale(1.1);
+  }
+  60% {
+    transform: rotate(-4deg) scale(1.05);
+  }
+  80% {
+    transform: rotate(4deg) scale(1.05);
+  }
+}
+
+@keyframes pop-fade-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.9) translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-rolo-float {
+  animation: rolo-float 4s ease-in-out infinite;
+}
+
+.animate-rolo-glow {
+  animation: rolo-glow 2.8s ease-in-out infinite;
+}
+
+.animate-rolo-wiggle {
+  animation: rolo-wiggle 1.5s ease-in-out;
+}
+
+.animate-pop-fade {
+  animation: pop-fade-in 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
