@@ -12,6 +12,8 @@ export const DISCORD_CHANNELS = {
   DEVSHELF_PR: "1554956772635189270",
   HALL_OF_FAME: "1554956784282763355",
   ADMIN_SECURITY: "1554958481587576893",
+  FACULTY_REVIEW_LOGS: "1554963363472212108",
+  FACULTY_LOUNGE: "1554963365338685573",
 } as const;
 
 export const DISCORD_ROLES = {
@@ -129,7 +131,10 @@ export async function notifyDiscordTaskSubmitted(params: {
     timestamp: new Date().toISOString(),
   };
 
-  await sendDiscordMessage(DISCORD_CHANNELS.DAILY_STANDUP, { embeds: [embed] });
+  await Promise.all([
+    sendDiscordMessage(DISCORD_CHANNELS.DAILY_STANDUP, { embeds: [embed] }),
+    sendDiscordMessage(DISCORD_CHANNELS.FACULTY_REVIEW_LOGS, { embeds: [embed] }),
+  ]);
 }
 
 /**
