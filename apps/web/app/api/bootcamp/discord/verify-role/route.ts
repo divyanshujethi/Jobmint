@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { db, bootcampEnrollments, eq, or } from "@repo/database";
 import {
   DISCORD_ROLES,
+  TRACK_DISCORD_ROLES,
   DISCORD_CHANNELS,
   assignDiscordStudentRole,
   sendDiscordMessage,
@@ -71,35 +72,29 @@ export async function POST(req: NextRequest) {
         assignedRoles.push(enrollment.amountPaid === 0 ? "Sandbox Testing Cohort" : "AICTE Verified Intern");
       }
 
-      // 2. Assign Domain Specific Role
-      const trackLower = (enrollment.trackId || "").toLowerCase();
-      let trackRole: string | null = null;
-      let trackRoleName = "";
+      // 2. Assign Domain Specific Role across all 33 Industrial Tracks
+      const trackId = enrollment.trackId || "";
+      const trackLower = trackId.toLowerCase().trim();
+      let matchedConfig = TRACK_DISCORD_ROLES[trackId] || TRACK_DISCORD_ROLES[trackLower];
 
-      if (trackLower.includes("ai") || trackLower.includes("ml")) {
-        trackRole = DISCORD_ROLES.AIML_SPECIALIST;
-        trackRoleName = "AI / ML Specialist";
-      } else if (trackLower.includes("next")) {
-        trackRole = DISCORD_ROLES.NEXTJS_ARCHITECT;
-        trackRoleName = "Next.js Architect";
-      } else if (trackLower.includes("web") || trackLower.includes("frontend") || trackLower.includes("backend") || trackLower.includes("fullstack")) {
-        trackRole = DISCORD_ROLES.FULLSTACK_ENGINEER;
-        trackRoleName = "Full-Stack Engineer";
-      } else if (trackLower.includes("cyber") || trackLower.includes("security")) {
-        trackRole = DISCORD_ROLES.CYBER_SECURITY;
-        trackRoleName = "Cyber Security Analyst";
-      } else if (trackLower.includes("cloud") || trackLower.includes("sre") || trackLower.includes("devops")) {
-        trackRole = DISCORD_ROLES.CLOUD_DEVOPS;
-        trackRoleName = "Cloud / DevOps Engineer";
-      } else if (trackLower.includes("block") || trackLower.includes("web3") || trackLower.includes("solidity")) {
-        trackRole = DISCORD_ROLES.BLOCKCHAIN_WEB3;
-        trackRoleName = "Blockchain / Web3 Engineer";
+      if (!matchedConfig) {
+        for (const [key, cfg] of Object.entries(TRACK_DISCORD_ROLES)) {
+          if (
+            trackLower.includes(key) ||
+            key.includes(trackLower) ||
+            trackLower.includes(cfg.channelName) ||
+            trackLower.includes(cfg.roleName.toLowerCase().replace(/[^a-z0-9]/g, ""))
+          ) {
+            matchedConfig = cfg;
+            break;
+          }
+        }
       }
 
-      if (trackRole) {
-        const trackSuccess = await assignDiscordStudentRole(cleanUserId, trackRole);
+      if (matchedConfig) {
+        const trackSuccess = await assignDiscordStudentRole(cleanUserId, matchedConfig.roleId);
         if (trackSuccess) {
-          assignedRoles.push(trackRoleName);
+          assignedRoles.push(matchedConfig.roleName);
         }
       }
 

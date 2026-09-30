@@ -121,6 +121,38 @@ const COMMANDS = [
       },
     ],
   },
+  {
+    name: 'pomodoro',
+    description: 'Launch a 25-minute uninterrupted focus coding sprint with automated audio chime notifications',
+    options: [
+      {
+        name: 'duration_minutes',
+        description: 'Sprint duration in minutes (Default: 25 mins)',
+        type: 4,
+        required: false,
+        min_value: 5,
+        max_value: 60,
+      },
+    ],
+  },
+  {
+    name: 'study',
+    description: 'Alias for /pomodoro - Start a focus study sprint in Silent Focus Study lounges',
+    options: [
+      {
+        name: 'duration_minutes',
+        description: 'Sprint duration in minutes (Default: 25 mins)',
+        type: 4,
+        required: false,
+        min_value: 5,
+        max_value: 60,
+      },
+    ],
+  },
+  {
+    name: 'switchtrack',
+    description: 'Explore add-on tracks or switch specialization after completing your active internship',
+  },
 ];
 
 async function main() {
