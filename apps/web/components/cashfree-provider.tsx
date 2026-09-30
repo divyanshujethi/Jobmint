@@ -31,7 +31,42 @@ export interface CheckoutOptions {
 }
 
 /**
- * Initiates Cashfree checkout for UPI (GPay, PhonePe, Paytm), RuPay/Cards & NetBanking
+ * Dynamically ensures the Cashfree JS SDK v3 is loaded and window.Cashfree is ready.
+ * If not present, creates the script tag and polls with a timeout.
+ */
+export async function ensureCashfreeSDKLoaded(timeoutMs = 2500): Promise<boolean> {
+  if (typeof window === "undefined") return false;
+  if (window.Cashfree) return true;
+
+  // Check if script tag is already in DOM
+  let script = document.querySelector(
+    'script[src*="cashfree.com/js/v3/cashfree.js"]'
+  ) as HTMLScriptElement;
+
+  if (!script) {
+    script = document.createElement("script");
+    script.src = "https://sdk.cashfree.com/js/v3/cashfree.js";
+    script.crossOrigin = "anonymous";
+    script.async = true;
+    document.head.appendChild(script);
+  }
+
+  const startTime = Date.now();
+  while (Date.now() - startTime < timeoutMs) {
+    if (window.Cashfree) return true;
+    await new Promise((resolve) => setTimeout(resolve, 100));
+  }
+
+  return !!window.Cashfree;
+}
+
+/**
+ * Initiates Cashfree checkout for UPI (GPay, PhonePe, Paytm), RuPay/Cards & NetBanking.
+ * 
+ * Never blocks users with an alert popup:
+ * 1. Awaits SDK readiness.
+ * 2. Uses window.Cashfree checkout with redirectTarget: "_self".
+ * 3. Falls back smoothly to official Cashfree Hosted Checkout if client SDK is blocked (e.g. adblockers).
  */
 export async function openCashfreeCheckout(options: CheckoutOptions = {}) {
   try {
@@ -52,8 +87,12 @@ export async function openCashfreeCheckout(options: CheckoutOptions = {}) {
 
     if (res.status === 401) {
       const data = await res.json().catch(() => ({}));
-      const currentUrl = typeof window !== "undefined" ? window.location.pathname + window.location.search : "/pricing";
-      window.location.href = data.redirectUrl || `/login?callbackUrl=${encodeURIComponent(currentUrl)}`;
+      const currentUrl =
+        typeof window !== "undefined"
+          ? window.location.pathname + window.location.search
+          : "/pricing";
+      window.location.href =
+        data.redirectUrl || `/login?callbackUrl=${encodeURIComponent(currentUrl)}`;
       return;
     }
 
@@ -62,20 +101,38 @@ export async function openCashfreeCheckout(options: CheckoutOptions = {}) {
       throw new Error(data.error || "Failed to create payment session with Cashfree");
     }
 
-    if (typeof window === "undefined" || !window.Cashfree) {
-      // Fallback: If script not yet loaded, redirect to return URL or warn
-      alert("Payment gateway is initializing. Please click again in 2 seconds.");
-      return;
+    const checkoutBaseUrl =
+      CASHFREE_CLIENT_ENV === "production"
+        ? "https://payments.cashfree.com/order/#"
+        : "https://sandbox.cashfree.com/order/#";
+    const directCheckoutUrl = `${checkoutBaseUrl}${data.paymentSessionId}`;
+
+    // Ensure SDK is ready without throwing blocking alerts
+    const isSDKReady = await ensureCashfreeSDKLoaded(2500);
+
+    if (isSDKReady && window.Cashfree) {
+      try {
+        const cashfree = window.Cashfree({
+          mode: CASHFREE_CLIENT_ENV,
+        });
+
+        await cashfree.checkout({
+          paymentSessionId: data.paymentSessionId,
+          redirectTarget: "_self", // Seamless redirect ensures 100% UPI App Intent & QR compatibility on iOS/Android/Desktop
+        });
+        return;
+      } catch (sdkError) {
+        console.warn("[Cashfree SDK Checkout warning, falling back to direct hosted checkout]:", sdkError);
+        window.location.href = directCheckoutUrl;
+        return;
+      }
     }
 
-    const cashfree = window.Cashfree({
-      mode: CASHFREE_CLIENT_ENV,
-    });
-
-    await cashfree.checkout({
-      paymentSessionId: data.paymentSessionId,
-      redirectTarget: "_self", // Seamless redirect ensures 100% UPI App Intent & QR compatibility on iOS/Android/Desktop
-    });
+    // Direct Hosted Checkout Fallback:
+    // If Cashfree JS SDK is blocked by browser shield/ad-blocker or slow CDN,
+    // seamlessly redirect to Cashfree's official hosted checkout page.
+    // This guarantees 100% checkout success without ever trapping the user.
+    window.location.href = directCheckoutUrl;
   } catch (error: any) {
     console.error("[Cashfree Checkout Error]:", error);
     if (options.onError) {
