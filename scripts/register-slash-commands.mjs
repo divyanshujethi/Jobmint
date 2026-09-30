@@ -43,6 +43,14 @@ const COMMANDS = [
     name: 'helpdesk',
     description: 'Request assistance from Faculty Mentors or report a technical lab blocker',
   },
+  {
+    name: 'potd',
+    description: 'Fetch today\'s Problem of the Day (POTD) challenge across industrial domains',
+  },
+  {
+    name: 'ticket',
+    description: 'Launch a private 1-on-1 support ticket session with Faculty Mentors',
+  },
 ];
 
 async function main() {

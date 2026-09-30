@@ -5,7 +5,11 @@
 // 2. Automated Welcome messages for new members (GUILD_MEMBER_ADD)
 // 3. Security Audit Logs to #admin-security-logs
 // 4. Faculty Alerts to #faculty-review-logs
-// 5. Slash Commands: /verify, /status, /standup, /rules, /helpdesk
+// 5. Slash Commands: /verify, /status, /standup, /rules, /helpdesk, /potd, /ticket
+// 6. Interactive Support Ticket System (Button Click -> Private Ticket Channel -> Resolution & Auto-Close)
+// 7. Automated Daily Problem of the Day (POTD) Scheduler
+
+import { getDailyPOTD } from './potd-catalog.mjs';
 
 const BOT_TOKEN = (process.env.DISCORD_BOT_TOKEN || '').trim();
 const GUILD_ID = (process.env.DISCORD_GUILD_ID || '1554952372910952460').trim();
@@ -23,6 +27,16 @@ const CHANNELS = {
   ADMIN_SECURITY: '1554958481587576893',
   FACULTY_REVIEW: '1554963363472212108',
   FACULTY_LOUNGE: '1554963365338685573',
+  SUPPORT_HELPDESK: '1554965055945187438',
+  SUPPORT_CATEGORY: '1554965052241608808',
+  POTD: '1554965059648618587',
+};
+
+const ROLES = {
+  EVERYONE: GUILD_ID,
+  ADMIN: '1554960532992434260',
+  MENTOR: '1554956689709605004',
+  BOT: '1554956632830644349',
 };
 
 async function discordFetch(endpoint, method = 'GET', body = null) {
@@ -82,9 +96,40 @@ async function verifyStudent(credential, discordUserId) {
   }
 }
 
+// Build POTD Embed
+function buildPOTDEmbed(potd) {
+  return {
+    title: `🧩 Daily Problem of the Day (POTD) • ${potd.dateString}`,
+    description: `**${potd.title}**\n*Domain: ${potd.domain} | Difficulty: ${potd.difficulty}*\n\n${potd.description}`,
+    color: potd.difficulty === 'Hard' ? 0xef4444 : 0x0ea5e9,
+    fields: [
+      {
+        name: '💻 Architecture & Code Context',
+        value: `\`\`\`ts\n${potd.codeSnippet}\n\`\`\``,
+        inline: false,
+      },
+      {
+        name: '🎯 Milestone Task',
+        value: potd.challengeTask,
+        inline: false,
+      },
+      {
+        name: '💡 Architectural Hint',
+        value: `||${potd.hint}||`,
+        inline: false,
+      },
+    ],
+    footer: {
+      text: 'RoleNest Automated POTD Engine • React with 💡 when solved or 🚀 for discussion',
+    },
+    timestamp: new Date().toISOString(),
+  };
+}
+
 let ws = null;
 let heartbeatInterval = null;
 let seq = null;
+let lastPostedPOTDDate = '';
 
 function connectGateway() {
   console.log('[Gateway] Connecting to Discord Gateway...');
@@ -106,7 +151,7 @@ function connectGateway() {
 
         if (heartbeatInterval) clearInterval(heartbeatInterval);
         heartbeatInterval = setInterval(() => {
-          if (ws.readyState === WebSocket.OPEN) {
+          if (ws && ws.readyState === WebSocket.OPEN) {
             ws.send(JSON.stringify({ op: 1, d: seq }));
           }
         }, interval);
@@ -137,11 +182,6 @@ function connectGateway() {
         );
       }
 
-      // Opcode 11: Heartbeat ACK
-      if (msg.op === 11) {
-        // Heartbeat acknowledged
-      }
-
       // Opcode 0: DISPATCH
       if (msg.op === 0) {
         await handleDispatch(msg.t, msg.d);
@@ -167,6 +207,7 @@ async function handleDispatch(eventType, data) {
   if (eventType === 'READY') {
     console.log(`🚀 [RoleNest Bot] Logged in as: ${data.user.username}#${data.user.discriminator} (ID: ${data.user.id})`);
     console.log(`   Connected to ${data.guilds.length} Guild(s). Monitoring incoming events...`);
+    startPOTDAutoScheduler();
   }
 
   // 2. New Member Joined
@@ -199,7 +240,159 @@ async function handleDispatch(eventType, data) {
     });
   }
 
-  // 3. Slash Command Interaction
+  // 3. Button Component Interactions (Tickets)
+  if (eventType === 'INTERACTION_CREATE' && data.type === 3) {
+    const { id: interactionId, token: interactionToken, member, data: compData, channel_id: currentChannelId } = data;
+    const customId = compData.custom_id;
+    const userId = member?.user?.id;
+    const username = member?.user?.username || 'candidate';
+
+    console.log(`[Button Interaction] "${customId}" clicked by ${username} (${userId})`);
+
+    if (customId === 'open_support_ticket') {
+      const sanitizedName = username.toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 20);
+      const ticketChannelName = `ticket-${sanitizedName}`;
+
+      // Check if user already has an open ticket
+      const existingChannels = await discordFetch(`/guilds/${GUILD_ID}/channels`);
+      const existingTicket = existingChannels?.find((c) => c.name === ticketChannelName);
+
+      if (existingTicket) {
+        await respondInteraction(interactionId, interactionToken, {
+          flags: 64, // EPHEMERAL
+          content: `⚠️ You already have an active support ticket open: <#${existingTicket.id}>. Please head there to talk with mentors.`,
+        });
+        return;
+      }
+
+      // Create private ticket channel under SUPPORT_CATEGORY
+      const newTicketChannel = await discordFetch(`/guilds/${GUILD_ID}/channels`, 'POST', {
+        name: ticketChannelName,
+        type: 0, // text
+        parent_id: CHANNELS.SUPPORT_CATEGORY,
+        topic: `Private 1-on-1 Support Desk for @${username} (ID: ${userId})`,
+        permission_overwrites: [
+          {
+            id: ROLES.EVERYONE,
+            type: 0,
+            deny: '1024', // DENY VIEW_CHANNEL
+            allow: '0',
+          },
+          {
+            id: userId,
+            type: 1, // member
+            allow: '68608', // VIEW, SEND, READ_HISTORY
+            deny: '0',
+          },
+          {
+            id: ROLES.MENTOR,
+            type: 0,
+            allow: '68608',
+            deny: '0',
+          },
+          {
+            id: ROLES.ADMIN,
+            type: 0,
+            allow: '68608',
+            deny: '0',
+          },
+          {
+            id: ROLES.BOT,
+            type: 0,
+            allow: '68608',
+            deny: '0',
+          },
+        ],
+      });
+
+      if (!newTicketChannel) {
+        await respondInteraction(interactionId, interactionToken, {
+          flags: 64,
+          content: '❌ Failed to create support ticket channel. Please contact an admin directly.',
+        });
+        return;
+      }
+
+      // Send initial welcome message in the new ticket channel
+      await sendChannelMessage(newTicketChannel.id, {
+        content: `👋 Welcome <@${userId}> to your private support room!`,
+        embeds: [
+          {
+            title: `🎫 Support Ticket: @${username}`,
+            description: `Hello <@${userId}>! A **Faculty Mentor** or **SuperAdmin** has been alerted and will assist you shortly.\n\n**Please provide:**\n1. Enrolled Track & College Name\n2. Specific blocker or question\n3. Relevant error messages, screenshots, or GitHub repo URL`,
+            color: 0x6366f1,
+            footer: { text: 'Click "Close Ticket" when your query is fully resolved.' },
+          },
+        ],
+        components: [
+          {
+            type: 1, // ActionRow
+            components: [
+              {
+                type: 2, // Button
+                style: 4, // Danger (Red)
+                label: 'Close Ticket',
+                emoji: { name: '🔒' },
+                custom_id: 'close_support_ticket',
+              },
+            ],
+          },
+        ],
+      });
+
+      // Notify Faculty Review Logs
+      await sendChannelMessage(CHANNELS.FACULTY_REVIEW, {
+        embeds: [
+          {
+            title: '📩 New Support Ticket Dispatched',
+            description: `Candidate <@${userId}> (\`${username}\`) opened a support ticket.`,
+            color: 0xec4899,
+            fields: [
+              { name: 'Channel', value: `<#${newTicketChannel.id}>`, inline: true },
+              { name: 'Status', value: '⏳ Awaiting Mentor Response', inline: true },
+            ],
+            footer: { text: 'RoleNest Helpdesk Dispatch' },
+            timestamp: new Date().toISOString(),
+          },
+        ],
+      });
+
+      // Ephemeral confirmation to candidate
+      await respondInteraction(interactionId, interactionToken, {
+        flags: 64,
+        content: `✅ Your private support desk is ready! Please navigate to <#${newTicketChannel.id}>.`,
+      });
+    }
+
+    if (customId === 'close_support_ticket') {
+      await respondInteraction(interactionId, interactionToken, {
+        content: `🔒 **Ticket Resolved**: <@${userId}> has closed this ticket. Archiving and deleting channel in 5 seconds...`,
+      });
+
+      // Audit logs
+      await sendChannelMessage(CHANNELS.FACULTY_REVIEW, {
+        embeds: [
+          {
+            title: '✅ Support Ticket Closed & Resolved',
+            description: `Ticket channel (\`${currentChannelId}\`) closed by <@${userId}>.`,
+            color: 0x10b981,
+            timestamp: new Date().toISOString(),
+          },
+        ],
+      });
+
+      setTimeout(async () => {
+        try {
+          await discordFetch(`/channels/${currentChannelId}`, 'DELETE');
+          console.log(`[Ticket System] Successfully deleted ticket channel ${currentChannelId}`);
+        } catch (e) {
+          console.error('[Ticket System] Failed to delete ticket channel:', e);
+        }
+      }, 5000);
+    }
+  }
+
+  // 4. Slash Command Interaction
   if (eventType === 'INTERACTION_CREATE' && data.type === 2) {
     const { id: interactionId, token: interactionToken, member, data: cmdData } = data;
     const cmdName = cmdData.name;
@@ -376,33 +569,68 @@ async function handleDispatch(eventType, data) {
           },
         ],
       });
-    } else if (cmdName === 'helpdesk') {
+    } else if (cmdName === 'helpdesk' || cmdName === 'ticket') {
       await respondInteraction(interactionId, interactionToken, {
         flags: 64,
         embeds: [
           {
-            title: '🆘 Faculty Mentorship & Technical Support',
-            description: 'Stuck on an environment issue or architectural blocker?',
+            title: '🆘 Faculty Mentorship & Support Helpdesk',
+            description: `Need 1-on-1 assistance? Go to <#${CHANNELS.SUPPORT_HELPDESK}> and click **Open Support Ticket** to start a private session with Faculty Mentors!`,
             color: 0x8b5cf6,
             fields: [
               {
                 name: '💬 Code Troubleshooting',
-                value: 'Post your error stack traces and logs in `#code-troubleshooting`. Mentors monitor this channel continuously.',
+                value: 'For quick debugging questions, post in `#code-troubleshooting`.',
               },
               {
                 name: '🎙️ Live Voice Office Hours',
-                value: 'Join the `🎙️ Mentor Standup & Office Hours` voice channel during daily standups (10:00 AM & 6:00 PM IST) for live debugging.',
-              },
-              {
-                name: '📧 Urgent Escalation',
-                value: 'Contact `divyanshujethi@gmail.com` or tag `@👑 Faculty Mentor / Lead` in `#code-troubleshooting`.',
+                value: 'Join the `🎙️ Mentor Standup & Office Hours` voice channel during daily standups (10:00 AM & 6:00 PM IST).',
               },
             ],
           },
         ],
       });
+    } else if (cmdName === 'potd') {
+      const potd = getDailyPOTD();
+      await respondInteraction(interactionId, interactionToken, {
+        embeds: [buildPOTDEmbed(potd)],
+      });
     }
   }
+}
+
+// Automated Daily POTD Checker
+function startPOTDAutoScheduler() {
+  console.log('⏰ Starting Automated Daily POTD Scheduler...');
+  setInterval(async () => {
+    try {
+      const today = new Date().toLocaleDateString('en-IN', { timeZone: 'Asia/Kolkata' });
+      if (lastPostedPOTDDate !== today) {
+        lastPostedPOTDDate = today;
+        const potd = getDailyPOTD();
+        console.log(`[POTD Scheduler] Posting new daily challenge: "${potd.title}" (${today})`);
+
+        const msg = await sendChannelMessage(CHANNELS.POTD, {
+          embeds: [buildPOTDEmbed(potd)],
+        });
+
+        if (msg && msg.id) {
+          try {
+            await fetch(`${API_BASE}/channels/${CHANNELS.POTD}/messages/${msg.id}/reactions/💡/@me`, {
+              method: 'PUT',
+              headers: { Authorization: `Bot ${BOT_TOKEN}` },
+            });
+            await fetch(`${API_BASE}/channels/${CHANNELS.POTD}/messages/${msg.id}/reactions/🚀/@me`, {
+              method: 'PUT',
+              headers: { Authorization: `Bot ${BOT_TOKEN}` },
+            });
+          } catch (e) {}
+        }
+      }
+    } catch (err) {
+      console.error('[POTD Scheduler Error]:', err);
+    }
+  }, 30 * 60 * 1000); // Check every 30 minutes
 }
 
 connectGateway();
