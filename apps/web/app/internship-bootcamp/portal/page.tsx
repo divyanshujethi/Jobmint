@@ -25,10 +25,12 @@ import {
   Calendar,
   LogOut,
   Sliders,
+  AlertCircle,
 } from "lucide-react";
 import { BOOTCAMP_TRACKS, BootcampTrack } from "@/lib/bootcamp-data";
 import { getCurriculumDaysForTrack } from "@/lib/bootcamp-curriculum-days";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 export default function InternshipStudentPortalPage() {
   const [loading, setLoading] = useState(true);
@@ -45,6 +47,9 @@ export default function InternshipStudentPortalPage() {
   });
 
   const [activeEnrollmentId, setActiveEnrollmentId] = useState<string | null>(null);
+  const [discordUserIdInput, setDiscordUserIdInput] = useState("");
+  const [verifyingDiscord, setVerifyingDiscord] = useState(false);
+  const [discordVerifyMsg, setDiscordVerifyMsg] = useState<{ success: boolean; text: string } | null>(null);
 
   useEffect(() => {
     fetch("/api/bootcamp/me")
@@ -72,6 +77,40 @@ export default function InternshipStudentPortalPage() {
     : null;
 
   const curriculumDays = activeTrack ? getCurriculumDaysForTrack(activeTrack.id) : [];
+
+  const handleClaimDiscordRole = async () => {
+    if (!discordUserIdInput.trim() || !activeEnrollment) {
+      alert("Please enter your 17-19 digit Discord User ID (found in Discord > Copy User ID).");
+      return;
+    }
+    setVerifyingDiscord(true);
+    setDiscordVerifyMsg(null);
+    try {
+      const res = await fetch("/api/bootcamp/discord/verify-role", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          emailOrRoll: activeEnrollment.studentEmail || activeEnrollment.rollNumber,
+          discordUserId: discordUserIdInput.trim(),
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to assign Discord role.");
+      }
+      setDiscordVerifyMsg({
+        success: true,
+        text: `Role granted! You have been assigned: ${data.assignedRoles.join(", ") || "Verified Intern"} on the RoleNest Discord server.`,
+      });
+    } catch (err: any) {
+      setDiscordVerifyMsg({
+        success: false,
+        text: err.message || "Failed to assign Discord role.",
+      });
+    } finally {
+      setVerifyingDiscord(false);
+    }
+  };
 
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 space-y-10">
@@ -374,6 +413,80 @@ export default function InternshipStudentPortalPage() {
                 </p>
               </div>
             </div>
+          </div>
+
+          {/* DISCORD COMMUNITY & AUTOMATED ROLE CLAIM */}
+          <div className="rounded-3xl border border-indigo-500/30 bg-gradient-to-r from-indigo-950/40 via-slate-900 to-slate-950 p-6 sm:p-8 space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-indigo-500/20 pb-4">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <span className="rounded-md bg-indigo-500/20 border border-indigo-500/40 px-2 py-0.5 text-[10px] font-mono font-bold text-indigo-300 uppercase">
+                    RoleNest Engineering Community
+                  </span>
+                  <span className="text-[10px] text-emerald-400 font-mono font-bold">
+                    ● Bot Online
+                  </span>
+                </div>
+                <h3 className="text-lg font-black text-white">
+                  Join Discord &amp; Claim Verified Student Roles
+                </h3>
+                <p className="text-xs text-slate-300 max-w-2xl">
+                  Connect your Discord account to automatically claim your <strong className="text-indigo-300">@AICTE Verified Intern</strong> badge, unlock private track channels, participate in daily standups, and collaborate on DevShelf open-source PRs.
+                </p>
+              </div>
+
+              <a
+                href="https://discord.gg/rolenest"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-xl bg-[#5865F2] hover:bg-[#4752C4] text-white font-black text-xs h-10 px-5 inline-flex items-center gap-2 shadow-lg shadow-[#5865F2]/20 transition-all hover:scale-105 shrink-0"
+              >
+                <span>Join RoleNest Discord</span>
+                <ExternalLink className="h-3.5 w-3.5" />
+              </a>
+            </div>
+
+            {/* CLAIM ROLE FORM */}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-1">
+              <div className="flex-1 space-y-1">
+                <Input
+                  type="text"
+                  placeholder="Enter your 17-19 digit Discord User ID (e.g. 1554952372910952460)"
+                  value={discordUserIdInput}
+                  onChange={(e) => setDiscordUserIdInput(e.target.value)}
+                  className="bg-slate-950 border-slate-800 text-white rounded-xl h-10 text-xs"
+                />
+                <span className="text-[10px] text-slate-500 font-mono block">
+                  Tip: In Discord, go to User Settings &gt; Advanced &gt; Turn on Developer Mode, then right-click your profile &gt; Copy User ID.
+                </span>
+              </div>
+
+              <Button
+                type="button"
+                onClick={handleClaimDiscordRole}
+                disabled={verifyingDiscord || !discordUserIdInput.trim()}
+                className="rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs h-10 px-5 shrink-0 gap-1.5 shadow-md shadow-indigo-600/20"
+              >
+                {verifyingDiscord ? "Verifying..." : "Claim Verified Roles"}
+              </Button>
+            </div>
+
+            {discordVerifyMsg && (
+              <div
+                className={`rounded-xl p-3 text-xs flex items-center gap-2 ${
+                  discordVerifyMsg.success
+                    ? "bg-emerald-950/40 border border-emerald-500/40 text-emerald-300"
+                    : "bg-red-950/40 border border-red-500/40 text-red-300"
+                }`}
+              >
+                {discordVerifyMsg.success ? (
+                  <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0" />
+                ) : (
+                  <AlertCircle className="h-4 w-4 text-red-400 shrink-0" />
+                )}
+                <span>{discordVerifyMsg.text}</span>
+              </div>
+            )}
           </div>
 
           {/* DAY-BY-DAY PROGRESSION TIMELINE */}

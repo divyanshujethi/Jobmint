@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
 import { auth } from "@/auth";
 import { db, bootcampEnrollments, eq, and } from "@repo/database";
+import { notifyDiscordEnrollment } from "@/lib/discord-notifications";
 
 export async function POST(req: NextRequest) {
   try {
@@ -103,6 +104,16 @@ export async function POST(req: NextRequest) {
         amountPaid: finalAmount,
       })
       .returning();
+
+    // Trigger live Discord notification to #announcements and #admin-security-logs
+    notifyDiscordEnrollment({
+      studentName: newEnrollment.studentName,
+      collegeName: newEnrollment.collegeName,
+      trackTitle: newEnrollment.trackId,
+      amountPaid: newEnrollment.amountPaid,
+      isSandbox: newEnrollment.amountPaid === 0,
+      offerLetterId: newEnrollment.offerLetterId,
+    }).catch((err) => console.warn("Discord enrollment alert error:", err));
 
     return NextResponse.json({
       success: true,

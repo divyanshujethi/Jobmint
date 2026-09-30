@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { db, bootcampEnrollments, bootcampDailySubmissions, eq, and } from "@repo/database";
+import { notifyDiscordTaskSubmitted } from "@/lib/discord-notifications";
 
 export async function POST(req: NextRequest) {
   try {
@@ -127,6 +128,15 @@ export async function POST(req: NextRequest) {
         updatedAt: new Date(),
       })
       .where(eq(bootcampEnrollments.id, enrollmentId));
+
+    // Trigger live Discord notification to #daily-standup-deliverables
+    notifyDiscordTaskSubmitted({
+      studentName: enrollment.studentName || session.user.name || "Engineering Intern",
+      trackTitle: enrollment.trackId,
+      dayNumber,
+      deliverable: dayTitle || `Day ${dayNumber} Lab Deliverable`,
+      githubUrl: normalizedGithub,
+    }).catch((err) => console.warn("Discord standup notification error:", err));
 
     return NextResponse.json({
       success: true,

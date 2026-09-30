@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { db, bootcampEnrollments, eq } from "@repo/database";
+import { notifyDiscordSecurityAlert, notifyDiscordCertificateIssued } from "@/lib/discord-notifications";
 
 export async function POST(req: NextRequest) {
   try {
@@ -66,7 +67,7 @@ export async function POST(req: NextRequest) {
 
     if (action === "certify") {
       const certId = certificateId || `RN-INT-CERT-${Math.random().toString(36).substring(2, 8).toUpperCase()}`;
-      await db
+      const [updated] = await db
         .update(bootcampEnrollments)
         .set({
           status: "COMPLETED",
@@ -75,7 +76,18 @@ export async function POST(req: NextRequest) {
           finalScore: Number(finalScore) || 98,
           updatedAt: new Date(),
         })
-        .where(eq(bootcampEnrollments.id, enrollmentId));
+        .where(eq(bootcampEnrollments.id, enrollmentId))
+        .returning();
+
+      if (updated) {
+        notifyDiscordCertificateIssued({
+          studentName: updated.studentName,
+          trackTitle: updated.trackId,
+          certificateId: certId,
+          verificationUrl: `https://internship.rolenest.in/verify/${certId}`,
+          grade: updated.finalGrade || "A+",
+        }).catch((err) => console.warn("Discord cert alert error:", err));
+      }
 
       return NextResponse.json({
         success: true,
@@ -85,13 +97,24 @@ export async function POST(req: NextRequest) {
     }
 
     if (action === "update_status") {
-      await db
+      const [updated] = await db
         .update(bootcampEnrollments)
         .set({
           status: status || "ACTIVE",
           updatedAt: new Date(),
         })
-        .where(eq(bootcampEnrollments.id, enrollmentId));
+        .where(eq(bootcampEnrollments.id, enrollmentId))
+        .returning();
+
+      if (updated && (status === "REVOKED" || status === "REFUNDED")) {
+        notifyDiscordSecurityAlert({
+          type: status === "REFUNDED" ? "CHARGEBACK" : "REVOCATION",
+          studentName: updated.studentName,
+          rollNumber: updated.rollNumber || "N/A",
+          reason: `Admin status update to ${status} via dashboard.`,
+          enrollmentId: updated.id,
+        }).catch((err) => console.warn("Discord security alert error:", err));
+      }
 
       return NextResponse.json({
         success: true,
