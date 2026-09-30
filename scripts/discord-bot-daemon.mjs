@@ -126,6 +126,8 @@ function buildPOTDEmbed(potd) {
     },
     timestamp: new Date().toISOString(),
   };
+}
+
 function diagnoseCodingQuery(query) {
   const q = query.toLowerCase();
   if (q.includes('cors')) {
