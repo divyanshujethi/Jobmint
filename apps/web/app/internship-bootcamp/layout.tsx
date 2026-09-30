@@ -297,6 +297,10 @@ export default function InternshipBootcampLayout({
               Terms &amp; Honor Code
             </Link>
             <span>•</span>
+            <Link href="/admin" className="hover:text-amber-400 text-slate-500 transition-colors font-medium">
+              Admin Center
+            </Link>
+            <span>•</span>
             <span className="font-mono text-emerald-400">SHA-256 Ledger Authenticated</span>
           </div>
         </div>

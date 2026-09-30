@@ -28,6 +28,7 @@ import {
   FileText,
   GitPullRequest,
   ExternalLink,
+  Bell,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -36,6 +37,8 @@ import { getCurriculumDaysForTrack } from "@/lib/bootcamp-curriculum-days";
 import { CodeArenaRunner } from "@/components/bootcamp/code-arena-runner";
 import { StudyMaterialModal } from "@/components/bootcamp/study-material-modal";
 import { InternshipCertificateModal } from "@/components/bootcamp/internship-certificate-modal";
+import { AdmissionsCountdown } from "@/components/bootcamp/admissions-countdown";
+import { AdmissionsWaitlistModal } from "@/components/bootcamp/admissions-waitlist-modal";
 
 export default function BootcampTrackDetailPage({
   params,
@@ -70,6 +73,26 @@ export default function BootcampTrackDetailPage({
   const [githubUsername, setGithubUsername] = useState("");
   const [enrolling, setEnrolling] = useState(false);
   const [enrollError, setEnrollError] = useState<string | null>(null);
+
+  // Admission status & Waitlist modal
+  const [waitlistModalOpen, setWaitlistModalOpen] = useState(false);
+  const [trackSetting, setTrackSetting] = useState<any>(null);
+
+  useEffect(() => {
+    fetch("/api/bootcamp/settings")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.settings) {
+          const match = data.settings[track.id] || data.settings[track.slug];
+          if (match) setTrackSetting(match);
+        }
+      })
+      .catch(() => {});
+  }, [track.id, track.slug]);
+
+  const currentStatus = trackSetting?.admissionStatus || track.admissionStatus || "OPEN";
+  const isOpeningSoon = currentStatus === "OPENING_SOON";
+  const isClosed = currentStatus === "CLOSED";
 
   useEffect(() => {
     fetch("/api/bootcamp/me")
@@ -191,27 +214,45 @@ export default function BootcampTrackDetailPage({
                 University NOC &amp; Offer Letter
               </span>
             </div>
+
+            {/* ADMISSIONS OPENING SOON COUNTDOWN */}
+            {isOpeningSoon && (
+              <div className="pt-4">
+                <AdmissionsCountdown
+                  targetDate={trackSetting?.openingDate}
+                  cohortName={trackSetting?.cohortName}
+                  announcement={trackSetting?.announcement}
+                  onJoinWaitlist={() => setWaitlistModalOpen(true)}
+                />
+              </div>
+            )}
           </div>
 
           {/* PRICING & ENROLLMENT CARD */}
-          <div className="rounded-2xl border border-emerald-500/30 bg-slate-950/80 p-6 space-y-4 lg:w-80 shrink-0 shadow-xl shadow-emerald-500/10">
+          <div className={`rounded-2xl border p-6 space-y-4 lg:w-80 shrink-0 shadow-xl ${
+            isOpeningSoon
+              ? "border-amber-500/40 bg-slate-950/90 shadow-amber-500/10"
+              : "border-emerald-500/30 bg-slate-950/80 shadow-emerald-500/10"
+          }`}>
             <div className="space-y-1">
               <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold">
-                Industrial Internship Fee
+                {isOpeningSoon ? "Priority Cohort Reservation" : "Industrial Internship Fee"}
               </span>
               <div className="flex items-baseline gap-2">
-                <span className="text-3xl font-black text-white">
+                <span className={`text-3xl font-black ${isOpeningSoon ? "text-amber-300" : "text-white"}`}>
                   ₹{track.pricing.discountedPrice}
                 </span>
                 <span className="text-sm text-slate-500 line-through">
                   ₹{track.pricing.originalPrice}
                 </span>
-                <span className="text-xs text-emerald-400 font-bold">
-                  (75% Off)
+                <span className={`text-xs font-bold ${isOpeningSoon ? "text-amber-400" : "text-emerald-400"}`}>
+                  (Early Bird Rate)
                 </span>
               </div>
               <span className="text-[10px] text-slate-400 block">
-                Includes live in-browser compiler, daily GitHub tracking, VIP Discord, and college-recognized Certificate ID.
+                {isOpeningSoon
+                  ? "Admissions are opening soon. Register on priority waitlist to lock in early-bird fee and 24-hr priority seat access."
+                  : "Includes live in-browser compiler, daily GitHub tracking, VIP Discord, and college-recognized Certificate ID."}
               </span>
             </div>
 
@@ -245,12 +286,24 @@ export default function BootcampTrackDetailPage({
                   </Link>
                 </div>
               </div>
+            ) : isOpeningSoon ? (
+              <Button
+                onClick={() => setWaitlistModalOpen(true)}
+                className="w-full rounded-xl bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-slate-950 font-black text-sm h-11 shadow-lg shadow-amber-500/20 transition-all hover:scale-[1.02]"
+              >
+                <Bell className="h-4 w-4 mr-1.5" />
+                <span>Join Priority Waitlist</span>
+              </Button>
+            ) : isClosed ? (
+              <div className="rounded-xl bg-slate-900 border border-slate-800 p-3 text-center text-xs font-bold text-slate-400">
+                Cohort Closed
+              </div>
             ) : (
               <Button
                 onClick={() => setEnrollModalOpen(true)}
                 className="w-full rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-sm h-11 shadow-lg shadow-emerald-500/20 transition-all hover:scale-[1.02]"
               >
-                <span>Enroll Now (₹499)</span>
+                <span>{track.pricing.discountedPrice === 0 ? "Test Free Track (₹0)" : `Enroll Now (₹${track.pricing.discountedPrice})`}</span>
                 <ArrowRight className="h-4 w-4 ml-1" />
               </Button>
             )}
@@ -549,6 +602,17 @@ export default function BootcampTrackDetailPage({
           </div>
         </div>
       )}
+
+      {/* PRIORITY WAITLIST MODAL FOR OPENING SOON TRACKS */}
+      <AdmissionsWaitlistModal
+        isOpen={waitlistModalOpen}
+        onClose={() => setWaitlistModalOpen(false)}
+        trackId={track.id}
+        trackTitle={track.title}
+        trackIcon={track.icon}
+        defaultName={studentName}
+        defaultEmail={studentEmail}
+      />
 
     </div>
   );

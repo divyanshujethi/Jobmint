@@ -64,3 +64,30 @@ export const bootcampDailySubmissions = pgTable("bootcamp_daily_submissions", {
   submittedAt: timestamp("submitted_at", { withTimezone: true, mode: "date" }).defaultNow().notNull(),
   updatedAt: timestamp("updated_at", { withTimezone: true, mode: "date" }).defaultNow().notNull(),
 });
+
+export const bootcampTrackSettings = pgTable("bootcamp_track_settings", {
+  trackId: text("track_id").primaryKey(),
+  admissionStatus: text("admission_status").notNull().default("OPEN"), // 'OPEN' | 'OPENING_SOON' | 'WAITLIST' | 'CLOSED'
+  openingDate: timestamp("opening_date", { withTimezone: true, mode: "date" }),
+  cohortName: text("cohort_name"),
+  announcement: text("announcement"),
+  maxSeats: integer("max_seats"),
+  seatsRemaining: integer("seats_remaining"),
+  isFeatured: boolean("is_featured").default(false),
+  updatedAt: timestamp("updated_at", { withTimezone: true, mode: "date" }).defaultNow().notNull(),
+});
+
+export const bootcampWaitlist = pgTable("bootcamp_waitlist", {
+  id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
+  trackId: text("track_id").notNull(),
+  trackTitle: text("track_title"),
+  name: text("name").notNull(),
+  email: text("email").notNull(),
+  phone: text("phone"),
+  college: text("college"),
+  degreeBranch: text("degree_branch"),
+  notes: text("notes"),
+  notified: boolean("notified").default(false),
+  createdAt: timestamp("created_at", { withTimezone: true, mode: "date" }).defaultNow().notNull(),
+});
+

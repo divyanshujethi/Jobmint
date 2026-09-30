@@ -5,6 +5,7 @@ import Link from "next/link";
 import {
   ShieldAlert,
   ShieldCheck,
+  GraduationCap,
   Building2,
   Briefcase,
   Users,
@@ -255,6 +256,16 @@ export function SuperAdminPanelClient() {
             </button>
           );
         })}
+
+        <a
+          href="https://internship.rolenest.in/admin"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 hover:bg-amber-500/20 font-bold whitespace-nowrap ml-auto"
+        >
+          <GraduationCap className="h-4 w-4 text-amber-400" />
+          <span>Internship Admissions Center &rarr;</span>
+        </a>
       </div>
 
       <div className="mx-4 sm:mx-8 mt-6">

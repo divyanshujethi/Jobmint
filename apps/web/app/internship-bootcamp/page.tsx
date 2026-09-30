@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import {
   GraduationCap,
@@ -32,8 +32,30 @@ export default function InternshipBootcampPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>("ALL");
   const [searchCertId, setSearchCertId] = useState("");
   const [trackSearchQuery, setTrackSearchQuery] = useState("");
+  const [trackSettings, setTrackSettings] = useState<Record<string, any>>({});
+  const [globalAnnouncement, setGlobalAnnouncement] = useState<string | null>(null);
+
+  // Fetch live admission statuses from API
+  useEffect(() => {
+    fetch("/api/bootcamp/settings")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.settings) setTrackSettings(data.settings);
+        if (data.globalSetting?.announcement && data.globalSetting?.admissionStatus !== "CLOSED") {
+          setGlobalAnnouncement(data.globalSetting.announcement);
+        }
+      })
+      .catch((err) => console.error("Error loading track settings:", err));
+  }, []);
+
+  const getTrackStatus = (t: BootcampTrack): string => {
+    const s = trackSettings[t.id] || trackSettings[t.slug];
+    return s?.admissionStatus || t.admissionStatus || "OPEN";
+  };
 
   const filteredTracks = BOOTCAMP_TRACKS.filter((t) => {
+    const trackStatus = getTrackStatus(t);
+
     if (trackSearchQuery.trim()) {
       const q = trackSearchQuery.toLowerCase();
       const match =
@@ -45,6 +67,8 @@ export default function InternshipBootcampPage() {
     }
 
     if (selectedCategory === "ALL") return true;
+    if (selectedCategory === "OPENING_SOON") return trackStatus === "OPENING_SOON";
+    if (selectedCategory === "OPEN_NOW") return trackStatus === "OPEN";
     if (selectedCategory === "FREE_TEST") return t.pricing.discountedPrice === 0 || t.category === "FREE_TEST";
     if (selectedCategory === "AI_ML") return ["AI_ML", "DATA_SCIENCE", "COMPUTER_VISION"].includes(t.category);
     if (selectedCategory === "WEB") return ["WEB", "NEXTJS", "MOBILE", "SAAS", "SEO"].includes(t.category);
@@ -305,6 +329,8 @@ export default function InternshipBootcampPage() {
             <div className="flex flex-wrap gap-1.5">
               {[
                 { id: "ALL", label: `All Tracks (${BOOTCAMP_TRACKS.length})` },
+                { id: "OPENING_SOON", label: "⏳ Admissions Opening Soon" },
+                { id: "OPEN_NOW", label: "🟢 Open for Admissions" },
                 { id: "FREE_TEST", label: "🚀 Free Test Track" },
                 { id: "AI_ML", label: "AI & ML" },
                 { id: "WEB", label: "Web & Next.js" },
@@ -335,125 +361,176 @@ export default function InternshipBootcampPage() {
 
         {/* TRACK CARDS GRID */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredTracks.map((track) => (
-            <div
-              key={track.id}
-              className="rounded-2xl border border-slate-800 bg-slate-900/90 hover:border-emerald-500/50 hover:shadow-xl hover:shadow-emerald-500/5 transition-all p-6 flex flex-col justify-between group space-y-6"
-            >
-              <div className="space-y-4">
-                
-                {/* TOP BADGES */}
-                <div className="flex items-center justify-between gap-2">
-                  <span className="text-3xl">{track.icon}</span>
-                  <span className="rounded-full bg-emerald-500/10 border border-emerald-500/30 px-2.5 py-0.5 text-[10px] font-black text-emerald-400 uppercase tracking-wider">
-                    {track.badge}
-                  </span>
+          {filteredTracks.map((track) => {
+            const status = getTrackStatus(track);
+            const setting = trackSettings[track.id] || trackSettings[track.slug];
+            const isOpeningSoon = status === "OPENING_SOON";
+            const isClosed = status === "CLOSED";
+            const isWaitlist = status === "WAITLIST";
+
+            return (
+              <div
+                key={track.id}
+                className={`rounded-2xl border transition-all p-6 flex flex-col justify-between group space-y-6 ${
+                  isOpeningSoon
+                    ? "border-amber-500/40 bg-slate-900/95 hover:border-amber-400 hover:shadow-xl hover:shadow-amber-500/10"
+                    : isClosed
+                    ? "border-red-500/20 bg-slate-950/60 opacity-75"
+                    : "border-slate-800 bg-slate-900/90 hover:border-emerald-500/50 hover:shadow-xl hover:shadow-emerald-500/5"
+                }`}
+              >
+                <div className="space-y-4">
+                  
+                  {/* TOP BADGES */}
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-3xl">{track.icon}</span>
+                    {isOpeningSoon ? (
+                      <span className="rounded-full bg-amber-500/20 border border-amber-500/40 px-2.5 py-0.5 text-[10px] font-black text-amber-300 uppercase tracking-wider animate-pulse flex items-center gap-1">
+                        <span>⏳</span>
+                        <span>Opening Soon</span>
+                      </span>
+                    ) : isClosed ? (
+                      <span className="rounded-full bg-red-500/20 border border-red-500/40 px-2.5 py-0.5 text-[10px] font-black text-red-300 uppercase tracking-wider">
+                        Admissions Closed
+                      </span>
+                    ) : (
+                      <span className="rounded-full bg-emerald-500/10 border border-emerald-500/30 px-2.5 py-0.5 text-[10px] font-black text-emerald-400 uppercase tracking-wider">
+                        {track.badge}
+                      </span>
+                    )}
+                  </div>
+
+                  <div>
+                    <span className="text-[11px] font-mono font-bold text-slate-500 uppercase tracking-wider block">
+                      {track.domain}
+                    </span>
+                    <Link href={`/${track.slug}`}>
+                      <h3 className={`text-base sm:text-lg font-black transition-colors mt-0.5 leading-snug ${
+                        isOpeningSoon ? "text-white group-hover:text-amber-300" : "text-white group-hover:text-emerald-400"
+                      }`}>
+                        {track.title}
+                      </h3>
+                    </Link>
+                    <p className="text-xs text-slate-400 mt-2 leading-relaxed">
+                      {track.tagline}
+                    </p>
+                  </div>
+
+                  {/* DURATION & STATS PILLS */}
+                  <div className="flex items-center gap-2 text-[11px] text-slate-300 font-mono flex-wrap">
+                    <span className="rounded-md bg-slate-950 px-2 py-1 border border-slate-800 flex items-center gap-1">
+                      <Clock className="h-3 w-3 text-emerald-400" />
+                      {track.durationWeeks} Weeks
+                    </span>
+                    <span className="rounded-md bg-slate-950 px-2 py-1 border border-slate-800">
+                      {track.totalHours} Hours Labs
+                    </span>
+                    <span className="rounded-md bg-slate-950 px-2 py-1 border border-slate-800 text-purple-300">
+                      4 Credits
+                    </span>
+                  </div>
+
+                  {/* SKILLS TAGS */}
+                  <div className="flex flex-wrap gap-1 pt-1">
+                    {track.certificateSpec.skills.slice(0, 5).map((skill) => (
+                      <span
+                        key={skill}
+                        className="rounded bg-slate-800/80 px-1.5 py-0.5 text-[10px] text-slate-300 font-medium"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                    {track.certificateSpec.skills.length > 5 && (
+                      <span className="rounded bg-slate-800/80 px-1.5 py-0.5 text-[10px] text-slate-400 font-medium">
+                        +{track.certificateSpec.skills.length - 5} more
+                      </span>
+                    )}
+                  </div>
+
+                  {/* CAPSTONE PREVIEW */}
+                  <div className="rounded-xl bg-slate-950/80 border border-slate-800/80 p-3 space-y-1">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">
+                      Capstone Deliverable:
+                    </span>
+                    <p className="text-xs font-semibold text-slate-200 line-clamp-1">
+                      {track.capstoneProject.title}
+                    </p>
+                  </div>
                 </div>
 
-                <div>
-                  <span className="text-[11px] font-mono font-bold text-slate-500 uppercase tracking-wider block">
-                    {track.domain}
-                  </span>
-                  <Link href={`/${track.slug}`}>
-                    <h3 className="text-base sm:text-lg font-black text-white group-hover:text-emerald-400 transition-colors mt-0.5 leading-snug">
-                      {track.title}
-                    </h3>
+                {/* FOOTER & ENROLL BUTTON */}
+                <div className="pt-4 border-t border-slate-800 flex items-center justify-between gap-3">
+                  <div>
+                    {isOpeningSoon ? (
+                      <div>
+                        <div className="flex items-baseline gap-1.5">
+                          <span className="text-lg font-black text-amber-300">
+                            ₹{track.pricing.discountedPrice}
+                          </span>
+                          <span className="text-xs text-slate-500 line-through">
+                            ₹{track.pricing.originalPrice}
+                          </span>
+                        </div>
+                        <span className="text-[10px] text-amber-400 font-bold block">
+                          {setting?.cohortName ? `${setting.cohortName} • ` : ""}Admissions Opening Soon
+                        </span>
+                      </div>
+                    ) : track.pricing.discountedPrice === 0 ? (
+                      <div>
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-lg font-black text-emerald-400">
+                            100% FREE
+                          </span>
+                          <span className="text-xs text-slate-500 line-through">
+                            ₹999
+                          </span>
+                        </div>
+                        <span className="text-[10px] text-emerald-400 font-bold block">
+                          Instant Free Test Track
+                        </span>
+                      </div>
+                    ) : (
+                      <div>
+                        <div className="flex items-baseline gap-1.5">
+                          <span className="text-lg font-black text-white">
+                            ₹{track.pricing.discountedPrice}
+                          </span>
+                          <span className="text-xs text-slate-500 line-through">
+                            ₹{track.pricing.originalPrice}
+                          </span>
+                        </div>
+                        <span className="text-[10px] text-emerald-400 font-bold block">
+                          Early Bird Student Rate
+                        </span>
+                      </div>
+                    )}
+                  </div>
+
+                  <Link
+                    href={`/${track.slug}`}
+                    className={`rounded-xl font-black text-xs h-9 px-4 inline-flex items-center gap-1.5 shadow-md transition-all hover:scale-105 ${
+                      isOpeningSoon
+                        ? "bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-slate-950 shadow-amber-500/20"
+                        : track.pricing.discountedPrice === 0
+                        ? "bg-gradient-to-r from-emerald-400 to-teal-400 text-slate-950 shadow-emerald-500/20"
+                        : "bg-emerald-500 hover:bg-emerald-400 text-slate-950"
+                    }`}
+                  >
+                    <span>
+                      {isOpeningSoon
+                        ? "Join Waitlist"
+                        : isClosed
+                        ? "View Track"
+                        : track.pricing.discountedPrice === 0
+                        ? "Test Free Track"
+                        : "View Syllabus"}
+                    </span>
+                    <ArrowRight className="h-3.5 w-3.5" />
                   </Link>
-                  <p className="text-xs text-slate-400 mt-2 leading-relaxed">
-                    {track.tagline}
-                  </p>
-                </div>
-
-                {/* DURATION & STATS PILLS */}
-                <div className="flex items-center gap-2 text-[11px] text-slate-300 font-mono flex-wrap">
-                  <span className="rounded-md bg-slate-950 px-2 py-1 border border-slate-800 flex items-center gap-1">
-                    <Clock className="h-3 w-3 text-emerald-400" />
-                    {track.durationWeeks} Weeks
-                  </span>
-                  <span className="rounded-md bg-slate-950 px-2 py-1 border border-slate-800">
-                    {track.totalHours} Hours Labs
-                  </span>
-                  <span className="rounded-md bg-slate-950 px-2 py-1 border border-slate-800 text-purple-300">
-                    4 Credits
-                  </span>
-                </div>
-
-                {/* SKILLS TAGS */}
-                <div className="flex flex-wrap gap-1 pt-1">
-                  {track.certificateSpec.skills.slice(0, 5).map((skill) => (
-                    <span
-                      key={skill}
-                      className="rounded bg-slate-800/80 px-1.5 py-0.5 text-[10px] text-slate-300 font-medium"
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                  {track.certificateSpec.skills.length > 5 && (
-                    <span className="rounded bg-slate-800/80 px-1.5 py-0.5 text-[10px] text-slate-400 font-medium">
-                      +{track.certificateSpec.skills.length - 5} more
-                    </span>
-                  )}
-                </div>
-
-                {/* CAPSTONE PREVIEW */}
-                <div className="rounded-xl bg-slate-950/80 border border-slate-800/80 p-3 space-y-1">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">
-                    Capstone Deliverable:
-                  </span>
-                  <p className="text-xs font-semibold text-slate-200 line-clamp-1">
-                    {track.capstoneProject.title}
-                  </p>
                 </div>
               </div>
-
-              {/* FOOTER & ENROLL BUTTON */}
-              <div className="pt-4 border-t border-slate-800 flex items-center justify-between gap-3">
-                <div>
-                  {track.pricing.discountedPrice === 0 ? (
-                    <div>
-                      <div className="flex items-center gap-1.5">
-                        <span className="text-lg font-black text-emerald-400">
-                          100% FREE
-                        </span>
-                        <span className="text-xs text-slate-500 line-through">
-                          ₹999
-                        </span>
-                      </div>
-                      <span className="text-[10px] text-emerald-400 font-bold block">
-                        Instant Free Test Track
-                      </span>
-                    </div>
-                  ) : (
-                    <div>
-                      <div className="flex items-baseline gap-1.5">
-                        <span className="text-lg font-black text-white">
-                          ₹{track.pricing.discountedPrice}
-                        </span>
-                        <span className="text-xs text-slate-500 line-through">
-                          ₹{track.pricing.originalPrice}
-                        </span>
-                      </div>
-                      <span className="text-[10px] text-emerald-400 font-bold block">
-                        Early Bird Student Rate
-                      </span>
-                    </div>
-                  )}
-                </div>
-
-                <Link
-                  href={`/${track.slug}`}
-                  className={`rounded-xl font-black text-xs h-9 px-4 inline-flex items-center gap-1.5 shadow-md transition-all hover:scale-105 ${
-                    track.pricing.discountedPrice === 0
-                      ? "bg-gradient-to-r from-emerald-400 to-teal-400 text-slate-950 shadow-emerald-500/20"
-                      : "bg-emerald-500 hover:bg-emerald-400 text-slate-950"
-                  }`}
-                >
-                  <span>{track.pricing.discountedPrice === 0 ? "Test Free Track" : "View Syllabus"}</span>
-                  <ArrowRight className="h-3.5 w-3.5" />
-                </Link>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
 

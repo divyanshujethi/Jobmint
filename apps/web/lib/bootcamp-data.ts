@@ -69,6 +69,9 @@ export interface BootcampTrack {
     discountedPrice: number;
     currency: "INR";
   };
+  admissionStatus?: "OPEN" | "OPENING_SOON" | "WAITLIST" | "CLOSED";
+  openingDate?: string | null;
+  cohortName?: string | null;
   tagline: string;
   overview: string;
   targetAudience: string[];
