@@ -31,9 +31,31 @@ import { StudyMaterialModal } from "@/components/bootcamp/study-material-modal";
 export default function InternshipBootcampPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>("ALL");
   const [searchCertId, setSearchCertId] = useState("");
+  const [trackSearchQuery, setTrackSearchQuery] = useState("");
 
   const filteredTracks = BOOTCAMP_TRACKS.filter((t) => {
+    if (trackSearchQuery.trim()) {
+      const q = trackSearchQuery.toLowerCase();
+      const match =
+        t.title.toLowerCase().includes(q) ||
+        t.domain.toLowerCase().includes(q) ||
+        t.tagline.toLowerCase().includes(q) ||
+        t.certificateSpec.skills.some((s) => s.toLowerCase().includes(q));
+      if (!match) return false;
+    }
+
     if (selectedCategory === "ALL") return true;
+    if (selectedCategory === "FREE_TEST") return t.pricing.discountedPrice === 0 || t.category === "FREE_TEST";
+    if (selectedCategory === "AI_ML") return ["AI_ML", "DATA_SCIENCE", "COMPUTER_VISION"].includes(t.category);
+    if (selectedCategory === "WEB") return ["WEB", "NEXTJS", "MOBILE", "SAAS", "SEO"].includes(t.category);
+    if (selectedCategory === "SYSTEMS") return ["SYSTEM_DESIGN", "DISTRIBUTED_SYS", "NETWORKING", "CDN", "EDGE", "COMPILERS"].includes(t.category);
+    if (selectedCategory === "LANGUAGES") return ["PYTHON", "JAVA", "TS_JS"].includes(t.category);
+    if (selectedCategory === "CYBER") return ["CYBER_SECURITY", "REVERSE_ENG"].includes(t.category);
+    if (selectedCategory === "DATA") return ["DATABASE", "SQL", "DATA_SCIENCE"].includes(t.category);
+    if (selectedCategory === "GAMING") return ["GAME_DEV", "WEB_GAME_DEV", "GRAPHICS"].includes(t.category);
+    if (selectedCategory === "DEV_TOOLS") return ["GIT", "AUTOMATION", "DEV_TOOLING", "SRE"].includes(t.category);
+    if (selectedCategory === "EMERGING") return ["BLOCKCHAIN", "HEALTH_TECH", "FREE_TEST"].includes(t.category);
+
     return t.category === selectedCategory;
   });
 
@@ -77,7 +99,7 @@ export default function InternshipBootcampPage() {
               href="#tracks"
               className="rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-sm px-6 py-3 shadow-xl shadow-emerald-500/20 transition-all hover:scale-105 inline-flex items-center gap-2"
             >
-              <span>Explore 6 Domain Tracks</span>
+              <span>Explore 30+ Domain Tracks</span>
               <ArrowRight className="h-4 w-4" />
             </a>
 
@@ -267,30 +289,47 @@ export default function InternshipBootcampPage() {
             </p>
           </div>
 
-          {/* FILTER PILLS */}
-          <div className="flex flex-wrap gap-1.5">
-            {[
-              { id: "ALL", label: "All Tracks (6)" },
-              { id: "AI_ML", label: "AI & ML" },
-              { id: "CYBER_SECURITY", label: "Cyber Security" },
-              { id: "GEN_AI", label: "Prompt Eng" },
-              { id: "PYTHON", label: "Python" },
-              { id: "JAVA", label: "Enterprise Java" },
-              { id: "FULLSTACK", label: "Full-Stack Next.js" },
-            ].map((pill) => (
-              <button
-                key={pill.id}
-                type="button"
-                onClick={() => setSelectedCategory(pill.id)}
-                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-colors ${
-                  selectedCategory === pill.id
-                    ? "bg-emerald-500 text-slate-950 shadow-md"
-                    : "bg-slate-900 border border-slate-800 text-slate-400 hover:text-white"
-                }`}
-              >
-                {pill.label}
-              </button>
-            ))}
+          {/* SEARCH INPUT & FILTER PILLS */}
+          <div className="space-y-3 w-full md:w-auto">
+            <div className="relative w-full md:w-72">
+              <Search className="absolute left-3 top-2.5 h-3.5 w-3.5 text-slate-500" />
+              <Input
+                type="text"
+                placeholder="Search tracks, skills or domains..."
+                value={trackSearchQuery}
+                onChange={(e) => setTrackSearchQuery(e.target.value)}
+                className="pl-8 bg-slate-950 border-slate-700 text-xs text-white rounded-xl h-8 w-full"
+              />
+            </div>
+
+            <div className="flex flex-wrap gap-1.5">
+              {[
+                { id: "ALL", label: `All Tracks (${BOOTCAMP_TRACKS.length})` },
+                { id: "FREE_TEST", label: "🚀 Free Test Track" },
+                { id: "AI_ML", label: "AI & ML" },
+                { id: "WEB", label: "Web & Next.js" },
+                { id: "SYSTEMS", label: "Systems & Distributed" },
+                { id: "LANGUAGES", label: "Languages (Python, Java, TS)" },
+                { id: "CYBER", label: "Cyber & Reverse Eng" },
+                { id: "DATA", label: "Databases & SQL" },
+                { id: "GAMING", label: "Game Dev & Graphics" },
+                { id: "DEV_TOOLS", label: "DevTools, Git & QA" },
+                { id: "EMERGING", label: "Blockchain & Health" },
+              ].map((pill) => (
+                <button
+                  key={pill.id}
+                  type="button"
+                  onClick={() => setSelectedCategory(pill.id)}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-colors ${
+                    selectedCategory === pill.id
+                      ? "bg-emerald-500 text-slate-950 shadow-md"
+                      : "bg-slate-900 border border-slate-800 text-slate-400 hover:text-white"
+                  }`}
+                >
+                  {pill.label}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -370,24 +409,46 @@ export default function InternshipBootcampPage() {
               {/* FOOTER & ENROLL BUTTON */}
               <div className="pt-4 border-t border-slate-800 flex items-center justify-between gap-3">
                 <div>
-                  <div className="flex items-baseline gap-1.5">
-                    <span className="text-lg font-black text-white">
-                      ₹{track.pricing.discountedPrice}
-                    </span>
-                    <span className="text-xs text-slate-500 line-through">
-                      ₹{track.pricing.originalPrice}
-                    </span>
-                  </div>
-                  <span className="text-[10px] text-emerald-400 font-bold block">
-                    Early Bird Student Rate
-                  </span>
+                  {track.pricing.discountedPrice === 0 ? (
+                    <div>
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-lg font-black text-emerald-400">
+                          100% FREE
+                        </span>
+                        <span className="text-xs text-slate-500 line-through">
+                          ₹999
+                        </span>
+                      </div>
+                      <span className="text-[10px] text-emerald-400 font-bold block">
+                        Instant Free Test Track
+                      </span>
+                    </div>
+                  ) : (
+                    <div>
+                      <div className="flex items-baseline gap-1.5">
+                        <span className="text-lg font-black text-white">
+                          ₹{track.pricing.discountedPrice}
+                        </span>
+                        <span className="text-xs text-slate-500 line-through">
+                          ₹{track.pricing.originalPrice}
+                        </span>
+                      </div>
+                      <span className="text-[10px] text-emerald-400 font-bold block">
+                        Early Bird Student Rate
+                      </span>
+                    </div>
+                  )}
                 </div>
 
                 <Link
                   href={`/${track.slug}`}
-                  className="rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs h-9 px-4 inline-flex items-center gap-1.5 shadow-md transition-all hover:scale-105"
+                  className={`rounded-xl font-black text-xs h-9 px-4 inline-flex items-center gap-1.5 shadow-md transition-all hover:scale-105 ${
+                    track.pricing.discountedPrice === 0
+                      ? "bg-gradient-to-r from-emerald-400 to-teal-400 text-slate-950 shadow-emerald-500/20"
+                      : "bg-emerald-500 hover:bg-emerald-400 text-slate-950"
+                  }`}
                 >
-                  <span>View Syllabus</span>
+                  <span>{track.pricing.discountedPrice === 0 ? "Test Free Track" : "View Syllabus"}</span>
                   <ArrowRight className="h-3.5 w-3.5" />
                 </Link>
               </div>

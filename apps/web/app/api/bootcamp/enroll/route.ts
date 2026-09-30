@@ -62,6 +62,8 @@ export async function POST(req: NextRequest) {
     const offerLetterId = `RN-OFFER-2026-${cleanPrefix}-${randomHex}`;
     const nocLetterId = `RN-NOC-2026-${cleanPrefix}-${randomHex}`;
 
+    const finalAmount = typeof amountPaid === "number" ? amountPaid : (!isNaN(Number(amountPaid)) ? Number(amountPaid) : 499);
+
     const [newEnrollment] = await db
       .insert(bootcampEnrollments)
       .values({
@@ -79,9 +81,9 @@ export async function POST(req: NextRequest) {
         currentDay: 1,
         unlockedDay: 1,
         status: "ACTIVE",
-        paymentOrderId: paymentOrderId || `CF_SIM_${Date.now()}`,
+        paymentOrderId: paymentOrderId || (finalAmount === 0 ? "FREE_TEST_ENROLLMENT" : `CF_SIM_${Date.now()}`),
         paymentStatus: "PAID",
-        amountPaid: Number(amountPaid) || 499,
+        amountPaid: finalAmount,
       })
       .returning();
 

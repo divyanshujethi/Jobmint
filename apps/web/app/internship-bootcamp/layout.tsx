@@ -35,9 +35,27 @@ export default function InternshipBootcampLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-emerald-500/30 selection:text-emerald-200">
+    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-emerald-500/30 selection:text-emerald-200 print:bg-white print:text-slate-900 print:min-h-0 print:p-0 print:m-0">
+      {/* GLOBAL PRINT STYLES FOR CRISP, CLEAN PDF DOWNLOADS */}
+      <style>{`
+        @media print {
+          html, body {
+            background-color: #ffffff !important;
+            color: #0f172a !important;
+            font-size: 12pt;
+          }
+          header, footer, nav, .print-hidden, [data-print-hide="true"] {
+            display: none !important;
+          }
+          * {
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+          }
+        }
+      `}</style>
+
       {/* TOP ANNOUNCEMENT BANNER */}
-      <div className="bg-gradient-to-r from-emerald-950 via-teal-900 to-slate-950 border-b border-emerald-800/40 px-4 py-2 text-center text-xs font-medium text-emerald-200 flex items-center justify-center gap-2 flex-wrap">
+      <div className="print:hidden bg-gradient-to-r from-emerald-950 via-teal-900 to-slate-950 border-b border-emerald-800/40 px-4 py-2 text-center text-xs font-medium text-emerald-200 flex items-center justify-center gap-2 flex-wrap">
         <span className="flex h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
         <span>
           <strong>2026 Batch Applications Open:</strong> AICTE/UGC Credit Recommended 3-4 Week Industrial Internships with Recognized Certificate IDs.
@@ -52,7 +70,7 @@ export default function InternshipBootcampLayout({
       </div>
 
       {/* DEDICATED BOOTCAMP NAVBAR */}
-      <header className="sticky top-0 z-40 bg-slate-950/90 backdrop-blur-md border-b border-slate-800">
+      <header className="print:hidden sticky top-0 z-40 bg-slate-950/90 backdrop-blur-md border-b border-slate-800">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
           
           {/* BRAND LOGO */}
@@ -153,7 +171,7 @@ export default function InternshipBootcampLayout({
       <main className="flex-1">{children}</main>
 
       {/* DEDICATED BOOTCAMP FOOTER */}
-      <footer className="border-t border-slate-900 bg-slate-950/80 text-slate-400 text-xs py-12 px-4 sm:px-6 lg:px-8">
+      <footer className="print:hidden border-t border-slate-900 bg-slate-950/80 text-slate-400 text-xs py-12 px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           
           <div className="space-y-3">

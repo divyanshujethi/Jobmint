@@ -3,7 +3,7 @@ export interface CoursePlaylist {
   title: string;
   creator: string;
   creatorSubscribers: string;
-  category: "AI_ML" | "WEB_DEV" | "DSA" | "DEVOPS_CLOUD" | "CYBERSECURITY" | "PYTHON_DATA" | "SYSTEM_DESIGN";
+  category: "AI_ML" | "WEB_DEV" | "DSA" | "DEVOPS_CLOUD" | "CYBERSECURITY" | "PYTHON_DATA" | "SYSTEM_DESIGN" | "FREE_TEST" | string;
   subcategory: string;
   youtubeUrl: string;
   embedPlaylistId?: string;
@@ -25,6 +25,41 @@ export interface CoursePlaylist {
 }
 
 export const CURATED_COURSES: CoursePlaylist[] = [
+  // 0. 100% FREE TEST COURSE (Zero cost, instant verification & testing)
+  {
+    id: "free-developer-sandbox",
+    title: "Interactive Full-Stack Architecture & Git Sandbox (Free Test Course)",
+    creator: "RoleNest Virtual Labs",
+    creatorSubscribers: "Official",
+    category: "FREE_TEST",
+    subcategory: "Full-Stack Architecture & Verification Testing",
+    youtubeUrl: "https://www.youtube.com/playlist?list=PL4cUxeGkcC9goXbgTDQ0n_4TBzOO0ocPR",
+    embedPlaylistId: "PL4cUxeGkcC9goXbgTDQ0n_4TBzOO0ocPR",
+    duration: "Self-Paced / Instant Test",
+    totalVideos: 5,
+    difficulty: "All Levels",
+    certificateTitle: "Certified Interactive Full-Stack & Developer Sandbox Specialist",
+    projectBenchmark: "Test the examination suite and verify instant cryptographic certificate generation.",
+    curriculumModules: [
+      "Module 1: Git Internals, Plumbing Commands & Interactive Rebase",
+      "Module 2: Modular Clean Architecture & REST Contract Verification",
+      "Module 3: Database Indexing, B-Trees & Sub-Millisecond Redis Caching",
+      "Module 4: Lightweight Multi-Stage Docker Containers & CI/CD Pipelines",
+      "Module 5: Cryptographic Verification Ledger & Proof-of-Work Auditing",
+    ],
+    skillsLearned: ["Git", "Next.js", "Clean Architecture", "Unit Testing", "Docker", "CI/CD", "Verification"],
+    description:
+      "100% Free interactive developer course designed for candidates and evaluators to test quiz examination, project benchmark evaluation, and instant cryptographic certificate issuance.",
+    recommendedGithubRepos: [
+      {
+        name: "RitualDev-Lab/DevShelf",
+        repoUrl: "https://github.com/RitualDev-Lab/DevShelf",
+        stars: "1.2k ⭐",
+        description: "Open-source developer platform and resource ecosystem curated by RoleNest.",
+      },
+    ],
+    relatedProblemCategory: "Arrays & Hashing",
+  },
   // 1. AI & MACHINE LEARNING - ANDREJ KARPATHY
   {
     id: "karpathy-nn",

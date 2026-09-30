@@ -29,6 +29,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { getBootcampTrackBySlug, BOOTCAMP_TRACKS } from "@/lib/bootcamp-data";
 import { getCurriculumDaysForTrack, BootcampDayLesson } from "@/lib/bootcamp-curriculum-days";
+import { GamifiedQuestPanel } from "@/components/bootcamp/gamified-quest-panel";
+import { addPlayerXp } from "@/lib/game-engine";
 
 export default function BootcampDayWorkspacePage({
   params,
@@ -105,6 +107,7 @@ export default function BootcampDayWorkspacePage({
     });
     setTestResults(results);
     setCompilerOutput("All test cases passed! (100% Correctness • Exit Code: 0)");
+    addPlayerXp(250);
   };
 
   // Submit day assignment
@@ -143,6 +146,7 @@ export default function BootcampDayWorkspacePage({
         unlockedDay: data.unlockedDay,
       }));
       setSubmitMessage(`Day ${dayNum} deliverable submitted! Day ${data.unlockedDay} is now unlocked.`);
+      addPlayerXp(500);
     } catch (err: any) {
       alert(err.message || "Failed to submit assignment. Please make sure you are logged in.");
     } finally {
@@ -228,6 +232,14 @@ export default function BootcampDayWorkspacePage({
           </div>
         </div>
       </div>
+
+      {/* GAMIFIED QUEST & KNOWLEDGE BATTLE HUD */}
+      <GamifiedQuestPanel
+        dayNumber={dayNum}
+        subdomain={lesson.subdomain}
+        isCodeSolved={testResults.length > 0 && testResults.every((t) => t.passed)}
+        isAssignmentSubmitted={Boolean(submission)}
+      />
 
       {/* LOCK CHECK BANNER IF DAY IS LOCKED */}
       {!isUnlocked ? (

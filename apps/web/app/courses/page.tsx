@@ -148,6 +148,15 @@ export default function CoursesPage() {
             </button>
 
             <button
+              onClick={() => setSelectedCategory("FREE_TEST")}
+              className={`rounded-lg px-3.5 py-1.5 text-xs font-bold transition-all ${
+                selectedCategory === "FREE_TEST" ? "bg-emerald-600 text-white shadow-sm" : "text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200"
+              }`}
+            >
+              🚀 Free Test Course
+            </button>
+
+            <button
               onClick={() => setSelectedCategory("PYTHON_DATA")}
               className={`rounded-lg px-3.5 py-1.5 text-xs font-bold transition-all ${
                 selectedCategory === "PYTHON_DATA" ? "bg-amber-600 text-white shadow-sm" : "text-slate-600 hover:text-slate-900"
@@ -181,7 +190,12 @@ export default function CoursesPage() {
               <CardHeader className="pb-3">
                 <div className="flex items-start justify-between gap-3">
                   <div>
-                    <div className="flex items-center gap-2 mb-1">
+                    <div className="flex items-center gap-2 mb-1 flex-wrap">
+                      {course.category === "FREE_TEST" && (
+                        <span className="rounded bg-emerald-500 text-slate-950 font-black px-2 py-0.5 text-[10px] uppercase tracking-wider animate-pulse">
+                          100% Free Test Course
+                        </span>
+                      )}
                       <span className="rounded bg-emerald-50 text-emerald-800 border border-emerald-200 px-2 py-0.5 text-[10px] font-mono font-bold">
                         {course.subcategory}
                       </span>

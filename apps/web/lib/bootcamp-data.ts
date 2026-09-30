@@ -1,3 +1,5 @@
+import { EXTENDED_BOOTCAMP_TRACKS } from "./bootcamp-tracks-catalog";
+
 export interface BootcampStudyMaterial {
   title: string;
   filename: string;
@@ -57,7 +59,7 @@ export interface BootcampTrack {
   slug: string;
   title: string;
   domain: string;
-  category: "AI_ML" | "CYBER_SECURITY" | "GEN_AI" | "PYTHON" | "JAVA" | "FULLSTACK";
+  category: string;
   icon: string;
   badge: string;
   durationWeeks: number;
@@ -96,7 +98,7 @@ export interface BootcampTrack {
   };
 }
 
-export const BOOTCAMP_TRACKS: BootcampTrack[] = [
+const INITIAL_CORE_TRACKS: BootcampTrack[] = [
   // 1. AI & Machine Learning Engineering
   {
     id: "ai-ml",
@@ -1551,6 +1553,12 @@ export const BOOTCAMP_TRACKS: BootcampTrack[] = [
       ],
     },
   },
+];
+
+export const BOOTCAMP_TRACKS: BootcampTrack[] = [
+  EXTENDED_BOOTCAMP_TRACKS[0], // developer-sandbox (100% Free Test Track)
+  ...INITIAL_CORE_TRACKS,
+  ...EXTENDED_BOOTCAMP_TRACKS.slice(1),
 ];
 
 export function getBootcampTrackBySlug(slug: string): BootcampTrack | undefined {

@@ -109,8 +109,24 @@ export default function InternshipCertificateVerificationPage({
   };
 
   return (
-    <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-10 space-y-8">
-      
+    <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-10 space-y-8 print:m-0 print:p-0 print:max-w-none print:w-full print:space-y-6">
+      <style>{`
+        @media print {
+          @page {
+            size: A4 portrait;
+            margin: 10mm 12mm;
+          }
+          body {
+            background-color: #ffffff !important;
+            color: #0f172a !important;
+          }
+          .print-avoid-break {
+            break-inside: avoid !important;
+            page-break-inside: avoid !important;
+          }
+        }
+      `}</style>
+
       {/* TOP NAVIGATION & SEARCH */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4 print:hidden">
         <Link
@@ -164,7 +180,7 @@ export default function InternshipCertificateVerificationPage({
         </div>
       ) : (
         /* VERIFIED CERTIFICATE & COLLEGE RECOMMENDATION LETTER */
-        <div className="space-y-8">
+        <div className="space-y-8 print:space-y-6">
           
           {/* VERIFICATION BADGE BAR */}
           <div className="rounded-2xl border border-emerald-500/30 bg-emerald-950/30 p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 print:hidden">
@@ -198,41 +214,41 @@ export default function InternshipCertificateVerificationPage({
           </div>
 
           {/* FORMAL DIGITAL CERTIFICATE */}
-          <div className="rounded-3xl border-2 border-amber-400/40 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-8 sm:p-12 shadow-2xl relative overflow-hidden text-center space-y-6">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+          <div className="print-avoid-break rounded-3xl border-2 border-amber-400/40 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-8 sm:p-12 shadow-2xl relative overflow-hidden text-center space-y-6 print:bg-white print:border-amber-600 print:text-slate-900 print:shadow-none print:p-6">
+            <div className="flex items-center justify-between border-b border-slate-800 pb-4 print:border-slate-300">
               <div className="text-left">
-                <span className="font-black text-sm text-emerald-400 uppercase tracking-wider block">
+                <span className="font-black text-sm text-emerald-400 print:text-emerald-800 uppercase tracking-wider block">
                   RoleNest Virtual Labs
                 </span>
-                <span className="text-[10px] text-slate-400 font-medium">
+                <span className="text-[10px] text-slate-400 print:text-slate-600 font-medium">
                   Autonomous Technical Education &amp; Engineering Research
                 </span>
               </div>
-              <div className="rounded-full bg-emerald-500/10 border border-emerald-500/30 px-3 py-1 text-xs font-mono font-bold text-emerald-400">
+              <div className="rounded-full bg-emerald-500/10 border border-emerald-500/30 px-3 py-1 text-xs font-mono font-bold text-emerald-400 print:text-emerald-800 print:border-emerald-700">
                 ID: {cert.id}
               </div>
             </div>
 
             <div className="space-y-2 pt-2">
-              <span className="text-xs uppercase tracking-widest text-amber-300 font-extrabold">
+              <span className="text-xs uppercase tracking-widest text-amber-300 print:text-amber-800 font-extrabold">
                 Certificate of Industrial Internship Completion
               </span>
-              <p className="text-xs text-slate-400">This certifies that</p>
-              <h1 className="text-2xl sm:text-4xl font-black text-white tracking-tight py-1">
+              <p className="text-xs text-slate-400 print:text-slate-600">This certifies that</p>
+              <h1 className="text-2xl sm:text-4xl font-black text-white print:text-slate-950 tracking-tight py-1">
                 {cert.recipientName}
               </h1>
-              <p className="text-xs sm:text-sm text-slate-300 max-w-xl mx-auto leading-relaxed">
-                from <strong className="text-white">{cert.collegeName}</strong>
+              <p className="text-xs sm:text-sm text-slate-300 print:text-slate-800 max-w-xl mx-auto leading-relaxed">
+                from <strong className="text-white print:text-slate-950">{cert.collegeName}</strong>
                 {cert.degreeBranch && ` (${cert.degreeBranch})`}
                 {cert.rollNumber && ` • Roll No: ${cert.rollNumber}`}
               </p>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-slate-400 print:text-slate-600">
                 has successfully fulfilled all industry lab requirements and evaluation criteria for the
               </p>
-              <h2 className="text-base sm:text-xl font-black text-emerald-400 py-1">
+              <h2 className="text-base sm:text-xl font-black text-emerald-400 print:text-emerald-800 py-1">
                 {cert.trackTitle}
               </h2>
-              <p className="text-xs text-slate-300 font-mono">
+              <p className="text-xs text-slate-300 print:text-slate-800 font-mono">
                 Duration: <strong>{cert.durationLabel}</strong> • Overall Evaluation: <strong>Grade {cert.grade} ({cert.score}%)</strong>
               </p>
             </div>
@@ -242,7 +258,7 @@ export default function InternshipCertificateVerificationPage({
               {cert.skills.map((s) => (
                 <span
                   key={s}
-                  className="rounded-lg bg-slate-900 border border-slate-800 px-2.5 py-1 text-[11px] font-mono text-slate-300"
+                  className="rounded-lg bg-slate-900 border border-slate-800 px-2.5 py-1 text-[11px] font-mono text-slate-300 print:bg-slate-100 print:border-slate-300 print:text-slate-800"
                 >
                   {s}
                 </span>
@@ -250,11 +266,11 @@ export default function InternshipCertificateVerificationPage({
             </div>
 
             {/* CAPSTONE PROOF */}
-            <div className="rounded-2xl bg-slate-950/80 border border-slate-800 p-4 max-w-lg mx-auto text-left space-y-1">
-              <span className="text-[10px] font-mono text-slate-500 uppercase tracking-wider font-bold block">
+            <div className="rounded-2xl bg-slate-950/80 border border-slate-800 p-4 max-w-lg mx-auto text-left space-y-1 print:bg-slate-50 print:border-slate-300">
+              <span className="text-[10px] font-mono text-slate-500 print:text-slate-600 uppercase tracking-wider font-bold block">
                 Verified Industrial Capstone Project:
               </span>
-              <p className="text-xs font-bold text-white">
+              <p className="text-xs font-bold text-white print:text-slate-950">
                 {cert.capstoneTitle}
               </p>
               {cert.githubUrl && (
@@ -262,7 +278,7 @@ export default function InternshipCertificateVerificationPage({
                   href={cert.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-[11px] text-emerald-400 hover:underline pt-0.5 font-mono"
+                  className="inline-flex items-center gap-1 text-[11px] text-emerald-400 print:text-emerald-800 hover:underline pt-0.5 font-mono"
                 >
                   <Github className="h-3 w-3" />
                   <span>Inspect Verified Source Code ({cert.githubUrl.replace(/^https?:\/\//, "")})</span>
@@ -271,12 +287,12 @@ export default function InternshipCertificateVerificationPage({
             </div>
 
             {/* SIGNATURE & DATE */}
-            <div className="border-t border-slate-800 pt-6 grid grid-cols-1 sm:grid-cols-3 gap-4 text-left text-xs text-slate-400">
+            <div className="border-t border-slate-800 pt-6 grid grid-cols-1 sm:grid-cols-3 gap-4 text-left text-xs text-slate-400 print:border-slate-300 print:text-slate-700">
               <div>
-                <span className="text-slate-500 block uppercase font-bold text-[10px]">
+                <span className="text-slate-500 print:text-slate-600 block uppercase font-bold text-[10px]">
                   Issued Date:
                 </span>
-                <span className="text-white font-medium">
+                <span className="text-white print:text-slate-950 font-medium">
                   {new Date(cert.issuedAt).toLocaleDateString("en-IN", {
                     day: "numeric",
                     month: "long",
@@ -285,25 +301,25 @@ export default function InternshipCertificateVerificationPage({
                 </span>
               </div>
               <div>
-                <span className="text-slate-500 block uppercase font-bold text-[10px]">
+                <span className="text-slate-500 print:text-slate-600 block uppercase font-bold text-[10px]">
                   Ledger Signature:
                 </span>
-                <span className="font-mono text-emerald-400 text-[11px]">
+                <span className="font-mono text-emerald-400 print:text-emerald-800 text-[11px]">
                   {cert.verificationHash}
                 </span>
               </div>
               <div className="text-left sm:text-right">
-                <span className="text-slate-500 block uppercase font-bold text-[10px]">
+                <span className="text-slate-500 print:text-slate-600 block uppercase font-bold text-[10px]">
                   Academic Authority:
                 </span>
-                <span className="text-white font-bold block">{cert.mentorName}</span>
-                <span className="text-[10px] text-slate-400">{cert.mentorTitle}</span>
+                <span className="text-white print:text-slate-950 font-bold block">{cert.mentorName}</span>
+                <span className="text-[10px] text-slate-400 print:text-slate-600">{cert.mentorTitle}</span>
               </div>
             </div>
           </div>
 
           {/* FORMAL COLLEGE RECOGNITION & ACADEMIC CREDIT RECOMMENDATION LETTER */}
-          <div className="rounded-3xl border border-slate-800 bg-white text-slate-900 p-8 sm:p-12 shadow-2xl space-y-6">
+          <div className="print-avoid-break rounded-3xl border border-slate-800 bg-white text-slate-900 p-8 sm:p-12 shadow-2xl space-y-6 print:border-none print:shadow-none print:p-0 print:m-0">
             <div className="flex items-center justify-between border-b-2 border-slate-900 pb-4">
               <div>
                 <h3 className="text-xl font-black tracking-tight text-slate-950 uppercase">

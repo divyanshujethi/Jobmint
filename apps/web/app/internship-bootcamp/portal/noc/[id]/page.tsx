@@ -74,8 +74,24 @@ export default async function NocLetterPage({
   });
 
   return (
-    <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-10 space-y-6">
-      
+    <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-10 space-y-6 print:m-0 print:p-0 print:max-w-none print:w-full print:space-y-4">
+      <style>{`
+        @media print {
+          @page {
+            size: A4 portrait;
+            margin: 12mm 14mm;
+          }
+          body {
+            background-color: #ffffff !important;
+            color: #0f172a !important;
+          }
+          .print-avoid-break {
+            break-inside: avoid !important;
+            page-break-inside: avoid !important;
+          }
+        }
+      `}</style>
+
       {/* ACTION BAR (HIDDEN IN PRINT) */}
       <div className="flex items-center justify-between print:hidden border-b border-slate-800 pb-4">
         <Link
@@ -90,10 +106,10 @@ export default async function NocLetterPage({
       </div>
 
       {/* PRINTABLE DOCUMENT BODY */}
-      <div className="rounded-3xl border border-slate-200 bg-white text-slate-900 p-8 sm:p-14 shadow-2xl space-y-8 font-serif print:border-none print:shadow-none print:p-0">
+      <div className="rounded-3xl border border-slate-200 bg-white text-slate-900 p-8 sm:p-14 shadow-2xl space-y-6 font-sans print:border-none print:shadow-none print:p-0 print:m-0 print:w-full">
         
         {/* LETTERHEAD */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b-2 border-slate-900 pb-6 gap-4 font-sans">
+        <div className="print-avoid-break flex flex-col sm:flex-row sm:items-center justify-between border-b-2 border-slate-900 pb-5 gap-4 font-sans">
           <div className="flex items-center gap-3">
             <div className="h-12 w-12 rounded-xl bg-purple-950 flex items-center justify-center text-white font-black text-xl">
               RN
@@ -119,7 +135,7 @@ export default async function NocLetterPage({
         </div>
 
         {/* ADDRESSEE BLOCK */}
-        <div className="text-xs font-sans leading-relaxed text-slate-800 space-y-1 bg-purple-50/60 p-4 rounded-xl border border-purple-200">
+        <div className="print-avoid-break text-xs font-sans leading-relaxed text-slate-800 space-y-1 bg-purple-50/60 p-4 rounded-xl border border-purple-200">
           <div className="font-bold text-slate-950 text-sm">To,</div>
           <div className="font-bold text-slate-900">The Head of Department (HOD) / Training &amp; Placement Officer (TPO)</div>
           <div>Department of <strong>{enrollment.degreeBranch}</strong></div>
@@ -144,7 +160,7 @@ export default async function NocLetterPage({
           </p>
 
           {/* COMPLIANCE CHECKLIST */}
-          <div className="rounded-xl border border-slate-200 p-4 space-y-3 bg-slate-50 font-sans text-xs">
+          <div className="print-avoid-break rounded-xl border border-slate-200 p-4 space-y-3 bg-slate-50 font-sans text-xs">
             <div className="font-bold text-slate-950 flex items-center gap-1.5 text-xs uppercase tracking-wider">
               <CheckCircle2 className="h-4 w-4 text-emerald-600" />
               <span>University Academic Compliance Verification</span>
@@ -178,7 +194,7 @@ export default async function NocLetterPage({
         </div>
 
         {/* SIGNATURE SECTION */}
-        <div className="pt-8 border-t-2 border-slate-900 grid grid-cols-2 gap-8 font-sans text-xs">
+        <div className="print-avoid-break pt-8 border-t-2 border-slate-900 grid grid-cols-2 gap-8 font-sans text-xs">
           <div className="space-y-2">
             <div className="font-serif italic text-lg text-slate-900">Dr. Aryan Verma</div>
             <div className="font-bold text-slate-950">Dr. Aryan Verma, Ph.D.</div>

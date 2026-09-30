@@ -117,6 +117,7 @@ export default function BootcampTrackDetailPage({
           degreeBranch,
           rollNumber,
           githubUsername,
+          amountPaid: track.pricing.discountedPrice,
         }),
       });
 
@@ -510,22 +511,38 @@ export default function BootcampTrackDetailPage({
                   </div>
                 </div>
 
-                <div className="rounded-xl bg-slate-950 p-3 border border-slate-800 space-y-1">
+                <div className={`rounded-xl p-3 border space-y-1 ${
+                  track.pricing.discountedPrice === 0
+                    ? "bg-emerald-950/30 border-emerald-500/40"
+                    : "bg-slate-950 border-slate-800"
+                }`}>
                   <div className="flex items-center justify-between text-xs font-bold text-white">
                     <span>Internship Enrollment Fee:</span>
-                    <span className="text-emerald-400 font-black text-sm">₹{track.pricing.discountedPrice}</span>
+                    <span className="text-emerald-400 font-black text-sm">
+                      {track.pricing.discountedPrice === 0 ? "₹0 (100% Free Test Track)" : `₹${track.pricing.discountedPrice}`}
+                    </span>
                   </div>
                   <span className="text-[10px] text-slate-400 block">
-                    Covers live compiler telemetry, daily mentor code review, AICTE 4-credit NOC, and public ledger Certificate ID.
+                    {track.pricing.discountedPrice === 0
+                      ? "Zero payment required. Test all platform features immediately (instant Offer Letter, NOC Letter, Day-by-Day unlocking, and certificate verification)."
+                      : "Covers live compiler telemetry, daily mentor code review, AICTE 4-credit NOC, and public ledger Certificate ID."}
                   </span>
                 </div>
 
                 <Button
                   type="submit"
                   disabled={enrolling}
-                  className="w-full rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs h-10 shadow-lg shadow-emerald-500/20"
+                  className={`w-full rounded-xl font-black text-xs h-10 shadow-lg shadow-emerald-500/20 ${
+                    track.pricing.discountedPrice === 0
+                      ? "bg-gradient-to-r from-emerald-400 to-teal-400 hover:from-emerald-300 hover:to-teal-300 text-slate-950"
+                      : "bg-emerald-500 hover:bg-emerald-400 text-slate-950"
+                  }`}
                 >
-                  {enrolling ? "Registering Industrial Internship..." : "Confirm Enrollment & Generate Offer Letter →"}
+                  {enrolling
+                    ? "Activating Internship Track..."
+                    : track.pricing.discountedPrice === 0
+                    ? "Activate Free Test Track & Generate Instant Letters →"
+                    : "Confirm Enrollment & Generate Offer Letter →"}
                 </Button>
               </form>
             )}

@@ -7,6 +7,68 @@ export interface QuizQuestion {
 }
 
 export const COURSE_QUIZZES: Record<string, QuizQuestion[]> = {
+  "free-developer-sandbox": [
+    {
+      id: 1,
+      question: "Which Git command enables rewriting local branch commit history, squashing commits, and rewording commit messages?",
+      options: [
+        "git rebase -i HEAD~N (Interactive Rebase)",
+        "git push --force-with-lease without local commits",
+        "git clone --bare",
+        "git checkout -b main"
+      ],
+      correctIndex: 0,
+      explanation: "Interactive rebase (git rebase -i) allows rearranging, squashing, editing, and rewording commits before pushing to upstream."
+    },
+    {
+      id: 2,
+      question: "What is the primary architectural purpose of a Cache-Aside pattern using Redis?",
+      options: [
+        "Read from cache first; if cache miss, query database, populate cache, and return data",
+        "Directly overwrite the database whenever cache expires",
+        "Prevent the server from logging errors",
+        "Store passwords unencrypted in memory"
+      ],
+      correctIndex: 0,
+      explanation: "Cache-Aside queries memory first, falling back to durable storage only on cache misses, dramatically reducing database load."
+    },
+    {
+      id: 3,
+      question: "Why are multi-stage Docker builds recommended in production web engineering?",
+      options: [
+        "They separate build dependencies from runtime environments, producing minimal, secure production images",
+        "They make the Docker image larger for faster caching",
+        "They disable HTTPS encryption on containers",
+        "They bypass Linux kernel security namespaces"
+      ],
+      correctIndex: 0,
+      explanation: "Multi-stage builds leave compilers, devDependencies, and build caches behind, resulting in lightweight, secure container images."
+    },
+    {
+      id: 4,
+      question: "In Clean Architecture, which direction should source code dependencies always point?",
+      options: [
+        "Inward, toward high-level domain business entities and policies",
+        "Outward, toward UI frameworks and database drivers",
+        "Circularly between all classes",
+        "Directly to third-party vendor APIs"
+      ],
+      correctIndex: 0,
+      explanation: "The Dependency Rule states that dependencies must always point inward toward high-level business rules, isolating core logic from frameworks."
+    },
+    {
+      id: 5,
+      question: "What cryptographic primitive does RoleNest use to ensure public certificate and credential immutability?",
+      options: [
+        "Cryptographic SHA-256 ledger hashes timestamped and publicly verifiable",
+        "Base64 encoded plain-text files",
+        "Client-side cookies with no signature",
+        "Temporary session storage in the browser"
+      ],
+      correctIndex: 0,
+      explanation: "SHA-256 cryptographic hashes link the recipient identity, course ID, issue date, and score to a tamper-proof public verification ledger."
+    }
+  ],
   "karpathy-nn": [
     {
       id: 1,
