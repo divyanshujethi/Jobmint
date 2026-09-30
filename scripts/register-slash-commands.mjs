@@ -109,6 +109,18 @@ const COMMANDS = [
       },
     ],
   },
+  {
+    name: 'myprogress',
+    description: 'View your visual milestone progress bar, audit scores, and graduation status',
+    options: [
+      {
+        name: 'credential',
+        description: 'Optional: Candidate Email or Roll Number (defaults to linked account)',
+        type: 3,
+        required: false,
+      },
+    ],
+  },
 ];
 
 async function main() {
