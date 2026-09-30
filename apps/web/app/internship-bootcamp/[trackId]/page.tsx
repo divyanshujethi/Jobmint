@@ -29,6 +29,7 @@ import {
   GitPullRequest,
   ExternalLink,
   Bell,
+  AlertCircle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -76,6 +77,7 @@ export default function BootcampTrackDetailPage({
   const [enrolling, setEnrolling] = useState(false);
   const [enrollError, setEnrollError] = useState<string | null>(null);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [activeOtherEnrollment, setActiveOtherEnrollment] = useState<any>(null);
 
   const isAuthorizedTester = studentEmail?.toLowerCase() === "divyanshujethi@gmail.com";
   const finalPrice = isAuthorizedTester ? 0 : (track.pricing.discountedPrice ?? 499);
@@ -117,6 +119,12 @@ export default function BootcampTrackDetailPage({
           if (match) {
             setIsEnrolled(true);
             setEnrollmentRecord(match);
+          }
+          const other = data.enrollments.find(
+            (e: any) => e.status === "ACTIVE" && e.trackId !== track.id && e.trackId !== track.slug
+          );
+          if (other) {
+            setActiveOtherEnrollment(other);
           }
         }
       })
@@ -511,6 +519,26 @@ export default function BootcampTrackDetailPage({
                   </div>
                 )}
 
+                {activeOtherEnrollment && !isAuthorizedTester && (
+                  <div className="rounded-2xl bg-amber-950/40 border-2 border-amber-500/40 p-4 space-y-2">
+                    <div className="flex items-center gap-2 text-amber-300 font-bold text-sm">
+                      <AlertCircle className="h-4 w-4 text-amber-400 shrink-0" />
+                      <span>Single Active Internship Policy</span>
+                    </div>
+                    <p className="text-xs text-slate-300 leading-relaxed">
+                      You are currently active in <strong>{activeOtherEnrollment.trackId}</strong> (Day {activeOtherEnrollment.unlockedDay}/28). Under AICTE practical credit framework rules, candidates can only undertake <strong>one industrial internship at a time</strong>. You must complete your current program and claim your certificate before enrolling in another track.
+                    </p>
+                    <div className="pt-1">
+                      <Link
+                        href="/portal"
+                        className="rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs h-8 px-3.5 inline-flex items-center gap-1.5 transition-colors"
+                      >
+                        <span>Go to My Active Portal &rarr;</span>
+                      </Link>
+                    </div>
+                  </div>
+                )}
+
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div className="space-y-1">
                     <label className="text-slate-300 font-bold">Student Full Name *</label>
@@ -683,15 +711,23 @@ export default function BootcampTrackDetailPage({
 
                 <Button
                   type="submit"
-                  disabled={enrolling || (!isAuthorizedTester && !agreedToTerms)}
+                  disabled={
+                    enrolling ||
+                    (!isAuthorizedTester && !agreedToTerms) ||
+                    Boolean(activeOtherEnrollment && !isAuthorizedTester)
+                  }
                   className={`w-full rounded-xl font-black text-xs h-10 shadow-lg shadow-emerald-500/20 ${
-                    finalPrice === 0
+                    activeOtherEnrollment && !isAuthorizedTester
+                      ? "bg-slate-800 text-slate-500 border border-slate-700 cursor-not-allowed"
+                      : finalPrice === 0
                       ? "bg-gradient-to-r from-emerald-400 to-teal-400 hover:from-emerald-300 hover:to-teal-300 text-slate-950"
                       : "bg-emerald-500 hover:bg-emerald-400 text-slate-950 disabled:opacity-50 disabled:cursor-not-allowed"
                   }`}
                 >
                   {enrolling
                     ? "Activating Internship Track..."
+                    : activeOtherEnrollment && !isAuthorizedTester
+                    ? "Complete Your Active Internship First"
                     : finalPrice === 0
                     ? "Activate ₹0 VIP Enrollment & Generate Official Letters →"
                     : "Confirm Enrollment & Generate Offer Letter →"}

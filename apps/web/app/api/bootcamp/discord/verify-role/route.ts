@@ -79,12 +79,21 @@ export async function POST(req: NextRequest) {
       if (trackLower.includes("ai") || trackLower.includes("ml")) {
         trackRole = DISCORD_ROLES.AIML_SPECIALIST;
         trackRoleName = "AI / ML Specialist";
-      } else if (trackLower.includes("web") || trackLower.includes("next")) {
+      } else if (trackLower.includes("next")) {
+        trackRole = DISCORD_ROLES.NEXTJS_ARCHITECT;
+        trackRoleName = "Next.js Architect";
+      } else if (trackLower.includes("web") || trackLower.includes("frontend") || trackLower.includes("backend") || trackLower.includes("fullstack")) {
         trackRole = DISCORD_ROLES.FULLSTACK_ENGINEER;
         trackRoleName = "Full-Stack Engineer";
       } else if (trackLower.includes("cyber") || trackLower.includes("security")) {
         trackRole = DISCORD_ROLES.CYBER_SECURITY;
         trackRoleName = "Cyber Security Analyst";
+      } else if (trackLower.includes("cloud") || trackLower.includes("sre") || trackLower.includes("devops")) {
+        trackRole = DISCORD_ROLES.CLOUD_DEVOPS;
+        trackRoleName = "Cloud / DevOps Engineer";
+      } else if (trackLower.includes("block") || trackLower.includes("web3") || trackLower.includes("solidity")) {
+        trackRole = DISCORD_ROLES.BLOCKCHAIN_WEB3;
+        trackRoleName = "Blockchain / Web3 Engineer";
       }
 
       if (trackRole) {

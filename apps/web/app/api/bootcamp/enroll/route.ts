@@ -60,6 +60,33 @@ export async function POST(req: NextRequest) {
     const userEmail = session.user.email?.toLowerCase();
     const isAuthorizedTester = userEmail === "divyanshujethi@gmail.com";
 
+    // ONE ACTIVE INTERNSHIP RULE:
+    // A student can only pursue ONE active internship at a time.
+    // They must complete their current program (status === "COMPLETED") before enrolling in another.
+    if (!isAuthorizedTester) {
+      const activePrograms = await db
+        .select()
+        .from(bootcampEnrollments)
+        .where(
+          and(
+            eq(bootcampEnrollments.userId, userId),
+            eq(bootcampEnrollments.status, "ACTIVE")
+          )
+        );
+
+      if (activePrograms.length > 0) {
+        const current = activePrograms[0];
+        if (current.trackId !== trackId) {
+          return NextResponse.json(
+            {
+              error: `Single Active Program Limit: You are currently active in "${current.trackId}" (Day ${current.unlockedDay}/28). To maintain AICTE 4-credit academic compliance and rigor, you must complete your active internship and earn your certificate before enrolling in another track.`,
+            },
+            { status: 400 }
+          );
+        }
+      }
+    }
+
     const cleanPrefix = (trackId || "TECH").replace(/[^a-zA-Z0-9]/g, "").toUpperCase().slice(0, 5);
     const randomHex = crypto.randomBytes(3).toString("hex").toUpperCase();
     const offerLetterId = `RN-OFFER-2026-${cleanPrefix}-${randomHex}`;
