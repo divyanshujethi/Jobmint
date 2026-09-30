@@ -60,6 +60,7 @@ export default function InternshipStudentPortalPage() {
   }, []);
 
   const hasEnrollments = Boolean(authData.enrollments && authData.enrollments.length > 0);
+  const isAdmin = authData.user?.email?.toLowerCase() === "divyanshujethi@gmail.com";
   const activeEnrollment = hasEnrollments
     ? authData.enrollments.find((e) => e.id === activeEnrollmentId) || authData.enrollments[0]
     : null;
@@ -217,12 +218,14 @@ export default function InternshipStudentPortalPage() {
               <ArrowRight className="h-4 w-4" />
             </Link>
 
-            <Link
-              href="/developer-sandbox"
-              className="rounded-xl border border-emerald-500/40 bg-emerald-950/20 hover:bg-emerald-900/40 text-emerald-300 font-bold text-xs h-11 px-6 inline-flex items-center gap-2 transition-colors"
-            >
-              <span>Test Free Track (₹0 Sandbox) &rarr;</span>
-            </Link>
+            {isAdmin && (
+              <Link
+                href="/developer-sandbox"
+                className="rounded-xl border border-emerald-500/40 bg-emerald-950/20 hover:bg-emerald-900/40 text-emerald-300 font-bold text-xs h-11 px-6 inline-flex items-center gap-2 transition-colors"
+              >
+                <span>Test Free Track (₹0 Sandbox) &rarr;</span>
+              </Link>
+            )}
           </div>
         </div>
       )}

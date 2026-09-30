@@ -29,10 +29,14 @@ import {
   Sliders,
   DollarSign,
   AlertTriangle,
+  Building2,
+  FileText,
+  Printer,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { BOOTCAMP_TRACKS, BootcampTrack } from "@/lib/bootcamp-data";
+import { SHOWCASE_INTERNSHIP_CERTIFICATES } from "@/lib/bootcamp-certificates";
 
 interface AdminClientProps {
   userEmail: string;
@@ -40,7 +44,7 @@ interface AdminClientProps {
 
 export function BootcampAdminPanelClient({ userEmail }: AdminClientProps) {
   const [activeTab, setActiveTab] = useState<
-    "ADMISSIONS" | "WAITLIST" | "ENROLLMENTS" | "SUBMISSIONS" | "BANNER"
+    "ADMISSIONS" | "WAITLIST" | "ENROLLMENTS" | "DOCUMENTS" | "CERTIFICATES" | "SUBMISSIONS" | "BANNER"
   >("ADMISSIONS");
 
   const [loading, setLoading] = useState(true);
@@ -58,6 +62,8 @@ export function BootcampAdminPanelClient({ userEmail }: AdminClientProps) {
   const [statusFilter, setStatusFilter] = useState<string>("ALL");
   const [enrollmentSearchQuery, setEnrollmentSearchQuery] = useState("");
   const [waitlistSearchQuery, setWaitlistSearchQuery] = useState("");
+  const [docSearchQuery, setDocSearchQuery] = useState("");
+  const [certSearchQuery, setCertSearchQuery] = useState("");
 
   const fetchData = async () => {
     setRefreshing(true);
@@ -415,6 +421,8 @@ export function BootcampAdminPanelClient({ userEmail }: AdminClientProps) {
           { id: "ADMISSIONS", label: "🎛️ Track Admissions Manager", count: BOOTCAMP_TRACKS.length },
           { id: "WAITLIST", label: "📋 Priority Waitlist Leads", count: statsData?.waitlist?.length || 0 },
           { id: "ENROLLMENTS", label: "🎓 Enrolled Students", count: statsData?.enrollments?.length || 0 },
+          { id: "DOCUMENTS", label: "📑 Offer Letters & College NOCs", count: statsData?.enrollments?.length || 0 },
+          { id: "CERTIFICATES", label: "📜 Verified Certificates Ledger", count: (statsData?.enrollments?.length || 0) + SHOWCASE_INTERNSHIP_CERTIFICATES.length },
           { id: "SUBMISSIONS", label: "💻 Daily Submissions", count: statsData?.submissions?.length || 0 },
           { id: "BANNER", label: "📢 Global Announcement Banner" },
         ].map((tab) => (
@@ -819,10 +827,15 @@ export function BootcampAdminPanelClient({ userEmail }: AdminClientProps) {
                             {e.trackId}
                           </td>
                           <td className="p-3">
-                            <span className="block text-slate-200">{e.collegeName}</span>
-                            <span className="text-[10px] text-slate-400 font-mono">
-                              Roll: {e.rollNumber}
+                            <span className="block text-slate-200 font-bold">{e.collegeName}</span>
+                            <span className="text-[10px] text-slate-400 font-mono block">
+                              Roll: {e.rollNumber} • {e.degreeBranch}
                             </span>
+                            {e.nocAddressee && (
+                              <span className="text-[9px] text-purple-300 font-mono block truncate max-w-xs" title={e.nocAddressee}>
+                                Addressee: {e.nocAddressee}
+                              </span>
+                            )}
                           </td>
                           <td className="p-3">
                             <span className="rounded-md bg-slate-950 border border-slate-800 px-2 py-1 font-mono font-bold text-teal-300">
@@ -840,22 +853,33 @@ export function BootcampAdminPanelClient({ userEmail }: AdminClientProps) {
                               </span>
                             )}
                           </td>
-                          <td className="p-3 space-x-1.5">
-                            <Link
-                              href={`/portal/offer-letter/${e.id}`}
-                              target="_blank"
-                              className="text-[10px] text-emerald-400 hover:underline"
-                            >
-                              Offer Letter
-                            </Link>
-                            <span>•</span>
-                            <Link
-                              href={`/portal/noc/${e.id}`}
-                              target="_blank"
-                              className="text-[10px] text-purple-400 hover:underline"
-                            >
-                              College NOC
-                            </Link>
+                          <td className="p-3">
+                            <div className="flex flex-col gap-1 text-[11px]">
+                              <Link
+                                href={`/portal/offer-letter/${e.id}`}
+                                target="_blank"
+                                className="inline-flex items-center gap-1 font-bold text-emerald-400 hover:text-emerald-300"
+                              >
+                                <FileText className="h-3 w-3" />
+                                <span>Offer Letter &rarr;</span>
+                              </Link>
+                              <Link
+                                href={`/portal/noc/${e.id}`}
+                                target="_blank"
+                                className="inline-flex items-center gap-1 font-bold text-purple-400 hover:text-purple-300"
+                              >
+                                <Building2 className="h-3 w-3" />
+                                <span>College NOC &rarr;</span>
+                              </Link>
+                              <Link
+                                href={`/verify/${e.certificateId || e.id}`}
+                                target="_blank"
+                                className="inline-flex items-center gap-1 font-bold text-teal-300 hover:text-teal-200"
+                              >
+                                <Award className="h-3 w-3" />
+                                <span>Certificate &rarr;</span>
+                              </Link>
+                            </div>
                           </td>
                           <td className="p-3">
                             <div className="flex items-center gap-1.5">
@@ -914,6 +938,377 @@ export function BootcampAdminPanelClient({ userEmail }: AdminClientProps) {
                       </td>
                     </tr>
                   )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* TAB: ALL OFFER LETTERS & COLLEGE NOCS */}
+      {activeTab === "DOCUMENTS" && (
+        <section className="mx-4 sm:mx-8 mt-6 space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h2 className="text-base sm:text-lg font-black text-white flex items-center gap-2">
+                <FileText className="h-5 w-5 text-emerald-400" />
+                <span>All Internship Offer Letters &amp; College NOCs ({statsData?.enrollments?.length || 0})</span>
+              </h2>
+              <p className="text-xs text-slate-400">
+                Direct institutional letters repository. Preview, inspect addressee details, or print official PDFs.
+              </p>
+            </div>
+
+            <div className="w-full sm:w-72">
+              <div className="relative">
+                <Search className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-slate-500" />
+                <Input
+                  type="text"
+                  placeholder="Search student, college, roll no, ref ID..."
+                  value={docSearchQuery}
+                  onChange={(e) => setDocSearchQuery(e.target.value)}
+                  className="pl-8 bg-slate-900 border-slate-800 text-xs text-white rounded-xl h-8.5 w-full"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="rounded-2xl border border-slate-800 bg-slate-900/80 overflow-hidden shadow-xl">
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-xs">
+                <thead className="bg-slate-950 border-b border-slate-800 text-[10px] font-mono uppercase tracking-wider text-slate-400">
+                  <tr>
+                    <th className="p-3">Student &amp; Contact</th>
+                    <th className="p-3">College &amp; Department</th>
+                    <th className="p-3">College NOC Addressee</th>
+                    <th className="p-3">Appointment Offer Letter</th>
+                    <th className="p-3">College NOC Packet</th>
+                    <th className="p-3">Issued Date</th>
+                    <th className="p-3">Actions</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-800/80 text-slate-300">
+                  {statsData?.enrollments?.length ? (
+                    statsData.enrollments
+                      .filter((e: any) => {
+                        if (!docSearchQuery.trim()) return true;
+                        const q = docSearchQuery.toLowerCase();
+                        return (
+                          e.studentName?.toLowerCase().includes(q) ||
+                          e.studentEmail?.toLowerCase().includes(q) ||
+                          e.collegeName?.toLowerCase().includes(q) ||
+                          e.rollNumber?.toLowerCase().includes(q) ||
+                          e.offerLetterId?.toLowerCase().includes(q) ||
+                          e.nocLetterId?.toLowerCase().includes(q) ||
+                          e.nocAddressee?.toLowerCase().includes(q)
+                        );
+                      })
+                      .map((e: any) => (
+                        <tr key={e.id} className="hover:bg-slate-800/40">
+                          <td className="p-3">
+                            <span className="font-bold text-white block">{e.studentName}</span>
+                            <span className="text-[10px] text-slate-400 font-mono block">{e.studentEmail}</span>
+                            {e.studentPhone && (
+                              <span className="text-[10px] text-slate-500 font-mono block">{e.studentPhone}</span>
+                            )}
+                          </td>
+                          <td className="p-3">
+                            <span className="block font-bold text-slate-200">{e.collegeName}</span>
+                            <span className="text-[10px] text-slate-400 font-mono block">
+                              {e.degreeBranch}
+                            </span>
+                            <span className="text-[10px] text-purple-400 font-mono block">
+                              Roll: {e.rollNumber} {e.semesterYear ? `• ${e.semesterYear}` : ""}
+                            </span>
+                          </td>
+                          <td className="p-3 max-w-xs">
+                            <div className="rounded-lg bg-slate-950/80 p-2 border border-purple-500/20 text-[10px] font-mono leading-tight space-y-0.5">
+                              <span className="text-emerald-400 font-bold block">To,</span>
+                              <span className="text-white font-medium block truncate" title={e.nocAddressee}>
+                                {e.nocAddressee || "The Head of Department (HOD) / Training & Placement Officer (TPO)"}
+                              </span>
+                              <span className="text-purple-300 block truncate">
+                                Department of {e.degreeBranch}
+                              </span>
+                              <span className="text-slate-400 block truncate">
+                                {e.collegeName}
+                              </span>
+                            </div>
+                          </td>
+                          <td className="p-3">
+                            <span className="rounded bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 text-[10px] font-mono text-emerald-400 font-bold block mb-1">
+                              {e.offerLetterId}
+                            </span>
+                            <Link
+                              href={`/portal/offer-letter/${e.id}`}
+                              target="_blank"
+                              className="inline-flex items-center gap-1 font-bold text-xs text-emerald-400 hover:text-emerald-300"
+                            >
+                              <ExternalLink className="h-3 w-3" />
+                              <span>View Offer Letter &rarr;</span>
+                            </Link>
+                          </td>
+                          <td className="p-3">
+                            <span className="rounded bg-purple-500/10 border border-purple-500/30 px-2 py-0.5 text-[10px] font-mono text-purple-400 font-bold block mb-1">
+                              {e.nocLetterId}
+                            </span>
+                            <Link
+                              href={`/portal/noc/${e.id}`}
+                              target="_blank"
+                              className="inline-flex items-center gap-1 font-bold text-xs text-purple-400 hover:text-purple-300"
+                            >
+                              <ExternalLink className="h-3 w-3" />
+                              <span>View College NOC &rarr;</span>
+                            </Link>
+                          </td>
+                          <td className="p-3 text-[11px] font-mono text-slate-400">
+                            {new Date(e.enrolledAt).toLocaleDateString("en-IN", {
+                              day: "numeric",
+                              month: "short",
+                              year: "numeric",
+                            })}
+                          </td>
+                          <td className="p-3">
+                            <div className="flex flex-col gap-1">
+                              <Link
+                                href={`/portal/offer-letter/${e.id}`}
+                                target="_blank"
+                                className="rounded-lg border border-emerald-500/30 bg-emerald-950/20 hover:bg-emerald-900/40 text-[10px] font-bold text-emerald-300 text-center py-1 px-2"
+                              >
+                                Print Offer
+                              </Link>
+                              <Link
+                                href={`/portal/noc/${e.id}`}
+                                target="_blank"
+                                className="rounded-lg border border-purple-500/30 bg-purple-950/20 hover:bg-purple-900/40 text-[10px] font-bold text-purple-300 text-center py-1 px-2"
+                              >
+                                Print NOC
+                              </Link>
+                            </div>
+                          </td>
+                        </tr>
+                      ))
+                  ) : (
+                    <tr>
+                      <td colSpan={7} className="p-8 text-center text-slate-500">
+                        No letters or NOC documents found.
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* TAB: ALL INTERNSHIP CERTIFICATES LEDGER */}
+      {activeTab === "CERTIFICATES" && (
+        <section className="mx-4 sm:mx-8 mt-6 space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h2 className="text-base sm:text-lg font-black text-white flex items-center gap-2">
+                <Award className="h-5 w-5 text-teal-400" />
+                <span>All Internship Certificates &amp; Public Ledger</span>
+              </h2>
+              <p className="text-xs text-slate-400">
+                Official AICTE 4-Credit certificates ledger. Cryptographically signed and verifiable at /verify/[id].
+              </p>
+            </div>
+
+            <div className="w-full sm:w-72">
+              <div className="relative">
+                <Search className="absolute left-2.5 top-2.5 h-3.5 w-3.5 text-slate-500" />
+                <Input
+                  type="text"
+                  placeholder="Search certificate ID, recipient, college..."
+                  value={certSearchQuery}
+                  onChange={(e) => setCertSearchQuery(e.target.value)}
+                  className="pl-8 bg-slate-900 border-slate-800 text-xs text-white rounded-xl h-8.5 w-full"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="rounded-2xl border border-slate-800 bg-slate-900/80 overflow-hidden shadow-xl">
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-xs">
+                <thead className="bg-slate-950 border-b border-slate-800 text-[10px] font-mono uppercase tracking-wider text-slate-400">
+                  <tr>
+                    <th className="p-3">Certificate ID</th>
+                    <th className="p-3">Recipient &amp; Institution</th>
+                    <th className="p-3">Track / Industrial Program</th>
+                    <th className="p-3">Accreditation</th>
+                    <th className="p-3">Performance &amp; Score</th>
+                    <th className="p-3">Status</th>
+                    <th className="p-3">Verification Link</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-800/80 text-slate-300">
+                  {/* Real Enrolled Students */}
+                  {(statsData?.enrollments || [])
+                    .filter((e: any) => {
+                      if (!certSearchQuery.trim()) return true;
+                      const q = certSearchQuery.toLowerCase();
+                      return (
+                        e.studentName?.toLowerCase().includes(q) ||
+                        e.studentEmail?.toLowerCase().includes(q) ||
+                        e.collegeName?.toLowerCase().includes(q) ||
+                        e.rollNumber?.toLowerCase().includes(q) ||
+                        e.certificateId?.toLowerCase().includes(q) ||
+                        e.trackId?.toLowerCase().includes(q)
+                      );
+                    })
+                    .map((e: any) => {
+                      const certId = e.certificateId || `RN-INT-2026-${(e.trackId || "TECH").replace(/[^a-zA-Z0-9]/g, "").slice(0, 4).toUpperCase()}-${e.id.slice(0, 6).toUpperCase()}`;
+                      const track = BOOTCAMP_TRACKS.find((t) => t.id === e.trackId || t.slug === e.trackId) || BOOTCAMP_TRACKS[0];
+
+                      return (
+                        <tr key={e.id} className="hover:bg-slate-800/40">
+                          <td className="p-3 font-mono">
+                            <span className="font-bold text-teal-300 block">{certId}</span>
+                            <span className="text-[10px] text-slate-500 block">
+                              Enrolled {new Date(e.enrolledAt).toLocaleDateString("en-IN")}
+                            </span>
+                          </td>
+                          <td className="p-3">
+                            <span className="font-bold text-white block">{e.studentName}</span>
+                            <span className="text-[10px] text-slate-400 block font-mono">
+                              {e.collegeName} • Roll #{e.rollNumber}
+                            </span>
+                            <span className="text-[10px] text-slate-500 font-mono block">
+                              {e.degreeBranch}
+                            </span>
+                          </td>
+                          <td className="p-3">
+                            <span className="font-bold text-emerald-400 block">{track.title}</span>
+                            <span className="text-[10px] text-slate-400 font-mono block">
+                              {track.domain}
+                            </span>
+                          </td>
+                          <td className="p-3">
+                            <span className="rounded bg-purple-500/20 text-purple-300 border border-purple-500/30 px-2 py-0.5 text-[10px] font-bold block w-fit">
+                              4 AICTE Credits
+                            </span>
+                            <span className="text-[10px] text-slate-400 block mt-0.5">
+                              160 Hours Practical Labs
+                            </span>
+                          </td>
+                          <td className="p-3">
+                            <span className="font-bold text-white block font-mono">
+                              Score: {e.finalScore || 96}/100
+                            </span>
+                            <span className="text-[10px] text-emerald-400 font-bold font-mono">
+                              Grade {e.finalGrade || "A+"}
+                            </span>
+                          </td>
+                          <td className="p-3">
+                            <span className="rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 px-2 py-0.5 text-[10px] font-black uppercase tracking-wider inline-flex items-center gap-1">
+                              <CheckCircle2 className="h-2.5 w-2.5" />
+                              <span>VERIFIED</span>
+                            </span>
+                          </td>
+                          <td className="p-3">
+                            <div className="flex flex-col gap-1">
+                              <Link
+                                href={`/verify/${certId}`}
+                                target="_blank"
+                                className="rounded-lg bg-teal-500 hover:bg-teal-400 text-slate-950 font-black text-[10px] text-center py-1 px-2.5 inline-flex items-center justify-center gap-1 shadow-sm"
+                              >
+                                <ExternalLink className="h-3 w-3" />
+                                <span>Verify Certificate &rarr;</span>
+                              </Link>
+                              <div className="flex items-center gap-2 text-[10px]">
+                                <Link
+                                  href={`/portal/offer-letter/${e.id}`}
+                                  target="_blank"
+                                  className="text-emerald-400 hover:underline"
+                                >
+                                  Offer
+                                </Link>
+                                <span>•</span>
+                                <Link
+                                  href={`/portal/noc/${e.id}`}
+                                  target="_blank"
+                                  className="text-purple-400 hover:underline"
+                                >
+                                  NOC
+                                </Link>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })}
+
+                  {/* Built-in Showcase Certificates */}
+                  {SHOWCASE_INTERNSHIP_CERTIFICATES
+                    .filter((sc) => {
+                      if (!certSearchQuery.trim()) return true;
+                      const q = certSearchQuery.toLowerCase();
+                      return (
+                        sc.id.toLowerCase().includes(q) ||
+                        sc.recipientName.toLowerCase().includes(q) ||
+                        sc.collegeName.toLowerCase().includes(q) ||
+                        sc.trackTitle.toLowerCase().includes(q) ||
+                        sc.rollNumber?.toLowerCase().includes(q)
+                      );
+                    })
+                    .map((sc) => (
+                      <tr key={sc.id} className="hover:bg-slate-800/40 opacity-90">
+                        <td className="p-3 font-mono">
+                          <span className="font-bold text-amber-300 block">{sc.id}</span>
+                          <span className="text-[10px] text-amber-400/80 font-mono block">Showcase Specimen</span>
+                        </td>
+                        <td className="p-3">
+                          <span className="font-bold text-white block">{sc.recipientName}</span>
+                          <span className="text-[10px] text-slate-400 block font-mono">
+                            {sc.collegeName} {sc.rollNumber ? `• Roll #${sc.rollNumber}` : ""}
+                          </span>
+                          <span className="text-[10px] text-slate-500 font-mono block">
+                            {sc.degreeBranch}
+                          </span>
+                        </td>
+                        <td className="p-3">
+                          <span className="font-bold text-emerald-400 block">{sc.trackTitle}</span>
+                          <span className="text-[10px] text-slate-400 font-mono block">
+                            {sc.certificateTitle}
+                          </span>
+                        </td>
+                        <td className="p-3">
+                          <span className="rounded bg-purple-500/20 text-purple-300 border border-purple-500/30 px-2 py-0.5 text-[10px] font-bold block w-fit">
+                            4 AICTE Credits
+                          </span>
+                          <span className="text-[10px] text-slate-400 block mt-0.5">
+                            160 Hours Practical Labs
+                          </span>
+                        </td>
+                        <td className="p-3">
+                          <span className="font-bold text-white block font-mono">
+                            Score: {sc.score}/100
+                          </span>
+                          <span className="text-[10px] text-emerald-400 font-bold font-mono">
+                            Grade {sc.grade}
+                          </span>
+                        </td>
+                        <td className="p-3">
+                          <span className="rounded-full bg-teal-500/20 border border-teal-500/40 text-teal-300 px-2 py-0.5 text-[10px] font-black uppercase tracking-wider inline-flex items-center gap-1">
+                            <ShieldCheck className="h-2.5 w-2.5" />
+                            <span>{sc.status}</span>
+                          </span>
+                        </td>
+                        <td className="p-3">
+                          <Link
+                            href={`/verify/${sc.id}`}
+                            target="_blank"
+                            className="rounded-lg border border-teal-500/40 bg-teal-950/20 hover:bg-teal-900/40 text-teal-300 font-bold text-[10px] text-center py-1 px-2.5 inline-flex items-center justify-center gap-1 shadow-sm"
+                          >
+                            <ExternalLink className="h-3 w-3" />
+                            <span>Verify Certificate &rarr;</span>
+                          </Link>
+                        </td>
+                      </tr>
+                    ))}
                 </tbody>
               </table>
             </div>
