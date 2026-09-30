@@ -7,9 +7,9 @@
 // 4. Faculty Alerts to #faculty-review-logs
 // 5. Slash Commands: /verify, /status, /standup, /rules, /helpdesk
 
-const BOT_TOKEN = process.env.DISCORD_BOT_TOKEN || '';
-const GUILD_ID = '1554952372910952460';
-const CLIENT_ID = '1554955237897408652';
+const BOT_TOKEN = (process.env.DISCORD_BOT_TOKEN || '').trim();
+const GUILD_ID = (process.env.DISCORD_GUILD_ID || '1554952372910952460').trim();
+const CLIENT_ID = (process.env.DISCORD_CLIENT_ID || '1554955237897408652').trim();
 const API_BASE = 'https://discord.com/api/v10';
 const WEB_API_BASE = process.env.WEB_API_URL || 'https://internship.rolenest.in';
 

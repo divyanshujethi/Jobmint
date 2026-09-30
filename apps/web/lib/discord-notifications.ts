@@ -1,8 +1,8 @@
 // apps/web/lib/discord-notifications.ts
 // Live Discord Webhook & REST API notifications for RoleNest
 
-const BOT_TOKEN = process.env.DISCORD_BOT_TOKEN || "";
-const GUILD_ID = process.env.DISCORD_GUILD_ID || "1554952372910952460";
+const BOT_TOKEN = (process.env.DISCORD_BOT_TOKEN || "").trim();
+const GUILD_ID = (process.env.DISCORD_GUILD_ID || "1554952372910952460").trim();
 const API_BASE = "https://discord.com/api/v10";
 
 export const DISCORD_CHANNELS = {
