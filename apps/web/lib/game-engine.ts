@@ -260,10 +260,12 @@ export function triggerConfetti() {
     });
   }
 
+  const renderCtx = ctx;
+
   let frameCount = 0;
   function animate() {
     frameCount++;
-    ctx.clearRect(0, 0, width, height);
+    renderCtx.clearRect(0, 0, width, height);
 
     particles.forEach((p) => {
       p.x += p.vx;
@@ -271,12 +273,12 @@ export function triggerConfetti() {
       p.vy += 0.35; // gravity
       p.rotation += p.vRot;
 
-      ctx.save();
-      ctx.translate(p.x, p.y);
-      ctx.rotate((p.rotation * Math.PI) / 180);
-      ctx.fillStyle = p.color;
-      ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
-      ctx.restore();
+      renderCtx.save();
+      renderCtx.translate(p.x, p.y);
+      renderCtx.rotate((p.rotation * Math.PI) / 180);
+      renderCtx.fillStyle = p.color;
+      renderCtx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+      renderCtx.restore();
     });
 
     if (frameCount < 120) {
