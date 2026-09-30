@@ -31,36 +31,6 @@ export interface CheckoutOptions {
 }
 
 /**
- * Dynamically ensures the Cashfree JS SDK v3 is loaded and window.Cashfree is ready.
- * If not present, creates the script tag and polls with a timeout.
- */
-export async function ensureCashfreeSDKLoaded(timeoutMs = 2500): Promise<boolean> {
-  if (typeof window === "undefined") return false;
-  if (window.Cashfree) return true;
-
-  // Check if script tag is already in DOM
-  let script = document.querySelector(
-    'script[src*="cashfree.com/js/v3/cashfree.js"]'
-  ) as HTMLScriptElement;
-
-  if (!script) {
-    script = document.createElement("script");
-    script.src = "https://sdk.cashfree.com/js/v3/cashfree.js";
-    script.crossOrigin = "anonymous";
-    script.async = true;
-    document.head.appendChild(script);
-  }
-
-  const startTime = Date.now();
-  while (Date.now() - startTime < timeoutMs) {
-    if (window.Cashfree) return true;
-    await new Promise((resolve) => setTimeout(resolve, 100));
-  }
-
-  return !!window.Cashfree;
-}
-
-/**
  * Direct form-POST to Cashfree's official checkout endpoint:
  * https://api.cashfree.com/pg/view/sessions/checkout
  * 
@@ -79,10 +49,16 @@ function submitCashfreeForm(
       ? "https://api.cashfree.com/pg/view/sessions/checkout"
       : "https://sandbox.cashfree.com/pg/view/sessions/checkout";
 
+  // Clean up any stale checkout form
+  const existingForm = document.getElementById("rn-cashfree-checkout-form");
+  if (existingForm) existingForm.remove();
+
   const form = document.createElement("form");
+  form.id = "rn-cashfree-checkout-form";
   form.method = "POST";
   form.action = checkoutUrl;
   form.target = target;
+  form.style.display = "none";
 
   const sessionInput = document.createElement("input");
   sessionInput.type = "hidden";
@@ -103,16 +79,14 @@ function submitCashfreeForm(
   form.appendChild(formIdInput);
 
   document.body.appendChild(form);
-  form.submit();
+  HTMLFormElement.prototype.submit.call(form);
 }
 
 /**
  * Initiates Cashfree checkout for UPI (GPay, PhonePe, Paytm), RuPay/Cards & NetBanking.
  * 
  * 1. Creates payment order via backend API.
- * 2. Attempts Cashfree JS SDK checkout.
- * 3. If SDK fails, encounters an error, or is blocked by browser ad-blockers,
- *    natively submits the official checkout form directly to Cashfree.
+ * 2. Directly and reliably launches Cashfree's official checkout endpoint.
  */
 export async function openCashfreeCheckout(options: CheckoutOptions = {}) {
   try {
@@ -150,36 +124,9 @@ export async function openCashfreeCheckout(options: CheckoutOptions = {}) {
     const env: "production" | "sandbox" =
       data.environment || CASHFREE_CLIENT_ENV || "production";
 
-    // 1. Try Cashfree JS SDK if available
-    const isSDKReady = await ensureCashfreeSDKLoaded(2000);
-
-    if (isSDKReady && typeof window !== "undefined" && window.Cashfree) {
-      try {
-        const cashfree = window.Cashfree({
-          mode: env,
-        });
-
-        const result = await cashfree.checkout({
-          paymentSessionId: data.paymentSessionId,
-          redirectTarget: "_self", // Seamless redirect ensures 100% UPI App Intent & QR compatibility on iOS/Android/Desktop
-        });
-
-        // If Cashfree SDK returned an error instead of redirecting
-        if (result && result.error) {
-          console.warn("[Cashfree SDK Error, falling back to direct form checkout]:", result.error);
-          submitCashfreeForm(data.paymentSessionId, env, "_self");
-          return;
-        }
-        return;
-      } catch (sdkError) {
-        console.warn("[Cashfree SDK Exception, falling back to direct form checkout]:", sdkError);
-        submitCashfreeForm(data.paymentSessionId, env, "_self");
-        return;
-      }
-    }
-
-    // 2. Direct Official Checkout Form Fallback:
-    // Guarantees payment works seamlessly with zero external script dependencies
+    // Direct Native Form Submission to Cashfree Checkout:
+    // Ensures immediate, flawless redirection to the Cashfree payment page
+    // across all desktop, iOS Safari, Android Chrome browsers.
     submitCashfreeForm(data.paymentSessionId, env, "_self");
   } catch (error: any) {
     console.error("[Cashfree Checkout Error]:", error);
