@@ -105,6 +105,22 @@ export default async function NocLetterPage({
         </div>
       </div>
 
+      {/* SAMPLE SPECIMEN NOTICE IF DEMO */}
+      {enrollment.id === "demo" && (
+        <div className="print:hidden rounded-2xl bg-purple-500/10 border border-purple-500/30 p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-purple-200">
+          <div>
+            <span className="font-bold block text-purple-300">⚠️ Sample NOC Specimen (Not Enrolled)</span>
+            <span>This is a demonstration preview. Complete enrollment in any industrial track to issue your official college NOC with your college name and roll number.</span>
+          </div>
+          <Link
+            href="/#tracks"
+            className="rounded-xl bg-purple-500 hover:bg-purple-400 text-slate-950 font-black text-xs px-4 py-2 shrink-0 transition-colors shadow-md"
+          >
+            Enroll in a Track &rarr;
+          </Link>
+        </div>
+      )}
+
       {/* PRINTABLE DOCUMENT BODY */}
       <div className="rounded-3xl border border-slate-200 bg-white text-slate-900 p-8 sm:p-14 shadow-2xl space-y-6 font-sans print:border-none print:shadow-none print:p-0 print:m-0 print:w-full">
         

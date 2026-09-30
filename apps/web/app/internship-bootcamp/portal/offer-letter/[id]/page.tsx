@@ -106,6 +106,22 @@ export default async function OfferLetterPage({
         </div>
       </div>
 
+      {/* SAMPLE SPECIMEN NOTICE IF DEMO */}
+      {enrollment.id === "demo" && (
+        <div className="print:hidden rounded-2xl bg-amber-500/10 border border-amber-500/30 p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-amber-200">
+          <div>
+            <span className="font-bold block text-amber-300">⚠️ Sample Preview Specimen (Not Enrolled)</span>
+            <span>This is a demonstration preview. Complete enrollment in any industrial track to issue your official appointment letter with your college name and roll number.</span>
+          </div>
+          <Link
+            href="/#tracks"
+            className="rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs px-4 py-2 shrink-0 transition-colors shadow-md"
+          >
+            Enroll in a Track &rarr;
+          </Link>
+        </div>
+      )}
+
       {/* PRINTABLE DOCUMENT BODY */}
       <div className="rounded-3xl border border-slate-200 bg-white text-slate-900 p-8 sm:p-14 shadow-2xl space-y-6 font-sans print:border-none print:shadow-none print:p-0 print:m-0 print:w-full">
         
