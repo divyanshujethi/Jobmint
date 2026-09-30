@@ -14,6 +14,9 @@ export function middleware(req: NextRequest) {
     pathname.startsWith("/_next") ||
     pathname.startsWith("/api") ||
     pathname.startsWith("/materials") ||
+    pathname.startsWith("/.well-known") ||
+    pathname.startsWith("/well-known") ||
+    pathname.includes("apple-developer-merchantid-domain-association") ||
     pathname.includes(".") // file extensions like .png, .ico, .svg
   ) {
     return NextResponse.next();
