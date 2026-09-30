@@ -64,6 +64,12 @@ export async function ensureBootcampTables(): Promise<void> {
       );
     `));
 
+    // 3. Ensure bootcamp_enrollments has noc_addressee and semester_year columns
+    await db.execute(sql.raw(`
+      ALTER TABLE bootcamp_enrollments ADD COLUMN IF NOT EXISTS noc_addressee TEXT;
+      ALTER TABLE bootcamp_enrollments ADD COLUMN IF NOT EXISTS semester_year TEXT;
+    `));
+
     tablesEnsured = true;
   } catch (err) {
     console.error("[BootcampDB] Error ensuring tables:", err);

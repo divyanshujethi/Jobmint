@@ -34,6 +34,20 @@ export default function InternshipBootcampPage() {
   const [trackSearchQuery, setTrackSearchQuery] = useState("");
   const [trackSettings, setTrackSettings] = useState<Record<string, any>>({});
   const [globalAnnouncement, setGlobalAnnouncement] = useState<string | null>(null);
+  const [userEmail, setUserEmail] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetch("/api/bootcamp/me")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.authenticated && data.user?.email) {
+          setUserEmail(data.user.email);
+        }
+      })
+      .catch(() => {});
+  }, []);
+
+  const isAuthorizedTester = userEmail?.toLowerCase() === "divyanshujethi@gmail.com";
 
   // Fetch live admission statuses from API
   useEffect(() => {
@@ -331,7 +345,7 @@ export default function InternshipBootcampPage() {
                 { id: "ALL", label: `All Tracks (${BOOTCAMP_TRACKS.length})` },
                 { id: "OPENING_SOON", label: "⏳ Admissions Opening Soon" },
                 { id: "OPEN_NOW", label: "🟢 Open for Admissions" },
-                { id: "FREE_TEST", label: "🚀 Free Test Track" },
+                ...(isAuthorizedTester ? [{ id: "FREE_TEST", label: "🚀 VIP Free Test (₹0)" }] : []),
                 { id: "AI_ML", label: "AI & ML" },
                 { id: "WEB", label: "Web & Next.js" },
                 { id: "SYSTEMS", label: "Systems & Distributed" },
@@ -475,18 +489,18 @@ export default function InternshipBootcampPage() {
                           {setting?.cohortName ? `${setting.cohortName} • ` : ""}Admissions Opening Soon
                         </span>
                       </div>
-                    ) : track.pricing.discountedPrice === 0 ? (
+                    ) : isAuthorizedTester ? (
                       <div>
                         <div className="flex items-center gap-1.5">
                           <span className="text-lg font-black text-emerald-400">
-                            100% FREE
+                            ₹0 (FREE)
                           </span>
                           <span className="text-xs text-slate-500 line-through">
-                            ₹999
+                            ₹{track.pricing.discountedPrice}
                           </span>
                         </div>
                         <span className="text-[10px] text-emerald-400 font-bold block">
-                          Instant Free Test Track
+                          VIP Tester Access
                         </span>
                       </div>
                     ) : (
@@ -511,7 +525,7 @@ export default function InternshipBootcampPage() {
                     className={`rounded-xl font-black text-xs h-9 px-4 inline-flex items-center gap-1.5 shadow-md transition-all hover:scale-105 ${
                       isOpeningSoon
                         ? "bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-slate-950 shadow-amber-500/20"
-                        : track.pricing.discountedPrice === 0
+                        : isAuthorizedTester
                         ? "bg-gradient-to-r from-emerald-400 to-teal-400 text-slate-950 shadow-emerald-500/20"
                         : "bg-emerald-500 hover:bg-emerald-400 text-slate-950"
                     }`}
@@ -521,8 +535,8 @@ export default function InternshipBootcampPage() {
                         ? "Join Waitlist"
                         : isClosed
                         ? "View Track"
-                        : track.pricing.discountedPrice === 0
-                        ? "Test Free Track"
+                        : isAuthorizedTester
+                        ? "Test Track (₹0)"
                         : "View Syllabus"}
                     </span>
                     <ArrowRight className="h-3.5 w-3.5" />

@@ -9,19 +9,19 @@ export const EXTENDED_BOOTCAMP_TRACKS: BootcampTrack[] = [
   {
     id: "developer-sandbox",
     slug: "developer-sandbox",
-    title: "Developer Zero: Interactive Architecture & Git Sandbox (Free Test Track)",
-    domain: "Developer Onboarding & Hands-On Testing",
-    category: "FREE_TEST",
+    title: "Developer Zero: Interactive Architecture & Git Sandbox",
+    domain: "Developer Onboarding & Hands-On Engineering",
+    category: "DEV_TOOLS",
     icon: "🚀",
-    badge: "100% FREE TEST TRACK",
+    badge: "FOUNDATIONAL ARCHITECTURE LAB",
     durationWeeks: 4,
     totalHours: 160,
     pricing: {
-      originalPrice: 0,
-      discountedPrice: 0,
+      originalPrice: 1999,
+      discountedPrice: 499,
       currency: "INR",
     },
-    tagline: "Free interactive test track to explore and test the RoleNest Internship & Course ecosystem with zero payment.",
+    tagline: "Hands-on engineering sandbox curriculum to master git plumbing, clean architecture, and automated testing.",
     overview:
       "A complete hands-on sandbox curriculum designed to test the entire industrial virtual internship experience: instant free registration, automated Offer Letter issuance, college NOC generation, in-browser Code Arena execution, and cryptographic certificate verification.",
     targetAudience: [

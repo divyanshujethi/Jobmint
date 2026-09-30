@@ -153,9 +153,12 @@ export default async function NocLetterPage({
         {/* ADDRESSEE BLOCK */}
         <div className="print-avoid-break text-xs font-sans leading-relaxed text-slate-800 space-y-1 bg-purple-50/60 p-4 rounded-xl border border-purple-200">
           <div className="font-bold text-slate-950 text-sm">To,</div>
-          <div className="font-bold text-slate-900">The Head of Department (HOD) / Training &amp; Placement Officer (TPO)</div>
-          <div>Department of <strong>{enrollment.degreeBranch}</strong></div>
+          <div className="font-bold text-slate-900">{enrollment.nocAddressee || "The Head of Department (HOD) / Training & Placement Officer (TPO)"}</div>
+          <div>{enrollment.degreeBranch.toLowerCase().startsWith("department") ? enrollment.degreeBranch : `Department of ${enrollment.degreeBranch}`}</div>
           <div className="font-extrabold text-slate-950">{enrollment.collegeName}</div>
+          {enrollment.semesterYear && (
+            <div className="text-[11px] text-purple-900 font-semibold">Academic Standing: {enrollment.semesterYear}</div>
+          )}
         </div>
 
         {/* SUBJECT */}
@@ -169,7 +172,7 @@ export default async function NocLetterPage({
             Respected Sir/Madam,
           </p>
           <p>
-            This official communication certifies that your bonafide student, <strong>{enrollment.studentName}</strong> (Roll No: <strong>{enrollment.rollNumber}</strong>, Department of <strong>{enrollment.degreeBranch}</strong>), has been enrolled in the <strong>{track.title}</strong> hosted by <strong>RoleNest Virtual Engineering Labs</strong>.
+            This official communication certifies that your bonafide student, <strong>{enrollment.studentName}</strong> (Roll No: <strong>{enrollment.rollNumber}</strong>, {enrollment.semesterYear ? `${enrollment.semesterYear}, ` : ""}{enrollment.degreeBranch.toLowerCase().startsWith("department") ? enrollment.degreeBranch : `Department of ${enrollment.degreeBranch}`}), has been enrolled in the <strong>{track.title}</strong> hosted by <strong>RoleNest Virtual Engineering Labs</strong>.
           </p>
           <p>
             This virtual internship complies with the statutory norms prescribed in the <strong>AICTE Internship Policy: Guidelines &amp; Procedures</strong> and the <strong>UGC National Credit Framework (NCrF)</strong> for technical education institutions:

@@ -156,8 +156,9 @@ export default async function OfferLetterPage({
           <div className="font-bold text-slate-950 text-sm">To,</div>
           <div className="font-extrabold text-base text-slate-950">{enrollment.studentName}</div>
           <div>Roll No / Student ID: <strong className="font-mono text-slate-900">{enrollment.rollNumber}</strong></div>
-          <div>Department: <strong>{enrollment.degreeBranch}</strong></div>
+          <div>Department: <strong>{enrollment.degreeBranch.toLowerCase().startsWith("department") ? enrollment.degreeBranch : `Department of ${enrollment.degreeBranch}`}</strong></div>
           <div>Institution: <strong>{enrollment.collegeName}</strong></div>
+          {enrollment.semesterYear && <div>Academic Standing: <strong>{enrollment.semesterYear}</strong></div>}
           <div>Registered Email: {enrollment.studentEmail}</div>
         </div>
 

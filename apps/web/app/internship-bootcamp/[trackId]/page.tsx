@@ -67,12 +67,17 @@ export default function BootcampTrackDetailPage({
   const [studentName, setStudentName] = useState("");
   const [studentEmail, setStudentEmail] = useState("");
   const [studentPhone, setStudentPhone] = useState("");
-  const [studentCollege, setStudentCollege] = useState("");
+  const [studentCollege, setStudentCollege] = useState("Apex Institute of Engineering & Technology");
   const [degreeBranch, setDegreeBranch] = useState("B.Tech Computer Science & Engineering");
+  const [nocAddressee, setNocAddressee] = useState("The Head of Department (HOD) / Training & Placement Officer (TPO)");
+  const [semesterYear, setSemesterYear] = useState("6th Semester / 3rd Year");
   const [rollNumber, setRollNumber] = useState("");
   const [githubUsername, setGithubUsername] = useState("");
   const [enrolling, setEnrolling] = useState(false);
   const [enrollError, setEnrollError] = useState<string | null>(null);
+
+  const isAuthorizedTester = studentEmail?.toLowerCase() === "divyanshujethi@gmail.com";
+  const finalPrice = isAuthorizedTester ? 0 : (track.pricing.discountedPrice ?? 499);
 
   // Admission status & Waitlist modal
   const [waitlistModalOpen, setWaitlistModalOpen] = useState(false);
@@ -139,8 +144,10 @@ export default function BootcampTrackDetailPage({
           collegeName: studentCollege,
           degreeBranch,
           rollNumber,
+          nocAddressee,
+          semesterYear,
           githubUsername,
-          amountPaid: track.pricing.discountedPrice,
+          amountPaid: finalPrice,
         }),
       });
 
@@ -238,17 +245,32 @@ export default function BootcampTrackDetailPage({
               <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold">
                 {isOpeningSoon ? "Priority Cohort Reservation" : "Industrial Internship Fee"}
               </span>
-              <div className="flex items-baseline gap-2">
-                <span className={`text-3xl font-black ${isOpeningSoon ? "text-amber-300" : "text-white"}`}>
-                  ₹{track.pricing.discountedPrice}
-                </span>
-                <span className="text-sm text-slate-500 line-through">
-                  ₹{track.pricing.originalPrice}
-                </span>
-                <span className={`text-xs font-bold ${isOpeningSoon ? "text-amber-400" : "text-emerald-400"}`}>
-                  (Early Bird Rate)
-                </span>
-              </div>
+              {isAuthorizedTester ? (
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2">
+                    <span className="text-3xl font-black text-emerald-400">₹0</span>
+                    <span className="text-sm text-slate-500 line-through">₹{track.pricing.discountedPrice}</span>
+                    <span className="rounded-full bg-emerald-500/20 border border-emerald-500/40 px-2 py-0.5 text-[10px] font-black text-emerald-300">
+                      VIP TESTER
+                    </span>
+                  </div>
+                  <span className="text-[10px] text-emerald-300 font-medium block">
+                    Zero-cost testing access authorized for <strong>divyanshujethi@gmail.com</strong>.
+                  </span>
+                </div>
+              ) : (
+                <div className="flex items-baseline gap-2">
+                  <span className={`text-3xl font-black ${isOpeningSoon ? "text-amber-300" : "text-white"}`}>
+                    ₹{track.pricing.discountedPrice}
+                  </span>
+                  <span className="text-sm text-slate-500 line-through">
+                    ₹{track.pricing.originalPrice}
+                  </span>
+                  <span className={`text-xs font-bold ${isOpeningSoon ? "text-amber-400" : "text-emerald-400"}`}>
+                    (Early Bird Rate)
+                  </span>
+                </div>
+              )}
               <span className="text-[10px] text-slate-400 block">
                 {isOpeningSoon
                   ? "Admissions are opening soon. Register on priority waitlist to lock in early-bird fee and 24-hr priority seat access."
@@ -303,7 +325,7 @@ export default function BootcampTrackDetailPage({
                 onClick={() => setEnrollModalOpen(true)}
                 className="w-full rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-sm h-11 shadow-lg shadow-emerald-500/20 transition-all hover:scale-[1.02]"
               >
-                <span>{track.pricing.discountedPrice === 0 ? "Test Free Track (₹0)" : `Enroll Now (₹${track.pricing.discountedPrice})`}</span>
+                <span>{isAuthorizedTester ? "Test Track (₹0 VIP Access)" : `Enroll Now (₹${track.pricing.discountedPrice})`}</span>
                 <ArrowRight className="h-4 w-4 ml-1" />
               </Button>
             )}
@@ -564,20 +586,75 @@ export default function BootcampTrackDetailPage({
                   </div>
                 </div>
 
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div className="space-y-1">
+                    <label className="text-slate-300 font-bold flex items-center justify-between">
+                      <span>College NOC Addressee *</span>
+                      <span className="text-[10px] text-purple-400 font-mono">Recipient</span>
+                    </label>
+                    <Input
+                      type="text"
+                      required
+                      placeholder="e.g. The Head of Department (HOD) / Training & Placement Officer (TPO)"
+                      value={nocAddressee}
+                      onChange={(e) => setNocAddressee(e.target.value)}
+                      className="bg-slate-950 border-slate-800 text-white rounded-xl h-9"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="text-slate-300 font-bold flex items-center justify-between">
+                      <span>Academic Standing / Semester *</span>
+                      <span className="text-[10px] text-slate-400 font-mono">Current Term</span>
+                    </label>
+                    <Input
+                      type="text"
+                      required
+                      placeholder="e.g. 6th Semester / 3rd Year"
+                      value={semesterYear}
+                      onChange={(e) => setSemesterYear(e.target.value)}
+                      className="bg-slate-950 border-slate-800 text-white rounded-xl h-9"
+                    />
+                  </div>
+                </div>
+
+                {/* LIVE COLLEGE NOC & OFFER LETTER ADDRESSEE PREVIEW */}
+                <div className="rounded-xl border border-purple-500/30 bg-purple-950/20 p-3 space-y-1.5 font-sans">
+                  <div className="flex items-center justify-between text-[11px] font-bold text-purple-300">
+                    <span className="flex items-center gap-1.5">
+                      <FileCheck2 className="h-3.5 w-3.5 text-purple-400" />
+                      <span>Official College NOC &amp; Offer Letter Addressee Preview</span>
+                    </span>
+                    <span className="text-[10px] font-mono text-purple-400">AICTE Specimen</span>
+                  </div>
+                  <div className="rounded-lg bg-slate-950/90 border border-purple-500/20 p-2.5 text-[11px] font-mono leading-relaxed text-slate-300 space-y-0.5">
+                    <div className="text-emerald-400 font-bold">To,</div>
+                    <div className="text-white font-bold">{nocAddressee || "The Head of Department (HOD) / Training & Placement Officer (TPO)"}</div>
+                    <div className="text-purple-300">
+                      {degreeBranch.toLowerCase().startsWith("department") ? degreeBranch : `Department of ${degreeBranch || "B.Tech Computer Science & Engineering"}`}
+                    </div>
+                    <div className="text-white font-extrabold">{studentCollege || "Apex Institute of Engineering & Technology"}</div>
+                    {semesterYear && <div className="text-[10px] text-slate-400">Academic Standing: {semesterYear}</div>}
+                  </div>
+                  <span className="text-[10px] text-slate-400 block">
+                    Verify this matches your college department exactly. This text will be printed verbatim on your official College NOC.
+                  </span>
+                </div>
+
                 <div className={`rounded-xl p-3 border space-y-1 ${
-                  track.pricing.discountedPrice === 0
+                  finalPrice === 0
                     ? "bg-emerald-950/30 border-emerald-500/40"
                     : "bg-slate-950 border-slate-800"
                 }`}>
                   <div className="flex items-center justify-between text-xs font-bold text-white">
                     <span>Internship Enrollment Fee:</span>
                     <span className="text-emerald-400 font-black text-sm">
-                      {track.pricing.discountedPrice === 0 ? "₹0 (100% Free Test Track)" : `₹${track.pricing.discountedPrice}`}
+                      {finalPrice === 0 ? "₹0 (VIP Authorized Tester)" : `₹${finalPrice}`}
                     </span>
                   </div>
                   <span className="text-[10px] text-slate-400 block">
-                    {track.pricing.discountedPrice === 0
-                      ? "Zero payment required. Test all platform features immediately (instant Offer Letter, NOC Letter, Day-by-Day unlocking, and certificate verification)."
+                    {finalPrice === 0
+                      ? "Zero payment authorized for divyanshujethi@gmail.com. Instant Offer Letter, College NOC, Day-by-Day unlocking, and certificate verification are immediately activated."
                       : "Covers live compiler telemetry, daily mentor code review, AICTE 4-credit NOC, and public ledger Certificate ID."}
                   </span>
                 </div>
@@ -586,15 +663,15 @@ export default function BootcampTrackDetailPage({
                   type="submit"
                   disabled={enrolling}
                   className={`w-full rounded-xl font-black text-xs h-10 shadow-lg shadow-emerald-500/20 ${
-                    track.pricing.discountedPrice === 0
+                    finalPrice === 0
                       ? "bg-gradient-to-r from-emerald-400 to-teal-400 hover:from-emerald-300 hover:to-teal-300 text-slate-950"
                       : "bg-emerald-500 hover:bg-emerald-400 text-slate-950"
                   }`}
                 >
                   {enrolling
                     ? "Activating Internship Track..."
-                    : track.pricing.discountedPrice === 0
-                    ? "Activate Free Test Track & Generate Instant Letters →"
+                    : finalPrice === 0
+                    ? "Activate ₹0 VIP Enrollment & Generate Official Letters →"
                     : "Confirm Enrollment & Generate Offer Letter →"}
                 </Button>
               </form>

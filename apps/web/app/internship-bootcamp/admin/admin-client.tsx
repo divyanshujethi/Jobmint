@@ -528,9 +528,9 @@ export function BootcampAdminPanelClient({ userEmail }: AdminClientProps) {
                           <span className="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-wider">
                             {track.domain}
                           </span>
-                          {track.pricing.discountedPrice === 0 && (
+                          {(track.pricing.discountedPrice === 0 || track.id === "developer-sandbox") && (
                             <span className="rounded bg-emerald-500/20 text-emerald-400 text-[9px] font-black px-1.5 py-0.2">
-                              FREE TEST
+                              SANDBOX
                             </span>
                           )}
                         </div>

@@ -13,6 +13,8 @@ export const bootcampEnrollments = pgTable("bootcamp_enrollments", {
   collegeName: text("college_name").notNull(),
   degreeBranch: text("degree_branch").notNull(),
   rollNumber: text("roll_number").notNull(),
+  nocAddressee: text("noc_addressee"),
+  semesterYear: text("semester_year"),
   githubUsername: text("github_username"),
   status: text("status").notNull().default("ACTIVE"),
   offerLetterId: text("offer_letter_id").notNull().unique(),

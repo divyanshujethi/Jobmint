@@ -56,13 +56,28 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // Generate unique verifiable Offer Letter ID and NOC Letter ID
+    const userEmail = session.user.email?.toLowerCase();
+    const isAuthorizedTester = userEmail === "divyanshujethi@gmail.com";
+
     const cleanPrefix = (trackId || "TECH").replace(/[^a-zA-Z0-9]/g, "").toUpperCase().slice(0, 5);
     const randomHex = crypto.randomBytes(3).toString("hex").toUpperCase();
     const offerLetterId = `RN-OFFER-2026-${cleanPrefix}-${randomHex}`;
     const nocLetterId = `RN-NOC-2026-${cleanPrefix}-${randomHex}`;
 
-    const finalAmount = typeof amountPaid === "number" ? amountPaid : (!isNaN(Number(amountPaid)) ? Number(amountPaid) : 499);
+    let finalAmount = typeof amountPaid === "number" ? amountPaid : (!isNaN(Number(amountPaid)) ? Number(amountPaid) : 499);
+
+    // ZERO RUPEE (₹0) COURSE RULE:
+    // Only divyanshujethi@gmail.com is authorized to enroll for ₹0.
+    if (finalAmount === 0 && !isAuthorizedTester) {
+      return NextResponse.json(
+        { error: "Zero Rupee (₹0) test access is reserved exclusively for authorized email: divyanshujethi@gmail.com. Please complete regular enrollment." },
+        { status: 403 }
+      );
+    }
+
+    if (isAuthorizedTester) {
+      finalAmount = 0;
+    }
 
     const [newEnrollment] = await db
       .insert(bootcampEnrollments)
@@ -70,18 +85,20 @@ export async function POST(req: NextRequest) {
         userId,
         trackId,
         studentName: studentName.trim(),
-        studentEmail: studentEmail.trim().toLowerCase(),
+        studentEmail: (userEmail || studentEmail).trim().toLowerCase(),
         studentPhone: studentPhone ? studentPhone.trim() : null,
         collegeName: collegeName.trim(),
         degreeBranch: degreeBranch.trim(),
         rollNumber: rollNumber.trim().toUpperCase(),
+        nocAddressee: (body.nocAddressee || "The Head of Department (HOD) / Training & Placement Officer (TPO)").trim(),
+        semesterYear: (body.semesterYear || "6th Semester / 3rd Year").trim(),
         githubUsername: githubUsername ? githubUsername.trim() : null,
         offerLetterId,
         nocLetterId,
         currentDay: 1,
         unlockedDay: 1,
         status: "ACTIVE",
-        paymentOrderId: paymentOrderId || (finalAmount === 0 ? "FREE_TEST_ENROLLMENT" : `CF_SIM_${Date.now()}`),
+        paymentOrderId: paymentOrderId || (finalAmount === 0 ? "VIP_TESTER_DIVYANSHU" : `CF_SIM_${Date.now()}`),
         paymentStatus: "PAID",
         amountPaid: finalAmount,
       })
