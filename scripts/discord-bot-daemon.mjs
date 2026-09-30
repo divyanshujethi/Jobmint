@@ -435,6 +435,91 @@ async function handleDispatch(eventType, data) {
         }
       }, 5000);
     }
+
+    // Interactive FAQ Select Menu Response
+    if (customId === 'faq_select_menu') {
+      const selected = compData.values?.[0];
+      const FAQ_RESPONSES = {
+        faq_credits: {
+          title: '📜 AICTE / UGC 4-Credit Framework & University Acceptance',
+          desc: 'RoleNest virtual industrial internships follow the official **AICTE Internship Policy & National Credit Framework (NCrF)**.\n\n• **Total Lab Hours**: 160 Hours (4 Weeks @ 40 hrs/week = 4 Academic Credits).\n• **Documentation Provided**: Official Signed Offer Letter, University NOC, Weekly Evaluation Diary & Verified Digital Transcript.\n• **University Acceptance**: Accepted by VTU, Anna University, JNTU, Mumbai University, AKTU, and autonomous engineering colleges nationwide.',
+        },
+        faq_attendance: {
+          title: '⏰ 80% Attendance Threshold & Milestone Flexibility',
+          desc: 'To maintain academic rigor and simulate top tech engineering cultures:\n\n• **Requirement**: Candidates must pass automated tests & audits for at least **22 out of 28 Days (80% threshold)** to qualify for graduation.\n• **Missed Days**: If you have college exams or illnesses, you can submit catch-up milestones on weekends before the cohort closes.\n• **Daily Deadlines**: Daily standups evaluate daily at 10:00 AM & 06:00 PM IST.',
+        },
+        faq_audit: {
+          title: '🛡️ Automated GitHub Commit Auditor & Plagiarism Rules',
+          desc: 'Every milestone requires functional code pushed to your GitHub repository:\n\n• **Automated CI/CD**: Our GitHub runner verifies test pass rates, AST syntax, and line diffs.\n• **Plagiarism Guard**: Copying template code without modification or using fake commit scripts results in an audit failure and credential review.\n• **Audit Score**: A score >= 80/100 is required for daily passing marks.',
+        },
+        faq_noc: {
+          title: '📄 College NOC Letter & Appointment Letter Download',
+          desc: 'Administrative documents are instantly available upon registration:\n\n• **Download**: Access your dashboard at [internship.rolenest.in](https://internship.rolenest.in) to download digitally signed PDF copies.\n• **Official Letterhead**: Includes CIN, GSTIN, Registrar signature, and QR code for university verification.\n• **Custom Letters**: If your university requires a bespoke format, open a ticket via `/ticket`.',
+        },
+        faq_mentors: {
+          title: '🎙️ Faculty Mentor Office Hours & Live Standups',
+          desc: 'Learn directly from industry leads and faculty architects:\n\n• **Morning Standup**: Daily at **10:00 AM IST** in `🎙️ Mentor Standup & Office Hours`.\n• **Evening Review & Q&A**: Daily at **06:00 PM IST**.\n• **Asynchronous Help**: Post errors in `#code-troubleshooting` or use `/ask` for instant AI diagnosis.\n• **1-on-1 Sessions**: Click **Open Support Ticket** in `#support-helpdesk` anytime.',
+        },
+        faq_refund: {
+          title: '⚖️ Academic Integrity & Credential Safeguards',
+          desc: 'To protect the value and credibility of your certificate:\n\n• **Irreversible Credentials**: Once verified credentials (Certificate / NOC) are issued, they are permanent and watermarked.\n• **Anti-Fraud System**: Fraudulent chargebacks result in immediate invalidation, void watermarking on verification URLs, and registrar notification.',
+        },
+      };
+
+      const resp = FAQ_RESPONSES[selected] || {
+        title: '❓ RoleNest Knowledge Desk',
+        desc: 'Please select an option from the dropdown menu to view full details.',
+      };
+
+      await respondInteraction(interactionId, interactionToken, {
+        flags: 64, // EPHEMERAL
+        embeds: [
+          {
+            title: resp.title,
+            description: resp.desc,
+            color: 0x10b981,
+            footer: { text: 'RoleNest Academic Knowledge Base • Instant Answer' },
+          },
+        ],
+      });
+    }
+
+    // Self-Assignable Tech Stack Badges
+    if (customId.startsWith('toggle_role_')) {
+      const ROLE_MAP = {
+        toggle_role_python: { id: '1554969577522466886', name: '🐍 Python Developer' },
+        toggle_role_typescript: { id: '1554969581561315499', name: '⚛️ TypeScript / React' },
+        toggle_role_devops: { id: '1554969585357295669', name: '☁️ DevOps & Cloud' },
+        toggle_role_security: { id: '1554969589765640334', name: '🛡️ Security Researcher' },
+        toggle_role_aiml: { id: '1554969594844676258', name: '🧠 AI / ML Researcher' },
+      };
+
+      const target = ROLE_MAP[customId];
+      if (target) {
+        const userRoles = member?.roles || [];
+        const hasRole = userRoles.includes(target.id);
+
+        if (hasRole) {
+          await fetch(`${API_BASE}/guilds/${GUILD_ID}/members/${userId}/roles/${target.id}`, {
+            method: 'DELETE',
+            headers: { Authorization: `Bot ${BOT_TOKEN}` },
+          });
+          await respondInteraction(interactionId, interactionToken, {
+            flags: 64,
+            content: `➖ Removed developer badge: **${target.name}**`,
+          });
+        } else {
+          await fetch(`${API_BASE}/guilds/${GUILD_ID}/members/${userId}/roles/${target.id}`, {
+            method: 'PUT',
+            headers: { Authorization: `Bot ${BOT_TOKEN}` },
+          });
+          await respondInteraction(interactionId, interactionToken, {
+            flags: 64,
+            content: `➕ Added developer badge: **${target.name}** to your profile!`,
+          });
+        }
+      }
+    }
   }
 
   // 4. Slash Command Interaction
