@@ -3,7 +3,7 @@ import Link from "next/link";
 import { db, bootcampEnrollments, eq } from "@repo/database";
 import { getBootcampTrackBySlug, BOOTCAMP_TRACKS } from "@/lib/bootcamp-data";
 import { PrintButton } from "@/components/bootcamp/print-button";
-import { ShieldCheck, GraduationCap, ArrowLeft, Award, FileText, CheckCircle2 } from "lucide-react";
+import { ShieldCheck, GraduationCap, ArrowLeft, Award, FileText, CheckCircle2, AlertTriangle } from "lucide-react";
 
 export const metadata = {
   title: "Official Industrial Internship Offer Letter | RoleNest Virtual Labs",
@@ -74,6 +74,8 @@ export default async function OfferLetterPage({
     year: "numeric",
   });
 
+  const isRevoked = enrollment.status === "REVOKED" || enrollment.status === "REFUNDED" || enrollment.status === "CANCELLED";
+
   return (
     <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-10 space-y-6 print:m-0 print:p-0 print:max-w-none print:w-full print:space-y-4">
       <style>{`
@@ -102,7 +104,14 @@ export default async function OfferLetterPage({
           <ArrowLeft className="h-4 w-4" /> Return to Student Portal
         </Link>
         <div className="flex items-center gap-3">
-          <PrintButton label="Download / Print Offer Letter PDF" />
+          {isRevoked ? (
+            <span className="rounded-xl bg-red-500/20 border border-red-500/40 text-red-400 font-black text-xs px-4 py-2 flex items-center gap-1.5">
+              <AlertTriangle className="h-4 w-4" />
+              <span>Offer Letter Revoked &amp; Invalidated</span>
+            </span>
+          ) : (
+            <PrintButton label="Download / Print Offer Letter PDF" />
+          )}
         </div>
       </div>
 
@@ -123,7 +132,22 @@ export default async function OfferLetterPage({
       )}
 
       {/* PRINTABLE DOCUMENT BODY */}
-      <div className="rounded-3xl border border-slate-200 bg-white text-slate-900 p-8 sm:p-14 shadow-2xl space-y-6 font-sans print:border-none print:shadow-none print:p-0 print:m-0 print:w-full">
+      <div className="rounded-3xl border border-slate-200 bg-white text-slate-900 p-8 sm:p-14 shadow-2xl space-y-6 font-sans print:border-none print:shadow-none print:p-0 print:m-0 print:w-full relative overflow-hidden">
+        
+        {isRevoked && (
+          <div className="rounded-2xl bg-red-600 text-white p-5 border-4 border-red-800 text-center space-y-2 shadow-2xl">
+            <div className="flex items-center justify-center gap-2 text-base sm:text-lg font-black uppercase tracking-wider">
+              <AlertTriangle className="h-5 w-5" />
+              <span>OFFICIAL NOTICE: APPOINTMENT LETTER REVOKED &amp; VOIDED</span>
+            </div>
+            <p className="text-xs sm:text-sm font-semibold max-w-2xl mx-auto leading-relaxed text-red-50">
+              This Appointment Offer Letter (Ref: <strong>{enrollment.offerLetterId}</strong>) issued for <strong>{enrollment.studentName}</strong> has been permanently <strong>REVOKED &amp; CANCELLED</strong> due to payment reversal, refund, or non-completion.
+            </p>
+            <p className="text-[11px] text-red-200 font-mono">
+              VERIFICATION ALERT: University placement officers and verification authorities are formally advised that this appointment offer is null, void, and inadmissible for academic credit allocation.
+            </p>
+          </div>
+        )}
         
         {/* LETTERHEAD */}
         <div className="print-avoid-break flex flex-col sm:flex-row sm:items-center justify-between border-b-2 border-slate-900 pb-5 gap-4 font-sans">

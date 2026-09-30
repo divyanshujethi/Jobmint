@@ -18,6 +18,7 @@ import {
   Sparkles,
   Lock,
   FileCheck2,
+  AlertCircle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -183,17 +184,35 @@ export default function InternshipCertificateVerificationPage({
         <div className="space-y-8 print:space-y-6">
           
           {/* VERIFICATION BADGE BAR */}
-          <div className="rounded-2xl border border-emerald-500/30 bg-emerald-950/30 p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 print:hidden">
+          <div className={`rounded-2xl border p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 print:hidden ${
+            cert.status === "REVOKED" || cert.status === "REFUNDED"
+              ? "border-red-500/40 bg-red-950/40"
+              : "border-emerald-500/30 bg-emerald-950/30"
+          }`}>
             <div className="flex items-center gap-3">
-              <div className="h-10 w-10 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 shrink-0">
-                <ShieldCheck className="h-6 w-6" />
+              <div className={`h-10 w-10 rounded-xl border flex items-center justify-center shrink-0 ${
+                cert.status === "REVOKED" || cert.status === "REFUNDED"
+                  ? "bg-red-500/20 border-red-500/40 text-red-400"
+                  : "bg-emerald-500/20 border-emerald-500/40 text-emerald-400"
+              }`}>
+                {cert.status === "REVOKED" || cert.status === "REFUNDED" ? (
+                  <AlertCircle className="h-6 w-6" />
+                ) : (
+                  <ShieldCheck className="h-6 w-6" />
+                )}
               </div>
               <div>
                 <div className="flex items-center gap-2">
                   <h3 className="text-sm sm:text-base font-extrabold text-white">
-                    Official Cryptographic Ledger: Verified Authentic
+                    {cert.status === "REVOKED" || cert.status === "REFUNDED"
+                      ? "Official Cryptographic Ledger: DOCUMENT REVOKED"
+                      : "Official Cryptographic Ledger: Verified Authentic"}
                   </h3>
-                  <span className="rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 px-2 py-0.5 text-[10px] font-black uppercase">
+                  <span className={`rounded-full px-2 py-0.5 text-[10px] font-black uppercase ${
+                    cert.status === "REVOKED" || cert.status === "REFUNDED"
+                      ? "bg-red-500/20 text-red-300 border border-red-500/40"
+                      : "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40"
+                  }`}>
                     {cert.status}
                   </span>
                 </div>
@@ -203,15 +222,35 @@ export default function InternshipCertificateVerificationPage({
               </div>
             </div>
 
-            <Button
-              type="button"
-              onClick={handlePrint}
-              className="rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs h-9 px-4 shrink-0 gap-1.5 shadow-md shadow-emerald-500/20"
-            >
-              <Printer className="h-3.5 w-3.5" />
-              Print / Save Letter as PDF
-            </Button>
+            {cert.status === "REVOKED" || cert.status === "REFUNDED" ? (
+              <span className="rounded-xl bg-red-500/20 border border-red-500/40 text-red-400 font-black text-xs px-4 py-2">
+                Download &amp; Verification Disabled
+              </span>
+            ) : (
+              <Button
+                type="button"
+                onClick={handlePrint}
+                className="rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs h-9 px-4 shrink-0 gap-1.5 shadow-md shadow-emerald-500/20"
+              >
+                <Printer className="h-3.5 w-3.5" />
+                Print / Save Letter as PDF
+              </Button>
+            )}
           </div>
+
+          {(cert.status === "REVOKED" || cert.status === "REFUNDED") && (
+            <div className="rounded-2xl bg-red-600 text-white p-5 border-4 border-red-800 text-center space-y-1.5 shadow-2xl">
+              <h4 className="text-base font-black uppercase tracking-wider">
+                ⛔ WARNING: CREDENTIAL REVOKED &amp; CANCELLED
+              </h4>
+              <p className="text-xs sm:text-sm font-semibold max-w-2xl mx-auto leading-relaxed text-red-50">
+                This industrial credential and associated 4-credit recommendation have been officially REVOKED due to payment reversal, refund, or non-completion.
+              </p>
+              <p className="text-[11px] text-red-200 font-mono">
+                University inspection officers: Any academic submission using ID {cert.id} is invalid and void.
+              </p>
+            </div>
+          )}
 
           {/* FORMAL DIGITAL CERTIFICATE */}
           <div className="print-avoid-break rounded-3xl border-2 border-amber-400/40 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-8 sm:p-12 shadow-2xl relative overflow-hidden text-center space-y-6 print:bg-white print:border-amber-600 print:text-slate-900 print:shadow-none print:p-6">

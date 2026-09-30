@@ -75,6 +75,7 @@ export default function BootcampTrackDetailPage({
   const [githubUsername, setGithubUsername] = useState("");
   const [enrolling, setEnrolling] = useState(false);
   const [enrollError, setEnrollError] = useState<string | null>(null);
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
 
   const isAuthorizedTester = studentEmail?.toLowerCase() === "divyanshujethi@gmail.com";
   const finalPrice = isAuthorizedTester ? 0 : (track.pricing.discountedPrice ?? 499);
@@ -659,13 +660,34 @@ export default function BootcampTrackDetailPage({
                   </span>
                 </div>
 
+                {/* MANDATORY NON-REFUNDABLE INSTITUTIONAL TERMS AGREEMENT */}
+                <div className="rounded-xl border border-slate-800 bg-slate-950/90 p-3 space-y-1.5">
+                  <label className="flex items-start gap-2.5 cursor-pointer select-none">
+                    <input
+                      type="checkbox"
+                      required
+                      checked={isAuthorizedTester ? true : agreedToTerms}
+                      onChange={(e) => setAgreedToTerms(e.target.checked)}
+                      className="mt-0.5 h-4 w-4 rounded border-slate-700 bg-slate-900 text-emerald-500 focus:ring-emerald-500 shrink-0"
+                    />
+                    <div className="space-y-0.5 text-[11px] text-slate-300 leading-tight">
+                      <span className="font-bold text-white block">
+                        Mandatory Institutional Terms &amp; Digital Document Issuance Agreement *
+                      </span>
+                      <span className="text-[10px] text-slate-400 block leading-relaxed">
+                        I acknowledge that upon confirmation, an official signed Appointment Letter and Institutional College NOC with unique cryptographic reference codes ({track.certificateSpec.prefix}-2026-...) are instantly issued and recorded on the public verification registry. Because official academic credentials are generated immediately, this fee of ₹{finalPrice} is strictly non-refundable once documents are issued. I agree that any fraudulent chargeback or payment reversal will immediately revoke and invalidate all institutional documents on the public university verification portal.
+                      </span>
+                    </div>
+                  </label>
+                </div>
+
                 <Button
                   type="submit"
-                  disabled={enrolling}
+                  disabled={enrolling || (!isAuthorizedTester && !agreedToTerms)}
                   className={`w-full rounded-xl font-black text-xs h-10 shadow-lg shadow-emerald-500/20 ${
                     finalPrice === 0
                       ? "bg-gradient-to-r from-emerald-400 to-teal-400 hover:from-emerald-300 hover:to-teal-300 text-slate-950"
-                      : "bg-emerald-500 hover:bg-emerald-400 text-slate-950"
+                      : "bg-emerald-500 hover:bg-emerald-400 text-slate-950 disabled:opacity-50 disabled:cursor-not-allowed"
                   }`}
                 >
                   {enrolling

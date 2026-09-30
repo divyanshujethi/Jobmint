@@ -20,7 +20,7 @@ export interface InternshipCertificate {
   score: number; // e.g. 96/100
   grade: "A+" | "A" | "O" | "DISTINCTION";
   verified: boolean;
-  status: "ISSUED" | "VERIFIED" | "HONOR_ROLL";
+  status: "ISSUED" | "VERIFIED" | "HONOR_ROLL" | "REVOKED" | "REFUNDED" | "CANCELLED";
   mentorName: string;
   mentorTitle: string;
   academicCredits: string;

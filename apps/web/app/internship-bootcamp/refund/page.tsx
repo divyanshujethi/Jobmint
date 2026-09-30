@@ -9,13 +9,16 @@ import {
   HelpCircle,
   Mail,
   FileCheck,
+  AlertTriangle,
+  Lock,
+  Building2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export const metadata = {
-  title: "Refund & Cancellation Policy | RoleNest Internship Labs",
+  title: "Refund, Cancellation & Institutional Credential Invalidation Policy | RoleNest Virtual Labs",
   description:
-    "Official 7-Day Money-Back Guarantee, refund terms, and cancellation guidelines for RoleNest 3-4 week industrial internship bootcamps.",
+    "Official refund terms, digital document non-refundability, and institutional credential invalidation policy for RoleNest 4-week industrial engineering internships.",
 };
 
 export default function InternshipRefundPage() {
@@ -30,36 +33,36 @@ export default function InternshipRefundPage() {
         >
           <ArrowLeft className="h-4 w-4" /> Back to RoleNest Internship Labs
         </Link>
-        <div className="inline-flex items-center gap-1.5 text-xs font-bold text-teal-400 bg-teal-500/10 border border-teal-500/30 px-3 py-1 rounded-full mb-3">
+        <div className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-400 bg-amber-500/10 border border-amber-500/30 px-3 py-1 rounded-full mb-3">
           <ShieldCheck className="h-3.5 w-3.5" />
-          <span>7-Day Student Protection Guarantee</span>
+          <span>Institutional Accreditation &amp; Payment Safeguard Policy</span>
         </div>
         <h1 className="text-3xl sm:text-4xl font-black text-white tracking-tight">
-          Refund &amp; Cancellation Policy
+          Refund, Cancellation &amp; Invalidation Policy
         </h1>
         <p className="text-xs sm:text-sm text-slate-400 mt-1">
-          Effective: September 2026 • Applicable to all RoleNest 3–4 Week Industrial Internship Bootcamps.
+          Effective: 2026 Batch • Legally binding terms governing industrial internship admissions, academic documents, and payment chargebacks.
         </p>
       </div>
 
-      {/* 7-DAY GUARANTEE HIGHLIGHT BOX */}
-      <div className="rounded-3xl border-2 border-emerald-500/30 bg-gradient-to-br from-emerald-950/40 via-slate-900 to-slate-950 p-6 sm:p-8 space-y-4 shadow-xl">
+      {/* CORE SAFEGUARD HIGHLIGHT BOX */}
+      <div className="rounded-3xl border-2 border-amber-500/30 bg-gradient-to-br from-amber-950/40 via-slate-900 to-slate-950 p-6 sm:p-8 space-y-4 shadow-xl">
         <div className="flex items-center gap-3">
-          <div className="h-10 w-10 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 shrink-0">
-            <CheckCircle2 className="h-5 w-5" />
+          <div className="h-10 w-10 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 shrink-0">
+            <AlertTriangle className="h-5 w-5" />
           </div>
           <div>
-            <span className="text-[10px] font-mono text-emerald-400 uppercase tracking-widest font-black block">
-              100% Risk-Free Enrollment
+            <span className="text-[10px] font-mono text-amber-400 uppercase tracking-widest font-black block">
+              Digital Academic Document Issuance Rule
             </span>
             <h2 className="text-lg font-black text-white">
-              7-Day Full Tuition Refund Guarantee
+              Instant Document Generation &amp; Non-Refundable Fee Notice
             </h2>
           </div>
         </div>
 
         <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-          We want every engineering student to explore our live coding competition arena, study manuals, and mentorship with absolute confidence. If you determine that the program does not align with your learning goals within the first 7 days of enrollment, you are entitled to a full 100% refund.
+          Upon completing registration, an official verifiable <strong>Letter of Appointment</strong> and an institutional <strong>College No Objection Certificate (NOC)</strong> customized to your Head of Department (HOD) and College with unique cryptographic reference IDs are instantly generated and permanently logged in our academic ledger. In accordance with applicable Indian consumer and digital goods regulations, <strong>internship enrollment fees are strictly non-refundable once academic letters are issued, viewed, or downloaded</strong>.
         </p>
       </div>
 
@@ -69,60 +72,85 @@ export default function InternshipRefundPage() {
         {/* CLAUSE 1 */}
         <div className="rounded-2xl border border-slate-800 bg-slate-900/80 p-6 space-y-3">
           <h3 className="text-base font-extrabold text-white flex items-center gap-2">
-            <Clock className="h-4 w-4 text-emerald-400" />
-            <span>1. Eligibility Window</span>
+            <FileCheck className="h-4 w-4 text-emerald-400" />
+            <span>1. Non-Refundability of Issued Academic Documents</span>
           </h3>
           <p>
-            To qualify for a 100% refund, the refund request must be formally submitted within <strong>seven (7) calendar days</strong> from the original timestamp of course payment.
+            The subsidized registration fee (e.g. ₹499) directly covers institutional liaison overhead, automated verification hashing, live compiler sandbox provisioning, and formal academic documentation under AICTE/UGC model credit frameworks.
           </p>
-          <ul className="list-disc list-inside space-y-1 text-xs text-slate-400">
-            <li>Requests initiated on or before the 7th day will be approved with zero penalty or administrative deduction.</li>
-            <li>After the 7th day, tuition fees are non-refundable as server infrastructure, computing resources, and mentor review queues are permanently allocated.</li>
+          <ul className="list-disc list-inside space-y-1.5 text-xs text-slate-400">
+            <li>Once an applicant confirms enrollment and their customized <strong>Offer Letter ID</strong> (e.g., <code>RN-OFFER-2026-...</code>) and <strong>College NOC Reference ID</strong> (e.g., <code>RN-NOC-2026-...</code>) are generated in the student portal, <strong>no refunds will be granted under any circumstance</strong>.</li>
+            <li>Claims such as &ldquo;my college did not accept the NOC&rdquo;, &ldquo;I enrolled by mistake&rdquo;, or &ldquo;I want an offline internship&rdquo; do not qualify for a refund, as the institutional document creation and verification records are irrevocably committed to the database.</li>
           </ul>
         </div>
 
         {/* CLAUSE 2 */}
-        <div className="rounded-2xl border border-slate-800 bg-slate-900/80 p-6 space-y-3">
-          <h3 className="text-base font-extrabold text-white flex items-center gap-2">
-            <AlertCircle className="h-4 w-4 text-amber-400" />
-            <span>2. Certificate Issuance Exception</span>
+        <div className="rounded-2xl border border-red-500/30 bg-red-950/10 p-6 space-y-3">
+          <h3 className="text-base font-extrabold text-red-300 flex items-center gap-2">
+            <AlertCircle className="h-4 w-4 text-red-400" />
+            <span>2. Immediate Credential Revocation &amp; University Invalidation</span>
           </h3>
-          <p>
-            Once a student has submitted their final Capstone Project, received mentor grading, and generated an official verifiable <strong>Certificate ID</strong> registered on the public cryptographic ledger, the tuition fee becomes <strong>strictly non-refundable</strong>.
+          <p className="text-slate-200">
+            Any chargeback, unauthorized payment dispute filed through UPI apps (PhonePe, Google Pay, Paytm, CRED), netbanking dispute, or unauthorized reversal will trigger <strong>immediate and permanent revocation</strong> of all credentials:
           </p>
-          <p className="text-xs text-slate-400">
-            This exception prevents misuse of credentials for academic credit claiming or university NOC submissions without legitimate completion.
-          </p>
+          <ul className="list-disc list-inside space-y-1.5 text-xs text-red-200/80">
+            <li>The candidate&apos;s status on both the public verification portal and student portal is immediately updated to <strong>REVOKED / CANCELLED</strong>.</li>
+            <li>Both the College NOC (<code>/portal/noc/[id]</code>) and Appointment Offer Letter (<code>/portal/offer-letter/[id]</code>) are visibly stamped with a bold red warning watermark declaring the document <strong>NULL, VOID &amp; FRAUDULENT</strong>.</li>
+            <li>Any college faculty, HOD, or university auditor visiting the verification QR code or URL will see a prominent notice that the student is NOT an authorized intern and that credit sanction must be withheld.</li>
+          </ul>
         </div>
 
         {/* CLAUSE 3 */}
         <div className="rounded-2xl border border-slate-800 bg-slate-900/80 p-6 space-y-3">
           <h3 className="text-base font-extrabold text-white flex items-center gap-2">
-            <CreditCard className="h-4 w-4 text-teal-400" />
-            <span>3. Refund Processing &amp; Timeline</span>
+            <Lock className="h-4 w-4 text-teal-400" />
+            <span>3. Digital Telemetry &amp; Chargeback Audit Defense</span>
           </h3>
           <p>
-            All approved refunds are processed automatically through our RBI-licensed payment gateway partner, <strong>Cashfree Payments</strong>.
+            RoleNest Virtual Labs maintains forensic telemetry to safeguard against payment fraud and illegitimate chargebacks. For every enrollment, we record:
           </p>
-          <ul className="list-disc list-inside space-y-1 text-xs text-slate-400">
-            <li>Refunds are returned strictly to the original source account (UPI ID, Debit/Credit Card, or NetBanking).</li>
-            <li>Typical turnaround time is <strong>5 to 7 working banking days</strong> from the date of approval.</li>
-            <li>You will receive an automated Cashfree ARN (Acquirer Reference Number) tracking email once the transfer is executed.</li>
+          <ul className="list-disc list-inside space-y-1.5 text-xs text-slate-400">
+            <li>Candidate IPv4/IPv6 address, ISP hostname, and precise UTC timestamps of payment and document generation.</li>
+            <li>Digital acceptance logs of the mandatory Non-Refundable Document Agreement.</li>
+            <li>Candidate session history, GitHub commit links submitted, and code execution telemetry.</li>
           </ul>
+          <p className="text-xs text-slate-400 pt-1">
+            In the event of an unjustified payment dispute, this complete audit dossier is automatically transmitted to our payment gateway partner (Cashfree Payments) and the candidate&apos;s issuing bank, alongside a formal fraud reporting notice.
+          </p>
         </div>
 
         {/* CLAUSE 4 */}
         <div className="rounded-2xl border border-slate-800 bg-slate-900/80 p-6 space-y-3">
           <h3 className="text-base font-extrabold text-white flex items-center gap-2">
-            <Mail className="h-4 w-4 text-indigo-400" />
-            <span>4. How to Request a Refund</span>
+            <Clock className="h-4 w-4 text-purple-400" />
+            <span>4. Limited Pre-Issuance Cancellation Window</span>
           </h3>
           <p>
-            To initiate a refund, please send an email to <span className="text-emerald-400 font-mono font-bold">refunds@rolenest.in</span> with the subject line <code>"Internship Refund Request - [Your Registered Email]"</code>.
+            A refund may ONLY be considered under the following strict condition:
           </p>
-          <p className="text-xs text-slate-400">
-            Please include: (1) Your Full Legal Name, (2) Enrolled Domain Track, and (3) Cashfree Order ID or Payment Screenshot. Our finance desk responds within 24 hours.
+          <ul className="list-disc list-inside space-y-1 text-xs text-slate-400">
+            <li>The candidate was billed due to a duplicate transaction error, OR</li>
+            <li>The candidate requests cancellation within <strong>two (2) hours of payment</strong> AND has <strong>not viewed, downloaded, or shared</strong> their Appointment Offer Letter or College NOC.</li>
+          </ul>
+          <p className="text-xs text-slate-400 pt-1">
+            Eligible duplicate transaction refunds are processed back to the original UPI/card source within 5–7 banking days via Cashfree Payments.
           </p>
+        </div>
+
+        {/* CLAUSE 5 */}
+        <div className="rounded-2xl border border-slate-800 bg-slate-900/80 p-6 space-y-3">
+          <h3 className="text-base font-extrabold text-white flex items-center gap-2">
+            <Mail className="h-4 w-4 text-indigo-400" />
+            <span>5. Institutional &amp; Billing Support</span>
+          </h3>
+          <p>
+            For verified billing anomalies or university administration queries, contact our finance and institutional liaison desk:
+          </p>
+          <div className="rounded-xl bg-slate-950 p-3 font-mono text-xs text-slate-300 space-y-1 border border-slate-800">
+            <div>Email: <a href="mailto:internships@rolenest.in" className="text-emerald-400 hover:underline">internships@rolenest.in</a></div>
+            <div>Institutional Verification: <a href="mailto:accreditation@rolenest.in" className="text-purple-400 hover:underline">accreditation@rolenest.in</a></div>
+            <div>Response SLA: Within 24 business hours</div>
+          </div>
         </div>
 
       </div>

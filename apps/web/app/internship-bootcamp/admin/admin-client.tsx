@@ -912,6 +912,46 @@ export function BootcampAdminPanelClient({ userEmail }: AdminClientProps) {
                                 Unlock 28 Days
                               </Button>
 
+                              {e.status === "REVOKED" ? (
+                                <Button
+                                  size="sm"
+                                  variant="outline"
+                                  onClick={() => {
+                                    if (confirm(`Reactivate enrollment and re-validate letters for ${e.studentName}?`)) {
+                                      handleEnrollmentAction("update_status", {
+                                        enrollmentId: e.id,
+                                        status: "ACTIVE",
+                                      });
+                                    }
+                                  }}
+                                  disabled={actionLoading === e.id + "update_status"}
+                                  className="border-amber-500/40 text-amber-300 text-[10px] h-7 px-2"
+                                >
+                                  Reactivate
+                                </Button>
+                              ) : (
+                                <Button
+                                  size="sm"
+                                  variant="outline"
+                                  onClick={() => {
+                                    if (
+                                      confirm(
+                                        `⚠️ REVOKE & VOID all credentials, Offer Letters, and College NOCs for ${e.studentName}?\n\nThis permanently watermarks their documents as REVOKED / CANCELLED on the public ledger.`
+                                      )
+                                    ) {
+                                      handleEnrollmentAction("update_status", {
+                                        enrollmentId: e.id,
+                                        status: "REVOKED",
+                                      });
+                                    }
+                                  }}
+                                  disabled={actionLoading === e.id + "update_status"}
+                                  className="border-red-500/40 bg-red-950/30 text-red-300 hover:bg-red-900/50 text-[10px] h-7 px-2 font-bold"
+                                >
+                                  Revoke
+                                </Button>
+                              )}
+
                               <Button
                                 size="sm"
                                 variant="outline"
@@ -1084,6 +1124,41 @@ export function BootcampAdminPanelClient({ userEmail }: AdminClientProps) {
                               >
                                 Print NOC
                               </Link>
+                              {e.status === "REVOKED" ? (
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    if (confirm(`Reactivate enrollment for ${e.studentName}?`)) {
+                                      handleEnrollmentAction("update_status", {
+                                        enrollmentId: e.id,
+                                        status: "ACTIVE",
+                                      });
+                                    }
+                                  }}
+                                  className="rounded-lg border border-amber-500/40 bg-amber-950/20 text-[10px] font-bold text-amber-300 text-center py-1 px-2"
+                                >
+                                  Reactivate
+                                </button>
+                              ) : (
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    if (
+                                      confirm(
+                                        `⚠️ REVOKE & VOID all credentials, Offer Letters, and College NOCs for ${e.studentName}?\n\nThis permanently watermarks their documents as REVOKED / CANCELLED.`
+                                      )
+                                    ) {
+                                      handleEnrollmentAction("update_status", {
+                                        enrollmentId: e.id,
+                                        status: "REVOKED",
+                                      });
+                                    }
+                                  }}
+                                  className="rounded-lg border border-red-500/40 bg-red-950/30 text-[10px] font-bold text-red-300 hover:bg-red-900/50 text-center py-1 px-2"
+                                >
+                                  Revoke Letters
+                                </button>
+                              )}
                             </div>
                           </td>
                         </tr>
