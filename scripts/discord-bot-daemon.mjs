@@ -10,7 +10,7 @@
 // 7. Automated Daily Problem of the Day (POTD) Scheduler
 
 import { getDailyPOTD } from './potd-catalog.mjs';
-import { buildLiveLeaderboardEmbed } from './setup-auto-leaderboard.mjs';
+import { buildLiveLeaderboardEmbed, fetchLiveLeaderboardData } from './setup-auto-leaderboard.mjs';
 
 const BOT_TOKEN = (process.env.DISCORD_BOT_TOKEN || '').trim();
 const GUILD_ID = (process.env.DISCORD_GUILD_ID || '1554952372910952460').trim();
@@ -1328,22 +1328,10 @@ async function handleDispatch(eventType, data) {
         });
       }
     } else if (cmdName === 'leaderboard') {
+      const liveData = await fetchLiveLeaderboardData();
+      const embed = buildLiveLeaderboardEmbed(liveData);
       await respondInteraction(interactionId, interactionToken, {
-        embeds: [
-          {
-            title: '🏆 RoleNest Intern Honor Roll & Milestone Leaderboard',
-            description: 'Top performing engineering interns ranked by code quality, milestone consistency, and test coverage.',
-            color: 0xf59e0b,
-            fields: [
-              { name: '🥇 1. Alex K. (Full-Stack Next.js)', value: '• **Audit Score**: 99.4%\n• **Milestones**: 28/28 Days\n• **Badge**: Star Contributor ⭐', inline: false },
-              { name: '🥈 2. Priya S. (AI & Machine Learning)', value: '• **Audit Score**: 98.8%\n• **Milestones**: 27/28 Days\n• **Badge**: Architecture Lead 🧠', inline: false },
-              { name: '🥉 3. Rahul M. (Cyber Security Ops)', value: '• **Audit Score**: 97.5%\n• **Milestones**: 26/28 Days\n• **Badge**: Defense Specialist 🛡️', inline: false },
-              { name: '🎖️ 4. Devansh R. (Cloud SRE & DevOps)', value: '• **Audit Score**: 96.9%\n• **Milestones**: 26/28 Days\n• **Badge**: Infrastructure Pro ☁️', inline: false },
-            ],
-            footer: { text: 'Updated every 24 hours at daily standup conclusion' },
-            timestamp: new Date().toISOString(),
-          },
-        ],
+        embeds: [embed],
       });
     } else if (cmdName === 'ask') {
       const qOpt = cmdData.options?.find((o) => o.name === 'query');
@@ -1443,8 +1431,9 @@ function startLeaderboardAndStandupScheduler() {
   // 1. Refresh Leaderboard every 6 hours
   setInterval(async () => {
     try {
-      console.log('[Leaderboard Scheduler] Refreshing #intern-leaderboard...');
-      const embed = buildLiveLeaderboardEmbed();
+      console.log('[Leaderboard Scheduler] Refreshing #intern-leaderboard from database...');
+      const liveData = await fetchLiveLeaderboardData();
+      const embed = buildLiveLeaderboardEmbed(liveData);
       const msg = await sendChannelMessage(CHANNELS.LEADERBOARD, {
         embeds: [embed],
       });
@@ -1494,6 +1483,33 @@ function startLeaderboardAndStandupScheduler() {
       console.error('[Standup Scheduler Error]:', err);
     }
   }, 10 * 60 * 1000); // Check every 10 minutes
+
+  // 3. Sync Server Stats with Real Discord & Database Telemetry
+  const syncServerStats = async () => {
+    try {
+      const g = await discordFetch(`/guilds/${GUILD_ID}?with_counts=true`);
+      const memberCount = g?.approximate_member_count || 2;
+      const members = await discordFetch(`/guilds/${GUILD_ID}/members?limit=100`);
+      const verifiedCount = Array.isArray(members)
+        ? members.filter((m) => m.roles?.includes('1554956693115248671')).length
+        : 0;
+
+      const channels = await discordFetch(`/guilds/${GUILD_ID}/channels`);
+      const memberCh = channels?.find((c) => c.name.startsWith('👥 Total Members:'));
+      if (memberCh && memberCh.name !== `👥 Total Members: ${memberCount}`) {
+        await discordFetch(`/channels/${memberCh.id}`, 'PATCH', { name: `👥 Total Members: ${memberCount}` });
+      }
+      const verifiedCh = channels?.find((c) => c.name.startsWith('🎓 Verified Interns:'));
+      if (verifiedCh && verifiedCh.name !== `🎓 Verified Interns: ${verifiedCount}`) {
+        await discordFetch(`/channels/${verifiedCh.id}`, 'PATCH', { name: `🎓 Verified Interns: ${verifiedCount}` });
+      }
+    } catch (e) {
+      console.warn('[Stats Sync Warning]:', e.message);
+    }
+  };
+
+  syncServerStats();
+  setInterval(syncServerStats, 30 * 60 * 1000);
 }
 
 connectGateway();

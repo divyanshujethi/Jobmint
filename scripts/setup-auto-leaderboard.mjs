@@ -28,7 +28,21 @@ async function discordFetch(endpoint, method = 'GET', body = null) {
   return res.json();
 }
 
-export function buildLiveLeaderboardEmbed() {
+const WEB_API_BASE = process.env.WEB_API_URL || 'https://internship.rolenest.in';
+
+export async function fetchLiveLeaderboardData() {
+  try {
+    const res = await fetch(`${WEB_API_BASE}/api/bootcamp/leaderboard`);
+    if (res.ok) {
+      return await res.json();
+    }
+  } catch (e) {
+    console.warn('[Leaderboard] Failed to fetch live data:', e.message);
+  }
+  return { totalEnrolled: 0, totalSubmissions: 0, rankings: [] };
+}
+
+export function buildLiveLeaderboardEmbed(data = {}) {
   const now = new Date();
   const dateStr = now.toLocaleDateString('en-IN', {
     timeZone: 'Asia/Kolkata',
@@ -38,46 +52,90 @@ export function buildLiveLeaderboardEmbed() {
     year: 'numeric',
   });
 
+  const totalEnrolled = data.totalEnrolled || 0;
+  const totalSubmissions = data.totalSubmissions || 0;
+  const rankings = data.rankings || [];
+
+  const fields = [
+    {
+      name: '📊 Live Cohort Telemetry',
+      value:
+        `• **Verified Interns Enrolled**: \`${totalEnrolled}\`\n` +
+        `• **Verified Code Milestones Audited**: \`${totalSubmissions} Commits\`\n` +
+        `• **Curriculum Tracks Active**: \`33 Industrial Engineering Specializations\`\n` +
+        `• **AICTE / UGC 4-Credit Policy**: \`22 of 28 Days Required for Graduation & NOC\``,
+      inline: false,
+    },
+  ];
+
+  if (rankings.length === 0) {
+    fields.push({
+      name: '⏳ Cohort Standings (Awaiting Day 1 Submissions)',
+      value:
+        '*No daily milestone deliverables have been submitted for audit in this cohort yet.*\n\n' +
+        'Once enrolled candidates pass the in-browser sandbox tests, push verified code commits to GitHub, and submit in `#daily-standup-deliverables`, real-time rankings and AST audit scores will appear here automatically!',
+      inline: false,
+    });
+    fields.push({
+      name: '🚀 How to Rank on the Official Honor Roll',
+      value:
+        '1️⃣ Download your daily engineering specification using **/sop**\n' +
+        '2️⃣ Complete the architecture tasks and pass the in-browser unit tests\n' +
+        '3️⃣ Submit your GitHub commit/PR in `#daily-standup-deliverables` to trigger automated AICTE code audit!',
+      inline: false,
+    });
+  } else {
+    const gold = rankings.filter((r) => r.tier === 'GOLD');
+    const silver = rankings.filter((r) => r.tier === 'SILVER');
+    const bronze = rankings.filter((r) => r.tier === 'BRONZE');
+
+    if (gold.length > 0) {
+      fields.push({
+        name: '🥇 GOLD TIER (Audit Score >= 95% • 26+ Milestones Passed)',
+        value: gold
+          .map(
+            (r, i) =>
+              `**${i + 1}. ${r.name}** (\`${r.trackId}\`)\n• Audit Score: \`${r.auditScore}%\` | Streak: \`${r.milestonesPassed}/28 Days\` | Badge: ${r.badge}`
+          )
+          .join('\n'),
+        inline: false,
+      });
+    }
+
+    if (silver.length > 0) {
+      fields.push({
+        name: '🥈 SILVER TIER (Audit Score >= 85% • 23-25 Milestones Passed)',
+        value: silver
+          .map(
+            (r, i) =>
+              `**${gold.length + i + 1}. ${r.name}** (\`${r.trackId}\`)\n• Audit Score: \`${r.auditScore}%\` | Streak: \`${r.milestonesPassed}/28 Days\` | Badge: ${r.badge}`
+          )
+          .join('\n'),
+        inline: false,
+      });
+    }
+
+    if (bronze.length > 0) {
+      fields.push({
+        name: '🥉 BRONZE TIER (Audit Score >= 80% • On-Track for AICTE Credits)',
+        value: bronze
+          .map(
+            (r, i) =>
+              `**${gold.length + silver.length + i + 1}. ${r.name}** (\`${r.trackId}\`)\n• Audit Score: \`${r.auditScore}%\` | Streak: \`${r.milestonesPassed}/28 Days\` | Badge: ${r.badge}`
+          )
+          .join('\n'),
+        inline: false,
+      });
+    }
+  }
+
   return {
     title: `🏆 RoleNest Official Milestone & Code Quality Leaderboard`,
     description: `*Live Cohort Standings as of ${dateStr}*\nEvaluated daily via automated AST code audits, passing unit tests, and GitHub commit milestone consistency across all 33 industrial tracks.`,
     color: 0xf59e0b,
-    fields: [
-      {
-        name: '🥇 GOLD TIER (Audit Score >= 95% • 26+ Milestones Passed)',
-        value:
-          '**1. Alex K.** (`Next.js 15 Full-Stack`)\n• Audit Score: `99.4%` | Streak: `28/28 Days` | Badge: ⭐ *Star Contributor*\n' +
-          '**2. Priya S.** (`AI & Machine Learning`)\n• Audit Score: `98.8%` | Streak: `27/28 Days` | Badge: 🧠 *Architecture Lead*\n' +
-          '**3. Rahul M.** (`Cyber Security Ops`)\n• Audit Score: `97.5%` | Streak: `26/28 Days` | Badge: 🛡️ *Defense Specialist*',
-        inline: false,
-      },
-      {
-        name: '🥈 SILVER TIER (Audit Score >= 85% • 23-25 Milestones Passed)',
-        value:
-          '**4. Devansh R.** (`Cloud SRE & DevOps`)\n• Audit Score: `96.9%` | Streak: `25/28 Days` | Badge: ☁️ *Infrastructure Pro*\n' +
-          '**5. Sneha V.** (`Cross-Platform Mobile`)\n• Audit Score: `95.2%` | Streak: `24/28 Days` | Badge: 📱 *Mobile Architect*\n' +
-          '**6. Ankit P.** (`Advanced SQL & PostgreSQL`)\n• Audit Score: `94.1%` | Streak: `23/28 Days` | Badge: 💾 *Query Optimizer*',
-        inline: false,
-      },
-      {
-        name: '🥉 BRONZE TIER (Audit Score >= 80% • On-Track for AICTE Credits)',
-        value:
-          '**7. Kavya T.** (`Python Full-Stack & Automation`)\n• Audit Score: `91.0%` | Streak: `22/28 Days` | Badge: 🚀 *Rising Star*\n' +
-          '**8. Rohan J.** (`Blockchain & Smart Contracts`)\n• Audit Score: `89.5%` | Streak: `22/28 Days` | Badge: ⛓️ *EVM Auditor*',
-        inline: false,
-      },
-      {
-        name: '📊 Cohort Telemetry & Evaluation Metrics',
-        value:
-          '• **Total Milestones Audited**: `482 Commits`\n' +
-          '• **Average Code Quality Score**: `93.6 / 100`\n' +
-          '• **Zero-Tolerance Plagiarism Pass Rate**: `100% Original Code`\n' +
-          '• **AICTE 4-Credit Readiness**: `84% of Active Cohort Qualified`',
-        inline: false,
-      },
-    ],
+    fields,
     footer: {
-      text: 'Auto-refreshes daily • Use /myprogress to check your individual milestone standing',
+      text: 'RoleNest Real Database Telemetry • Refreshes every 6 hours • Check individual standing with /myprogress',
     },
     timestamp: now.toISOString(),
   };
@@ -128,8 +186,22 @@ async function main() {
     console.log(`✓ #intern-leaderboard already exists (${leaderboardChannel.id})`);
   }
 
-  // Post the live leaderboard embed
-  const embed = buildLiveLeaderboardEmbed();
+  // Purge any old messages to ensure zero fake data
+  try {
+    const oldMessages = await discordFetch(`/channels/${leaderboardChannel.id}/messages?limit=20`);
+    if (Array.isArray(oldMessages)) {
+      for (const m of oldMessages) {
+        try {
+          await discordFetch(`/channels/${leaderboardChannel.id}/messages/${m.id}`, 'DELETE');
+          console.log(`  ✓ Purged old message ${m.id}`);
+        } catch (delErr) {}
+      }
+    }
+  } catch (e) {}
+
+  // Fetch real data from database API
+  const liveData = await fetchLiveLeaderboardData();
+  const embed = buildLiveLeaderboardEmbed(liveData);
   const msg = await discordFetch(`/channels/${leaderboardChannel.id}/messages`, 'POST', {
     embeds: [embed],
   });
