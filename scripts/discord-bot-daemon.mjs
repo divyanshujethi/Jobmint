@@ -124,6 +124,51 @@ function buildPOTDEmbed(potd) {
     },
     timestamp: new Date().toISOString(),
   };
+function diagnoseCodingQuery(query) {
+  const q = query.toLowerCase();
+  if (q.includes('cors')) {
+    return {
+      title: '🌐 Cross-Origin Resource Sharing (CORS) Diagnostic',
+      rootCause: 'The browser blocks cross-origin requests unless the server explicitly returns the `Access-Control-Allow-Origin` header.',
+      fix: 'In Next.js / Node.js, configure CORS middleware or response headers:\n```ts\nheaders: {\n  "Access-Control-Allow-Origin": "*",\n  "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",\n  "Access-Control-Allow-Headers": "Content-Type, Authorization"\n}\n```',
+    };
+  } else if (q.includes('hydration') || q.includes('window is not defined') || q.includes('text content did not match')) {
+    return {
+      title: '⚡ React / Next.js Hydration Mismatch Diagnostic',
+      rootCause: 'Server-rendered HTML diverged from client initial render, commonly due to `localStorage`, `window`, or non-deterministic values (Date.now(), Math.random()).',
+      fix: 'Use `useEffect` or dynamic import with `{ ssr: false }`:\n```tsx\nconst [isMounted, setIsMounted] = useState(false);\nuseEffect(() => setIsMounted(true), []);\nif (!isMounted) return null;\n```',
+    };
+  } else if (q.includes('module not found') || q.includes('cannot find module') || q.includes('err_module_not_found')) {
+    return {
+      title: '📦 Module Resolution Error Diagnostic',
+      rootCause: 'The required package is either not installed in `node_modules` or path alias in `tsconfig.json` is missing.',
+      fix: '1. Run `pnpm install <package-name>`\n2. Verify `tsconfig.json` path mappings:\n```json\n"paths": { "@/*": ["./src/*"] }\n```',
+    };
+  } else if (q.includes('docker') || q.includes('container') || q.includes('port already in use') || q.includes('eaddrinuse')) {
+    return {
+      title: '🐳 Docker / Port Conflict Diagnostic',
+      rootCause: 'Another background process or container is already bound to the specified port.',
+      fix: '1. On Windows: `netstat -ano | findstr :<port>` then `taskkill /PID <pid> /F`\n2. On Linux: `fuser -k <port>/tcp` or `docker stop $(docker ps -q)`',
+    };
+  } else if (q.includes('git') || q.includes('merge conflict') || q.includes('detached head')) {
+    return {
+      title: '🐙 Git Workflow & Conflict Diagnostic',
+      rootCause: 'Branch divergent commits or uncommitted working tree changes colliding with upstream.',
+      fix: '1. Save working state: `git stash`\n2. Pull clean upstream: `git fetch origin && git rebase origin/main`\n3. Re-apply changes: `git stash pop` and resolve markers (`<<<<<<< HEAD`)',
+    };
+  } else if (q.includes('cuda') || q.includes('pytorch') || q.includes('out of memory') || q.includes('oom')) {
+    return {
+      title: '🧠 PyTorch GPU OOM / Tensor Diagnostic',
+      rootCause: 'Accumulated gradient tensors in memory or batch size exceeding GPU VRAM capacity.',
+      fix: '1. Reduce batch size (e.g. 32 -> 16)\n2. Clear cache: `torch.cuda.empty_cache()`\n3. Detach loss tensors when logging: `loss.item()` instead of `loss`',
+    };
+  } else {
+    return {
+      title: '🤖 AI Coding Mentor Diagnostic',
+      rootCause: `Analyzed query: "${query.slice(0, 100)}..."`,
+      fix: '1. Check the innermost line of your stack trace to isolate the fault line.\n2. Ensure all asynchronous promises are `await`ed.\n3. Validate environment variables are defined in `.env`.\n4. If stuck, post the full stack trace in `#code-troubleshooting` or launch a 1-on-1 mentor session via `/ticket`!',
+    };
+  }
 }
 
 let ws = null;
@@ -723,6 +768,27 @@ async function handleDispatch(eventType, data) {
               { name: '🎖️ 4. Devansh R. (Cloud SRE & DevOps)', value: '• **Audit Score**: 96.9%\n• **Milestones**: 26/28 Days\n• **Badge**: Infrastructure Pro ☁️', inline: false },
             ],
             footer: { text: 'Updated every 24 hours at daily standup conclusion' },
+            timestamp: new Date().toISOString(),
+          },
+        ],
+      });
+    } else if (cmdName === 'ask') {
+      const qOpt = cmdData.options?.find((o) => o.name === 'query');
+      const query = (qOpt?.value || '').trim();
+
+      const diag = diagnoseCodingQuery(query);
+
+      await respondInteraction(interactionId, interactionToken, {
+        embeds: [
+          {
+            title: diag.title,
+            description: `**Query**: \`${query.slice(0, 200)}\``,
+            color: 0x8b5cf6,
+            fields: [
+              { name: '🔍 Root Cause Analysis', value: diag.rootCause, inline: false },
+              { name: '🛠️ Recommended Solution & Code Fix', value: diag.fix, inline: false },
+            ],
+            footer: { text: 'RoleNest AI Coding Assistant • For 1-on-1 human review, use /ticket' },
             timestamp: new Date().toISOString(),
           },
         ],

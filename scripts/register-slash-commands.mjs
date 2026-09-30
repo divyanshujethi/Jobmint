@@ -1,9 +1,9 @@
 // scripts/register-slash-commands.mjs
 // Registers Discord Slash Commands directly for the RoleNest Guild
 
-const BOT_TOKEN = process.env.DISCORD_BOT_TOKEN || '';
-const CLIENT_ID = '1554955237897408652';
-const GUILD_ID = '1554952372910952460';
+const BOT_TOKEN = (process.env.DISCORD_BOT_TOKEN || '').trim();
+const CLIENT_ID = (process.env.DISCORD_CLIENT_ID || '1554955237897408652').trim();
+const GUILD_ID = (process.env.DISCORD_GUILD_ID || '1554952372910952460').trim();
 const API_BASE = 'https://discord.com/api/v10';
 
 const COMMANDS = [
@@ -50,6 +50,64 @@ const COMMANDS = [
   {
     name: 'ticket',
     description: 'Launch a private 1-on-1 support ticket session with Faculty Mentors',
+  },
+  {
+    name: 'tracks',
+    description: 'Explore all 30+ industrial tracks across AI, Next.js, Cyber, Cloud, and Systems',
+  },
+  {
+    name: 'sop',
+    description: 'Retrieve the Daily SOP (Standard Operating Procedure) & task blueprint for any day (1-28)',
+    options: [
+      {
+        name: 'day',
+        description: 'The day number (1 to 28) you need the SOP blueprint for',
+        type: 4, // INTEGER
+        required: false,
+        min_value: 1,
+        max_value: 28,
+      },
+    ],
+  },
+  {
+    name: 'audit',
+    description: 'Run automated AICTE code audit verification on a GitHub repository or commit',
+    options: [
+      {
+        name: 'github_url',
+        description: 'GitHub repository or commit/PR URL to audit',
+        type: 3,
+        required: true,
+      },
+    ],
+  },
+  {
+    name: 'certificate',
+    description: 'Look up and verify an issued AICTE Internship Certificate or digital transcript',
+    options: [
+      {
+        name: 'certificate_id',
+        description: 'Certificate ID (e.g. RN-CERT-2026-...) or Offer Ref',
+        type: 3,
+        required: true,
+      },
+    ],
+  },
+  {
+    name: 'leaderboard',
+    description: 'View top performing interns and code audit honor roll across cohorts',
+  },
+  {
+    name: 'ask',
+    description: 'Ask AI Coding Mentor for instant debugging, code fixes, and architecture guidance',
+    options: [
+      {
+        name: 'query',
+        description: 'Describe the bug, error stack trace, or architectural question',
+        type: 3,
+        required: true,
+      },
+    ],
   },
 ];
 
