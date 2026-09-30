@@ -172,18 +172,22 @@ export default function LeaderboardPage() {
       if (res.ok) {
         setStreakData((prev: any) => ({
           ...prev,
-          currentStreak: data.currentStreak,
-          totalXp: data.totalXp,
+          currentStreak: data.currentStreak ?? prev?.currentStreak,
+          totalXp: data.totalXp ?? prev?.totalXp,
+          devScore: data.devScore ?? prev?.devScore,
           canCheckInToday: false,
+          todayTasks: prev?.todayTasks?.map((t: any) =>
+            t.id === "checkin" ? { ...t, completed: true } : t
+          ),
         }));
-        setCheckInSuccess(`🔥 Streak updated! You earned +${data.xpEarned || 25} XP.`);
+        setCheckInSuccess(data.message || `🔥 Streak updated to ${data.currentStreak} Days! You earned +${data.xpEarned || 25} XP.`);
         fetch("/api/leaderboard")
           .then((r) => r.json())
           .then((leadRes) => {
             if (leadRes.leaders) setLeaders(leadRes.leaders);
             if (leadRes.collegeRankings) setColleges(leadRes.collegeRankings);
           });
-        setTimeout(() => setCheckInSuccess(null), 4000);
+        setTimeout(() => setCheckInSuccess(null), 5000);
       } else {
         setCheckInSuccess(data.error || "Already checked in today!");
       }
@@ -191,6 +195,73 @@ export default function LeaderboardPage() {
       setCheckInSuccess("🔥 Check-in recorded! +25 XP awarded.");
     } finally {
       setCheckingIn(false);
+    }
+  };
+
+  const handleQuestAction = async (taskId: string) => {
+    if (!streakData?.isAuthenticated) {
+      window.location.href = "/login?callbackUrl=/leaderboard";
+      return;
+    }
+
+    if (taskId === "checkin") {
+      await handleDailyCheckIn();
+      return;
+    }
+
+    if (taskId === "potd") {
+      window.location.href = "/potd";
+      return;
+    }
+
+    if (taskId === "referral") {
+      const code = streakData?.referralCode;
+      const refUrl = typeof window !== "undefined"
+        ? `${window.location.origin}/leaderboard?ref=${code || ""}`
+        : `https://rolenest.in/leaderboard?ref=${code || ""}`;
+      navigator.clipboard.writeText(refUrl);
+      setCheckInSuccess("📋 Referral invite link copied to clipboard!");
+      setTimeout(() => setCheckInSuccess(null), 4000);
+      return;
+    }
+
+    if (taskId === "github" || taskId === "prep") {
+      setCheckingIn(true);
+      try {
+        const res = await fetch("/api/streak", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ questId: taskId === "github" ? "github_sync" : "prep" }),
+        });
+        const data = await res.json();
+        if (res.ok) {
+          setStreakData((prev: any) => ({
+            ...prev,
+            currentStreak: data.currentStreak ?? prev?.currentStreak,
+            totalXp: data.totalXp ?? prev?.totalXp,
+            devScore: data.devScore ?? prev?.devScore,
+            todayTasks: prev?.todayTasks?.map((t: any) =>
+              t.id === taskId ? { ...t, completed: true } : t
+            ),
+          }));
+          setCheckInSuccess(data.message || `+${data.xpEarned || 50} XP awarded!`);
+          fetch("/api/leaderboard")
+            .then((r) => r.json())
+            .then((leadRes) => {
+              if (leadRes.leaders) setLeaders(leadRes.leaders);
+              if (leadRes.collegeRankings) setColleges(leadRes.collegeRankings);
+            });
+          setTimeout(() => setCheckInSuccess(null), 5000);
+        } else {
+          setCheckInSuccess(data.error || "Quest already claimed!");
+          setTimeout(() => setCheckInSuccess(null), 3000);
+        }
+      } catch {
+        setCheckInSuccess("⚡ Activity synced! +50 XP recorded.");
+        setTimeout(() => setCheckInSuccess(null), 3000);
+      } finally {
+        setCheckingIn(false);
+      }
     }
   };
 
@@ -364,21 +435,29 @@ export default function LeaderboardPage() {
               </div>
               <div className="grid grid-cols-2 gap-2 text-xs">
                 {streakData?.todayTasks?.map((task: any) => (
-                  <div
+                  <button
                     key={task.id}
-                    className={`flex items-center gap-2 p-2 rounded-xl border text-[11px] font-medium ${
+                    onClick={() => handleQuestAction(task.id)}
+                    className={`flex items-center justify-between p-2 rounded-xl border text-[11px] font-medium transition-all text-left ${
                       task.completed
-                        ? "bg-emerald-50/70 border-emerald-200 text-emerald-900"
-                        : "bg-slate-50 border-slate-200 text-slate-600"
+                        ? "bg-emerald-50/70 border-emerald-200 text-emerald-900 cursor-default"
+                        : "bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100 hover:border-slate-300 cursor-pointer"
                     }`}
                   >
-                    {task.completed ? (
-                      <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
-                    ) : (
-                      <Clock className="h-3.5 w-3.5 text-slate-400 shrink-0" />
-                    )}
-                    <span className="truncate">{task.title}</span>
-                  </div>
+                    <div className="flex items-center gap-2 min-w-0">
+                      {task.completed ? (
+                        <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
+                      ) : (
+                        <Clock className="h-3.5 w-3.5 text-slate-400 shrink-0" />
+                      )}
+                      <span className="truncate">{task.title}</span>
+                    </div>
+                    <span className={`text-[9px] font-mono font-bold shrink-0 ml-1 px-1.5 py-0.5 rounded ${
+                      task.completed ? "bg-emerald-100 text-emerald-800" : "bg-orange-100 text-orange-800"
+                    }`}>
+                      +{task.xp} XP
+                    </span>
+                  </button>
                 ))}
               </div>
             </div>
@@ -608,13 +687,13 @@ export default function LeaderboardPage() {
                           <td className="py-3.5 px-4 text-center">
                             <span className="inline-flex items-center gap-1 rounded bg-slate-100 px-2 py-0.5 font-mono text-[11px] font-bold text-slate-800">
                               <Zap className="h-3 w-3 text-emerald-600" />
-                              {leader.verifiedDevScore}/1000
+                              {leader.verifiedDevScore > 0 ? `${leader.verifiedDevScore}/1000` : "Unranked"}
                             </span>
                           </td>
 
                           <td className="py-3.5 px-4 text-right">
                             <span className="inline-block rounded-lg bg-slate-50 border border-slate-200 px-2 py-1 font-semibold text-slate-700 text-[11px]">
-                              {leader.recentBadge}
+                              {leader.badgesCount > 0 ? leader.recentBadge : "No badges yet"}
                             </span>
                           </td>
                         </tr>

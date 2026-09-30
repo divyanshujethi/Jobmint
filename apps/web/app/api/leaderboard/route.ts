@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/auth";
-import { db, users, userStreaks, candidateProfiles, candidateProjects, eq, desc } from "@repo/database";
+import { db, users, userStreaks, candidateProfiles, candidateProjects, eq, desc, sql } from "@repo/database";
 
 export const dynamic = "force-dynamic";
 
@@ -73,21 +73,37 @@ export async function GET(req: NextRequest) {
         .from(users)
         .leftJoin(userStreaks, eq(users.id, userStreaks.userId))
         .leftJoin(candidateProfiles, eq(users.id, candidateProfiles.userId))
-        .orderBy(desc(userStreaks.currentStreak), desc(userStreaks.totalXp))
+        .orderBy(
+          sql`COALESCE(${userStreaks.currentStreak}, 0) DESC`,
+          sql`COALESCE(${userStreaks.totalXp}, 0) DESC`,
+          desc(users.createdAt)
+        )
         .limit(50);
     } catch (err) {
       console.error("DB Leaderboard query error:", err);
     }
 
-    const todayStr = new Date().toISOString().split("T")[0];
+    const todayStr = new Intl.DateTimeFormat("en-CA", {
+      timeZone: "Asia/Kolkata",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    }).format(new Date());
 
     const leaders: StreakLeader[] = dbUsers.map((u, index) => {
       const badges: string[] = u.unlockedBadges || [];
-      const rawBadge = badges.length > 0 ? badges[badges.length - 1] : "FIRST_STEP";
+      const rawBadge = badges.length > 0 ? badges[badges.length - 1] : "";
       const recentBadgeName = rawBadge.replace(/_/g, " ").toLowerCase();
-      const formattedBadge = recentBadgeName.charAt(0).toUpperCase() + recentBadgeName.slice(1);
+      const formattedBadge = rawBadge
+        ? recentBadgeName.charAt(0).toUpperCase() + recentBadgeName.slice(1)
+        : "Unranked";
 
-      const score = u.totalXp ? Math.min(990, 500 + Math.round(u.totalXp * 0.8)) : 650;
+      const xp = u.totalXp || 0;
+      const streak = u.currentStreak || 0;
+      // Monotonic verified DevScore: active builders scale with XP & consistency; inactive get 0
+      const score = (xp > 0 || streak > 0)
+        ? Math.min(1000, 500 + Math.round(xp * 0.8) + (streak * 15))
+        : 0;
 
       return {
         rank: index + 1,
@@ -261,8 +277,14 @@ export async function GET(req: NextRequest) {
       entry.buildersCount += 1;
       entry.totalStreakDays += (u.currentStreak || 0);
       entry.totalXp += (u.totalXp || 0);
-      const score = u.totalXp ? Math.min(990, 500 + Math.round(u.totalXp * 0.8)) : 650;
-      entry.devScores.push(score);
+      const xp = u.totalXp || 0;
+      const streak = u.currentStreak || 0;
+      const score = (xp > 0 || streak > 0)
+        ? Math.min(1000, 500 + Math.round(xp * 0.8) + (streak * 15))
+        : 0;
+      if (score > 0) {
+        entry.devScores.push(score);
+      }
       if ((u.currentStreak || 0) > entry.topBuilder.streak) {
         entry.topBuilder = {
           name: u.name || "Student",
