@@ -26,6 +26,11 @@ export interface CheckoutOptions {
   donorNote?: string;
   jobId?: string;
   phone?: string;
+  /**
+   * '_modal': Seamless in-page popup modal overlay without leaving rolenest.in
+   * '_self': Full page redirection to Cashfree checkout
+   */
+  redirectTarget?: "_modal" | "_self" | "_blank";
   onSuccess?: () => void;
   onError?: (err: any) => void;
 }
@@ -86,7 +91,8 @@ function submitCashfreeForm(
  * Initiates Cashfree checkout for UPI (GPay, PhonePe, Paytm), RuPay/Cards & NetBanking.
  * 
  * 1. Creates payment order via backend API.
- * 2. Directly and reliably launches Cashfree's official checkout endpoint.
+ * 2. Attempts to launch seamless in-page popup modal (_modal) via Cashfree JS SDK v3.
+ * 3. Gracefully falls back to direct form redirection if SDK is blocked or unavailable.
  */
 export async function openCashfreeCheckout(options: CheckoutOptions = {}) {
   try {
@@ -124,10 +130,24 @@ export async function openCashfreeCheckout(options: CheckoutOptions = {}) {
     const env: "production" | "sandbox" =
       data.environment || CASHFREE_CLIENT_ENV || "production";
 
-    // Direct Native Form Submission to Cashfree Checkout:
-    // Ensures immediate, flawless redirection to the Cashfree payment page
-    // across all desktop, iOS Safari, Android Chrome browsers.
-    submitCashfreeForm(data.paymentSessionId, env, "_self");
+    const target = options.redirectTarget || "_modal";
+
+    // 1. Try seamless in-page popup modal if SDK is loaded and target is _modal
+    if (target === "_modal" && typeof window !== "undefined" && typeof window.Cashfree === "function") {
+      try {
+        const cashfree = window.Cashfree({ mode: env });
+        await cashfree.checkout({
+          paymentSessionId: data.paymentSessionId,
+          redirectTarget: "_modal",
+        });
+        return;
+      } catch (sdkErr) {
+        console.warn("[Cashfree SDK Modal Error, falling back to direct redirect]:", sdkErr);
+      }
+    }
+
+    // 2. Direct Native Form Submission fallback or when target is _self:
+    submitCashfreeForm(data.paymentSessionId, env, target === "_blank" ? "_blank" : "_self");
   } catch (error: any) {
     console.error("[Cashfree Checkout Error]:", error);
     if (options.onError) {
