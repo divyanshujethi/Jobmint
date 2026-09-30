@@ -236,6 +236,7 @@ export async function POST(req: NextRequest) {
       plan,
       planName,
       customerPhone: resolvedPhone,
+      environment: (process.env.CASHFREE_ENV || "production") as "production" | "sandbox",
     });
   } catch (error: any) {
     console.error("[Cashfree Create Order Error]:", error);
