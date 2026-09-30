@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { db, bootcampEnrollments, bootcampDailySubmissions, desc } from "@repo/database";
+import { db, bootcampEnrollments, bootcampDailySubmissions, desc, or, eq } from "@repo/database";
 
 export const dynamic = "force-dynamic";
 
@@ -18,7 +18,7 @@ export async function GET() {
         enrolledAt: bootcampEnrollments.enrolledAt,
       })
       .from(bootcampEnrollments)
-      .where(bootcampEnrollments.status === "ACTIVE" || bootcampEnrollments.status === "COMPLETED")
+      .where(or(eq(bootcampEnrollments.status, "ACTIVE"), eq(bootcampEnrollments.status, "COMPLETED")))
       .orderBy(desc(bootcampEnrollments.currentDay), desc(bootcampEnrollments.enrolledAt));
 
     // 2. Query real daily submissions
