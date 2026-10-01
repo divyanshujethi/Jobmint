@@ -32,12 +32,15 @@ export function ProModal({ isOpen, onClose, user }: ProModalProps) {
 
   if (!isOpen) return null;
 
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
     setLoading(true);
-    openCashfreeCheckout({
-      plan: selectedPlan,
-    });
-    setLoading(false);
+    try {
+      await openCashfreeCheckout({
+        plan: selectedPlan,
+      });
+    } catch {
+      setLoading(false);
+    }
   };
 
   const benefits = [

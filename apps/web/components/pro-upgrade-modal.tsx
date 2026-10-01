@@ -1,9 +1,10 @@
 "use client";
 
-import { X, Sparkles, Check, ShieldCheck, Zap, ArrowRight, Lock } from "lucide-react";
+import { X, Sparkles, Check, ShieldCheck, Zap, ArrowRight, Lock, Loader2 } from "lucide-react";
 import { Button } from "./ui/button";
 import { openCashfreeCheckout } from "./cashfree-provider";
 import Link from "next/link";
+import { useState } from "react";
 
 interface ProUpgradeModalProps {
   isOpen: boolean;
@@ -18,12 +19,19 @@ export function ProUpgradeModal({
   title = "Unlock Unlimited AI Generations with Pro",
   reason = "You have used your 3 free AI trials. Upgrade to Role Nest Pro for unlimited ATS matching, personalized cover letters, and employer AI drafting.",
 }: ProUpgradeModalProps) {
+  const [loading, setLoading] = useState(false);
+
   if (!isOpen) return null;
 
-  const handleUpgrade = () => {
-    openCashfreeCheckout({
-      plan: "pro",
-    });
+  const handleUpgrade = async () => {
+    setLoading(true);
+    try {
+      await openCashfreeCheckout({
+        plan: "pro",
+      });
+    } catch {
+      setLoading(false);
+    }
   };
 
   return (
@@ -86,7 +94,7 @@ export function ProUpgradeModal({
         <div className="pt-1 space-y-3">
           <div className="flex items-baseline justify-between">
             <div>
-              <span className="text-2xl font-black text-slate-900">₹499</span>
+              <span className="text-2xl font-black text-slate-900">₹199</span>
               <span className="text-xs text-slate-500 font-medium"> / month</span>
             </div>
             <span className="text-[11px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full">
@@ -96,10 +104,20 @@ export function ProUpgradeModal({
 
           <Button
             onClick={handleUpgrade}
+            disabled={loading}
             className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-bold text-sm py-3 rounded-2xl shadow-lg shadow-orange-500/25 min-h-[46px] flex items-center justify-center gap-2"
           >
-            <span>Upgrade to Pro Now</span>
-            <ArrowRight className="h-4 w-4" />
+            {loading ? (
+              <>
+                <Loader2 className="h-4 w-4 animate-spin" />
+                <span>Opening Gateway...</span>
+              </>
+            ) : (
+              <>
+                <span>Upgrade to Pro Now</span>
+                <ArrowRight className="h-4 w-4" />
+              </>
+            )}
           </Button>
 
           <div className="flex items-center justify-center gap-1.5 text-[11px] text-slate-400">

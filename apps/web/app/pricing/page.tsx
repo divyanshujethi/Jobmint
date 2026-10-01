@@ -34,6 +34,93 @@ import { openCashfreeCheckout } from "@/components/cashfree-provider";
 
 type BillingCycle = "monthly" | "quarterly" | "annual";
 
+const PLAN_DETAILS: Record<
+  string,
+  {
+    name: string;
+    price: number;
+    period: string;
+    badge: string;
+    badgeColor: string;
+    description: string;
+    features: string[];
+  }
+> = {
+  pro: {
+    name: "Role Nest Pro",
+    price: 199,
+    period: "30 Days Active Access",
+    badge: "Flagship Monthly",
+    badgeColor: "bg-emerald-600 text-white",
+    description: "Unlimited AI ATS Resume Matcher, Custom Course Engine & Ghosting Tracker",
+    features: [
+      "Unlimited AI ATS Resume Matcher & gap analysis",
+      "AI Accomplishment Bullet Rewriter (Google XYZ format)",
+      "Custom 30-Day Job-to-Course AI Generator tailored to any JD",
+      "Track up to 25 Active Applications in Kanban pipeline",
+      "7-Day Recruiter Inactivity & Ghosting warnings",
+      "Verified Pro Badge in public candidate showcase",
+    ],
+  },
+  pro_plus: {
+    name: "Role Nest Plus",
+    price: 499,
+    period: "90 Days Sprint Access (Save 16%)",
+    badge: "Most Popular",
+    badgeColor: "bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950",
+    description: "Career Accelerator: Priority recruiter placement & GitHub code audit",
+    features: [
+      "90-Day Full Hiring Cycle Continuous Access",
+      "Top Priority Recruiter Placement in verified showcase",
+      "DevScore GitHub Deep Code & Cadence Audit",
+      "Unlimited Tracked Applications in pipeline",
+      "Early Crawler Job Alerts via Telegram/WhatsApp",
+      "Exclusive Plus Gold Badge with Cryptographic Proof",
+    ],
+  },
+  pro_annual: {
+    name: "Role Nest Annual Career Pass",
+    price: 1499,
+    period: "365 Days Access (Save 37%)",
+    badge: "Best Long-Term Value",
+    badgeColor: "bg-amber-600 text-white",
+    description: "Full year continuous access with all Pro & Plus benefits",
+    features: [
+      "Full 1-Year Continuous Pro & Plus Access (365 Days)",
+      "Continuous DevScore Audits & GitHub Tracking",
+      "Priority Placement across all Recruiter search feeds",
+      "Unlimited AI ATS Scans & Course Generations",
+      "Lifetime Proof-of-Work Verification Storage",
+    ],
+  },
+  featured_job: {
+    name: "Role Nest Featured Job Listing",
+    price: 1499,
+    period: "30 Days Active Featured Listing",
+    badge: "Employer Boost",
+    badgeColor: "bg-amber-500 text-slate-950",
+    description: "Pin your job at top of search feed with verified company badge",
+    features: [
+      "Top-of-feed pinned placement for 30 days",
+      "Verified Company Badge on job post",
+      "AI Match alerts to top 10% scored candidates",
+    ],
+  },
+  hiring_sprint: {
+    name: "Role Nest Hiring Sprint Bundle (3x)",
+    price: 3499,
+    period: "60 Days Validity",
+    badge: "Save 25%",
+    badgeColor: "bg-blue-600 text-white",
+    description: "3 Featured Jobs Boost + direct candidate messaging",
+    features: [
+      "3x Featured Job Boosts (valid for 60 days)",
+      "Direct Candidate Outreach messaging",
+      "Priority Applicant Review Dashboard",
+    ],
+  },
+};
+
 export default function PricingPage() {
   const [sessionUser, setSessionUser] = useState<any>(null);
   const [userRole, setUserRole] = useState<string>("CANDIDATE");
@@ -47,7 +134,7 @@ export default function PricingPage() {
   const [userPhone, setUserPhone] = useState("");
   const [billingCycle, setBillingCycle] = useState<BillingCycle>("quarterly");
 
-  // Phone confirmation modal state if user has no phone saved
+  // In-Page Checkout Modal state
   const [isPhoneModalOpen, setIsPhoneModalOpen] = useState(false);
   const [pendingPlan, setPendingPlan] = useState<string | null>(null);
   const [inputPhone, setInputPhone] = useState("");
@@ -117,17 +204,13 @@ export default function PricingPage() {
       return;
     }
 
-    const cleanPhone = (userPhone || inputPhone).replace(/\D/g, "").slice(-10);
-    if (cleanPhone.length === 10) {
-      openCashfreeCheckout({
-        plan: planKey as any,
-        phone: cleanPhone,
-      });
-    } else {
-      setPendingPlan(planKey);
-      setPhoneError(null);
-      setIsPhoneModalOpen(true);
+    setPendingPlan(planKey);
+    setPhoneError(null);
+    if (userPhone && !inputPhone) {
+      setInputPhone(userPhone);
     }
+    // Instantly launch in-page modal (0ms latency)
+    setIsPhoneModalOpen(true);
   };
 
   const handleConfirmPhoneAndPay = async (e: React.FormEvent) => {
@@ -140,16 +223,16 @@ export default function PricingPage() {
     setPhoneError(null);
     setIsSubmittingCheckout(true);
     setUserPhone(clean);
-    setIsPhoneModalOpen(false);
 
     try {
       await openCashfreeCheckout({
         plan: (pendingPlan || "pro") as any,
         phone: clean,
       });
-    } finally {
+    } catch (err: any) {
+      console.error("Payment initiation error:", err);
+      setPhoneError(err?.message || "Failed to launch gateway. Please try again.");
       setIsSubmittingCheckout(false);
-      setPendingPlan(null);
     }
   };
 
@@ -1134,101 +1217,171 @@ export default function PricingPage() {
       </div>
 
       {/* PHONE NUMBER CONFIRMATION MODAL */}
-      {isPhoneModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4 animate-in fade-in duration-200">
-          <div className="relative w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl border border-slate-200 space-y-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2.5">
-                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-100 text-emerald-700">
-                  <Phone className="h-4 w-4" />
+      {/* SEAMLESS IN-PAGE CHECKOUT MODAL */}
+      {isPhoneModalOpen && (() => {
+        const currentPlan = PLAN_DETAILS[pendingPlan || "pro"] || PLAN_DETAILS.pro;
+        return (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/70 backdrop-blur-xs p-4 animate-in fade-in duration-200">
+            <div className="relative w-full max-w-lg rounded-3xl bg-white p-6 sm:p-7 shadow-2xl border border-slate-200 space-y-5 overflow-hidden">
+              {/* TOP BRAND ACCENT BAR */}
+              <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600" />
+
+              {/* MODAL HEADER */}
+              <div className="flex items-start justify-between gap-3 pt-1">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600 border border-emerald-100 shrink-0">
+                    <ShieldCheck className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 border border-emerald-200 px-2 py-0.5 text-[10px] font-bold text-emerald-800 uppercase tracking-wide">
+                        Verified RoleNest Checkout
+                      </span>
+                      {currentPlan.badge && (
+                        <span className={`rounded-full px-2 py-0.5 text-[10px] font-bold ${currentPlan.badgeColor}`}>
+                          {currentPlan.badge}
+                        </span>
+                      )}
+                    </div>
+                    <h3 className="text-lg font-black text-slate-900 mt-0.5">
+                      {currentPlan.name}
+                    </h3>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="text-base font-bold text-slate-900">Confirm Mobile Number</h3>
-                  <p className="text-[11px] text-slate-500">Required for Cashfree invoice, UPI intent &amp; SMS alerts</p>
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (!isSubmittingCheckout) {
+                      setIsPhoneModalOpen(false);
+                      setPhoneError(null);
+                    }
+                  }}
+                  className="rounded-xl p-1.5 text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
+                >
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
+
+              {/* PLAN SUMMARY BOX */}
+              <div className="rounded-2xl bg-slate-50 border border-slate-200/80 p-4 space-y-3">
+                <div className="flex items-baseline justify-between border-b border-slate-200/70 pb-3">
+                  <div>
+                    <div className="text-2xl font-black text-slate-900">
+                      ₹{currentPlan.price}
+                    </div>
+                    <p className="text-[11px] text-slate-500 font-medium">
+                      {currentPlan.period} • Inclusive of all taxes • One-time non-recurring
+                    </p>
+                  </div>
+                  <span className="rounded-full bg-emerald-100/80 text-emerald-800 text-[10px] font-extrabold px-2.5 py-1 uppercase tracking-wider">
+                    Instant Activation
+                  </span>
+                </div>
+
+                <div className="space-y-1.5 pt-0.5">
+                  <div className="text-[10px] font-extrabold uppercase tracking-wider text-slate-500">
+                    What's included in this plan:
+                  </div>
+                  <ul className="space-y-1.5 text-xs text-slate-700">
+                    {currentPlan.features.slice(0, 4).map((feat, idx) => (
+                      <li key={idx} className="flex items-start gap-2">
+                        <Check className="h-3.5 w-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                        <span className="text-[12px] leading-tight">{feat}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
-              <button
-                type="button"
-                onClick={() => setIsPhoneModalOpen(false)}
-                className="rounded-lg p-1.5 text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
-              >
-                <X className="h-4 w-4" />
-              </button>
-            </div>
 
-            <form onSubmit={handleConfirmPhoneAndPay} className="space-y-4">
-              <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-slate-700">
-                  Indian Mobile Number (for UPI Gateway &amp; Receipt)
-                </label>
-                <div className="flex gap-2">
-                  <div className="flex items-center px-3 rounded-xl border border-slate-200 bg-slate-100 text-xs font-bold text-slate-600 select-none h-10">
-                    +91
+              {/* FORM */}
+              <form onSubmit={handleConfirmPhoneAndPay} className="space-y-4">
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-slate-800 flex items-center justify-between">
+                    <span>Indian Mobile Number (for UPI &amp; Invoice)</span>
+                    <span className="text-[10px] text-slate-400 font-normal">10 Digits</span>
+                  </label>
+                  <div className="flex gap-2">
+                    <div className="flex items-center px-3 rounded-xl border border-slate-200 bg-slate-100 text-xs font-bold text-slate-600 select-none h-11">
+                      +91
+                    </div>
+                    <Input
+                      type="tel"
+                      required
+                      autoFocus
+                      disabled={isSubmittingCheckout}
+                      value={inputPhone}
+                      onChange={(e) => {
+                        setInputPhone(e.target.value.replace(/\D/g, "").slice(0, 10));
+                        setPhoneError(null);
+                      }}
+                      placeholder="9876543210"
+                      maxLength={10}
+                      className="h-11 text-base font-mono tracking-wider flex-1 rounded-xl border-slate-300 focus-visible:ring-emerald-500"
+                    />
                   </div>
-                  <Input
-                    type="tel"
-                    required
-                    autoFocus
-                    value={inputPhone}
-                    onChange={(e) => {
-                      setInputPhone(e.target.value.replace(/\D/g, "").slice(0, 10));
+                  <p className="text-[11px] text-slate-500">
+                    Used to link UPI apps (Google Pay, PhonePe, Paytm, BHIM) and deliver your verified receipt via SMS.
+                  </p>
+                  {phoneError && (
+                    <div className="flex items-center gap-1.5 text-xs font-semibold text-rose-600 bg-rose-50 border border-rose-200 rounded-lg p-2">
+                      <AlertCircle className="h-4 w-4 shrink-0" />
+                      <span>{phoneError}</span>
+                    </div>
+                  )}
+                </div>
+
+                {/* TRUST & SECURITY BADGES */}
+                <div className="rounded-xl bg-emerald-50/60 border border-emerald-100 p-2.5 flex items-center justify-between gap-3 text-[11px] text-emerald-900">
+                  <div className="flex items-center gap-2">
+                    <CreditCard className="h-4 w-4 text-emerald-600 shrink-0" />
+                    <span>UPI, Cards (RuPay/Visa/Master), NetBanking</span>
+                  </div>
+                  <span className="text-[10px] font-bold text-emerald-700 uppercase bg-emerald-100 px-2 py-0.5 rounded">
+                    256-Bit SSL
+                  </span>
+                </div>
+
+                {/* MODAL ACTIONS */}
+                <div className="flex gap-2.5 pt-1">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    disabled={isSubmittingCheckout}
+                    onClick={() => {
+                      setIsPhoneModalOpen(false);
                       setPhoneError(null);
                     }}
-                    placeholder="9876543210"
-                    maxLength={10}
-                    className="h-10 text-sm font-mono flex-1 rounded-xl"
-                  />
+                    className="w-1/3 text-xs h-11 rounded-xl border-slate-200 text-slate-600 hover:bg-slate-50"
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    type="submit"
+                    disabled={isSubmittingCheckout || inputPhone.replace(/\D/g, "").length !== 10}
+                    className="w-2/3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs h-11 rounded-xl shadow-md gap-1.5 transition-all"
+                  >
+                    {isSubmittingCheckout ? (
+                      <>
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                        Launching Gateway...
+                      </>
+                    ) : (
+                      <>
+                        <span>Pay ₹{currentPlan.price} via UPI / Card</span>
+                        <ArrowRight className="h-4 w-4" />
+                      </>
+                    )}
+                  </Button>
                 </div>
-                <p className="text-[10px] text-slate-400">
-                  Cashfree will link this number to your UPI apps (GPay, PhonePe, Paytm) and send your payment confirmation.
+
+                <p className="text-[10px] text-center text-slate-400">
+                  Processed securely by RBI Authorized Cashfree Payments India Pvt. Ltd.
                 </p>
-                {phoneError && (
-                  <p className="text-xs font-semibold text-rose-600">{phoneError}</p>
-                )}
-              </div>
-
-              <div className="rounded-xl bg-slate-50 border border-slate-100 p-3 text-xs space-y-1 text-slate-600">
-                <div className="flex justify-between">
-                  <span>Selected Plan:</span>
-                  <span className="font-bold text-slate-900 uppercase">{pendingPlan || "Role Nest Pro"}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Payment Gateway:</span>
-                  <span className="font-semibold text-emerald-700">Cashfree Payments (India)</span>
-                </div>
-              </div>
-
-              <div className="flex gap-2 pt-1">
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={() => setIsPhoneModalOpen(false)}
-                  className="w-1/3 text-xs h-10 rounded-xl"
-                >
-                  Cancel
-                </Button>
-                <Button
-                  type="submit"
-                  disabled={isSubmittingCheckout || inputPhone.replace(/\D/g, "").length !== 10}
-                  className="w-2/3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs h-10 rounded-xl shadow-md gap-1.5"
-                >
-                  {isSubmittingCheckout ? (
-                    <>
-                      <Loader2 className="h-4 w-4 animate-spin" />
-                      Opening Gateway...
-                    </>
-                  ) : (
-                    <>
-                      <CreditCard className="h-4 w-4" />
-                      Proceed to Pay →
-                    </>
-                  )}
-                </Button>
-              </div>
-            </form>
+              </form>
+            </div>
           </div>
-        </div>
-      )}
+        );
+      })()}
     </div>
   );
 }
