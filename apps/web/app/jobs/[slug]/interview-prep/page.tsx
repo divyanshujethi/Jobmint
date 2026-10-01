@@ -37,6 +37,7 @@ export default function JobInterviewPrepPage() {
   const [rateLimitMsg, setRateLimitMsg] = useState<string | null>(null);
   const [sessionUser, setSessionUser] = useState<any>(null);
   const [sessionChecked, setSessionChecked] = useState(false);
+  const [isPro, setIsPro] = useState(false);
 
   useEffect(() => {
     fetch("/api/auth/session")
@@ -50,6 +51,13 @@ export default function JobInterviewPrepPage() {
       })
       .catch(() => setSessionUser(null))
       .finally(() => setSessionChecked(true));
+
+    fetch("/api/user/pro-status")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data && data.isPro) setIsPro(true);
+      })
+      .catch(() => {});
 
     fetch("/api/jobs")
       .then((res) => res.json())
@@ -241,6 +249,22 @@ export default function JobInterviewPrepPage() {
 
         {/* Questions List */}
         <div className="space-y-4">
+          {!isPro && (
+            <div className="rounded-2xl border border-amber-200 bg-amber-50/80 p-3.5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs shadow-xs">
+              <div className="flex items-center gap-2 text-amber-900">
+                <Lock className="w-4 h-4 text-amber-600 shrink-0" />
+                <span>
+                  <strong>Free Tier Quota:</strong> You have access to 3 targeted mock questions for this job. Upgrade to <strong>Role Nest Pro</strong> to unlock the complete question bank and AI evaluations.
+                </span>
+              </div>
+              <Link href="/pricing" className="shrink-0">
+                <Button size="sm" className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs h-8 px-3 rounded-xl shadow-xs">
+                  Unlock Full Bank — ₹199
+                </Button>
+              </Link>
+            </div>
+          )}
+
           {loading ? (
             <div className="bg-white border border-slate-200 rounded-2xl p-16 text-center text-slate-500 flex flex-col items-center justify-center space-y-3 shadow-sm">
               <div className="w-6 h-6 border-2 border-emerald-500 border-t-transparent rounded-full animate-spin" />
@@ -248,7 +272,46 @@ export default function JobInterviewPrepPage() {
             </div>
           ) : (
             questions.map((q, idx) => {
+              const isLocked = !isPro && idx >= 3;
               const isExpanded = expandedIndex === idx;
+
+              if (isLocked) {
+                return (
+                  <div
+                    key={idx}
+                    className="relative bg-white border border-slate-200 rounded-2xl p-5 overflow-hidden shadow-sm"
+                  >
+                    <div className="filter blur-[3px] select-none opacity-40 pointer-events-none space-y-2">
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs font-mono font-bold bg-slate-100 text-slate-500 px-2 py-0.5 rounded">
+                          Q{idx + 1}
+                        </span>
+                        <span className="text-xs font-mono text-slate-400">
+                          {q.focusArea || "Architectural Trade-offs"}
+                        </span>
+                      </div>
+                      <h3 className="text-base font-semibold text-slate-800 leading-snug">
+                        {q.question}
+                      </h3>
+                    </div>
+
+                    <div className="absolute inset-0 bg-slate-900/10 backdrop-blur-[2px] flex items-center justify-center p-4 text-center">
+                      <div className="flex flex-col sm:flex-row items-center gap-3 bg-white/95 border border-amber-200 px-4 py-3 rounded-2xl shadow-md">
+                        <div className="flex items-center gap-2 text-xs font-bold text-slate-800">
+                          <Lock className="w-4 h-4 text-amber-600 shrink-0" />
+                          <span>Question {idx + 1} Locked (Pro / Plus Exclusive)</span>
+                        </div>
+                        <Link href="/pricing">
+                          <Button size="sm" className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs h-7 px-3 rounded-xl shadow-xs">
+                            Unlock Full Question Bank — ₹199
+                          </Button>
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
+
               return (
                 <div
                   key={idx}

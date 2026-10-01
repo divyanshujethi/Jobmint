@@ -62,6 +62,16 @@ export async function POST(req: NextRequest) {
       });
     }
 
+    // Enforce GitHub Proof-of-Work submission
+    if (!githubUrl || typeof githubUrl !== "string" || !githubUrl.includes("github.com/")) {
+      return NextResponse.json(
+        {
+          error: "GitHub Proof-of-Work Required: You must provide a valid public GitHub repository URL (e.g. https://github.com/username/project) proving your hands-on code deliverables for this course before a certified diploma can be minted.",
+        },
+        { status: 400 }
+      );
+    }
+
     // Evaluate technical quiz
     const quiz = getQuizForCourse(courseId);
     let correctCount = 0;

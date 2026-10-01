@@ -25,7 +25,10 @@ import {
   Filter,
   RefreshCw,
   Trophy,
-  Star
+  Star,
+  Lock,
+  Crown,
+  X,
 } from "lucide-react";
 import {
   InteractiveJobCourse,
@@ -33,6 +36,7 @@ import {
   synthesizeJobCourse,
   DailyLesson
 } from "@/lib/study-courses-data";
+import { Button } from "@/components/ui/button";
 
 export default function StudyHubPage() {
   const [courses, setCourses] = useState<InteractiveJobCourse[]>(ALL_INTERACTIVE_COURSES);
@@ -45,6 +49,8 @@ export default function StudyHubPage() {
   const [customCompany, setCustomCompany] = useState<string>("");
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
   const [generatedSuccess, setGeneratedSuccess] = useState<boolean>(false);
+  const [isPro, setIsPro] = useState<boolean>(false);
+  const [showProModal, setShowProModal] = useState<boolean>(false);
 
   // Daily streak & completed days state (persisted in localStorage)
   const [completedDays, setCompletedDays] = useState<Record<string, number[]>>({});
@@ -52,7 +58,7 @@ export default function StudyHubPage() {
   const [showAnswerDay, setShowAnswerDay] = useState<number | null>(null);
   const [streakCount, setStreakCount] = useState<number>(3);
 
-  // Load progress from localStorage
+  // Load progress and pro status
   useEffect(() => {
     try {
       const saved = localStorage.getItem("rolenest_study_progress");
@@ -64,6 +70,13 @@ export default function StudyHubPage() {
         setStreakCount(parseInt(savedStreak, 10));
       }
     } catch {}
+
+    fetch("/api/user/pro-status")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data && data.isPro) setIsPro(true);
+      })
+      .catch(() => {});
   }, []);
 
   // Save progress
@@ -89,10 +102,15 @@ export default function StudyHubPage() {
     });
   };
 
-  // Dynamic Course Generator handler
+  // Dynamic Course Generator handler (Exclusively for Pro / Plus accounts)
   const handleGenerateCourse = (e: React.FormEvent) => {
     e.preventDefault();
     if (!customRole.trim()) return;
+
+    if (!isPro) {
+      setShowProModal(true);
+      return;
+    }
 
     setIsGenerating(true);
     setTimeout(() => {
@@ -635,6 +653,64 @@ export default function StudyHubPage() {
           </div>
         </div>
       </div>
+
+      {/* PRO PAYWALL MODAL FOR CUSTOM 30-DAY COURSE GENERATOR */}
+      {showProModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-xs animate-in fade-in duration-200">
+          <div className="relative w-full max-w-lg bg-white border border-slate-200 rounded-3xl shadow-2xl p-6 sm:p-8 space-y-6 text-slate-900">
+            <button
+              onClick={() => setShowProModal(false)}
+              className="absolute top-5 right-5 p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
+            >
+              <X className="h-5 w-5" />
+            </button>
+
+            <div className="flex items-center gap-3">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-100 text-emerald-700 font-bold">
+                <Crown className="h-6 w-6" />
+              </div>
+              <div>
+                <h3 className="text-lg font-black text-slate-900">
+                  Custom AI Syllabi: Pro &amp; Plus Exclusive
+                </h3>
+                <span className="text-[11px] font-mono text-emerald-700 font-bold">
+                  Curated tracks are 100% Free • Custom Generator is Pro
+                </span>
+              </div>
+            </div>
+
+            <div className="space-y-3 text-xs text-slate-600 leading-relaxed bg-slate-50 border border-slate-200 p-4 rounded-2xl">
+              <p>
+                <strong>Free accounts</strong> include unrestricted access to all 4 curated foundational masterclasses:
+              </p>
+              <ul className="list-disc pl-5 space-y-1 text-slate-700">
+                <li>AI &amp; Generative AI Applications Engineer</li>
+                <li>Production Full-Stack Web Architecture</li>
+                <li>Distributed Systems &amp; Low-Latency Backend</li>
+                <li>Cloud Infrastructure &amp; DevOps Engineering</li>
+              </ul>
+              <p className="pt-1 text-slate-800 font-medium">
+                To dynamically synthesize tailored 30-day syllabi from any custom job description or company interview rubric, upgrade to <strong>Role Nest Pro (₹199/mo)</strong>.
+              </p>
+            </div>
+
+            <div className="flex flex-col sm:flex-row items-center gap-3">
+              <Link href="/pricing" className="w-full sm:flex-1">
+                <Button className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs h-11 rounded-xl shadow-md">
+                  Upgrade to Pro — ₹199/month →
+                </Button>
+              </Link>
+              <Button
+                variant="outline"
+                onClick={() => setShowProModal(false)}
+                className="w-full sm:w-auto border-slate-200 text-xs rounded-xl"
+              >
+                Explore Free Tracks
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

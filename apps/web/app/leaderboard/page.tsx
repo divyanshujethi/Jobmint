@@ -50,6 +50,8 @@ interface StreakLeader {
   verifiedDevScore: number;
   badgesCount: number;
   recentBadge: string;
+  planBadge?: "none" | "student" | "pro" | "plus" | "lifetime";
+  isPriorityPlaced?: boolean;
   isCurrentUser?: boolean;
 }
 
@@ -658,11 +660,36 @@ export default function LeaderboardPage() {
                                 className="h-8 w-8 rounded-full border border-slate-200 object-cover"
                               />
                               <div>
-                                <span className="font-bold text-slate-900 block flex items-center gap-1.5">
+                                <span className="font-bold text-slate-900 block flex items-center gap-1.5 flex-wrap">
                                   {leader.name}
                                   {leader.isCurrentUser && (
                                     <span className="rounded bg-emerald-100 text-emerald-800 px-1 py-0.2 text-[9px] font-mono">
                                       You
+                                    </span>
+                                  )}
+                                  {leader.planBadge === "lifetime" && (
+                                    <span className="inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 text-white px-2 py-0.5 text-[9px] font-bold shadow-xs">
+                                      <Crown className="h-2.5 w-2.5 fill-white text-white" /> Lifetime Fellow
+                                    </span>
+                                  )}
+                                  {leader.planBadge === "plus" && (
+                                    <span className="inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-amber-400 to-yellow-500 text-amber-950 px-2 py-0.5 text-[9px] font-bold shadow-xs border border-amber-300">
+                                      <Sparkles className="h-2.5 w-2.5 fill-amber-700 text-amber-700" /> Plus Verified
+                                    </span>
+                                  )}
+                                  {leader.planBadge === "pro" && (
+                                    <span className="inline-flex items-center gap-1 rounded-full bg-emerald-100 text-emerald-800 px-2 py-0.5 text-[9px] font-bold border border-emerald-300">
+                                      <CheckCircle2 className="h-2.5 w-2.5 text-emerald-600" /> Pro
+                                    </span>
+                                  )}
+                                  {leader.planBadge === "student" && (
+                                    <span className="inline-flex items-center gap-1 rounded-full bg-indigo-100 text-indigo-800 px-2 py-0.5 text-[9px] font-bold border border-indigo-200">
+                                      <GraduationCap className="h-2.5 w-2.5 text-indigo-600" /> Student
+                                    </span>
+                                  )}
+                                  {leader.isPriorityPlaced && (
+                                    <span className="inline-flex items-center gap-0.5 rounded bg-amber-50 text-amber-700 px-1.5 py-0.5 text-[8px] font-mono font-semibold border border-amber-200" title="Top Priority Recruiter Placement">
+                                      ⭐ Priority
                                     </span>
                                   )}
                                 </span>

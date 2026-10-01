@@ -1,46 +1,38 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/auth";
-import { db, users, eq } from "@repo/database";
+import { getUserPlan } from "@/lib/plan-limits";
 
 export async function GET(req: NextRequest) {
   try {
     const session = await auth();
     if (!session || !session.user?.id) {
-      return NextResponse.json({ isPro: false, authenticated: false }, { status: 200 });
+      return NextResponse.json({
+        isPro: false,
+        authenticated: false,
+        planTier: "free",
+        aiGenerationsCount: 0,
+        limits: {
+          maxAiGenerations: 3,
+          maxTrackedApplications: 5,
+          maxMockQuestionsPerJob: 3,
+          allowCustomCourses: false,
+          badge: "none",
+          priorityPlacement: false,
+          githubDeepAudit: false,
+        },
+      }, { status: 200 });
     }
 
-    const [userRecord] = await db
-      .select({
-        id: users.id,
-        isPro: users.isPro,
-        proExpiresAt: users.proExpiresAt,
-        role: users.role,
-      })
-      .from(users)
-      .where(eq(users.id, session.user.id))
-      .limit(1);
-
-    if (!userRecord) {
-      return NextResponse.json({ isPro: false, authenticated: true }, { status: 200 });
-    }
-
-    const isStillActive =
-      userRecord.isPro &&
-      (!userRecord.proExpiresAt || new Date(userRecord.proExpiresAt) > new Date());
-
-    // If subscription has expired, update database record to reflect free tier
-    if (userRecord.isPro && userRecord.proExpiresAt && new Date(userRecord.proExpiresAt) <= new Date()) {
-      await db
-        .update(users)
-        .set({ isPro: false, updatedAt: new Date() })
-        .where(eq(users.id, userRecord.id));
-    }
+    const planInfo = await getUserPlan(session.user.id);
 
     return NextResponse.json({
       authenticated: true,
-      isPro: Boolean(isStillActive),
-      proExpiresAt: userRecord.proExpiresAt,
-      role: userRecord.role,
+      isPro: planInfo.isPro,
+      planTier: planInfo.planTier,
+      proExpiresAt: planInfo.proExpiresAt,
+      aiGenerationsCount: planInfo.aiGenerationsCount,
+      limits: planInfo.limits,
+      role: (session.user as any)?.role || "CANDIDATE",
     });
   } catch (err: any) {
     console.error("[API pro-status] Error:", err);

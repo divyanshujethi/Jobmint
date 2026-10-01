@@ -1,0 +1,185 @@
+import { db, users, eq, sql } from "@repo/database";
+
+export interface PlanLimits {
+  maxAiGenerations: number;
+  maxTrackedApplications: number;
+  maxMockQuestionsPerJob: number;
+  allowCustomCourses: boolean;
+  badge: "none" | "student" | "pro" | "plus" | "lifetime";
+  priorityPlacement: boolean;
+  githubDeepAudit: boolean;
+}
+
+export const PLAN_LIMITS: Record<string, PlanLimits> = {
+  free: {
+    maxAiGenerations: 3,
+    maxTrackedApplications: 5,
+    maxMockQuestionsPerJob: 3,
+    allowCustomCourses: false,
+    badge: "none",
+    priorityPlacement: false,
+    githubDeepAudit: false,
+  },
+  student: {
+    maxAiGenerations: 15,
+    maxTrackedApplications: 10,
+    maxMockQuestionsPerJob: 10,
+    allowCustomCourses: false,
+    badge: "student",
+    priorityPlacement: false,
+    githubDeepAudit: false,
+  },
+  pro: {
+    maxAiGenerations: Infinity,
+    maxTrackedApplications: 25,
+    maxMockQuestionsPerJob: Infinity,
+    allowCustomCourses: true,
+    badge: "pro",
+    priorityPlacement: false,
+    githubDeepAudit: false,
+  },
+  plus: {
+    maxAiGenerations: Infinity,
+    maxTrackedApplications: Infinity,
+    maxMockQuestionsPerJob: Infinity,
+    allowCustomCourses: true,
+    badge: "plus",
+    priorityPlacement: true,
+    githubDeepAudit: true,
+  },
+  pro_plus: {
+    maxAiGenerations: Infinity,
+    maxTrackedApplications: Infinity,
+    maxMockQuestionsPerJob: Infinity,
+    allowCustomCourses: true,
+    badge: "plus",
+    priorityPlacement: true,
+    githubDeepAudit: true,
+  },
+  annual: {
+    maxAiGenerations: Infinity,
+    maxTrackedApplications: Infinity,
+    maxMockQuestionsPerJob: Infinity,
+    allowCustomCourses: true,
+    badge: "plus",
+    priorityPlacement: true,
+    githubDeepAudit: true,
+  },
+  pro_annual: {
+    maxAiGenerations: Infinity,
+    maxTrackedApplications: Infinity,
+    maxMockQuestionsPerJob: Infinity,
+    allowCustomCourses: true,
+    badge: "plus",
+    priorityPlacement: true,
+    githubDeepAudit: true,
+  },
+  lifetime: {
+    maxAiGenerations: Infinity,
+    maxTrackedApplications: Infinity,
+    maxMockQuestionsPerJob: Infinity,
+    allowCustomCourses: true,
+    badge: "lifetime",
+    priorityPlacement: true,
+    githubDeepAudit: true,
+  },
+};
+
+let hasEnsuredColumns = false;
+export async function ensurePlanColumns() {
+  if (hasEnsuredColumns) return;
+  try {
+    await db.execute(sql`
+      ALTER TABLE users ADD COLUMN IF NOT EXISTS plan_tier VARCHAR(32) DEFAULT 'free';
+      ALTER TABLE users ADD COLUMN IF NOT EXISTS ai_generations_count INTEGER DEFAULT 0;
+    `);
+    hasEnsuredColumns = true;
+  } catch (err) {
+    console.error("Failed to ensure plan columns:", err);
+  }
+}
+
+export async function getUserPlan(userIdOrEmail: string): Promise<{
+  userId: string;
+  isPro: boolean;
+  planTier: string;
+  proExpiresAt: Date | null;
+  aiGenerationsCount: number;
+  limits: PlanLimits;
+}> {
+  await ensurePlanColumns();
+
+  const isEmail = userIdOrEmail.includes("@");
+  const query = isEmail
+    ? db.select().from(users).where(eq(users.email, userIdOrEmail.toLowerCase())).limit(1)
+    : db.select().from(users).where(eq(users.id, userIdOrEmail)).limit(1);
+
+  const [userRecord] = await query;
+
+  if (!userRecord) {
+    return {
+      userId: userIdOrEmail,
+      isPro: false,
+      planTier: "free",
+      proExpiresAt: null,
+      aiGenerationsCount: 0,
+      limits: PLAN_LIMITS.free!,
+    };
+  }
+
+  const isStillActive =
+    userRecord.isPro &&
+    (!userRecord.proExpiresAt || new Date(userRecord.proExpiresAt) > new Date());
+
+  const rawTier = (userRecord.planTier || "free").toLowerCase();
+  const effectiveTier = isStillActive ? (rawTier !== "free" ? rawTier : "pro") : "free";
+
+  return {
+    userId: userRecord.id,
+    isPro: Boolean(isStillActive),
+    planTier: effectiveTier,
+    proExpiresAt: userRecord.proExpiresAt,
+    aiGenerationsCount: userRecord.aiGenerationsCount || 0,
+    limits: PLAN_LIMITS[effectiveTier] || PLAN_LIMITS.free!,
+  };
+}
+
+export async function checkAndIncrementAiQuota(userIdOrEmail: string): Promise<{
+  allowed: boolean;
+  error?: string;
+  currentCount: number;
+  limit: number;
+  upgradeUrl: string;
+}> {
+  const planInfo = await getUserPlan(userIdOrEmail);
+
+  if (planInfo.limits.maxAiGenerations !== Infinity && planInfo.aiGenerationsCount >= planInfo.limits.maxAiGenerations) {
+    return {
+      allowed: false,
+      error: `AI Generation Quota Reached: Your current plan (${planInfo.planTier.toUpperCase()}) includes ${planInfo.limits.maxAiGenerations} AI generations total (ATS resume scans / JD drafts). Upgrade to Role Nest Pro for unlimited AI tailoring and gap analysis.`,
+      currentCount: planInfo.aiGenerationsCount,
+      limit: planInfo.limits.maxAiGenerations,
+      upgradeUrl: "/pricing",
+    };
+  }
+
+  // Increment usage count in database
+  try {
+    await db
+      .update(users)
+      .set({
+        aiGenerationsCount: sql`COALESCE(${users.aiGenerationsCount}, 0) + 1`,
+        updatedAt: new Date(),
+      })
+      .where(eq(users.id, planInfo.userId));
+  } catch (err) {
+    console.error("Failed to increment AI usage:", err);
+  }
+
+  return {
+    allowed: true,
+    currentCount: planInfo.aiGenerationsCount + 1,
+    limit: planInfo.limits.maxAiGenerations,
+    upgradeUrl: "/pricing",
+  };
+}

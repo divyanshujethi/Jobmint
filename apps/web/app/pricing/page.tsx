@@ -46,6 +46,21 @@ const PLAN_DETAILS: Record<
     features: string[];
   }
 > = {
+  student: {
+    name: "Campus & Student Pass",
+    price: 99,
+    period: "30 Days Student Access (or ₹249 for 6 Mos)",
+    badge: "Student Special",
+    badgeColor: "bg-indigo-600 text-white",
+    description: "Budget-friendly pass for college students & freshers with college ID",
+    features: [
+      "15 AI ATS Resume Scans & Google XYZ Rewrites",
+      "Track up to 10 Active Applications in Kanban pipeline",
+      "POTD Monaco Editor Complete Solutions & Hints",
+      "Verified Student Developer Badge on profile",
+      "Inter-college campus battles & hackathon priority",
+    ],
+  },
   pro: {
     name: "Role Nest Pro",
     price: 199,
@@ -91,6 +106,22 @@ const PLAN_DETAILS: Record<
       "Priority Placement across all Recruiter search feeds",
       "Unlimited AI ATS Scans & Course Generations",
       "Lifetime Proof-of-Work Verification Storage",
+    ],
+  },
+  lifetime: {
+    name: "Role Nest Lifetime Fellow",
+    price: 2999,
+    period: "One-Time Payment • Lifetime Access",
+    badge: "VIP Lifetime",
+    badgeColor: "bg-gradient-to-r from-amber-500 via-yellow-500 to-orange-500 text-slate-950 font-black",
+    description: "One-time investment, zero renewals forever + 1-on-1 Portfolio Architecture Audit",
+    features: [
+      "Lifetime Continuous All-Inclusive Access (Zero renewals forever)",
+      "Unlimited Tracked Applications in pipeline",
+      "Unlimited AI ATS Scans, Course Generations & Star Rewriters",
+      "Direct 1-on-1 Architecture & Code Audit by Role Nest Senior Staff",
+      "Immutable Cryptographic Lifetime Fellow Badge",
+      "Early VIP Access to all future AI agents & recruiter networks",
     ],
   },
   featured_job: {
@@ -236,6 +267,10 @@ export default function PricingPage() {
     }
   };
 
+  const handleStudentCheckout = () => {
+    initiatePlanCheckout("student");
+  };
+
   const handleProCheckout = () => {
     initiatePlanCheckout("pro");
   };
@@ -246,6 +281,10 @@ export default function PricingPage() {
 
   const handleAnnualCheckout = () => {
     initiatePlanCheckout("pro_annual");
+  };
+
+  const handleLifetimeCheckout = () => {
+    initiatePlanCheckout("lifetime");
   };
 
   const handleFeaturedCheckout = () => {
@@ -374,8 +413,8 @@ export default function PricingPage() {
                 </Link>
               </div>
 
-              {/* Candidate Plan Cards: 3 Clean Pillars (Free, Pro ₹199, Plus ₹499) */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+              {/* Candidate Plan Cards: 4 Comprehensive Pillars (Free, Student ₹99, Pro ₹199, Plus ₹499) */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
                 {/* Tier 1: Free Community */}
                 <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm flex flex-col justify-between hover:border-slate-300 transition-all">
                   <div className="space-y-5">
@@ -467,7 +506,87 @@ export default function PricingPage() {
                   </div>
                 </div>
 
-                {/* Tier 2: Role Nest Pro (₹199 / month) */}
+                {/* Tier 2: Campus & Student Pass (₹99 / month) */}
+                <div className="relative rounded-3xl border border-indigo-300 bg-white p-6 shadow-md flex flex-col justify-between hover:border-indigo-400 transition-all">
+                  <div className="absolute -top-3 right-5 rounded-full bg-indigo-600 px-3 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-white shadow-sm flex items-center gap-1">
+                    <GraduationCap className="h-3 w-3" /> Student Special
+                  </div>
+                  <div className="space-y-5">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+                          Campus Pass
+                        </h3>
+                        <p className="text-xs text-slate-500 mt-0.5">Budget accelerator for university students &amp; freshers.</p>
+                      </div>
+                    </div>
+                    <div>
+                      <div className="flex items-baseline gap-1">
+                        <span className="text-3xl font-black text-slate-900">₹99</span>
+                        <span className="text-xs text-slate-500 font-semibold">/ month</span>
+                      </div>
+                      <p className="text-[11px] text-indigo-700 font-medium mt-1">₹3.3 / day • Special price for students</p>
+                    </div>
+
+                    <div className="space-y-2 pt-2 border-t border-slate-100">
+                      <div className="text-[10px] font-extrabold uppercase tracking-wider text-indigo-800 flex items-center gap-1">
+                        <CheckCircle2 className="h-3.5 w-3.5 text-indigo-600" /> Student Features:
+                      </div>
+                      <ul className="space-y-2 text-xs text-slate-700">
+                        <li className="flex items-start gap-2">
+                          <Check className="h-4 w-4 text-indigo-600 shrink-0 mt-0.5" />
+                          <span><strong>15 AI ATS Resume Scans</strong> &amp; Google XYZ accomplishment rewrites</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <Check className="h-4 w-4 text-indigo-600 shrink-0 mt-0.5" />
+                          <span><strong>Track up to 10 Active Applications</strong> in Kanban pipeline</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <Check className="h-4 w-4 text-indigo-600 shrink-0 mt-0.5" />
+                          <span><strong>POTD Monaco Complete Solutions</strong>, edge cases &amp; hints</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <Check className="h-4 w-4 text-indigo-600 shrink-0 mt-0.5" />
+                          <span><strong>Verified Student Badge</strong> on public profile &amp; leaderboard</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <Check className="h-4 w-4 text-indigo-600 shrink-0 mt-0.5" />
+                          <span><strong>Campus Battles &amp; Hackathon Priority</strong> placement</span>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div className="space-y-2 pt-3 border-t border-slate-100">
+                      <div className="text-[10px] font-extrabold uppercase tracking-wider text-slate-500 flex items-center gap-1">
+                        <AlertCircle className="h-3.5 w-3.5 text-slate-400" /> Student Plan Boundaries:
+                      </div>
+                      <ul className="space-y-1.5 text-[11px] text-slate-500">
+                        <li className="flex items-start gap-1.5">
+                          <span className="text-slate-400 font-bold">•</span>
+                          <span><strong>Eligibility:</strong> Intended for enrolled college students &amp; freshers</span>
+                        </li>
+                        <li className="flex items-start gap-1.5">
+                          <span className="text-slate-400 font-bold">•</span>
+                          <span><strong>Quota:</strong> 15 AI scans/mo (Unlimited in Pro &amp; Plus)</span>
+                        </li>
+                        <li className="flex items-start gap-1.5">
+                          <span className="text-slate-400 font-bold">•</span>
+                          <span><strong>Courses:</strong> Curated tracks included (Custom AI generator in Pro)</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div className="pt-6">
+                    <Button
+                      onClick={handleStudentCheckout}
+                      className="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs h-10 shadow-md"
+                    >
+                      Get Student Pass — ₹99
+                    </Button>
+                  </div>
+                </div>
+
+                {/* Tier 3: Role Nest Pro (₹199 / month) */}
                 <div className="relative rounded-3xl border-2 border-emerald-500 bg-white p-6 shadow-xl flex flex-col justify-between ring-1 ring-emerald-500/20">
                   <div className="absolute -top-3 right-5 rounded-full bg-emerald-600 px-3 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-white shadow-sm flex items-center gap-1">
                     <Crown className="h-3 w-3" /> Pro Monthly Flagship
@@ -551,7 +670,7 @@ export default function PricingPage() {
                   </div>
                 </div>
 
-                {/* Tier 3: Role Nest Plus (₹499 / 3 months) */}
+                {/* Tier 4: Role Nest Plus (₹499 / 3 months) */}
                 <div className="relative rounded-3xl border-2 border-amber-400 bg-linear-to-b from-amber-50/40 via-white to-white p-6 shadow-xl flex flex-col justify-between ring-1 ring-amber-400/30">
                   <div className="absolute -top-3 right-5 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 px-3 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-slate-950 shadow-sm flex items-center gap-1">
                     <Flame className="h-3 w-3 fill-slate-950" /> Most Popular • Save 16%
@@ -636,32 +755,116 @@ export default function PricingPage() {
                 </div>
               </div>
 
-              {/* Annual Plan Strip */}
-              <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-5">
-                <div className="flex items-center gap-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-100 text-amber-800 font-black shrink-0">
-                    <Crown className="h-6 w-6" />
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <h4 className="text-base font-bold text-slate-900">Role Nest Annual Career Pass</h4>
-                      <span className="rounded bg-amber-100 text-amber-900 px-2 py-0.5 text-[10px] font-extrabold uppercase">
-                        Save 37% • Best Long-Term Value
-                      </span>
+              {/* LONG-TERM POWERHOUSE PLANS (ANNUAL & LIFETIME FELLOW) */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+                {/* 1. Annual Career Pass */}
+                <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm flex flex-col justify-between hover:border-slate-300 transition-all">
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-100 text-amber-800 font-black shrink-0">
+                          <Crown className="h-5 w-5" />
+                        </div>
+                        <div>
+                          <h4 className="text-base font-bold text-slate-900">Annual Career Pass</h4>
+                          <span className="rounded bg-amber-100 text-amber-900 px-2 py-0.5 text-[10px] font-extrabold uppercase">
+                            Save 37% • Best Long-Term Value
+                          </span>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <span className="text-2xl font-black text-slate-900">₹1,499</span>
+                        <span className="text-xs text-slate-500 font-semibold block">/ 1 year (₹125/mo)</span>
+                      </div>
                     </div>
-                    <p className="text-xs text-slate-600 mt-1 max-w-xl">
-                      Prepare with continuous year-round access for <strong>₹1,499 / year</strong> (just <strong>₹125 / month</strong>). Includes full Plus benefits, DevScore GitHub audits, priority recruiter placement, and unlimited AI ATS features for 365 days.
+
+                    <p className="text-xs text-slate-600 leading-relaxed">
+                      Continuous year-round access for long-term career growth. Includes complete Plus benefits, DevScore GitHub audits, priority placement across recruiter search feeds, and unlimited AI ATS features for 365 days.
                     </p>
+
+                    <div className="space-y-1.5 text-xs text-slate-700 pt-2 border-t border-slate-100">
+                      <div className="flex items-center gap-2">
+                        <Check className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
+                        <span>Full 365 days of continuous all-inclusive access</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Check className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
+                        <span>Continuous GitHub DevScore tracking &amp; code auditing</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Check className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
+                        <span>Annual Gold Diploma with tamper-proof QR verification</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="pt-5">
+                    <Button
+                      onClick={handleAnnualCheckout}
+                      variant="outline"
+                      className="w-full font-bold text-xs h-10 border-amber-300 text-amber-950 hover:bg-amber-50"
+                    >
+                      <CreditCard className="h-3.5 w-3.5 mr-1.5" />
+                      Activate Annual Pass — ₹1,499
+                    </Button>
                   </div>
                 </div>
-                <Button
-                  onClick={handleAnnualCheckout}
-                  variant="outline"
-                  className="whitespace-nowrap font-bold text-xs h-11 border-amber-300 text-amber-950 hover:bg-amber-50 px-6 shrink-0"
-                >
-                  <CreditCard className="h-3.5 w-3.5 mr-1.5" />
-                  Activate Annual Pass — ₹1,499
-                </Button>
+
+                {/* 2. Lifetime Fellow Pass */}
+                <div className="rounded-3xl border-2 border-amber-500 bg-gradient-to-br from-amber-500/10 via-white to-orange-500/10 p-6 shadow-md flex flex-col justify-between hover:border-amber-600 transition-all relative overflow-hidden">
+                  <div className="absolute -top-3 right-5 rounded-full bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 px-3 py-0.5 text-[10px] font-black uppercase tracking-wider text-slate-950 shadow-xs flex items-center gap-1">
+                    <Sparkles className="h-3 w-3 fill-slate-950" /> Never Renew Again
+                  </div>
+
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 text-slate-950 font-black shrink-0 shadow-xs">
+                          <Crown className="h-5 w-5" />
+                        </div>
+                        <div>
+                          <h4 className="text-base font-black text-slate-900">Lifetime Fellow Pass</h4>
+                          <span className="rounded bg-emerald-100 text-emerald-900 px-2 py-0.5 text-[10px] font-extrabold uppercase">
+                            VIP One-Time Investment
+                          </span>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <span className="text-2xl font-black text-slate-900">₹2,999</span>
+                        <span className="text-xs text-amber-800 font-bold block">One-time payment</span>
+                      </div>
+                    </div>
+
+                    <p className="text-xs text-slate-600 leading-relaxed">
+                      Invest once in your engineering career. Zero recurring subscription fees forever. Unlimited applications, unlimited AI ATS scans, custom syllabi, and direct 1-on-1 architecture feedback.
+                    </p>
+
+                    <div className="space-y-1.5 text-xs text-slate-700 pt-2 border-t border-slate-100">
+                      <div className="flex items-center gap-2">
+                        <Check className="h-3.5 w-3.5 text-amber-600 shrink-0" />
+                        <span><strong>Lifetime All-Inclusive Access</strong> (Zero recurring renewals forever)</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Check className="h-3.5 w-3.5 text-amber-600 shrink-0" />
+                        <span><strong>Direct 1-on-1 Code &amp; Portfolio Audit</strong> by Senior Staff Engineers</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Check className="h-3.5 w-3.5 text-amber-600 shrink-0" />
+                        <span><strong>Golden Lifetime Fellow Badge</strong> with cryptographic proof verification</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="pt-5">
+                    <Button
+                      onClick={handleLifetimeCheckout}
+                      className="w-full bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-black text-xs h-10 shadow-md"
+                    >
+                      <Sparkles className="h-3.5 w-3.5 mr-1.5 fill-slate-950" />
+                      Activate Lifetime Fellow — ₹2,999
+                    </Button>
+                  </div>
+                </div>
               </div>
             </div>
 

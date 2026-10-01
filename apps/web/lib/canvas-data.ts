@@ -6,6 +6,19 @@ export interface CanvasNodeResource {
   isFree: boolean;
 }
 
+export interface CanvasNodeInterviewQuestion {
+  question: string;
+  answer: string;
+  potdLink?: string;
+}
+
+export interface CanvasNodeLinkedPlaylist {
+  title: string;
+  url: string;
+  creator?: string;
+  playlistId?: string;
+}
+
 export interface CanvasNode {
   id: string;
   title: string;
@@ -24,6 +37,8 @@ export interface CanvasNode {
   mentalModelSnippet?: string;
   matchedCourseId?: string;
   resources: CanvasNodeResource[];
+  interviewQuestion?: CanvasNodeInterviewQuestion;
+  linkedPlaylist?: CanvasNodeLinkedPlaylist;
 }
 
 export interface CanvasTrack {
@@ -1297,6 +1312,481 @@ export const CANVAS_TRACKS: CanvasTrack[] = [
         matchedCourseId: "abhishek-devops-aws",
         resources: [
           { title: "Role Nest Lakehouse Capstone Guide", url: "https://github.com", type: "exercise", provider: "Role Nest Academy", isFree: true },
+        ],
+      },
+    ],
+  },
+  {
+    id: "backend-go-node",
+    title: "Backend Go & Node.js Distributed Systems",
+    badge: "High Scale • Distributed Systems",
+    targetRoles: ["Backend Engineer", "Go Developer", "Node.js Architect", "Distributed Systems Specialist"],
+    description: "Design concurrent, fault-tolerant backend architectures using Go routines, Node.js libuv, PostgreSQL indexing, Redis caching, gRPC, and Kafka event streaming.",
+    nodes: [
+      {
+        id: "go-concurrency-goroutines",
+        title: "Go Concurrency & Channels",
+        subtitle: "CSP Model & sync.WaitGroup",
+        category: "Concurrency",
+        level: "Foundational",
+        x: 60,
+        y: 180,
+        dependencies: [],
+        estimatedHours: 20,
+        matchedJobsCount: 42,
+        skills: ["Golang", "Goroutines", "Channels", "sync.Mutex", "Context"],
+        keyTopics: [
+          "Communicating Sequential Processes (CSP) vs OS thread multiplexing",
+          "Buffered vs unbuffered channels and deadlocks",
+          "Context propagation: timeouts, deadlines, and graceful shutdown",
+          "Race detection with 'go run -race' and atomic memory primitives",
+        ],
+        description: "Master Go's lightweight runtime scheduler (M:N threading). Learn to coordinate thousands of concurrent routines safely without mutex lock contention.",
+        projectTask: "Build a concurrent web crawler with worker pool, rate limiting, and graceful SIGINT cancellation using context.Context.",
+        mentalModelSnippet: "func workerPool(ctx context.Context, jobs <-chan Job, results chan<- Result) {\n  for {\n    select {\n    case <-ctx.Done(): return\n    case j, ok := <-jobs:\n      if !ok { return }\n      results <- process(j)\n    }\n  }\n}",
+        matchedCourseId: "striver-dsa",
+        interviewQuestion: {
+          question: "What is the difference between buffered and unbuffered channels in Go, and when would a goroutine block?",
+          answer: "An unbuffered channel requires both sender and receiver to be ready at the same instant (synchronous rendezvous). A buffered channel only blocks the sender when the buffer is full, and blocks the receiver when the buffer is empty.",
+          potdLink: "/problems"
+        },
+        linkedPlaylist: {
+          title: "Go (Golang) Backend Masterclass",
+          url: "https://www.youtube.com/playlist?list=PL4cUxeGkcC9gC88BEo9czgyS21HJ366XY",
+          creator: "Tech With Tim / Go Dev"
+        },
+        resources: [
+          { title: "Go by Example: Goroutines & Channels", url: "https://gobyexample.com/goroutines", type: "doc", provider: "Go Community", isFree: true },
+          { title: "Effective Go Official Guide", url: "https://go.dev/doc/effective_go", type: "doc", provider: "Go Team", isFree: true },
+        ],
+      },
+      {
+        id: "node-event-loop",
+        title: "Node.js Libuv & Event Loop",
+        subtitle: "Microtasks, Macrotasks & Streams",
+        category: "Runtime Architecture",
+        level: "Foundational",
+        x: 360,
+        y: 80,
+        dependencies: ["go-concurrency-goroutines"],
+        estimatedHours: 18,
+        matchedJobsCount: 38,
+        skills: ["Node.js", "Libuv", "Streams", "Backpressure", "Worker Threads"],
+        keyTopics: [
+          "Event Loop phases: timers, pending I/O, poll, check, close callbacks",
+          "process.nextTick() vs Promise microtask queue starvation",
+          "Node.js Streams pipeline and backpressure handling for GB-sized files",
+          "CPU-intensive tasks using Worker Threads without blocking the event loop",
+        ],
+        description: "Deconstruct Node.js underneath the hood. Learn how libuv thread pool offloads asynchronous OS system calls and master non-blocking streaming I/O.",
+        projectTask: "Implement a high-throughput CSV transformation pipeline streaming 2GB files with constant 40MB memory footprint using pipeline and Transform streams.",
+        mentalModelSnippet: "import { pipeline } from 'stream/promises';\nimport { createReadStream, createWriteStream } from 'fs';\n// Constant memory streaming with backpressure:\nawait pipeline(createReadStream('huge.csv'), transformParser, createWriteStream('out.json'));",
+        interviewQuestion: {
+          question: "Why should you never use JSON.parse() or synchronous crypto methods on the main Node.js thread in a high-traffic server?",
+          answer: "Because Node.js executes JavaScript on a single thread. Heavy synchronous operations block the event loop, freezing all concurrent HTTP connections from completing their I/O polling.",
+          potdLink: "/problems"
+        },
+        linkedPlaylist: {
+          title: "Node.js Deep Dive & Event Loop Internals",
+          url: "https://www.youtube.com/playlist?list=PLillGF-RfqbZ2ybcoD2Oamnhcw-UjOfw8",
+          creator: "Hussein Nasser"
+        },
+        resources: [
+          { title: "Node.js Official: Event Loop Guide", url: "https://nodejs.org/en/learn/asynchronous-work/event-loop-timers-and-nexttick", type: "doc", provider: "Node.js Org", isFree: true },
+        ],
+      },
+      {
+        id: "postgres-indexing-mvcc",
+        title: "PostgreSQL MVCC & Indexing",
+        subtitle: "B-Tree, GIN, Partial Indexes & Locks",
+        category: "Databases",
+        level: "Intermediate",
+        x: 360,
+        y: 280,
+        dependencies: ["go-concurrency-goroutines"],
+        estimatedHours: 25,
+        matchedJobsCount: 45,
+        skills: ["PostgreSQL", "B-Tree Indexing", "EXPLAIN ANALYZE", "ACID", "MVCC"],
+        keyTopics: [
+          "B-Tree index structure: index seek vs sequential scan",
+          "Multi-Version Concurrency Control (MVCC) and table vacuuming",
+          "Preventing deadlocks with row-level locks (SELECT ... FOR UPDATE)",
+          "Evaluating query execution plans with EXPLAIN (ANALYZE, BUFFERS)",
+        ],
+        description: "Master relational database performance. Learn how PostgreSQL manages tuples, why partial and composite indexes eliminate table scans, and how to debug slow queries.",
+        projectTask: "Design and optimize a financial transaction ledger with idempotent ledger transfers, row-level pessimistic locking, and sub-5ms query SLAs.",
+        mentalModelSnippet: "BEGIN TRANSACTION ISOLATION LEVEL REPEATABLE READ;\n-- Prevent race condition on balance deduction:\nSELECT balance FROM accounts WHERE id = 'user_1' FOR UPDATE;\nUPDATE accounts SET balance = balance - 100 WHERE id = 'user_1';\nCOMMIT;",
+        interviewQuestion: {
+          question: "Why can an unindexed foreign key column cause deadlocks during concurrent parent table updates or deletes in PostgreSQL?",
+          answer: "PostgreSQL must lock the referenced table to verify referential integrity. Without an index, it must perform a sequential scan, locking more rows and drastically increasing deadlock probability.",
+          potdLink: "/problems"
+        },
+        linkedPlaylist: {
+          title: "PostgreSQL Architecture & Query Optimization",
+          url: "https://www.youtube.com/playlist?list=PL_c9BZzLwBRKpc6EClms51-8J5e6U1R2q",
+          creator: "Hussein Nasser"
+        },
+        resources: [
+          { title: "Use The Index, Luke (SQL Indexing Guide)", url: "https://use-the-index-luke.com/", type: "doc", provider: "Markus Winand", isFree: true },
+        ],
+      },
+      {
+        id: "redis-distributed-caching",
+        title: "Redis & Distributed Caching",
+        subtitle: "Cache-Aside, Redlock & Eviction",
+        category: "In-Memory Systems",
+        level: "Intermediate",
+        x: 660,
+        y: 80,
+        dependencies: ["node-event-loop"],
+        estimatedHours: 20,
+        matchedJobsCount: 40,
+        skills: ["Redis", "Cache-Aside", "Distributed Locks", "Pub/Sub", "Lua Scripts"],
+        keyTopics: [
+          "Cache invalidation patterns: Cache-Aside vs Write-Through vs Write-Behind",
+          "Preventing Cache Stampede, Cache Penetration, and Cache Avalanche",
+          "Distributed mutual exclusion locks with Redlock algorithm & Redis TTL",
+          "Atomic operations using Redis Transactions and embedded Lua scripts",
+        ],
+        description: "Master sub-millisecond memory stores. Implement enterprise caching architectures that protect backend databases from traffic surges during flash sales.",
+        projectTask: "Implement an atomic rate-limiter using Redis sliding window log with custom Lua scripts handling 50,000 req/sec.",
+        mentalModelSnippet: "local current = redis.call('incr', KEYS[1])\nif current == 1 then\n  redis.call('expire', KEYS[1], ARGV[1])\nend\nreturn current <= tonumber(ARGV[2])",
+        interviewQuestion: {
+          question: "How do you solve the 'Cache Avalanche' problem when thousands of cached items expire simultaneously?",
+          answer: "Add a randomized jitter/offset to the TTL (e.g. TTL = Base_TTL + rand(0, 300s)), stagger cache warmups, and use background probabilistic refresh.",
+          potdLink: "/problems"
+        },
+        linkedPlaylist: {
+          title: "Redis Crash Course & Distributed System Patterns",
+          url: "https://www.youtube.com/playlist?list=PLillGF-RfqbZ2ybcoD2Oamnhcw-UjOfw8",
+          creator: "Chai aur Code"
+        },
+        resources: [
+          { title: "Redis University: Distributed Caching", url: "https://university.redis.com/", type: "course", provider: "Redis Org", isFree: true },
+        ],
+      },
+      {
+        id: "grpc-microservices-proto",
+        title: "gRPC & Protocol Buffers",
+        subtitle: "HTTP/2 Multiplexing & Binary Serialization",
+        category: "Microservices",
+        level: "Advanced",
+        x: 660,
+        y: 280,
+        dependencies: ["postgres-indexing-mvcc"],
+        estimatedHours: 22,
+        matchedJobsCount: 35,
+        skills: ["gRPC", "Protobuf", "HTTP/2", "Service Mesh", "Microservices"],
+        keyTopics: [
+          "Binary serialization efficiency: Protobuf vs JSON size and CPU benchmarks",
+          "HTTP/2 multiplexing, header compression (HPACK), and bi-directional streaming",
+          "Generating type-safe client & server stubs across Go and Node.js",
+          "Interceptors for authentication, tracing (OpenTelemetry), and circuit breaking",
+        ],
+        description: "Build ultra-low latency inter-service communication pipelines with Google's gRPC framework. Cut inter-service payload size by 70% compared to REST/JSON.",
+        projectTask: "Create a bi-directional streaming telemetry microservice in Go that ingests real-time IoT metrics and broadcasts alerts to Node.js dashboards.",
+        mentalModelSnippet: "syntax = \"proto3\";\nservice PaymentService {\n  rpc ProcessPayment (PaymentRequest) returns (PaymentResponse);\n  rpc StreamTransactions (AccountRequest) returns (stream Transaction);\n}",
+        interviewQuestion: {
+          question: "Why does gRPC achieve significantly higher throughput than traditional HTTP/1.1 REST JSON APIs?",
+          answer: "gRPC utilizes HTTP/2 multiplexing over a single TCP connection (eliminating head-of-line blocking at the connection level) and binary Protobuf encoding which requires negligible CPU parsing overhead compared to string JSON serialization.",
+          potdLink: "/problems"
+        },
+        linkedPlaylist: {
+          title: "Microservices Architecture & gRPC Masterclass",
+          url: "https://www.youtube.com/playlist?list=PL_c9BZzLwBRKpc6EClms51-8J5e6U1R2q",
+          creator: "Hussein Nasser"
+        },
+        resources: [
+          { title: "Official gRPC Go Quick Start", url: "https://grpc.io/docs/languages/go/quickstart/", type: "doc", provider: "gRPC.io", isFree: true },
+        ],
+      },
+      {
+        id: "kafka-event-streaming",
+        title: "Apache Kafka & Event Streaming",
+        subtitle: "Partitions, Consumer Groups & Exactly-Once",
+        category: "Distributed Messaging",
+        level: "Advanced",
+        x: 960,
+        y: 180,
+        dependencies: ["redis-distributed-caching", "grpc-microservices-proto"],
+        estimatedHours: 30,
+        matchedJobsCount: 48,
+        skills: ["Apache Kafka", "Event-Driven", "Partitioning", "Idempotency", "Consumer Groups"],
+        keyTopics: [
+          "Append-only commit log mechanics and sequential disk I/O performance",
+          "Topic partitions, consumer group rebalancing, and offset management",
+          "Message delivery semantics: At-least-once vs Idempotent Exactly-Once (EOS)",
+          "Dead letter queues (DLQ) and backoff retry architecture",
+        ],
+        description: "Master modern event-driven architectures. Build scalable decoupled systems capable of processing millions of events per second with high durability.",
+        projectTask: "Architect an order processing pipeline with outbox pattern, Kafka consumer groups, and idempotent consumer deduplication.",
+        mentalModelSnippet: "// Transactional Outbox Pattern:\n// 1. Write order record + outbox event in ONE database ACID transaction\n// 2. Debezium or background poller streams outbox events to Kafka broker",
+        interviewQuestion: {
+          question: "How do you guarantee message ordering in Apache Kafka?",
+          answer: "Kafka only guarantees total order within a single partition. To ensure related messages (e.g. all updates for user_123) are processed in strict chronological order, assign them the same Partition Key.",
+          potdLink: "/problems"
+        },
+        linkedPlaylist: {
+          title: "Apache Kafka Fundamentals to Architecture",
+          url: "https://www.youtube.com/playlist?list=PL_c9BZzLwBRKpc6EClms51-8J5e6U1R2q",
+          creator: "Hussein Nasser"
+        },
+        resources: [
+          { title: "Kafka The Definitive Guide (Free O'Reilly)", url: "https://www.confluent.io/resources/kafka-the-definitive-guide/", type: "doc", provider: "Confluent", isFree: true },
+        ],
+      },
+      {
+        id: "backend-capstone-system",
+        title: "Distributed Ticket Booking Engine Capstone",
+        subtitle: "Production Flash-Sale Architecture",
+        category: "Capstone",
+        level: "Capstone",
+        x: 1260,
+        y: 180,
+        dependencies: ["kafka-event-streaming"],
+        estimatedHours: 40,
+        matchedJobsCount: 55,
+        skills: ["Distributed Systems", "Race Condition Prevention", "High Availability", "SLA Monitoring"],
+        keyTopics: [
+          "Handling 100,000 concurrent ticket booking attempts without overselling",
+          "Two-phase reservation: Redis temporary lock -> Kafka queue -> Postgres settlement",
+          "Distributed tracing across microservices with OpenTelemetry and Jaeger",
+          "Chaos engineering: surviving database replica failures during peak traffic",
+        ],
+        description: "Architect and deploy an enterprise-grade flash sale reservation backend. Guarantee zero overselling, sub-100ms response times, and automated failure recovery.",
+        projectTask: "Deploy a production-ready Ticket Booking engine with Docker Compose, k6 load testing scripts proving 10,000 TPS, and zero inventory race conditions.",
+        mentalModelSnippet: "// Reserve ticket with TTL in Redis:\n// SET ticket:seat_42:lock user_123 NX EX 600\n// Publish SeatReservedEvent to Kafka\n// Payment Worker charges card -> confirms in Postgres -> releases lock",
+        interviewQuestion: {
+          question: "How do you prevent duplicate charges if a network timeout occurs during a payment processing call?",
+          answer: "Use an Idempotency-Key generated by the client. The payment gateway stores the transaction state keyed by this ID and immediately returns the cached response on duplicate attempts without recharging.",
+          potdLink: "/problems"
+        },
+        linkedPlaylist: {
+          title: "System Design of BookMyShow & High Scale Ticketing",
+          url: "https://www.youtube.com/playlist?list=PLMC9HnG_SVUpqpxX4OUt81cAC9Wf7d1Fz",
+          creator: "Gaurav Sen"
+        },
+        resources: [
+          { title: "Role Nest Backend Capstone Architecture", url: "https://github.com", type: "exercise", provider: "Role Nest Engineering", isFree: true },
+        ],
+      },
+    ],
+  },
+  {
+    id: "govtech-aspirant",
+    title: "GovTech & Public Digital Infrastructure (DPI)",
+    badge: "India Stack • Population Scale",
+    targetRoles: ["GovTech Specialist", "DPI Architect", "FinTech / India Stack Developer", "Public Sector Engineer"],
+    description: "Architect and engineer mission-critical public platforms (Aadhaar, UPI, DigiLocker, ONDC) with strict CERT-In cyber compliance, population-scale sharding, and zero-trust security.",
+    nodes: [
+      {
+        id: "dpi-india-stack",
+        title: "India Stack & DPI Architecture",
+        subtitle: "Identity, Payments & Data Rails",
+        category: "Public Infrastructure",
+        level: "Foundational",
+        x: 60,
+        y: 180,
+        dependencies: [],
+        estimatedHours: 20,
+        matchedJobsCount: 28,
+        skills: ["India Stack", "UPI Architecture", "Open Rails", "Digital Public Goods"],
+        keyTopics: [
+          "The 3 Layers of India Stack: Presenceless (Aadhaar), Cashless (UPI), Consent (Account Aggregator)",
+          "Principles of Digital Public Infrastructure (DPI) vs proprietary walled gardens",
+          "Interoperability specs and architectural foundations of NPCI and UIDAI",
+          "Open Network for Digital Commerce (ONDC) and Beckn open protocol",
+        ],
+        description: "Study how India engineered the world's largest population-scale digital public infrastructure processing over 10 billion monthly real-time financial transactions.",
+        projectTask: "Design an architectural blueprint diagram for a national health vaccination registry integrating Aadhaar e-KYC and verifiable credentials.",
+        mentalModelSnippet: "// DPI Triad:\n// 1. Identity Layer: Unique ID, biometric / OTP auth\n// 2. Payment Layer: Instant 24/7 bank-to-bank switch (UPI)\n// 3. Data Empowerment: User-centric consent artifacts (DEPA / AA)",
+        interviewQuestion: {
+          question: "What is the core architectural principle that allows UPI to process billions of transactions across hundreds of different banks without a central database?",
+          answer: "UPI acts as a federated switch rather than a centralized balance ledger. It utilizes Virtual Payment Addresses (VPAs) and orchestrates two-phase commit transactions between issuing and acquiring banks via NPCI's secure messaging protocol.",
+          potdLink: "/problems"
+        },
+        linkedPlaylist: {
+          title: "India Stack & Digital Public Infrastructure Explained",
+          url: "https://www.youtube.com/playlist?list=PLillGF-RfqbZ2ybcoD2Oamnhcw-UjOfw8",
+          creator: "iSPIRT / Nandan Nilekani"
+        },
+        resources: [
+          { title: "IndiaStack Official Architecture Primer", url: "https://indiastack.org/", type: "doc", provider: "IndiaStack", isFree: true },
+        ],
+      },
+      {
+        id: "aadhaar-digilocker-apis",
+        title: "Aadhaar e-KYC & DigiLocker APIs",
+        subtitle: "OAuth 2.0 Consent & PKI Signing",
+        category: "API Integration",
+        level: "Intermediate",
+        x: 360,
+        y: 80,
+        dependencies: ["dpi-india-stack"],
+        estimatedHours: 22,
+        matchedJobsCount: 32,
+        skills: ["DigiLocker API", "Aadhaar Auth", "PKI Signatures", "OAuth 2.0", "X.509"],
+        keyTopics: [
+          "DigiLocker consent flow: Authorization Code with PKCE and document URI callbacks",
+          "Aadhaar OTP auth request XML packaging and SHA-256 HMAC digital signing",
+          "Storing digital documents with Verifiable Credentials and JSON-LD signatures",
+          "Strict PII mask rules: never storing raw Aadhaar numbers (Aadhaar Vault guidelines)",
+        ],
+        description: "Build secure, legally-compliant public identity onboarding flows. Master XML digital signatures, public key infrastructure, and consent-driven document retrieval.",
+        projectTask: "Implement a DigiLocker OAuth 2.0 consent client in TypeScript that verifies candidate university diplomas and issues a cryptographically-signed badge.",
+        mentalModelSnippet: "// Aadhaar Vault Invariant:\n// NEVER store plain 12-digit Aadhaar in app database.\n// Store a reference token (UUID) mapped in an isolated, encrypted HSM vault.",
+        interviewQuestion: {
+          question: "Under UIDAI regulations, why is it mandatory to use an 'Aadhaar Vault' and reference keys?",
+          answer: "To prevent identity theft and database leaks. Reference keys allow business applications to link records without ever persisting raw 12-digit Aadhaar numbers in application databases, keeping the encrypted PII strictly inside an audited vault.",
+          potdLink: "/problems"
+        },
+        linkedPlaylist: {
+          title: "Building on DigiLocker & India Stack APIs",
+          url: "https://www.youtube.com/playlist?list=PL_c9BZzLwBRKpc6EClms51-8J5e6U1R2q",
+          creator: "API Setu / MeitY"
+        },
+        resources: [
+          { title: "API Setu Developer Documentation", url: "https://apisetu.gov.in/", type: "doc", provider: "MeitY", isFree: true },
+        ],
+      },
+      {
+        id: "gov-certin-security",
+        title: "CERT-In Compliance & Data Protection",
+        subtitle: "DPDP Act, TLS 1.3 & Audit Trails",
+        category: "Security & Compliance",
+        level: "Intermediate",
+        x: 360,
+        y: 280,
+        dependencies: ["dpi-india-stack"],
+        estimatedHours: 25,
+        matchedJobsCount: 30,
+        skills: ["CERT-In Guidelines", "DPDP Act 2023", "Tamper-Proof Audit", "TLS 1.3", "Zero Trust"],
+        keyTopics: [
+          "CERT-In 6-hour cybersecurity incident reporting mandates and NTP synchronization",
+          "Digital Personal Data Protection (DPDP) Act 2023 compliance requirements",
+          "Immutable append-only audit logging for all government data access",
+          "Network segmentation, hardware security modules (HSM), and zero-trust gateways",
+        ],
+        description: "Master Indian cybersecurity law and technical compliance. Ensure systems meet CERT-In directives, log retention mandates, and strict citizen privacy safeguards.",
+        projectTask: "Build an automated audit logging service with cryptographic HMAC chaining where any tampering with past log entries is immediately detected.",
+        mentalModelSnippet: "// Tamper-proof log hash chain:\n// hash[N] = SHA256(hash[N-1] + timestamp + actorId + action + payload)",
+        interviewQuestion: {
+          question: "What is the CERT-In requirement regarding system clock synchronization for server logs?",
+          answer: "All service providers, intermediaries, and data centres must connect to Network Time Protocol (NTP) servers of the National Physical Laboratory (NPL) or National Informatics Centre (NIC) to ensure standardized, legally-admissible incident timelines.",
+          potdLink: "/problems"
+        },
+        linkedPlaylist: {
+          title: "Cyber Security & Information Security in India",
+          url: "https://www.youtube.com/playlist?list=PLKnIA16_Rmvbr7zKYQuBfsVkjoLujYhhW",
+          creator: "CERT-In Cyber Swachhta"
+        },
+        resources: [
+          { title: "CERT-In Official Cyber Security Guidelines", url: "https://www.cert-in.org.in/", type: "doc", provider: "MeitY CERT-In", isFree: true },
+        ],
+      },
+      {
+        id: "ondc-open-network",
+        title: "ONDC & Beckn Protocol",
+        subtitle: "Decentralized Commerce & Discovery",
+        category: "Open Protocols",
+        level: "Advanced",
+        x: 660,
+        y: 80,
+        dependencies: ["aadhaar-digilocker-apis"],
+        estimatedHours: 24,
+        matchedJobsCount: 34,
+        skills: ["Beckn Protocol", "ONDC", "BAP / BPP Architecture", "Digital Commerce"],
+        keyTopics: [
+          "Beckn protocol core verbs: search, select, init, confirm, status, cancel",
+          "Buyer App (BAP) vs Seller App (BPP) vs Gateway discovery architecture",
+          "Cryptographic payload verification using Ed25519 signing headers",
+          "Catalog indexing and asynchronous webhook order lifecycle events",
+        ],
+        description: "Learn how the Open Network for Digital Commerce unbundles e-commerce. Build decentralized nodes that communicate using the open-source Beckn protocol.",
+        projectTask: "Build a mock ONDC Seller App (BPP) that responds to /search requests with product catalogs and handles order confirmation callbacks.",
+        mentalModelSnippet: "// Beckn Open Protocol Request:\n// POST /on_search\n// Headers: Authorization: Signature keyId=\"bpp.domain.in|key1\",algorithm=\"ed25519\",headers=\"(request-target) ...\"",
+        interviewQuestion: {
+          question: "How does ONDC enable a consumer on one app (e.g. Paytm) to purchase from a seller on a completely different app without a centralized marketplace?",
+          answer: "By defining an open interoperable protocol (Beckn). The buyer app broadcasts a standardized /search intent to open gateways, which route it to registered seller apps (BPPs), returning standardized catalogs that the buyer app renders natively.",
+          potdLink: "/problems"
+        },
+        linkedPlaylist: {
+          title: "ONDC Architecture & Beckn Protocol Walkthrough",
+          url: "https://www.youtube.com/playlist?list=PL_c9BZzLwBRKpc6EClms51-8J5e6U1R2q",
+          creator: "Beckn Community"
+        },
+        resources: [
+          { title: "Beckn Protocol Developer Specs", url: "https://becknprotocol.io/", type: "doc", provider: "Beckn Foundation", isFree: true },
+        ],
+      },
+      {
+        id: "gov-postgres-sharding",
+        title: "Citizen Scale Database Partitioning",
+        subtitle: "High-Volume PostgreSQL & Read Replicas",
+        category: "Databases",
+        level: "Advanced",
+        x: 660,
+        y: 280,
+        dependencies: ["gov-certin-security"],
+        estimatedHours: 26,
+        matchedJobsCount: 36,
+        skills: ["Database Partitioning", "PostgreSQL", "Read Replicas", "Data Archival", "High Availability"],
+        keyTopics: [
+          "Range, list, and hash partitioning across state codes and fiscal years",
+          "Streaming replication, failover with Patroni, and read-replica distribution",
+          "GDPR & DPDP Right-to-be-Forgotten data purge and anonymization pipelines",
+          "Zero-downtime database migrations on tables exceeding 100 million rows",
+        ],
+        description: "Design databases that gracefully store data for hundreds of millions of citizens. Master table partitioning, partition pruning, and automated archival.",
+        projectTask: "Create a PostgreSQL schema partitioned by Indian state and month, demonstrating 20x faster query execution via partition pruning.",
+        mentalModelSnippet: "CREATE TABLE citizen_applications (\n  id UUID NOT NULL,\n  state_code VARCHAR(2) NOT NULL,\n  created_at TIMESTAMP NOT NULL\n) PARTITION BY LIST (state_code);\nCREATE TABLE applications_delhi PARTITION OF citizen_applications FOR VALUES IN ('DL');",
+        interviewQuestion: {
+          question: "What is partition pruning in PostgreSQL, and why is it critical when querying 500-million row tables?",
+          answer: "Partition pruning is a query planner optimization where the database engine analyzes the WHERE clause and excludes irrelevant partition tables from execution entirely, avoiding hundreds of gigabytes of disk I/O.",
+          potdLink: "/problems"
+        },
+        linkedPlaylist: {
+          title: "Database Partitioning & High Scale PostgreSQL",
+          url: "https://www.youtube.com/playlist?list=PL_c9BZzLwBRKpc6EClms51-8J5e6U1R2q",
+          creator: "Hussein Nasser"
+        },
+        resources: [
+          { title: "PostgreSQL Official: Table Partitioning", url: "https://www.postgresql.org/docs/current/ddl-partitioning.html", type: "doc", provider: "PostgreSQL Org", isFree: true },
+        ],
+      },
+      {
+        id: "gov-capstone-portal",
+        title: "Population-Scale Public Services Delivery Capstone",
+        subtitle: "Full-Stack GovTech Portal with DigiLocker & UPI",
+        category: "Capstone",
+        level: "Capstone",
+        x: 960,
+        y: 180,
+        dependencies: ["ondc-open-network", "gov-postgres-sharding"],
+        estimatedHours: 40,
+        matchedJobsCount: 45,
+        skills: ["GovTech Full-Stack", "DPI Integration", "Cert-In Hardened", "Public Dashboard"],
+        keyTopics: [
+          "End-to-end citizen portal: Aadhaar-mock verification, DigiLocker diploma retrieval, UPI payment",
+          "Public-facing transparency dashboard with sub-second aggregate metrics",
+          "Adherence to Government of India Guidelines for Indian Government Websites (GIGW 3.0)",
+          "Security audit clearance: zero OWASP vulnerabilities and automated threat telemetry",
+        ],
+        description: "Architect and deliver a full-scale public service delivery portal simulating a state government scholarship or license issuance system with end-to-end India Stack integration.",
+        projectTask: "Build and deploy the complete GovTech scholarship portal with DigiLocker diploma verification, automated eligibility scoring, and public transparency dashboard.",
+        mentalModelSnippet: "// Complete GovTech Pipeline:\n// Citizen -> DigiLocker Auth -> Fetch 10th/12th Marks -> Auto-Score Rule Engine -> Direct Benefit Transfer (DBT) Payout",
+        interviewQuestion: {
+          question: "How do GIGW 3.0 accessibility guidelines impact modern web application development in India?",
+          answer: "GIGW 3.0 mandates WCAG 2.1 AA compliance, including high contrast modes, bilingual content (English + Indian regional languages), complete keyboard navigation, and zero accessibility blockers for screen readers used by differently-abled citizens.",
+          potdLink: "/problems"
+        },
+        linkedPlaylist: {
+          title: "Building Modern Accessible GovTech Applications",
+          url: "https://www.youtube.com/playlist?list=PLillGF-RfqbZ2ybcoD2Oamnhcw-UjOfw8",
+          creator: "National Informatics Centre (NIC)"
+        },
+        resources: [
+          { title: "GIGW 3.0 Official Government Web Guidelines", url: "https://guidelines.india.gov.in/", type: "doc", provider: "MeitY / NIC", isFree: true },
         ],
       },
     ],

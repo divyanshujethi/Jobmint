@@ -6,388 +6,371 @@ export interface QuizQuestion {
   explanation: string;
 }
 
-export const COURSE_QUIZZES: Record<string, QuizQuestion[]> = {
-  "free-developer-sandbox": [
-    {
-      id: 1,
-      question: "Which Git command enables rewriting local branch commit history, squashing commits, and rewording commit messages?",
-      options: [
-        "git clone --bare",
-        "git push --force-with-lease without local commits",
-        "git rebase -i HEAD~N (Interactive Rebase)",
-        "git checkout -b main"
-      ],
-      correctIndex: 2,
-      explanation: "Interactive rebase (git rebase -i) allows rearranging, squashing, editing, and rewording commits before pushing to upstream."
-    },
-    {
-      id: 2,
-      question: "What is the primary architectural purpose of a Cache-Aside pattern using Redis?",
-      options: [
-        "Directly overwrite the database whenever cache expires",
-        "Read from cache first; if cache miss, query database, populate cache, and return data",
-        "Prevent the server from logging errors",
-        "Store passwords unencrypted in memory"
-      ],
-      correctIndex: 1,
-      explanation: "Cache-Aside queries memory first, falling back to durable storage only on cache misses, dramatically reducing database load."
-    },
-    {
-      id: 3,
-      question: "Why are multi-stage Docker builds recommended in production web engineering?",
-      options: [
-        "They make the Docker image larger for faster caching",
-        "They disable HTTPS encryption on containers",
-        "They bypass Linux kernel security namespaces",
-        "They separate build dependencies from runtime environments, producing minimal, secure production images"
-      ],
-      correctIndex: 3,
-      explanation: "Multi-stage builds leave compilers, devDependencies, and build caches behind, resulting in lightweight, secure container images."
-    },
-    {
-      id: 4,
-      question: "In Clean Architecture, which direction should source code dependencies always point?",
-      options: [
-        "Inward, toward high-level domain business entities and policies",
-        "Outward, toward UI frameworks and database drivers",
-        "Circularly between all classes",
-        "Directly to third-party vendor APIs"
-      ],
-      correctIndex: 0,
-      explanation: "The Dependency Rule states that dependencies must always point inward toward high-level business rules, isolating core logic from frameworks."
-    },
-    {
-      id: 5,
-      question: "What cryptographic primitive does RoleNest use to ensure public certificate and credential immutability?",
-      options: [
-        "Base64 encoded plain-text files",
-        "Cryptographic SHA-256 ledger hashes timestamped and publicly verifiable",
-        "Client-side cookies with no signature",
-        "Temporary session storage in the browser"
-      ],
-      correctIndex: 1,
-      explanation: "SHA-256 cryptographic hashes link the recipient identity, course ID, issue date, and score to a tamper-proof public verification ledger."
-    }
-  ],
-  "karpathy-nn": [
-    {
-      id: 1,
-      question: "In Micrograd, what must be done to node.grad before running the backward pass through a computational graph?",
-      options: [
-        "Initialize the root node's grad to 1.0 and child node grads to 0.0",
-        "Set all weights and biases to 1.0",
-        "Normalize the output vector using softmax",
-        "Compute the numerical finite difference limit"
-      ],
-      correctIndex: 0,
-      explanation: "Reverse-mode autodiff starts by setting the output scalar's derivative with respect to itself (dOut/dOut) to 1.0, accumulating gradients into children initialized at 0."
-    },
-    {
-      id: 2,
-      question: "Why is the Query-Key dot product in Transformer Self-Attention scaled by 1/sqrt(d_k)?",
-      options: [
-        "To speed up GPU tensor parallelization",
-        "To prevent large dot-product magnitudes from pushing the Softmax into regions with near-zero gradients",
-        "To convert logits directly into probability percentages",
-        "To enforce orthogonal rotary embeddings"
-      ],
-      correctIndex: 1,
-      explanation: "As embedding dimension d_k grows, dot products grow large in variance, pushing softmax outputs toward 0 or 1 where gradients vanish."
-    },
-    {
-      id: 3,
-      question: "What is the primary architectural purpose of Residual Connections in deep Transformer architectures?",
-      options: [
-        "To halve the model parameter size",
-        "To allow gradients to flow directly unimpeded back to early layers during backpropagation",
-        "To eliminate the need for LayerNorm",
-        "To convert autoregressive generation into non-autoregressive decoding"
-      ],
-      correctIndex: 1,
-      explanation: "Residual (skip) connections add the input directly to the layer output, providing a clean gradient highway that prevents vanishing gradients."
-    },
-    {
-      id: 4,
-      question: "In Byte-Pair Encoding (BPE) tokenization, what happens during the vocabulary training phase?",
-      options: [
-        "Words are split randomly into 3-character n-grams",
-        "The most frequently occurring adjacent pair of bytes or tokens is iteratively merged into a new token",
-        "Every unique English word is assigned a dictionary index",
-        "Tokens are compressed using gzip"
-      ],
-      correctIndex: 1,
-      explanation: "BPE iteratively finds the most frequent byte or character pair in the corpus and merges them into a single token until target vocab size is reached."
-    },
-    {
-      id: 5,
-      question: "When calculating Cross-Entropy Loss for language modeling, what mathematical identity prevents numerical overflow when computing softmax?",
-      options: [
-        "Subtracting the maximum logit before computing exponents: exp(z_i - max(z))",
-        "Multiplying all logits by the learning rate",
-        "Applying L2 regularization to the output layer",
-        "Clipping weights between -1 and 1"
-      ],
-      correctIndex: 0,
-      explanation: "The log-sum-exp trick subtracts the maximum logit value so exponents remain <= 1, preventing floating-point overflow."
-    }
-  ],
-
-  "krish-genai": [
-    {
-      id: 1,
-      question: "What is the role of the Vector Embedding model in a Retrieval-Augmented Generation (RAG) pipeline?",
-      options: [
-        "To generate the final human-readable response",
-        "To convert text chunks into dense mathematical vectors capturing semantic meaning for similarity search",
-        "To fine-tune the LLM weights on proprietary documents",
-        "To tokenize text into prompt tokens"
-      ],
-      correctIndex: 1,
-      explanation: "Embedding models map textual semantics into high-dimensional vector space so cosine or L2 similarity queries find relevant chunks."
-    },
-    {
-      id: 2,
-      question: "Why is chunk overlap (e.g. 50-100 tokens) recommended when using RecursiveCharacterTextSplitter in LangChain?",
-      options: [
-        "To reduce vector database storage costs",
-        "To preserve contextual meaning across sentence and paragraph boundaries that would otherwise be sliced in half",
-        "To force the LLM to hallucinate less",
-        "To eliminate duplicate chunks"
-      ],
-      correctIndex: 1,
-      explanation: "Chunk overlap ensures that sentences or context split at the end of chunk N are continued into chunk N+1, preventing broken context."
-    },
-    {
-      id: 3,
-      question: "What does the temperature parameter control in LLM inference?",
-      options: [
-        "GPU operating temperature",
-        "The degree of randomness in probability distribution sampling when selecting next tokens",
-        "The maximum context window size in tokens",
-        "The quantization bit depth (e.g. 4-bit vs 8-bit)"
-      ],
-      correctIndex: 1,
-      explanation: "Lower temperature (e.g. 0.0) yields deterministic greedy decoding, while higher temperature flattens the distribution for creative diversity."
-    },
-    {
-      id: 4,
-      question: "What is the key difference between Zero-Shot and Few-Shot prompting?",
-      options: [
-        "Zero-shot uses zero tokens while few-shot uses thousands",
-        "Few-shot provides explicit input/output demonstration examples in the prompt to guide the model's pattern matching",
-        "Zero-shot is only supported on proprietary models",
-        "Few-shot updates the underlying neural network weights permanently"
-      ],
-      correctIndex: 1,
-      explanation: "Few-shot in-context learning supplies several concrete examples of desired input-output behavior directly within the prompt."
-    },
-    {
-      id: 5,
-      question: "In LangChain Agents, what does the ReAct framework stand for?",
-      options: [
-        "React.js Component Architecture",
-        "Reasoning and Acting (Thought, Action, Observation loop)",
-        "Realtime Asynchronous Cluster Tracking",
-        "Recursive Attention Context Truncation"
-      ],
-      correctIndex: 1,
-      explanation: "ReAct prompts the model to generate a Thought (Reasoning), take an Action (Call a Tool), and process the Observation iteratively."
-    }
-  ],
-
-  "hitesh-chai-fullstack": [
-    {
-      id: 1,
-      question: "In Next.js 15 App Router, what is the default behavior of components inside the app directory?",
-      options: [
-        "They are React Server Components (RSC) rendered on the server",
-        "They are Client Components executing only in the browser",
-        "They require the 'use server' directive at the top of the file",
-        "They are rendered statically as raw HTML files at build time only"
-      ],
-      correctIndex: 0,
-      explanation: "In Next.js App Router, all components are Server Components by default unless marked with 'use client'."
-    },
-    {
-      id: 2,
-      question: "Where should the 'use server' directive be placed in Next.js 15?",
-      options: [
-        "At the top of server-only files or inside async functions to declare Server Actions",
-        "In the layout.tsx head tag",
-        "In next.config.js to enable server mode",
-        "Inside useState hooks"
-      ],
-      correctIndex: 0,
-      explanation: "The 'use server' directive marks asynchronous functions as Server Actions callable from both server and client components."
-    },
-    {
-      id: 3,
-      question: "What is the primary security advantage of storing authentication session tokens in httpOnly cookies instead of localStorage?",
-      options: [
-        "httpOnly cookies have faster read latency",
-        "httpOnly cookies cannot be accessed or stolen via clientside JavaScript Cross-Site Scripting (XSS) attacks",
-        "httpOnly cookies automatically encrypt database rows",
-        "httpOnly cookies work offline without internet"
-      ],
-      correctIndex: 1,
-      explanation: "httpOnly cookies are inaccessible to document.cookie in JS, mitigating credential theft if an XSS vulnerability exists."
-    },
-    {
-      id: 4,
-      question: "In PostgreSQL and Drizzle ORM, what does ON DELETE CASCADE enforce on a foreign key?",
-      options: [
-        "It prevents the parent record from ever being deleted",
-        "When the referenced parent row is deleted, all dependent child rows referencing it are automatically deleted",
-        "It archives the deleted row into an S3 bucket",
-        "It cascades an email notification to the user"
-      ],
-      correctIndex: 1,
-      explanation: "ON DELETE CASCADE maintains referential integrity by automatically cleaning up child rows when the parent entity is removed."
-    },
-    {
-      id: 5,
-      question: "What HTTP method does a Next.js Server Action invocation use under the hood?",
-      options: [
-        "GET with query parameters",
-        "POST with multipart or serialized payload and Next-Action header",
-        "PUT with JSON body",
-        "WebSocket binary frames"
-      ],
-      correctIndex: 1,
-      explanation: "Server Actions are invoked via POST requests with the Next-Action hash identifier and form/JSON payload."
-    }
-  ],
-
-  "striver-a2z-dsa": [
-    {
-      id: 1,
-      question: "What is the time complexity of Floyd's Tortoise and Hare algorithm for detecting a cycle in a Linked List?",
-      options: [
-        "O(N) Time and O(1) Auxiliary Space",
-        "O(N^2) Time and O(N) Space",
-        "O(log N) Time and O(1) Space",
-        "O(N log N) Time and O(N) Space"
-      ],
-      correctIndex: 0,
-      explanation: "Fast moves 2 steps and slow moves 1 step. If a cycle exists, they meet within at most the cycle's length, taking O(N) time with zero extra heap allocation."
-    },
-    {
-      id: 2,
-      question: "In the Sliding Window algorithmic pattern, what is the maximum number of times the left pointer can advance across an array of length N?",
-      options: [
-        "N times, guaranteeing an overall O(N) time complexity even with a nested loop",
-        "N^2 times",
-        "log N times",
-        "2^N times"
-      ],
-      correctIndex: 0,
-      explanation: "Because both right and left pointers only move forward monotonically from 0 to N, each element is visited at most twice (O(2N) = O(N))."
-    },
-    {
-      id: 3,
-      question: "What two properties must a problem satisfy to be optimally solvable via Dynamic Programming?",
-      options: [
-        "Fast Fourier Transform and Matrix Multiplication",
-        "Overlapping Subproblems and Optimal Substructure",
-        "Greedy Choice Property and Balanced Trees",
-        "Hash Colissions and Depth-First Search"
-      ],
-      correctIndex: 1,
-      explanation: "DP applies when an optimal solution can be constructed from optimal subproblems, and the same subproblems are solved repeatedly."
-    },
-    {
-      id: 4,
-      question: "What is the worst-case time complexity of standard Binary Search on a sorted array of size N?",
-      options: [
-        "O(1)",
-        "O(log N)",
-        "O(N)",
-        "O(N log N)"
-      ],
-      correctIndex: 1,
-      explanation: "Binary Search halves the search space at each iteration: N, N/2, N/4 ... 1, resulting in log2(N) steps."
-    },
-    {
-      id: 5,
-      question: "Why is a Min-Heap (Priority Queue) preferred over a simple linear array in Dijkstra's Shortest Path algorithm?",
-      options: [
-        "It reduces the time complexity to extract the minimum distance node from O(V) to O(log V)",
-        "It automatically detects negative weight cycles",
-        "It eliminates graph vertices",
-        "It allows parallel processing across threads"
-      ],
-      correctIndex: 0,
-      explanation: "Extract-Min on a binary heap takes O(log V) time, yielding total Dijkstra runtime of O((V + E) log V) instead of O(V^2)."
-    }
-  ]
-};
-
-// Generic quiz fallback for other curricula
-export function getQuizForCourse(courseId: string): QuizQuestion[] {
-  if (COURSE_QUIZZES[courseId]) {
-    return COURSE_QUIZZES[courseId];
+// 30 Core Technical Questions covering modern software architecture & engineering
+export const GENERAL_TECHNICAL_30_POOL: QuizQuestion[] = [
+  {
+    id: 1,
+    question: "Which Git command enables rewriting local branch commit history, squashing commits, and rewording commit messages?",
+    options: [
+      "git clone --bare",
+      "git push --force-with-lease without local commits",
+      "git rebase -i HEAD~N (Interactive Rebase)",
+      "git checkout -b main"
+    ],
+    correctIndex: 2,
+    explanation: "Interactive rebase (git rebase -i) allows rearranging, squashing, editing, and rewording commits before pushing to upstream."
+  },
+  {
+    id: 2,
+    question: "What is the primary architectural purpose of a Cache-Aside pattern using Redis?",
+    options: [
+      "Directly overwrite the database whenever cache expires",
+      "Read from cache first; if cache miss, query database, populate cache, and return data",
+      "Prevent the server from logging errors",
+      "Store passwords unencrypted in memory"
+    ],
+    correctIndex: 1,
+    explanation: "Cache-Aside queries memory first, falling back to durable storage only on cache misses, dramatically reducing database load."
+  },
+  {
+    id: 3,
+    question: "Why are multi-stage Docker builds recommended in production web engineering?",
+    options: [
+      "They make the Docker image larger for faster caching",
+      "They disable HTTPS encryption on containers",
+      "They bypass Linux kernel security namespaces",
+      "They separate build dependencies from runtime environments, producing minimal, secure production images"
+    ],
+    correctIndex: 3,
+    explanation: "Multi-stage builds leave compilers, devDependencies, and build caches behind, resulting in lightweight, secure container images."
+  },
+  {
+    id: 4,
+    question: "In Clean Architecture, which direction should source code dependencies always point?",
+    options: [
+      "Inward, toward high-level domain business entities and policies",
+      "Outward, toward UI frameworks and database drivers",
+      "Circularly between all classes",
+      "Directly to third-party vendor APIs"
+    ],
+    correctIndex: 0,
+    explanation: "The Dependency Rule states that dependencies must always point inward toward high-level business rules, isolating core logic from frameworks."
+  },
+  {
+    id: 5,
+    question: "What cryptographic primitive does Role Nest use to ensure public certificate and credential immutability?",
+    options: [
+      "Base64 encoded plain-text files",
+      "Cryptographic SHA-256 ledger hashes timestamped and publicly verifiable",
+      "Client-side cookies with no signature",
+      "Temporary session storage in the browser"
+    ],
+    correctIndex: 1,
+    explanation: "SHA-256 cryptographic hashes link the recipient identity, course ID, issue date, and score to a tamper-proof public verification ledger."
+  },
+  {
+    id: 6,
+    question: "How does the Node.js event loop handle asynchronous I/O operations without multi-threading JavaScript code?",
+    options: [
+      "By creating a new V8 JavaScript runtime process per HTTP request",
+      "By pausing CPU instruction execution until disk reads complete",
+      "By offloading asynchronous OS system calls to the libuv C thread pool and triggering callbacks in the poll phase",
+      "By compiling JavaScript into synchronous machine assembly"
+    ],
+    correctIndex: 2,
+    explanation: "Node.js utilizes libuv to execute non-blocking operations via OS kernel mechanisms (epoll/kqueue) and thread pools, notifying the V8 engine via callback queues."
+  },
+  {
+    id: 7,
+    question: "What is the primary benefit of creating a composite B-Tree database index on (tenant_id, created_at)?",
+    options: [
+      "It automatically encrypts the tenant_id column",
+      "It eliminates the need for foreign keys",
+      "It converts relational tables into NoSQL document stores",
+      "It enables rapid index seeks filtering by tenant and ordering by timestamp without sequential table scans"
+    ],
+    correctIndex: 3,
+    explanation: "Composite indexes matching WHERE tenant_id = ? ORDER BY created_at allow the database planner to satisfy both filtering and sorting in a single index traversal."
+  },
+  {
+    id: 8,
+    question: "Which HTTP header is mandatory for preventing Cross-Site Scripting (XSS) attacks by restricting script execution origins?",
+    options: [
+      "Content-Security-Policy (CSP)",
+      "Access-Control-Allow-Origin: *",
+      "X-Powered-By: Express",
+      "Transfer-Encoding: chunked"
+    ],
+    correctIndex: 0,
+    explanation: "Content-Security-Policy instructs browsers to only execute scripts from whitelisted sources and nonces, blocking inline injection attacks."
+  },
+  {
+    id: 9,
+    question: "In distributed system architecture, what does the CAP theorem state regarding network partitions?",
+    options: [
+      "Systems can guarantee Consistency, Availability, and Partition Tolerance simultaneously",
+      "Network partitions never occur in cloud data centers",
+      "During a network partition, a system must choose between Consistency (CP) or Availability (AP)",
+      "Partition tolerance can be disabled by increasing network bandwidth"
+    ],
+    correctIndex: 2,
+    explanation: "When network communication fails between partitions, a distributed system must either reject writes to preserve consistency or accept writes and sacrifice immediate consistency."
+  },
+  {
+    id: 10,
+    question: "What is the primary operational advantage of storing JWT session tokens in HttpOnly SameSite=Lax cookies rather than browser localStorage?",
+    options: [
+      "Cookies allow storing unlimited gigabytes of relational data",
+      "HttpOnly cookies cannot be read or stolen by malicious JavaScript code running in the browser",
+      "Cookies automatically encrypt database records on the server",
+      "LocalStorage requires server restarts upon user logout"
+    ],
+    correctIndex: 1,
+    explanation: "HttpOnly cookies are inaccessible to document.cookie, immunizing session credentials from token-stealing XSS scripts."
+  },
+  {
+    id: 11,
+    question: "Why should database transactions involving money transfers utilize pessimistic row-level locking (SELECT ... FOR UPDATE)?",
+    options: [
+      "To prevent concurrent transactions from reading and modifying the balance simultaneously, avoiding double-spend race conditions",
+      "To convert SQL queries into NoSQL key-value pairs",
+      "To bypass database connection pool limits",
+      "To delete accounts that have zero balances"
+    ],
+    correctIndex: 0,
+    explanation: "SELECT ... FOR UPDATE places exclusive locks on the selected account rows, forcing concurrent requests to wait until the current transaction commits or rolls back."
+  },
+  {
+    id: 12,
+    question: "What is the main reason Next.js 15 React Server Components (RSC) improve initial page load performance?",
+    options: [
+      "They disable client-side JavaScript completely",
+      "They convert CSS styles into inline SVG elements",
+      "They compile client HTML into WebAssembly binaries",
+      "They execute data fetching on the server, eliminating client waterfall requests and keeping heavy dependencies off the client bundle"
+    ],
+    correctIndex: 3,
+    explanation: "Server Components run exclusively on the server, streaming pre-rendered HTML without sending component JavaScript libraries (like date-fns or markdown parsers) to the client."
+  },
+  {
+    id: 13,
+    question: "In Apache Kafka, what guarantees that messages for a particular customer account are consumed in strict chronological order?",
+    options: [
+      "Setting replication factor to 1",
+      "Compressing payloads with zstd",
+      "Publishing all events for that account with the same Partition Key",
+      "Using auto-commit offsets on consumer groups"
+    ],
+    correctIndex: 2,
+    explanation: "Kafka guarantees strict order only within a single partition. Messages sharing the same Partition Key are consistently hashed to the same partition."
+  },
+  {
+    id: 14,
+    question: "What is the primary function of a reverse proxy like Nginx or Cloudflare in front of Node.js / Go backend services?",
+    options: [
+      "Generating frontend React components dynamically",
+      "Terminating TLS/SSL, load balancing traffic, rate limiting, and buffering slow clients",
+      "Executing database migrations on production instances",
+      "Compiling TypeScript files on the fly"
+    ],
+    correctIndex: 1,
+    explanation: "Reverse proxies shield application servers from slow client connections, terminate SSL certificates, distribute incoming load, and cache static assets."
+  },
+  {
+    id: 15,
+    question: "What does the Idempotency-Key HTTP header ensure when communicating with payment and banking APIs?",
+    options: [
+      "It forces the payment gateway to process the charge twice",
+      "It encrypts the customer's credit card CVV code",
+      "It bypasses multi-factor SMS authentication",
+      "It prevents duplicate charges if the client retries the request following a network timeout"
+    ],
+    correctIndex: 3,
+    explanation: "Idempotent payment endpoints check if a request with the given Idempotency-Key has already been processed and safely return the cached response without charging again."
+  },
+  {
+    id: 16,
+    question: "Which algorithmic time complexity describes searching for an element in a balanced Binary Search Tree (BST)?",
+    options: [
+      "O(log N)",
+      "O(N^2)",
+      "O(N log N)",
+      "O(1)"
+    ],
+    correctIndex: 0,
+    explanation: "Each comparison in a balanced BST discards half of the remaining search space, yielding logarithmic O(log N) search time."
+  },
+  {
+    id: 17,
+    question: "What is the primary mechanism of Backpressure in Node.js streaming architectures?",
+    options: [
+      "Crashing the server process when RAM reaches 90%",
+      "Discarding incoming network packets when the buffer fills",
+      "Pausing the readable stream when the writable stream's buffer exceeds its highWaterMark threshold",
+      "Encrypting file streams with AES-256"
+    ],
+    correctIndex: 2,
+    explanation: "Backpressure signals the data producer to pause reading from disk or network until the consumer finishes flushing its internal write buffer, preventing out-of-memory crashes."
+  },
+  {
+    id: 18,
+    question: "Why should cryptographic passwords never be stored using fast hashing algorithms like MD5 or SHA-256?",
+    options: [
+      "Because SHA-256 produces variable length output strings",
+      "Because modern GPUs can compute billions of SHA-256 hashes per second, making brute-force and rainbow table attacks trivial",
+      "Because MD5 requires a paid enterprise license",
+      "Because modern browsers block SHA-256 in web forms"
+    ],
+    correctIndex: 1,
+    explanation: "Password hashing requires computationally intensive, salted key-derivation functions (Argon2id, bcrypt, PBKDF2) designed with memory and CPU cost factors to resist GPU/ASIC cracking."
+  },
+  {
+    id: 19,
+    question: "In relational databases, what does the Multi-Version Concurrency Control (MVCC) mechanism achieve?",
+    options: [
+      "It forces all users to read from a single shared memory cache",
+      "It converts SQL tables into git commit logs",
+      "It prevents transactions from modifying database schemas",
+      "It allows readers to query snapshots of data without blocking writers, and writers to modify rows without blocking readers"
+    ],
+    correctIndex: 3,
+    explanation: "MVCC maintains multiple physical versions of rows with visibility tags, enabling non-blocking reads of consistent snapshots concurrently with ongoing modifications."
+  },
+  {
+    id: 20,
+    question: "In Transformer neural networks, why is Scaled Dot-Product Attention scaled by the factor 1 / sqrt(d_k)?",
+    options: [
+      "To prevent large dot product magnitudes from pushing the Softmax activation into regions with vanishing gradients",
+      "To convert floating point numbers into integers for faster GPU computation",
+      "To reduce the number of parameters in the model",
+      "To enforce rotary positional embeddings"
+    ],
+    correctIndex: 0,
+    explanation: "As vector dimension d_k increases, the dot products grow large in variance, pushing softmax outputs to extreme 0 or 1 values where gradients become near-zero."
+  },
+  {
+    id: 21,
+    question: "What is the primary role of a Dead Letter Queue (DLQ) in message broker architectures?",
+    options: [
+      "To delete all consumer logs at midnight",
+      "To automatically reboot failing Kubernetes worker pods",
+      "To capture and isolate messages that repeatedly fail processing after maximum retry attempts for inspection without halting the pipeline",
+      "To store unencrypted passwords in plaintext"
+    ],
+    correctIndex: 2,
+    explanation: "A DLQ captures poison-pill messages that cause consumer crashes, preventing pipeline deadlock while preserving bad records for debugging."
+  },
+  {
+    id: 22,
+    question: "What does the 'Two-Pointer' algorithm technique optimize in array manipulation problems?",
+    options: [
+      "It doubles the memory allocation of the array",
+      "It reduces time complexity from O(N^2) nested loops to linear O(N) by traversing sorted arrays from opposing ends",
+      "It converts array elements into double-precision floats",
+      "It enables multi-threaded sorting on single-core CPUs"
+    ],
+    correctIndex: 1,
+    explanation: "By maintaining left and right pointers moving inward on sorted data, problems like Pair Sum or Water Container can be solved in a single O(N) pass."
+  },
+  {
+    id: 23,
+    question: "Why should application health checks distinguish between 'Liveness' and 'Readiness' probes in Kubernetes?",
+    options: [
+      "Because liveness probes monitor disk space while readiness probes check CPU clock frequency",
+      "Because readiness probes cost cloud hosting money while liveness probes are free",
+      "Because Kubernetes only allows one type of probe per cluster",
+      "Because liveness indicates whether the process is alive (restarting if dead), while readiness indicates whether the container is ready to accept incoming user traffic"
+    ],
+    correctIndex: 3,
+    explanation: "Liveness probes restart hung containers; readiness probes temporarily remove containers from load balancer routing while warming caches or establishing database pools."
+  },
+  {
+    id: 24,
+    question: "What is the primary architectural advantage of the Transactional Outbox Pattern in microservices?",
+    options: [
+      "It guarantees atomicity between saving database entities and publishing event messages to a broker without two-phase distributed locks",
+      "It eliminates the need for message brokers like Kafka or RabbitMQ",
+      "It automatically encrypts outgoing email communications",
+      "It compiles SQL tables directly into frontend TypeScript types"
+    ],
+    correctIndex: 0,
+    explanation: "The Outbox pattern writes domain data and outgoing events into the same relational database in a single ACID transaction, with a separate relay worker streaming events to the broker."
+  },
+  {
+    id: 25,
+    question: "What does Core Web Vitals metric 'Interaction to Next Paint' (INP) measure in modern browser performance?",
+    options: [
+      "The time taken to download the HTML document from the server",
+      "The total compressed byte size of all CSS stylesheets",
+      "Overall page responsiveness to user clicks, taps, and keyboard inputs across the entire user session",
+      "The duration of the initial video stream playback"
+    ],
+    correctIndex: 2,
+    explanation: "INP observes the latency of all discrete user interactions and reports the worst or near-worst delay until visual UI feedback is painted on the screen."
+  },
+  {
+    id: 26,
+    question: "How does Low-Rank Adaptation (LoRA) reduce GPU memory requirements during Large Language Model (LLM) fine-tuning?",
+    options: [
+      "By quantizing all prompt text into 8-bit ASCII characters",
+      "By freezing original model weights and learning two low-rank decomposed matrices (A and B) representing weight updates: dW = B x A",
+      "By deleting half of the Transformer attention layers",
+      "By running backpropagation on CPU instead of GPU"
+    ],
+    correctIndex: 1,
+    explanation: "LoRA freezes the billion-parameter base model and optimizes low-rank factor matrices (e.g. rank 8 or 16), reducing trainable parameters and optimizer states by over 95%."
+  },
+  {
+    id: 27,
+    question: "What is the primary purpose of Database Partition Pruning during SQL query execution?",
+    options: [
+      "Dropping tables that are older than 30 days",
+      "Truncating table indexes to reclaim disk storage",
+      "Converting relational tables into CSV files",
+      "Enabling the query planner to analyze WHERE filter clauses and completely skip reading irrelevant partition tables from disk"
+    ],
+    correctIndex: 3,
+    explanation: "When querying partitioned data (e.g. WHERE created_at >= '2026-01-01'), partition pruning skips all non-matching partitions, avoiding hundreds of gigabytes of disk I/O."
+  },
+  {
+    id: 28,
+    question: "What does the principle of Least Privilege dictate in production cloud IAM permissions?",
+    options: [
+      "Every user, service account, and role should be granted only the minimum permissions strictly necessary to perform its intended task",
+      "All developers should have root AdministratorAccess on production clusters",
+      "Permissions should be granted globally to the public Internet",
+      "Service account keys should never be rotated"
+    ],
+    correctIndex: 0,
+    explanation: "Least Privilege minimizes blast radius: if an application or service account is compromised, attackers cannot access unneeded databases, storage, or cloud infrastructure."
+  },
+  {
+    id: 29,
+    question: "What is the primary function of a Circuit Breaker pattern (e.g. in Netflix Hystrix or resilient HTTP clients)?",
+    options: [
+      "To shut down the entire cloud data center when electricity costs rise",
+      "To automatically format source code with Prettier before building",
+      "To stop invoking a failing downstream dependency after a threshold of errors, returning fallbacks immediately and preventing cascading service failures",
+      "To encrypt network traffic across VPC subnets"
+    ],
+    correctIndex: 2,
+    explanation: "Circuit breakers trip to an 'Open' state when downstream services fail, short-circuiting calls and preventing thread starvation across the calling application."
+  },
+  {
+    id: 30,
+    question: "Under the Indian Digital Personal Data Protection (DPDP) Act 2023, what is the mandatory requirement for organizations processing citizen data?",
+    options: [
+      "Publishing raw citizen phone numbers on public leaderboards",
+      "Obtaining verifiable consent, processing data only for specified legitimate purposes, deploying technical safeguards, and honoring deletion requests",
+      "Storing all user passwords in reversible base64 format",
+      "Selling resume data to third-party telemarketers without disclosure"
+    ],
+    correctIndex: 1,
+    explanation: "The DPDP Act establishes strict obligations for Data Fiduciaries including purpose limitation, clear consent notices, data security measures, and the citizen's right to erasure."
   }
+];
 
-  return [
-    {
-      id: 1,
-      question: "What is the core principle of reproducible software engineering demonstrated in this curriculum?",
-      options: [
-        "Writing monolithic files without modular functions",
-        "Version controlling code with Git and writing automated tests for critical invariants",
-        "Hardcoding configuration parameters into source files",
-        "Skipping peer reviews to maximize delivery speed"
-      ],
-      correctIndex: 1,
-      explanation: "Clean version control, modular abstractions, and regression testing ensure reproducible, production-ready engineering."
-    },
-    {
-      id: 2,
-      question: "When deploying a modern application container with Docker, what is the best practice for production image sizing?",
-      options: [
-        "Include all development build tools and compilers in the final container image",
-        "Store root passwords in the Dockerfile ENV variables",
-        "Run the container process as the root user",
-        "Use multi-stage builds and minimal base images (like Alpine or distroless) to reduce attack surface and download latency"
-      ],
-      correctIndex: 3,
-      explanation: "Multi-stage builds compile artifacts in a builder image and copy only the compiled binary to a minimal runtime container."
-    },
-    {
-      id: 3,
-      question: "Why should API secrets and database passwords never be committed to a public Git repository?",
-      options: [
-        "They can be scraped by automated bots within seconds, compromising backend databases and cloud quotas",
-        "Git file compression algorithms corrupt encrypted keys",
-        "Public repositories only allow 100 characters per file",
-        "It prevents other team members from pulling the repository"
-      ],
-      correctIndex: 0,
-      explanation: "Public secret leakage exposes sensitive systems to credential stuffing and immediate exploitation."
-    },
-    {
-      id: 4,
-      question: "What does horizontal scaling refer to in distributed systems architecture?",
-      options: [
-        "Purchasing a larger CPU for a single server",
-        "Rotating a database table 90 degrees",
-        "Adding more computing instances or nodes behind a load balancer",
-        "Decreasing network bandwidth"
-      ],
-      correctIndex: 2,
-      explanation: "Horizontal scaling (scale-out) distributes workload across multiple replicated nodes for high availability and fault tolerance."
-    },
-    {
-      id: 5,
-      question: "Under the Indian DPDP Act 2023, what is the fundamental obligation of a Data Fiduciary regarding user data?",
-      options: [
-        "Sell user phone numbers to third-party marketing firms",
-        "Process data strictly for specified purposes with explicit consent, implement security safeguards, and respect right to erasure",
-        "Retain personal data indefinitely without user permission",
-        "Disclose candidate resumes publicly without authentication"
-      ],
-      correctIndex: 1,
-      explanation: "The DPDP Act mandates purpose limitation, explicit consent, technical security safeguards, and strict data erasure rights."
-    }
-  ];
+export function getQuizForCourse(courseId: string): QuizQuestion[] {
+  // Always returns the comprehensive, balanced 30-question engineering competency pool
+  return GENERAL_TECHNICAL_30_POOL;
 }

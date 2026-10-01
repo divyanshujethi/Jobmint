@@ -21,6 +21,7 @@ import {
   UserCheck,
   LogIn,
   BookOpen,
+  Clock,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -47,6 +48,10 @@ export default function CourseCertificatePage({
   const [githubUrl, setGithubUrl] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+
+  // 30-Minute Anti-Cheat Timer State
+  const [timeLeft, setTimeLeft] = useState(1800); // 30 minutes in seconds
+  const [tabWarnings, setTabWarnings] = useState(0);
 
   // Issued certificate state
   const [issuedCert, setIssuedCert] = useState<CourseCertificate | null>(null);
@@ -81,6 +86,37 @@ export default function CourseCertificatePage({
       .catch(() => setAuthLoading(false));
   }, [course.id]);
 
+  // Anti-Cheat Timer Countdown Effect
+  useEffect(() => {
+    if (!session?.user || issuedCert) return;
+
+    const interval = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev <= 1) {
+          clearInterval(interval);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [session, issuedCert]);
+
+  // Anti-Cheat: Detect Tab Switches & Window Blurs
+  useEffect(() => {
+    if (!session?.user || issuedCert) return;
+
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        setTabWarnings((w) => w + 1);
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => document.removeEventListener("visibilitychange", handleVisibilityChange);
+  }, [session, issuedCert]);
+
   const handleSelectOption = (questionId: number, optionIndex: number) => {
     setQuizAnswers((prev) => ({
       ...prev,
@@ -88,15 +124,20 @@ export default function CourseCertificatePage({
     }));
   };
 
-  const handleSubmitExam = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmitExam = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
     if (!session?.user) {
       setErrorMsg("You must be logged in to submit this examination and receive a certificate.");
       return;
     }
 
+    if (!githubUrl || !githubUrl.includes("github.com/")) {
+      setErrorMsg("GitHub Proof-of-Work Required: You must submit a valid public GitHub repository URL (e.g. https://github.com/username/project) proving your hands-on code deliverables.");
+      return;
+    }
+
     if (Object.keys(quizAnswers).length < quiz.length) {
-      setErrorMsg(`Please answer all ${quiz.length} technical questions before submitting.`);
+      setErrorMsg(`Please answer all ${quiz.length} technical questions before submitting (${Object.keys(quizAnswers).length}/${quiz.length} completed).`);
       return;
     }
 
@@ -110,7 +151,7 @@ export default function CourseCertificatePage({
         body: JSON.stringify({
           courseId: course.id,
           quizAnswers,
-          githubUrl: githubUrl || undefined,
+          githubUrl: githubUrl.trim(),
         }),
       });
 
@@ -127,6 +168,20 @@ export default function CourseCertificatePage({
     } finally {
       setSubmitting(false);
     }
+  };
+
+  // Auto-submit when timer expires
+  useEffect(() => {
+    if (timeLeft === 0 && session?.user && !issuedCert && !submitting) {
+      handleSubmitExam();
+    }
+  }, [timeLeft, session, issuedCert, submitting]);
+
+  // Formatter for timer mm:ss
+  const formatTime = (secs: number) => {
+    const mins = Math.floor(secs / 60);
+    const remSecs = secs % 60;
+    return `${mins.toString().padStart(2, "0")}:${remSecs.toString().padStart(2, "0")}`;
   };
 
   const handleCopyLink = () => {
@@ -188,16 +243,45 @@ export default function CourseCertificatePage({
         {/* 2. REAL TECHNICAL EXAMINATION FORM (WHEN LOGGED IN AND NOT ISSUED) */}
         {session?.user && !issuedCert && (
           <div className="space-y-8">
+            {/* STICKY ANTI-CHEAT EXAM TIMER & MONITOR */}
+            <div className="sticky top-4 z-30 flex flex-wrap items-center justify-between gap-3 rounded-2xl bg-slate-900 border border-slate-700/80 p-4 text-white shadow-xl backdrop-blur-md">
+              <div className="flex items-center gap-3">
+                <div className={`h-10 w-10 rounded-xl flex items-center justify-center font-bold ${timeLeft <= 300 ? "bg-rose-500/20 text-rose-400 border border-rose-500/30 animate-pulse" : "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"}`}>
+                  <Clock className="h-5 w-5" />
+                </div>
+                <div>
+                  <div className="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-bold">
+                    Anti-Cheat Examination Clock
+                  </div>
+                  <div className={`text-xl font-black font-mono tracking-wider ${timeLeft <= 300 ? "text-rose-400" : "text-emerald-400"}`}>
+                    {formatTime(timeLeft)} <span className="text-xs font-normal text-slate-400">Remaining</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3">
+                {tabWarnings > 0 && (
+                  <span className="flex items-center gap-1.5 rounded-lg bg-amber-500/20 border border-amber-500/30 px-2.5 py-1 text-xs font-bold text-amber-300">
+                    <AlertCircle className="h-3.5 w-3.5" />
+                    {tabWarnings} Tab Switch Warning{tabWarnings > 1 ? "s" : ""}
+                  </span>
+                )}
+                <span className="rounded-lg bg-slate-800 border border-slate-700 px-3 py-1 text-xs font-mono text-slate-300">
+                  Answered: <strong className="text-emerald-400">{Object.keys(quizAnswers).length}/{quiz.length}</strong>
+                </span>
+              </div>
+            </div>
+
             <div className="space-y-2">
-              <span className="text-xs font-mono font-bold text-emerald-400 uppercase tracking-wider">
-                Technical Competence Examination
+              <span className="text-xs font-mono font-bold text-emerald-600 uppercase tracking-wider">
+                Technical Competence Examination (30 Technical Questions)
               </span>
               <h1 className="text-3xl sm:text-4xl font-black text-slate-900">
                 {course.title}
               </h1>
               <p className="text-sm text-slate-600">
                 Candidate: <strong className="text-slate-900">{session.user.name}</strong> ({session.user.email}) •{" "}
-                <span className="text-emerald-400 font-semibold">Passing Threshold: 80% (4/5 Questions)</span>
+                <span className="text-emerald-600 font-bold">Passing Threshold: 80% (24/30 Questions)</span>
               </p>
             </div>
 
@@ -332,21 +416,27 @@ export default function CourseCertificatePage({
                 ))}
               </div>
 
-              {/* GITHUB PROOF OF WORK */}
-              <div className="rounded-2xl border border-slate-200 bg-white p-5 space-y-2 shadow-sm">
-                <label className="text-xs font-bold text-slate-800 flex items-center gap-1.5">
-                  <Github className="h-4 w-4 text-slate-300" />
-                  GitHub Proof-of-Work Repository URL (Optional)
-                </label>
+              {/* GITHUB PROOF OF WORK (MANDATORY) */}
+              <div className="rounded-2xl border border-emerald-200 bg-emerald-50/40 p-5 space-y-2 shadow-sm">
+                <div className="flex items-center justify-between">
+                  <label className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                    <Github className="h-4 w-4 text-slate-800" />
+                    <span>GitHub Proof-of-Work Repository URL</span>
+                  </label>
+                  <span className="text-[10px] font-mono font-bold text-emerald-800 bg-emerald-100 border border-emerald-300 px-2 py-0.5 rounded-full">
+                    Mandatory Code Verification
+                  </span>
+                </div>
                 <Input
                   type="url"
-                  placeholder="https://github.com/your-username/course-capstone-project"
+                  required
+                  placeholder="https://github.com/your-username/my-capstone-project"
                   value={githubUrl}
                   onChange={(e) => setGithubUrl(e.target.value)}
-                  className="bg-slate-50 border-slate-200 text-xs text-slate-900 placeholder:text-slate-400 h-10 rounded-xl"
+                  className="bg-white border-slate-300 text-xs text-slate-900 placeholder:text-slate-400 h-10 rounded-xl"
                 />
-                <p className="text-[11px] text-slate-400">
-                  Submitting your actual code repository links your certificate to real source code on GitHub.
+                <p className="text-[11px] text-slate-600 leading-relaxed">
+                  Your GitHub repository URL is permanently recorded into the cryptographic SHA-256 ledger hash of this certificate, proving to hiring recruiters that your credential represents real, functioning code deliverables.
                 </p>
               </div>
 
@@ -354,11 +444,11 @@ export default function CourseCertificatePage({
               <div className="pt-2">
                 <Button
                   type="submit"
-                  disabled={submitting || Object.keys(quizAnswers).length < quiz.length}
-                  className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm h-12 rounded-xl shadow-xl gap-2"
+                  disabled={submitting || Object.keys(quizAnswers).length < quiz.length || !githubUrl.includes("github.com/")}
+                  className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm h-12 rounded-xl shadow-xl gap-2 disabled:opacity-50"
                 >
                   <Award className="h-4 w-4" />
-                  {submitting ? "Evaluating Technical Examination..." : "Submit Examination & Issue Verified Certificate"}
+                  {submitting ? "Evaluating Technical Examination..." : "Submit 30 Questions & Issue Verified Certificate"}
                 </Button>
                 <p className="text-[11px] text-slate-400 text-center mt-2">
                   Permanently ties the certificate to <strong>{session.user.name}</strong> in PostgreSQL.
@@ -532,12 +622,20 @@ export default function CourseCertificatePage({
                 </div>
               </div>
 
-              <div className="flex flex-col items-center justify-center space-y-1">
-                <div className="h-16 w-16 rounded-full border-2 border-[#c9a84d] bg-gradient-to-br from-[#c9a84d]/20 to-emerald-500/20 flex items-center justify-center shadow-inner">
-                  <Award className="h-8 w-8 text-[#e6ca65]" />
+              <div className="flex flex-col items-center justify-center space-y-2">
+                <div className="flex items-center gap-3">
+                  <div className="h-16 w-16 rounded-full border-2 border-[#c9a84d] bg-gradient-to-br from-[#c9a84d]/20 to-emerald-500/20 flex items-center justify-center shadow-inner shrink-0">
+                    <Award className="h-8 w-8 text-[#e6ca65]" />
+                  </div>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={`https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=${encodeURIComponent(`https://rolenest.in/certificates/verify/${issuedCert.id}`)}&color=e6ca65&bgcolor=0d131f`}
+                    alt="Certificate QR Verification Code"
+                    className="h-16 w-16 rounded-xl border border-[#c9a84d]/50 p-1 bg-[#0d131f] shadow-md"
+                  />
                 </div>
                 <div className="text-[10px] font-mono text-[#c9a84d] font-bold tracking-widest uppercase">
-                  Role Nest Verified Seal
+                  Role Nest Verified Seal &amp; QR Ledger
                 </div>
               </div>
 

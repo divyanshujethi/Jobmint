@@ -60,12 +60,21 @@ export async function GET(req: NextRequest) {
       let isFeaturedJob = false;
       let planName = "pro";
 
-      if (orderId.includes("pro_annual")) {
+      if (orderId.includes("lifetime")) {
+        durationMs = 100 * 365 * 24 * 60 * 60 * 1000;
+        planName = "lifetime";
+      } else if (orderId.includes("pro_annual")) {
         durationMs = 365 * 24 * 60 * 60 * 1000;
         planName = "pro_annual";
       } else if (orderId.includes("pro_quarterly") || orderId.includes("pro_plus")) {
         durationMs = 90 * 24 * 60 * 60 * 1000;
         planName = "pro_plus";
+      } else if (orderId.includes("student_semester")) {
+        durationMs = 180 * 24 * 60 * 60 * 1000;
+        planName = "student";
+      } else if (orderId.includes("student")) {
+        durationMs = 30 * 24 * 60 * 60 * 1000;
+        planName = "student";
       } else if (orderId.includes("featured_job")) {
         isFeaturedJob = true;
         planName = "featured_job";
@@ -108,6 +117,7 @@ export async function GET(req: NextRequest) {
           const updatePayload: Record<string, any> = {
             isPro: true,
             proExpiresAt: expiresAt,
+            planTier: planName,
             updatedAt: new Date(),
           };
 

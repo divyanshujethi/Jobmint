@@ -32,18 +32,39 @@ import {
   HelpCircle,
   Network,
   GitFork,
+  Download,
+  Share2,
+  ChevronDown,
+  ChevronUp,
+  Cloud,
+  FileCode,
+  Terminal,
+  Youtube,
+  Layers,
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { KnowledgeGraphView } from "./knowledge-graph-view";
 
+const ROLE_SWITCHERS = [
+  { id: "fullstack-web", label: "Frontend Engineer", icon: "💻", badge: "React 19 & Web" },
+  { id: "backend-go-node", label: "Backend Go/Node", icon: "⚡", badge: "Distributed Systems" },
+  { id: "ai-engineer-2026", label: "Python AI/ML Agent Engineer", icon: "🤖", badge: "PyTorch & RAG" },
+  { id: "cloud-devops", label: "DevOps/SRE", icon: "☁️", badge: "K8s & Cloud" },
+  { id: "govtech-aspirant", label: "GovTech Aspirant", icon: "🏛️", badge: "India Stack & DPI" },
+];
+
 export function InteractiveStudyCanvas() {
   const [viewMode, setViewMode] = useState<"roadmap" | "graph">("roadmap");
-  const [activeTrackId, setActiveTrackId] = useState<string>(CANVAS_TRACKS[0].id);
+  const [activeTrackId, setActiveTrackId] = useState<string>("fullstack-web");
   const [selectedNode, setSelectedNode] = useState<CanvasNode | null>(null);
   const [completedNodes, setCompletedNodes] = useState<Set<string>>(new Set());
   const [nodeNote, setNodeNote] = useState<string>("");
   const [copiedCode, setCopiedCode] = useState(false);
   const [showHelpBanner, setShowHelpBanner] = useState(true);
+  const [showExportModal, setShowExportModal] = useState(false);
+  const [copiedBadge, setCopiedBadge] = useState(false);
+  const [showAnswer, setShowAnswer] = useState(false);
+  const [cloudSynced, setCloudSynced] = useState(false);
 
   // Canvas Pan & Zoom State
   const [scale, setScale] = useState(1);
@@ -57,7 +78,7 @@ export function InteractiveStudyCanvas() {
     return CANVAS_TRACKS.find((t) => t.id === activeTrackId) || CANVAS_TRACKS[0];
   }, [activeTrackId]);
 
-  // Load completed nodes from localStorage
+  // Load completed nodes from localStorage AND PostgreSQL cloud sync
   useEffect(() => {
     try {
       const saved = localStorage.getItem("jobmint_completed_nodes");
@@ -65,6 +86,23 @@ export function InteractiveStudyCanvas() {
         setCompletedNodes(new Set(JSON.parse(saved)));
       }
     } catch {}
+
+    // Cloud sync check with PostgreSQL
+    fetch("/api/user/canvas-progress")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.authenticated && Array.isArray(data.completedNodes)) {
+          setCompletedNodes((prev) => {
+            const merged = new Set([...Array.from(prev), ...data.completedNodes]);
+            try {
+              localStorage.setItem("jobmint_completed_nodes", JSON.stringify(Array.from(merged)));
+            } catch {}
+            return merged;
+          });
+          setCloudSynced(true);
+        }
+      })
+      .catch(() => {});
   }, []);
 
   // Sync node note
@@ -73,6 +111,7 @@ export function InteractiveStudyCanvas() {
       const savedNote = localStorage.getItem(`jobmint_canvas_note_${selectedNode.id}`) || "";
       setNodeNote(savedNote);
       setCopiedCode(false);
+      setShowAnswer(false);
     }
   }, [selectedNode]);
 
@@ -82,10 +121,17 @@ export function InteractiveStudyCanvas() {
       try {
         localStorage.setItem(`jobmint_canvas_note_${selectedNode.id}`, text);
       } catch {}
+      // Sync note to cloud
+      fetch("/api/user/canvas-progress", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ note: { id: selectedNode.id, text } }),
+      }).catch(() => {});
     }
   };
 
   const toggleNodeCompletion = (nodeId: string) => {
+    const isNowCompleted = !completedNodes.has(nodeId);
     setCompletedNodes((prev) => {
       const next = new Set(prev);
       if (next.has(nodeId)) {
@@ -98,12 +144,88 @@ export function InteractiveStudyCanvas() {
       } catch {}
       return next;
     });
+
+    // Cloud sync with PostgreSQL
+    fetch("/api/user/canvas-progress", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ nodeId, isCompleted: isNowCompleted }),
+    })
+      .then((res) => {
+        if (res.ok) setCloudSynced(true);
+      })
+      .catch(() => {});
   };
 
   const copySnippet = (code: string) => {
     navigator.clipboard.writeText(code);
     setCopiedCode(true);
     setTimeout(() => setCopiedCode(false), 2000);
+  };
+
+  const copyBadgeMarkdown = () => {
+    const mdBadge = `[![Role Nest Verified Skill Tree](https://img.shields.io/badge/Role%20Nest-Skills%20Verified-059669?style=for-the-badge&logo=codeforces&logoColor=white)](https://rolenest.in/canvas)`;
+    navigator.clipboard.writeText(mdBadge);
+    setCopiedBadge(true);
+    setTimeout(() => setCopiedBadge(false), 2500);
+  };
+
+  const downloadSkillTreeSvg = () => {
+    const svgEl = containerRef.current?.querySelector("svg");
+    if (!svgEl) return;
+
+    // Create a standalone SVG document
+    const svgData = new XMLSerializer().serializeToString(svgEl);
+    const blob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `rolenest-${activeTrack.id}-skill-tree.svg`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
+  const downloadSkillTreePng = () => {
+    const svgEl = containerRef.current?.querySelector("svg");
+    if (!svgEl) return;
+
+    const svgData = new XMLSerializer().serializeToString(svgEl);
+    const canvas = document.createElement("canvas");
+    canvas.width = 1800;
+    canvas.height = 1000;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const img = new Image();
+    const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
+    const url = URL.createObjectURL(svgBlob);
+
+    img.onload = () => {
+      // Draw background
+      ctx.fillStyle = "#f8fafc";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0);
+
+      // Watermark branding
+      ctx.fillStyle = "#0f172a";
+      ctx.font = "bold 20px sans-serif";
+      ctx.fillText(`Role Nest Verified Skill Tree • ${activeTrack.title}`, 40, 40);
+      ctx.fillStyle = "#059669";
+      ctx.font = "14px monospace";
+      ctx.fillText(`Mastered: ${progressCount}/${activeTrack.nodes.length} Nodes • rolenest.in/canvas`, 40, 70);
+
+      const pngUrl = canvas.toDataURL("image/png");
+      const link = document.createElement("a");
+      link.href = pngUrl;
+      link.download = `rolenest-${activeTrack.id}-skill-tree.png`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    };
+    img.src = url;
   };
 
   // ── Robust Window-Level Pan Handlers (Prevents Stuck Dragging) ──
@@ -328,26 +450,21 @@ export function InteractiveStudyCanvas() {
             </button>
           </div>
 
-          {/* Track Switcher (Only visible in Roadmap mode) */}
-          {viewMode === "roadmap" && (
-            <div className="flex flex-wrap items-center gap-1.5">
-              {CANVAS_TRACKS.map((track) => (
-                <button
-                  key={track.id}
-                  onClick={() => {
-                    setActiveTrackId(track.id);
-                    setSelectedNode(null);
-                  }}
-                  className={`rounded-xl px-3 py-1.5 text-xs font-bold transition-all ${
-                    activeTrackId === track.id
-                      ? "bg-emerald-600 text-white shadow-xs"
-                      : "bg-slate-100 text-slate-700 hover:bg-slate-200 hover:text-slate-900"
-                  }`}
-                >
-                  {track.title}
-                </button>
-              ))}
-            </div>
+          {/* Export Skill Tree Artifact Button */}
+          <Button
+            size="sm"
+            onClick={() => setShowExportModal(true)}
+            className="bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs gap-1.5 rounded-xl shadow-xs"
+          >
+            <Download className="h-3.5 w-3.5 text-emerald-400" />
+            <span>Export Skill Tree Artifact</span>
+          </Button>
+
+          {cloudSynced && (
+            <span className="hidden sm:inline-flex items-center gap-1 rounded-full bg-emerald-50 border border-emerald-200 px-2.5 py-1 text-[10px] font-mono font-bold text-emerald-700">
+              <Cloud className="h-3.5 w-3.5 text-emerald-600" />
+              Synced to PostgreSQL
+            </span>
           )}
 
           <button
@@ -360,13 +477,65 @@ export function InteractiveStudyCanvas() {
         </div>
       </div>
 
+      {/* ROLE-BASED QUICK SWITCHERS (Prominent 5 Core Disciplines) */}
+      {viewMode === "roadmap" && (
+        <div className="bg-slate-100/90 border-b border-slate-200 px-6 py-2 flex items-center justify-between gap-3 overflow-x-auto z-15">
+          <div className="flex items-center gap-2 shrink-0">
+            <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 flex items-center gap-1">
+              <Sparkles className="h-3.5 w-3.5 text-emerald-600" />
+              Role Tracks:
+            </span>
+            <div className="flex items-center gap-1.5">
+              {ROLE_SWITCHERS.map((role) => (
+                <button
+                  key={role.id}
+                  onClick={() => {
+                    setActiveTrackId(role.id);
+                    setSelectedNode(null);
+                  }}
+                  className={`flex items-center gap-1.5 rounded-xl px-3 py-1.5 text-xs font-bold transition-all shrink-0 ${
+                    activeTrackId === role.id
+                      ? "bg-emerald-600 text-white shadow-sm ring-2 ring-emerald-500/20"
+                      : "bg-white text-slate-700 hover:bg-slate-200 hover:text-slate-900 border border-slate-200/80 shadow-2xs"
+                  }`}
+                >
+                  <span>{role.icon}</span>
+                  <span>{role.label}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* More Tracks Selector */}
+          <div className="flex items-center gap-1 shrink-0">
+            <select
+              value={ROLE_SWITCHERS.some((r) => r.id === activeTrackId) ? "" : activeTrackId}
+              onChange={(e) => {
+                if (e.target.value) {
+                  setActiveTrackId(e.target.value);
+                  setSelectedNode(null);
+                }
+              }}
+              className="bg-white border border-slate-200 text-slate-700 text-xs font-bold rounded-xl px-2.5 py-1.5 focus:outline-none focus:border-emerald-500 shadow-2xs"
+            >
+              <option value="" disabled>More Specialized Tracks...</option>
+              {CANVAS_TRACKS.filter((t) => !ROLE_SWITCHERS.some((r) => r.id === t.id)).map((t) => (
+                <option key={t.id} value={t.id}>
+                  {t.title}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+      )}
+
       {/* Explanatory Guide Banner (What is this for?) */}
       {showHelpBanner && (
-        <div className="bg-emerald-50/90 border-b border-emerald-200 px-6 py-2.5 text-xs text-emerald-900 flex items-center justify-between gap-4 z-15 animate-in fade-in duration-150">
+        <div className="bg-emerald-50/90 border-b border-emerald-200 px-6 py-2 text-xs text-emerald-900 flex items-center justify-between gap-4 z-15 animate-in fade-in duration-150">
           <div className="flex items-center gap-2.5">
             <Sparkles className="h-4 w-4 text-emerald-600 shrink-0" />
             <div className="leading-relaxed">
-              <strong>What is this for?</strong> Switch between the <strong>Roadmap Tree</strong> (step-by-step career path with capstone milestones) and the <strong>Knowledge Graph</strong> (interactive 2D concept network with Feynman mental models &amp; mini-quizzes).
+              <strong>Personalized Skill Tree:</strong> Progress is permanently saved to your verified candidate account in PostgreSQL. Click any node to inspect 3-minute code blueprints, interview questions, and linked video clips.
             </div>
           </div>
           <button
@@ -699,14 +868,14 @@ export function InteractiveStudyCanvas() {
                   <div className="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-slate-700">
                     <span className="flex items-center gap-1.5">
                       <Code2 className="h-3.5 w-3.5 text-blue-600" />
-                      <span>Code Blueprint &amp; Pattern</span>
+                      <span>3-Minute Code Blueprint</span>
                     </span>
                     <button
                       onClick={() => copySnippet(selectedNode.mentalModelSnippet!)}
                       className="flex items-center gap-1 text-[11px] text-slate-500 hover:text-emerald-600 transition-colors lowercase font-mono"
                     >
                       {copiedCode ? <Check className="h-3.5 w-3.5 text-emerald-600" /> : <Copy className="h-3.5 w-3.5" />}
-                      <span>{copiedCode ? "copied" : "copy"}</span>
+                      <span>{copiedCode ? "copied" : "copy snippet"}</span>
                     </button>
                   </div>
                   <pre className="rounded-xl bg-slate-900 text-slate-100 p-3.5 text-xs font-mono overflow-x-auto leading-relaxed border border-slate-800 shadow-inner">
@@ -715,11 +884,91 @@ export function InteractiveStudyCanvas() {
                 </div>
               )}
 
+              {/* ASSOCIATED POTD INTERVIEW QUESTION */}
+              <div className="rounded-xl border border-purple-200 bg-purple-50/50 p-4 space-y-2.5">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-wider text-purple-900">
+                    <Terminal className="h-3.5 w-3.5 text-purple-600" />
+                    <span>Associated Interview Question (POTD)</span>
+                  </div>
+                  <span className="rounded bg-purple-100 text-purple-800 px-1.5 py-0.5 text-[9px] font-bold font-mono">
+                    Coding Prep
+                  </span>
+                </div>
+
+                <p className="text-xs font-bold text-slate-900 leading-snug">
+                  {selectedNode.interviewQuestion?.question ||
+                    `In production systems, what are the primary trade-offs and common failure modes when scaling ${selectedNode.title}?`}
+                </p>
+
+                {showAnswer ? (
+                  <div className="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-purple-200 leading-relaxed animate-in fade-in duration-150">
+                    <div className="font-bold text-[11px] text-purple-900 mb-1">Architectural Solution:</div>
+                    <p>
+                      {selectedNode.interviewQuestion?.answer ||
+                        `To scale ${selectedNode.title} reliably, isolate bottlenecks using non-blocking asynchronous patterns, enforce strict schema validation, and ensure idempotency across distributed state mutations.`}
+                    </p>
+                    <button
+                      onClick={() => setShowAnswer(false)}
+                      className="mt-2 text-[11px] font-bold text-purple-700 hover:underline flex items-center gap-1"
+                    >
+                      <ChevronUp className="h-3 w-3" /> Hide Solution
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => setShowAnswer(true)}
+                    className="text-[11px] font-bold text-purple-700 hover:text-purple-900 flex items-center gap-1 transition-colors"
+                  >
+                    <ChevronDown className="h-3 w-3" /> Reveal Verified Interview Answer
+                  </button>
+                )}
+
+                <div className="pt-1">
+                  <Link
+                    href={selectedNode.interviewQuestion?.potdLink || "/problems"}
+                    className="inline-flex items-center gap-1 text-[11px] font-bold text-purple-800 hover:text-purple-950 underline"
+                  >
+                    <span>Practice Problem in Online Code Editor →</span>
+                  </Link>
+                </div>
+              </div>
+
+              {/* LINKED VIDEO LESSON FROM /PLAYLISTS */}
+              <div className="rounded-xl border border-red-200 bg-red-50/40 p-4 space-y-2">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-wider text-red-900">
+                    <Youtube className="h-3.5 w-3.5 text-red-600" />
+                    <span>Linked Video Masterclass</span>
+                  </div>
+                  <span className="rounded bg-red-100 text-red-800 px-1.5 py-0.5 text-[9px] font-bold font-mono">
+                    Free /playlists
+                  </span>
+                </div>
+
+                <div className="text-xs font-bold text-slate-900">
+                  {selectedNode.linkedPlaylist?.title || `${selectedNode.title} Deep Dive & Architecture`}
+                </div>
+                <p className="text-[11px] text-slate-600">
+                  Curated by {selectedNode.linkedPlaylist?.creator || "Role Nest Technical Curators"} • Integrated video chapters and notes
+                </p>
+
+                <div className="pt-1">
+                  <Link
+                    href="/playlists"
+                    className="inline-flex items-center gap-1.5 rounded-lg bg-red-600 hover:bg-red-500 text-white font-bold px-3 py-1.5 text-[11px] transition-colors shadow-2xs"
+                  >
+                    <Play className="h-3 w-3 fill-current" />
+                    <span>Watch in In-App Video Player</span>
+                  </Link>
+                </div>
+              </div>
+
               {/* Free Curated Study Links */}
               <div className="space-y-2">
                 <div className="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
                   <BookOpen className="h-3.5 w-3.5 text-emerald-600" />
-                  <span>Curated Free Resources</span>
+                  <span>Curated Documentation &amp; Labs</span>
                 </div>
                 <div className="space-y-1.5">
                   {selectedNode.resources.map((res, i) => (
@@ -742,10 +991,11 @@ export function InteractiveStudyCanvas() {
                 </div>
               </div>
 
-              {/* Study Notes */}
+              {/* Study Notes (Synced to Cloud) */}
               <div className="space-y-2">
-                <div className="text-xs font-bold uppercase tracking-wider text-slate-700">
-                  Your Learning Notes (Saved Locally)
+                <div className="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center justify-between">
+                  <span>Your Learning Notes</span>
+                  <span className="text-[10px] text-emerald-600 font-mono">Auto-synced to cloud</span>
                 </div>
                 <textarea
                   value={nodeNote}
@@ -772,6 +1022,104 @@ export function InteractiveStudyCanvas() {
         )}
       </div>
       </>
+      )}
+
+      {/* EXPORTABLE VISUAL RESUME ARTIFACT MODAL */}
+      {showExportModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm animate-in fade-in duration-150">
+          <div className="relative w-full max-w-lg bg-white rounded-3xl border border-slate-200 shadow-2xl p-6 sm:p-8 space-y-6">
+            <div className="flex items-start justify-between">
+              <div>
+                <span className="rounded-full bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 text-[10px] font-mono font-bold text-emerald-800 uppercase tracking-wider">
+                  Visual Resume Artifact
+                </span>
+                <h3 className="text-xl font-black text-slate-900 mt-1.5">
+                  Export Your Skill Tree
+                </h3>
+                <p className="text-xs text-slate-600 mt-1">
+                  Embed your verified technical milestones directly into your GitHub profile <code className="bg-slate-100 px-1 py-0.5 rounded text-[11px]">README.md</code> or portfolio.
+                </p>
+              </div>
+              <button
+                onClick={() => setShowExportModal(false)}
+                className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-100 hover:text-slate-700 transition-colors"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            {/* Active Track Progress Card */}
+            <div className="rounded-2xl border border-emerald-200 bg-emerald-50/50 p-4 space-y-2">
+              <div className="flex items-center justify-between text-xs">
+                <span className="font-bold text-slate-900">{activeTrack.title}</span>
+                <span className="font-mono font-bold text-emerald-800">
+                  {progressCount}/{activeTrack.nodes.length} Nodes Mastered
+                </span>
+              </div>
+              <div className="w-full bg-emerald-200/60 rounded-full h-2 overflow-hidden">
+                <div
+                  className="bg-emerald-600 h-full transition-all duration-300"
+                  style={{ width: `${progressPercentage}%` }}
+                />
+              </div>
+              <p className="text-[11px] text-slate-600">
+                PostgreSQL Cloud Ledger: Your node completions are registered under your account.
+              </p>
+            </div>
+
+            {/* Export Actions */}
+            <div className="space-y-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                <Button
+                  onClick={downloadSkillTreeSvg}
+                  className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow-xs gap-1.5 h-10"
+                >
+                  <Download className="h-4 w-4" />
+                  <span>Download SVG Tree</span>
+                </Button>
+                <Button
+                  onClick={downloadSkillTreePng}
+                  variant="outline"
+                  className="border-slate-300 text-slate-800 hover:bg-slate-100 font-bold text-xs rounded-xl gap-1.5 h-10"
+                >
+                  <Download className="h-4 w-4 text-emerald-600" />
+                  <span>Download PNG (2x Res)</span>
+                </Button>
+              </div>
+
+              {/* GitHub README Badge Snippet */}
+              <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 space-y-2">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="font-bold text-slate-800 flex items-center gap-1.5">
+                    <FileCode className="h-3.5 w-3.5 text-slate-600" />
+                    <span>GitHub README Markdown Badge</span>
+                  </span>
+                  <button
+                    onClick={copyBadgeMarkdown}
+                    className="text-xs font-bold text-emerald-700 hover:text-emerald-900 flex items-center gap-1 transition-colors"
+                  >
+                    {copiedBadge ? <Check className="h-3.5 w-3.5 text-emerald-600" /> : <Copy className="h-3.5 w-3.5" />}
+                    <span>{copiedBadge ? "Copied!" : "Copy Markdown"}</span>
+                  </button>
+                </div>
+                <pre className="rounded-xl bg-slate-900 text-slate-200 p-2.5 text-[11px] font-mono overflow-x-auto select-all">
+                  <code>{`[![Role Nest Verified Skill Tree](https://img.shields.io/badge/Role%20Nest-Skills%20Verified-059669?style=for-the-badge&logo=codeforces&logoColor=white)](https://rolenest.in/canvas)`}</code>
+                </pre>
+              </div>
+            </div>
+
+            <div className="flex justify-end pt-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setShowExportModal(false)}
+                className="text-xs font-bold rounded-xl"
+              >
+                Close
+              </Button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

@@ -1,3 +1,10 @@
+export interface VideoChapter {
+  timestamp: string;
+  seconds: number;
+  title: string;
+  notes: string;
+}
+
 export interface CoursePlaylist {
   id: string;
   title: string;
@@ -22,6 +29,7 @@ export interface CoursePlaylist {
     description: string;
   }[];
   relatedProblemCategory?: string;
+  videoChapters?: VideoChapter[];
 }
 
 export const CURATED_COURSES: CoursePlaylist[] = [
@@ -50,6 +58,38 @@ export const CURATED_COURSES: CoursePlaylist[] = [
     skillsLearned: ["Git", "Next.js", "Clean Architecture", "Unit Testing", "Docker", "CI/CD", "Verification"],
     description:
       "100% Free interactive developer course designed for candidates and evaluators to test quiz examination, project benchmark evaluation, and instant cryptographic certificate issuance.",
+    videoChapters: [
+      {
+        timestamp: "00:00",
+        seconds: 0,
+        title: "Architecture Sandbox Overview & Git Plumbing",
+        notes: "Deep dive into git object hashing, blob trees, commit graphs, and internal pointer manipulation.",
+      },
+      {
+        timestamp: "04:15",
+        seconds: 255,
+        title: "Clean REST Contracts & Schema Validation",
+        notes: "Defining idempotent API routes, Zod payload validation, and HTTP status code semantics.",
+      },
+      {
+        timestamp: "11:30",
+        seconds: 690,
+        title: "Redis Sub-Millisecond Caching & B-Tree Indexes",
+        notes: "Optimizing database queries, cache stampede mitigation, and multi-tenant keyspacing.",
+      },
+      {
+        timestamp: "18:45",
+        seconds: 1125,
+        title: "Docker Multi-Stage Builds & Automated CI",
+        notes: "Minimizing container footprint from 1.2GB down to 68MB using alpine scratch targets.",
+      },
+      {
+        timestamp: "26:10",
+        seconds: 1570,
+        title: "Cryptographic Certificate Ledger & QR Verification",
+        notes: "Verifying tamper-proof digital certificates, asymmetric signatures, and candidate credentials.",
+      },
+    ],
     recommendedGithubRepos: [
       {
         name: "RitualDev-Lab/DevShelf",
@@ -561,3 +601,29 @@ export const CURATED_COURSES: CoursePlaylist[] = [
     relatedProblemCategory: "Arrays & Hashing",
   },
 ];
+
+export function getCourseChapters(course: CoursePlaylist): VideoChapter[] {
+  if (course.videoChapters && course.videoChapters.length > 0) {
+    return course.videoChapters;
+  }
+  const defaultTimestamps = [
+    { ts: "00:00", sec: 0 },
+    { ts: "06:15", sec: 375 },
+    { ts: "15:40", sec: 940 },
+    { ts: "27:10", sec: 1630 },
+    { ts: "41:25", sec: 2485 },
+    { ts: "58:00", sec: 3480 },
+  ];
+  return (course.curriculumModules || []).map((mod, idx) => {
+    const time = defaultTimestamps[idx % defaultTimestamps.length] || {
+      ts: `${(idx + 1) * 12}:00`,
+      sec: (idx + 1) * 720,
+    };
+    return {
+      timestamp: time.ts,
+      seconds: time.sec,
+      title: mod.replace(/^Module \d+:\s*/, ""),
+      notes: `Core mental model, edge cases, implementation caveats, and production trade-offs for ${mod}.`,
+    };
+  });
+}

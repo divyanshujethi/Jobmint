@@ -12,6 +12,18 @@ const PLAN_CONFIGS: Record<
     description: string;
   }
 > = {
+  student: {
+    name: "Role Nest Campus & Student Pass (Monthly)",
+    amount: 99,
+    durationMs: 30 * 24 * 60 * 60 * 1000,
+    description: "Student Discount Pass • 15 AI Resume Scans • 10 Active Applications • Monaco POTD Solutions",
+  },
+  student_semester: {
+    name: "Role Nest Student Semester Pass (6 Months)",
+    amount: 249,
+    durationMs: 180 * 24 * 60 * 60 * 1000,
+    description: "6 months Student Pass • Save 58% • POTD Solutions • Student Verified Badge",
+  },
   pro: {
     name: "Role Nest Pro (Monthly Membership)",
     amount: 199,
@@ -35,6 +47,12 @@ const PLAN_CONFIGS: Record<
     amount: 1499,
     durationMs: 365 * 24 * 60 * 60 * 1000,
     description: "1 full year Pro access • Lifetime Proof-of-Work Verification • 1-Click Tailored Bullets",
+  },
+  lifetime: {
+    name: "Role Nest Lifetime Fellow Access",
+    amount: 2999,
+    durationMs: 100 * 365 * 24 * 60 * 60 * 1000,
+    description: "Lifetime All-Inclusive Access • Zero Renewals • 1-on-1 Architecture Audit • Golden Fellow Badge",
   },
   featured_job: {
     name: "Role Nest Featured Job Listing (30 Days)",

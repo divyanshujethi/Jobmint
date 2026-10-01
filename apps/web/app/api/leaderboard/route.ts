@@ -15,6 +15,8 @@ interface StreakLeader {
   verifiedDevScore: number;
   badgesCount: number;
   recentBadge: string;
+  planBadge?: "none" | "student" | "pro" | "plus" | "lifetime";
+  isPriorityPlaced?: boolean;
   isCurrentUser?: boolean;
 }
 
@@ -62,6 +64,9 @@ export async function GET(req: NextRequest) {
           name: users.name,
           email: users.email,
           image: users.image,
+          isPro: users.isPro,
+          proExpiresAt: users.proExpiresAt,
+          planTier: users.planTier,
           currentStreak: userStreaks.currentStreak,
           longestStreak: userStreaks.longestStreak,
           totalXp: userStreaks.totalXp,
@@ -74,6 +79,11 @@ export async function GET(req: NextRequest) {
         .leftJoin(userStreaks, eq(users.id, userStreaks.userId))
         .leftJoin(candidateProfiles, eq(users.id, candidateProfiles.userId))
         .orderBy(
+          sql`CASE 
+            WHEN ${users.isPro} = true AND (${users.planTier} IN ('plus', 'pro_plus', 'annual', 'pro_annual', 'lifetime')) THEN 1
+            WHEN ${users.isPro} = true THEN 2
+            ELSE 3
+          END ASC`,
           sql`COALESCE(${userStreaks.currentStreak}, 0) DESC`,
           sql`COALESCE(${userStreaks.totalXp}, 0) DESC`,
           desc(users.createdAt)
@@ -105,6 +115,27 @@ export async function GET(req: NextRequest) {
         ? Math.min(1000, 500 + Math.round(xp * 0.8) + (streak * 15))
         : 0;
 
+      const isStillActive =
+        u.isPro && (!u.proExpiresAt || new Date(u.proExpiresAt) > new Date());
+      const rawTier = (u.planTier || "free").toLowerCase();
+
+      let planBadge: "none" | "student" | "pro" | "plus" | "lifetime" = "none";
+      let isPriorityPlaced = false;
+
+      if (isStillActive) {
+        if (rawTier === "lifetime") {
+          planBadge = "lifetime";
+          isPriorityPlaced = true;
+        } else if (rawTier.includes("plus") || rawTier.includes("annual")) {
+          planBadge = "plus";
+          isPriorityPlaced = true;
+        } else if (rawTier === "student") {
+          planBadge = "student";
+        } else {
+          planBadge = "pro";
+        }
+      }
+
       return {
         rank: index + 1,
         userId: u.id,
@@ -116,6 +147,8 @@ export async function GET(req: NextRequest) {
         verifiedDevScore: score,
         badgesCount: badges.length,
         recentBadge: formattedBadge,
+        planBadge,
+        isPriorityPlaced,
         isCurrentUser: currentUserId === u.id,
       };
     });

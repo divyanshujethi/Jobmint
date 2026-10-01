@@ -55,6 +55,22 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // Check Plan Limits (Free accounts strictly limited to 3 AI generations total)
+    const { checkAndIncrementAiQuota } = await import("@/lib/plan-limits");
+    const quotaCheck = await checkAndIncrementAiQuota(userId);
+    if (!quotaCheck.allowed) {
+      return NextResponse.json(
+        {
+          error: quotaCheck.error,
+          limitReached: true,
+          limit: quotaCheck.limit,
+          currentCount: quotaCheck.currentCount,
+          upgradeUrl: quotaCheck.upgradeUrl,
+        },
+        { status: 403 }
+      );
+    }
+
     const systemPrompt = `You are an expert ATS Resume Optimization Engine for Software Engineers in 2026.
 Transform the user's rough achievement into high-impact, quantified STAR (Situation-Task-Action-Result) format bullets.
 Use strong active verbs (Architected, Spearheaded, Accelerated, Engineered).

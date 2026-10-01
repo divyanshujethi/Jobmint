@@ -12,6 +12,8 @@ export const users = pgTable("users", {
   role: text("role").notNull().default(UserRole.CANDIDATE),
   isPro: boolean("is_pro").default(false).notNull(),
   proExpiresAt: timestamp("pro_expires_at", { mode: "date" }),
+  planTier: text("plan_tier").default("free"),
+  aiGenerationsCount: integer("ai_generations_count").default(0),
   paddleCustomerId: text("paddle_customer_id"),
   createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
   updatedAt: timestamp("updated_at", { mode: "date" }).defaultNow().notNull(),

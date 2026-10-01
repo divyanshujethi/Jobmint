@@ -38,6 +38,34 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // Check Plan Limits (Free tier strictly limited to 3 AI generations total)
+    const session = await auth();
+    if (!session || !session.user) {
+      return NextResponse.json(
+        {
+          error: "Please sign in to Role Nest to access your free AI resume scans (3 total on Free tier, or unlimited on Pro).",
+          requiresAuth: true,
+          upgradeUrl: "/login?callbackUrl=/resumes",
+        },
+        { status: 401 }
+      );
+    }
+
+    const { checkAndIncrementAiQuota } = await import("@/lib/plan-limits");
+    const quotaCheck = await checkAndIncrementAiQuota(session.user.id || session.user.email!);
+    if (!quotaCheck.allowed) {
+      return NextResponse.json(
+        {
+          error: quotaCheck.error,
+          limitReached: true,
+          limit: quotaCheck.limit,
+          currentCount: quotaCheck.currentCount,
+          upgradeUrl: quotaCheck.upgradeUrl,
+        },
+        { status: 403 }
+      );
+    }
+
     // Call Tier 1 Groq / Tier 2 Gemini cascade
     const aiResponse = await generateAI({
       task: 'ANALYZE_FULL_RESUME',

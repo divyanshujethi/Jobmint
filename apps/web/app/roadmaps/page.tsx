@@ -32,8 +32,8 @@ export default function RoadmapsIndexPage() {
                 <span className="rounded-md bg-blue-50 px-2.5 py-0.5 text-xs font-bold text-blue-700">
                   {roadmap.category}
                 </span>
-                <span className="flex items-center gap-1 text-xs text-slate-500 font-medium">
-                  <Clock className="h-3.5 w-3.5" /> {roadmap.durationWeeks}
+                <span className="rounded-md bg-emerald-50 border border-emerald-200 px-2 py-0.5 text-[11px] font-bold text-emerald-800">
+                  ⚡ 8-Week Sprints (+720 XP)
                 </span>
               </div>
 

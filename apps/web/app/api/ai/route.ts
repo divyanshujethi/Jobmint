@@ -78,6 +78,33 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // Explicit Free Tier Quota Check for AI generations (ATS resume matchers / JD drafts / rewrites)
+    const GENERATION_TASKS = [
+      "GENERATE_JOB_DESCRIPTION",
+      "GENERATE_COVER_LETTER",
+      "TAILOR_RESUME_TO_JOB",
+      "ANALYZE_FULL_RESUME",
+      "IMPROVE_RESUME_BULLET",
+      "PARSE_RESUME",
+    ];
+
+    if (GENERATION_TASKS.includes(task)) {
+      const { checkAndIncrementAiQuota } = await import("@/lib/plan-limits");
+      const quotaCheck = await checkAndIncrementAiQuota(userId);
+      if (!quotaCheck.allowed) {
+        return NextResponse.json(
+          {
+            error: quotaCheck.error,
+            limitReached: true,
+            limit: quotaCheck.limit,
+            currentCount: quotaCheck.currentCount,
+            upgradeUrl: quotaCheck.upgradeUrl,
+          },
+          { status: 403 }
+        );
+      }
+    }
+
     const response = await generateAI({ task, input, preferredProvider });
 
     if (!response.success && response.error) {

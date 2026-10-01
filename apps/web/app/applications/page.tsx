@@ -29,6 +29,8 @@ export default function ApplicationsTrackerPage() {
   const [sessionUser, setSessionUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [activeFilter, setActiveFilter] = useState<string>("ALL");
+  const [planTier, setPlanTier] = useState<string>("free");
+  const [maxLimit, setMaxLimit] = useState<number>(5);
 
   useEffect(() => {
     // 1. Check session
@@ -44,6 +46,8 @@ export default function ApplicationsTrackerPage() {
               if (data.applications && Array.isArray(data.applications)) {
                 setApplications(data.applications);
               }
+              if (data.maxLimit !== undefined) setMaxLimit(data.maxLimit);
+              if (data.planTier) setPlanTier(data.planTier);
             });
         } else {
           setSessionUser(null);
@@ -178,6 +182,60 @@ export default function ApplicationsTrackerPage() {
           <Crown className="h-3.5 w-3.5 text-amber-400" />
           <span>Get Pro Priority (₹499/mo)</span>
         </button>
+      </div>
+
+      {/* PLAN TRACKING QUOTA HUD */}
+      <div className="mt-4 rounded-2xl border border-slate-200 bg-white p-4 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xs">
+        <div className="flex items-center gap-3 w-full sm:w-auto">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-800 font-bold shrink-0">
+            <Briefcase className="h-5 w-5" />
+          </div>
+          <div className="flex-1">
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-bold text-slate-900">
+                Active Tracking Quota: {total} / {maxLimit === Infinity ? "Unlimited" : maxLimit} Applications
+              </span>
+              <span className="rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 uppercase">
+                {planTier} Tier
+              </span>
+            </div>
+            <div className="w-full bg-slate-100 h-1.5 rounded-full mt-2 overflow-hidden">
+              <div
+                className={`h-full rounded-full transition-all ${
+                  maxLimit !== Infinity && total >= maxLimit
+                    ? "bg-amber-500"
+                    : "bg-emerald-500"
+                }`}
+                style={{
+                  width: `${
+                    maxLimit === Infinity
+                      ? Math.min(100, (total / 25) * 100)
+                      : Math.min(100, (total / maxLimit) * 100)
+                  }%`,
+                }}
+              />
+            </div>
+          </div>
+        </div>
+
+        {maxLimit !== Infinity && total >= maxLimit ? (
+          <div className="flex items-center gap-2 shrink-0">
+            <span className="text-xs text-amber-700 font-semibold">Quota Reached ({total}/{maxLimit})</span>
+            <Link href="/pricing">
+              <Button size="sm" className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs h-8 px-3 rounded-xl shadow-xs">
+                Unlock 25 or Unlimited Slots →
+              </Button>
+            </Link>
+          </div>
+        ) : maxLimit !== Infinity ? (
+          <Link href="/pricing" className="shrink-0 text-xs text-emerald-700 hover:underline font-semibold">
+            Upgrade for up to 25 or Unlimited tracking →
+          </Link>
+        ) : (
+          <span className="shrink-0 text-xs text-emerald-700 font-bold flex items-center gap-1">
+            <Sparkles className="h-3.5 w-3.5" /> Unlimited Tracking Active
+          </span>
+        )}
       </div>
 
       {/* SUMMARY STATS BAR */}

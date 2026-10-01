@@ -179,9 +179,15 @@ export async function GET(req: NextRequest) {
       };
     });
 
+    const { getUserPlan } = await import("@/lib/plan-limits");
+    const planInfo = await getUserPlan(currentUserId);
+
     return NextResponse.json({
       applications: formatted,
       total: formatted.length,
+      maxLimit: planInfo.limits.maxTrackedApplications,
+      planTier: planInfo.planTier,
+      isPro: planInfo.isPro,
       source: "postgresql-jobmint-prod",
     });
   } catch (error: any) {
@@ -265,6 +271,31 @@ export async function POST(req: NextRequest) {
         demoUrl: demoUrl || null,
         devScore: devScore || null,
       });
+    }
+
+    // Check Active Applications Limit for current user plan
+    const { getUserPlan } = await import("@/lib/plan-limits");
+    const planInfo = await getUserPlan(userId);
+
+    const existingApps = await db
+      .select({ id: applications.id })
+      .from(applications)
+      .where(eq(applications.candidateProfileId, profileId));
+
+    if (
+      planInfo.limits.maxTrackedApplications !== Infinity &&
+      existingApps.length >= planInfo.limits.maxTrackedApplications
+    ) {
+      return NextResponse.json(
+        {
+          error: `Tracking Quota Reached: Your current plan (${planInfo.planTier.toUpperCase()}) allows up to ${planInfo.limits.maxTrackedApplications} active tracked applications in your Kanban pipeline. Upgrade to Role Nest Pro (25 applications) or Plus (unlimited applications) to track more positions.`,
+          code: "TRACKING_LIMIT_REACHED",
+          currentCount: existingApps.length,
+          limit: planInfo.limits.maxTrackedApplications,
+          upgradeUrl: "/pricing",
+        },
+        { status: 403 }
+      );
     }
 
     // 3. Create application
