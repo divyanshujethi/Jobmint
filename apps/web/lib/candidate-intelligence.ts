@@ -112,7 +112,7 @@ export const ROLE_OPTIONS = [
 ];
 
 export const DEFAULT_INTEL_PROFILE: CandidateIntelProfile = {
-  skills: ["React", "TypeScript", "Next.js", "Python", "Node.js"],
+  skills: [],
   targetRole: "All Roles",
   experienceLevel: "FRESHER",
   workMode: "ALL",
@@ -217,16 +217,18 @@ export function scoreJobForCandidate(
     }
   }
 
-  let skillsScore = 20; // baseline
-  if (jobSkillsList.length > 0) {
-    const ratio = Math.min(1, matchedSkills.length / Math.max(1, jobSkillsList.length));
-    skillsScore = Math.round(ratio * 45);
-    // Bonus for matching multiple candidate skills
-    if (matchedSkills.length >= 3) {
-      skillsScore = Math.min(45, skillsScore + 5);
+  let skillsScore = 0;
+  if (candidate.skills.length > 0) {
+    if (jobSkillsList.length > 0) {
+      const ratio = Math.min(1, matchedSkills.length / Math.max(1, jobSkillsList.length));
+      skillsScore = Math.round(ratio * 45);
+      // Bonus for matching multiple candidate skills
+      if (matchedSkills.length >= 3) {
+        skillsScore = Math.min(45, skillsScore + 5);
+      }
+    } else if (matchedSkills.length > 0) {
+      skillsScore = Math.min(45, matchedSkills.length * 15);
     }
-  } else if (matchedSkills.length > 0) {
-    skillsScore = Math.min(45, matchedSkills.length * 15);
   }
 
   // 2. Role Alignment (0 - 25 pts)

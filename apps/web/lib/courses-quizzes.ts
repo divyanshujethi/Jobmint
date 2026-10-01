@@ -12,36 +12,36 @@ export const COURSE_QUIZZES: Record<string, QuizQuestion[]> = {
       id: 1,
       question: "Which Git command enables rewriting local branch commit history, squashing commits, and rewording commit messages?",
       options: [
-        "git rebase -i HEAD~N (Interactive Rebase)",
-        "git push --force-with-lease without local commits",
         "git clone --bare",
+        "git push --force-with-lease without local commits",
+        "git rebase -i HEAD~N (Interactive Rebase)",
         "git checkout -b main"
       ],
-      correctIndex: 0,
+      correctIndex: 2,
       explanation: "Interactive rebase (git rebase -i) allows rearranging, squashing, editing, and rewording commits before pushing to upstream."
     },
     {
       id: 2,
       question: "What is the primary architectural purpose of a Cache-Aside pattern using Redis?",
       options: [
-        "Read from cache first; if cache miss, query database, populate cache, and return data",
         "Directly overwrite the database whenever cache expires",
+        "Read from cache first; if cache miss, query database, populate cache, and return data",
         "Prevent the server from logging errors",
         "Store passwords unencrypted in memory"
       ],
-      correctIndex: 0,
+      correctIndex: 1,
       explanation: "Cache-Aside queries memory first, falling back to durable storage only on cache misses, dramatically reducing database load."
     },
     {
       id: 3,
       question: "Why are multi-stage Docker builds recommended in production web engineering?",
       options: [
-        "They separate build dependencies from runtime environments, producing minimal, secure production images",
         "They make the Docker image larger for faster caching",
         "They disable HTTPS encryption on containers",
-        "They bypass Linux kernel security namespaces"
+        "They bypass Linux kernel security namespaces",
+        "They separate build dependencies from runtime environments, producing minimal, secure production images"
       ],
-      correctIndex: 0,
+      correctIndex: 3,
       explanation: "Multi-stage builds leave compilers, devDependencies, and build caches behind, resulting in lightweight, secure container images."
     },
     {
@@ -60,12 +60,12 @@ export const COURSE_QUIZZES: Record<string, QuizQuestion[]> = {
       id: 5,
       question: "What cryptographic primitive does RoleNest use to ensure public certificate and credential immutability?",
       options: [
-        "Cryptographic SHA-256 ledger hashes timestamped and publicly verifiable",
         "Base64 encoded plain-text files",
+        "Cryptographic SHA-256 ledger hashes timestamped and publicly verifiable",
         "Client-side cookies with no signature",
         "Temporary session storage in the browser"
       ],
-      correctIndex: 0,
+      correctIndex: 1,
       explanation: "SHA-256 cryptographic hashes link the recipient identity, course ID, issue date, and score to a tamper-proof public verification ledger."
     }
   ],
@@ -333,24 +333,24 @@ export function getQuizForCourse(courseId: string): QuizQuestion[] {
       id: 1,
       question: "What is the core principle of reproducible software engineering demonstrated in this curriculum?",
       options: [
-        "Version controlling code with Git and writing automated tests for critical invariants",
         "Writing monolithic files without modular functions",
+        "Version controlling code with Git and writing automated tests for critical invariants",
         "Hardcoding configuration parameters into source files",
         "Skipping peer reviews to maximize delivery speed"
       ],
-      correctIndex: 0,
+      correctIndex: 1,
       explanation: "Clean version control, modular abstractions, and regression testing ensure reproducible, production-ready engineering."
     },
     {
       id: 2,
       question: "When deploying a modern application container with Docker, what is the best practice for production image sizing?",
       options: [
-        "Use multi-stage builds and minimal base images (like Alpine or distroless) to reduce attack surface and download latency",
         "Include all development build tools and compilers in the final container image",
         "Store root passwords in the Dockerfile ENV variables",
-        "Run the container process as the root user"
+        "Run the container process as the root user",
+        "Use multi-stage builds and minimal base images (like Alpine or distroless) to reduce attack surface and download latency"
       ],
-      correctIndex: 0,
+      correctIndex: 3,
       explanation: "Multi-stage builds compile artifacts in a builder image and copy only the compiled binary to a minimal runtime container."
     },
     {
@@ -369,24 +369,24 @@ export function getQuizForCourse(courseId: string): QuizQuestion[] {
       id: 4,
       question: "What does horizontal scaling refer to in distributed systems architecture?",
       options: [
-        "Adding more computing instances or nodes behind a load balancer",
         "Purchasing a larger CPU for a single server",
         "Rotating a database table 90 degrees",
+        "Adding more computing instances or nodes behind a load balancer",
         "Decreasing network bandwidth"
       ],
-      correctIndex: 0,
+      correctIndex: 2,
       explanation: "Horizontal scaling (scale-out) distributes workload across multiple replicated nodes for high availability and fault tolerance."
     },
     {
       id: 5,
       question: "Under the Indian DPDP Act 2023, what is the fundamental obligation of a Data Fiduciary regarding user data?",
       options: [
-        "Process data strictly for specified purposes with explicit consent, implement security safeguards, and respect right to erasure",
         "Sell user phone numbers to third-party marketing firms",
+        "Process data strictly for specified purposes with explicit consent, implement security safeguards, and respect right to erasure",
         "Retain personal data indefinitely without user permission",
         "Disclose candidate resumes publicly without authentication"
       ],
-      correctIndex: 0,
+      correctIndex: 1,
       explanation: "The DPDP Act mandates purpose limitation, explicit consent, technical security safeguards, and strict data erasure rights."
     }
   ];

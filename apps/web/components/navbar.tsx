@@ -62,8 +62,8 @@ export function Navbar() {
   const [isAdmin, setIsAdmin] = useState(false);
 
   const isCandidate = Boolean(user && (!user.role || user.role === "CANDIDATE"));
-  const isEmployerOrAdmin = Boolean(
-    isAdmin || user?.role === "EMPLOYER" || user?.role === "ADMIN"
+  const isRecruiterAllowed = Boolean(
+    user?.email?.toLowerCase() === "divyanshujethi@gmail.com"
   );
   const [isPro, setIsPro] = useState(false);
   const [proExpiresAt, setProExpiresAt] = useState<string | null>(null);
@@ -665,7 +665,7 @@ export function Navbar() {
                         Resume Vault & ATS
                       </Link>
 
-                      {isEmployerOrAdmin && (
+                      {isRecruiterAllowed && (
                         <Link
                           href="/employer/applicants"
                           onClick={() => setUserMenuOpen(false)}

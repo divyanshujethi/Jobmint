@@ -29,17 +29,63 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
-    // Check candidate_profiles for phone fallback if not directly on user
+    // Check candidate_profiles for resume, phone, headline, github
     let userPhone = user.phone || "";
-    if (!userPhone) {
-      const [profile] = await db
-        .select({ phone: candidateProfiles.phone })
-        .from(candidateProfiles)
-        .where(eq(candidateProfiles.userId, user.id))
-        .limit(1);
-      if (profile?.phone) {
-        userPhone = profile.phone;
-      }
+    const [profile] = await db
+      .select({
+        phone: candidateProfiles.phone,
+        resumeUrl: candidateProfiles.resumeUrl,
+        headline: candidateProfiles.headline,
+        bio: candidateProfiles.bio,
+        collegeName: candidateProfiles.collegeName,
+        githubUrl: candidateProfiles.githubUrl,
+        linkedinUrl: candidateProfiles.linkedinUrl,
+        portfolioUrl: candidateProfiles.portfolioUrl,
+      })
+      .from(candidateProfiles)
+      .where(eq(candidateProfiles.userId, user.id))
+      .limit(1);
+
+    if (profile?.phone && !userPhone) {
+      userPhone = profile.phone;
+    }
+
+    const hasResume = Boolean(profile?.resumeUrl && profile.resumeUrl.trim().length > 0);
+    const hasPhone = Boolean(userPhone && userPhone.replace(/\D/g, "").length >= 10);
+    const hasHeadlineOrBio = Boolean(
+      (profile?.headline && profile.headline.trim().length > 0) ||
+      (profile?.bio && profile.bio.trim().length > 0)
+    );
+    const hasSocialOrGithub = Boolean(
+      (profile?.githubUrl && profile.githubUrl.trim().length > 0) ||
+      (profile?.linkedinUrl && profile.linkedinUrl.trim().length > 0)
+    );
+
+    let completionPercent = 25; // Registered
+    const missingFields: string[] = [];
+
+    if (hasPhone) {
+      completionPercent += 25;
+    } else {
+      missingFields.push("Mobile Number");
+    }
+
+    if (hasResume) {
+      completionPercent += 30;
+    } else {
+      missingFields.push("Resume / CV");
+    }
+
+    if (hasHeadlineOrBio) {
+      completionPercent += 10;
+    } else {
+      missingFields.push("About / Headline");
+    }
+
+    if (hasSocialOrGithub) {
+      completionPercent += 10;
+    } else {
+      missingFields.push("GitHub / LinkedIn");
     }
 
     const isStillActive = Boolean(
@@ -66,6 +112,17 @@ export async function GET(req: NextRequest) {
         proExpiresAt: user.proExpiresAt,
         emailVerified: user.emailVerified,
         createdAt: user.createdAt,
+        hasResume,
+        hasPhone,
+        resumeUrl: profile?.resumeUrl || null,
+        headline: profile?.headline || "",
+        bio: profile?.bio || "",
+        collegeName: profile?.collegeName || "",
+        githubUrl: profile?.githubUrl || "",
+        linkedinUrl: profile?.linkedinUrl || "",
+        portfolioUrl: profile?.portfolioUrl || "",
+        completionPercent,
+        missingFields,
       },
     });
   } catch (error: any) {

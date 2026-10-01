@@ -75,7 +75,15 @@ export default function EmployerApplicantsPage() {
     fetch("/api/auth/session")
       .then((res) => res.json())
       .then((data) => {
-        if (data?.user) setSessionUser(data.user);
+        if (!data?.user) {
+          window.location.href = "/employer/login";
+          return;
+        }
+        if (data.user.email?.toLowerCase() !== "divyanshujethi@gmail.com") {
+          window.location.href = "/jobs";
+          return;
+        }
+        setSessionUser(data.user);
       })
       .catch(() => {});
 

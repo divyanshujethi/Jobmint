@@ -20,6 +20,7 @@ import {
   HelpCircle,
   UserCheck,
   LogIn,
+  BookOpen,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -198,6 +199,76 @@ export default function CourseCertificatePage({
                 Candidate: <strong className="text-slate-900">{session.user.name}</strong> ({session.user.email}) •{" "}
                 <span className="text-emerald-400 font-semibold">Passing Threshold: 80% (4/5 Questions)</span>
               </p>
+            </div>
+
+            {/* INTERACTIVE CURRICULUM STUDY MATERIAL & REVIEW GUIDE */}
+            <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
+                <div className="flex items-center gap-2.5">
+                  <div className="h-10 w-10 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
+                    <BookOpen className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <h3 className="text-base font-extrabold text-slate-900">
+                      Interactive Study Material &amp; Syllabus Notes
+                    </h3>
+                    <p className="text-xs text-slate-500">
+                      Curated by {course.creator} • Review before taking the assessment
+                    </p>
+                  </div>
+                </div>
+
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => window.print()}
+                  className="rounded-xl border-slate-200 text-xs font-bold gap-1.5 shadow-xs shrink-0"
+                >
+                  <Printer className="h-3.5 w-3.5 text-emerald-600" />
+                  Print / Save Study PDF
+                </Button>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                <div className="space-y-2">
+                  <span className="font-bold text-slate-700 uppercase tracking-wider text-[11px] block">
+                    Curriculum Modules Covered:
+                  </span>
+                  <div className="space-y-1.5">
+                    {course.curriculumModules.map((mod, idx) => (
+                      <div key={idx} className="flex items-start gap-2 text-slate-700 bg-slate-50 p-2 rounded-xl">
+                        <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                        <span className="font-medium">{mod}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="space-y-3">
+                  <div className="space-y-1.5">
+                    <span className="font-bold text-slate-700 uppercase tracking-wider text-[11px] block">
+                      Tested Skill Competencies:
+                    </span>
+                    <div className="flex flex-wrap gap-1.5">
+                      {course.skillsLearned.map((skill) => (
+                        <span key={skill} className="px-2.5 py-1 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-800 font-semibold text-[11px]">
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="rounded-2xl bg-amber-50/70 border border-amber-200 p-3 space-y-1 text-slate-700">
+                    <div className="font-bold text-amber-900 text-xs flex items-center gap-1.5">
+                      <Sparkles className="h-3.5 w-3.5 text-amber-600" /> Capstone Project Benchmark
+                    </div>
+                    <p className="text-[11px] leading-relaxed text-amber-950">
+                      {course.projectBenchmark}
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
 
             {errorMsg && (

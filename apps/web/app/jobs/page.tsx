@@ -18,6 +18,9 @@ import {
   SlidersHorizontal,
   Flame,
   ArrowRight,
+  FileText,
+  Phone,
+  AlertCircle,
 } from "lucide-react";
 import { MockJob } from "@/lib/mock-jobs";
 import { JobCard } from "@/components/job-card";
@@ -57,11 +60,21 @@ export default function JobsPage() {
 
   // Candidate Intelligence System state
   const [intelProfile, setIntelProfile] = useState<CandidateIntelProfile>(DEFAULT_INTEL_PROFILE);
+  const [candidateProfile, setCandidateProfile] = useState<any>(null);
   const [viewMode, setViewMode] = useState<ViewMode>("DIVERSIFIED");
 
   useEffect(() => {
     // Load candidate intelligence profile from local storage or verified dev score
     setIntelProfile(loadCandidateIntel());
+
+    fetch("/api/account/profile")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data?.success && data?.profile) {
+          setCandidateProfile(data.profile);
+        }
+      })
+      .catch(() => {});
 
     fetch("/api/jobs")
       .then((res) => res.json())
@@ -335,8 +348,69 @@ export default function JobsPage() {
         )}
       </div>
 
-      {/* TOP AI PICKS HIGHLIGHT BANNER (When relevant matches exist) */}
-      {topAIRecommendations.length > 0 && viewMode !== "COMPANY_GROUPED" && (
+      {/* CANDIDATE PROFILE COMPLETION BANNER (Shown when user has not yet uploaded their resume) */}
+      {candidateProfile && !candidateProfile.hasResume && (
+        <div className="rounded-2xl border border-emerald-200 bg-gradient-to-r from-emerald-50/70 via-teal-50/40 to-emerald-50/60 p-4 sm:p-5 shadow-xs space-y-3">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2">
+                <span className="inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider text-emerald-800 bg-emerald-100/80 px-2.5 py-0.5 rounded-full">
+                  <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" /> Profile {candidateProfile.completionPercent || 25}% Complete
+                </span>
+                <span className="text-[11px] text-slate-500 font-medium">
+                  Verified Candidate Readiness
+                </span>
+              </div>
+              <h3 className="text-sm sm:text-base font-extrabold text-slate-900">
+                Upload your resume to unlock Real AI ATS Match Scoring
+              </h3>
+              <p className="text-xs text-slate-600 max-w-2xl leading-relaxed">
+                We calculate honest, transparent match scores against real job descriptions. Since you haven&apos;t uploaded your resume yet, upload your CV or add your phone number so verified recruiters can reach you.
+              </p>
+            </div>
+            <div className="flex flex-wrap sm:flex-nowrap items-center gap-2 shrink-0">
+              <Link href="/profile/resume">
+                <Button className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs h-9 px-4 rounded-xl shadow-xs gap-1.5">
+                  <FileText className="h-3.5 w-3.5" />
+                  Upload Resume →
+                </Button>
+              </Link>
+              {!candidateProfile.hasPhone && (
+                <Link href="/settings/account">
+                  <Button variant="outline" className="border-emerald-300 text-emerald-800 hover:bg-emerald-100/60 font-semibold text-xs h-9 px-3 rounded-xl">
+                    <Phone className="h-3.5 w-3.5 mr-1 text-emerald-600" />
+                    Add Mobile
+                  </Button>
+                </Link>
+              )}
+            </div>
+          </div>
+
+          {/* Missing Checklist Pills */}
+          {candidateProfile.missingFields && candidateProfile.missingFields.length > 0 && (
+            <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-emerald-200/60 text-xs">
+              <span className="text-[11px] font-bold text-slate-500">Missing steps:</span>
+              {candidateProfile.missingFields.map((field: string) => (
+                <span key={field} className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg bg-white border border-emerald-200/80 text-[11px] text-slate-700 font-medium">
+                  <AlertCircle className="h-3 w-3 text-amber-500" />
+                  {field}
+                </span>
+              ))}
+            </div>
+          )}
+
+          {/* Completion Progress Bar */}
+          <div className="w-full bg-emerald-200/50 h-1.5 rounded-full overflow-hidden">
+            <div
+              className="bg-emerald-600 h-full rounded-full transition-all duration-500"
+              style={{ width: `${candidateProfile.completionPercent || 25}%` }}
+            />
+          </div>
+        </div>
+      )}
+
+      {/* TOP AI PICKS HIGHLIGHT BANNER (Only when relevant matches exist and candidate has real profile/resume) */}
+      {(candidateProfile?.hasResume || !candidateProfile) && topAIRecommendations.length > 0 && viewMode !== "COMPANY_GROUPED" && (
         <div className="rounded-2xl border border-amber-300/80 bg-gradient-to-r from-amber-50/70 via-orange-50/30 to-amber-50/40 p-4 shadow-xs">
           <div className="flex items-center justify-between pb-3 border-b border-amber-200/60">
             <div className="flex items-center gap-2">
@@ -351,7 +425,7 @@ export default function JobsPage() {
                   </span>
                 </h3>
                 <p className="text-[11px] text-slate-600">
-                  Calculated against your active skills: {intelProfile.skills.slice(0, 4).join(", ")}
+                  Calculated against your verified skills: {intelProfile.skills.slice(0, 4).join(", ")}
                 </p>
               </div>
             </div>

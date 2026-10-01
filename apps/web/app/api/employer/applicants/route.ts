@@ -26,11 +26,15 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
+    const userEmail = session.user.email.toLowerCase();
+    if (userEmail !== "divyanshujethi@gmail.com") {
+      return NextResponse.json({ error: "Forbidden. Recruiter dashboard access restricted." }, { status: 403 });
+    }
+
     const adminEmails = (process.env.ADMIN_EMAILS || "admin@rolenest.in,divyanshu.dev@gmail.com,divyanshujethi@gmail.com,admin@ritualdev.in")
       .split(",")
       .map((e) => e.trim().toLowerCase());
 
-    const userEmail = session.user.email.toLowerCase();
     const isAdmin = (session.user as any)?.role === "ADMIN" || adminEmails.includes(userEmail);
 
     // Look up logged-in user
