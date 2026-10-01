@@ -35,6 +35,69 @@ export interface CheckoutOptions {
   onError?: (err: any) => void;
 }
 
+let cashfreePromise: Promise<any> | null = null;
+
+/**
+ * Ensures Cashfree JS SDK v3 is loaded and returns initialized Cashfree instance.
+ */
+export function loadCashfreeSDK(env: "production" | "sandbox" = "production"): Promise<any> {
+  if (typeof window === "undefined") return Promise.resolve(null);
+
+  if (typeof (window as any).Cashfree === "function") {
+    try {
+      return Promise.resolve((window as any).Cashfree({ mode: env }));
+    } catch {
+      // Continue to reload if instantiation fails
+    }
+  }
+
+  if (cashfreePromise) return cashfreePromise;
+
+  cashfreePromise = new Promise((resolve, reject) => {
+    const onLoaded = () => {
+      if (typeof (window as any).Cashfree === "function") {
+        try {
+          resolve((window as any).Cashfree({ mode: env }));
+        } catch (err) {
+          reject(err);
+        }
+      } else {
+        reject(new Error("Cashfree SDK not available on window"));
+      }
+    };
+
+    const existing = document.querySelector('script[src*="cashfree.js"]') as HTMLScriptElement;
+    if (existing) {
+      if (typeof (window as any).Cashfree === "function") {
+        onLoaded();
+        return;
+      }
+      existing.addEventListener("load", onLoaded, { once: true });
+      existing.addEventListener("error", reject, { once: true });
+      setTimeout(() => {
+        if (typeof (window as any).Cashfree === "function") onLoaded();
+        else reject(new Error("Timeout loading Cashfree SDK"));
+      }, 4000);
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.src = "https://sdk.cashfree.com/js/v3/cashfree.js";
+    script.crossOrigin = "anonymous";
+    script.async = true;
+    script.onload = onLoaded;
+    script.onerror = () => reject(new Error("Failed to download Cashfree SDK script"));
+    document.head.appendChild(script);
+
+    setTimeout(() => {
+      if (typeof (window as any).Cashfree === "function") onLoaded();
+      else reject(new Error("Timeout loading Cashfree SDK"));
+    }, 4000);
+  });
+
+  return cashfreePromise;
+}
+
 /**
  * Direct form-POST to Cashfree's official checkout endpoint:
  * https://api.cashfree.com/pg/view/sessions/checkout
@@ -91,8 +154,9 @@ function submitCashfreeForm(
  * Initiates Cashfree checkout for UPI (GPay, PhonePe, Paytm), RuPay/Cards & NetBanking.
  * 
  * 1. Creates payment order via backend API.
- * 2. Attempts to launch seamless in-page popup modal (_modal) via Cashfree JS SDK v3.
- * 3. Gracefully falls back to direct form redirection if SDK is blocked or unavailable.
+ * 2. Dynamically loads Cashfree JS SDK v3 if not yet loaded.
+ * 3. Launches seamless in-page popup modal (_modal).
+ * 4. Gracefully falls back to direct form redirection if SDK is blocked or domain not whitelisted.
  */
 export async function openCashfreeCheckout(options: CheckoutOptions = {}) {
   try {
@@ -132,17 +196,24 @@ export async function openCashfreeCheckout(options: CheckoutOptions = {}) {
 
     const target = options.redirectTarget || "_modal";
 
-    // 1. Try seamless in-page popup modal if SDK is loaded and target is _modal
-    if (target === "_modal" && typeof window !== "undefined" && typeof window.Cashfree === "function") {
+    // 1. Try seamless in-page popup modal if target is _modal
+    if (target === "_modal" && typeof window !== "undefined") {
       try {
-        const cashfree = window.Cashfree({ mode: env });
-        await cashfree.checkout({
-          paymentSessionId: data.paymentSessionId,
-          redirectTarget: "_modal",
-        });
-        return;
+        const cashfree = await loadCashfreeSDK(env);
+        if (cashfree && typeof cashfree.checkout === "function") {
+          const result = await cashfree.checkout({
+            paymentSessionId: data.paymentSessionId,
+            redirectTarget: "_modal",
+          });
+
+          if (result?.error) {
+            console.warn("[Cashfree Modal Warning, redirecting to hosted checkout]:", result.error);
+            submitCashfreeForm(data.paymentSessionId, env, "_self");
+          }
+          return;
+        }
       } catch (sdkErr) {
-        console.warn("[Cashfree SDK Modal Error, falling back to direct redirect]:", sdkErr);
+        console.warn("[Cashfree SDK Loader Warning, falling back to direct redirect]:", sdkErr);
       }
     }
 
