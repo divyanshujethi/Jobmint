@@ -2,6 +2,7 @@ import { JobType, WorkMode } from "@repo/shared";
 import { RawCrawledJob } from "../types";
 import { extractCanonicalSkills } from "./skill-extractor";
 import { evaluateJobTruth } from "./truth-filter";
+import { VERIFIED_NORTH_INDIA_REGIONAL_JOBS } from "./verified-regional-dataset";
 
 interface TargetBoard {
   companyName: string;
@@ -12,6 +13,12 @@ interface TargetBoard {
 
 const INDIAN_TARGET_BOARDS: TargetBoard[] = [
   // High-Growth Indian Startups & AI Labs
+  {
+    companyName: "ConnectWise (Continuum)",
+    type: "greenhouse",
+    token: "connectwise",
+    website: "https://www.connectwise.com",
+  },
   {
     companyName: "Sarvam AI",
     type: "ashby",
@@ -442,6 +449,36 @@ export function normalizeIndiaLocation(locRaw?: string): {
   } else if (lower.includes("visakhapatnam") || lower.includes("vizag")) {
     normLoc = "Visakhapatnam, India";
     isIndia = true;
+  } else if (lower.includes("sonipat") || lower.includes("sonepat")) {
+    normLoc = "Sonipat, Haryana, India";
+    isIndia = true;
+  } else if (lower.includes("ludhiana")) {
+    normLoc = "Ludhiana, Punjab, India";
+    isIndia = true;
+  } else if (lower.includes("jalandhar")) {
+    normLoc = "Jalandhar, Punjab, India";
+    isIndia = true;
+  } else if (lower.includes("solan") || lower.includes("baddi")) {
+    normLoc = "Solan, Himachal Pradesh, India";
+    isIndia = true;
+  } else if (lower.includes("kangra") || lower.includes("dharamshala") || lower.includes("dharamsala")) {
+    normLoc = "Kangra, Himachal Pradesh, India";
+    isIndia = true;
+  } else if (lower.includes("shimla")) {
+    normLoc = "Shimla, Himachal Pradesh, India";
+    isIndia = true;
+  } else if (lower.includes("himachal")) {
+    normLoc = "Himachal Pradesh, India";
+    isIndia = true;
+  } else if (lower.includes("uttarakhand") || lower.includes("haridwar") || lower.includes("roorkee")) {
+    normLoc = "Uttarakhand, India";
+    isIndia = true;
+  } else if (lower.includes("punjab")) {
+    normLoc = "Punjab, India";
+    isIndia = true;
+  } else if (lower.includes("haryana")) {
+    normLoc = "Haryana, India";
+    isIndia = true;
   } else if (lower.includes("surat")) {
     normLoc = "Surat, Gujarat, India";
     isIndia = true;
@@ -751,8 +788,9 @@ export async function crawlIndiaTechBoards(options?: {
   const maxPerCompany = options?.maxPerCompany ?? 25;
   const results: RawCrawledJob[] = [];
 
-  // 1. Ingest verified regional IT park jobs (Tricity & Dehradun)
+  // 1. Ingest verified regional IT park jobs (Tricity & Dehradun) and North India Tech Companies (Punjab, Haryana, HP, Uttarakhand, Delhi NCR)
   results.push(...VERIFIED_REGIONAL_TECH_JOBS);
+  results.push(...VERIFIED_NORTH_INDIA_REGIONAL_JOBS);
 
   // 2. Crawl live Grazitti Interactive career portal
   const liveGrazittiJobs = await crawlGrazittiJobs().catch(() => []);

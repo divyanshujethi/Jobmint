@@ -144,10 +144,40 @@ export default function JobsPage() {
           if (!jLoc.includes("bengaluru") && !jLoc.includes("bangalore")) return false;
         } else if (loc === "delhi_ncr") {
           if (!jLoc.includes("delhi") && !jLoc.includes("noida") && !jLoc.includes("gurgaon") && !jLoc.includes("gurugram") && !jLoc.includes("ncr")) return false;
+        } else if (loc === "noida") {
+          if (!jLoc.includes("noida")) return false;
+        } else if (loc === "gurugram") {
+          if (!jLoc.includes("gurugram") && !jLoc.includes("gurgaon")) return false;
+        } else if (loc === "sonipat") {
+          if (!jLoc.includes("sonipat") && !jLoc.includes("sonepat")) return false;
         } else if (loc === "tricity") {
           if (!jLoc.includes("chandigarh") && !jLoc.includes("mohali") && !jLoc.includes("panchkula") && !jLoc.includes("tricity")) return false;
+        } else if (loc === "chandigarh") {
+          if (!jLoc.includes("chandigarh") && !jLoc.includes("tricity")) return false;
+        } else if (loc === "mohali") {
+          if (!jLoc.includes("mohali") && !jLoc.includes("tricity")) return false;
+        } else if (loc === "panchkula") {
+          if (!jLoc.includes("panchkula") && !jLoc.includes("tricity")) return false;
+        } else if (loc === "ludhiana") {
+          if (!jLoc.includes("ludhiana")) return false;
+        } else if (loc === "jalandhar") {
+          if (!jLoc.includes("jalandhar")) return false;
+        } else if (loc === "punjab") {
+          if (!jLoc.includes("punjab") && !jLoc.includes("ludhiana") && !jLoc.includes("jalandhar") && !jLoc.includes("mohali") && !jLoc.includes("amritsar") && !jLoc.includes("chandigarh")) return false;
+        } else if (loc === "haryana") {
+          if (!jLoc.includes("haryana") && !jLoc.includes("gurugram") && !jLoc.includes("gurgaon") && !jLoc.includes("sonipat") && !jLoc.includes("panchkula")) return false;
         } else if (loc === "dehradun") {
-          if (!jLoc.includes("dehradun")) return false;
+          if (!jLoc.includes("dehradun") && !jLoc.includes("uttarakhand")) return false;
+        } else if (loc === "uttarakhand") {
+          if (!jLoc.includes("uttarakhand") && !jLoc.includes("dehradun") && !jLoc.includes("haridwar") && !jLoc.includes("roorkee")) return false;
+        } else if (loc === "solan") {
+          if (!jLoc.includes("solan") && !jLoc.includes("baddi")) return false;
+        } else if (loc === "kangra") {
+          if (!jLoc.includes("kangra") && !jLoc.includes("dharamshala") && !jLoc.includes("dharamsala")) return false;
+        } else if (loc === "shimla") {
+          if (!jLoc.includes("shimla")) return false;
+        } else if (loc === "himachal") {
+          if (!jLoc.includes("himachal") && !jLoc.includes("solan") && !jLoc.includes("kangra") && !jLoc.includes("shimla") && !jLoc.includes("dharamshala")) return false;
         } else if (loc === "hyderabad") {
           if (!jLoc.includes("hyderabad")) return false;
         } else if (loc === "pune") {
@@ -587,6 +617,41 @@ export default function JobsPage() {
           </div>
         </div>
 
+        {/* Quick Regional City Chips */}
+        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 text-xs no-scrollbar pt-1 border-t border-slate-100">
+          <span className="text-[11px] font-bold text-slate-400 shrink-0 flex items-center gap-1 mr-1">
+            <MapPin className="h-3 w-3 text-slate-400" /> Cities:
+          </span>
+          {[
+            { id: "ALL", label: "All Cities" },
+            { id: "tricity", label: "Tricity (Chd/Moh/Pkl)" },
+            { id: "gurugram", label: "Gurugram" },
+            { id: "sonipat", label: "Sonipat" },
+            { id: "noida", label: "Noida" },
+            { id: "delhi_ncr", label: "New Delhi" },
+            { id: "ludhiana", label: "Ludhiana" },
+            { id: "jalandhar", label: "Jalandhar" },
+            { id: "dehradun", label: "Dehradun" },
+            { id: "solan", label: "Solan" },
+            { id: "kangra", label: "Kangra" },
+            { id: "shimla", label: "Shimla" },
+            { id: "bengaluru", label: "Bengaluru" },
+            { id: "remote", label: "Remote" },
+          ].map((city) => (
+            <button
+              key={city.id}
+              onClick={() => setSelectedLocation(city.id)}
+              className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold transition-all shrink-0 cursor-pointer ${
+                selectedLocation === city.id
+                  ? "bg-slate-900 text-white shadow-2xs"
+                  : "bg-slate-100 text-slate-600 hover:bg-slate-200/80"
+              }`}
+            >
+              {city.label}
+            </button>
+          ))}
+        </div>
+
         {/* Row 2: Detailed Filters */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 pt-1 border-t border-slate-100">
           {/* Experience Filter */}
@@ -617,22 +682,47 @@ export default function JobsPage() {
               onChange={(e) => setSelectedLocation(e.target.value)}
               className="w-full min-h-[40px] rounded-xl border border-slate-200 bg-slate-50/50 px-3 py-2 text-xs font-medium text-slate-800 focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
             >
-              <option value="ALL">Any Location</option>
-              <option value="tricity">Chandigarh / Tricity (Mohali & Panchkula)</option>
-              <option value="dehradun">Dehradun</option>
-              <option value="bengaluru">Bengaluru / Bangalore</option>
-              <option value="delhi_ncr">Delhi NCR (Gurgaon / Noida)</option>
-              <option value="hyderabad">Hyderabad</option>
-              <option value="pune">Pune</option>
-              <option value="mumbai">Mumbai</option>
-              <option value="chennai">Chennai</option>
-              <option value="ahmedabad">Ahmedabad / Gandhinagar</option>
-              <option value="kolkata">Kolkata</option>
-              <option value="jaipur">Jaipur</option>
-              <option value="indore">Indore</option>
-              <option value="kochi">Kochi / Kerala</option>
-              <option value="remote">Remote (India & Worldwide)</option>
-              <option value="india">All India (Pan-India)</option>
+              <option value="ALL">Any Location (All India & Remote)</option>
+              <optgroup label="Punjab & Tricity">
+                <option value="tricity">Chandigarh / Tricity (Mohali & Panchkula)</option>
+                <option value="chandigarh">Chandigarh</option>
+                <option value="mohali">Mohali, Punjab</option>
+                <option value="panchkula">Panchkula, Haryana</option>
+                <option value="ludhiana">Ludhiana, Punjab</option>
+                <option value="jalandhar">Jalandhar, Punjab</option>
+                <option value="punjab">Punjab (All Hubs)</option>
+              </optgroup>
+              <optgroup label="Haryana & Delhi NCR">
+                <option value="gurugram">Gurugram / Gurgaon, Haryana</option>
+                <option value="sonipat">Sonipat, Haryana</option>
+                <option value="haryana">Haryana (All Hubs)</option>
+                <option value="noida">Noida / Greater Noida, UP</option>
+                <option value="delhi_ncr">Delhi NCR / New Delhi</option>
+              </optgroup>
+              <optgroup label="Himachal Pradesh & Uttarakhand">
+                <option value="dehradun">Dehradun, Uttarakhand</option>
+                <option value="uttarakhand">Uttarakhand (All Hubs)</option>
+                <option value="solan">Solan, Himachal Pradesh</option>
+                <option value="kangra">Kangra / Dharamshala, HP</option>
+                <option value="shimla">Shimla, Himachal Pradesh</option>
+                <option value="himachal">Himachal Pradesh (All Hubs)</option>
+              </optgroup>
+              <optgroup label="Major Indian Tech Metros">
+                <option value="bengaluru">Bengaluru / Bangalore</option>
+                <option value="hyderabad">Hyderabad</option>
+                <option value="pune">Pune</option>
+                <option value="mumbai">Mumbai</option>
+                <option value="chennai">Chennai</option>
+                <option value="ahmedabad">Ahmedabad / Gandhinagar</option>
+                <option value="kolkata">Kolkata</option>
+                <option value="jaipur">Jaipur</option>
+                <option value="indore">Indore</option>
+                <option value="kochi">Kochi / Kerala</option>
+              </optgroup>
+              <optgroup label="Work Mode & Scope">
+                <option value="remote">Remote (India & Worldwide)</option>
+                <option value="india">All India (Pan-India)</option>
+              </optgroup>
             </select>
           </div>
 

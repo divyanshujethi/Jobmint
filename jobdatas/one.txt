@@ -1,0 +1,111 @@
+Company Name,City,State,Company Type,Primary Tech Domain,Official Website,Career Page URL
+Google India,Gurugram,Haryana,MNC / Global Tech,Cloud Computing / Distributed Systems / AI,https://about.google,https://careers.google.com/
+Microsoft India,Gurugram,Haryana,MNC / Global Tech,Cloud Infrastructure / Enterprise Software / AI,https://www.microsoft.com,https://careers.microsoft.com/
+Amazon Development Centre,Gurugram,Haryana,MNC / Global Tech,Cloud Systems / E-Commerce Platforms / Logistics,https://www.amazon.jobs,https://www.amazon.jobs/en/locations/gurugram-india
+Meta India,Gurugram,Haryana,MNC / Global Tech,Social Media Infrastructure / AdTech / AI,https://about.meta.com,https://www.metacareers.com/
+Adobe India,Gurugram,Haryana,MNC / Enterprise Software,Digital Media / Document Cloud / AI,https://www.adobe.com,https://careers.adobe.com/
+Oracle India,Gurugram,Haryana,MNC / Enterprise Tech,Enterprise Database / Cloud Infrastructure / ERP,https://www.oracle.com,https://www.oracle.com/careers/
+Tata Consultancy Services,Gurugram,Haryana,Enterprise IT Services,IT Consulting / Cloud Migration / Cognitive Systems,https://www.tcs.com,https://www.tcs.com/careers
+Wipro Technologies,Gurugram,Haryana,Enterprise IT Services,Enterprise Cloud / Cyber Security / Digital Transformation,https://www.wipro.com,https://careers.wipro.com/
+HCLTech,Gurugram,Haryana,Enterprise IT Services,Digital Engineering / Cloud Solutions / Software,https://www.hcltech.com,https://www.hcltech.com/careers
+Cognizant,Gurugram,Haryana,Enterprise IT Services,IT Consulting / Digital Business Operations,https://www.cognizant.com,https://careers.cognizant.com/
+Zomato,Gurugram,Haryana,Unicorn / Public Tech,FoodTech / Geospatial Platforms / Distributed Systems,https://www.zomato.com,https://www.zomato.com/careers
+Blinkit,Gurugram,Haryana,Tech Scale-up,Quick Commerce / Warehouse Automation / Logistics Tech,https://blinkit.com,https://blinkit.com/careers
+MakeMyTrip,Gurugram,Haryana,Public Tech Company,TravelTech / Search Algorithms / Consumer Internet,https://www.makemytrip.com,https://careers.makemytrip.com/
+Policybazaar,Gurugram,Haryana,Public Tech Company,InsurTech / FinTech Platforms / Rule Engines,https://www.policybazaar.com,https://www.policybazaar.com/careers/
+Delhivery,Gurugram,Haryana,Public Tech Company,Logistics AI / Routing Engines / Supply Chain Tech,https://www.delhivery.com,https://www.delhivery.com/careers/
+Urban Company,Gurugram,Haryana,Tech Scale-up,Marketplace Engineering / Mobile Apps / Gig Systems,https://www.urbancompany.com,https://www.urbancompany.com/careers
+Spinny,Gurugram,Haryana,Tech Scale-up,AutoTech / Cloud Platforms / Pricing Algorithms,https://www.spinny.com,https://www.spinny.com/careers/
+Upstox,Gurugram,Haryana,FinTech Unicorn,Brokerage Architecture / Real-Time Data / Trading APIs,https://upstox.com,https://upstox.com/careers/
+Daffodil Software,Gurugram,Haryana,Mid-Market IT Services,Custom Software / Product Engineering / Cloud,https://www.daffodilsw.com,https://www.daffodilsw.com/careers/
+Sampark Softwares,Gurugram,Haryana,IT Services,Enterprise Web Solutions / Mobility Platforms,https://samparksoftwares.com,https://samparksoftwares.com/careers/
+Exact IT Solutions,Sonipat,Haryana,Software Company,Custom Software Development / Mobile Apps / APIs,https://www.exactitsolutions.com,https://www.exactitsolutions.com/contact/
+Creative Path Techno Solution,Sonipat,Haryana,Tech Startup,Full-Stack Web Dev / AI & Automation,https://creativepath.in,https://creativepath.in/contact-us/
+Apricorn Solutions,Sonipat,Haryana,Software Company,Enterprise ERP / App Development / Cloud Systems,https://www.apricornsolutions.com,https://www.apricornsolutions.com/contact/
+ECERP Softwares,Sonipat,Haryana,Software Company,Manufacturing ERP Systems / Cloud Automation,https://ecerp.in,https://ecerp.in/contact-us/
+Amaze Business Solutions,Sonipat,Haryana,Software Company,Custom Web Applications / Cloud Systems / APIs,https://amazebiz.in,https://amazebiz.in/contact/
+MSRM Technologies,Sonipat,Haryana,Tech Startup,Custom Software / Mobile App Development,https://msrmtech.in,https://msrmtech.in/contact/
+Ai Infolabs,Sonipat,Haryana,Tech Startup,Software Engineering / Mobile Apps / AI Systems,https://aiinfolabs.in,https://scalepoint.aiinfolabs.in/
+Tech Web Mantra,Sonipat,Haryana,Software Company,Direct Selling Software / FinTech / Web Systems,https://www.techwebmantra.com,https://www.techwebmantra.com/contact/
+Apporva Infotech Solutions,Sonipat,Haryana,IT Services,Software Development / IT Infrastructure Systems,https://apporva.com,https://apporva.com/career/
+Apexpath,Sonipat,Haryana,Tech Startup,Web Development / Custom Software Platforms,https://apexpath.com,https://apexpath.com/careers/
+Anmol Web Studio,Sonipat,Haryana,Tech Startup,Web Development / Software Systems / E-Commerce,https://anmolwebstudio.com,https://anmolwebstudio.com/contact/
+Infoshastra Solutions,Sonipat,Haryana,IT Services,Software Engineering / Digital Technology Services,https://infoshastra.com,https://infoshastra.com/career/
+Toogic Media & Software,Sonipat,Haryana,Tech Startup,Digital Platforms / Application Development,https://toogic.com,https://toogic.com/careers/
+Helosis Technologies,Sonipat,Haryana,IT Services,Enterprise IT Solutions / Custom Web Systems,https://helosis.com,https://helosis.com/career/
+Infosys,Chandigarh,Chandigarh UT,MNC / Tier-1 IT,Cloud Transformation / AI Platforms / Enterprise IT,https://www.infosys.com,https://www.infosys.com/careers/
+Tech Mahindra,Chandigarh,Chandigarh UT,MNC / Tier-1 IT,Telecom Software / Digital Transformation / Cloud,https://www.techmahindra.com,https://careers.techmahindra.com/
+Net Solutions,Chandigarh,Chandigarh UT,IT Enterprise,Digital Product Engineering / UI-UX / Cloud,https://www.netsolutions.com,https://www.netsolutions.com/careers
+IDS Infotech,Chandigarh,Chandigarh UT,IT Enterprise,Health Tech / Engineering Solutions / Software,https://www.idsinfotech.com,https://www.idsinfotech.com/careers/
+FCS Software Solutions,Chandigarh,Chandigarh UT,Public IT Company,Cloud Solutions / ERP Architecture / Staffing,https://www.fcsltd.com,https://www.fcsltd.com/careers/
+NetGains Technologies,Chandigarh,Chandigarh UT,IT Enterprise,Full-Stack Web Dev / Fintech / Cloud Platforms,https://www.netgains.org,https://www.netgains.org/careers/
+Kays Harbor Technologies,Chandigarh,Chandigarh UT,Software Company,Custom Software Development / IoT / Mobile Apps,https://kaysharbor.com,https://kaysharbor.com/careers/
+SmartData Enterprises,Chandigarh,Chandigarh UT,IT Enterprise,Healthcare Software / Offshore Development,https://www.smartdatainc.com,https://www.smartdatainc.com/careers/
+Seasia Infotech,Chandigarh,Chandigarh UT,IT Enterprise,AI & Machine Learning / Enterprise Mobility,https://www.seasiainfotech.com,https://www.seasiainfotech.com/careers/
+Trantor Software,Chandigarh,Chandigarh UT,IT Enterprise,FinTech Engineering / Cloud / DevOps Pipelines,https://www.trantorinc.com,https://www.trantorinc.com/careers/
+Bebo Technologies,Chandigarh,Chandigarh UT,IT Enterprise,QA Engineering / Cloud Infrastructure / Dev Services,https://www.bebotechnologies.com,https://www.bebotechnologies.com/careers/
+GrayCell Technologies,Chandigarh,Chandigarh UT,Software Company,Custom Software / Enterprise Apps / Mobile Dev,https://www.graycelltech.com,https://www.graycelltech.com/careers/
+Digittrix Technologies,Chandigarh,Chandigarh UT,Software Company,Mobile Applications / Web Systems / CRM Solutions,https://digittrix.com,https://digittrix.com/careers/
+Trigma Solutions,Chandigarh,Chandigarh UT,IT Services,Data Science / Enterprise CRM / Web Platforms,https://trigma.com,https://trigma.com/career/
+Continuum (ConnectWise),Chandigarh,Chandigarh UT,MNC / Product,RMM Software / Cloud Platforms / Cybersecurity,https://www.connectwise.com,https://www.connectwise.com/company/careers
+eClerx Services,Chandigarh,Chandigarh UT,Public IT/KPO,Digital Analytics / Automation / Operations Tech,https://eclerx.com,https://eclerx.com/careers/
+Spectraforce Technologies,Chandigarh,Chandigarh UT,IT Enterprise,Cloud Engineering / IT Consulting / Tech Staffing,https://spectraforce.com,https://spectraforce.com/careers/
+Quark Software,Mohali,Punjab,MNC / Product,Enterprise Content Automation / Publishing Software,https://www.quark.com,https://www.quark.com/about/careers
+Jungleworks,Mohali,Punjab,Tech Scale-up,On-Demand Delivery Tech / Mobility SaaS / CRM,https://jungleworks.com,https://jungleworks.zohorecruit.in/jobs/Careers
+AgNext Technologies,Mohali,Punjab,DeepTech Startup,AgriTech AI / Computer Vision / Spectral Analytics,https://agnext.com,https://apply.workable.com/agnext-technologies/
+Netsmartz,Mohali,Punjab,IT Enterprise,Cloud Applications / Enterprise Mobile Solutions,https://www.netsmartz.com,https://www.netsmartz.com/careers/
+CS Soft Solutions,Mohali,Punjab,IT Services,Custom Web Development / Cloud Solutions / Mobile,https://www.cssoftsolutions.com,https://www.cssoftsolutions.com/careers/
+webdew,Mohali,Punjab,Tech Startup,MarTech Solutions / Web Systems / Video Platforms,https://www.webdew.com,https://careers.webdew.com/
+Safaltek Software,Mohali,Punjab,Software Company,Healthcare IT / Clinical Software / Marine Tech,https://www.safaltek.com,https://www.safaltek.com/careers/
+Drish Infotech,Mohali,Punjab,Software Company,Embedded Systems / Image Processing / Web Systems,https://www.drishinfo.com,https://www.drishinfo.com/career/
+Solitaire Infosystems,Mohali,Punjab,Software Company,Enterprise Web Applications / Cloud Services,https://solitaireinfosys.com,https://solitaireinfosys.com/career.php
+Himmel Infotel,Mohali,Punjab,IT Services,Telecom Software Solutions / Full-Stack Development,https://himmelinfotel.com,https://himmelinfotel.com/career/
+Makes360,Mohali,Punjab,Tech Startup,Cloud Hosting / Web Applications / Custom Software,https://makes360.com,https://makes360.com/careers/
+Bringle Tech,Mohali,Punjab,Tech Startup,Custom Software Development / Full-Stack Mobile Apps,https://bringletech.com,https://bringletech.com/career/
+Bexo AI,Mohali,Punjab,AI Startup,AI Solutions / Custom Software / Intelligent Automation,https://bexo.ai,https://bexo.ai/careers/
+Altruist Technologies,Panchkula,Haryana,Enterprise Tech,Telecom Software / Billing Engines / Messaging APIs,https://www.altruistindia.com,https://www.altruistindia.com/careers/
+Grazitti Interactive,Panchkula,Haryana,IT Enterprise,MarTech Systems / Salesforce Consulting / Cloud,https://www.grazitti.com,https://www.grazitti.com/careers/
+Veridic Technologies,Panchkula,Haryana,Software Company,Cloud Engineering / Web Applications / Digital Strategy,https://www.veridic.co.uk,https://www.veridic.co.uk/careers/
+Oxeen IT Solutions,Panchkula,Haryana,Tech Startup,Custom Web Development / UI-UX / Mobility,https://oxeenit.com,https://oxeenit.com/careers/
+Wave Infotech,Panchkula,Haryana,Software Company,Enterprise AI Solutions / CMS Development / Web,https://www.waveinfotech.biz,https://www.waveinfotech.biz/careers.php
+Infobeckons Technology,Panchkula,Haryana,Software Company,Full-Stack Web Dev / Mobile Applications / Digital,https://www.infobeckons.com,https://www.infobeckons.com/careers/
+Netqom Software,Panchkula,Haryana,Software Company,Custom Web Programming / E-Commerce Systems,https://www.netqom.com,https://www.netqom.com/career.php
+WebHopers Infotech,Panchkula,Haryana,Software Company,Web Software / Digital Portals / Search Technology,https://www.webhopers.com,https://www.webhopers.com/career
+75way Technologies,Panchkula,Haryana,Tech Startup,Mobile App Architecture / Full-Stack Web Services,https://75way.com,https://75way.com/career/
+Netzens Softech,Panchkula,Haryana,Software Company,Web Platforms / Enterprise Software Consulting,https://netzenssoftech.com,https://netzenssoftech.com/career.html
+KVR Web Tech,Panchkula,Haryana,IT Services,Web Software Development / Digital Platforms,https://www.kvrwebtech.com,https://www.kvrwebtech.com/careers/
+TechGropse,Panchkula,Haryana,Software Company,Mobile Product Engineering / Custom App Architecture,https://www.techgropse.com,https://www.techgropse.com/careers
+Uengage,Panchkula,Haryana,Tech Startup,Restaurant SaaS / Ordering Engines / POS Systems,https://uengage.in,https://uengage.in/careers/
+Hartron Networks,Panchkula,Haryana,State Enterprise,Network Infrastructure / IT Hardware & System Admin,https://hartron.org.in,https://hartron.org.in/careers/
+LN Webworks,Ludhiana,Punjab,Software Company,Drupal Architecture / Platform Modernization / APIs,https://www.lnwebworks.com,https://www.lnwebworks.com/career
+Promatics Technologies,Ludhiana,Punjab,Software Company,Mobile Application Architecture / Cloud / MVP Dev,https://www.promaticsindia.com,https://www.promaticsindia.com/careers
+Iotasol Technologies,Ludhiana,Punjab,Software Company,Agile Software Solutions / Web & Cloud Apps,https://www.iotasol.com,https://www.iotasol.com/careers
+FlyMedia Technology,Ludhiana,Punjab,Tech Startup,Web Application Development / Content Systems,https://flymediatech.in,https://flymediatech.in/career/
+Techies India Inc.,Ludhiana,Punjab,Software Company,E-Commerce Infrastructure / Cloud / Web Architecture,https://techiesindiainc.com,https://techiesindiainc.com/careers/
+RevInfotech,Ludhiana,Punjab,Software Company,AI Algorithms / Blockchain Architecture / VR Systems,https://www.revinfotech.com,https://www.revinfotech.com/careers
+Netpixel Technologies,Ludhiana,Punjab,Tech Startup,Mobile Application Systems / Web Portals,http://www.netpixeltech.com,http://www.netpixeltech.com/career.html
+Infotech Zone,Ludhiana,Punjab,Software Company,Custom Software Development / E-Commerce / Tracking,https://www.infotechzone.org,https://www.infotechzone.org/careers/
+W3sols Technologies,Ludhiana,Punjab,Software Company,Web Engineering / Software Portals / Maintenance,https://www.w3sols.com,https://www.w3sols.com/careers/
+Bangaree Infotech,Ludhiana,Punjab,Tech Startup,Web Applications / Mobile App Dev / Cloud Hosting,https://bangareeinfotech.com,https://bangareeinfotech.com/careers/
+Cambru Web Designs,Ludhiana,Punjab,Tech Startup,Web Systems / Digital Engineering / UI Design,https://cambru.com,https://cambru.com/careers/
+Zenscale (SHINGORA Tech),Ludhiana,Punjab,Software Product,Cloud ERP Systems / Industrial HR & Payroll SaaS,https://www.zenscale.com,https://www.zenscale.com/careers
+Nitwebs,Ludhiana,Punjab,Tech Startup,SaaS Architecture / Custom Software / Artificial Intelligence,https://nitwebs.com,https://nitwebs.com/career/
+Saguna Consulting Services,Ludhiana,Punjab,IT Consulting,AI-Powered Software / Cloud Engineering / IT Staffing,https://sagunaconsulting.com,https://sagunaconsulting.com/careers/
+I-Tek Logics,Ludhiana,Punjab,IT Enterprise,Oracle Consultancy / IT Infrastructure / Cloud Systems,https://itekc.com,https://itekc.com/careers/
+SJ Solutions & Infotech,Ludhiana,Punjab,Tech Startup,Cloud Hosting Platforms / Web Development,https://sjweb4u.com,https://sjweb4u.com/career/
+Astirmind Software Solutions,Ludhiana,Punjab,Software Company,Custom Web Development / Enterprise Mobility,https://astirmind.com,https://astirmind.com/careers/
+DigiMantra Labs,Ludhiana,Punjab,Software Company,Mobile Application Architecture / Full-Stack Web,https://digimantra.com,https://digimantra.com/career/
+Tata Consultancy Services,Jalandhar,Punjab,MNC / Tier-1 IT,Enterprise IT / Cloud Systems / Banking Tech,https://www.tcs.com,https://www.tcs.com/careers
+Walkwel Technology,Jalandhar,Punjab,Software Company,DevOps as a Service / Cloud Solutions / Blockchain,https://walkwel.com,https://walkwel.com/careers/
+VSA IT Resource LLP,Jalandhar,Punjab,Software Company,Enterprise Web Platforms / Infrastructure / Security,https://www.vsait.com,https://www.vsait.com/careers
+Magna Opus Software Services,Jalandhar,Punjab,Software Company,Process Automation / Cross-Platform Apps / Analytics,https://magnaopus.in,https://magnaopus.in/careers/
+Nimble Technocrats,Jalandhar,Punjab,Software Company,Web Architecture / Custom UI-UX / Cloud Solutions,https://www.nimbletechnocrats.com,https://www.nimbletechnocrats.com/career/
+Virtuosity Digital,Jalandhar,Punjab,Software Company,Mobile Applications / Performance Tech / Web Engines,https://www.virtuositydigital.com,https://www.virtuositydigital.com/career
+O7 Solutions,Jalandhar,Punjab,Software Company,Full-Stack Web Dev / Mobile App Solutions / IT Training,https://o7services.com,https://o7services.com/careers/
+eSceneric Software,Jalandhar,Punjab,Tech Startup,Web Development / Mobility Platforms / Cloud,https://esceneric.com,https://esceneric.com/career/
+Unify Softtech India,Jalandhar,Punjab,IT Services,Enterprise Software Solutions / Web Engineering,https://unifysofttech.com,https://unifysofttech.com/careers/
+Intellisense Technology,Jalandhar,Punjab,Software Company,Mobile Applications / IoT Systems / Web Platforms,https://intellisensetechnology.com,https://intellisensetechnology.com/careers/
+Iniz Solutions,Jalandhar,Punjab,Software Company,Custom Web Systems / Offshore Application Maintenance,https://inizsolutions.com,https://inizsolutions.com/career/
+9TO5 Technologies,Jalandhar,Punjab,Software Company,Software Testing & QA / Enterprise Web Applications,https://9to5technologies.com,https://9to5technologies.com/careers/
+Hispirits Technologies,Jalandhar,Punjab,Tech Startup,Custom Software Development / Web Platforms,https://hispirits.com,https://hispirits.com/career/
+Evolvertech Solutions,Jalandhar,Punjab,Tech Startup,Digital Platforms / Application Modernization / Web,https://evolvertech.com,https://evolvertech.com/career/
