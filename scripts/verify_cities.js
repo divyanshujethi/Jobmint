@@ -33,14 +33,6 @@ async function run() {
     }
   }
 
-  const sampleDelhi = await sql`SELECT DISTINCT location, count(*) FROM jobs WHERE location ILIKE '%Delhi%' GROUP BY location`;
-  console.log('\nDistinct Delhi locations:');
-  console.table(sampleDelhi);
-
-  const sampleZomato = await sql`SELECT j.id, j.title, c.name, j.location FROM jobs j JOIN companies c ON j.company_id = c.id WHERE c.name ILIKE '%Zomato%' OR c.name ILIKE '%BharatPe%' LIMIT 5`;
-  console.log('\nSample Zomato / BharatPe jobs:');
-  console.table(sampleZomato);
-
   const verified = await sql`
     SELECT count(*) FROM jobs j 
     JOIN companies c ON j.company_id = c.id 
