@@ -459,8 +459,22 @@ export function CandidateIntelBar({
                   <option value="raipur">Raipur, Chhattisgarh</option>
                   <option value="nava_raipur">Nava Raipur, Chhattisgarh</option>
                   <option value="bhilai">Bhilai, Chhattisgarh</option>
-                  <option value="bengaluru">Bengaluru / Bangalore</option>
-                  <option value="hyderabad">Hyderabad</option>
+                  <option value="bengaluru">Bengaluru, Karnataka</option>
+                  <option value="mysuru">Mysuru, Karnataka</option>
+                  <option value="mangaluru">Mangaluru, Karnataka</option>
+                  <option value="hubballi">Hubballi-Dharwad, Karnataka</option>
+                  <option value="panaji">Goa (Panaji / Verna / Margao)</option>
+                  <option value="hyderabad">Hyderabad, Telangana</option>
+                  <option value="warangal">Warangal, Telangana</option>
+                  <option value="visakhapatnam">Visakhapatnam (Vizag), AP</option>
+                  <option value="vijayawada">Vijayawada, AP</option>
+                  <option value="chennai">Chennai, Tamil Nadu</option>
+                  <option value="coimbatore">Coimbatore, Tamil Nadu</option>
+                  <option value="hosur">Hosur, Tamil Nadu</option>
+                  <option value="madurai">Madurai, Tamil Nadu</option>
+                  <option value="kochi">Kochi, Kerala</option>
+                  <option value="thiruvananthapuram">Thiruvananthapuram, Kerala</option>
+                  <option value="kozhikode">Kozhikode, Kerala</option>
                   <option value="remote">Remote Worldwide</option>
                 </select>
               </div>

@@ -13,6 +13,9 @@ async function run() {
     'File 5 - Madhya Pradesh & Maharashtra': ['Indore', 'Bhopal', 'Gwalior', 'Jabalpur', 'Ujjain', 'Rewa', 'Pune', 'Mumbai', 'Navi Mumbai', 'Thane', 'Nagpur', 'Nashik', 'Aurangabad'],
     'File 6 - 7 Sisters, WB & Sikkim': ['Guwahati', 'Shillong', 'Kohima', 'Imphal', 'Agartala', 'Aizawl', 'Itanagar', 'Gangtok', 'Kolkata', 'Siliguri', 'Durgapur', 'Kharagpur'],
     'File 7 - Jharkhand, Chhattisgarh & Odisha': ['Ranchi', 'Jamshedpur', 'Deoghar', 'Bokaro', 'Dhanbad', 'Nava Raipur', 'Bhilai', 'Raipur', 'Bhubaneswar', 'Cuttack', 'Rourkela', 'Sambalpur', 'Berhampur', 'Balasore', 'Puri'],
+    'File 8 - Goa & Karnataka': ['Panaji', 'Verna', 'Porvorim', 'Margao', 'Mandrem', 'Bengaluru', 'Mysuru', 'Mangaluru', 'Hubballi', 'Belagavi', 'Shivamogga', 'Tumakuru', 'Davangere', 'Kalaburagi'],
+    'File 9 - Andhra Pradesh & Telangana': ['Hyderabad', 'Warangal', 'Karimnagar', 'Khammam', 'Nizamabad', 'Mahbubnagar', 'Visakhapatnam', 'Tirupati', 'Vijayawada', 'Guntur', 'Anantapur', 'Kakinada'],
+    'File 10 - Kerala & Tamil Nadu': ['Chennai', 'Coimbatore', 'Madurai', 'Tiruchirappalli', 'Salem', 'Tirunelveli', 'Hosur', 'Thiruvananthapuram', 'Kochi', 'Kozhikode', 'Thrissur', 'Palakkad', 'Kannur'],
   };
 
   console.log('\n--- VERIFIED TECH JOBS BY CITY & REGION ---');

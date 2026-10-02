@@ -506,20 +506,119 @@ export function normalizeIndiaLocation(locRaw?: string): {
   } else if (lower.includes("hyderabad") || lower.includes("secunderabad")) {
     normLoc = "Hyderabad, Telangana, India";
     isIndia = true;
+  } else if (lower.includes("warangal")) {
+    normLoc = "Warangal, Telangana, India";
+    isIndia = true;
+  } else if (lower.includes("karimnagar")) {
+    normLoc = "Karimnagar, Telangana, India";
+    isIndia = true;
+  } else if (lower.includes("khammam")) {
+    normLoc = "Khammam, Telangana, India";
+    isIndia = true;
+  } else if (lower.includes("nizamabad")) {
+    normLoc = "Nizamabad, Telangana, India";
+    isIndia = true;
+  } else if (lower.includes("mahbubnagar") || lower.includes("mahabubnagar")) {
+    normLoc = "Mahbubnagar, Telangana, India";
+    isIndia = true;
+  } else if (lower.includes("visakhapatnam") || lower.includes("vizag")) {
+    normLoc = "Visakhapatnam, Andhra Pradesh, India";
+    isIndia = true;
+  } else if (lower.includes("vijayawada")) {
+    normLoc = "Vijayawada, Andhra Pradesh, India";
+    isIndia = true;
+  } else if (lower.includes("guntur")) {
+    normLoc = "Guntur, Andhra Pradesh, India";
+    isIndia = true;
+  } else if (lower.includes("kakinada")) {
+    normLoc = "Kakinada, Andhra Pradesh, India";
+    isIndia = true;
+  } else if (lower.includes("tirupati")) {
+    normLoc = "Tirupati, Andhra Pradesh, India";
+    isIndia = true;
+  } else if (lower.includes("anantapur") || lower.includes("ananthapur")) {
+    normLoc = "Anantapur, Andhra Pradesh, India";
+    isIndia = true;
   } else if (lower.includes("chennai") || lower.includes("madras")) {
     normLoc = "Chennai, Tamil Nadu, India";
     isIndia = true;
+  } else if (lower.includes("coimbatore") || lower.includes("kovai")) {
+    normLoc = "Coimbatore, Tamil Nadu, India";
+    isIndia = true;
+  } else if (lower.includes("hosur")) {
+    normLoc = "Hosur, Tamil Nadu, India";
+    isIndia = true;
+  } else if (lower.includes("madurai")) {
+    normLoc = "Madurai, Tamil Nadu, India";
+    isIndia = true;
+  } else if (lower.includes("tiruchirappalli") || lower.includes("trichy")) {
+    normLoc = "Tiruchirappalli, Tamil Nadu, India";
+    isIndia = true;
+  } else if (lower.includes("salem")) {
+    normLoc = "Salem, Tamil Nadu, India";
+    isIndia = true;
+  } else if (lower.includes("tirunelveli")) {
+    normLoc = "Tirunelveli, Tamil Nadu, India";
+    isIndia = true;
+  } else if (lower.includes("thiruvananthapuram") || lower.includes("trivandrum")) {
+    normLoc = "Thiruvananthapuram, Kerala, India";
+    isIndia = true;
+  } else if (lower.includes("kochi") || lower.includes("cochin")) {
+    normLoc = "Kochi, Kerala, India";
+    isIndia = true;
+  } else if (lower.includes("kozhikode") || lower.includes("calicut")) {
+    normLoc = "Kozhikode, Kerala, India";
+    isIndia = true;
+  } else if (lower.includes("thrissur") || lower.includes("trichur")) {
+    normLoc = "Thrissur, Kerala, India";
+    isIndia = true;
+  } else if (lower.includes("palakkad") || lower.includes("palghat")) {
+    normLoc = "Palakkad, Kerala, India";
+    isIndia = true;
+  } else if (lower.includes("kannur") || lower.includes("cannanore")) {
+    normLoc = "Kannur, Kerala, India";
+    isIndia = true;
+  } else if (lower.includes("mysore") || lower.includes("mysuru")) {
+    normLoc = "Mysuru, Karnataka, India";
+    isIndia = true;
+  } else if (lower.includes("mangaluru") || lower.includes("mangalore")) {
+    normLoc = "Mangaluru, Karnataka, India";
+    isIndia = true;
+  } else if (lower.includes("hubballi") || lower.includes("hubli") || lower.includes("dharwad")) {
+    normLoc = "Hubballi, Karnataka, India";
+    isIndia = true;
+  } else if (lower.includes("belagavi") || lower.includes("belgaum")) {
+    normLoc = "Belagavi, Karnataka, India";
+    isIndia = true;
+  } else if (lower.includes("shivamogga") || lower.includes("shimoga")) {
+    normLoc = "Shivamogga, Karnataka, India";
+    isIndia = true;
+  } else if (lower.includes("tumakuru") || lower.includes("tumkur")) {
+    normLoc = "Tumakuru, Karnataka, India";
+    isIndia = true;
+  } else if (lower.includes("davangere") || lower.includes("davanagere")) {
+    normLoc = "Davangere, Karnataka, India";
+    isIndia = true;
+  } else if (lower.includes("kalaburagi") || lower.includes("gulbarga")) {
+    normLoc = "Kalaburagi, Karnataka, India";
+    isIndia = true;
+  } else if (lower.includes("panaji") || lower.includes("panjim")) {
+    normLoc = "Panaji, Goa, India";
+    isIndia = true;
+  } else if (lower.includes("verna")) {
+    normLoc = "Verna, Goa, India";
+    isIndia = true;
+  } else if (lower.includes("porvorim")) {
+    normLoc = "Porvorim, Goa, India";
+    isIndia = true;
+  } else if (lower.includes("margao") || lower.includes("madgaon")) {
+    normLoc = "Margao, Goa, India";
+    isIndia = true;
+  } else if (lower.includes("mandrem")) {
+    normLoc = "Mandrem, Goa, India";
+    isIndia = true;
   } else if (lower.includes("kolkata") || lower.includes("calcutta")) {
     normLoc = "Kolkata, West Bengal, India";
-    isIndia = true;
-  } else if (
-    lower.includes("kochi") ||
-    lower.includes("cochin") ||
-    lower.includes("trivandrum") ||
-    lower.includes("thiruvananthapuram") ||
-    lower.includes("kerala")
-  ) {
-    normLoc = "Kochi / Kerala, India";
     isIndia = true;
   } else if (lower.includes("guwahati")) {
     normLoc = "Guwahati, Assam, India";
@@ -599,15 +698,6 @@ export function normalizeIndiaLocation(locRaw?: string): {
   } else if (lower.includes("bhubaneswar")) {
     normLoc = "Bhubaneswar, Odisha, India";
     isIndia = true;
-  } else if (lower.includes("coimbatore")) {
-    normLoc = "Coimbatore, Tamil Nadu, India";
-    isIndia = true;
-  } else if (lower.includes("mysore") || lower.includes("mysuru")) {
-    normLoc = "Mysuru, Karnataka, India";
-    isIndia = true;
-  } else if (lower.includes("visakhapatnam") || lower.includes("vizag")) {
-    normLoc = "Visakhapatnam, Andhra Pradesh, India";
-    isIndia = true;
   } else if (lower.includes("assam")) {
     normLoc = "Assam, India";
     isIndia = true;
@@ -670,6 +760,24 @@ export function normalizeIndiaLocation(locRaw?: string): {
     isIndia = true;
   } else if (lower.includes("madhya pradesh")) {
     normLoc = "Madhya Pradesh, India";
+    isIndia = true;
+  } else if (lower.includes("karnataka")) {
+    normLoc = "Karnataka, India";
+    isIndia = true;
+  } else if (lower.includes("goa")) {
+    normLoc = "Goa, India";
+    isIndia = true;
+  } else if (lower.includes("telangana")) {
+    normLoc = "Telangana, India";
+    isIndia = true;
+  } else if (lower.includes("andhra pradesh") || lower.includes("andhra")) {
+    normLoc = "Andhra Pradesh, India";
+    isIndia = true;
+  } else if (lower.includes("tamil nadu") || lower.includes("tamilnadu")) {
+    normLoc = "Tamil Nadu, India";
+    isIndia = true;
+  } else if (lower.includes("kerala")) {
+    normLoc = "Kerala, India";
     isIndia = true;
   } else if (lower.includes("india")) {
     normLoc = isRemote ? "Remote, India" : "India";

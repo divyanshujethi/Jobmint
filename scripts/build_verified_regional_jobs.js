@@ -41,9 +41,12 @@ const list4 = parseCsv(path.join(__dirname, '../jobdatas/four.txt'));
 const list5 = parseCsv(path.join(__dirname, '../jobdatas/five.txt'));
 const list6 = parseCsv(path.join(__dirname, '../jobdatas/six.txt'));
 const list7 = parseCsv(path.join(__dirname, '../jobdatas/seven.txt'));
+const list8 = parseCsv(path.join(__dirname, '../jobdatas/eight.txt'));
+const list9 = parseCsv(path.join(__dirname, '../jobdatas/nine.txt'));
+const list10 = parseCsv(path.join(__dirname, '../jobdatas/ten.txt'));
 
-const allCompanies = [...list1, ...list2, ...list3, ...list4, ...list5, ...list6, ...list7];
-console.log(`Loaded ${allCompanies.length} companies across 7 source files (1: ${list1.length}, 2: ${list2.length}, 3: ${list3.length}, 4: ${list4.length}, 5: ${list5.length}, 6: ${list6.length}, 7: ${list7.length}).`);
+const allCompanies = [...list1, ...list2, ...list3, ...list4, ...list5, ...list6, ...list7, ...list8, ...list9, ...list10];
+console.log(`Loaded ${allCompanies.length} companies across 10 source files (1: ${list1.length}, 2: ${list2.length}, 3: ${list3.length}, 4: ${list4.length}, 5: ${list5.length}, 6: ${list6.length}, 7: ${list7.length}, 8: ${list8.length}, 9: ${list9.length}, 10: ${list10.length}).`);
 
 const jobs = [];
 
@@ -193,6 +196,84 @@ allCompanies.forEach((c, idx) => {
     normalizedLocation = 'Balasore, Odisha, India';
   } else if (c.city === 'Puri') {
     normalizedLocation = 'Puri, Odisha, India';
+  } else if (c.city === 'Bengaluru') {
+    normalizedLocation = 'Bengaluru, Karnataka, India';
+  } else if (c.city === 'Mysuru') {
+    normalizedLocation = 'Mysuru, Karnataka, India';
+  } else if (c.city === 'Mangaluru') {
+    normalizedLocation = 'Mangaluru, Karnataka, India';
+  } else if (c.city === 'Hubballi') {
+    normalizedLocation = 'Hubballi, Karnataka, India';
+  } else if (c.city === 'Belagavi') {
+    normalizedLocation = 'Belagavi, Karnataka, India';
+  } else if (c.city === 'Shivamogga') {
+    normalizedLocation = 'Shivamogga, Karnataka, India';
+  } else if (c.city === 'Tumakuru') {
+    normalizedLocation = 'Tumakuru, Karnataka, India';
+  } else if (c.city === 'Davangere') {
+    normalizedLocation = 'Davangere, Karnataka, India';
+  } else if (c.city === 'Kalaburagi') {
+    normalizedLocation = 'Kalaburagi, Karnataka, India';
+  } else if (c.city === 'Panaji') {
+    normalizedLocation = 'Panaji, Goa, India';
+  } else if (c.city === 'Verna') {
+    normalizedLocation = 'Verna, Goa, India';
+  } else if (c.city === 'Porvorim') {
+    normalizedLocation = 'Porvorim, Goa, India';
+  } else if (c.city === 'Margao') {
+    normalizedLocation = 'Margao, Goa, India';
+  } else if (c.city === 'Mandrem') {
+    normalizedLocation = 'Mandrem, Goa, India';
+  } else if (c.city === 'Hyderabad') {
+    normalizedLocation = 'Hyderabad, Telangana, India';
+  } else if (c.city === 'Warangal') {
+    normalizedLocation = 'Warangal, Telangana, India';
+  } else if (c.city === 'Karimnagar') {
+    normalizedLocation = 'Karimnagar, Telangana, India';
+  } else if (c.city === 'Khammam') {
+    normalizedLocation = 'Khammam, Telangana, India';
+  } else if (c.city === 'Nizamabad') {
+    normalizedLocation = 'Nizamabad, Telangana, India';
+  } else if (c.city === 'Mahbubnagar') {
+    normalizedLocation = 'Mahbubnagar, Telangana, India';
+  } else if (c.city === 'Visakhapatnam') {
+    normalizedLocation = 'Visakhapatnam, Andhra Pradesh, India';
+  } else if (c.city === 'Vijayawada') {
+    normalizedLocation = 'Vijayawada, Andhra Pradesh, India';
+  } else if (c.city === 'Guntur') {
+    normalizedLocation = 'Guntur, Andhra Pradesh, India';
+  } else if (c.city === 'Kakinada') {
+    normalizedLocation = 'Kakinada, Andhra Pradesh, India';
+  } else if (c.city === 'Tirupati') {
+    normalizedLocation = 'Tirupati, Andhra Pradesh, India';
+  } else if (c.city === 'Anantapur') {
+    normalizedLocation = 'Anantapur, Andhra Pradesh, India';
+  } else if (c.city === 'Chennai') {
+    normalizedLocation = 'Chennai, Tamil Nadu, India';
+  } else if (c.city === 'Coimbatore') {
+    normalizedLocation = 'Coimbatore, Tamil Nadu, India';
+  } else if (c.city === 'Hosur') {
+    normalizedLocation = 'Hosur, Tamil Nadu, India';
+  } else if (c.city === 'Madurai') {
+    normalizedLocation = 'Madurai, Tamil Nadu, India';
+  } else if (c.city === 'Tiruchirappalli') {
+    normalizedLocation = 'Tiruchirappalli, Tamil Nadu, India';
+  } else if (c.city === 'Salem') {
+    normalizedLocation = 'Salem, Tamil Nadu, India';
+  } else if (c.city === 'Tirunelveli') {
+    normalizedLocation = 'Tirunelveli, Tamil Nadu, India';
+  } else if (c.city === 'Thiruvananthapuram') {
+    normalizedLocation = 'Thiruvananthapuram, Kerala, India';
+  } else if (c.city === 'Kochi') {
+    normalizedLocation = 'Kochi, Kerala, India';
+  } else if (c.city === 'Kozhikode') {
+    normalizedLocation = 'Kozhikode, Kerala, India';
+  } else if (c.city === 'Thrissur') {
+    normalizedLocation = 'Thrissur, Kerala, India';
+  } else if (c.city === 'Palakkad') {
+    normalizedLocation = 'Palakkad, Kerala, India';
+  } else if (c.city === 'Kannur') {
+    normalizedLocation = 'Kannur, Kerala, India';
   }
 
   // Determine Primary Role

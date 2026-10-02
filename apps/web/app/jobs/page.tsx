@@ -314,12 +314,94 @@ export default function JobsPage() {
           if (!jLoc.includes("odisha") && !jLoc.includes("orissa") && !jLoc.includes("bhubaneswar") && !jLoc.includes("cuttack") && !jLoc.includes("rourkela") && !jLoc.includes("puri")) return false;
         } else if (loc === "bengaluru") {
           if (!jLoc.includes("bengaluru") && !jLoc.includes("bangalore")) return false;
+        } else if (loc === "mysuru") {
+          if (!jLoc.includes("mysuru") && !jLoc.includes("mysore")) return false;
+        } else if (loc === "mangaluru") {
+          if (!jLoc.includes("mangaluru") && !jLoc.includes("mangalore")) return false;
+        } else if (loc === "hubballi") {
+          if (!jLoc.includes("hubballi") && !jLoc.includes("hubli") && !jLoc.includes("dharwad")) return false;
+        } else if (loc === "belagavi") {
+          if (!jLoc.includes("belagavi") && !jLoc.includes("belgaum")) return false;
+        } else if (loc === "shivamogga") {
+          if (!jLoc.includes("shivamogga") && !jLoc.includes("shimoga")) return false;
+        } else if (loc === "tumakuru") {
+          if (!jLoc.includes("tumakuru") && !jLoc.includes("tumkur")) return false;
+        } else if (loc === "davangere") {
+          if (!jLoc.includes("davangere") && !jLoc.includes("davanagere")) return false;
+        } else if (loc === "kalaburagi") {
+          if (!jLoc.includes("kalaburagi") && !jLoc.includes("gulbarga")) return false;
+        } else if (loc === "karnataka") {
+          if (!jLoc.includes("karnataka") && !jLoc.includes("bengaluru") && !jLoc.includes("bangalore") && !jLoc.includes("mysuru") && !jLoc.includes("mangaluru") && !jLoc.includes("hubballi") && !jLoc.includes("belagavi")) return false;
+        } else if (loc === "panaji") {
+          if (!jLoc.includes("panaji") && !jLoc.includes("panjim")) return false;
+        } else if (loc === "verna") {
+          if (!jLoc.includes("verna")) return false;
+        } else if (loc === "porvorim") {
+          if (!jLoc.includes("porvorim")) return false;
+        } else if (loc === "margao") {
+          if (!jLoc.includes("margao") && !jLoc.includes("madgaon")) return false;
+        } else if (loc === "mandrem") {
+          if (!jLoc.includes("mandrem")) return false;
+        } else if (loc === "goa") {
+          if (!jLoc.includes("goa") && !jLoc.includes("panaji") && !jLoc.includes("verna") && !jLoc.includes("porvorim") && !jLoc.includes("margao") && !jLoc.includes("mandrem")) return false;
         } else if (loc === "hyderabad") {
-          if (!jLoc.includes("hyderabad")) return false;
+          if (!jLoc.includes("hyderabad") && !jLoc.includes("secunderabad")) return false;
+        } else if (loc === "warangal") {
+          if (!jLoc.includes("warangal")) return false;
+        } else if (loc === "karimnagar") {
+          if (!jLoc.includes("karimnagar")) return false;
+        } else if (loc === "khammam") {
+          if (!jLoc.includes("khammam")) return false;
+        } else if (loc === "nizamabad") {
+          if (!jLoc.includes("nizamabad")) return false;
+        } else if (loc === "mahbubnagar") {
+          if (!jLoc.includes("mahbubnagar") && !jLoc.includes("mahabubnagar")) return false;
+        } else if (loc === "telangana") {
+          if (!jLoc.includes("telangana") && !jLoc.includes("hyderabad") && !jLoc.includes("warangal") && !jLoc.includes("karimnagar")) return false;
+        } else if (loc === "visakhapatnam") {
+          if (!jLoc.includes("visakhapatnam") && !jLoc.includes("vizag")) return false;
+        } else if (loc === "vijayawada") {
+          if (!jLoc.includes("vijayawada")) return false;
+        } else if (loc === "guntur") {
+          if (!jLoc.includes("guntur")) return false;
+        } else if (loc === "kakinada") {
+          if (!jLoc.includes("kakinada")) return false;
+        } else if (loc === "tirupati") {
+          if (!jLoc.includes("tirupati")) return false;
+        } else if (loc === "anantapur") {
+          if (!jLoc.includes("anantapur") && !jLoc.includes("ananthapur")) return false;
+        } else if (loc === "andhra_pradesh" || loc === "andhra") {
+          if (!jLoc.includes("andhra") && !jLoc.includes("visakhapatnam") && !jLoc.includes("vijayawada") && !jLoc.includes("guntur") && !jLoc.includes("tirupati")) return false;
         } else if (loc === "chennai") {
-          if (!jLoc.includes("chennai")) return false;
+          if (!jLoc.includes("chennai") && !jLoc.includes("madras")) return false;
+        } else if (loc === "coimbatore") {
+          if (!jLoc.includes("coimbatore") && !jLoc.includes("kovai")) return false;
+        } else if (loc === "hosur") {
+          if (!jLoc.includes("hosur")) return false;
+        } else if (loc === "madurai") {
+          if (!jLoc.includes("madurai")) return false;
+        } else if (loc === "tiruchirappalli") {
+          if (!jLoc.includes("tiruchirappalli") && !jLoc.includes("trichy")) return false;
+        } else if (loc === "salem") {
+          if (!jLoc.includes("salem")) return false;
+        } else if (loc === "tirunelveli") {
+          if (!jLoc.includes("tirunelveli")) return false;
+        } else if (loc === "tamil_nadu") {
+          if (!jLoc.includes("tamil nadu") && !jLoc.includes("chennai") && !jLoc.includes("coimbatore") && !jLoc.includes("hosur") && !jLoc.includes("madurai")) return false;
+        } else if (loc === "thiruvananthapuram") {
+          if (!jLoc.includes("thiruvananthapuram") && !jLoc.includes("trivandrum")) return false;
         } else if (loc === "kochi") {
-          if (!jLoc.includes("kochi") && !jLoc.includes("cochin") && !jLoc.includes("kerala")) return false;
+          if (!jLoc.includes("kochi") && !jLoc.includes("cochin")) return false;
+        } else if (loc === "kozhikode") {
+          if (!jLoc.includes("kozhikode") && !jLoc.includes("calicut")) return false;
+        } else if (loc === "thrissur") {
+          if (!jLoc.includes("thrissur") && !jLoc.includes("trichur")) return false;
+        } else if (loc === "palakkad") {
+          if (!jLoc.includes("palakkad") && !jLoc.includes("palghat")) return false;
+        } else if (loc === "kannur") {
+          if (!jLoc.includes("kannur") && !jLoc.includes("cannanore")) return false;
+        } else if (loc === "kerala") {
+          if (!jLoc.includes("kerala") && !jLoc.includes("kochi") && !jLoc.includes("thiruvananthapuram") && !jLoc.includes("kozhikode")) return false;
         } else if (loc === "remote") {
           const jMode = (job.workMode || "").toUpperCase();
           if (!jMode.includes("REMOTE") && !jLoc.includes("remote")) return false;
@@ -486,8 +568,15 @@ export default function JobsPage() {
           { label: "📍 Ranchi", action: () => setSelectedLocation("ranchi") },
           { label: "📍 Raipur", action: () => setSelectedLocation("raipur") },
           { label: "📍 Guwahati", action: () => setSelectedLocation("guwahati") },
-          { label: "🇮🇳 Bengaluru", action: () => setSelectedLocation("bengaluru") },
+          { label: "📍 Bengaluru", action: () => setSelectedLocation("bengaluru") },
+          { label: "📍 Mysuru", action: () => setSelectedLocation("mysuru") },
+          { label: "📍 Goa (Panaji)", action: () => setSelectedLocation("panaji") },
           { label: "📍 Hyderabad", action: () => setSelectedLocation("hyderabad") },
+          { label: "📍 Visakhapatnam", action: () => setSelectedLocation("visakhapatnam") },
+          { label: "📍 Chennai", action: () => setSelectedLocation("chennai") },
+          { label: "📍 Coimbatore", action: () => setSelectedLocation("coimbatore") },
+          { label: "📍 Kochi", action: () => setSelectedLocation("kochi") },
+          { label: "📍 Thiruvananthapuram", action: () => setSelectedLocation("thiruvananthapuram") },
           { label: "🌐 Remote India", action: () => { setSelectedMode(WorkMode.REMOTE); setSelectedLocation("india"); } },
           { label: "🎓 Freshers (0 YOE)", action: () => setSelectedExp("0") },
           { label: "🚀 Startups", action: () => setSearchTerm("Startup") },
@@ -823,7 +912,20 @@ export default function JobsPage() {
             { id: "rourkela", label: "Rourkela" },
             { id: "puri", label: "Puri" },
             { id: "bengaluru", label: "Bengaluru" },
+            { id: "mysuru", label: "Mysuru" },
+            { id: "mangaluru", label: "Mangaluru" },
+            { id: "hubballi", label: "Hubballi" },
+            { id: "panaji", label: "Goa (Panaji)" },
             { id: "hyderabad", label: "Hyderabad" },
+            { id: "warangal", label: "Warangal" },
+            { id: "visakhapatnam", label: "Visakhapatnam" },
+            { id: "vijayawada", label: "Vijayawada" },
+            { id: "chennai", label: "Chennai" },
+            { id: "coimbatore", label: "Coimbatore" },
+            { id: "madurai", label: "Madurai" },
+            { id: "kochi", label: "Kochi" },
+            { id: "thiruvananthapuram", label: "Thiruvananthapuram" },
+            { id: "kozhikode", label: "Kozhikode" },
             { id: "remote", label: "Remote" },
           ].map((city) => (
             <button
@@ -974,11 +1076,56 @@ export default function JobsPage() {
                 <option value="shimla">Shimla, Himachal Pradesh</option>
                 <option value="himachal">Himachal Pradesh (All Hubs)</option>
               </optgroup>
-              <optgroup label="Major Indian Tech Metros">
-                <option value="bengaluru">Bengaluru / Bangalore</option>
-                <option value="hyderabad">Hyderabad</option>
-                <option value="chennai">Chennai</option>
-                <option value="kochi">Kochi / Kerala</option>
+              <optgroup label="Karnataka & Goa">
+                <option value="bengaluru">Bengaluru, Karnataka</option>
+                <option value="mysuru">Mysuru, Karnataka</option>
+                <option value="mangaluru">Mangaluru, Karnataka</option>
+                <option value="hubballi">Hubballi-Dharwad, Karnataka</option>
+                <option value="belagavi">Belagavi, Karnataka</option>
+                <option value="shivamogga">Shivamogga, Karnataka</option>
+                <option value="tumakuru">Tumakuru, Karnataka</option>
+                <option value="davangere">Davangere, Karnataka</option>
+                <option value="kalaburagi">Kalaburagi, Karnataka</option>
+                <option value="karnataka">Karnataka (All Hubs)</option>
+                <option value="panaji">Panaji (Panjim), Goa</option>
+                <option value="verna">Verna, Goa</option>
+                <option value="porvorim">Porvorim, Goa</option>
+                <option value="margao">Margao, Goa</option>
+                <option value="mandrem">Mandrem, Goa</option>
+                <option value="goa">Goa (All Hubs)</option>
+              </optgroup>
+              <optgroup label="Telangana & Andhra Pradesh">
+                <option value="hyderabad">Hyderabad, Telangana</option>
+                <option value="warangal">Warangal, Telangana</option>
+                <option value="karimnagar">Karimnagar, Telangana</option>
+                <option value="khammam">Khammam, Telangana</option>
+                <option value="nizamabad">Nizamabad, Telangana</option>
+                <option value="mahbubnagar">Mahbubnagar, Telangana</option>
+                <option value="telangana">Telangana (All Hubs)</option>
+                <option value="visakhapatnam">Visakhapatnam (Vizag), AP</option>
+                <option value="vijayawada">Vijayawada, AP</option>
+                <option value="guntur">Guntur, AP</option>
+                <option value="kakinada">Kakinada, AP</option>
+                <option value="tirupati">Tirupati, AP</option>
+                <option value="anantapur">Anantapur, AP</option>
+                <option value="andhra_pradesh">Andhra Pradesh (All Hubs)</option>
+              </optgroup>
+              <optgroup label="Tamil Nadu & Kerala">
+                <option value="chennai">Chennai, Tamil Nadu</option>
+                <option value="coimbatore">Coimbatore, Tamil Nadu</option>
+                <option value="hosur">Hosur, Tamil Nadu</option>
+                <option value="madurai">Madurai, Tamil Nadu</option>
+                <option value="tiruchirappalli">Tiruchirappalli (Trichy), TN</option>
+                <option value="salem">Salem, Tamil Nadu</option>
+                <option value="tirunelveli">Tirunelveli, Tamil Nadu</option>
+                <option value="tamil_nadu">Tamil Nadu (All Hubs)</option>
+                <option value="thiruvananthapuram">Thiruvananthapuram, Kerala</option>
+                <option value="kochi">Kochi, Kerala</option>
+                <option value="kozhikode">Kozhikode (Calicut), Kerala</option>
+                <option value="thrissur">Thrissur, Kerala</option>
+                <option value="palakkad">Palakkad, Kerala</option>
+                <option value="kannur">Kannur, Kerala</option>
+                <option value="kerala">Kerala (All Hubs)</option>
               </optgroup>
               <optgroup label="Work Mode & Scope">
                 <option value="remote">Remote (India & Worldwide)</option>
@@ -1062,6 +1209,10 @@ export default function JobsPage() {
                     ? "Madhya Pradesh"
                     : selectedLocation === "himachal"
                     ? "Himachal Pradesh"
+                    : selectedLocation === "andhra_pradesh"
+                    ? "Andhra Pradesh"
+                    : selectedLocation === "tamil_nadu"
+                    ? "Tamil Nadu"
                     : selectedLocation.charAt(0).toUpperCase() + selectedLocation.slice(1)
                 }
                 <X className="h-3 w-3 cursor-pointer hover:text-emerald-950" onClick={() => setSelectedLocation("ALL")} />
