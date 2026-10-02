@@ -526,52 +526,76 @@ export function normalizeIndiaLocation(locRaw?: string): {
     isIndia = true;
   } else if (lower.includes("shillong")) {
     normLoc = "Shillong, Meghalaya, India";
+    isIndia = true;
   } else if (lower.includes("kohima")) {
     normLoc = "Kohima, Nagaland, India";
+    isIndia = true;
   } else if (lower.includes("imphal")) {
     normLoc = "Imphal, Manipur, India";
+    isIndia = true;
   } else if (lower.includes("agartala")) {
     normLoc = "Agartala, Tripura, India";
+    isIndia = true;
   } else if (lower.includes("aizawl")) {
     normLoc = "Aizawl, Mizoram, India";
+    isIndia = true;
   } else if (lower.includes("itanagar")) {
     normLoc = "Itanagar, Arunachal Pradesh, India";
+    isIndia = true;
   } else if (lower.includes("gangtok")) {
     normLoc = "Gangtok, Sikkim, India";
+    isIndia = true;
   } else if (lower.includes("siliguri")) {
     normLoc = "Siliguri, West Bengal, India";
+    isIndia = true;
   } else if (lower.includes("durgapur")) {
     normLoc = "Durgapur, West Bengal, India";
+    isIndia = true;
   } else if (lower.includes("kharagpur")) {
     normLoc = "Kharagpur, West Bengal, India";
+    isIndia = true;
   } else if (lower.includes("ranchi")) {
     normLoc = "Ranchi, Jharkhand, India";
+    isIndia = true;
   } else if (lower.includes("jamshedpur")) {
     normLoc = "Jamshedpur, Jharkhand, India";
+    isIndia = true;
   } else if (lower.includes("deoghar")) {
     normLoc = "Deoghar, Jharkhand, India";
+    isIndia = true;
   } else if (lower.includes("bokaro")) {
     normLoc = "Bokaro, Jharkhand, India";
+    isIndia = true;
   } else if (lower.includes("dhanbad")) {
     normLoc = "Dhanbad, Jharkhand, India";
+    isIndia = true;
   } else if (lower.includes("nava raipur")) {
     normLoc = "Nava Raipur, Chhattisgarh, India";
+    isIndia = true;
   } else if (lower.includes("bhilai")) {
     normLoc = "Bhilai, Chhattisgarh, India";
+    isIndia = true;
   } else if (lower.includes("raipur")) {
     normLoc = "Raipur, Chhattisgarh, India";
+    isIndia = true;
   } else if (lower.includes("cuttack")) {
     normLoc = "Cuttack, Odisha, India";
+    isIndia = true;
   } else if (lower.includes("rourkela")) {
     normLoc = "Rourkela, Odisha, India";
+    isIndia = true;
   } else if (lower.includes("sambalpur")) {
     normLoc = "Sambalpur, Odisha, India";
+    isIndia = true;
   } else if (lower.includes("berhampur")) {
     normLoc = "Berhampur, Odisha, India";
+    isIndia = true;
   } else if (lower.includes("balasore")) {
     normLoc = "Balasore, Odisha, India";
+    isIndia = true;
   } else if (lower.includes("puri")) {
     normLoc = "Puri, Odisha, India";
+    isIndia = true;
   } else if (lower.includes("bhubaneswar")) {
     normLoc = "Bhubaneswar, Odisha, India";
     isIndia = true;
