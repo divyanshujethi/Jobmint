@@ -33,6 +33,10 @@ async function run() {
     }
   }
 
+  const sampleDelhi = await sql`SELECT DISTINCT location, count(*) FROM jobs WHERE location ILIKE '%Delhi%' GROUP BY location`;
+  console.log('\nDistinct Delhi locations:');
+  console.table(sampleDelhi);
+
   const verified = await sql`
     SELECT count(*) FROM jobs j 
     JOIN companies c ON j.company_id = c.id 
