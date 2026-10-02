@@ -139,6 +139,8 @@ export async function persistCrawledJobs(crawledJobs: RawCrawledJob[]): Promise<
           .update(jobs)
           .set({
             isActive: true,
+            location: job.location || "Remote",
+            workMode: job.workMode,
             lastCheckedAt: new Date(),
             sourceUrl: job.sourceUrl,
             updatedAt: new Date(),
