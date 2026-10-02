@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import Link from "next/link";
 import {
   Search,
@@ -55,8 +55,28 @@ export default function JobsPage() {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const PAGE_SIZE = 15;
 
-  // Spotlight search (Cmd/Ctrl+K or "/" shortcut)
+  // Spotlight search (Cmd/Ctrl+K)
   const spotlight = useSpotlight();
+
+  // Instant feed search input ref
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  // "/" keyboard shortcut to focus instant feed search
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (
+        e.key === "/" &&
+        !(e.target instanceof HTMLInputElement) &&
+        !(e.target instanceof HTMLTextAreaElement) &&
+        !(e.target as HTMLElement)?.isContentEditable
+      ) {
+        e.preventDefault();
+        searchInputRef.current?.focus();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   // Candidate Intelligence System state
   const [intelProfile, setIntelProfile] = useState<CandidateIntelProfile>(DEFAULT_INTEL_PROFILE);
@@ -807,8 +827,8 @@ export default function JobsPage() {
 
       {/* FILTER CONTROLS BAR */}
       <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-2xs space-y-3.5">
-        {/* Row 1: Job Types & Quick Selectors */}
-        <div className="flex flex-wrap items-center justify-between gap-3">
+        {/* Row 1: Job Types & Quick Selectors + Instant Search Bar */}
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
           <div className="flex flex-wrap items-center gap-2">
             <button
               onClick={() => setSelectedType("ALL")}
@@ -841,6 +861,29 @@ export default function JobsPage() {
             >
               Full-Time Roles
             </button>
+          </div>
+
+          {/* Instant Search Bar */}
+          <div className="relative w-full sm:w-72 md:w-80">
+            <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-400 pointer-events-none" />
+            <input
+              ref={searchInputRef}
+              type="text"
+              placeholder="Search roles, tech, city... (press /)"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full rounded-xl border border-slate-200 bg-slate-50/70 py-2 pl-9 pr-8 text-xs font-medium placeholder:text-slate-400 focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-500 transition-colors"
+            />
+            {searchTerm && (
+              <button
+                type="button"
+                onClick={() => setSearchTerm("")}
+                className="absolute right-2.5 top-2.5 text-slate-400 hover:text-slate-600 cursor-pointer"
+                title="Clear search"
+              >
+                <X className="h-3.5 w-3.5" />
+              </button>
+            )}
           </div>
         </div>
 

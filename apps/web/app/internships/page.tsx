@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
-import { Sparkles, MapPin, Search, Filter } from "lucide-react";
+import { useState, useEffect, useMemo, useRef } from "react";
+import { Sparkles, MapPin, Search, Filter, X } from "lucide-react";
 import { MockJob } from "@/lib/mock-jobs";
 import { JobCard } from "@/components/job-card";
 import { ScrollToTop } from "@/components/scroll-to-top";
@@ -15,6 +15,25 @@ export default function InternshipsPage() {
   const [modeFilter, setModeFilter] = useState("ALL");
   const [currentPage, setCurrentPage] = useState<number>(1);
   const PAGE_SIZE = 12;
+
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  // "/" keyboard shortcut to focus search input
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (
+        e.key === "/" &&
+        !(e.target instanceof HTMLInputElement) &&
+        !(e.target instanceof HTMLTextAreaElement) &&
+        !(e.target as HTMLElement)?.isContentEditable
+      ) {
+        e.preventDefault();
+        searchInputRef.current?.focus();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   useEffect(() => {
     fetch("/api/jobs?type=INTERNSHIP")
@@ -36,11 +55,12 @@ export default function InternshipsPage() {
   const filteredInternships = useMemo(() => {
     return internships.filter((job) => {
       if (search) {
-        const q = search.toLowerCase();
+        const q = search.toLowerCase().trim();
         const matchesTitle = job.title.toLowerCase().includes(q);
         const matchesCompany = job.companyName.toLowerCase().includes(q);
         const matchesSkills = job.skills.some((s) => s.toLowerCase().includes(q));
-        if (!matchesTitle && !matchesCompany && !matchesSkills) return false;
+        const matchesLocation = (job.location || "").toLowerCase().includes(q);
+        if (!matchesTitle && !matchesCompany && !matchesSkills && !matchesLocation) return false;
       }
       if (modeFilter !== "ALL" && job.workMode !== modeFilter) {
         return false;
@@ -86,15 +106,26 @@ export default function InternshipsPage() {
           </div>
 
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-            <div className="relative">
-              <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
+            <div className="relative w-full sm:w-72">
+              <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-400 pointer-events-none" />
               <input
+                ref={searchInputRef}
                 type="text"
-                placeholder="Search internships or skills..."
+                placeholder="Search role, skill, or city (press /)..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="w-full sm:w-64 rounded-xl border border-slate-200 bg-white py-2 pl-9 pr-4 text-sm placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                className="w-full rounded-xl border border-slate-200 bg-white py-2 pl-9 pr-8 text-sm placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-emerald-500"
               />
+              {search && (
+                <button
+                  type="button"
+                  onClick={() => setSearch("")}
+                  className="absolute right-2.5 top-2.5 text-slate-400 hover:text-slate-600 cursor-pointer"
+                  title="Clear search"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              )}
             </div>
 
             <select
@@ -108,6 +139,52 @@ export default function InternshipsPage() {
               <option value="ONSITE">Onsite</option>
             </select>
           </div>
+        </div>
+
+        {/* Quick Search Chips */}
+        <div className="mt-3 flex items-center gap-1.5 overflow-x-auto pb-1 text-xs no-scrollbar">
+          <span className="text-[11px] font-bold text-slate-400 shrink-0 flex items-center gap-1 mr-1">
+            <Sparkles className="h-3 w-3 text-emerald-600" /> Quick Filters:
+          </span>
+          {[
+            { label: "All", value: "" },
+            { label: "🌐 Remote", value: "remote" },
+            { label: "📍 Bengaluru", value: "bengaluru" },
+            { label: "📍 Delhi NCR", value: "delhi" },
+            { label: "📍 Pune", value: "pune" },
+            { label: "📍 Hyderabad", value: "hyderabad" },
+            { label: "📍 Mumbai", value: "mumbai" },
+            { label: "⚛️ React", value: "react" },
+            { label: "🐍 Python", value: "python" },
+            { label: "🟢 Node.js", value: "node" },
+            { label: "🤖 AI / ML", value: "ai" },
+          ].map((chip) => (
+            <button
+              key={chip.label}
+              onClick={() => {
+                setSearch(chip.value);
+                setCurrentPage(1);
+              }}
+              className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold transition-all shrink-0 cursor-pointer ${
+                (chip.value === "" && !search) || (chip.value && search.toLowerCase() === chip.value)
+                  ? "bg-emerald-600 text-white shadow-2xs"
+                  : "bg-slate-100 text-slate-600 hover:bg-slate-200/80"
+              }`}
+            >
+              {chip.label}
+            </button>
+          ))}
+          {search && (
+            <button
+              onClick={() => {
+                setSearch("");
+                setCurrentPage(1);
+              }}
+              className="text-[11px] font-semibold text-rose-600 hover:text-rose-700 underline shrink-0 cursor-pointer ml-1"
+            >
+              Clear
+            </button>
+          )}
         </div>
 
         <div className="mt-4 flex items-center justify-between text-xs text-slate-500 font-mono">

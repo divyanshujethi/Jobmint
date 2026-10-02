@@ -374,8 +374,9 @@ export function SpotlightSearch({ jobs, isOpen, onClose }: SpotlightSearchProps)
 }
 
 /** Hook: opens spotlight on Cmd/Ctrl+K or "/" keypress globally */
-export function useSpotlight() {
+export function useSpotlight(options?: { enableSlashShortcut?: boolean }) {
   const [isOpen, setIsOpen] = useState(false);
+  const enableSlashShortcut = options?.enableSlashShortcut ?? false;
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -385,8 +386,9 @@ export function useSpotlight() {
         setIsOpen((v) => !v);
         return;
       }
-      // "/" key when not in an input/textarea
+      // "/" key when not in an input/textarea (if enabled)
       if (
+        enableSlashShortcut &&
         e.key === "/" &&
         !(e.target instanceof HTMLInputElement) &&
         !(e.target instanceof HTMLTextAreaElement) &&
@@ -398,7 +400,7 @@ export function useSpotlight() {
     };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
-  }, []);
+  }, [enableSlashShortcut]);
 
   return {
     isOpen,
