@@ -27,6 +27,10 @@ async function run() {
     const r = await sql`SELECT count(*) FROM jobs WHERE location ILIKE ${pattern}`;
     console.log(`${c.padEnd(15)} : ${r[0].count} jobs`);
   }
+  const delhiJobs = await sql`SELECT count(*) FROM jobs WHERE location ILIKE '%Delhi%'`;
+  console.log(`${'Delhi (all)'.padEnd(15)} : ${delhiJobs[0].count} jobs`);
+  const sampleDelhi = await sql`SELECT id, title, location FROM jobs WHERE location ILIKE '%Delhi%' LIMIT 3`;
+  console.table(sampleDelhi);
 
   const regional = await sql`
     SELECT count(*) FROM jobs 
