@@ -1,0 +1,71 @@
+Company Name,City,State,Company Type,Primary Tech Domain,Official Website,Career Page URL
+Kyndryl,Greater Noida,Uttar Pradesh,Enterprise IT / MNC,Managed Cloud / Kubernetes / Mainframe Ops,https://www.kyndryl.com,https://kyndryl.wd5.myworkdayjobs.com/KyndrylProfessionalCareers
+Taksh IT Solutions,Greater Noida,Uttar Pradesh,Software Company,Custom Software / ERP & CRM Systems / Cloud,https://www.takshitsolutions.com,https://www.takshitsolutions.com/career.html
+Veda Aeronautics,Greater Noida,Uttar Pradesh,DeepTech Startup,Narrow AI / Robotics / Drone Defense Platforms,https://vedaaero.com,https://vedaaero.com/careers/
+Hostvia,Greater Noida,Uttar Pradesh,Tech Startup,Hospitality SaaS / Booking Engines / Cloud,https://hostvia.in,https://hostvia.in/contact/
+CyberShield Technologies,Greater Noida,Uttar Pradesh,IT Services / EdTech,Cybersecurity / Cloud Telephony / Web Apps,https://www.cybershield.in,https://www.cybershield.in/career/
+Eduflute Academy,Greater Noida,Uttar Pradesh,EdTech Startup,Coding Platforms / Educational Software,https://eduflute.com,https://eduflute.com/careers/
+Vagmine Tech IT,Greater Noida,Uttar Pradesh,IT Services,Custom Web Development / Linux Systems,https://www.vagminetechit.com,https://www.vagminetechit.com/careers/
+Sharda Tech,Greater Noida,Uttar Pradesh,Tech Enterprise,SDET Platforms / Enterprise Mobile & Web Apps,https://shardatech.org,https://shardatech.org/careers/
+FlagBits Technologies,Greater Noida,Uttar Pradesh,Software Company,Custom Software / E-Commerce Portals / Mobile,https://www.flagbitsindia.com,https://www.flagbitsindia.com/contact-us/
+Peklenc Research,Greater Noida,Uttar Pradesh,Tech Startup,Productivity Software / Enterprise Engineering,https://www.peklenc.com,https://www.peklenc.com/careers/
+Aurum Analytica,Greater Noida,Uttar Pradesh,Analytics Startup,Real Estate Tech / Big Data Analytics,https://www.aurumanalytica.in,https://www.aurumanalytica.in/careers/
+HCLTech,Lucknow,Uttar Pradesh,Enterprise IT / MNC,Cloud Engineering / Digital Modernization / AI,https://www.hcltech.com,https://www.hcltech.com/careers
+CEDCOSS Technologies,Lucknow,Uttar Pradesh,Software Product / SaaS,E-Commerce SaaS / Marketplace APIs / Cloud,https://www.cedcoss.com,https://cedcoss.com/careers/
+Sigma Software,Lucknow,Uttar Pradesh,Software Company,Enterprise Web Applications / Cloud Systems,https://www.sigmasoftwares.org,https://www.sigmasoftwares.org/careers
+DigiCoders Technologies,Lucknow,Uttar Pradesh,Software Company,Custom ERP Systems / Mobile Apps / Web Platforms,https://digicoders.in,https://digicoders.in/career/
+Genpact,Lucknow,Uttar Pradesh,Enterprise Tech / MNC,Cognitive Business Operations / Data Analytics,https://www.genpact.com,https://www.genpact.com/careers
+IDC Technologies,Lucknow,Uttar Pradesh,IT Services,IT Consulting / Cloud Modernization / Staffing,https://idctechnologies.com,https://idctechnologies.com/careers/
+Confounding Solutions,Lucknow,Uttar Pradesh,IT Services,Web Software Development / Application Portals,https://confoundingsolutions.com,https://confoundingsolutions.com/careers/
+Algorithus,Lucknow,Uttar Pradesh,Tech Startup,Applied AI / Python Cloud Services / React Systems,https://algorithus.com,https://algorithus.com/careers/
+SkillsCapital,Lucknow,Uttar Pradesh,AI Tech Startup,Agentic AI / Talent Intelligence Infrastructure,https://skillscapital.com,https://skillscapital.com/careers/
+Dreabee,Lucknow,Uttar Pradesh,MarTech Startup,Brand Analytics Layer / Data Pipelines / SaaS,https://dreabee.com,https://dreabee.com/careers/
+Trade W,Lucknow,Uttar Pradesh,FinTech Startup,Multi-Asset Online Trading Platform / FinTech APIs,https://www.tradew.com,https://www.tradew.com/careers/
+Boffin Web Technology,Lucknow,Uttar Pradesh,Tech Startup,Web Application Architecture / Custom Software,https://boffinwebtechnology.com,https://boffinwebtechnology.com/careers/
+Matrix Infologics,Lucknow,Uttar Pradesh,IT Services,Enterprise CMS Platforms / Full-Stack Development,https://matrixinfologics.com,https://matrixinfologics.com/careers/
+Fact Finding Tech,Lucknow,Uttar Pradesh,Tech Startup,Python Backend Architectures / Cloud Applications,https://factfindingtech.com,https://factfindingtech.com/careers/
+Tata Consultancy Services,Kanpur,Uttar Pradesh,Enterprise IT / MNC,IT Infrastructure Management / Cloud Services,https://www.tcs.com,https://www.tcs.com/careers
+Infosys Limited,Kanpur,Uttar Pradesh,Enterprise IT / MNC,Digital Transformation / Application Management,https://www.infosys.com,https://www.infosys.com/careers/
+Tech Mahindra,Kanpur,Uttar Pradesh,Enterprise IT / MNC,Telecom Networks / Enterprise Digital Solutions,https://www.techmahindra.com,https://careers.techmahindra.com/
+Wipro Technologies,Kanpur,Uttar Pradesh,Enterprise IT / MNC,Enterprise Cloud Infrastructure / Cyber Security,https://www.wipro.com,https://careers.wipro.com/
+HCLTech,Kanpur,Uttar Pradesh,Enterprise IT / MNC,Digital Engineering / Enterprise Support Systems,https://www.hcltech.com,https://www.hcltech.com/careers
+Panacia Softwares,Kanpur,Uttar Pradesh,Software Company,Agro & Financial ERP / Custom Web Systems,https://www.panaciasoftwares.com,https://www.panaciasoftwares.com/careers.php
+Mify Solutions,Kanpur,Uttar Pradesh,Software Company,Web Applications / E-Commerce / Custom Software,https://mifysolutions.com,https://mifysolutions.com/career/
+W3villa Technologies,Kanpur,Uttar Pradesh,Software Company,Salesforce Integration / Chatbots / Web Platforms,https://www.w3villa.com,https://www.w3villa.com/career
+Secureroot Risk Advisory,Kanpur,Uttar Pradesh,CyberTech Startup,VAPT Services / Information Security / Compliance,https://secureroot.in,https://secureroot.in/careers/
+Saptrishi Infosystems,Kanpur,Uttar Pradesh,Software Company,Hospitality Software / Smart Card & RFID Systems,https://saptrishiinfosystems.com,https://saptrishiinfosystems.com/careers/
+Quartz Technologies,Kanpur,Uttar Pradesh,Software Company,Web Application Architecture / UI-UX Platforms,https://quartztech.in,https://quartztech.in/career/
+Hexagon Infosoft Solutions,Kanpur,Uttar Pradesh,IT Services,Custom Web Development / Cloud Solutions,https://www.hexagoninfosoft.com,https://www.hexagoninfosoft.com/career/
+Webcity Technologies,Kanpur,Uttar Pradesh,Software Company,Customized Software / Web Applications,https://webcitytechnologies.com,https://webcitytechnologies.com/careers/
+Novus Logics,Kanpur,Uttar Pradesh,IT Services,Enterprise Web Solutions / Digital Strategies,https://www.novuslogics.com,https://www.novuslogics.com/career/
+ADK IT Solution,Kanpur,Uttar Pradesh,IT Services,Software Engineering / Web Portals / Mobile Apps,https://adkitsolution.com,https://adkitsolution.com/careers/
+JDS Technology,Varanasi,Uttar Pradesh,Software Company,Custom Web Applications / Enterprise Mobility,https://jdstechnology.in,https://jdstechnology.in/careers/
+Duplex Technologies,Varanasi,Uttar Pradesh,Software Company,Full-Stack Web Dev / Mobile App Solutions,https://duplextech.com,https://duplextech.com/career.html
+Friendz IT Solutions,Varanasi,Uttar Pradesh,Software Company,School & Pharmacy ERP / Web Portals,https://friendzitsolutions.biz,https://friendzitsolutions.biz/careers/
+Kashi Digital,Varanasi,Uttar Pradesh,IT Services,Digital Product Engineering / Web Platforms,https://kashidigital.in,https://kashidigital.in/career/
+Sigma Softwares Varanasi,Varanasi,Uttar Pradesh,Software Company,School ERP Solutions / Custom Business Software,https://sigmasoftwares.in,https://sigmasoftwares.in/careers/
+Alphonic Network Solutions,Prayagraj,Uttar Pradesh,Software Company,Mobile Application Architecture / Full-Stack Web,https://alphonic.in,https://alphonic.in/careers/
+Devox Tech,Prayagraj,Uttar Pradesh,Tech Startup,Custom Software Development / Web Applications,https://devoxtech.com,https://devoxtech.com/careers/
+Prayag Technologies,Prayagraj,Uttar Pradesh,Software Company,e-Governance Applications / Cloud Web Systems,https://prayagtech.com,https://prayagtech.com/career/
+Netcom Technologies,Prayagraj,Uttar Pradesh,IT Services,Network Infrastructure / Enterprise Portals,https://netcomtech.in,https://netcomtech.in/careers/
+Microspark Software Solutions,Meerut,Uttar Pradesh,Software Company,Industrial ERP / Inventory Control Software,https://microspark.in,https://microspark.in/careers/
+CloudyZx,Meerut,Uttar Pradesh,Software Company,Multi-Tenant Cloud ERP / Supply Chain Software,https://www.cloudyzx.com,https://www.cloudyzx.com/careers/
+TechCentrica,Meerut,Uttar Pradesh,IT Services,Web Application Architecture / Digital Platforms,https://techcentrica.com,https://techcentrica.com/careers/
+Tata Consultancy Services,Patna,Bihar,Enterprise IT / MNC,Enterprise Cloud Solutions / Systems Engineering,https://www.tcs.com,https://www.tcs.com/careers
+Sanity Softwares,Patna,Bihar,Software Company,Healthcare IT / Microfinance SaaS / AI Chatbots,https://sanitysoftwares.com,https://sanitysoftwares.com/careers/
+Riya Techno Software,Patna,Bihar,Software Company,School ERP / Multi-Level Enterprise Platforms,https://www.rtspvtltd.com,https://www.rtspvtltd.com/careers.aspx
+Dynode Software Technology,Patna,Bihar,IT Enterprise,Custom Enterprise Software / Mobile Applications,https://www.dynodesoft.com,https://www.dynodesoft.com/career.php
+Byteforge Tech Solutions,Patna,Bihar,Software Company,SAP Commerce Cloud / Enterprise AI / Cloud DevOps,https://byteforgetech.com,https://byteforgetech.com/careers/
+CSDT IT Solution,Patna,Bihar,Software Company,Web Architecture / Custom Software Engineering,https://www.csdtitsolution.com,https://www.csdtitsolution.com/careers/
+Fillip Technologies,Patna,Bihar,IT Services,Enterprise Web Solutions / Mobility Platforms,https://filliptechnologies.com,https://filliptechnologies.com/careers/
+Flipsoft Technologies,Patna,Bihar,Software Company,Digital Transformation / Enterprise Cloud Solutions,https://flipsofttechnologies.com,https://flipsofttechnologies.com/careers/
+Givni Private Limited,Patna,Bihar,Tech Startup,Full-Stack Web Dev / Mobile App Solutions / AI,https://www.givni.in,https://www.givni.in/careers/
+2PI AI Tech,Patna,Bihar,AI Startup,Advanced Computer Vision / Real-World AI Systems,https://2pi.ai,https://2pi.ai/careers/
+Brand Radiator,Patna,Bihar,Tech Scale-up,Digital Platform Systems / Performance Analytics,https://brandradiator.com,https://brandradiator.com/careers/
+Shish Technology,Patna,Bihar,IT Services,Cloud Computing / Enterprise Web Applications,https://www.shishtechnology.com,https://www.shishtechnology.com/careers/
+Yescom India Softech,Patna,Bihar,IT Services,Web Software Development / Database Management,https://www.yescomindia.com,https://www.yescomindia.com/careers/
+WebSolGuru (Farooqui InfoTech),Darbhanga,Bihar,Tech Startup,Full-Stack Web Development / Digital Portals,https://websolguru.com,https://websolguru.com/careers
+SutraCode,Darbhanga,Bihar,Software Company,School Management ERP / Custom Business Apps,https://sutracode.in,https://sutracode.in/career/
+MithilaStack,Darbhanga,Bihar,Tech Startup / Studio,Cloud Product Development / Emerging Tech Apps,https://www.mithilastack.com,https://www.mithilastack.com/careers/
+WebLap Technology,Darbhanga,Bihar,Software Company,Web Application Portals / Custom Software,https://www.011weblap.com,https://www.011weblap.com/jobs
+Parchaarzone,Darbhanga,Bihar,Tech Startup,Digital Advertising Software / Web Development,https://www.parchaarzone.com,https://www.parchaarzone.com/career

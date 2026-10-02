@@ -1,0 +1,93 @@
+Company Name,City,State,Company Type,Primary Tech Domain,Official Website,Career Page URL
+Tata Consultancy Services,Mumbai,Maharashtra,Enterprise IT / MNC,Cloud Engineering / Core Banking / Cognitive Systems,https://www.tcs.com,https://www.tcs.com/careers
+Jio Platforms,Mumbai,Maharashtra,Digital Conglomerate,5G Core / Cloud Infrastructure / Consumer Internet,https://www.jio.com,https://careers.jio.com/
+Fractal Analytics,Mumbai,Maharashtra,AI Enterprise / Product,Artificial Intelligence / Decision Systems / Analytics,https://fractal.ai,https://fractal.ai/careers/
+BrowserStack,Mumbai,Maharashtra,Product Unicorn,Cloud Testing Infrastructure / Developer Tooling,https://www.browserstack.com,https://www.browserstack.com/careers
+CleverTap,Mumbai,Maharashtra,SaaS Scale-up,Customer Engagement AI / Retention Cloud / MarTech,https://clevertap.com,https://clevertap.com/careers/
+Dream11 (Dream Sports),Mumbai,Maharashtra,Gaming Unicorn,High-Throughput Distributed Systems / Mobile Apps,https://dreamsports.group,https://dreamsports.group/careers/
+BillDesk,Mumbai,Maharashtra,FinTech Enterprise,Payment Gateway Infrastructure / Transaction Processing,https://www.billdesk.com,https://www.billdesk.com/careers
+LTIMindtree,Mumbai,Maharashtra,Enterprise IT / Public,Digital Transformation / Cloud Integration / Data,https://www.ltimindtree.com,https://www.ltimindtree.com/careers/
+BookMyShow,Mumbai,Maharashtra,Consumer Tech Public,High-Concurrency Ticketing / Cloud Architecture,https://in.bookmyshow.com,https://in.bookmyshow.com/careers
+Gupshup,Mumbai,Maharashtra,Enterprise Messaging Unicorn,Conversational AI / Messaging APIs / Bot Platforms,https://www.gupshup.io,https://www.gupshup.io/careers
+Reliance Jio Infocomm,Navi Mumbai,Maharashtra,Telecom & Tech MNC,Cloud Computing / Distributed Network Architecture,https://www.jio.com,https://careers.jio.com/
+Aurionpro Solutions,Navi Mumbai,Maharashtra,Public Tech Company,Banking Software / Transit Ticketing / Enterprise Cloud,https://www.aurionpro.com,https://www.aurionpro.com/careers/
+Majesco India,Navi Mumbai,Maharashtra,InsurTech Enterprise,Cloud Insurance Software / Core Digital Platforms,https://www.majesco.com,https://www.majesco.com/careers/
+QualityKiosk Technologies,Navi Mumbai,Maharashtra,QA Enterprise,Digital Quality Engineering / Performance Cloud,https://www.qualitykiosk.com,https://www.qualitykiosk.com/careers
+L&T Infotech (Mahape),Navi Mumbai,Maharashtra,Enterprise IT / MNC,Enterprise Cloud Solutions / Industrial Modernization,https://www.ltimindtree.com,https://www.ltimindtree.com/careers/
+3i Infotech,Navi Mumbai,Maharashtra,Public Tech Company,Enterprise IT / Edge Computing / Core Banking Apps,https://www.3i-infotech.com,https://www.3i-infotech.com/careers/
+Hexaware Technologies,Navi Mumbai,Maharashtra,Enterprise IT / MNC,Cloud Services / Automated IT Operations / AI,https://hexaware.com,https://jobs.hexaware.com/
+Tata Consultancy Services (Olympus),Thane,Maharashtra,Enterprise IT / MNC,BFSI Transformation / Cloud Platforms / Cyber Security,https://www.tcs.com,https://www.tcs.com/careers
+Tech Mahindra,Thane,Maharashtra,Enterprise IT / MNC,Telecom Networks / Enterprise Digital Transformation,https://www.techmahindra.com,https://careers.techmahindra.com/
+Datamatics Global Services,Thane,Maharashtra,Public Tech Company,Intelligent Automation / RPA / Data Management,https://www.datamatics.com,https://www.datamatics.com/careers
+Clover Infotech,Thane,Maharashtra,IT Enterprise,Oracle Cloud Services / Database Managed Support,https://www.cloverinfotech.com,https://www.cloverinfotech.com/careers/
+Ugam Solutions,Thane,Maharashtra,Analytics Enterprise,Data Engineering / Retail Analytics / AI Platforms,https://www.ugamsolutions.com,https://www.ugamsolutions.com/careers
+Infosys Limited,Pune,Maharashtra,Enterprise IT / MNC,Cloud Modernization / Enterprise AI / Digital Platforms,https://www.infosys.com,https://www.infosys.com/careers/
+Wipro Technologies,Pune,Maharashtra,Enterprise IT / MNC,Cloud Solutions / Cyber Security / Enterprise Apps,https://www.wipro.com,https://careers.wipro.com/
+Cognizant Technology Solutions,Pune,Maharashtra,Enterprise IT / MNC,Digital Engineering / Cloud Infrastructure,https://www.cognizant.com,https://careers.cognizant.com/
+Persistent Systems,Pune,Maharashtra,Public IT / Enterprise,Digital Product Engineering / Cloud Modernization / Data,https://www.persistent.com,https://www.persistent.com/careers/
+Cybage Software,Pune,Maharashtra,Product Engineering,Supply Chain SaaS / MarTech / Cloud Modernization,https://www.cybage.com,https://www.cybage.com/careers
+Druva,Pune,Maharashtra,SaaS Unicorn,Cloud Data Protection / SaaS Governance / AWS Storage,https://www.druva.com,https://www.druva.com/about/careers/
+Icertis,Pune,Maharashtra,Enterprise SaaS Unicorn,Contract Lifecycle Management AI / Cloud Platforms,https://www.icertis.com,https://www.icertis.com/careers/
+Quick Heal Technologies,Pune,Maharashtra,Public CyberTech,Cybersecurity / Endpoint Security / Threat Intelligence,https://www.quickheal.co.in,https://www.quickheal.co.in/careers
+KPIT Technologies,Pune,Maharashtra,Automotive Tech MNC,Autonomous Driving Software / EV Powertrain Embedded,https://www.kpit.com,https://www.kpit.com/careers/
+PubMatic,Pune,Maharashtra,AdTech Public MNC,Programmatic Ad Infrastructure / Real-Time Bidding APIs,https://pubmatic.com,https://pubmatic.com/careers/
+Veritas Technologies,Pune,Maharashtra,Enterprise Software MNC,Multi-Cloud Data Management / Storage Resilience,https://www.veritas.com,https://www.veritas.com/company/careers
+Tata Elxsi,Pune,Maharashtra,Product Engineering / MNC,Connected Vehicle Tech / Digital Broadcast Platforms,https://www.tataelxsi.com,https://www.tataelxsi.com/careers
+Novatech Software,Nagpur,Maharashtra,Export Software Unit,Custom Software Development / Enterprise Web Systems,https://www.novatechsoftware.com,https://www.novatechsoftware.com/careers/
+Infocepts,Nagpur,Maharashtra,Data Solutions MNC,Data Engineering / Business Intelligence / Analytics,https://www.infocepts.com,https://www.infocepts.com/careers/
+Persistent Systems (MIHAN),Nagpur,Maharashtra,Enterprise IT / MNC,Product Engineering / Healthcare IT / Cloud,https://www.persistent.com,https://www.persistent.com/careers/
+Tata Consultancy Services (MIHAN),Nagpur,Maharashtra,Enterprise IT / MNC,Digital Transformation / Cloud Systems / Banking Tech,https://www.tcs.com,https://www.tcs.com/careers
+Tech Mahindra (MIHAN),Nagpur,Maharashtra,Enterprise IT / MNC,Enterprise Infrastructure / Telecom Systems / Cloud,https://www.techmahindra.com,https://careers.techmahindra.com/
+HCLTech (MIHAN),Nagpur,Maharashtra,Enterprise IT / MNC,Digital Engineering / Cloud Infrastructure / IT Support,https://www.hcltech.com,https://www.hcltech.com/careers
+Edugenius Softwares,Nagpur,Maharashtra,Software Company,Education Tech Platforms / Web Applications,https://edugeniussoftwares.com,https://edugeniussoftwares.com/career/
+ESDS Software Solution,Nashik,Maharashtra,Cloud Enterprise,Managed Cloud Hosting / Patented Autonomous Cloud,https://www.esds.co.in,https://www.esds.co.in/careers
+Winjit Technologies,Nashik,Maharashtra,Software Enterprise,Industrial IoT / Edge Analytics / Artificial Intelligence,https://www.winjit.com,https://www.winjit.com/careers/
+Datacomp Web Technologies,Nashik,Maharashtra,Software Enterprise,Financial Computing Software / Insurance Portals,https://datacompwebtech.com,https://datacompwebtech.com/careers/
+Netwin Infosolutions,Nashik,Maharashtra,Software Company,Banking IT Solutions / Payment Systems / Custom Apps,https://www.netwinindia.com,https://www.netwinindia.com/careers.html
+NP IT Solutions,Nashik,Maharashtra,Software Company,Custom Web Development / Enterprise Portals,https://npitsolutions.in,https://npitsolutions.in/career.php
+SDLC Corp,Aurangabad,Maharashtra,Software Company,Blockchain Development / Mobile Apps / Custom Software,https://sdlccorp.com,https://sdlccorp.com/careers/
+Iqra Technology,Aurangabad,Maharashtra,IT Services,Salesforce Consulting / CRM Architecture / Web Dev,https://iqratechnology.com,https://iqratechnology.com/career/
+Qualsoft,Aurangabad,Maharashtra,Software Company,Enterprise ERP / Industrial Automation Software,https://www.qualsoft.net,https://www.qualsoft.net/careers/
+Redbytes Software,Aurangabad,Maharashtra,Software Company,Mobile Application Architecture / IoT Systems,https://www.redbytes.in,https://www.redbytes.in/careers/
+Websar IT Solutions,Aurangabad,Maharashtra,Tech Startup,Custom Web Engineering / Digital Solutions,https://websar.in,https://websar.in/careers/
+TechHomage,Aurangabad,Maharashtra,Software Company,Enterprise Web Development / Mobility Solutions,https://techhomage.com,https://techhomage.com/careers/
+Moksha Solutions,Aurangabad,Maharashtra,Software Company,Enterprise Software Architecture / Custom Web Dev,https://mokshasolutions.com,https://mokshasolutions.com/careers/
+Yash Technologies,Indore,Madhya Pradesh,IT Enterprise MNC,SAP Implementations / Cloud Consulting / Enterprise AI,https://www.yash.com,https://www.yash.com/about-us/career/
+Impetus Technologies,Indore,Madhya Pradesh,Product & Big Data,Big Data Analytics / Cloud Transformation Platforms,https://www.impetus.com,https://www.impetus.com/careers/
+Tata Consultancy Services,Indore,Madhya Pradesh,Enterprise IT / MNC,Cognitive Business Systems / Enterprise Cloud / Cyber,https://www.tcs.com,https://www.tcs.com/careers
+Infosys Limited,Indore,Madhya Pradesh,Enterprise IT / MNC,Digital Core Banking / Cloud Modernization Platforms,https://www.infosys.com,https://www.infosys.com/careers/
+Cyber Infrastructure (CIS),Indore,Madhya Pradesh,Software Enterprise,Custom Software Engineering / Cloud / Mobile Solutions,https://www.cisin.com,https://www.cisin.com/career.filters.html
+Walkover Technologies,Indore,Madhya Pradesh,Product Startup,Messaging APIs / Cloud Communications / SaaS Portals,https://walkover.in,https://walkover.in/career/
+EngineerBabu,Indore,Madhya Pradesh,Tech Scale-up,Digital Product Engineering / MVP Development / Mobile,https://engineerbabu.com,https://engineerbabu.com/careers/
+Systematix Infotech,Indore,Madhya Pradesh,Software Enterprise,Enterprise Mobility / Custom Cloud Software / CMS,https://www.systematixinfotech.com,https://www.systematixinfotech.com/careers/
+Consultadd,Indore,Madhya Pradesh,IT Consulting / Cloud,AWS Architecture / Data Engineering / DevOps,https://consultadd.com,https://consultadd.com/careers/
+Diaspark (Apexon),Indore,Madhya Pradesh,Digital Engineering,Healthcare Analytics / Custom Digital Engineering,https://www.apexon.com,https://www.apexon.com/careers/
+Netlink Software Group,Bhopal,Madhya Pradesh,IT Enterprise / MNC,Low-Code Platforms / Enterprise Systems / Cloud DevOps,https://www.netlink.com,https://www.netlink.com/careers/
+Appointy,Bhopal,Madhya Pradesh,SaaS Scale-up,Scheduling SaaS Infrastructure / API Architecture,https://www.appointy.com,https://www.appointy.com/careers/
+DigiValet,Bhopal,Madhya Pradesh,Product Tech Enterprise,Hospitality IoT Software / In-Room Automation Platforms,https://www.digivalet.com,https://www.digivalet.com/careers/
+I-Conic Solutions,Bhopal,Madhya Pradesh,Tech Startup,Full-Stack Web Development / Mobile Application Dev,https://iconicsolutions.in,https://iconicsolutions.in/careers/
+Wenable Technologies,Bhopal,Madhya Pradesh,Software Company,IoT Platforms / Firmware Engineering / Enterprise Apps,https://wenable.com,https://wenable.com/careers/
+Netcomm Labs,Bhopal,Madhya Pradesh,Software Company,Enterprise HRMS / Intranet Portals / Custom Web,https://www.netcommlabs.com,https://www.netcommlabs.com/careers/
+Onisol Systems,Gwalior,Madhya Pradesh,Software Company,Custom Software Development / Full-Stack Web / Mobile,https://onisolsystems.com,https://onisolsystems.com/careers/
+Sachiva Web & Security,Gwalior,Madhya Pradesh,Tech Startup,Cybersecurity Auditing / Laravel Web Apps / Cloud,https://sachiva.in,https://sachiva.in/career/
+Aalekh.ai,Gwalior,Madhya Pradesh,Tech Startup,Accounting Automation SaaS / GST Portals / Cloud Systems,https://aalekh.ai,https://aalekh.ai/careers/
+Gwalior Softwares,Gwalior,Madhya Pradesh,Software Company,Custom Business Software / Web Application Solutions,https://gwaliorsoftwares.com,https://gwaliorsoftwares.com/careers/
+IT Chimes,Gwalior,Madhya Pradesh,IT Services,Web Application Engineering / Mobile App Platforms,https://www.itchimes.com,https://www.itchimes.com/careers/
+WebMoc Technologies,Gwalior,Madhya Pradesh,Tech Startup,Custom Web Development / UI-UX Platform Engineering,https://webmoc.com,https://webmoc.com/careers/
+Kreyon Systems,Jabalpur,Madhya Pradesh,Software Company,Custom Enterprise ERP / Cloud Software / UI-UX,https://www.kreyonsystems.com,https://www.kreyonsystems.com/VacanciesList.aspx
+Rudocode,Jabalpur,Madhya Pradesh,Tech Startup,Full-Stack Web Dev / Mobile Architectures / Custom Apps,https://rudocode.com,https://rudocode.com/careers
+Cognic Systems,Jabalpur,Madhya Pradesh,Software Company,Enterprise Web Applications / Offshore Development,https://cognicsys.com,https://cognicsys.com/careers/
+Provanic,Jabalpur,Madhya Pradesh,Tech Startup,Laravel Web Development / Backend Architecture,https://provanic.com,https://provanic.com/careers/
+Shlok Information Systems,Jabalpur,Madhya Pradesh,Software Company,Custom Software / Enterprise Application Development,https://shlok.com,https://shlok.com/careers/
+Technorizen Software Solutions,Jabalpur,Madhya Pradesh,Software Company,Mobile Application Architecture / Web Development,https://technorizen.com,https://technorizen.com/careers/
+ByteFlow Technologies,Ujjain,Madhya Pradesh,Software Company,Custom Software / GovTech / Police Systems / Cloud ERP,https://byteflowtech.in,https://byteflowtech.in/services/it-consulting/ujjain/
+Rainbow Solution & Technology,Ujjain,Madhya Pradesh,Software Company,Custom Web Development / Mobile Apps / Digital Cards,https://storeindya.uk,https://storeindya.uk/About_Us
+Granth Infotech,Ujjain,Madhya Pradesh,Software Company,Web Applications / Custom Portals / Mobile Development,https://granthinfotech.com,https://granthinfotech.com/careers/
+GoGetterGeeks InfoTech,Ujjain,Madhya Pradesh,Tech Startup,Full-Stack Web Apps / Agile Development Services,https://gogettergeeks.com,https://gogettergeeks.com/careers/
+Eway IT Solutions,Ujjain,Madhya Pradesh,Software Company,Offshore Web Frameworks / PHP Laravel / CMS Portals,https://ewayitsolutions.com,https://ewayitsolutions.com/careers/
+Netspace Software Solutions,Ujjain,Madhya Pradesh,Software Company,Website Engineering / Mobile Apps / IT Solutions,https://netspacesoftware.com,https://netspacesoftware.com/careers/
+Rewa Cyber Resolutions,Rewa,Madhya Pradesh,Software Company,Desktop & Web ERP / School Management / Android Apps,https://www.rewacyber.com,https://www.rewacyber.com/about
+Vindhya Group of Technologies,Rewa,Madhya Pradesh,Software Company,Web Development / Custom Software / IT Consulting,https://vindhyagroup.org,https://vindhyagroup.org/About_us.aspx
+ITWorldHub,Rewa,Madhya Pradesh,Software Company,Web Platforms / Educational Portals / CRM Architecture,http://www.itworldhub.com,http://www.itworldhub.com/locations/rewa-web-development-company
+Nature Softwares,Rewa,Madhya Pradesh,Tech Startup,Custom Web Applications / SEO Engines / Portal Dev,https://www.naturesoftwares.com,https://www.naturesoftwares.com/contact-us/
+Maverick Console Services,Rewa,Madhya Pradesh,Software Company,Cross-Border Software / SaaS Products / Cloud ERP,https://maverickconsole.com,https://maverickconsole.com/software-company-in-rewa

@@ -5,42 +5,37 @@ async function run() {
   const total = await sql`SELECT count(*) FROM jobs`;
   console.log('TOTAL JOBS IN DATABASE:', total[0].count);
 
-  const cities = [
-    'Chandigarh',
-    'Mohali',
-    'Gurugram',
-    'Sonipat',
-    'Panchkula',
-    'Ludhiana',
-    'Jalandhar',
-    'Noida',
-    'New Delhi',
-    'Dehradun',
-    'Solan',
-    'Kangra',
-    'Shimla',
-  ];
+  const regionalGroups = {
+    'File 1 - Punjab & Haryana': ['Chandigarh', 'Mohali', 'Gurugram', 'Sonipat', 'Panchkula', 'Ludhiana', 'Jalandhar'],
+    'File 2 - Uttarakhand, Himachal, Delhi': ['Noida', 'New Delhi', 'Dehradun', 'Solan', 'Kangra', 'Shimla'],
+    'File 3 - Gujarat & Rajasthan': ['Ahmedabad', 'Gandhinagar', 'Surat', 'Vadodara', 'Rajkot', 'Jaipur', 'Jodhpur', 'Kota', 'Udaipur'],
+    'File 4 - Uttar Pradesh & Bihar': ['Greater Noida', 'Lucknow', 'Kanpur', 'Varanasi', 'Prayagraj', 'Meerut', 'Patna', 'Darbhanga'],
+    'File 5 - Madhya Pradesh & Maharashtra': ['Indore', 'Bhopal', 'Gwalior', 'Jabalpur', 'Ujjain', 'Rewa', 'Pune', 'Mumbai', 'Navi Mumbai', 'Thane', 'Nagpur', 'Nashik', 'Aurangabad'],
+  };
 
-  console.log('\n--- VERIFIED TECH JOBS BY CITY ---');
-  for (const c of cities) {
-    const pattern = '%' + c + '%';
-    const r = await sql`SELECT count(*) FROM jobs WHERE location ILIKE ${pattern}`;
-    console.log(`${c.padEnd(15)} : ${r[0].count} jobs`);
+  console.log('\n--- VERIFIED TECH JOBS BY CITY & REGION ---');
+  let allFound = 0;
+  for (const [groupName, cities] of Object.entries(regionalGroups)) {
+    console.log(`\n▶ ${groupName}:`);
+    for (const c of cities) {
+      let r;
+      if (c === 'Noida') {
+        r = await sql`SELECT count(*) FROM jobs WHERE location ILIKE '%Noida%' AND location NOT ILIKE '%Greater Noida%'`;
+      } else if (c === 'Mumbai') {
+        r = await sql`SELECT count(*) FROM jobs WHERE location ILIKE '%Mumbai%' AND location NOT ILIKE '%Navi Mumbai%'`;
+      } else {
+        const pattern = '%' + c + '%';
+        r = await sql`SELECT count(*) FROM jobs WHERE location ILIKE ${pattern}`;
+      }
+      const count = Number(r[0].count);
+      allFound += count;
+      console.log(`  ${c.padEnd(18)} : ${count} jobs`);
+    }
   }
-  const delhiJobs = await sql`SELECT count(*) FROM jobs WHERE location ILIKE '%Delhi%'`;
-  console.log(`${'Delhi (all)'.padEnd(15)} : ${delhiJobs[0].count} jobs`);
-  const sampleDelhi = await sql`SELECT id, title, location FROM jobs WHERE location ILIKE '%Delhi%' LIMIT 3`;
-  console.table(sampleDelhi);
 
-  const regional = await sql`
-    SELECT count(*) FROM jobs 
-    WHERE location ILIKE '%Punjab%'
-       OR location ILIKE '%Haryana%'
-       OR location ILIKE '%Himachal%'
-       OR location ILIKE '%Uttarakhand%'
-       OR location ILIKE '%Delhi%'
-  `;
-  console.log('\nTOTAL NORTH INDIA REGIONAL JOBS:', regional[0].count);
+  const verified = await sql`SELECT count(*) FROM jobs WHERE "isVerified" = true`;
+  console.log('\nTOTAL VERIFIED JOBS:', verified[0].count);
+  console.log('TOTAL REGIONAL AUDITED JOBS:', allFound);
 
   await sql.end();
 }

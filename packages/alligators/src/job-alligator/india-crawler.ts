@@ -369,10 +369,13 @@ export function normalizeIndiaLocation(locRaw?: string): {
 
   // Indian Cities & Regional Hubs
   if (lower.includes("bengaluru") || lower.includes("bangalore")) {
-    normLoc = "Bengaluru, India";
+    normLoc = "Bengaluru, Karnataka, India";
     isIndia = true;
   } else if (lower.includes("gurgaon") || lower.includes("gurugram")) {
     normLoc = "Gurugram, Haryana, India";
+    isIndia = true;
+  } else if (lower.includes("greater noida")) {
+    normLoc = "Greater Noida, Uttar Pradesh, India";
     isIndia = true;
   } else if (lower.includes("noida")) {
     normLoc = "Noida, Uttar Pradesh, India";
@@ -392,35 +395,122 @@ export function normalizeIndiaLocation(locRaw?: string): {
   } else if (lower.includes("chandigarh")) {
     normLoc = "Chandigarh, India";
     isIndia = true;
-  } else if (lower.includes("tricity")) {
-    normLoc = "Chandigarh / Tricity, India";
+  } else if (lower.includes("sonipat") || lower.includes("sonepat")) {
+    normLoc = "Sonipat, Haryana, India";
+    isIndia = true;
+  } else if (lower.includes("ludhiana")) {
+    normLoc = "Ludhiana, Punjab, India";
+    isIndia = true;
+  } else if (lower.includes("jalandhar")) {
+    normLoc = "Jalandhar, Punjab, India";
     isIndia = true;
   } else if (lower.includes("dehradun")) {
     normLoc = "Dehradun, Uttarakhand, India";
     isIndia = true;
-  } else if (lower.includes("hyderabad") || lower.includes("secunderabad")) {
-    normLoc = "Hyderabad, India";
+  } else if (lower.includes("solan") || lower.includes("baddi")) {
+    normLoc = "Solan, Himachal Pradesh, India";
     isIndia = true;
-  } else if (lower.includes("pune")) {
-    normLoc = "Pune, India";
+  } else if (lower.includes("kangra") || lower.includes("dharamshala") || lower.includes("dharamsala")) {
+    normLoc = "Kangra, Himachal Pradesh, India";
     isIndia = true;
-  } else if (lower.includes("mumbai") || lower.includes("navi mumbai") || lower.includes("thane")) {
-    normLoc = "Mumbai, India";
+  } else if (lower.includes("shimla")) {
+    normLoc = "Shimla, Himachal Pradesh, India";
     isIndia = true;
-  } else if (lower.includes("chennai") || lower.includes("madras")) {
-    normLoc = "Chennai, India";
+  } else if (lower.includes("gandhinagar")) {
+    normLoc = "Gandhinagar, Gujarat, India";
     isIndia = true;
-  } else if (lower.includes("ahmedabad") || lower.includes("gandhinagar")) {
-    normLoc = "Ahmedabad, India";
+  } else if (lower.includes("ahmedabad")) {
+    normLoc = "Ahmedabad, Gujarat, India";
     isIndia = true;
-  } else if (lower.includes("kolkata") || lower.includes("calcutta")) {
-    normLoc = "Kolkata, India";
+  } else if (lower.includes("surat")) {
+    normLoc = "Surat, Gujarat, India";
+    isIndia = true;
+  } else if (lower.includes("vadodara") || lower.includes("baroda")) {
+    normLoc = "Vadodara, Gujarat, India";
+    isIndia = true;
+  } else if (lower.includes("rajkot")) {
+    normLoc = "Rajkot, Gujarat, India";
+    isIndia = true;
+  } else if (lower.includes("jodhpur")) {
+    normLoc = "Jodhpur, Rajasthan, India";
+    isIndia = true;
+  } else if (lower.includes("kota")) {
+    normLoc = "Kota, Rajasthan, India";
+    isIndia = true;
+  } else if (lower.includes("udaipur")) {
+    normLoc = "Udaipur, Rajasthan, India";
     isIndia = true;
   } else if (lower.includes("jaipur")) {
-    normLoc = "Jaipur, India";
+    normLoc = "Jaipur, Rajasthan, India";
+    isIndia = true;
+  } else if (lower.includes("lucknow")) {
+    normLoc = "Lucknow, Uttar Pradesh, India";
+    isIndia = true;
+  } else if (lower.includes("kanpur")) {
+    normLoc = "Kanpur, Uttar Pradesh, India";
+    isIndia = true;
+  } else if (lower.includes("varanasi") || lower.includes("banaras") || lower.includes("kashi")) {
+    normLoc = "Varanasi, Uttar Pradesh, India";
+    isIndia = true;
+  } else if (lower.includes("prayagraj") || lower.includes("allahabad")) {
+    normLoc = "Prayagraj, Uttar Pradesh, India";
+    isIndia = true;
+  } else if (lower.includes("meerut")) {
+    normLoc = "Meerut, Uttar Pradesh, India";
+    isIndia = true;
+  } else if (lower.includes("patna")) {
+    normLoc = "Patna, Bihar, India";
+    isIndia = true;
+  } else if (lower.includes("darbhanga")) {
+    normLoc = "Darbhanga, Bihar, India";
+    isIndia = true;
+  } else if (lower.includes("navi mumbai")) {
+    normLoc = "Navi Mumbai, Maharashtra, India";
+    isIndia = true;
+  } else if (lower.includes("thane")) {
+    normLoc = "Thane, Maharashtra, India";
+    isIndia = true;
+  } else if (lower.includes("mumbai")) {
+    normLoc = "Mumbai, Maharashtra, India";
+    isIndia = true;
+  } else if (lower.includes("pune")) {
+    normLoc = "Pune, Maharashtra, India";
+    isIndia = true;
+  } else if (lower.includes("nagpur")) {
+    normLoc = "Nagpur, Maharashtra, India";
+    isIndia = true;
+  } else if (lower.includes("nashik")) {
+    normLoc = "Nashik, Maharashtra, India";
+    isIndia = true;
+  } else if (lower.includes("aurangabad") || lower.includes("sambhajinagar")) {
+    normLoc = "Aurangabad, Maharashtra, India";
     isIndia = true;
   } else if (lower.includes("indore")) {
-    normLoc = "Indore, India";
+    normLoc = "Indore, Madhya Pradesh, India";
+    isIndia = true;
+  } else if (lower.includes("bhopal")) {
+    normLoc = "Bhopal, Madhya Pradesh, India";
+    isIndia = true;
+  } else if (lower.includes("gwalior")) {
+    normLoc = "Gwalior, Madhya Pradesh, India";
+    isIndia = true;
+  } else if (lower.includes("jabalpur")) {
+    normLoc = "Jabalpur, Madhya Pradesh, India";
+    isIndia = true;
+  } else if (lower.includes("ujjain")) {
+    normLoc = "Ujjain, Madhya Pradesh, India";
+    isIndia = true;
+  } else if (lower.includes("rewa")) {
+    normLoc = "Rewa, Madhya Pradesh, India";
+    isIndia = true;
+  } else if (lower.includes("hyderabad") || lower.includes("secunderabad")) {
+    normLoc = "Hyderabad, Telangana, India";
+    isIndia = true;
+  } else if (lower.includes("chennai") || lower.includes("madras")) {
+    normLoc = "Chennai, Tamil Nadu, India";
+    isIndia = true;
+  } else if (lower.includes("kolkata") || lower.includes("calcutta")) {
+    normLoc = "Kolkata, West Bengal, India";
     isIndia = true;
   } else if (
     lower.includes("kochi") ||
@@ -431,44 +521,17 @@ export function normalizeIndiaLocation(locRaw?: string): {
   ) {
     normLoc = "Kochi / Kerala, India";
     isIndia = true;
-  } else if (lower.includes("lucknow")) {
-    normLoc = "Lucknow, India";
-    isIndia = true;
-  } else if (lower.includes("bhopal")) {
-    normLoc = "Bhopal, India";
-    isIndia = true;
   } else if (lower.includes("bhubaneswar")) {
-    normLoc = "Bhubaneswar, India";
+    normLoc = "Bhubaneswar, Odisha, India";
     isIndia = true;
   } else if (lower.includes("coimbatore")) {
-    normLoc = "Coimbatore, India";
-    isIndia = true;
-  } else if (lower.includes("nagpur")) {
-    normLoc = "Nagpur, India";
+    normLoc = "Coimbatore, Tamil Nadu, India";
     isIndia = true;
   } else if (lower.includes("mysore") || lower.includes("mysuru")) {
-    normLoc = "Mysuru, India";
+    normLoc = "Mysuru, Karnataka, India";
     isIndia = true;
   } else if (lower.includes("visakhapatnam") || lower.includes("vizag")) {
-    normLoc = "Visakhapatnam, India";
-    isIndia = true;
-  } else if (lower.includes("sonipat") || lower.includes("sonepat")) {
-    normLoc = "Sonipat, Haryana, India";
-    isIndia = true;
-  } else if (lower.includes("ludhiana")) {
-    normLoc = "Ludhiana, Punjab, India";
-    isIndia = true;
-  } else if (lower.includes("jalandhar")) {
-    normLoc = "Jalandhar, Punjab, India";
-    isIndia = true;
-  } else if (lower.includes("solan") || lower.includes("baddi")) {
-    normLoc = "Solan, Himachal Pradesh, India";
-    isIndia = true;
-  } else if (lower.includes("kangra") || lower.includes("dharamshala") || lower.includes("dharamsala")) {
-    normLoc = "Kangra, Himachal Pradesh, India";
-    isIndia = true;
-  } else if (lower.includes("shimla")) {
-    normLoc = "Shimla, Himachal Pradesh, India";
+    normLoc = "Visakhapatnam, Andhra Pradesh, India";
     isIndia = true;
   } else if (lower.includes("himachal")) {
     normLoc = "Himachal Pradesh, India";
@@ -482,8 +545,20 @@ export function normalizeIndiaLocation(locRaw?: string): {
   } else if (lower.includes("haryana")) {
     normLoc = "Haryana, India";
     isIndia = true;
-  } else if (lower.includes("surat")) {
-    normLoc = "Surat, Gujarat, India";
+  } else if (lower.includes("gujarat")) {
+    normLoc = "Gujarat, India";
+    isIndia = true;
+  } else if (lower.includes("rajasthan")) {
+    normLoc = "Rajasthan, India";
+    isIndia = true;
+  } else if (lower.includes("bihar")) {
+    normLoc = "Bihar, India";
+    isIndia = true;
+  } else if (lower.includes("maharashtra")) {
+    normLoc = "Maharashtra, India";
+    isIndia = true;
+  } else if (lower.includes("madhya pradesh")) {
+    normLoc = "Madhya Pradesh, India";
     isIndia = true;
   } else if (lower.includes("india")) {
     normLoc = isRemote ? "Remote, India" : "India";
@@ -516,14 +591,14 @@ export const VERIFIED_REGIONAL_TECH_JOBS: RawCrawledJob[] = [
     title: "Senior Full Stack React & Node Engineer",
     companyName: "Net Solutions",
     companyWebsite: "https://www.netsolutions.com",
-    location: "Chandigarh / Tricity, India",
+    location: "Chandigarh, India",
     workMode: WorkMode.HYBRID,
     jobType: JobType.FULL_TIME,
     salaryOrStipend: "₹10,00,000 - ₹18,00,000 / year (Official)",
     experienceYears: 3,
     source: "EXTERNAL" as any,
     sourceUrl: "https://www.netsolutions.com/careers",
-    externalId: "tricity-netsol-fullstack-01",
+    externalId: "chd-netsol-fullstack-01",
     description: "Verified position at Net Solutions (Rajiv Gandhi Chandigarh Technology Park). Design and engineer scalable web applications with React, Next.js, Node.js, and TypeScript. Direct application on the official Net Solutions careers portal.",
     rawRequirements: "Proficiency in React.js, TypeScript, RESTful/GraphQL APIs, Node.js microservices, Docker, and AWS cloud deployment.",
     skills: ["React", "TypeScript", "Node.js", "AWS", "PostgreSQL"],
@@ -535,14 +610,14 @@ export const VERIFIED_REGIONAL_TECH_JOBS: RawCrawledJob[] = [
     title: "QA Automation Engineer (Selenium & Cypress)",
     companyName: "Net Solutions",
     companyWebsite: "https://www.netsolutions.com",
-    location: "Chandigarh / Tricity, India",
+    location: "Chandigarh, India",
     workMode: WorkMode.HYBRID,
     jobType: JobType.FULL_TIME,
     salaryOrStipend: "₹6,50,000 - ₹12,00,000 / year (Official)",
     experienceYears: 2,
     source: "EXTERNAL" as any,
     sourceUrl: "https://www.netsolutions.com/careers",
-    externalId: "tricity-netsol-qa-02",
+    externalId: "chd-netsol-qa-02",
     description: "Verified test automation position at Net Solutions (Chandigarh IT Park). Build automated E2E testing suites, API test suites, and CI/CD quality pipelines.",
     rawRequirements: "Hands-on experience with Cypress, Selenium WebDriver, TypeScript/JavaScript, Jest, and CI/CD test integration.",
     skills: ["Automation Testing", "Cypress", "Selenium", "TypeScript", "CI/CD"],
@@ -561,7 +636,7 @@ export const VERIFIED_REGIONAL_TECH_JOBS: RawCrawledJob[] = [
     experienceYears: 2,
     source: "EXTERNAL" as any,
     sourceUrl: "https://www.grazitti.com/company/careers/",
-    externalId: "tricity-grazitti-python-01",
+    externalId: "pkl-grazitti-python-01",
     description: "Verified backend engineering opening at Grazitti Interactive (Panchkula, Haryana). Develop AI-augmented data analytics backends, FastAPI microservices, and enterprise integrations.",
     rawRequirements: "Strong Python programming, Django/FastAPI, PostgreSQL, Redis, REST APIs, and familiarity with LLM orchestration.",
     skills: ["Python", "FastAPI", "PostgreSQL", "Docker", "Machine Learning"],
@@ -580,7 +655,7 @@ export const VERIFIED_REGIONAL_TECH_JOBS: RawCrawledJob[] = [
     experienceYears: 3,
     source: "EXTERNAL" as any,
     sourceUrl: "https://www.grazitti.com/company/careers/",
-    externalId: "tricity-grazitti-devops-02",
+    externalId: "pkl-grazitti-devops-02",
     description: "Verified DevOps role at Grazitti Interactive (Panchkula, Haryana). Manage Kubernetes clusters, automated Terraform infrastructure, and high-availability enterprise cloud systems.",
     rawRequirements: "Deep knowledge of AWS/GCP, Kubernetes, Terraform, GitHub Actions, Linux administration, and network security.",
     skills: ["AWS", "Kubernetes", "Docker", "Terraform", "CI/CD"],
@@ -592,15 +667,15 @@ export const VERIFIED_REGIONAL_TECH_JOBS: RawCrawledJob[] = [
     title: "Flutter & Mobile Software Engineer",
     companyName: "ChicMic",
     companyWebsite: "https://chicmic.in",
-    location: "Chandigarh / Tricity, India",
+    location: "Mohali, Punjab, India",
     workMode: WorkMode.ON_SITE,
     jobType: JobType.FULL_TIME,
     salaryOrStipend: "₹6,00,000 - ₹12,00,000 / year (Official)",
     experienceYears: 1,
     source: "EXTERNAL" as any,
     sourceUrl: "https://chicmic.in/careers/",
-    externalId: "tricity-chicmic-flutter-01",
-    description: "Verified mobile engineering position at ChicMic (QuarkCity / Mohali). Develop cross-platform mobile applications for iOS and Android with Flutter and Dart.",
+    externalId: "mohali-chicmic-flutter-01",
+    description: "Verified mobile engineering position at ChicMic (Mohali, Punjab). Develop cross-platform mobile applications for iOS and Android with Flutter and Dart.",
     rawRequirements: "Experience in Flutter, Dart, state management (Bloc/Provider), mobile UI/UX, and native platform integrations.",
     skills: ["Flutter", "Dart", "Android", "iOS", "REST APIs"],
     isGhostRisk: false,
@@ -611,15 +686,15 @@ export const VERIFIED_REGIONAL_TECH_JOBS: RawCrawledJob[] = [
     title: "Unity 3D Game Developer",
     companyName: "ChicMic",
     companyWebsite: "https://chicmic.in",
-    location: "Chandigarh / Tricity, India",
+    location: "Mohali, Punjab, India",
     workMode: WorkMode.ON_SITE,
     jobType: JobType.FULL_TIME,
     salaryOrStipend: "₹5,50,000 - ₹11,00,000 / year (Official)",
     experienceYears: 1,
     source: "EXTERNAL" as any,
     sourceUrl: "https://chicmic.in/careers/",
-    externalId: "tricity-chicmic-unity-02",
-    description: "Verified game development position at ChicMic (Mohali). Build interactive 3D game engines, physics, animations, and multiplayer experiences in Unity.",
+    externalId: "mohali-chicmic-unity-02",
+    description: "Verified game development position at ChicMic (Mohali, Punjab). Build interactive 3D game engines, physics, animations, and multiplayer experiences in Unity.",
     rawRequirements: "Strong C# fundamentals, Unity 3D engine, game physics, multiplayer networking, and performance optimization.",
     skills: ["Unity", "C#", "Game Development", "Git", "3D Mathematics"],
     isGhostRisk: false,
@@ -630,14 +705,14 @@ export const VERIFIED_REGIONAL_TECH_JOBS: RawCrawledJob[] = [
     title: "Backend Software Engineer (Node.js & Microservices)",
     companyName: "Code Brew Labs",
     companyWebsite: "https://www.code-brew.com",
-    location: "Chandigarh / Tricity, India",
+    location: "Chandigarh, India",
     workMode: WorkMode.ON_SITE,
     jobType: JobType.FULL_TIME,
     salaryOrStipend: "₹6,00,000 - ₹13,00,000 / year (Official)",
     experienceYears: 2,
     source: "EXTERNAL" as any,
     sourceUrl: "https://www.code-brew.com/career/",
-    externalId: "tricity-codebrew-backend-01",
+    externalId: "chd-codebrew-backend-01",
     description: "Verified engineering role at Code Brew Labs (Rajiv Gandhi IT Park, Chandigarh). Architect high-scale on-demand commerce platforms and real-time backend microservices.",
     rawRequirements: "Demonstrated experience with Node.js, Express, MongoDB, Redis, WebSockets, and scalable system architecture.",
     skills: ["Node.js", "Express", "MongoDB", "Redis", "TypeScript"],
@@ -649,7 +724,7 @@ export const VERIFIED_REGIONAL_TECH_JOBS: RawCrawledJob[] = [
     title: "Java Full Stack Developer (Spring Boot & Angular)",
     companyName: "Evon Technologies",
     companyWebsite: "https://www.evontech.com",
-    location: "Dehradun, India",
+    location: "Dehradun, Uttarakhand, India",
     workMode: WorkMode.ON_SITE,
     jobType: JobType.FULL_TIME,
     salaryOrStipend: "₹6,00,000 - ₹12,50,000 / year (Official)",
@@ -668,7 +743,7 @@ export const VERIFIED_REGIONAL_TECH_JOBS: RawCrawledJob[] = [
     title: "Python & Machine Learning Engineer",
     companyName: "Evon Technologies",
     companyWebsite: "https://www.evontech.com",
-    location: "Dehradun, India",
+    location: "Dehradun, Uttarakhand, India",
     workMode: WorkMode.HYBRID,
     jobType: JobType.FULL_TIME,
     salaryOrStipend: "₹7,00,000 - ₹14,00,000 / year (Official)",
@@ -687,14 +762,14 @@ export const VERIFIED_REGIONAL_TECH_JOBS: RawCrawledJob[] = [
     title: "Specialist Programmer / SDE (Cloud & Full Stack)",
     companyName: "Infosys",
     companyWebsite: "https://www.infosys.com",
-    location: "Chandigarh / Tricity, India",
+    location: "Chandigarh, India",
     workMode: WorkMode.HYBRID,
     jobType: JobType.FULL_TIME,
     salaryOrStipend: "₹9,50,000 - ₹16,00,000 / year (Official)",
     experienceYears: 2,
     source: "EXTERNAL" as any,
     sourceUrl: "https://career.infosys.com",
-    externalId: "tricity-infosys-sp-01",
+    externalId: "chd-infosys-sp-01",
     description: "Verified Specialist Programmer position at Infosys Chandigarh Development Centre (RGCTP). Build high-throughput enterprise systems with Java, Go, React, and cloud native architectures.",
     rawRequirements: "Expertise in algorithmic problem solving, Java/Golang, distributed microservices, Docker, Kubernetes, and Cloud native patterns.",
     skills: ["Java", "Golang", "Kubernetes", "AWS", "System Design"],

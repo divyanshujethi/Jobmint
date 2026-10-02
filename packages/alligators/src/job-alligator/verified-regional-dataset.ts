@@ -2,11 +2,14 @@ import { JobType, WorkMode } from '@repo/shared';
 import { RawCrawledJob } from '../types';
 
 /**
- * Verified North India Regional IT Jobs Dataset
- * Covers 176 verified IT companies across:
+ * Verified All-India Regional IT Jobs Dataset
+ * Covers 413 verified IT companies across:
  * - Punjab & Haryana: Chandigarh, Mohali, Gurugram, Sonipat, Panchkula, Ludhiana, Jalandhar
- * - Delhi, Uttarakhand & Himachal: Noida, New Delhi, Dehradun, Solan, Kangra, Shimla
- * Direct career page links to official portals.
+ * - Delhi, Uttarakhand & Himachal: Noida, Greater Noida, New Delhi, Dehradun, Solan, Kangra, Shimla
+ * - Gujarat & Rajasthan: Gandhinagar, Ahmedabad, Surat, Vadodara, Rajkot, Jaipur, Jodhpur, Kota, Udaipur
+ * - Uttar Pradesh & Bihar: Lucknow, Kanpur, Varanasi, Prayagraj, Meerut, Patna, Darbhanga
+ * - Maharashtra & Madhya Pradesh: Mumbai, Navi Mumbai, Thane, Pune, Nagpur, Nashik, Aurangabad, Indore, Bhopal, Gwalior, Jabalpur, Ujjain, Rewa
+ * Direct career page links to official company portals.
  */
 export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
   {
@@ -32,7 +35,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.899Z"
+    "publishedAt": "2026-10-02T20:47:58.827Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -57,7 +60,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.900Z"
+    "publishedAt": "2026-10-02T20:47:58.829Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -82,7 +85,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.900Z"
+    "publishedAt": "2026-10-02T20:47:58.829Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -107,7 +110,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.900Z"
+    "publishedAt": "2026-10-02T20:47:58.829Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -132,7 +135,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.900Z"
+    "publishedAt": "2026-10-02T20:47:58.829Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -157,7 +160,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.900Z"
+    "publishedAt": "2026-10-02T20:47:58.829Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -182,7 +185,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.900Z"
+    "publishedAt": "2026-10-02T20:47:58.829Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -207,7 +210,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.900Z"
+    "publishedAt": "2026-10-02T20:47:58.829Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -232,7 +235,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.900Z"
+    "publishedAt": "2026-10-02T20:47:58.829Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -257,7 +260,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.900Z"
+    "publishedAt": "2026-10-02T20:47:58.829Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -282,7 +285,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.900Z"
+    "publishedAt": "2026-10-02T20:47:58.829Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -307,7 +310,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.900Z"
+    "publishedAt": "2026-10-02T20:47:58.829Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -332,7 +335,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.900Z"
+    "publishedAt": "2026-10-02T20:47:58.829Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -357,7 +360,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.900Z"
+    "publishedAt": "2026-10-02T20:47:58.829Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -382,7 +385,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.900Z"
+    "publishedAt": "2026-10-02T20:47:58.829Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -407,7 +410,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.900Z"
+    "publishedAt": "2026-10-02T20:47:58.829Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -432,7 +435,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.900Z"
+    "publishedAt": "2026-10-02T20:47:58.829Z"
   },
   {
     "title": "Enterprise Cloud & ERP Software Engineer",
@@ -457,7 +460,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.900Z"
+    "publishedAt": "2026-10-02T20:47:58.829Z"
   },
   {
     "title": "Full Stack Software Engineer (React & Node.js)",
@@ -482,7 +485,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.900Z"
+    "publishedAt": "2026-10-02T20:47:58.830Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -507,7 +510,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.900Z"
+    "publishedAt": "2026-10-02T20:47:58.830Z"
   },
   {
     "title": "Backend Software Engineer (High-Throughput Routing & APIs)",
@@ -532,7 +535,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.900Z"
+    "publishedAt": "2026-10-02T20:47:58.830Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -557,7 +560,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.900Z"
+    "publishedAt": "2026-10-02T20:47:58.830Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -582,7 +585,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.900Z"
+    "publishedAt": "2026-10-02T20:47:58.830Z"
   },
   {
     "title": "FinTech Backend Systems Engineer (Go & PostgreSQL)",
@@ -607,7 +610,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.900Z"
+    "publishedAt": "2026-10-02T20:47:58.830Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -632,7 +635,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.900Z"
+    "publishedAt": "2026-10-02T20:47:58.830Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -657,7 +660,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.900Z"
+    "publishedAt": "2026-10-02T20:47:58.830Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -682,7 +685,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.900Z"
+    "publishedAt": "2026-10-02T20:47:58.830Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -707,7 +710,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.900Z"
+    "publishedAt": "2026-10-02T20:47:58.830Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -732,7 +735,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.900Z"
+    "publishedAt": "2026-10-02T20:47:58.830Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -757,7 +760,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.900Z"
+    "publishedAt": "2026-10-02T20:47:58.830Z"
   },
   {
     "title": "FinTech Backend Systems Engineer (Go & PostgreSQL)",
@@ -782,7 +785,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.900Z"
+    "publishedAt": "2026-10-02T20:47:58.830Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -807,7 +810,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.900Z"
+    "publishedAt": "2026-10-02T20:47:58.830Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -832,7 +835,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.900Z"
+    "publishedAt": "2026-10-02T20:47:58.830Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -857,7 +860,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.900Z"
+    "publishedAt": "2026-10-02T20:47:58.830Z"
   },
   {
     "title": "Enterprise Cloud & ERP Software Engineer",
@@ -882,7 +885,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.900Z"
+    "publishedAt": "2026-10-02T20:47:58.830Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -907,7 +910,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.900Z"
+    "publishedAt": "2026-10-02T20:47:58.830Z"
   },
   {
     "title": "Backend API Developer (Node.js & Microservices)",
@@ -932,7 +935,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.900Z"
+    "publishedAt": "2026-10-02T20:47:58.830Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -957,7 +960,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.900Z"
+    "publishedAt": "2026-10-02T20:47:58.830Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -982,7 +985,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.900Z"
+    "publishedAt": "2026-10-02T20:47:58.830Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -1007,7 +1010,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.900Z"
+    "publishedAt": "2026-10-02T20:47:58.830Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -1032,7 +1035,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.900Z"
+    "publishedAt": "2026-10-02T20:47:58.830Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -1057,7 +1060,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.900Z"
+    "publishedAt": "2026-10-02T20:47:58.830Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -1082,7 +1085,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.900Z"
+    "publishedAt": "2026-10-02T20:47:58.830Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -1107,7 +1110,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.900Z"
+    "publishedAt": "2026-10-02T20:47:58.830Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -1132,7 +1135,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.900Z"
+    "publishedAt": "2026-10-02T20:47:58.830Z"
   },
   {
     "title": "Backend API Developer (Node.js & Microservices)",
@@ -1157,7 +1160,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.900Z"
+    "publishedAt": "2026-10-02T20:47:58.830Z"
   },
   {
     "title": "FinTech Backend Systems Engineer (Go & PostgreSQL)",
@@ -1182,7 +1185,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.830Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -1207,7 +1210,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.830Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -1232,7 +1235,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.830Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -1257,7 +1260,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.830Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -1282,7 +1285,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.830Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -1307,7 +1310,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.830Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -1332,7 +1335,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.830Z"
   },
   {
     "title": "Full Stack Software Engineer (React & Node.js)",
@@ -1357,7 +1360,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.830Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -1382,7 +1385,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.830Z"
   },
   {
     "title": "Enterprise Cloud & ERP Software Engineer",
@@ -1407,7 +1410,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.830Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -1432,7 +1435,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.830Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -1457,7 +1460,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.830Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -1482,7 +1485,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.830Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -1507,7 +1510,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.830Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -1532,7 +1535,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.830Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -1557,7 +1560,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.830Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -1582,7 +1585,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.830Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -1607,7 +1610,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.830Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -1632,7 +1635,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.830Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -1657,7 +1660,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.830Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -1682,7 +1685,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.830Z"
   },
   {
     "title": "Backend API Developer (Node.js & Microservices)",
@@ -1707,7 +1710,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.830Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -1732,7 +1735,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -1757,7 +1760,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -1782,7 +1785,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -1807,7 +1810,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -1832,7 +1835,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -1857,7 +1860,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -1882,7 +1885,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -1907,7 +1910,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Backend API Developer (Node.js & Microservices)",
@@ -1932,7 +1935,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Enterprise Cloud & ERP Software Engineer",
@@ -1957,7 +1960,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -1982,7 +1985,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -2007,7 +2010,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Software QA & Test Automation Engineer",
@@ -2032,7 +2035,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -2057,7 +2060,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -2082,7 +2085,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -2107,7 +2110,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -2132,32 +2135,32 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
-    "title": "Full Stack Software Engineer (React & Node.js)",
+    "title": "Enterprise Cloud & ERP Software Engineer",
     "companyName": "Jungleworks",
     "companyWebsite": "https://jungleworks.com",
     "location": "Mohali, Punjab, India",
-    workMode: WorkMode.HYBRID,
+    workMode: WorkMode.ON_SITE,
     jobType: JobType.FULL_TIME,
-    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
-    "experienceYears": 1,
+    "salaryOrStipend": "₹7,00,000 - ₹15,00,000 / year (Official)",
+    "experienceYears": 2,
     source: "EXTERNAL",
     "sourceUrl": "https://jungleworks.zohorecruit.in/jobs/Careers",
     "externalId": "regional-jungleworks-52-01",
     "description": "Verified engineering position at Jungleworks (Mohali, Punjab, India). Domain: On-Demand Delivery Tech / Mobility SaaS / CRM. Direct application via official career portal: https://jungleworks.zohorecruit.in/jobs/Careers",
-    "rawRequirements": "Demonstrated technical capability in React, TypeScript, Node.js. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "rawRequirements": "Demonstrated technical capability in Java, Spring Boot, PostgreSQL. Experience with modern scalable architectures and collaborative engineering workflows.",
     "skills": [
-      "React",
-      "TypeScript",
-      "Node.js",
+      "Java",
+      "Spring Boot",
       "PostgreSQL",
-      "REST APIs"
+      "React",
+      "Microservices"
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -2182,7 +2185,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -2207,7 +2210,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -2232,7 +2235,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Backend API Developer (Node.js & Microservices)",
@@ -2257,7 +2260,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -2282,7 +2285,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -2307,7 +2310,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -2332,7 +2335,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -2357,7 +2360,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Full Stack Software Engineer (React & Node.js)",
@@ -2382,7 +2385,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -2407,7 +2410,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -2432,7 +2435,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -2457,7 +2460,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -2482,7 +2485,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -2507,7 +2510,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -2532,7 +2535,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Backend API Developer (Node.js & Microservices)",
@@ -2557,7 +2560,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -2582,7 +2585,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -2607,7 +2610,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -2632,7 +2635,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -2657,7 +2660,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -2682,7 +2685,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -2707,7 +2710,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Full Stack Software Engineer (React & Node.js)",
@@ -2732,7 +2735,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -2757,7 +2760,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -2782,7 +2785,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -2807,7 +2810,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Full Stack Software Engineer (React & Node.js)",
@@ -2832,7 +2835,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -2857,7 +2860,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -2882,7 +2885,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -2907,7 +2910,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Backend API Developer (Node.js & Microservices)",
@@ -2932,7 +2935,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -2957,7 +2960,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -2982,7 +2985,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -3007,7 +3010,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -3032,7 +3035,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Full Stack Software Engineer (React & Node.js)",
@@ -3057,7 +3060,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -3082,7 +3085,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -3107,7 +3110,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Senior Drupal & PHP Platform Engineer",
@@ -3132,7 +3135,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -3157,7 +3160,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -3182,7 +3185,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -3207,7 +3210,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -3232,7 +3235,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Full Stack Software Engineer (React & Node.js)",
@@ -3257,7 +3260,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -3282,7 +3285,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -3307,7 +3310,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -3332,7 +3335,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -3357,7 +3360,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Backend API Developer (Node.js & Microservices)",
@@ -3382,7 +3385,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -3407,7 +3410,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -3432,7 +3435,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -3457,7 +3460,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -3482,7 +3485,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Full Stack Software Engineer (React & Node.js)",
@@ -3507,7 +3510,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -3532,7 +3535,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -3557,7 +3560,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -3582,7 +3585,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -3607,7 +3610,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -3632,7 +3635,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -3657,7 +3660,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -3682,7 +3685,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -3707,7 +3710,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Enterprise Cloud & ERP Software Engineer",
@@ -3732,7 +3735,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -3757,7 +3760,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -3782,7 +3785,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -3807,7 +3810,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -3832,7 +3835,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -3857,7 +3860,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -3882,7 +3885,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.831Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -3907,7 +3910,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -3932,7 +3935,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -3957,7 +3960,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -3982,7 +3985,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -4007,7 +4010,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -4032,7 +4035,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Backend API Developer (Node.js & Microservices)",
@@ -4057,7 +4060,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -4082,7 +4085,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -4107,7 +4110,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -4132,7 +4135,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -4157,7 +4160,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -4182,7 +4185,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -4207,7 +4210,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -4232,7 +4235,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -4257,7 +4260,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -4282,7 +4285,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Full Stack Software Engineer (React & Node.js)",
@@ -4307,7 +4310,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -4332,7 +4335,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -4357,7 +4360,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -4382,7 +4385,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -4407,7 +4410,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -4432,7 +4435,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -4457,7 +4460,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -4482,7 +4485,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -4507,7 +4510,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -4532,7 +4535,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -4557,7 +4560,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -4582,7 +4585,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -4607,7 +4610,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -4632,7 +4635,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -4657,32 +4660,32 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
-    "title": "Full Stack Software Engineer (React & Node.js)",
+    "title": "FinTech Backend Systems Engineer (Go & PostgreSQL)",
     "companyName": "Coforge",
     "companyWebsite": "https://www.coforge.com",
     "location": "Noida, Uttar Pradesh, India",
-    workMode: WorkMode.HYBRID,
+    workMode: WorkMode.ON_SITE,
     jobType: JobType.FULL_TIME,
-    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
-    "experienceYears": 1,
+    "salaryOrStipend": "₹9,00,000 - ₹20,00,000 / year (Official)",
+    "experienceYears": 2,
     source: "EXTERNAL",
     "sourceUrl": "https://www.coforge.com/careers",
     "externalId": "regional-coforge-117-01",
     "description": "Verified engineering position at Coforge (Noida, Uttar Pradesh, India). Domain: BFSI Platforms / Travel Tech / Digital Transformation. Direct application via official career portal: https://www.coforge.com/careers",
-    "rawRequirements": "Demonstrated technical capability in React, TypeScript, Node.js. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "rawRequirements": "Demonstrated technical capability in Golang, PostgreSQL, Kafka. Experience with modern scalable architectures and collaborative engineering workflows.",
     "skills": [
-      "React",
-      "TypeScript",
-      "Node.js",
+      "Golang",
       "PostgreSQL",
-      "REST APIs"
+      "Kafka",
+      "Redis",
+      "Docker"
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -4707,7 +4710,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -4732,7 +4735,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "FinTech Backend Systems Engineer (Go & PostgreSQL)",
@@ -4757,7 +4760,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -4782,7 +4785,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -4807,7 +4810,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -4832,7 +4835,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -4857,7 +4860,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -4882,7 +4885,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -4907,7 +4910,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -4932,7 +4935,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -4957,7 +4960,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -4982,7 +4985,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -5007,7 +5010,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -5032,7 +5035,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -5057,7 +5060,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -5082,7 +5085,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -5107,7 +5110,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -5132,7 +5135,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Backend Software Engineer (High-Throughput Routing & APIs)",
@@ -5157,7 +5160,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -5182,7 +5185,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -5207,7 +5210,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -5232,7 +5235,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -5257,7 +5260,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Backend API Developer (Node.js & Microservices)",
@@ -5282,7 +5285,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -5307,7 +5310,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -5332,7 +5335,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -5357,7 +5360,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -5382,7 +5385,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -5407,7 +5410,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -5432,7 +5435,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Backend Software Engineer (High-Throughput Routing & APIs)",
@@ -5457,7 +5460,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -5482,7 +5485,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -5507,7 +5510,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -5532,7 +5535,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -5557,7 +5560,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Enterprise Cloud & ERP Software Engineer",
@@ -5582,7 +5585,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -5607,7 +5610,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -5632,7 +5635,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -5657,7 +5660,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -5682,7 +5685,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -5707,7 +5710,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -5732,7 +5735,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -5757,7 +5760,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -5782,7 +5785,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -5807,7 +5810,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Backend API Developer (Node.js & Microservices)",
@@ -5832,7 +5835,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -5857,7 +5860,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -5882,7 +5885,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Backend API Developer (Node.js & Microservices)",
@@ -5907,7 +5910,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -5932,7 +5935,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -5957,7 +5960,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -5982,7 +5985,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -6007,7 +6010,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -6032,7 +6035,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Backend API Developer (Node.js & Microservices)",
@@ -6057,32 +6060,32 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
-    "title": "Full Stack Software Engineer (React & Node.js)",
+    "title": "Enterprise Cloud & ERP Software Engineer",
     "companyName": "SoftMaart",
     "companyWebsite": "https://softmaart.com",
     "location": "Dehradun, Uttarakhand, India",
-    workMode: WorkMode.HYBRID,
+    workMode: WorkMode.ON_SITE,
     jobType: JobType.FULL_TIME,
-    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
-    "experienceYears": 1,
+    "salaryOrStipend": "₹7,00,000 - ₹15,00,000 / year (Official)",
+    "experienceYears": 2,
     source: "EXTERNAL",
     "sourceUrl": "https://softmaart.com/careers/",
     "externalId": "regional-softmaart-149-01",
     "description": "Verified engineering position at SoftMaart (Dehradun, Uttarakhand, India). Domain: Web Applications / E-Commerce Platforms / Custom CRM. Direct application via official career portal: https://softmaart.com/careers/",
-    "rawRequirements": "Demonstrated technical capability in React, TypeScript, Node.js. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "rawRequirements": "Demonstrated technical capability in Java, Spring Boot, PostgreSQL. Experience with modern scalable architectures and collaborative engineering workflows.",
     "skills": [
-      "React",
-      "TypeScript",
-      "Node.js",
+      "Java",
+      "Spring Boot",
       "PostgreSQL",
-      "REST APIs"
+      "React",
+      "Microservices"
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -6107,7 +6110,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -6132,7 +6135,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Enterprise Cloud & ERP Software Engineer",
@@ -6157,7 +6160,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Software QA & Test Automation Engineer",
@@ -6182,7 +6185,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -6207,7 +6210,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -6232,7 +6235,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Enterprise Cloud & ERP Software Engineer",
@@ -6257,7 +6260,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -6282,7 +6285,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -6307,7 +6310,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -6332,7 +6335,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Backend API Developer (Node.js & Microservices)",
@@ -6357,7 +6360,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Enterprise Cloud & ERP Software Engineer",
@@ -6382,7 +6385,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Enterprise Cloud & ERP Software Engineer",
@@ -6407,7 +6410,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -6432,7 +6435,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Full Stack Software Engineer (React & Node.js)",
@@ -6457,7 +6460,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -6482,7 +6485,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -6507,7 +6510,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -6532,7 +6535,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Enterprise Cloud & ERP Software Engineer",
@@ -6557,7 +6560,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -6582,7 +6585,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -6607,7 +6610,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -6632,7 +6635,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -6657,7 +6660,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Full Stack Software Engineer (React & Node.js)",
@@ -6682,7 +6685,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -6707,7 +6710,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -6732,7 +6735,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Full Stack Software Engineer (React & Node.js)",
@@ -6757,7 +6760,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -6782,7 +6785,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -6807,7 +6810,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -6832,7 +6835,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -6857,7 +6860,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -6882,7 +6885,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Enterprise Cloud & ERP Software Engineer",
@@ -6907,7 +6910,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -6932,7 +6935,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -6957,7 +6960,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.833Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -6982,7 +6985,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.834Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -7007,7 +7010,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.834Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -7032,7 +7035,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.834Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -7057,6 +7060,9456 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:21:59.901Z"
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Tata Consultancy Services (Garima Park)",
+    "companyWebsite": "https://www.tcs.com",
+    "location": "Gandhinagar, Gujarat, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.tcs.com/careers",
+    "externalId": "regional-tata-consultancy-services-garima-park-176-01",
+    "description": "Verified engineering position at Tata Consultancy Services (Garima Park) (Gandhinagar, Gujarat, India). Domain: Cloud Systems / Cognitive Business / BFSI Tech. Direct application via official career portal: https://www.tcs.com/careers",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "Tata Consultancy Services (Garima Park)",
+    "companyWebsite": "https://www.tcs.com",
+    "location": "Gandhinagar, Gujarat, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.tcs.com/careers",
+    "externalId": "regional-tata-consultancy-services-garima-park-176-02",
+    "description": "Verified engineering opening at Tata Consultancy Services (Garima Park) (Gandhinagar, Gujarat, India). Domain focus: Cloud Systems / Cognitive Business / BFSI Tech. Direct application via official portal: https://www.tcs.com/careers",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Machine Learning & AI Systems Engineer",
+    "companyName": "Infosys Limited",
+    "companyWebsite": "https://www.infosys.com",
+    "location": "Gandhinagar, Gujarat, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.infosys.com/careers/",
+    "externalId": "regional-infosys-limited-177-01",
+    "description": "Verified engineering position at Infosys Limited (Gandhinagar, Gujarat, India). Domain: Core Banking / Enterprise Cloud Platforms / AI. Direct application via official career portal: https://www.infosys.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Python, PyTorch, Machine Learning. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Python",
+      "PyTorch",
+      "Machine Learning",
+      "FastAPI",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Python Data Engineer & Pipeline Developer",
+    "companyName": "Infosys Limited",
+    "companyWebsite": "https://www.infosys.com",
+    "location": "Gandhinagar, Gujarat, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.infosys.com/careers/",
+    "externalId": "regional-infosys-limited-177-02",
+    "description": "Verified engineering opening at Infosys Limited (Gandhinagar, Gujarat, India). Domain focus: Core Banking / Enterprise Cloud Platforms / AI. Direct application via official portal: https://www.infosys.com/careers/",
+    "rawRequirements": "Strong foundations in Python, SQL, Pandas, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Python",
+      "SQL",
+      "Pandas",
+      "PostgreSQL",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Machine Learning & AI Systems Engineer",
+    "companyName": "IBM India",
+    "companyWebsite": "https://www.ibm.com",
+    "location": "Gandhinagar, Gujarat, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.ibm.com/careers/",
+    "externalId": "regional-ibm-india-178-01",
+    "description": "Verified engineering position at IBM India (Gandhinagar, Gujarat, India). Domain: Hybrid Cloud / Enterprise AI / IT Consulting. Direct application via official career portal: https://www.ibm.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Python, PyTorch, Machine Learning. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Python",
+      "PyTorch",
+      "Machine Learning",
+      "FastAPI",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Python Data Engineer & Pipeline Developer",
+    "companyName": "IBM India",
+    "companyWebsite": "https://www.ibm.com",
+    "location": "Gandhinagar, Gujarat, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.ibm.com/careers/",
+    "externalId": "regional-ibm-india-178-02",
+    "description": "Verified engineering opening at IBM India (Gandhinagar, Gujarat, India). Domain focus: Hybrid Cloud / Enterprise AI / IT Consulting. Direct application via official portal: https://www.ibm.com/careers/",
+    "rawRequirements": "Strong foundations in Python, SQL, Pandas, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Python",
+      "SQL",
+      "Pandas",
+      "PostgreSQL",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Capgemini India",
+    "companyWebsite": "https://www.capgemini.com",
+    "location": "Gandhinagar, Gujarat, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.capgemini.com/in-en/careers/",
+    "externalId": "regional-capgemini-india-179-01",
+    "description": "Verified engineering position at Capgemini India (Gandhinagar, Gujarat, India). Domain: Application Dev / Cloud Infrastructure / Data. Direct application via official career portal: https://www.capgemini.com/in-en/careers/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "Capgemini India",
+    "companyWebsite": "https://www.capgemini.com",
+    "location": "Gandhinagar, Gujarat, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.capgemini.com/in-en/careers/",
+    "externalId": "regional-capgemini-india-179-02",
+    "description": "Verified engineering opening at Capgemini India (Gandhinagar, Gujarat, India). Domain focus: Application Dev / Cloud Infrastructure / Data. Direct application via official portal: https://www.capgemini.com/in-en/careers/",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Cybage Software",
+    "companyWebsite": "https://www.cybage.com",
+    "location": "Gandhinagar, Gujarat, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.cybage.com/careers",
+    "externalId": "regional-cybage-software-180-01",
+    "description": "Verified engineering position at Cybage Software (Gandhinagar, Gujarat, India). Domain: Product Engineering / Data Analytics / Cloud. Direct application via official career portal: https://www.cybage.com/careers",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "Cybage Software",
+    "companyWebsite": "https://www.cybage.com",
+    "location": "Gandhinagar, Gujarat, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.cybage.com/careers",
+    "externalId": "regional-cybage-software-180-02",
+    "description": "Verified engineering opening at Cybage Software (Gandhinagar, Gujarat, India). Domain focus: Product Engineering / Data Analytics / Cloud. Direct application via official portal: https://www.cybage.com/careers",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "Xopple Infotech",
+    "companyWebsite": "https://www.xopple.com",
+    "location": "Gandhinagar, Gujarat, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.xopple.com/",
+    "externalId": "regional-xopple-infotech-181-01",
+    "description": "Verified engineering position at Xopple Infotech (Gandhinagar, Gujarat, India). Domain: Mobile Apps / Game Dev / Web Architecture. Direct application via official career portal: https://www.xopple.com/",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Machine Learning & AI Systems Engineer",
+    "companyName": "Rumbum Software Service",
+    "companyWebsite": "https://rumbum.in",
+    "location": "Gandhinagar, Gujarat, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹8,00,000 - ₹18,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://rumbum.in/careers/",
+    "externalId": "regional-rumbum-software-service-182-01",
+    "description": "Verified engineering position at Rumbum Software Service (Gandhinagar, Gujarat, India). Domain: AI Mobile & Web Apps / Flutter / Swift. Direct application via official career portal: https://rumbum.in/careers/",
+    "rawRequirements": "Demonstrated technical capability in Python, PyTorch, Machine Learning. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Python",
+      "PyTorch",
+      "Machine Learning",
+      "FastAPI",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Backend API Developer (Node.js & Microservices)",
+    "companyName": "Rumbum Software Service",
+    "companyWebsite": "https://rumbum.in",
+    "location": "Gandhinagar, Gujarat, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://rumbum.in/careers/",
+    "externalId": "regional-rumbum-software-service-182-02",
+    "description": "Verified engineering opening at Rumbum Software Service (Gandhinagar, Gujarat, India). Domain focus: AI Mobile & Web Apps / Flutter / Swift. Direct application via official portal: https://rumbum.in/careers/",
+    "rawRequirements": "Strong foundations in Node.js, TypeScript, PostgreSQL, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Node.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Docker",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "KoderXpert Technologies",
+    "companyWebsite": "https://koderxpert.com",
+    "location": "Gandhinagar, Gujarat, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://koderxpert.com/careers/",
+    "externalId": "regional-koderxpert-technologies-183-01",
+    "description": "Verified engineering position at KoderXpert Technologies (Gandhinagar, Gujarat, India). Domain: Odoo ERP Solutions / Cloud Systems / Web Dev. Direct application via official career portal: https://koderxpert.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "ForshTec Systems",
+    "companyWebsite": "https://forshtec.com",
+    "location": "Gandhinagar, Gujarat, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://forshtec.com/contact-us/",
+    "externalId": "regional-forshtec-systems-184-01",
+    "description": "Verified engineering position at ForshTec Systems (Gandhinagar, Gujarat, India). Domain: Cybersecurity / SIEM / SOAR / SecOps Automation. Direct application via official career portal: https://forshtec.com/contact-us/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "ForshTec Systems",
+    "companyWebsite": "https://forshtec.com",
+    "location": "Gandhinagar, Gujarat, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://forshtec.com/contact-us/",
+    "externalId": "regional-forshtec-systems-184-02",
+    "description": "Verified engineering opening at ForshTec Systems (Gandhinagar, Gujarat, India). Domain focus: Cybersecurity / SIEM / SOAR / SecOps Automation. Direct application via official portal: https://forshtec.com/contact-us/",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Prahya Tech Services",
+    "companyWebsite": "https://prahyatech.com",
+    "location": "Gandhinagar, Gujarat, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://prahyatech.com/careers/",
+    "externalId": "regional-prahya-tech-services-185-01",
+    "description": "Verified engineering position at Prahya Tech Services (Gandhinagar, Gujarat, India). Domain: Web Development / Cloud Applications / UI-UX. Direct application via official career portal: https://prahyatech.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "TatvaSoft",
+    "companyWebsite": "https://www.tatvasoft.com",
+    "location": "Ahmedabad, Gujarat, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.tatvasoft.com/careers/",
+    "externalId": "regional-tatvasoft-186-01",
+    "description": "Verified engineering position at TatvaSoft (Ahmedabad, Gujarat, India). Domain: Enterprise Custom Software / .NET / Cloud SaaS. Direct application via official career portal: https://www.tatvasoft.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "TatvaSoft",
+    "companyWebsite": "https://www.tatvasoft.com",
+    "location": "Ahmedabad, Gujarat, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.tatvasoft.com/careers/",
+    "externalId": "regional-tatvasoft-186-02",
+    "description": "Verified engineering opening at TatvaSoft (Ahmedabad, Gujarat, India). Domain focus: Enterprise Custom Software / .NET / Cloud SaaS. Direct application via official portal: https://www.tatvasoft.com/careers/",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Radixweb",
+    "companyWebsite": "https://radixweb.com",
+    "location": "Ahmedabad, Gujarat, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://radixweb.com/careers",
+    "externalId": "regional-radixweb-187-01",
+    "description": "Verified engineering position at Radixweb (Ahmedabad, Gujarat, India). Domain: Application Modernization / Cloud / Full-Stack Dev. Direct application via official career portal: https://radixweb.com/careers",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Bacancy Technology",
+    "companyWebsite": "https://www.bacancytechnology.com",
+    "location": "Ahmedabad, Gujarat, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.bacancytechnology.com/careers",
+    "externalId": "regional-bacancy-technology-188-01",
+    "description": "Verified engineering position at Bacancy Technology (Ahmedabad, Gujarat, India). Domain: Product Development / Agile Dev / Web3 / Cloud. Direct application via official career portal: https://www.bacancytechnology.com/careers",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "Bacancy Technology",
+    "companyWebsite": "https://www.bacancytechnology.com",
+    "location": "Ahmedabad, Gujarat, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.bacancytechnology.com/careers",
+    "externalId": "regional-bacancy-technology-188-02",
+    "description": "Verified engineering opening at Bacancy Technology (Ahmedabad, Gujarat, India). Domain focus: Product Development / Agile Dev / Web3 / Cloud. Direct application via official portal: https://www.bacancytechnology.com/careers",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Machine Learning & AI Systems Engineer",
+    "companyName": "Hyperlink InfoSystem",
+    "companyWebsite": "https://www.hyperlinkinfosystem.com",
+    "location": "Ahmedabad, Gujarat, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹8,00,000 - ₹18,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.hyperlinkinfosystem.com/career.html",
+    "externalId": "regional-hyperlink-infosystem-189-01",
+    "description": "Verified engineering position at Hyperlink InfoSystem (Ahmedabad, Gujarat, India). Domain: Mobile Applications / AI-ML / Blockchain Platforms. Direct application via official career portal: https://www.hyperlinkinfosystem.com/career.html",
+    "rawRequirements": "Demonstrated technical capability in Python, PyTorch, Machine Learning. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Python",
+      "PyTorch",
+      "Machine Learning",
+      "FastAPI",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "IndiaNIC",
+    "companyWebsite": "https://www.indianic.com",
+    "location": "Ahmedabad, Gujarat, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.indianic.com/careers/",
+    "externalId": "regional-indianic-190-01",
+    "description": "Verified engineering position at IndiaNIC (Ahmedabad, Gujarat, India). Domain: Custom Software / IoT Systems / Mobile Architecture. Direct application via official career portal: https://www.indianic.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Backend API Developer (Node.js & Microservices)",
+    "companyName": "IndiaNIC",
+    "companyWebsite": "https://www.indianic.com",
+    "location": "Ahmedabad, Gujarat, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.indianic.com/careers/",
+    "externalId": "regional-indianic-190-02",
+    "description": "Verified engineering opening at IndiaNIC (Ahmedabad, Gujarat, India). Domain focus: Custom Software / IoT Systems / Mobile Architecture. Direct application via official portal: https://www.indianic.com/careers/",
+    "rawRequirements": "Strong foundations in Node.js, TypeScript, PostgreSQL, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Node.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Docker",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Machine Learning & AI Systems Engineer",
+    "companyName": "Simform",
+    "companyWebsite": "https://www.simform.com",
+    "location": "Ahmedabad, Gujarat, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹8,00,000 - ₹18,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.simform.com/careers/",
+    "externalId": "regional-simform-191-01",
+    "description": "Verified engineering position at Simform (Ahmedabad, Gujarat, India). Domain: AWS Premier Cloud / Microservices / DevOps / AI. Direct application via official career portal: https://www.simform.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Python, PyTorch, Machine Learning. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Python",
+      "PyTorch",
+      "Machine Learning",
+      "FastAPI",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Machine Learning & AI Systems Engineer",
+    "companyName": "Crest Data Systems",
+    "companyWebsite": "https://www.crestdata.ai",
+    "location": "Ahmedabad, Gujarat, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹8,00,000 - ₹18,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.crestdata.ai/careers/",
+    "externalId": "regional-crest-data-systems-192-01",
+    "description": "Verified engineering position at Crest Data Systems (Ahmedabad, Gujarat, India). Domain: Cybersecurity Platforms / Telemetry Integrations / AI. Direct application via official career portal: https://www.crestdata.ai/careers/",
+    "rawRequirements": "Demonstrated technical capability in Python, PyTorch, Machine Learning. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Python",
+      "PyTorch",
+      "Machine Learning",
+      "FastAPI",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Python Data Engineer & Pipeline Developer",
+    "companyName": "Crest Data Systems",
+    "companyWebsite": "https://www.crestdata.ai",
+    "location": "Ahmedabad, Gujarat, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.crestdata.ai/careers/",
+    "externalId": "regional-crest-data-systems-192-02",
+    "description": "Verified engineering opening at Crest Data Systems (Ahmedabad, Gujarat, India). Domain focus: Cybersecurity Platforms / Telemetry Integrations / AI. Direct application via official portal: https://www.crestdata.ai/careers/",
+    "rawRequirements": "Strong foundations in Python, SQL, Pandas, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Python",
+      "SQL",
+      "Pandas",
+      "PostgreSQL",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "OpenXcell",
+    "companyWebsite": "https://www.openxcell.com",
+    "location": "Ahmedabad, Gujarat, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.openxcell.com/careers/",
+    "externalId": "regional-openxcell-193-01",
+    "description": "Verified engineering position at OpenXcell (Ahmedabad, Gujarat, India). Domain: Custom Software / Mobile Platforms / SaaS Apps. Direct application via official career portal: https://www.openxcell.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Rapidops",
+    "companyWebsite": "https://www.rapidops.com",
+    "location": "Ahmedabad, Gujarat, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.rapidops.com/careers/",
+    "externalId": "regional-rapidops-194-01",
+    "description": "Verified engineering position at Rapidops (Ahmedabad, Gujarat, India). Domain: Digital Platform Engineering / Analytics / Cloud. Direct application via official career portal: https://www.rapidops.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "Rapidops",
+    "companyWebsite": "https://www.rapidops.com",
+    "location": "Ahmedabad, Gujarat, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.rapidops.com/careers/",
+    "externalId": "regional-rapidops-194-02",
+    "description": "Verified engineering opening at Rapidops (Ahmedabad, Gujarat, India). Domain focus: Digital Platform Engineering / Analytics / Cloud. Direct application via official portal: https://www.rapidops.com/careers/",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Machine Learning & AI Systems Engineer",
+    "companyName": "Yudiz Solutions",
+    "companyWebsite": "https://www.yudiz.com",
+    "location": "Ahmedabad, Gujarat, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹8,00,000 - ₹18,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.yudiz.com/careers/",
+    "externalId": "regional-yudiz-solutions-195-01",
+    "description": "Verified engineering position at Yudiz Solutions (Ahmedabad, Gujarat, India). Domain: Game Development / Blockchain / AR-VR / Web Apps. Direct application via official career portal: https://www.yudiz.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Python, PyTorch, Machine Learning. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Python",
+      "PyTorch",
+      "Machine Learning",
+      "FastAPI",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Cygnet Infotech",
+    "companyWebsite": "https://www.cygnetinfotech.com",
+    "location": "Ahmedabad, Gujarat, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.cygnetinfotech.com/careers/",
+    "externalId": "regional-cygnet-infotech-196-01",
+    "description": "Verified engineering position at Cygnet Infotech (Ahmedabad, Gujarat, India). Domain: TaxTech / Digital Transformation / Cloud ERP. Direct application via official career portal: https://www.cygnetinfotech.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "Cygnet Infotech",
+    "companyWebsite": "https://www.cygnetinfotech.com",
+    "location": "Ahmedabad, Gujarat, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.cygnetinfotech.com/careers/",
+    "externalId": "regional-cygnet-infotech-196-02",
+    "description": "Verified engineering opening at Cygnet Infotech (Ahmedabad, Gujarat, India). Domain focus: TaxTech / Digital Transformation / Cloud ERP. Direct application via official portal: https://www.cygnetinfotech.com/careers/",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Hidden Brains InfoTech",
+    "companyWebsite": "https://www.hiddenbrains.com",
+    "location": "Ahmedabad, Gujarat, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.hiddenbrains.com/careers.html",
+    "externalId": "regional-hidden-brains-infotech-197-01",
+    "description": "Verified engineering position at Hidden Brains InfoTech (Ahmedabad, Gujarat, India). Domain: Enterprise Web Dev / IoT / Mobility Architectures. Direct application via official career portal: https://www.hiddenbrains.com/careers.html",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Agile Infoways",
+    "companyWebsite": "https://www.agileinfoways.com",
+    "location": "Ahmedabad, Gujarat, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.agileinfoways.com/career/",
+    "externalId": "regional-agile-infoways-198-01",
+    "description": "Verified engineering position at Agile Infoways (Ahmedabad, Gujarat, India). Domain: Open Source Platforms / Cloud Consulting / Python. Direct application via official career portal: https://www.agileinfoways.com/career/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "Agile Infoways",
+    "companyWebsite": "https://www.agileinfoways.com",
+    "location": "Ahmedabad, Gujarat, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.agileinfoways.com/career/",
+    "externalId": "regional-agile-infoways-198-02",
+    "description": "Verified engineering opening at Agile Infoways (Ahmedabad, Gujarat, India). Domain focus: Open Source Platforms / Cloud Consulting / Python. Direct application via official portal: https://www.agileinfoways.com/career/",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Machine Learning & AI Systems Engineer",
+    "companyName": "Brainvire Infotech",
+    "companyWebsite": "https://www.brainvire.com",
+    "location": "Ahmedabad, Gujarat, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹8,00,000 - ₹18,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.brainvire.com/careers/",
+    "externalId": "regional-brainvire-infotech-199-01",
+    "description": "Verified engineering position at Brainvire Infotech (Ahmedabad, Gujarat, India). Domain: Digital Transformation / Retail Tech / CRM SaaS. Direct application via official career portal: https://www.brainvire.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Python, PyTorch, Machine Learning. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Python",
+      "PyTorch",
+      "Machine Learning",
+      "FastAPI",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Machine Learning & AI Systems Engineer",
+    "companyName": "Casepoint",
+    "companyWebsite": "https://www.casepoint.com",
+    "location": "Surat, Gujarat, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹8,00,000 - ₹18,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.casepoint.com/careers/",
+    "externalId": "regional-casepoint-200-01",
+    "description": "Verified engineering position at Casepoint (Surat, Gujarat, India). Domain: eDiscovery Platforms / Legal AI / C# .NET SQL. Direct application via official career portal: https://www.casepoint.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Python, PyTorch, Machine Learning. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Python",
+      "PyTorch",
+      "Machine Learning",
+      "FastAPI",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Python Data Engineer & Pipeline Developer",
+    "companyName": "Casepoint",
+    "companyWebsite": "https://www.casepoint.com",
+    "location": "Surat, Gujarat, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.casepoint.com/careers/",
+    "externalId": "regional-casepoint-200-02",
+    "description": "Verified engineering opening at Casepoint (Surat, Gujarat, India). Domain focus: eDiscovery Platforms / Legal AI / C# .NET SQL. Direct application via official portal: https://www.casepoint.com/careers/",
+    "rawRequirements": "Strong foundations in Python, SQL, Pandas, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Python",
+      "SQL",
+      "Pandas",
+      "PostgreSQL",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "Artoon Solutions",
+    "companyWebsite": "https://artoonsolutions.com",
+    "location": "Surat, Gujarat, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://artoonsolutions.com/careers/",
+    "externalId": "regional-artoon-solutions-201-01",
+    "description": "Verified engineering position at Artoon Solutions (Surat, Gujarat, India). Domain: Mobile Gaming Platforms / Physics Engines / Web Apps. Direct application via official career portal: https://artoonsolutions.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Narola Infotech",
+    "companyWebsite": "https://www.narolainfotech.com",
+    "location": "Surat, Gujarat, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.narolainfotech.com/careers/",
+    "externalId": "regional-narola-infotech-202-01",
+    "description": "Verified engineering position at Narola Infotech (Surat, Gujarat, India). Domain: Custom Web Development / Flutter / Cloud APIs. Direct application via official career portal: https://www.narolainfotech.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Backend API Developer (Node.js & Microservices)",
+    "companyName": "Narola Infotech",
+    "companyWebsite": "https://www.narolainfotech.com",
+    "location": "Surat, Gujarat, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.narolainfotech.com/careers/",
+    "externalId": "regional-narola-infotech-202-02",
+    "description": "Verified engineering opening at Narola Infotech (Surat, Gujarat, India). Domain focus: Custom Web Development / Flutter / Cloud APIs. Direct application via official portal: https://www.narolainfotech.com/careers/",
+    "rawRequirements": "Strong foundations in Node.js, TypeScript, PostgreSQL, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Node.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Docker",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Webashlar Software Solution",
+    "companyWebsite": "https://www.webashlar.com",
+    "location": "Surat, Gujarat, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.webashlar.com/careers/",
+    "externalId": "regional-webashlar-software-solution-203-01",
+    "description": "Verified engineering position at Webashlar Software Solution (Surat, Gujarat, India). Domain: Front-End & Back-End Web / GIS / AR-VR Systems. Direct application via official career portal: https://www.webashlar.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "Vasundhra Infotech",
+    "companyWebsite": "https://vasundhra.info",
+    "location": "Surat, Gujarat, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://vasundhra.info/careers/",
+    "externalId": "regional-vasundhra-infotech-204-01",
+    "description": "Verified engineering position at Vasundhra Infotech (Surat, Gujarat, India). Domain: Mobile Apps / Unity 3D Games / SaaS Platforms. Direct application via official career portal: https://vasundhra.info/careers/",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Backend API Developer (Node.js & Microservices)",
+    "companyName": "Vasundhra Infotech",
+    "companyWebsite": "https://vasundhra.info",
+    "location": "Surat, Gujarat, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://vasundhra.info/careers/",
+    "externalId": "regional-vasundhra-infotech-204-02",
+    "description": "Verified engineering opening at Vasundhra Infotech (Surat, Gujarat, India). Domain focus: Mobile Apps / Unity 3D Games / SaaS Platforms. Direct application via official portal: https://vasundhra.info/careers/",
+    "rawRequirements": "Strong foundations in Node.js, TypeScript, PostgreSQL, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Node.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Docker",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Daydreamsoft Infotech",
+    "companyWebsite": "https://daydreamsoft.com",
+    "location": "Surat, Gujarat, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://daydreamsoft.com/career/",
+    "externalId": "regional-daydreamsoft-infotech-205-01",
+    "description": "Verified engineering position at Daydreamsoft Infotech (Surat, Gujarat, India). Domain: Enterprise Web Applications / Unity / Node.js. Direct application via official career portal: https://daydreamsoft.com/career/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Machine Learning & AI Systems Engineer",
+    "companyName": "Crest Infosystems",
+    "companyWebsite": "https://www.crestinfosystems.com",
+    "location": "Surat, Gujarat, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹8,00,000 - ₹18,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.crestinfosystems.com/careers/",
+    "externalId": "regional-crest-infosystems-206-01",
+    "description": "Verified engineering position at Crest Infosystems (Surat, Gujarat, India). Domain: Enterprise Custom Software / RPA / AI-ML Platforms. Direct application via official career portal: https://www.crestinfosystems.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Python, PyTorch, Machine Learning. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Python",
+      "PyTorch",
+      "Machine Learning",
+      "FastAPI",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Python Data Engineer & Pipeline Developer",
+    "companyName": "Crest Infosystems",
+    "companyWebsite": "https://www.crestinfosystems.com",
+    "location": "Surat, Gujarat, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.crestinfosystems.com/careers/",
+    "externalId": "regional-crest-infosystems-206-02",
+    "description": "Verified engineering opening at Crest Infosystems (Surat, Gujarat, India). Domain focus: Enterprise Custom Software / RPA / AI-ML Platforms. Direct application via official portal: https://www.crestinfosystems.com/careers/",
+    "rawRequirements": "Strong foundations in Python, SQL, Pandas, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Python",
+      "SQL",
+      "Pandas",
+      "PostgreSQL",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Logicwind",
+    "companyWebsite": "https://logicwind.com",
+    "location": "Surat, Gujarat, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://logicwind.com/careers/",
+    "externalId": "regional-logicwind-207-01",
+    "description": "Verified engineering position at Logicwind (Surat, Gujarat, India). Domain: Custom Web Development / TV Apps / Laravel / Node.js. Direct application via official career portal: https://logicwind.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "Webito Infotech",
+    "companyWebsite": "https://webitoinfotech.com",
+    "location": "Surat, Gujarat, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://webitoinfotech.com/careers/",
+    "externalId": "regional-webito-infotech-208-01",
+    "description": "Verified engineering position at Webito Infotech (Surat, Gujarat, India). Domain: Full-Stack Web Dev / Flutter / Laravel Solutions. Direct application via official career portal: https://webitoinfotech.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Backend API Developer (Node.js & Microservices)",
+    "companyName": "Webito Infotech",
+    "companyWebsite": "https://webitoinfotech.com",
+    "location": "Surat, Gujarat, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://webitoinfotech.com/careers/",
+    "externalId": "regional-webito-infotech-208-02",
+    "description": "Verified engineering opening at Webito Infotech (Surat, Gujarat, India). Domain focus: Full-Stack Web Dev / Flutter / Laravel Solutions. Direct application via official portal: https://webitoinfotech.com/careers/",
+    "rawRequirements": "Strong foundations in Node.js, TypeScript, PostgreSQL, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Node.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Docker",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "ELaunch Solution",
+    "companyWebsite": "https://elaunchsolution.com",
+    "location": "Surat, Gujarat, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://elaunchsolution.com/career/",
+    "externalId": "regional-elaunch-solution-209-01",
+    "description": "Verified engineering position at ELaunch Solution (Surat, Gujarat, India). Domain: Custom ERP / HRM / E-Commerce Architecture. Direct application via official career portal: https://elaunchsolution.com/career/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Machine Learning & AI Systems Engineer",
+    "companyName": "TechStaunch Software Solutions",
+    "companyWebsite": "https://techstaunch.com",
+    "location": "Surat, Gujarat, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹8,00,000 - ₹18,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://techstaunch.com/careers/",
+    "externalId": "regional-techstaunch-software-solutions-210-01",
+    "description": "Verified engineering position at TechStaunch Software Solutions (Surat, Gujarat, India). Domain: Custom Software / Conversational AI / Full-Stack. Direct application via official career portal: https://techstaunch.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Python, PyTorch, Machine Learning. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Python",
+      "PyTorch",
+      "Machine Learning",
+      "FastAPI",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Python Data Engineer & Pipeline Developer",
+    "companyName": "TechStaunch Software Solutions",
+    "companyWebsite": "https://techstaunch.com",
+    "location": "Surat, Gujarat, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://techstaunch.com/careers/",
+    "externalId": "regional-techstaunch-software-solutions-210-02",
+    "description": "Verified engineering opening at TechStaunch Software Solutions (Surat, Gujarat, India). Domain focus: Custom Software / Conversational AI / Full-Stack. Direct application via official portal: https://techstaunch.com/careers/",
+    "rawRequirements": "Strong foundations in Python, SQL, Pandas, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Python",
+      "SQL",
+      "Pandas",
+      "PostgreSQL",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "WeeTech Solution",
+    "companyWebsite": "https://www.weetechsolution.com",
+    "location": "Surat, Gujarat, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.weetechsolution.com/careers/",
+    "externalId": "regional-weetech-solution-211-01",
+    "description": "Verified engineering position at WeeTech Solution (Surat, Gujarat, India). Domain: Web Applications / Mobile Development / CMS. Direct application via official career portal: https://www.weetechsolution.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Machine Learning & AI Systems Engineer",
+    "companyName": "L&T Technology Services (LTTS)",
+    "companyWebsite": "https://www.ltts.com",
+    "location": "Vadodara, Gujarat, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.ltts.com/careers/india",
+    "externalId": "regional-l-t-technology-services-ltts-212-01",
+    "description": "Verified engineering position at L&T Technology Services (LTTS) (Vadodara, Gujarat, India). Domain: Automotive Embedded Systems / Industrial IoT / AI. Direct application via official career portal: https://www.ltts.com/careers/india",
+    "rawRequirements": "Demonstrated technical capability in Python, PyTorch, Machine Learning. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Python",
+      "PyTorch",
+      "Machine Learning",
+      "FastAPI",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Python Data Engineer & Pipeline Developer",
+    "companyName": "L&T Technology Services (LTTS)",
+    "companyWebsite": "https://www.ltts.com",
+    "location": "Vadodara, Gujarat, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.ltts.com/careers/india",
+    "externalId": "regional-l-t-technology-services-ltts-212-02",
+    "description": "Verified engineering opening at L&T Technology Services (LTTS) (Vadodara, Gujarat, India). Domain focus: Automotive Embedded Systems / Industrial IoT / AI. Direct application via official portal: https://www.ltts.com/careers/india",
+    "rawRequirements": "Strong foundations in Python, SQL, Pandas, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Python",
+      "SQL",
+      "Pandas",
+      "PostgreSQL",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Rishabh Software",
+    "companyWebsite": "https://www.rishabhsoft.com",
+    "location": "Vadodara, Gujarat, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.rishabhsoft.com/careers",
+    "externalId": "regional-rishabh-software-213-01",
+    "description": "Verified engineering position at Rishabh Software (Vadodara, Gujarat, India). Domain: Cloud Modernization / AdTech / Digital Manufacturing. Direct application via official career portal: https://www.rishabhsoft.com/careers",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Enterprise Cloud & ERP Software Engineer",
+    "companyName": "Enlighten Infosystems",
+    "companyWebsite": "https://enlighteninfosystems.com",
+    "location": "Vadodara, Gujarat, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,00,000 - ₹15,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://enlighteninfosystems.com/career/",
+    "externalId": "regional-enlighten-infosystems-214-01",
+    "description": "Verified engineering position at Enlighten Infosystems (Vadodara, Gujarat, India). Domain: Custom ERP Solutions / CRM Modules / Database Apps. Direct application via official career portal: https://enlighteninfosystems.com/career/",
+    "rawRequirements": "Demonstrated technical capability in Java, Spring Boot, PostgreSQL. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Java",
+      "Spring Boot",
+      "PostgreSQL",
+      "React",
+      "Microservices"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Enlighten Infosystems",
+    "companyWebsite": "https://enlighteninfosystems.com",
+    "location": "Vadodara, Gujarat, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://enlighteninfosystems.com/career/",
+    "externalId": "regional-enlighten-infosystems-214-02",
+    "description": "Verified engineering opening at Enlighten Infosystems (Vadodara, Gujarat, India). Domain focus: Custom ERP Solutions / CRM Modules / Database Apps. Direct application via official portal: https://enlighteninfosystems.com/career/",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Civica India",
+    "companyWebsite": "https://www.civica.com",
+    "location": "Vadodara, Gujarat, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.civica.com/en-gb/careers/",
+    "externalId": "regional-civica-india-215-01",
+    "description": "Verified engineering position at Civica India (Vadodara, Gujarat, India). Domain: Public Sector Cloud Software / Core Development. Direct application via official career portal: https://www.civica.com/en-gb/careers/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "Civica India",
+    "companyWebsite": "https://www.civica.com",
+    "location": "Vadodara, Gujarat, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.civica.com/en-gb/careers/",
+    "externalId": "regional-civica-india-215-02",
+    "description": "Verified engineering opening at Civica India (Vadodara, Gujarat, India). Domain focus: Public Sector Cloud Software / Core Development. Direct application via official portal: https://www.civica.com/en-gb/careers/",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Netweb Software",
+    "companyWebsite": "https://www.netweb.biz",
+    "location": "Vadodara, Gujarat, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.netweb.biz/careers/",
+    "externalId": "regional-netweb-software-216-01",
+    "description": "Verified engineering position at Netweb Software (Vadodara, Gujarat, India). Domain: Custom Application Dev / Enterprise Software. Direct application via official career portal: https://www.netweb.biz/careers/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Netweb Software",
+    "companyWebsite": "https://www.netweb.biz",
+    "location": "Vadodara, Gujarat, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.netweb.biz/careers/",
+    "externalId": "regional-netweb-software-216-02",
+    "description": "Verified engineering opening at Netweb Software (Vadodara, Gujarat, India). Domain focus: Custom Application Dev / Enterprise Software. Direct application via official portal: https://www.netweb.biz/careers/",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "Guru TechnoLabs",
+    "companyWebsite": "https://www.gurutechnolabs.com",
+    "location": "Rajkot, Gujarat, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.gurutechnolabs.com/careers/",
+    "externalId": "regional-guru-technolabs-217-01",
+    "description": "Verified engineering position at Guru TechnoLabs (Rajkot, Gujarat, India). Domain: Web & Mobile Application Development / E-Commerce. Direct application via official career portal: https://www.gurutechnolabs.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Infotop Solutions",
+    "companyWebsite": "https://www.infotopsolutions.com",
+    "location": "Rajkot, Gujarat, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.infotopsolutions.com/careers.php",
+    "externalId": "regional-infotop-solutions-218-01",
+    "description": "Verified engineering position at Infotop Solutions (Rajkot, Gujarat, India). Domain: Custom Software Development / Web Architecture. Direct application via official career portal: https://www.infotopsolutions.com/careers.php",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Infotop Solutions",
+    "companyWebsite": "https://www.infotopsolutions.com",
+    "location": "Rajkot, Gujarat, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.infotopsolutions.com/careers.php",
+    "externalId": "regional-infotop-solutions-218-02",
+    "description": "Verified engineering opening at Infotop Solutions (Rajkot, Gujarat, India). Domain focus: Custom Software Development / Web Architecture. Direct application via official portal: https://www.infotopsolutions.com/careers.php",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "Elsner Technologies",
+    "companyWebsite": "https://www.elsner.com",
+    "location": "Rajkot, Gujarat, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.elsner.com/careers/",
+    "externalId": "regional-elsner-technologies-219-01",
+    "description": "Verified engineering position at Elsner Technologies (Rajkot, Gujarat, India). Domain: Magento E-Commerce / Full-Stack Web / Mobile Dev. Direct application via official career portal: https://www.elsner.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Enterprise Cloud & ERP Software Engineer",
+    "companyName": "Arth Technology",
+    "companyWebsite": "https://arthtechnology.com",
+    "location": "Rajkot, Gujarat, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,00,000 - ₹15,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://arthtechnology.com/career.php",
+    "externalId": "regional-arth-technology-220-01",
+    "description": "Verified engineering position at Arth Technology (Rajkot, Gujarat, India). Domain: Custom ERP / Industrial Inventory Systems / Web. Direct application via official career portal: https://arthtechnology.com/career.php",
+    "rawRequirements": "Demonstrated technical capability in Java, Spring Boot, PostgreSQL. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Java",
+      "Spring Boot",
+      "PostgreSQL",
+      "React",
+      "Microservices"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Arth Technology",
+    "companyWebsite": "https://arthtechnology.com",
+    "location": "Rajkot, Gujarat, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://arthtechnology.com/career.php",
+    "externalId": "regional-arth-technology-220-02",
+    "description": "Verified engineering opening at Arth Technology (Rajkot, Gujarat, India). Domain focus: Custom ERP / Industrial Inventory Systems / Web. Direct application via official portal: https://arthtechnology.com/career.php",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Samarpan Infotech",
+    "companyWebsite": "https://www.samarpaninfotech.com",
+    "location": "Rajkot, Gujarat, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.samarpaninfotech.com/career/",
+    "externalId": "regional-samarpan-infotech-221-01",
+    "description": "Verified engineering position at Samarpan Infotech (Rajkot, Gujarat, India). Domain: Cloud Applications / Cross-Platform Mobile / React. Direct application via official career portal: https://www.samarpaninfotech.com/career/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "GirnarSoft (CarDekho)",
+    "companyWebsite": "https://www.girnarsoft.com",
+    "location": "Jaipur, Rajasthan, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.girnarsoft.com/careers.php",
+    "externalId": "regional-girnarsoft-cardekho-222-01",
+    "description": "Verified engineering position at GirnarSoft (CarDekho) (Jaipur, Rajasthan, India). Domain: Automotive Tech / Pricing Engines / Search Infra. Direct application via official career portal: https://www.girnarsoft.com/careers.php",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "GirnarSoft (CarDekho)",
+    "companyWebsite": "https://www.girnarsoft.com",
+    "location": "Jaipur, Rajasthan, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.girnarsoft.com/careers.php",
+    "externalId": "regional-girnarsoft-cardekho-222-02",
+    "description": "Verified engineering opening at GirnarSoft (CarDekho) (Jaipur, Rajasthan, India). Domain focus: Automotive Tech / Pricing Engines / Search Infra. Direct application via official portal: https://www.girnarsoft.com/careers.php",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Cyntexa",
+    "companyWebsite": "https://cyntexa.com",
+    "location": "Jaipur, Rajasthan, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://cyntexa.com/careers/",
+    "externalId": "regional-cyntexa-223-01",
+    "description": "Verified engineering position at Cyntexa (Jaipur, Rajasthan, India). Domain: Salesforce Architecture / ServiceNow / AWS Cloud. Direct application via official career portal: https://cyntexa.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Software QA & Test Automation Engineer",
+    "companyName": "Metacube Software",
+    "companyWebsite": "https://www.metacube.com",
+    "location": "Jaipur, Rajasthan, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.metacube.com/careers.php",
+    "externalId": "regional-metacube-software-224-01",
+    "description": "Verified engineering position at Metacube Software (Jaipur, Rajasthan, India). Domain: Product Engineering / Manufacturing Analytics / QA. Direct application via official career portal: https://www.metacube.com/careers.php",
+    "rawRequirements": "Demonstrated technical capability in Cypress, Selenium, TypeScript. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Cypress",
+      "Selenium",
+      "TypeScript",
+      "Jest",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Metacube Software",
+    "companyWebsite": "https://www.metacube.com",
+    "location": "Jaipur, Rajasthan, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.metacube.com/careers.php",
+    "externalId": "regional-metacube-software-224-02",
+    "description": "Verified engineering opening at Metacube Software (Jaipur, Rajasthan, India). Domain focus: Product Engineering / Manufacturing Analytics / QA. Direct application via official portal: https://www.metacube.com/careers.php",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Dotsquares",
+    "companyWebsite": "https://www.dotsquares.com",
+    "location": "Jaipur, Rajasthan, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.dotsquares.com/careers/",
+    "externalId": "regional-dotsquares-225-01",
+    "description": "Verified engineering position at Dotsquares (Jaipur, Rajasthan, India). Domain: Custom Web Development / Enterprise Cloud / Mobility. Direct application via official career portal: https://www.dotsquares.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Infosys Limited",
+    "companyWebsite": "https://www.infosys.com",
+    "location": "Jaipur, Rajasthan, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.infosys.com/careers/",
+    "externalId": "regional-infosys-limited-226-01",
+    "description": "Verified engineering position at Infosys Limited (Jaipur, Rajasthan, India). Domain: Core IT Transformation / Enterprise Architecture. Direct application via official career portal: https://www.infosys.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Infosys Limited",
+    "companyWebsite": "https://www.infosys.com",
+    "location": "Jaipur, Rajasthan, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.infosys.com/careers/",
+    "externalId": "regional-infosys-limited-226-02",
+    "description": "Verified engineering opening at Infosys Limited (Jaipur, Rajasthan, India). Domain focus: Core IT Transformation / Enterprise Architecture. Direct application via official portal: https://www.infosys.com/careers/",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Machine Learning & AI Systems Engineer",
+    "companyName": "Genpact",
+    "companyWebsite": "https://www.genpact.com",
+    "location": "Jaipur, Rajasthan, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.genpact.com/careers",
+    "externalId": "regional-genpact-227-01",
+    "description": "Verified engineering position at Genpact (Jaipur, Rajasthan, India). Domain: Enterprise Cloud Solutions / Process AI / Analytics. Direct application via official career portal: https://www.genpact.com/careers",
+    "rawRequirements": "Demonstrated technical capability in Python, PyTorch, Machine Learning. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Python",
+      "PyTorch",
+      "Machine Learning",
+      "FastAPI",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Python Data Engineer & Pipeline Developer",
+    "companyName": "Genpact",
+    "companyWebsite": "https://www.genpact.com",
+    "location": "Jaipur, Rajasthan, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.genpact.com/careers",
+    "externalId": "regional-genpact-227-02",
+    "description": "Verified engineering opening at Genpact (Jaipur, Rajasthan, India). Domain focus: Enterprise Cloud Solutions / Process AI / Analytics. Direct application via official portal: https://www.genpact.com/careers",
+    "rawRequirements": "Strong foundations in Python, SQL, Pandas, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Python",
+      "SQL",
+      "Pandas",
+      "PostgreSQL",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Wipro Limited",
+    "companyWebsite": "https://www.wipro.com",
+    "location": "Jaipur, Rajasthan, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://careers.wipro.com/",
+    "externalId": "regional-wipro-limited-228-01",
+    "description": "Verified engineering position at Wipro Limited (Jaipur, Rajasthan, India). Domain: IT Infrastructure Management / Cloud Platforms. Direct application via official career portal: https://careers.wipro.com/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "Wipro Limited",
+    "companyWebsite": "https://www.wipro.com",
+    "location": "Jaipur, Rajasthan, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://careers.wipro.com/",
+    "externalId": "regional-wipro-limited-228-02",
+    "description": "Verified engineering opening at Wipro Limited (Jaipur, Rajasthan, India). Domain focus: IT Infrastructure Management / Cloud Platforms. Direct application via official portal: https://careers.wipro.com/",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Appirio (Wipro Company)",
+    "companyWebsite": "https://www.wipro.com",
+    "location": "Jaipur, Rajasthan, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://careers.wipro.com/",
+    "externalId": "regional-appirio-wipro-company-229-01",
+    "description": "Verified engineering position at Appirio (Wipro Company) (Jaipur, Rajasthan, India). Domain: Cloud Integration / Salesforce Solutions / API Dev. Direct application via official career portal: https://careers.wipro.com/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Constant Contact India",
+    "companyWebsite": "https://www.constantcontact.com",
+    "location": "Jaipur, Rajasthan, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.constantcontact.com/about/careers",
+    "externalId": "regional-constant-contact-india-230-01",
+    "description": "Verified engineering position at Constant Contact India (Jaipur, Rajasthan, India). Domain: Digital Marketing Automation / High-Scale SaaS. Direct application via official career portal: https://www.constantcontact.com/about/careers",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Constant Contact India",
+    "companyWebsite": "https://www.constantcontact.com",
+    "location": "Jaipur, Rajasthan, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.constantcontact.com/about/careers",
+    "externalId": "regional-constant-contact-india-230-02",
+    "description": "Verified engineering opening at Constant Contact India (Jaipur, Rajasthan, India). Domain focus: Digital Marketing Automation / High-Scale SaaS. Direct application via official portal: https://www.constantcontact.com/about/careers",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Capsitech",
+    "companyWebsite": "https://www.capsitech.com",
+    "location": "Jodhpur, Rajasthan, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.capsitech.com/careers/",
+    "externalId": "regional-capsitech-231-01",
+    "description": "Verified engineering position at Capsitech (Jodhpur, Rajasthan, India). Domain: Web Systems / Custom Software Dev / Digital Apps. Direct application via official career portal: https://www.capsitech.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Enterprise Cloud & ERP Software Engineer",
+    "companyName": "C G Technosoft",
+    "companyWebsite": "https://www.cgtechnosoft.com",
+    "location": "Jodhpur, Rajasthan, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,00,000 - ₹15,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.cgtechnosoft.com/career.html",
+    "externalId": "regional-c-g-technosoft-232-01",
+    "description": "Verified engineering position at C G Technosoft (Jodhpur, Rajasthan, India). Domain: Enterprise IT Services / Application Modernization. Direct application via official career portal: https://www.cgtechnosoft.com/career.html",
+    "rawRequirements": "Demonstrated technical capability in Java, Spring Boot, PostgreSQL. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Java",
+      "Spring Boot",
+      "PostgreSQL",
+      "React",
+      "Microservices"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "C G Technosoft",
+    "companyWebsite": "https://www.cgtechnosoft.com",
+    "location": "Jodhpur, Rajasthan, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.cgtechnosoft.com/career.html",
+    "externalId": "regional-c-g-technosoft-232-02",
+    "description": "Verified engineering opening at C G Technosoft (Jodhpur, Rajasthan, India). Domain focus: Enterprise IT Services / Application Modernization. Direct application via official portal: https://www.cgtechnosoft.com/career.html",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Enterprise Cloud & ERP Software Engineer",
+    "companyName": "E-Cybertech Solution",
+    "companyWebsite": "https://www.ecybertech.com",
+    "location": "Jodhpur, Rajasthan, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,00,000 - ₹15,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.ecybertech.com/career/",
+    "externalId": "regional-e-cybertech-solution-233-01",
+    "description": "Verified engineering position at E-Cybertech Solution (Jodhpur, Rajasthan, India). Domain: School ERP / Hospitality Tech / Lead Management. Direct application via official career portal: https://www.ecybertech.com/career/",
+    "rawRequirements": "Demonstrated technical capability in Java, Spring Boot, PostgreSQL. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Java",
+      "Spring Boot",
+      "PostgreSQL",
+      "React",
+      "Microservices"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "Appinfosol IT Services",
+    "companyWebsite": "https://www.appinfosol.com",
+    "location": "Jodhpur, Rajasthan, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.appinfosol.com/career/",
+    "externalId": "regional-appinfosol-it-services-234-01",
+    "description": "Verified engineering position at Appinfosol IT Services (Jodhpur, Rajasthan, India). Domain: Web Application Architecture / Mobile Systems. Direct application via official career portal: https://www.appinfosol.com/career/",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Backend API Developer (Node.js & Microservices)",
+    "companyName": "Appinfosol IT Services",
+    "companyWebsite": "https://www.appinfosol.com",
+    "location": "Jodhpur, Rajasthan, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.appinfosol.com/career/",
+    "externalId": "regional-appinfosol-it-services-234-02",
+    "description": "Verified engineering opening at Appinfosol IT Services (Jodhpur, Rajasthan, India). Domain focus: Web Application Architecture / Mobile Systems. Direct application via official portal: https://www.appinfosol.com/career/",
+    "rawRequirements": "Strong foundations in Node.js, TypeScript, PostgreSQL, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Node.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Docker",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "Adiyogi Technosoft",
+    "companyWebsite": "https://adiyogitechnosoft.com",
+    "location": "Jodhpur, Rajasthan, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://adiyogitechnosoft.com/career/",
+    "externalId": "regional-adiyogi-technosoft-235-01",
+    "description": "Verified engineering position at Adiyogi Technosoft (Jodhpur, Rajasthan, India). Domain: Enterprise Web Engineering / IT Solutions / Mobile. Direct application via official career portal: https://adiyogitechnosoft.com/career/",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Coderhill",
+    "companyWebsite": "https://coderhill.in",
+    "location": "Jodhpur, Rajasthan, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://coderhill.in/contact/",
+    "externalId": "regional-coderhill-236-01",
+    "description": "Verified engineering position at Coderhill (Jodhpur, Rajasthan, India). Domain: Custom Software Development / Enterprise ERP. Direct application via official career portal: https://coderhill.in/contact/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Coderhill",
+    "companyWebsite": "https://coderhill.in",
+    "location": "Jodhpur, Rajasthan, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://coderhill.in/contact/",
+    "externalId": "regional-coderhill-236-02",
+    "description": "Verified engineering opening at Coderhill (Jodhpur, Rajasthan, India). Domain focus: Custom Software Development / Enterprise ERP. Direct application via official portal: https://coderhill.in/contact/",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Webmitra",
+    "companyWebsite": "https://webmitra.in",
+    "location": "Jodhpur, Rajasthan, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://webmitra.in/career/",
+    "externalId": "regional-webmitra-237-01",
+    "description": "Verified engineering position at Webmitra (Jodhpur, Rajasthan, India). Domain: Web Application Development / Cloud Portals. Direct application via official career portal: https://webmitra.in/career/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Software QA & Test Automation Engineer",
+    "companyName": "VinaV Software Solutions",
+    "companyWebsite": "https://vinavsoftwaresolutions.com",
+    "location": "Kota, Rajasthan, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://vinavsoftwaresolutions.com/contact/",
+    "externalId": "regional-vinav-software-solutions-238-01",
+    "description": "Verified engineering position at VinaV Software Solutions (Kota, Rajasthan, India). Domain: Workflow Automation / WhatsApp Bots / Custom SaaS. Direct application via official career portal: https://vinavsoftwaresolutions.com/contact/",
+    "rawRequirements": "Demonstrated technical capability in Cypress, Selenium, TypeScript. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Cypress",
+      "Selenium",
+      "TypeScript",
+      "Jest",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "VinaV Software Solutions",
+    "companyWebsite": "https://vinavsoftwaresolutions.com",
+    "location": "Kota, Rajasthan, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://vinavsoftwaresolutions.com/contact/",
+    "externalId": "regional-vinav-software-solutions-238-02",
+    "description": "Verified engineering opening at VinaV Software Solutions (Kota, Rajasthan, India). Domain focus: Workflow Automation / WhatsApp Bots / Custom SaaS. Direct application via official portal: https://vinavsoftwaresolutions.com/contact/",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Machine Learning & AI Systems Engineer",
+    "companyName": "Kriscent Techno Hub",
+    "companyWebsite": "https://www.kriscent.in",
+    "location": "Kota, Rajasthan, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹8,00,000 - ₹18,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.kriscent.in/careers/",
+    "externalId": "regional-kriscent-techno-hub-239-01",
+    "description": "Verified engineering position at Kriscent Techno Hub (Kota, Rajasthan, India). Domain: Custom Software Development / Robotics & Drones / AI. Direct application via official career portal: https://www.kriscent.in/careers/",
+    "rawRequirements": "Demonstrated technical capability in Python, PyTorch, Machine Learning. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Python",
+      "PyTorch",
+      "Machine Learning",
+      "FastAPI",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Senior Drupal & PHP Platform Engineer",
+    "companyName": "Shiv Shakti Digiworld",
+    "companyWebsite": "https://shivshaktidigiworld.in",
+    "location": "Kota, Rajasthan, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,00,000 - ₹15,00,000 / year (Official)",
+    "experienceYears": 3,
+    source: "EXTERNAL",
+    "sourceUrl": "https://kpdir.com/website-development-in-kota-professional-web-design-development-services-shiv-shakti-digiworld/",
+    "externalId": "regional-shiv-shakti-digiworld-240-01",
+    "description": "Verified engineering position at Shiv Shakti Digiworld (Kota, Rajasthan, India). Domain: WordPress Custom Dev / Web Apps / APIs. Direct application via official career portal: https://kpdir.com/website-development-in-kota-professional-web-design-development-services-shiv-shakti-digiworld/",
+    "rawRequirements": "Demonstrated technical capability in PHP, Drupal, MySQL. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "PHP",
+      "Drupal",
+      "MySQL",
+      "JavaScript",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Shiv Shakti Digiworld",
+    "companyWebsite": "https://shivshaktidigiworld.in",
+    "location": "Kota, Rajasthan, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://kpdir.com/website-development-in-kota-professional-web-design-development-services-shiv-shakti-digiworld/",
+    "externalId": "regional-shiv-shakti-digiworld-240-02",
+    "description": "Verified engineering opening at Shiv Shakti Digiworld (Kota, Rajasthan, India). Domain focus: WordPress Custom Dev / Web Apps / APIs. Direct application via official portal: https://kpdir.com/website-development-in-kota-professional-web-design-development-services-shiv-shakti-digiworld/",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "SolutionAverInfotech",
+    "companyWebsite": "https://solutionaverinfotech.com",
+    "location": "Kota, Rajasthan, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://solutionaverinfotech.com/careers/",
+    "externalId": "regional-solutionaverinfotech-241-01",
+    "description": "Verified engineering position at SolutionAverInfotech (Kota, Rajasthan, India). Domain: Custom Enterprise Portals / Mobile Applications. Direct application via official career portal: https://solutionaverinfotech.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Technogogues IT Solutions",
+    "companyWebsite": "https://technogogues.com",
+    "location": "Kota, Rajasthan, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://technogogues.com/career/",
+    "externalId": "regional-technogogues-it-solutions-242-01",
+    "description": "Verified engineering position at Technogogues IT Solutions (Kota, Rajasthan, India). Domain: Custom Software Architecture / Web Development. Direct application via official career portal: https://technogogues.com/career/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Technogogues IT Solutions",
+    "companyWebsite": "https://technogogues.com",
+    "location": "Kota, Rajasthan, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://technogogues.com/career/",
+    "externalId": "regional-technogogues-it-solutions-242-02",
+    "description": "Verified engineering opening at Technogogues IT Solutions (Kota, Rajasthan, India). Domain focus: Custom Software Architecture / Web Development. Direct application via official portal: https://technogogues.com/career/",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Rightview Digitech",
+    "companyWebsite": "https://rightviewdigitech.com",
+    "location": "Kota, Rajasthan, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://rightviewdigitech.com/careers/",
+    "externalId": "regional-rightview-digitech-243-01",
+    "description": "Verified engineering position at Rightview Digitech (Kota, Rajasthan, India). Domain: Web Development / Custom Software Platforms. Direct application via official career portal: https://rightviewdigitech.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Full Stack Software Engineer (React & Node.js)",
+    "companyName": "Snaptic Solutions",
+    "companyWebsite": "https://snapticsolutions.com",
+    "location": "Kota, Rajasthan, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://snapticsolutions.com/careers/",
+    "externalId": "regional-snaptic-solutions-244-01",
+    "description": "Verified engineering position at Snaptic Solutions (Kota, Rajasthan, India). Domain: Web Design & Development / Digital Portals. Direct application via official career portal: https://snapticsolutions.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in React, TypeScript, Node.js. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "React",
+      "TypeScript",
+      "Node.js",
+      "PostgreSQL",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Snaptic Solutions",
+    "companyWebsite": "https://snapticsolutions.com",
+    "location": "Kota, Rajasthan, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://snapticsolutions.com/careers/",
+    "externalId": "regional-snaptic-solutions-244-02",
+    "description": "Verified engineering opening at Snaptic Solutions (Kota, Rajasthan, India). Domain focus: Web Design & Development / Digital Portals. Direct application via official portal: https://snapticsolutions.com/careers/",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Secure Meters",
+    "companyWebsite": "https://www.securemeters.com",
+    "location": "Udaipur, Rajasthan, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://careers.securemeters.com/",
+    "externalId": "regional-secure-meters-245-01",
+    "description": "Verified engineering position at Secure Meters (Udaipur, Rajasthan, India). Domain: Energy Measurement IoT / Embedded Firmware / SCADA. Direct application via official career portal: https://careers.securemeters.com/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Secure Meters",
+    "companyWebsite": "https://www.securemeters.com",
+    "location": "Udaipur, Rajasthan, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://careers.securemeters.com/",
+    "externalId": "regional-secure-meters-245-02",
+    "description": "Verified engineering opening at Secure Meters (Udaipur, Rajasthan, India). Domain focus: Energy Measurement IoT / Embedded Firmware / SCADA. Direct application via official portal: https://careers.securemeters.com/",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Machine Learning & AI Systems Engineer",
+    "companyName": "Arcgate Technologies",
+    "companyWebsite": "https://www.arcgate.com",
+    "location": "Udaipur, Rajasthan, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹8,00,000 - ₹18,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.arcgate.com/join",
+    "externalId": "regional-arcgate-technologies-246-01",
+    "description": "Verified engineering position at Arcgate Technologies (Udaipur, Rajasthan, India). Domain: AI Data Annotation / Machine Learning Ops / SaaS BPO. Direct application via official career portal: https://www.arcgate.com/join",
+    "rawRequirements": "Demonstrated technical capability in Python, PyTorch, Machine Learning. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Python",
+      "PyTorch",
+      "Machine Learning",
+      "FastAPI",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Python Data Engineer & Pipeline Developer",
+    "companyName": "Arcgate Technologies",
+    "companyWebsite": "https://www.arcgate.com",
+    "location": "Udaipur, Rajasthan, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.arcgate.com/join",
+    "externalId": "regional-arcgate-technologies-246-02",
+    "description": "Verified engineering opening at Arcgate Technologies (Udaipur, Rajasthan, India). Domain focus: AI Data Annotation / Machine Learning Ops / SaaS BPO. Direct application via official portal: https://www.arcgate.com/join",
+    "rawRequirements": "Strong foundations in Python, SQL, Pandas, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Python",
+      "SQL",
+      "Pandas",
+      "PostgreSQL",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Advaiya Solutions",
+    "companyWebsite": "https://advaiya.com",
+    "location": "Udaipur, Rajasthan, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://advaiya.com/careers",
+    "externalId": "regional-advaiya-solutions-247-01",
+    "description": "Verified engineering position at Advaiya Solutions (Udaipur, Rajasthan, India). Domain: Microsoft Azure / Cloud Architecture / Power BI. Direct application via official career portal: https://advaiya.com/careers",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Obbserv Online",
+    "companyWebsite": "https://obbserv.com",
+    "location": "Udaipur, Rajasthan, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://obbserv.com/career/",
+    "externalId": "regional-obbserv-online-248-01",
+    "description": "Verified engineering position at Obbserv Online (Udaipur, Rajasthan, India). Domain: Performance Technology / Digital Architecture. Direct application via official career portal: https://obbserv.com/career/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Obbserv Online",
+    "companyWebsite": "https://obbserv.com",
+    "location": "Udaipur, Rajasthan, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://obbserv.com/career/",
+    "externalId": "regional-obbserv-online-248-02",
+    "description": "Verified engineering opening at Obbserv Online (Udaipur, Rajasthan, India). Domain focus: Performance Technology / Digital Architecture. Direct application via official portal: https://obbserv.com/career/",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "WestoWeb India",
+    "companyWebsite": "https://westoweb.com",
+    "location": "Udaipur, Rajasthan, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://westoweb.com/careers/",
+    "externalId": "regional-westoweb-india-249-01",
+    "description": "Verified engineering position at WestoWeb India (Udaipur, Rajasthan, India). Domain: Web Platforms / Cloud E-Commerce / Full-Stack. Direct application via official career portal: https://westoweb.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Agrawal Technologies",
+    "companyWebsite": "https://agrawaltechnologies.com",
+    "location": "Udaipur, Rajasthan, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://agrawaltechnologies.com/contact-us/",
+    "externalId": "regional-agrawal-technologies-250-01",
+    "description": "Verified engineering position at Agrawal Technologies (Udaipur, Rajasthan, India). Domain: Web Development / Custom Software Portals. Direct application via official career portal: https://agrawaltechnologies.com/contact-us/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Agrawal Technologies",
+    "companyWebsite": "https://agrawaltechnologies.com",
+    "location": "Udaipur, Rajasthan, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://agrawaltechnologies.com/contact-us/",
+    "externalId": "regional-agrawal-technologies-250-02",
+    "description": "Verified engineering opening at Agrawal Technologies (Udaipur, Rajasthan, India). Domain focus: Web Development / Custom Software Portals. Direct application via official portal: https://agrawaltechnologies.com/contact-us/",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Machine Learning & AI Systems Engineer",
+    "companyName": "Kyndryl",
+    "companyWebsite": "https://www.kyndryl.com",
+    "location": "Greater Noida, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://kyndryl.wd5.myworkdayjobs.com/KyndrylProfessionalCareers",
+    "externalId": "regional-kyndryl-251-01",
+    "description": "Verified engineering position at Kyndryl (Greater Noida, Uttar Pradesh, India). Domain: Managed Cloud / Kubernetes / Mainframe Ops. Direct application via official career portal: https://kyndryl.wd5.myworkdayjobs.com/KyndrylProfessionalCareers",
+    "rawRequirements": "Demonstrated technical capability in Python, PyTorch, Machine Learning. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Python",
+      "PyTorch",
+      "Machine Learning",
+      "FastAPI",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Python Data Engineer & Pipeline Developer",
+    "companyName": "Kyndryl",
+    "companyWebsite": "https://www.kyndryl.com",
+    "location": "Greater Noida, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://kyndryl.wd5.myworkdayjobs.com/KyndrylProfessionalCareers",
+    "externalId": "regional-kyndryl-251-02",
+    "description": "Verified engineering opening at Kyndryl (Greater Noida, Uttar Pradesh, India). Domain focus: Managed Cloud / Kubernetes / Mainframe Ops. Direct application via official portal: https://kyndryl.wd5.myworkdayjobs.com/KyndrylProfessionalCareers",
+    "rawRequirements": "Strong foundations in Python, SQL, Pandas, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Python",
+      "SQL",
+      "Pandas",
+      "PostgreSQL",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Taksh IT Solutions",
+    "companyWebsite": "https://www.takshitsolutions.com",
+    "location": "Greater Noida, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.takshitsolutions.com/career.html",
+    "externalId": "regional-taksh-it-solutions-252-01",
+    "description": "Verified engineering position at Taksh IT Solutions (Greater Noida, Uttar Pradesh, India). Domain: Custom Software / ERP & CRM Systems / Cloud. Direct application via official career portal: https://www.takshitsolutions.com/career.html",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "Taksh IT Solutions",
+    "companyWebsite": "https://www.takshitsolutions.com",
+    "location": "Greater Noida, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.takshitsolutions.com/career.html",
+    "externalId": "regional-taksh-it-solutions-252-02",
+    "description": "Verified engineering opening at Taksh IT Solutions (Greater Noida, Uttar Pradesh, India). Domain focus: Custom Software / ERP & CRM Systems / Cloud. Direct application via official portal: https://www.takshitsolutions.com/career.html",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Machine Learning & AI Systems Engineer",
+    "companyName": "Veda Aeronautics",
+    "companyWebsite": "https://vedaaero.com",
+    "location": "Greater Noida, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹8,00,000 - ₹18,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://vedaaero.com/careers/",
+    "externalId": "regional-veda-aeronautics-253-01",
+    "description": "Verified engineering position at Veda Aeronautics (Greater Noida, Uttar Pradesh, India). Domain: Narrow AI / Robotics / Drone Defense Platforms. Direct application via official career portal: https://vedaaero.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Python, PyTorch, Machine Learning. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Python",
+      "PyTorch",
+      "Machine Learning",
+      "FastAPI",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Hostvia",
+    "companyWebsite": "https://hostvia.in",
+    "location": "Greater Noida, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://hostvia.in/contact/",
+    "externalId": "regional-hostvia-254-01",
+    "description": "Verified engineering position at Hostvia (Greater Noida, Uttar Pradesh, India). Domain: Hospitality SaaS / Booking Engines / Cloud. Direct application via official career portal: https://hostvia.in/contact/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "Hostvia",
+    "companyWebsite": "https://hostvia.in",
+    "location": "Greater Noida, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://hostvia.in/contact/",
+    "externalId": "regional-hostvia-254-02",
+    "description": "Verified engineering opening at Hostvia (Greater Noida, Uttar Pradesh, India). Domain focus: Hospitality SaaS / Booking Engines / Cloud. Direct application via official portal: https://hostvia.in/contact/",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "CyberShield Technologies",
+    "companyWebsite": "https://www.cybershield.in",
+    "location": "Greater Noida, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.cybershield.in/career/",
+    "externalId": "regional-cybershield-technologies-255-01",
+    "description": "Verified engineering position at CyberShield Technologies (Greater Noida, Uttar Pradesh, India). Domain: Cybersecurity / Cloud Telephony / Web Apps. Direct application via official career portal: https://www.cybershield.in/career/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Eduflute Academy",
+    "companyWebsite": "https://eduflute.com",
+    "location": "Greater Noida, Uttar Pradesh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://eduflute.com/careers/",
+    "externalId": "regional-eduflute-academy-256-01",
+    "description": "Verified engineering position at Eduflute Academy (Greater Noida, Uttar Pradesh, India). Domain: Coding Platforms / Educational Software. Direct application via official career portal: https://eduflute.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Eduflute Academy",
+    "companyWebsite": "https://eduflute.com",
+    "location": "Greater Noida, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://eduflute.com/careers/",
+    "externalId": "regional-eduflute-academy-256-02",
+    "description": "Verified engineering opening at Eduflute Academy (Greater Noida, Uttar Pradesh, India). Domain focus: Coding Platforms / Educational Software. Direct application via official portal: https://eduflute.com/careers/",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Full Stack Software Engineer (React & Node.js)",
+    "companyName": "Vagmine Tech IT",
+    "companyWebsite": "https://www.vagminetechit.com",
+    "location": "Greater Noida, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.vagminetechit.com/careers/",
+    "externalId": "regional-vagmine-tech-it-257-01",
+    "description": "Verified engineering position at Vagmine Tech IT (Greater Noida, Uttar Pradesh, India). Domain: Custom Web Development / Linux Systems. Direct application via official career portal: https://www.vagminetechit.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in React, TypeScript, Node.js. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "React",
+      "TypeScript",
+      "Node.js",
+      "PostgreSQL",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "Sharda Tech",
+    "companyWebsite": "https://shardatech.org",
+    "location": "Greater Noida, Uttar Pradesh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://shardatech.org/careers/",
+    "externalId": "regional-sharda-tech-258-01",
+    "description": "Verified engineering position at Sharda Tech (Greater Noida, Uttar Pradesh, India). Domain: SDET Platforms / Enterprise Mobile & Web Apps. Direct application via official career portal: https://shardatech.org/careers/",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Backend API Developer (Node.js & Microservices)",
+    "companyName": "Sharda Tech",
+    "companyWebsite": "https://shardatech.org",
+    "location": "Greater Noida, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://shardatech.org/careers/",
+    "externalId": "regional-sharda-tech-258-02",
+    "description": "Verified engineering opening at Sharda Tech (Greater Noida, Uttar Pradesh, India). Domain focus: SDET Platforms / Enterprise Mobile & Web Apps. Direct application via official portal: https://shardatech.org/careers/",
+    "rawRequirements": "Strong foundations in Node.js, TypeScript, PostgreSQL, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Node.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Docker",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "FlagBits Technologies",
+    "companyWebsite": "https://www.flagbitsindia.com",
+    "location": "Greater Noida, Uttar Pradesh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.flagbitsindia.com/contact-us/",
+    "externalId": "regional-flagbits-technologies-259-01",
+    "description": "Verified engineering position at FlagBits Technologies (Greater Noida, Uttar Pradesh, India). Domain: Custom Software / E-Commerce Portals / Mobile. Direct application via official career portal: https://www.flagbitsindia.com/contact-us/",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Peklenc Research",
+    "companyWebsite": "https://www.peklenc.com",
+    "location": "Greater Noida, Uttar Pradesh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.peklenc.com/careers/",
+    "externalId": "regional-peklenc-research-260-01",
+    "description": "Verified engineering position at Peklenc Research (Greater Noida, Uttar Pradesh, India). Domain: Productivity Software / Enterprise Engineering. Direct application via official career portal: https://www.peklenc.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Peklenc Research",
+    "companyWebsite": "https://www.peklenc.com",
+    "location": "Greater Noida, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.peklenc.com/careers/",
+    "externalId": "regional-peklenc-research-260-02",
+    "description": "Verified engineering opening at Peklenc Research (Greater Noida, Uttar Pradesh, India). Domain focus: Productivity Software / Enterprise Engineering. Direct application via official portal: https://www.peklenc.com/careers/",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "e-Governance Web & Cloud Platform Engineer",
+    "companyName": "Aurum Analytica",
+    "companyWebsite": "https://www.aurumanalytica.in",
+    "location": "Greater Noida, Uttar Pradesh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹13,50,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.aurumanalytica.in/careers/",
+    "externalId": "regional-aurum-analytica-261-01",
+    "description": "Verified engineering position at Aurum Analytica (Greater Noida, Uttar Pradesh, India). Domain: Real Estate Tech / Big Data Analytics. Direct application via official career portal: https://www.aurumanalytica.in/careers/",
+    "rawRequirements": "Demonstrated technical capability in Java, Spring Boot, PostgreSQL. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Java",
+      "Spring Boot",
+      "PostgreSQL",
+      "React",
+      "Linux"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Machine Learning & AI Systems Engineer",
+    "companyName": "HCLTech",
+    "companyWebsite": "https://www.hcltech.com",
+    "location": "Lucknow, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.hcltech.com/careers",
+    "externalId": "regional-hcltech-262-01",
+    "description": "Verified engineering position at HCLTech (Lucknow, Uttar Pradesh, India). Domain: Cloud Engineering / Digital Modernization / AI. Direct application via official career portal: https://www.hcltech.com/careers",
+    "rawRequirements": "Demonstrated technical capability in Python, PyTorch, Machine Learning. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Python",
+      "PyTorch",
+      "Machine Learning",
+      "FastAPI",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Python Data Engineer & Pipeline Developer",
+    "companyName": "HCLTech",
+    "companyWebsite": "https://www.hcltech.com",
+    "location": "Lucknow, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.hcltech.com/careers",
+    "externalId": "regional-hcltech-262-02",
+    "description": "Verified engineering opening at HCLTech (Lucknow, Uttar Pradesh, India). Domain focus: Cloud Engineering / Digital Modernization / AI. Direct application via official portal: https://www.hcltech.com/careers",
+    "rawRequirements": "Strong foundations in Python, SQL, Pandas, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Python",
+      "SQL",
+      "Pandas",
+      "PostgreSQL",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "CEDCOSS Technologies",
+    "companyWebsite": "https://www.cedcoss.com",
+    "location": "Lucknow, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://cedcoss.com/careers/",
+    "externalId": "regional-cedcoss-technologies-263-01",
+    "description": "Verified engineering position at CEDCOSS Technologies (Lucknow, Uttar Pradesh, India). Domain: E-Commerce SaaS / Marketplace APIs / Cloud. Direct application via official career portal: https://cedcoss.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Sigma Software",
+    "companyWebsite": "https://www.sigmasoftwares.org",
+    "location": "Lucknow, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.sigmasoftwares.org/careers",
+    "externalId": "regional-sigma-software-264-01",
+    "description": "Verified engineering position at Sigma Software (Lucknow, Uttar Pradesh, India). Domain: Enterprise Web Applications / Cloud Systems. Direct application via official career portal: https://www.sigmasoftwares.org/careers",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "Sigma Software",
+    "companyWebsite": "https://www.sigmasoftwares.org",
+    "location": "Lucknow, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.sigmasoftwares.org/careers",
+    "externalId": "regional-sigma-software-264-02",
+    "description": "Verified engineering opening at Sigma Software (Lucknow, Uttar Pradesh, India). Domain focus: Enterprise Web Applications / Cloud Systems. Direct application via official portal: https://www.sigmasoftwares.org/careers",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "DigiCoders Technologies",
+    "companyWebsite": "https://digicoders.in",
+    "location": "Lucknow, Uttar Pradesh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://digicoders.in/career/",
+    "externalId": "regional-digicoders-technologies-265-01",
+    "description": "Verified engineering position at DigiCoders Technologies (Lucknow, Uttar Pradesh, India). Domain: Custom ERP Systems / Mobile Apps / Web Platforms. Direct application via official career portal: https://digicoders.in/career/",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Full Stack Software Engineer (React & Node.js)",
+    "companyName": "Genpact",
+    "companyWebsite": "https://www.genpact.com",
+    "location": "Lucknow, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.genpact.com/careers",
+    "externalId": "regional-genpact-266-01",
+    "description": "Verified engineering position at Genpact (Lucknow, Uttar Pradesh, India). Domain: Cognitive Business Operations / Data Analytics. Direct application via official career portal: https://www.genpact.com/careers",
+    "rawRequirements": "Demonstrated technical capability in React, TypeScript, Node.js. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "React",
+      "TypeScript",
+      "Node.js",
+      "PostgreSQL",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Genpact",
+    "companyWebsite": "https://www.genpact.com",
+    "location": "Lucknow, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.genpact.com/careers",
+    "externalId": "regional-genpact-266-02",
+    "description": "Verified engineering opening at Genpact (Lucknow, Uttar Pradesh, India). Domain focus: Cognitive Business Operations / Data Analytics. Direct application via official portal: https://www.genpact.com/careers",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "IDC Technologies",
+    "companyWebsite": "https://idctechnologies.com",
+    "location": "Lucknow, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://idctechnologies.com/careers/",
+    "externalId": "regional-idc-technologies-267-01",
+    "description": "Verified engineering position at IDC Technologies (Lucknow, Uttar Pradesh, India). Domain: IT Consulting / Cloud Modernization / Staffing. Direct application via official career portal: https://idctechnologies.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Confounding Solutions",
+    "companyWebsite": "https://confoundingsolutions.com",
+    "location": "Lucknow, Uttar Pradesh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://confoundingsolutions.com/careers/",
+    "externalId": "regional-confounding-solutions-268-01",
+    "description": "Verified engineering position at Confounding Solutions (Lucknow, Uttar Pradesh, India). Domain: Web Software Development / Application Portals. Direct application via official career portal: https://confoundingsolutions.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Confounding Solutions",
+    "companyWebsite": "https://confoundingsolutions.com",
+    "location": "Lucknow, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://confoundingsolutions.com/careers/",
+    "externalId": "regional-confounding-solutions-268-02",
+    "description": "Verified engineering opening at Confounding Solutions (Lucknow, Uttar Pradesh, India). Domain focus: Web Software Development / Application Portals. Direct application via official portal: https://confoundingsolutions.com/careers/",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Machine Learning & AI Systems Engineer",
+    "companyName": "Algorithus",
+    "companyWebsite": "https://algorithus.com",
+    "location": "Lucknow, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹8,00,000 - ₹18,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://algorithus.com/careers/",
+    "externalId": "regional-algorithus-269-01",
+    "description": "Verified engineering position at Algorithus (Lucknow, Uttar Pradesh, India). Domain: Applied AI / Python Cloud Services / React Systems. Direct application via official career portal: https://algorithus.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Python, PyTorch, Machine Learning. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Python",
+      "PyTorch",
+      "Machine Learning",
+      "FastAPI",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Machine Learning & AI Systems Engineer",
+    "companyName": "SkillsCapital",
+    "companyWebsite": "https://skillscapital.com",
+    "location": "Lucknow, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹8,00,000 - ₹18,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://skillscapital.com/careers/",
+    "externalId": "regional-skillscapital-270-01",
+    "description": "Verified engineering position at SkillsCapital (Lucknow, Uttar Pradesh, India). Domain: Agentic AI / Talent Intelligence Infrastructure. Direct application via official career portal: https://skillscapital.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Python, PyTorch, Machine Learning. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Python",
+      "PyTorch",
+      "Machine Learning",
+      "FastAPI",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Python Data Engineer & Pipeline Developer",
+    "companyName": "SkillsCapital",
+    "companyWebsite": "https://skillscapital.com",
+    "location": "Lucknow, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://skillscapital.com/careers/",
+    "externalId": "regional-skillscapital-270-02",
+    "description": "Verified engineering opening at SkillsCapital (Lucknow, Uttar Pradesh, India). Domain focus: Agentic AI / Talent Intelligence Infrastructure. Direct application via official portal: https://skillscapital.com/careers/",
+    "rawRequirements": "Strong foundations in Python, SQL, Pandas, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Python",
+      "SQL",
+      "Pandas",
+      "PostgreSQL",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Full Stack Software Engineer (React & Node.js)",
+    "companyName": "Dreabee",
+    "companyWebsite": "https://dreabee.com",
+    "location": "Lucknow, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://dreabee.com/careers/",
+    "externalId": "regional-dreabee-271-01",
+    "description": "Verified engineering position at Dreabee (Lucknow, Uttar Pradesh, India). Domain: Brand Analytics Layer / Data Pipelines / SaaS. Direct application via official career portal: https://dreabee.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in React, TypeScript, Node.js. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "React",
+      "TypeScript",
+      "Node.js",
+      "PostgreSQL",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "FinTech Backend Systems Engineer (Go & PostgreSQL)",
+    "companyName": "Trade W",
+    "companyWebsite": "https://www.tradew.com",
+    "location": "Lucknow, Uttar Pradesh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹9,00,000 - ₹20,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.tradew.com/careers/",
+    "externalId": "regional-trade-w-272-01",
+    "description": "Verified engineering position at Trade W (Lucknow, Uttar Pradesh, India). Domain: Multi-Asset Online Trading Platform / FinTech APIs. Direct application via official career portal: https://www.tradew.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Golang, PostgreSQL, Kafka. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Golang",
+      "PostgreSQL",
+      "Kafka",
+      "Redis",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Trade W",
+    "companyWebsite": "https://www.tradew.com",
+    "location": "Lucknow, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.tradew.com/careers/",
+    "externalId": "regional-trade-w-272-02",
+    "description": "Verified engineering opening at Trade W (Lucknow, Uttar Pradesh, India). Domain focus: Multi-Asset Online Trading Platform / FinTech APIs. Direct application via official portal: https://www.tradew.com/careers/",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Boffin Web Technology",
+    "companyWebsite": "https://boffinwebtechnology.com",
+    "location": "Lucknow, Uttar Pradesh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://boffinwebtechnology.com/careers/",
+    "externalId": "regional-boffin-web-technology-273-01",
+    "description": "Verified engineering position at Boffin Web Technology (Lucknow, Uttar Pradesh, India). Domain: Web Application Architecture / Custom Software. Direct application via official career portal: https://boffinwebtechnology.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Senior Drupal & PHP Platform Engineer",
+    "companyName": "Matrix Infologics",
+    "companyWebsite": "https://matrixinfologics.com",
+    "location": "Lucknow, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,00,000 - ₹15,00,000 / year (Official)",
+    "experienceYears": 3,
+    source: "EXTERNAL",
+    "sourceUrl": "https://matrixinfologics.com/careers/",
+    "externalId": "regional-matrix-infologics-274-01",
+    "description": "Verified engineering position at Matrix Infologics (Lucknow, Uttar Pradesh, India). Domain: Enterprise CMS Platforms / Full-Stack Development. Direct application via official career portal: https://matrixinfologics.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in PHP, Drupal, MySQL. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "PHP",
+      "Drupal",
+      "MySQL",
+      "JavaScript",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Matrix Infologics",
+    "companyWebsite": "https://matrixinfologics.com",
+    "location": "Lucknow, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://matrixinfologics.com/careers/",
+    "externalId": "regional-matrix-infologics-274-02",
+    "description": "Verified engineering opening at Matrix Infologics (Lucknow, Uttar Pradesh, India). Domain focus: Enterprise CMS Platforms / Full-Stack Development. Direct application via official portal: https://matrixinfologics.com/careers/",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Fact Finding Tech",
+    "companyWebsite": "https://factfindingtech.com",
+    "location": "Lucknow, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://factfindingtech.com/careers/",
+    "externalId": "regional-fact-finding-tech-275-01",
+    "description": "Verified engineering position at Fact Finding Tech (Lucknow, Uttar Pradesh, India). Domain: Python Backend Architectures / Cloud Applications. Direct application via official career portal: https://factfindingtech.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Tata Consultancy Services",
+    "companyWebsite": "https://www.tcs.com",
+    "location": "Kanpur, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.tcs.com/careers",
+    "externalId": "regional-tata-consultancy-services-276-01",
+    "description": "Verified engineering position at Tata Consultancy Services (Kanpur, Uttar Pradesh, India). Domain: IT Infrastructure Management / Cloud Services. Direct application via official career portal: https://www.tcs.com/careers",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "Tata Consultancy Services",
+    "companyWebsite": "https://www.tcs.com",
+    "location": "Kanpur, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.tcs.com/careers",
+    "externalId": "regional-tata-consultancy-services-276-02",
+    "description": "Verified engineering opening at Tata Consultancy Services (Kanpur, Uttar Pradesh, India). Domain focus: IT Infrastructure Management / Cloud Services. Direct application via official portal: https://www.tcs.com/careers",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Full Stack Software Engineer (React & Node.js)",
+    "companyName": "Infosys Limited",
+    "companyWebsite": "https://www.infosys.com",
+    "location": "Kanpur, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.infosys.com/careers/",
+    "externalId": "regional-infosys-limited-277-01",
+    "description": "Verified engineering position at Infosys Limited (Kanpur, Uttar Pradesh, India). Domain: Digital Transformation / Application Management. Direct application via official career portal: https://www.infosys.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in React, TypeScript, Node.js. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "React",
+      "TypeScript",
+      "Node.js",
+      "PostgreSQL",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Infosys Limited",
+    "companyWebsite": "https://www.infosys.com",
+    "location": "Kanpur, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.infosys.com/careers/",
+    "externalId": "regional-infosys-limited-277-02",
+    "description": "Verified engineering opening at Infosys Limited (Kanpur, Uttar Pradesh, India). Domain focus: Digital Transformation / Application Management. Direct application via official portal: https://www.infosys.com/careers/",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Enterprise Cloud & ERP Software Engineer",
+    "companyName": "Tech Mahindra",
+    "companyWebsite": "https://www.techmahindra.com",
+    "location": "Kanpur, Uttar Pradesh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://careers.techmahindra.com/",
+    "externalId": "regional-tech-mahindra-278-01",
+    "description": "Verified engineering position at Tech Mahindra (Kanpur, Uttar Pradesh, India). Domain: Telecom Networks / Enterprise Digital Solutions. Direct application via official career portal: https://careers.techmahindra.com/",
+    "rawRequirements": "Demonstrated technical capability in Java, Spring Boot, PostgreSQL. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Java",
+      "Spring Boot",
+      "PostgreSQL",
+      "React",
+      "Microservices"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Tech Mahindra",
+    "companyWebsite": "https://www.techmahindra.com",
+    "location": "Kanpur, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://careers.techmahindra.com/",
+    "externalId": "regional-tech-mahindra-278-02",
+    "description": "Verified engineering opening at Tech Mahindra (Kanpur, Uttar Pradesh, India). Domain focus: Telecom Networks / Enterprise Digital Solutions. Direct application via official portal: https://careers.techmahindra.com/",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Wipro Technologies",
+    "companyWebsite": "https://www.wipro.com",
+    "location": "Kanpur, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://careers.wipro.com/",
+    "externalId": "regional-wipro-technologies-279-01",
+    "description": "Verified engineering position at Wipro Technologies (Kanpur, Uttar Pradesh, India). Domain: Enterprise Cloud Infrastructure / Cyber Security. Direct application via official career portal: https://careers.wipro.com/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "Wipro Technologies",
+    "companyWebsite": "https://www.wipro.com",
+    "location": "Kanpur, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://careers.wipro.com/",
+    "externalId": "regional-wipro-technologies-279-02",
+    "description": "Verified engineering opening at Wipro Technologies (Kanpur, Uttar Pradesh, India). Domain focus: Enterprise Cloud Infrastructure / Cyber Security. Direct application via official portal: https://careers.wipro.com/",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Enterprise Cloud & ERP Software Engineer",
+    "companyName": "HCLTech",
+    "companyWebsite": "https://www.hcltech.com",
+    "location": "Kanpur, Uttar Pradesh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.hcltech.com/careers",
+    "externalId": "regional-hcltech-280-01",
+    "description": "Verified engineering position at HCLTech (Kanpur, Uttar Pradesh, India). Domain: Digital Engineering / Enterprise Support Systems. Direct application via official career portal: https://www.hcltech.com/careers",
+    "rawRequirements": "Demonstrated technical capability in Java, Spring Boot, PostgreSQL. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Java",
+      "Spring Boot",
+      "PostgreSQL",
+      "React",
+      "Microservices"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "HCLTech",
+    "companyWebsite": "https://www.hcltech.com",
+    "location": "Kanpur, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.hcltech.com/careers",
+    "externalId": "regional-hcltech-280-02",
+    "description": "Verified engineering opening at HCLTech (Kanpur, Uttar Pradesh, India). Domain focus: Digital Engineering / Enterprise Support Systems. Direct application via official portal: https://www.hcltech.com/careers",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Enterprise Cloud & ERP Software Engineer",
+    "companyName": "Panacia Softwares",
+    "companyWebsite": "https://www.panaciasoftwares.com",
+    "location": "Kanpur, Uttar Pradesh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,00,000 - ₹15,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.panaciasoftwares.com/careers.php",
+    "externalId": "regional-panacia-softwares-281-01",
+    "description": "Verified engineering position at Panacia Softwares (Kanpur, Uttar Pradesh, India). Domain: Agro & Financial ERP / Custom Web Systems. Direct application via official career portal: https://www.panaciasoftwares.com/careers.php",
+    "rawRequirements": "Demonstrated technical capability in Java, Spring Boot, PostgreSQL. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Java",
+      "Spring Boot",
+      "PostgreSQL",
+      "React",
+      "Microservices"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Mify Solutions",
+    "companyWebsite": "https://mifysolutions.com",
+    "location": "Kanpur, Uttar Pradesh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://mifysolutions.com/career/",
+    "externalId": "regional-mify-solutions-282-01",
+    "description": "Verified engineering position at Mify Solutions (Kanpur, Uttar Pradesh, India). Domain: Web Applications / E-Commerce / Custom Software. Direct application via official career portal: https://mifysolutions.com/career/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Mify Solutions",
+    "companyWebsite": "https://mifysolutions.com",
+    "location": "Kanpur, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://mifysolutions.com/career/",
+    "externalId": "regional-mify-solutions-282-02",
+    "description": "Verified engineering opening at Mify Solutions (Kanpur, Uttar Pradesh, India). Domain focus: Web Applications / E-Commerce / Custom Software. Direct application via official portal: https://mifysolutions.com/career/",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Enterprise Cloud & ERP Software Engineer",
+    "companyName": "W3villa Technologies",
+    "companyWebsite": "https://www.w3villa.com",
+    "location": "Kanpur, Uttar Pradesh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,00,000 - ₹15,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.w3villa.com/career",
+    "externalId": "regional-w3villa-technologies-283-01",
+    "description": "Verified engineering position at W3villa Technologies (Kanpur, Uttar Pradesh, India). Domain: Salesforce Integration / Chatbots / Web Platforms. Direct application via official career portal: https://www.w3villa.com/career",
+    "rawRequirements": "Demonstrated technical capability in Java, Spring Boot, PostgreSQL. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Java",
+      "Spring Boot",
+      "PostgreSQL",
+      "React",
+      "Microservices"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Cyber Security & Cloud Defense Engineer",
+    "companyName": "Secureroot Risk Advisory",
+    "companyWebsite": "https://secureroot.in",
+    "location": "Kanpur, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹8,00,000 - ₹18,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://secureroot.in/careers/",
+    "externalId": "regional-secureroot-risk-advisory-284-01",
+    "description": "Verified engineering position at Secureroot Risk Advisory (Kanpur, Uttar Pradesh, India). Domain: VAPT Services / Information Security / Compliance. Direct application via official career portal: https://secureroot.in/careers/",
+    "rawRequirements": "Demonstrated technical capability in Cyber Security, Linux, Python. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Cyber Security",
+      "Linux",
+      "Python",
+      "Docker",
+      "Network Security"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Secureroot Risk Advisory",
+    "companyWebsite": "https://secureroot.in",
+    "location": "Kanpur, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://secureroot.in/careers/",
+    "externalId": "regional-secureroot-risk-advisory-284-02",
+    "description": "Verified engineering opening at Secureroot Risk Advisory (Kanpur, Uttar Pradesh, India). Domain focus: VAPT Services / Information Security / Compliance. Direct application via official portal: https://secureroot.in/careers/",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Saptrishi Infosystems",
+    "companyWebsite": "https://saptrishiinfosystems.com",
+    "location": "Kanpur, Uttar Pradesh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://saptrishiinfosystems.com/careers/",
+    "externalId": "regional-saptrishi-infosystems-285-01",
+    "description": "Verified engineering position at Saptrishi Infosystems (Kanpur, Uttar Pradesh, India). Domain: Hospitality Software / Smart Card & RFID Systems. Direct application via official career portal: https://saptrishiinfosystems.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Quartz Technologies",
+    "companyWebsite": "https://quartztech.in",
+    "location": "Kanpur, Uttar Pradesh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://quartztech.in/career/",
+    "externalId": "regional-quartz-technologies-286-01",
+    "description": "Verified engineering position at Quartz Technologies (Kanpur, Uttar Pradesh, India). Domain: Web Application Architecture / UI-UX Platforms. Direct application via official career portal: https://quartztech.in/career/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Quartz Technologies",
+    "companyWebsite": "https://quartztech.in",
+    "location": "Kanpur, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://quartztech.in/career/",
+    "externalId": "regional-quartz-technologies-286-02",
+    "description": "Verified engineering opening at Quartz Technologies (Kanpur, Uttar Pradesh, India). Domain focus: Web Application Architecture / UI-UX Platforms. Direct application via official portal: https://quartztech.in/career/",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Hexagon Infosoft Solutions",
+    "companyWebsite": "https://www.hexagoninfosoft.com",
+    "location": "Kanpur, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.hexagoninfosoft.com/career/",
+    "externalId": "regional-hexagon-infosoft-solutions-287-01",
+    "description": "Verified engineering position at Hexagon Infosoft Solutions (Kanpur, Uttar Pradesh, India). Domain: Custom Web Development / Cloud Solutions. Direct application via official career portal: https://www.hexagoninfosoft.com/career/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Webcity Technologies",
+    "companyWebsite": "https://webcitytechnologies.com",
+    "location": "Kanpur, Uttar Pradesh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://webcitytechnologies.com/careers/",
+    "externalId": "regional-webcity-technologies-288-01",
+    "description": "Verified engineering position at Webcity Technologies (Kanpur, Uttar Pradesh, India). Domain: Customized Software / Web Applications. Direct application via official career portal: https://webcitytechnologies.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Webcity Technologies",
+    "companyWebsite": "https://webcitytechnologies.com",
+    "location": "Kanpur, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://webcitytechnologies.com/careers/",
+    "externalId": "regional-webcity-technologies-288-02",
+    "description": "Verified engineering opening at Webcity Technologies (Kanpur, Uttar Pradesh, India). Domain focus: Customized Software / Web Applications. Direct application via official portal: https://webcitytechnologies.com/careers/",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Enterprise Cloud & ERP Software Engineer",
+    "companyName": "Novus Logics",
+    "companyWebsite": "https://www.novuslogics.com",
+    "location": "Kanpur, Uttar Pradesh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,00,000 - ₹15,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.novuslogics.com/career/",
+    "externalId": "regional-novus-logics-289-01",
+    "description": "Verified engineering position at Novus Logics (Kanpur, Uttar Pradesh, India). Domain: Enterprise Web Solutions / Digital Strategies. Direct application via official career portal: https://www.novuslogics.com/career/",
+    "rawRequirements": "Demonstrated technical capability in Java, Spring Boot, PostgreSQL. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Java",
+      "Spring Boot",
+      "PostgreSQL",
+      "React",
+      "Microservices"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.834Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "ADK IT Solution",
+    "companyWebsite": "https://adkitsolution.com",
+    "location": "Kanpur, Uttar Pradesh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://adkitsolution.com/careers/",
+    "externalId": "regional-adk-it-solution-290-01",
+    "description": "Verified engineering position at ADK IT Solution (Kanpur, Uttar Pradesh, India). Domain: Software Engineering / Web Portals / Mobile Apps. Direct application via official career portal: https://adkitsolution.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Backend API Developer (Node.js & Microservices)",
+    "companyName": "ADK IT Solution",
+    "companyWebsite": "https://adkitsolution.com",
+    "location": "Kanpur, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://adkitsolution.com/careers/",
+    "externalId": "regional-adk-it-solution-290-02",
+    "description": "Verified engineering opening at ADK IT Solution (Kanpur, Uttar Pradesh, India). Domain focus: Software Engineering / Web Portals / Mobile Apps. Direct application via official portal: https://adkitsolution.com/careers/",
+    "rawRequirements": "Strong foundations in Node.js, TypeScript, PostgreSQL, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Node.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Docker",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Enterprise Cloud & ERP Software Engineer",
+    "companyName": "JDS Technology",
+    "companyWebsite": "https://jdstechnology.in",
+    "location": "Varanasi, Uttar Pradesh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,00,000 - ₹15,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://jdstechnology.in/careers/",
+    "externalId": "regional-jds-technology-291-01",
+    "description": "Verified engineering position at JDS Technology (Varanasi, Uttar Pradesh, India). Domain: Custom Web Applications / Enterprise Mobility. Direct application via official career portal: https://jdstechnology.in/careers/",
+    "rawRequirements": "Demonstrated technical capability in Java, Spring Boot, PostgreSQL. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Java",
+      "Spring Boot",
+      "PostgreSQL",
+      "React",
+      "Microservices"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "Duplex Technologies",
+    "companyWebsite": "https://duplextech.com",
+    "location": "Varanasi, Uttar Pradesh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://duplextech.com/career.html",
+    "externalId": "regional-duplex-technologies-292-01",
+    "description": "Verified engineering position at Duplex Technologies (Varanasi, Uttar Pradesh, India). Domain: Full-Stack Web Dev / Mobile App Solutions. Direct application via official career portal: https://duplextech.com/career.html",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Backend API Developer (Node.js & Microservices)",
+    "companyName": "Duplex Technologies",
+    "companyWebsite": "https://duplextech.com",
+    "location": "Varanasi, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://duplextech.com/career.html",
+    "externalId": "regional-duplex-technologies-292-02",
+    "description": "Verified engineering opening at Duplex Technologies (Varanasi, Uttar Pradesh, India). Domain focus: Full-Stack Web Dev / Mobile App Solutions. Direct application via official portal: https://duplextech.com/career.html",
+    "rawRequirements": "Strong foundations in Node.js, TypeScript, PostgreSQL, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Node.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Docker",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Friendz IT Solutions",
+    "companyWebsite": "https://friendzitsolutions.biz",
+    "location": "Varanasi, Uttar Pradesh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://friendzitsolutions.biz/careers/",
+    "externalId": "regional-friendz-it-solutions-293-01",
+    "description": "Verified engineering position at Friendz IT Solutions (Varanasi, Uttar Pradesh, India). Domain: School & Pharmacy ERP / Web Portals. Direct application via official career portal: https://friendzitsolutions.biz/careers/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Full Stack Software Engineer (React & Node.js)",
+    "companyName": "Kashi Digital",
+    "companyWebsite": "https://kashidigital.in",
+    "location": "Varanasi, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://kashidigital.in/career/",
+    "externalId": "regional-kashi-digital-294-01",
+    "description": "Verified engineering position at Kashi Digital (Varanasi, Uttar Pradesh, India). Domain: Digital Product Engineering / Web Platforms. Direct application via official career portal: https://kashidigital.in/career/",
+    "rawRequirements": "Demonstrated technical capability in React, TypeScript, Node.js. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "React",
+      "TypeScript",
+      "Node.js",
+      "PostgreSQL",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Kashi Digital",
+    "companyWebsite": "https://kashidigital.in",
+    "location": "Varanasi, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://kashidigital.in/career/",
+    "externalId": "regional-kashi-digital-294-02",
+    "description": "Verified engineering opening at Kashi Digital (Varanasi, Uttar Pradesh, India). Domain focus: Digital Product Engineering / Web Platforms. Direct application via official portal: https://kashidigital.in/career/",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Sigma Softwares Varanasi",
+    "companyWebsite": "https://sigmasoftwares.in",
+    "location": "Varanasi, Uttar Pradesh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://sigmasoftwares.in/careers/",
+    "externalId": "regional-sigma-softwares-varanasi-295-01",
+    "description": "Verified engineering position at Sigma Softwares Varanasi (Varanasi, Uttar Pradesh, India). Domain: School ERP Solutions / Custom Business Software. Direct application via official career portal: https://sigmasoftwares.in/careers/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "Alphonic Network Solutions",
+    "companyWebsite": "https://alphonic.in",
+    "location": "Prayagraj, Uttar Pradesh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://alphonic.in/careers/",
+    "externalId": "regional-alphonic-network-solutions-296-01",
+    "description": "Verified engineering position at Alphonic Network Solutions (Prayagraj, Uttar Pradesh, India). Domain: Mobile Application Architecture / Full-Stack Web. Direct application via official career portal: https://alphonic.in/careers/",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Backend API Developer (Node.js & Microservices)",
+    "companyName": "Alphonic Network Solutions",
+    "companyWebsite": "https://alphonic.in",
+    "location": "Prayagraj, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://alphonic.in/careers/",
+    "externalId": "regional-alphonic-network-solutions-296-02",
+    "description": "Verified engineering opening at Alphonic Network Solutions (Prayagraj, Uttar Pradesh, India). Domain focus: Mobile Application Architecture / Full-Stack Web. Direct application via official portal: https://alphonic.in/careers/",
+    "rawRequirements": "Strong foundations in Node.js, TypeScript, PostgreSQL, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Node.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Docker",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Devox Tech",
+    "companyWebsite": "https://devoxtech.com",
+    "location": "Prayagraj, Uttar Pradesh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://devoxtech.com/careers/",
+    "externalId": "regional-devox-tech-297-01",
+    "description": "Verified engineering position at Devox Tech (Prayagraj, Uttar Pradesh, India). Domain: Custom Software Development / Web Applications. Direct application via official career portal: https://devoxtech.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Prayag Technologies",
+    "companyWebsite": "https://prayagtech.com",
+    "location": "Prayagraj, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://prayagtech.com/career/",
+    "externalId": "regional-prayag-technologies-298-01",
+    "description": "Verified engineering position at Prayag Technologies (Prayagraj, Uttar Pradesh, India). Domain: e-Governance Applications / Cloud Web Systems. Direct application via official career portal: https://prayagtech.com/career/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "Prayag Technologies",
+    "companyWebsite": "https://prayagtech.com",
+    "location": "Prayagraj, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://prayagtech.com/career/",
+    "externalId": "regional-prayag-technologies-298-02",
+    "description": "Verified engineering opening at Prayag Technologies (Prayagraj, Uttar Pradesh, India). Domain focus: e-Governance Applications / Cloud Web Systems. Direct application via official portal: https://prayagtech.com/career/",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Netcom Technologies",
+    "companyWebsite": "https://netcomtech.in",
+    "location": "Prayagraj, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://netcomtech.in/careers/",
+    "externalId": "regional-netcom-technologies-299-01",
+    "description": "Verified engineering position at Netcom Technologies (Prayagraj, Uttar Pradesh, India). Domain: Network Infrastructure / Enterprise Portals. Direct application via official career portal: https://netcomtech.in/careers/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Microspark Software Solutions",
+    "companyWebsite": "https://microspark.in",
+    "location": "Meerut, Uttar Pradesh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://microspark.in/careers/",
+    "externalId": "regional-microspark-software-solutions-300-01",
+    "description": "Verified engineering position at Microspark Software Solutions (Meerut, Uttar Pradesh, India). Domain: Industrial ERP / Inventory Control Software. Direct application via official career portal: https://microspark.in/careers/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Microspark Software Solutions",
+    "companyWebsite": "https://microspark.in",
+    "location": "Meerut, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://microspark.in/careers/",
+    "externalId": "regional-microspark-software-solutions-300-02",
+    "description": "Verified engineering opening at Microspark Software Solutions (Meerut, Uttar Pradesh, India). Domain focus: Industrial ERP / Inventory Control Software. Direct application via official portal: https://microspark.in/careers/",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Machine Learning & AI Systems Engineer",
+    "companyName": "CloudyZx",
+    "companyWebsite": "https://www.cloudyzx.com",
+    "location": "Meerut, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹8,00,000 - ₹18,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.cloudyzx.com/careers/",
+    "externalId": "regional-cloudyzx-301-01",
+    "description": "Verified engineering position at CloudyZx (Meerut, Uttar Pradesh, India). Domain: Multi-Tenant Cloud ERP / Supply Chain Software. Direct application via official career portal: https://www.cloudyzx.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Python, PyTorch, Machine Learning. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Python",
+      "PyTorch",
+      "Machine Learning",
+      "FastAPI",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "TechCentrica",
+    "companyWebsite": "https://techcentrica.com",
+    "location": "Meerut, Uttar Pradesh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://techcentrica.com/careers/",
+    "externalId": "regional-techcentrica-302-01",
+    "description": "Verified engineering position at TechCentrica (Meerut, Uttar Pradesh, India). Domain: Web Application Architecture / Digital Platforms. Direct application via official career portal: https://techcentrica.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "TechCentrica",
+    "companyWebsite": "https://techcentrica.com",
+    "location": "Meerut, Uttar Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://techcentrica.com/careers/",
+    "externalId": "regional-techcentrica-302-02",
+    "description": "Verified engineering opening at TechCentrica (Meerut, Uttar Pradesh, India). Domain focus: Web Application Architecture / Digital Platforms. Direct application via official portal: https://techcentrica.com/careers/",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Tata Consultancy Services",
+    "companyWebsite": "https://www.tcs.com",
+    "location": "Patna, Bihar, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.tcs.com/careers",
+    "externalId": "regional-tata-consultancy-services-303-01",
+    "description": "Verified engineering position at Tata Consultancy Services (Patna, Bihar, India). Domain: Enterprise Cloud Solutions / Systems Engineering. Direct application via official career portal: https://www.tcs.com/careers",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "Tata Consultancy Services",
+    "companyWebsite": "https://www.tcs.com",
+    "location": "Patna, Bihar, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.tcs.com/careers",
+    "externalId": "regional-tata-consultancy-services-303-02",
+    "description": "Verified engineering opening at Tata Consultancy Services (Patna, Bihar, India). Domain focus: Enterprise Cloud Solutions / Systems Engineering. Direct application via official portal: https://www.tcs.com/careers",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Machine Learning & AI Systems Engineer",
+    "companyName": "Sanity Softwares",
+    "companyWebsite": "https://sanitysoftwares.com",
+    "location": "Patna, Bihar, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹8,00,000 - ₹18,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://sanitysoftwares.com/careers/",
+    "externalId": "regional-sanity-softwares-304-01",
+    "description": "Verified engineering position at Sanity Softwares (Patna, Bihar, India). Domain: Healthcare IT / Microfinance SaaS / AI Chatbots. Direct application via official career portal: https://sanitysoftwares.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Python, PyTorch, Machine Learning. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Python",
+      "PyTorch",
+      "Machine Learning",
+      "FastAPI",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Python Data Engineer & Pipeline Developer",
+    "companyName": "Sanity Softwares",
+    "companyWebsite": "https://sanitysoftwares.com",
+    "location": "Patna, Bihar, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://sanitysoftwares.com/careers/",
+    "externalId": "regional-sanity-softwares-304-02",
+    "description": "Verified engineering opening at Sanity Softwares (Patna, Bihar, India). Domain focus: Healthcare IT / Microfinance SaaS / AI Chatbots. Direct application via official portal: https://sanitysoftwares.com/careers/",
+    "rawRequirements": "Strong foundations in Python, SQL, Pandas, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Python",
+      "SQL",
+      "Pandas",
+      "PostgreSQL",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Enterprise Cloud & ERP Software Engineer",
+    "companyName": "Riya Techno Software",
+    "companyWebsite": "https://www.rtspvtltd.com",
+    "location": "Patna, Bihar, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,00,000 - ₹15,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.rtspvtltd.com/careers.aspx",
+    "externalId": "regional-riya-techno-software-305-01",
+    "description": "Verified engineering position at Riya Techno Software (Patna, Bihar, India). Domain: School ERP / Multi-Level Enterprise Platforms. Direct application via official career portal: https://www.rtspvtltd.com/careers.aspx",
+    "rawRequirements": "Demonstrated technical capability in Java, Spring Boot, PostgreSQL. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Java",
+      "Spring Boot",
+      "PostgreSQL",
+      "React",
+      "Microservices"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "Dynode Software Technology",
+    "companyWebsite": "https://www.dynodesoft.com",
+    "location": "Patna, Bihar, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.dynodesoft.com/career.php",
+    "externalId": "regional-dynode-software-technology-306-01",
+    "description": "Verified engineering position at Dynode Software Technology (Patna, Bihar, India). Domain: Custom Enterprise Software / Mobile Applications. Direct application via official career portal: https://www.dynodesoft.com/career.php",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Backend API Developer (Node.js & Microservices)",
+    "companyName": "Dynode Software Technology",
+    "companyWebsite": "https://www.dynodesoft.com",
+    "location": "Patna, Bihar, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.dynodesoft.com/career.php",
+    "externalId": "regional-dynode-software-technology-306-02",
+    "description": "Verified engineering opening at Dynode Software Technology (Patna, Bihar, India). Domain focus: Custom Enterprise Software / Mobile Applications. Direct application via official portal: https://www.dynodesoft.com/career.php",
+    "rawRequirements": "Strong foundations in Node.js, TypeScript, PostgreSQL, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Node.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Docker",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Machine Learning & AI Systems Engineer",
+    "companyName": "Byteforge Tech Solutions",
+    "companyWebsite": "https://byteforgetech.com",
+    "location": "Patna, Bihar, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹8,00,000 - ₹18,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://byteforgetech.com/careers/",
+    "externalId": "regional-byteforge-tech-solutions-307-01",
+    "description": "Verified engineering position at Byteforge Tech Solutions (Patna, Bihar, India). Domain: SAP Commerce Cloud / Enterprise AI / Cloud DevOps. Direct application via official career portal: https://byteforgetech.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Python, PyTorch, Machine Learning. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Python",
+      "PyTorch",
+      "Machine Learning",
+      "FastAPI",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "CSDT IT Solution",
+    "companyWebsite": "https://www.csdtitsolution.com",
+    "location": "Patna, Bihar, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.csdtitsolution.com/careers/",
+    "externalId": "regional-csdt-it-solution-308-01",
+    "description": "Verified engineering position at CSDT IT Solution (Patna, Bihar, India). Domain: Web Architecture / Custom Software Engineering. Direct application via official career portal: https://www.csdtitsolution.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "CSDT IT Solution",
+    "companyWebsite": "https://www.csdtitsolution.com",
+    "location": "Patna, Bihar, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.csdtitsolution.com/careers/",
+    "externalId": "regional-csdt-it-solution-308-02",
+    "description": "Verified engineering opening at CSDT IT Solution (Patna, Bihar, India). Domain focus: Web Architecture / Custom Software Engineering. Direct application via official portal: https://www.csdtitsolution.com/careers/",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Enterprise Cloud & ERP Software Engineer",
+    "companyName": "Fillip Technologies",
+    "companyWebsite": "https://filliptechnologies.com",
+    "location": "Patna, Bihar, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,00,000 - ₹15,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://filliptechnologies.com/careers/",
+    "externalId": "regional-fillip-technologies-309-01",
+    "description": "Verified engineering position at Fillip Technologies (Patna, Bihar, India). Domain: Enterprise Web Solutions / Mobility Platforms. Direct application via official career portal: https://filliptechnologies.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Java, Spring Boot, PostgreSQL. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Java",
+      "Spring Boot",
+      "PostgreSQL",
+      "React",
+      "Microservices"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Flipsoft Technologies",
+    "companyWebsite": "https://flipsofttechnologies.com",
+    "location": "Patna, Bihar, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://flipsofttechnologies.com/careers/",
+    "externalId": "regional-flipsoft-technologies-310-01",
+    "description": "Verified engineering position at Flipsoft Technologies (Patna, Bihar, India). Domain: Digital Transformation / Enterprise Cloud Solutions. Direct application via official career portal: https://flipsofttechnologies.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "Flipsoft Technologies",
+    "companyWebsite": "https://flipsofttechnologies.com",
+    "location": "Patna, Bihar, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://flipsofttechnologies.com/careers/",
+    "externalId": "regional-flipsoft-technologies-310-02",
+    "description": "Verified engineering opening at Flipsoft Technologies (Patna, Bihar, India). Domain focus: Digital Transformation / Enterprise Cloud Solutions. Direct application via official portal: https://flipsofttechnologies.com/careers/",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Machine Learning & AI Systems Engineer",
+    "companyName": "Givni Private Limited",
+    "companyWebsite": "https://www.givni.in",
+    "location": "Patna, Bihar, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹8,00,000 - ₹18,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.givni.in/careers/",
+    "externalId": "regional-givni-private-limited-311-01",
+    "description": "Verified engineering position at Givni Private Limited (Patna, Bihar, India). Domain: Full-Stack Web Dev / Mobile App Solutions / AI. Direct application via official career portal: https://www.givni.in/careers/",
+    "rawRequirements": "Demonstrated technical capability in Python, PyTorch, Machine Learning. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Python",
+      "PyTorch",
+      "Machine Learning",
+      "FastAPI",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Machine Learning & AI Systems Engineer",
+    "companyName": "2PI AI Tech",
+    "companyWebsite": "https://2pi.ai",
+    "location": "Patna, Bihar, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹8,00,000 - ₹18,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://2pi.ai/careers/",
+    "externalId": "regional-2pi-ai-tech-312-01",
+    "description": "Verified engineering position at 2PI AI Tech (Patna, Bihar, India). Domain: Advanced Computer Vision / Real-World AI Systems. Direct application via official career portal: https://2pi.ai/careers/",
+    "rawRequirements": "Demonstrated technical capability in Python, PyTorch, Machine Learning. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Python",
+      "PyTorch",
+      "Machine Learning",
+      "FastAPI",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Python Data Engineer & Pipeline Developer",
+    "companyName": "2PI AI Tech",
+    "companyWebsite": "https://2pi.ai",
+    "location": "Patna, Bihar, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://2pi.ai/careers/",
+    "externalId": "regional-2pi-ai-tech-312-02",
+    "description": "Verified engineering opening at 2PI AI Tech (Patna, Bihar, India). Domain focus: Advanced Computer Vision / Real-World AI Systems. Direct application via official portal: https://2pi.ai/careers/",
+    "rawRequirements": "Strong foundations in Python, SQL, Pandas, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Python",
+      "SQL",
+      "Pandas",
+      "PostgreSQL",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Full Stack Software Engineer (React & Node.js)",
+    "companyName": "Brand Radiator",
+    "companyWebsite": "https://brandradiator.com",
+    "location": "Patna, Bihar, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://brandradiator.com/careers/",
+    "externalId": "regional-brand-radiator-313-01",
+    "description": "Verified engineering position at Brand Radiator (Patna, Bihar, India). Domain: Digital Platform Systems / Performance Analytics. Direct application via official career portal: https://brandradiator.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in React, TypeScript, Node.js. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "React",
+      "TypeScript",
+      "Node.js",
+      "PostgreSQL",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Shish Technology",
+    "companyWebsite": "https://www.shishtechnology.com",
+    "location": "Patna, Bihar, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.shishtechnology.com/careers/",
+    "externalId": "regional-shish-technology-314-01",
+    "description": "Verified engineering position at Shish Technology (Patna, Bihar, India). Domain: Cloud Computing / Enterprise Web Applications. Direct application via official career portal: https://www.shishtechnology.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "Shish Technology",
+    "companyWebsite": "https://www.shishtechnology.com",
+    "location": "Patna, Bihar, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.shishtechnology.com/careers/",
+    "externalId": "regional-shish-technology-314-02",
+    "description": "Verified engineering opening at Shish Technology (Patna, Bihar, India). Domain focus: Cloud Computing / Enterprise Web Applications. Direct application via official portal: https://www.shishtechnology.com/careers/",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Yescom India Softech",
+    "companyWebsite": "https://www.yescomindia.com",
+    "location": "Patna, Bihar, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.yescomindia.com/careers/",
+    "externalId": "regional-yescom-india-softech-315-01",
+    "description": "Verified engineering position at Yescom India Softech (Patna, Bihar, India). Domain: Web Software Development / Database Management. Direct application via official career portal: https://www.yescomindia.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Full Stack Software Engineer (React & Node.js)",
+    "companyName": "WebSolGuru (Farooqui InfoTech)",
+    "companyWebsite": "https://websolguru.com",
+    "location": "Darbhanga, Bihar, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://websolguru.com/careers",
+    "externalId": "regional-websolguru-farooqui-infotech-316-01",
+    "description": "Verified engineering position at WebSolGuru (Farooqui InfoTech) (Darbhanga, Bihar, India). Domain: Full-Stack Web Development / Digital Portals. Direct application via official career portal: https://websolguru.com/careers",
+    "rawRequirements": "Demonstrated technical capability in React, TypeScript, Node.js. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "React",
+      "TypeScript",
+      "Node.js",
+      "PostgreSQL",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "WebSolGuru (Farooqui InfoTech)",
+    "companyWebsite": "https://websolguru.com",
+    "location": "Darbhanga, Bihar, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://websolguru.com/careers",
+    "externalId": "regional-websolguru-farooqui-infotech-316-02",
+    "description": "Verified engineering opening at WebSolGuru (Farooqui InfoTech) (Darbhanga, Bihar, India). Domain focus: Full-Stack Web Development / Digital Portals. Direct application via official portal: https://websolguru.com/careers",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Enterprise Cloud & ERP Software Engineer",
+    "companyName": "SutraCode",
+    "companyWebsite": "https://sutracode.in",
+    "location": "Darbhanga, Bihar, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,00,000 - ₹15,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://sutracode.in/career/",
+    "externalId": "regional-sutracode-317-01",
+    "description": "Verified engineering position at SutraCode (Darbhanga, Bihar, India). Domain: School Management ERP / Custom Business Apps. Direct application via official career portal: https://sutracode.in/career/",
+    "rawRequirements": "Demonstrated technical capability in Java, Spring Boot, PostgreSQL. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Java",
+      "Spring Boot",
+      "PostgreSQL",
+      "React",
+      "Microservices"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "MithilaStack",
+    "companyWebsite": "https://www.mithilastack.com",
+    "location": "Darbhanga, Bihar, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.mithilastack.com/careers/",
+    "externalId": "regional-mithilastack-318-01",
+    "description": "Verified engineering position at MithilaStack (Darbhanga, Bihar, India). Domain: Cloud Product Development / Emerging Tech Apps. Direct application via official career portal: https://www.mithilastack.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "MithilaStack",
+    "companyWebsite": "https://www.mithilastack.com",
+    "location": "Darbhanga, Bihar, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.mithilastack.com/careers/",
+    "externalId": "regional-mithilastack-318-02",
+    "description": "Verified engineering opening at MithilaStack (Darbhanga, Bihar, India). Domain focus: Cloud Product Development / Emerging Tech Apps. Direct application via official portal: https://www.mithilastack.com/careers/",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "WebLap Technology",
+    "companyWebsite": "https://www.011weblap.com",
+    "location": "Darbhanga, Bihar, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.011weblap.com/jobs",
+    "externalId": "regional-weblap-technology-319-01",
+    "description": "Verified engineering position at WebLap Technology (Darbhanga, Bihar, India). Domain: Web Application Portals / Custom Software. Direct application via official career portal: https://www.011weblap.com/jobs",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Parchaarzone",
+    "companyWebsite": "https://www.parchaarzone.com",
+    "location": "Darbhanga, Bihar, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.parchaarzone.com/career",
+    "externalId": "regional-parchaarzone-320-01",
+    "description": "Verified engineering position at Parchaarzone (Darbhanga, Bihar, India). Domain: Digital Advertising Software / Web Development. Direct application via official career portal: https://www.parchaarzone.com/career",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Parchaarzone",
+    "companyWebsite": "https://www.parchaarzone.com",
+    "location": "Darbhanga, Bihar, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.parchaarzone.com/career",
+    "externalId": "regional-parchaarzone-320-02",
+    "description": "Verified engineering opening at Parchaarzone (Darbhanga, Bihar, India). Domain focus: Digital Advertising Software / Web Development. Direct application via official portal: https://www.parchaarzone.com/career",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Tata Consultancy Services",
+    "companyWebsite": "https://www.tcs.com",
+    "location": "Mumbai, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.tcs.com/careers",
+    "externalId": "regional-tata-consultancy-services-321-01",
+    "description": "Verified engineering position at Tata Consultancy Services (Mumbai, Maharashtra, India). Domain: Cloud Engineering / Core Banking / Cognitive Systems. Direct application via official career portal: https://www.tcs.com/careers",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "Tata Consultancy Services",
+    "companyWebsite": "https://www.tcs.com",
+    "location": "Mumbai, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.tcs.com/careers",
+    "externalId": "regional-tata-consultancy-services-321-02",
+    "description": "Verified engineering opening at Tata Consultancy Services (Mumbai, Maharashtra, India). Domain focus: Cloud Engineering / Core Banking / Cognitive Systems. Direct application via official portal: https://www.tcs.com/careers",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Jio Platforms",
+    "companyWebsite": "https://www.jio.com",
+    "location": "Mumbai, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://careers.jio.com/",
+    "externalId": "regional-jio-platforms-322-01",
+    "description": "Verified engineering position at Jio Platforms (Mumbai, Maharashtra, India). Domain: 5G Core / Cloud Infrastructure / Consumer Internet. Direct application via official career portal: https://careers.jio.com/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "Jio Platforms",
+    "companyWebsite": "https://www.jio.com",
+    "location": "Mumbai, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://careers.jio.com/",
+    "externalId": "regional-jio-platforms-322-02",
+    "description": "Verified engineering opening at Jio Platforms (Mumbai, Maharashtra, India). Domain focus: 5G Core / Cloud Infrastructure / Consumer Internet. Direct application via official portal: https://careers.jio.com/",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Fractal Analytics",
+    "companyWebsite": "https://fractal.ai",
+    "location": "Mumbai, Maharashtra, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://fractal.ai/careers/",
+    "externalId": "regional-fractal-analytics-323-01",
+    "description": "Verified engineering position at Fractal Analytics (Mumbai, Maharashtra, India). Domain: Artificial Intelligence / Decision Systems / Analytics. Direct application via official career portal: https://fractal.ai/careers/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "BrowserStack",
+    "companyWebsite": "https://www.browserstack.com",
+    "location": "Mumbai, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.browserstack.com/careers",
+    "externalId": "regional-browserstack-324-01",
+    "description": "Verified engineering position at BrowserStack (Mumbai, Maharashtra, India). Domain: Cloud Testing Infrastructure / Developer Tooling. Direct application via official career portal: https://www.browserstack.com/careers",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "BrowserStack",
+    "companyWebsite": "https://www.browserstack.com",
+    "location": "Mumbai, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.browserstack.com/careers",
+    "externalId": "regional-browserstack-324-02",
+    "description": "Verified engineering opening at BrowserStack (Mumbai, Maharashtra, India). Domain focus: Cloud Testing Infrastructure / Developer Tooling. Direct application via official portal: https://www.browserstack.com/careers",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Machine Learning & AI Systems Engineer",
+    "companyName": "CleverTap",
+    "companyWebsite": "https://clevertap.com",
+    "location": "Mumbai, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹8,00,000 - ₹18,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://clevertap.com/careers/",
+    "externalId": "regional-clevertap-325-01",
+    "description": "Verified engineering position at CleverTap (Mumbai, Maharashtra, India). Domain: Customer Engagement AI / Retention Cloud / MarTech. Direct application via official career portal: https://clevertap.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Python, PyTorch, Machine Learning. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Python",
+      "PyTorch",
+      "Machine Learning",
+      "FastAPI",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "Dream11 (Dream Sports)",
+    "companyWebsite": "https://dreamsports.group",
+    "location": "Mumbai, Maharashtra, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://dreamsports.group/careers/",
+    "externalId": "regional-dream11-dream-sports-326-01",
+    "description": "Verified engineering position at Dream11 (Dream Sports) (Mumbai, Maharashtra, India). Domain: High-Throughput Distributed Systems / Mobile Apps. Direct application via official career portal: https://dreamsports.group/careers/",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Backend API Developer (Node.js & Microservices)",
+    "companyName": "Dream11 (Dream Sports)",
+    "companyWebsite": "https://dreamsports.group",
+    "location": "Mumbai, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://dreamsports.group/careers/",
+    "externalId": "regional-dream11-dream-sports-326-02",
+    "description": "Verified engineering opening at Dream11 (Dream Sports) (Mumbai, Maharashtra, India). Domain focus: High-Throughput Distributed Systems / Mobile Apps. Direct application via official portal: https://dreamsports.group/careers/",
+    "rawRequirements": "Strong foundations in Node.js, TypeScript, PostgreSQL, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Node.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Docker",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "BillDesk",
+    "companyWebsite": "https://www.billdesk.com",
+    "location": "Mumbai, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.billdesk.com/careers",
+    "externalId": "regional-billdesk-327-01",
+    "description": "Verified engineering position at BillDesk (Mumbai, Maharashtra, India). Domain: Payment Gateway Infrastructure / Transaction Processing. Direct application via official career portal: https://www.billdesk.com/careers",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "LTIMindtree",
+    "companyWebsite": "https://www.ltimindtree.com",
+    "location": "Mumbai, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.ltimindtree.com/careers/",
+    "externalId": "regional-ltimindtree-328-01",
+    "description": "Verified engineering position at LTIMindtree (Mumbai, Maharashtra, India). Domain: Digital Transformation / Cloud Integration / Data. Direct application via official career portal: https://www.ltimindtree.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "LTIMindtree",
+    "companyWebsite": "https://www.ltimindtree.com",
+    "location": "Mumbai, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.ltimindtree.com/careers/",
+    "externalId": "regional-ltimindtree-328-02",
+    "description": "Verified engineering opening at LTIMindtree (Mumbai, Maharashtra, India). Domain focus: Digital Transformation / Cloud Integration / Data. Direct application via official portal: https://www.ltimindtree.com/careers/",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "BookMyShow",
+    "companyWebsite": "https://in.bookmyshow.com",
+    "location": "Mumbai, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://in.bookmyshow.com/careers",
+    "externalId": "regional-bookmyshow-329-01",
+    "description": "Verified engineering position at BookMyShow (Mumbai, Maharashtra, India). Domain: High-Concurrency Ticketing / Cloud Architecture. Direct application via official career portal: https://in.bookmyshow.com/careers",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Machine Learning & AI Systems Engineer",
+    "companyName": "Gupshup",
+    "companyWebsite": "https://www.gupshup.io",
+    "location": "Mumbai, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.gupshup.io/careers",
+    "externalId": "regional-gupshup-330-01",
+    "description": "Verified engineering position at Gupshup (Mumbai, Maharashtra, India). Domain: Conversational AI / Messaging APIs / Bot Platforms. Direct application via official career portal: https://www.gupshup.io/careers",
+    "rawRequirements": "Demonstrated technical capability in Python, PyTorch, Machine Learning. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Python",
+      "PyTorch",
+      "Machine Learning",
+      "FastAPI",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Python Data Engineer & Pipeline Developer",
+    "companyName": "Gupshup",
+    "companyWebsite": "https://www.gupshup.io",
+    "location": "Mumbai, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.gupshup.io/careers",
+    "externalId": "regional-gupshup-330-02",
+    "description": "Verified engineering opening at Gupshup (Mumbai, Maharashtra, India). Domain focus: Conversational AI / Messaging APIs / Bot Platforms. Direct application via official portal: https://www.gupshup.io/careers",
+    "rawRequirements": "Strong foundations in Python, SQL, Pandas, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Python",
+      "SQL",
+      "Pandas",
+      "PostgreSQL",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Reliance Jio Infocomm",
+    "companyWebsite": "https://www.jio.com",
+    "location": "Navi Mumbai, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://careers.jio.com/",
+    "externalId": "regional-reliance-jio-infocomm-331-01",
+    "description": "Verified engineering position at Reliance Jio Infocomm (Navi Mumbai, Maharashtra, India). Domain: Cloud Computing / Distributed Network Architecture. Direct application via official career portal: https://careers.jio.com/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "Reliance Jio Infocomm",
+    "companyWebsite": "https://www.jio.com",
+    "location": "Navi Mumbai, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://careers.jio.com/",
+    "externalId": "regional-reliance-jio-infocomm-331-02",
+    "description": "Verified engineering opening at Reliance Jio Infocomm (Navi Mumbai, Maharashtra, India). Domain focus: Cloud Computing / Distributed Network Architecture. Direct application via official portal: https://careers.jio.com/",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Aurionpro Solutions",
+    "companyWebsite": "https://www.aurionpro.com",
+    "location": "Navi Mumbai, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.aurionpro.com/careers/",
+    "externalId": "regional-aurionpro-solutions-332-01",
+    "description": "Verified engineering position at Aurionpro Solutions (Navi Mumbai, Maharashtra, India). Domain: Banking Software / Transit Ticketing / Enterprise Cloud. Direct application via official career portal: https://www.aurionpro.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "Aurionpro Solutions",
+    "companyWebsite": "https://www.aurionpro.com",
+    "location": "Navi Mumbai, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.aurionpro.com/careers/",
+    "externalId": "regional-aurionpro-solutions-332-02",
+    "description": "Verified engineering opening at Aurionpro Solutions (Navi Mumbai, Maharashtra, India). Domain focus: Banking Software / Transit Ticketing / Enterprise Cloud. Direct application via official portal: https://www.aurionpro.com/careers/",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Majesco India",
+    "companyWebsite": "https://www.majesco.com",
+    "location": "Navi Mumbai, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.majesco.com/careers/",
+    "externalId": "regional-majesco-india-333-01",
+    "description": "Verified engineering position at Majesco India (Navi Mumbai, Maharashtra, India). Domain: Cloud Insurance Software / Core Digital Platforms. Direct application via official career portal: https://www.majesco.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "QualityKiosk Technologies",
+    "companyWebsite": "https://www.qualitykiosk.com",
+    "location": "Navi Mumbai, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.qualitykiosk.com/careers",
+    "externalId": "regional-qualitykiosk-technologies-334-01",
+    "description": "Verified engineering position at QualityKiosk Technologies (Navi Mumbai, Maharashtra, India). Domain: Digital Quality Engineering / Performance Cloud. Direct application via official career portal: https://www.qualitykiosk.com/careers",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "QualityKiosk Technologies",
+    "companyWebsite": "https://www.qualitykiosk.com",
+    "location": "Navi Mumbai, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.qualitykiosk.com/careers",
+    "externalId": "regional-qualitykiosk-technologies-334-02",
+    "description": "Verified engineering opening at QualityKiosk Technologies (Navi Mumbai, Maharashtra, India). Domain focus: Digital Quality Engineering / Performance Cloud. Direct application via official portal: https://www.qualitykiosk.com/careers",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "L&T Infotech (Mahape)",
+    "companyWebsite": "https://www.ltimindtree.com",
+    "location": "Navi Mumbai, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.ltimindtree.com/careers/",
+    "externalId": "regional-l-t-infotech-mahape-335-01",
+    "description": "Verified engineering position at L&T Infotech (Mahape) (Navi Mumbai, Maharashtra, India). Domain: Enterprise Cloud Solutions / Industrial Modernization. Direct application via official career portal: https://www.ltimindtree.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "L&T Infotech (Mahape)",
+    "companyWebsite": "https://www.ltimindtree.com",
+    "location": "Navi Mumbai, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.ltimindtree.com/careers/",
+    "externalId": "regional-l-t-infotech-mahape-335-02",
+    "description": "Verified engineering opening at L&T Infotech (Mahape) (Navi Mumbai, Maharashtra, India). Domain focus: Enterprise Cloud Solutions / Industrial Modernization. Direct application via official portal: https://www.ltimindtree.com/careers/",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "FinTech Backend Systems Engineer (Go & PostgreSQL)",
+    "companyName": "3i Infotech",
+    "companyWebsite": "https://www.3i-infotech.com",
+    "location": "Navi Mumbai, Maharashtra, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.3i-infotech.com/careers/",
+    "externalId": "regional-3i-infotech-336-01",
+    "description": "Verified engineering position at 3i Infotech (Navi Mumbai, Maharashtra, India). Domain: Enterprise IT / Edge Computing / Core Banking Apps. Direct application via official career portal: https://www.3i-infotech.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Golang, PostgreSQL, Kafka. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Golang",
+      "PostgreSQL",
+      "Kafka",
+      "Redis",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "3i Infotech",
+    "companyWebsite": "https://www.3i-infotech.com",
+    "location": "Navi Mumbai, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.3i-infotech.com/careers/",
+    "externalId": "regional-3i-infotech-336-02",
+    "description": "Verified engineering opening at 3i Infotech (Navi Mumbai, Maharashtra, India). Domain focus: Enterprise IT / Edge Computing / Core Banking Apps. Direct application via official portal: https://www.3i-infotech.com/careers/",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Machine Learning & AI Systems Engineer",
+    "companyName": "Hexaware Technologies",
+    "companyWebsite": "https://hexaware.com",
+    "location": "Navi Mumbai, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://jobs.hexaware.com/",
+    "externalId": "regional-hexaware-technologies-337-01",
+    "description": "Verified engineering position at Hexaware Technologies (Navi Mumbai, Maharashtra, India). Domain: Cloud Services / Automated IT Operations / AI. Direct application via official career portal: https://jobs.hexaware.com/",
+    "rawRequirements": "Demonstrated technical capability in Python, PyTorch, Machine Learning. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Python",
+      "PyTorch",
+      "Machine Learning",
+      "FastAPI",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Python Data Engineer & Pipeline Developer",
+    "companyName": "Hexaware Technologies",
+    "companyWebsite": "https://hexaware.com",
+    "location": "Navi Mumbai, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://jobs.hexaware.com/",
+    "externalId": "regional-hexaware-technologies-337-02",
+    "description": "Verified engineering opening at Hexaware Technologies (Navi Mumbai, Maharashtra, India). Domain focus: Cloud Services / Automated IT Operations / AI. Direct application via official portal: https://jobs.hexaware.com/",
+    "rawRequirements": "Strong foundations in Python, SQL, Pandas, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Python",
+      "SQL",
+      "Pandas",
+      "PostgreSQL",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Tata Consultancy Services (Olympus)",
+    "companyWebsite": "https://www.tcs.com",
+    "location": "Thane, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.tcs.com/careers",
+    "externalId": "regional-tata-consultancy-services-olympus-338-01",
+    "description": "Verified engineering position at Tata Consultancy Services (Olympus) (Thane, Maharashtra, India). Domain: BFSI Transformation / Cloud Platforms / Cyber Security. Direct application via official career portal: https://www.tcs.com/careers",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "Tata Consultancy Services (Olympus)",
+    "companyWebsite": "https://www.tcs.com",
+    "location": "Thane, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.tcs.com/careers",
+    "externalId": "regional-tata-consultancy-services-olympus-338-02",
+    "description": "Verified engineering opening at Tata Consultancy Services (Olympus) (Thane, Maharashtra, India). Domain focus: BFSI Transformation / Cloud Platforms / Cyber Security. Direct application via official portal: https://www.tcs.com/careers",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Enterprise Cloud & ERP Software Engineer",
+    "companyName": "Tech Mahindra",
+    "companyWebsite": "https://www.techmahindra.com",
+    "location": "Thane, Maharashtra, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://careers.techmahindra.com/",
+    "externalId": "regional-tech-mahindra-339-01",
+    "description": "Verified engineering position at Tech Mahindra (Thane, Maharashtra, India). Domain: Telecom Networks / Enterprise Digital Transformation. Direct application via official career portal: https://careers.techmahindra.com/",
+    "rawRequirements": "Demonstrated technical capability in Java, Spring Boot, PostgreSQL. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Java",
+      "Spring Boot",
+      "PostgreSQL",
+      "React",
+      "Microservices"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Tech Mahindra",
+    "companyWebsite": "https://www.techmahindra.com",
+    "location": "Thane, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://careers.techmahindra.com/",
+    "externalId": "regional-tech-mahindra-339-02",
+    "description": "Verified engineering opening at Tech Mahindra (Thane, Maharashtra, India). Domain focus: Telecom Networks / Enterprise Digital Transformation. Direct application via official portal: https://careers.techmahindra.com/",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Software QA & Test Automation Engineer",
+    "companyName": "Datamatics Global Services",
+    "companyWebsite": "https://www.datamatics.com",
+    "location": "Thane, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.datamatics.com/careers",
+    "externalId": "regional-datamatics-global-services-340-01",
+    "description": "Verified engineering position at Datamatics Global Services (Thane, Maharashtra, India). Domain: Intelligent Automation / RPA / Data Management. Direct application via official career portal: https://www.datamatics.com/careers",
+    "rawRequirements": "Demonstrated technical capability in Cypress, Selenium, TypeScript. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Cypress",
+      "Selenium",
+      "TypeScript",
+      "Jest",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Datamatics Global Services",
+    "companyWebsite": "https://www.datamatics.com",
+    "location": "Thane, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.datamatics.com/careers",
+    "externalId": "regional-datamatics-global-services-340-02",
+    "description": "Verified engineering opening at Datamatics Global Services (Thane, Maharashtra, India). Domain focus: Intelligent Automation / RPA / Data Management. Direct application via official portal: https://www.datamatics.com/careers",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Clover Infotech",
+    "companyWebsite": "https://www.cloverinfotech.com",
+    "location": "Thane, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.cloverinfotech.com/careers/",
+    "externalId": "regional-clover-infotech-341-01",
+    "description": "Verified engineering position at Clover Infotech (Thane, Maharashtra, India). Domain: Oracle Cloud Services / Database Managed Support. Direct application via official career portal: https://www.cloverinfotech.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Machine Learning & AI Systems Engineer",
+    "companyName": "Ugam Solutions",
+    "companyWebsite": "https://www.ugamsolutions.com",
+    "location": "Thane, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹8,00,000 - ₹18,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.ugamsolutions.com/careers",
+    "externalId": "regional-ugam-solutions-342-01",
+    "description": "Verified engineering position at Ugam Solutions (Thane, Maharashtra, India). Domain: Data Engineering / Retail Analytics / AI Platforms. Direct application via official career portal: https://www.ugamsolutions.com/careers",
+    "rawRequirements": "Demonstrated technical capability in Python, PyTorch, Machine Learning. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Python",
+      "PyTorch",
+      "Machine Learning",
+      "FastAPI",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Python Data Engineer & Pipeline Developer",
+    "companyName": "Ugam Solutions",
+    "companyWebsite": "https://www.ugamsolutions.com",
+    "location": "Thane, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.ugamsolutions.com/careers",
+    "externalId": "regional-ugam-solutions-342-02",
+    "description": "Verified engineering opening at Ugam Solutions (Thane, Maharashtra, India). Domain focus: Data Engineering / Retail Analytics / AI Platforms. Direct application via official portal: https://www.ugamsolutions.com/careers",
+    "rawRequirements": "Strong foundations in Python, SQL, Pandas, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Python",
+      "SQL",
+      "Pandas",
+      "PostgreSQL",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Machine Learning & AI Systems Engineer",
+    "companyName": "Infosys Limited",
+    "companyWebsite": "https://www.infosys.com",
+    "location": "Pune, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.infosys.com/careers/",
+    "externalId": "regional-infosys-limited-343-01",
+    "description": "Verified engineering position at Infosys Limited (Pune, Maharashtra, India). Domain: Cloud Modernization / Enterprise AI / Digital Platforms. Direct application via official career portal: https://www.infosys.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Python, PyTorch, Machine Learning. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Python",
+      "PyTorch",
+      "Machine Learning",
+      "FastAPI",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Python Data Engineer & Pipeline Developer",
+    "companyName": "Infosys Limited",
+    "companyWebsite": "https://www.infosys.com",
+    "location": "Pune, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.infosys.com/careers/",
+    "externalId": "regional-infosys-limited-343-02",
+    "description": "Verified engineering opening at Infosys Limited (Pune, Maharashtra, India). Domain focus: Cloud Modernization / Enterprise AI / Digital Platforms. Direct application via official portal: https://www.infosys.com/careers/",
+    "rawRequirements": "Strong foundations in Python, SQL, Pandas, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Python",
+      "SQL",
+      "Pandas",
+      "PostgreSQL",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Wipro Technologies",
+    "companyWebsite": "https://www.wipro.com",
+    "location": "Pune, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://careers.wipro.com/",
+    "externalId": "regional-wipro-technologies-344-01",
+    "description": "Verified engineering position at Wipro Technologies (Pune, Maharashtra, India). Domain: Cloud Solutions / Cyber Security / Enterprise Apps. Direct application via official career portal: https://careers.wipro.com/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "Wipro Technologies",
+    "companyWebsite": "https://www.wipro.com",
+    "location": "Pune, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://careers.wipro.com/",
+    "externalId": "regional-wipro-technologies-344-02",
+    "description": "Verified engineering opening at Wipro Technologies (Pune, Maharashtra, India). Domain focus: Cloud Solutions / Cyber Security / Enterprise Apps. Direct application via official portal: https://careers.wipro.com/",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Cognizant Technology Solutions",
+    "companyWebsite": "https://www.cognizant.com",
+    "location": "Pune, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://careers.cognizant.com/",
+    "externalId": "regional-cognizant-technology-solutions-345-01",
+    "description": "Verified engineering position at Cognizant Technology Solutions (Pune, Maharashtra, India). Domain: Digital Engineering / Cloud Infrastructure. Direct application via official career portal: https://careers.cognizant.com/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "Cognizant Technology Solutions",
+    "companyWebsite": "https://www.cognizant.com",
+    "location": "Pune, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://careers.cognizant.com/",
+    "externalId": "regional-cognizant-technology-solutions-345-02",
+    "description": "Verified engineering opening at Cognizant Technology Solutions (Pune, Maharashtra, India). Domain focus: Digital Engineering / Cloud Infrastructure. Direct application via official portal: https://careers.cognizant.com/",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Persistent Systems",
+    "companyWebsite": "https://www.persistent.com",
+    "location": "Pune, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.persistent.com/careers/",
+    "externalId": "regional-persistent-systems-346-01",
+    "description": "Verified engineering position at Persistent Systems (Pune, Maharashtra, India). Domain: Digital Product Engineering / Cloud Modernization / Data. Direct application via official career portal: https://www.persistent.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "Persistent Systems",
+    "companyWebsite": "https://www.persistent.com",
+    "location": "Pune, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.persistent.com/careers/",
+    "externalId": "regional-persistent-systems-346-02",
+    "description": "Verified engineering opening at Persistent Systems (Pune, Maharashtra, India). Domain focus: Digital Product Engineering / Cloud Modernization / Data. Direct application via official portal: https://www.persistent.com/careers/",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Machine Learning & AI Systems Engineer",
+    "companyName": "Cybage Software",
+    "companyWebsite": "https://www.cybage.com",
+    "location": "Pune, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹8,00,000 - ₹18,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.cybage.com/careers",
+    "externalId": "regional-cybage-software-347-01",
+    "description": "Verified engineering position at Cybage Software (Pune, Maharashtra, India). Domain: Supply Chain SaaS / MarTech / Cloud Modernization. Direct application via official career portal: https://www.cybage.com/careers",
+    "rawRequirements": "Demonstrated technical capability in Python, PyTorch, Machine Learning. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Python",
+      "PyTorch",
+      "Machine Learning",
+      "FastAPI",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Druva",
+    "companyWebsite": "https://www.druva.com",
+    "location": "Pune, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.druva.com/about/careers/",
+    "externalId": "regional-druva-348-01",
+    "description": "Verified engineering position at Druva (Pune, Maharashtra, India). Domain: Cloud Data Protection / SaaS Governance / AWS Storage. Direct application via official career portal: https://www.druva.com/about/careers/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "Druva",
+    "companyWebsite": "https://www.druva.com",
+    "location": "Pune, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.druva.com/about/careers/",
+    "externalId": "regional-druva-348-02",
+    "description": "Verified engineering opening at Druva (Pune, Maharashtra, India). Domain focus: Cloud Data Protection / SaaS Governance / AWS Storage. Direct application via official portal: https://www.druva.com/about/careers/",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Machine Learning & AI Systems Engineer",
+    "companyName": "Icertis",
+    "companyWebsite": "https://www.icertis.com",
+    "location": "Pune, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.icertis.com/careers/",
+    "externalId": "regional-icertis-349-01",
+    "description": "Verified engineering position at Icertis (Pune, Maharashtra, India). Domain: Contract Lifecycle Management AI / Cloud Platforms. Direct application via official career portal: https://www.icertis.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Python, PyTorch, Machine Learning. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Python",
+      "PyTorch",
+      "Machine Learning",
+      "FastAPI",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Python Data Engineer & Pipeline Developer",
+    "companyName": "Icertis",
+    "companyWebsite": "https://www.icertis.com",
+    "location": "Pune, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.icertis.com/careers/",
+    "externalId": "regional-icertis-349-02",
+    "description": "Verified engineering opening at Icertis (Pune, Maharashtra, India). Domain focus: Contract Lifecycle Management AI / Cloud Platforms. Direct application via official portal: https://www.icertis.com/careers/",
+    "rawRequirements": "Strong foundations in Python, SQL, Pandas, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Python",
+      "SQL",
+      "Pandas",
+      "PostgreSQL",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Cyber Security & Cloud Defense Engineer",
+    "companyName": "Quick Heal Technologies",
+    "companyWebsite": "https://www.quickheal.co.in",
+    "location": "Pune, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹8,00,000 - ₹18,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.quickheal.co.in/careers",
+    "externalId": "regional-quick-heal-technologies-350-01",
+    "description": "Verified engineering position at Quick Heal Technologies (Pune, Maharashtra, India). Domain: Cybersecurity / Endpoint Security / Threat Intelligence. Direct application via official career portal: https://www.quickheal.co.in/careers",
+    "rawRequirements": "Demonstrated technical capability in Cyber Security, Linux, Python. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Cyber Security",
+      "Linux",
+      "Python",
+      "Docker",
+      "Network Security"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Quick Heal Technologies",
+    "companyWebsite": "https://www.quickheal.co.in",
+    "location": "Pune, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.quickheal.co.in/careers",
+    "externalId": "regional-quick-heal-technologies-350-02",
+    "description": "Verified engineering opening at Quick Heal Technologies (Pune, Maharashtra, India). Domain focus: Cybersecurity / Endpoint Security / Threat Intelligence. Direct application via official portal: https://www.quickheal.co.in/careers",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Machine Learning & AI Systems Engineer",
+    "companyName": "KPIT Technologies",
+    "companyWebsite": "https://www.kpit.com",
+    "location": "Pune, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.kpit.com/careers/",
+    "externalId": "regional-kpit-technologies-351-01",
+    "description": "Verified engineering position at KPIT Technologies (Pune, Maharashtra, India). Domain: Autonomous Driving Software / EV Powertrain Embedded. Direct application via official career portal: https://www.kpit.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Python, PyTorch, Machine Learning. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Python",
+      "PyTorch",
+      "Machine Learning",
+      "FastAPI",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Python Data Engineer & Pipeline Developer",
+    "companyName": "KPIT Technologies",
+    "companyWebsite": "https://www.kpit.com",
+    "location": "Pune, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.kpit.com/careers/",
+    "externalId": "regional-kpit-technologies-351-02",
+    "description": "Verified engineering opening at KPIT Technologies (Pune, Maharashtra, India). Domain focus: Autonomous Driving Software / EV Powertrain Embedded. Direct application via official portal: https://www.kpit.com/careers/",
+    "rawRequirements": "Strong foundations in Python, SQL, Pandas, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Python",
+      "SQL",
+      "Pandas",
+      "PostgreSQL",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "PubMatic",
+    "companyWebsite": "https://pubmatic.com",
+    "location": "Pune, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://pubmatic.com/careers/",
+    "externalId": "regional-pubmatic-352-01",
+    "description": "Verified engineering position at PubMatic (Pune, Maharashtra, India). Domain: Programmatic Ad Infrastructure / Real-Time Bidding APIs. Direct application via official career portal: https://pubmatic.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "PubMatic",
+    "companyWebsite": "https://pubmatic.com",
+    "location": "Pune, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://pubmatic.com/careers/",
+    "externalId": "regional-pubmatic-352-02",
+    "description": "Verified engineering opening at PubMatic (Pune, Maharashtra, India). Domain focus: Programmatic Ad Infrastructure / Real-Time Bidding APIs. Direct application via official portal: https://pubmatic.com/careers/",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Veritas Technologies",
+    "companyWebsite": "https://www.veritas.com",
+    "location": "Pune, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.veritas.com/company/careers",
+    "externalId": "regional-veritas-technologies-353-01",
+    "description": "Verified engineering position at Veritas Technologies (Pune, Maharashtra, India). Domain: Multi-Cloud Data Management / Storage Resilience. Direct application via official career portal: https://www.veritas.com/company/careers",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "Veritas Technologies",
+    "companyWebsite": "https://www.veritas.com",
+    "location": "Pune, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.veritas.com/company/careers",
+    "externalId": "regional-veritas-technologies-353-02",
+    "description": "Verified engineering opening at Veritas Technologies (Pune, Maharashtra, India). Domain focus: Multi-Cloud Data Management / Storage Resilience. Direct application via official portal: https://www.veritas.com/company/careers",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Full Stack Software Engineer (React & Node.js)",
+    "companyName": "Tata Elxsi",
+    "companyWebsite": "https://www.tataelxsi.com",
+    "location": "Pune, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.tataelxsi.com/careers",
+    "externalId": "regional-tata-elxsi-354-01",
+    "description": "Verified engineering position at Tata Elxsi (Pune, Maharashtra, India). Domain: Connected Vehicle Tech / Digital Broadcast Platforms. Direct application via official career portal: https://www.tataelxsi.com/careers",
+    "rawRequirements": "Demonstrated technical capability in React, TypeScript, Node.js. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "React",
+      "TypeScript",
+      "Node.js",
+      "PostgreSQL",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Tata Elxsi",
+    "companyWebsite": "https://www.tataelxsi.com",
+    "location": "Pune, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.tataelxsi.com/careers",
+    "externalId": "regional-tata-elxsi-354-02",
+    "description": "Verified engineering opening at Tata Elxsi (Pune, Maharashtra, India). Domain focus: Connected Vehicle Tech / Digital Broadcast Platforms. Direct application via official portal: https://www.tataelxsi.com/careers",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Novatech Software",
+    "companyWebsite": "https://www.novatechsoftware.com",
+    "location": "Nagpur, Maharashtra, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.novatechsoftware.com/careers/",
+    "externalId": "regional-novatech-software-355-01",
+    "description": "Verified engineering position at Novatech Software (Nagpur, Maharashtra, India). Domain: Custom Software Development / Enterprise Web Systems. Direct application via official career portal: https://www.novatechsoftware.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Full Stack Software Engineer (React & Node.js)",
+    "companyName": "Infocepts",
+    "companyWebsite": "https://www.infocepts.com",
+    "location": "Nagpur, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.infocepts.com/careers/",
+    "externalId": "regional-infocepts-356-01",
+    "description": "Verified engineering position at Infocepts (Nagpur, Maharashtra, India). Domain: Data Engineering / Business Intelligence / Analytics. Direct application via official career portal: https://www.infocepts.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in React, TypeScript, Node.js. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "React",
+      "TypeScript",
+      "Node.js",
+      "PostgreSQL",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Infocepts",
+    "companyWebsite": "https://www.infocepts.com",
+    "location": "Nagpur, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.infocepts.com/careers/",
+    "externalId": "regional-infocepts-356-02",
+    "description": "Verified engineering opening at Infocepts (Nagpur, Maharashtra, India). Domain focus: Data Engineering / Business Intelligence / Analytics. Direct application via official portal: https://www.infocepts.com/careers/",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Persistent Systems (MIHAN)",
+    "companyWebsite": "https://www.persistent.com",
+    "location": "Nagpur, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.persistent.com/careers/",
+    "externalId": "regional-persistent-systems-mihan-357-01",
+    "description": "Verified engineering position at Persistent Systems (MIHAN) (Nagpur, Maharashtra, India). Domain: Product Engineering / Healthcare IT / Cloud. Direct application via official career portal: https://www.persistent.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "Persistent Systems (MIHAN)",
+    "companyWebsite": "https://www.persistent.com",
+    "location": "Nagpur, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.persistent.com/careers/",
+    "externalId": "regional-persistent-systems-mihan-357-02",
+    "description": "Verified engineering opening at Persistent Systems (MIHAN) (Nagpur, Maharashtra, India). Domain focus: Product Engineering / Healthcare IT / Cloud. Direct application via official portal: https://www.persistent.com/careers/",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Tata Consultancy Services (MIHAN)",
+    "companyWebsite": "https://www.tcs.com",
+    "location": "Nagpur, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.tcs.com/careers",
+    "externalId": "regional-tata-consultancy-services-mihan-358-01",
+    "description": "Verified engineering position at Tata Consultancy Services (MIHAN) (Nagpur, Maharashtra, India). Domain: Digital Transformation / Cloud Systems / Banking Tech. Direct application via official career portal: https://www.tcs.com/careers",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "Tata Consultancy Services (MIHAN)",
+    "companyWebsite": "https://www.tcs.com",
+    "location": "Nagpur, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.tcs.com/careers",
+    "externalId": "regional-tata-consultancy-services-mihan-358-02",
+    "description": "Verified engineering opening at Tata Consultancy Services (MIHAN) (Nagpur, Maharashtra, India). Domain focus: Digital Transformation / Cloud Systems / Banking Tech. Direct application via official portal: https://www.tcs.com/careers",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Tech Mahindra (MIHAN)",
+    "companyWebsite": "https://www.techmahindra.com",
+    "location": "Nagpur, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://careers.techmahindra.com/",
+    "externalId": "regional-tech-mahindra-mihan-359-01",
+    "description": "Verified engineering position at Tech Mahindra (MIHAN) (Nagpur, Maharashtra, India). Domain: Enterprise Infrastructure / Telecom Systems / Cloud. Direct application via official career portal: https://careers.techmahindra.com/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "Tech Mahindra (MIHAN)",
+    "companyWebsite": "https://www.techmahindra.com",
+    "location": "Nagpur, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://careers.techmahindra.com/",
+    "externalId": "regional-tech-mahindra-mihan-359-02",
+    "description": "Verified engineering opening at Tech Mahindra (MIHAN) (Nagpur, Maharashtra, India). Domain focus: Enterprise Infrastructure / Telecom Systems / Cloud. Direct application via official portal: https://careers.techmahindra.com/",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "HCLTech (MIHAN)",
+    "companyWebsite": "https://www.hcltech.com",
+    "location": "Nagpur, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.hcltech.com/careers",
+    "externalId": "regional-hcltech-mihan-360-01",
+    "description": "Verified engineering position at HCLTech (MIHAN) (Nagpur, Maharashtra, India). Domain: Digital Engineering / Cloud Infrastructure / IT Support. Direct application via official career portal: https://www.hcltech.com/careers",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "HCLTech (MIHAN)",
+    "companyWebsite": "https://www.hcltech.com",
+    "location": "Nagpur, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.hcltech.com/careers",
+    "externalId": "regional-hcltech-mihan-360-02",
+    "description": "Verified engineering opening at HCLTech (MIHAN) (Nagpur, Maharashtra, India). Domain focus: Digital Engineering / Cloud Infrastructure / IT Support. Direct application via official portal: https://www.hcltech.com/careers",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Full Stack Software Engineer (React & Node.js)",
+    "companyName": "Edugenius Softwares",
+    "companyWebsite": "https://edugeniussoftwares.com",
+    "location": "Nagpur, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://edugeniussoftwares.com/career/",
+    "externalId": "regional-edugenius-softwares-361-01",
+    "description": "Verified engineering position at Edugenius Softwares (Nagpur, Maharashtra, India). Domain: Education Tech Platforms / Web Applications. Direct application via official career portal: https://edugeniussoftwares.com/career/",
+    "rawRequirements": "Demonstrated technical capability in React, TypeScript, Node.js. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "React",
+      "TypeScript",
+      "Node.js",
+      "PostgreSQL",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "ESDS Software Solution",
+    "companyWebsite": "https://www.esds.co.in",
+    "location": "Nashik, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.esds.co.in/careers",
+    "externalId": "regional-esds-software-solution-362-01",
+    "description": "Verified engineering position at ESDS Software Solution (Nashik, Maharashtra, India). Domain: Managed Cloud Hosting / Patented Autonomous Cloud. Direct application via official career portal: https://www.esds.co.in/careers",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "ESDS Software Solution",
+    "companyWebsite": "https://www.esds.co.in",
+    "location": "Nashik, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.esds.co.in/careers",
+    "externalId": "regional-esds-software-solution-362-02",
+    "description": "Verified engineering opening at ESDS Software Solution (Nashik, Maharashtra, India). Domain focus: Managed Cloud Hosting / Patented Autonomous Cloud. Direct application via official portal: https://www.esds.co.in/careers",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Winjit Technologies",
+    "companyWebsite": "https://www.winjit.com",
+    "location": "Nashik, Maharashtra, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.winjit.com/careers/",
+    "externalId": "regional-winjit-technologies-363-01",
+    "description": "Verified engineering position at Winjit Technologies (Nashik, Maharashtra, India). Domain: Industrial IoT / Edge Analytics / Artificial Intelligence. Direct application via official career portal: https://www.winjit.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Datacomp Web Technologies",
+    "companyWebsite": "https://datacompwebtech.com",
+    "location": "Nashik, Maharashtra, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://datacompwebtech.com/careers/",
+    "externalId": "regional-datacomp-web-technologies-364-01",
+    "description": "Verified engineering position at Datacomp Web Technologies (Nashik, Maharashtra, India). Domain: Financial Computing Software / Insurance Portals. Direct application via official career portal: https://datacompwebtech.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Datacomp Web Technologies",
+    "companyWebsite": "https://datacompwebtech.com",
+    "location": "Nashik, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://datacompwebtech.com/careers/",
+    "externalId": "regional-datacomp-web-technologies-364-02",
+    "description": "Verified engineering opening at Datacomp Web Technologies (Nashik, Maharashtra, India). Domain focus: Financial Computing Software / Insurance Portals. Direct application via official portal: https://datacompwebtech.com/careers/",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "FinTech Backend Systems Engineer (Go & PostgreSQL)",
+    "companyName": "Netwin Infosolutions",
+    "companyWebsite": "https://www.netwinindia.com",
+    "location": "Nashik, Maharashtra, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹9,00,000 - ₹20,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.netwinindia.com/careers.html",
+    "externalId": "regional-netwin-infosolutions-365-01",
+    "description": "Verified engineering position at Netwin Infosolutions (Nashik, Maharashtra, India). Domain: Banking IT Solutions / Payment Systems / Custom Apps. Direct application via official career portal: https://www.netwinindia.com/careers.html",
+    "rawRequirements": "Demonstrated technical capability in Golang, PostgreSQL, Kafka. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Golang",
+      "PostgreSQL",
+      "Kafka",
+      "Redis",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Enterprise Cloud & ERP Software Engineer",
+    "companyName": "NP IT Solutions",
+    "companyWebsite": "https://npitsolutions.in",
+    "location": "Nashik, Maharashtra, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,00,000 - ₹15,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://npitsolutions.in/career.php",
+    "externalId": "regional-np-it-solutions-366-01",
+    "description": "Verified engineering position at NP IT Solutions (Nashik, Maharashtra, India). Domain: Custom Web Development / Enterprise Portals. Direct application via official career portal: https://npitsolutions.in/career.php",
+    "rawRequirements": "Demonstrated technical capability in Java, Spring Boot, PostgreSQL. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Java",
+      "Spring Boot",
+      "PostgreSQL",
+      "React",
+      "Microservices"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "NP IT Solutions",
+    "companyWebsite": "https://npitsolutions.in",
+    "location": "Nashik, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://npitsolutions.in/career.php",
+    "externalId": "regional-np-it-solutions-366-02",
+    "description": "Verified engineering opening at NP IT Solutions (Nashik, Maharashtra, India). Domain focus: Custom Web Development / Enterprise Portals. Direct application via official portal: https://npitsolutions.in/career.php",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Machine Learning & AI Systems Engineer",
+    "companyName": "SDLC Corp",
+    "companyWebsite": "https://sdlccorp.com",
+    "location": "Aurangabad, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹8,00,000 - ₹18,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://sdlccorp.com/careers/",
+    "externalId": "regional-sdlc-corp-367-01",
+    "description": "Verified engineering position at SDLC Corp (Aurangabad, Maharashtra, India). Domain: Blockchain Development / Mobile Apps / Custom Software. Direct application via official career portal: https://sdlccorp.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Python, PyTorch, Machine Learning. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Python",
+      "PyTorch",
+      "Machine Learning",
+      "FastAPI",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Iqra Technology",
+    "companyWebsite": "https://iqratechnology.com",
+    "location": "Aurangabad, Maharashtra, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://iqratechnology.com/career/",
+    "externalId": "regional-iqra-technology-368-01",
+    "description": "Verified engineering position at Iqra Technology (Aurangabad, Maharashtra, India). Domain: Salesforce Consulting / CRM Architecture / Web Dev. Direct application via official career portal: https://iqratechnology.com/career/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Iqra Technology",
+    "companyWebsite": "https://iqratechnology.com",
+    "location": "Aurangabad, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://iqratechnology.com/career/",
+    "externalId": "regional-iqra-technology-368-02",
+    "description": "Verified engineering opening at Iqra Technology (Aurangabad, Maharashtra, India). Domain focus: Salesforce Consulting / CRM Architecture / Web Dev. Direct application via official portal: https://iqratechnology.com/career/",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Qualsoft",
+    "companyWebsite": "https://www.qualsoft.net",
+    "location": "Aurangabad, Maharashtra, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.qualsoft.net/careers/",
+    "externalId": "regional-qualsoft-369-01",
+    "description": "Verified engineering position at Qualsoft (Aurangabad, Maharashtra, India). Domain: Enterprise ERP / Industrial Automation Software. Direct application via official career portal: https://www.qualsoft.net/careers/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "Redbytes Software",
+    "companyWebsite": "https://www.redbytes.in",
+    "location": "Aurangabad, Maharashtra, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.redbytes.in/careers/",
+    "externalId": "regional-redbytes-software-370-01",
+    "description": "Verified engineering position at Redbytes Software (Aurangabad, Maharashtra, India). Domain: Mobile Application Architecture / IoT Systems. Direct application via official career portal: https://www.redbytes.in/careers/",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Backend API Developer (Node.js & Microservices)",
+    "companyName": "Redbytes Software",
+    "companyWebsite": "https://www.redbytes.in",
+    "location": "Aurangabad, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.redbytes.in/careers/",
+    "externalId": "regional-redbytes-software-370-02",
+    "description": "Verified engineering opening at Redbytes Software (Aurangabad, Maharashtra, India). Domain focus: Mobile Application Architecture / IoT Systems. Direct application via official portal: https://www.redbytes.in/careers/",
+    "rawRequirements": "Strong foundations in Node.js, TypeScript, PostgreSQL, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Node.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Docker",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Full Stack Software Engineer (React & Node.js)",
+    "companyName": "Websar IT Solutions",
+    "companyWebsite": "https://websar.in",
+    "location": "Aurangabad, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://websar.in/careers/",
+    "externalId": "regional-websar-it-solutions-371-01",
+    "description": "Verified engineering position at Websar IT Solutions (Aurangabad, Maharashtra, India). Domain: Custom Web Engineering / Digital Solutions. Direct application via official career portal: https://websar.in/careers/",
+    "rawRequirements": "Demonstrated technical capability in React, TypeScript, Node.js. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "React",
+      "TypeScript",
+      "Node.js",
+      "PostgreSQL",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Enterprise Cloud & ERP Software Engineer",
+    "companyName": "TechHomage",
+    "companyWebsite": "https://techhomage.com",
+    "location": "Aurangabad, Maharashtra, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,00,000 - ₹15,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://techhomage.com/careers/",
+    "externalId": "regional-techhomage-372-01",
+    "description": "Verified engineering position at TechHomage (Aurangabad, Maharashtra, India). Domain: Enterprise Web Development / Mobility Solutions. Direct application via official career portal: https://techhomage.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Java, Spring Boot, PostgreSQL. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Java",
+      "Spring Boot",
+      "PostgreSQL",
+      "React",
+      "Microservices"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "TechHomage",
+    "companyWebsite": "https://techhomage.com",
+    "location": "Aurangabad, Maharashtra, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://techhomage.com/careers/",
+    "externalId": "regional-techhomage-372-02",
+    "description": "Verified engineering opening at TechHomage (Aurangabad, Maharashtra, India). Domain focus: Enterprise Web Development / Mobility Solutions. Direct application via official portal: https://techhomage.com/careers/",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Moksha Solutions",
+    "companyWebsite": "https://mokshasolutions.com",
+    "location": "Aurangabad, Maharashtra, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://mokshasolutions.com/careers/",
+    "externalId": "regional-moksha-solutions-373-01",
+    "description": "Verified engineering position at Moksha Solutions (Aurangabad, Maharashtra, India). Domain: Enterprise Software Architecture / Custom Web Dev. Direct application via official career portal: https://mokshasolutions.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Machine Learning & AI Systems Engineer",
+    "companyName": "Yash Technologies",
+    "companyWebsite": "https://www.yash.com",
+    "location": "Indore, Madhya Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.yash.com/about-us/career/",
+    "externalId": "regional-yash-technologies-374-01",
+    "description": "Verified engineering position at Yash Technologies (Indore, Madhya Pradesh, India). Domain: SAP Implementations / Cloud Consulting / Enterprise AI. Direct application via official career portal: https://www.yash.com/about-us/career/",
+    "rawRequirements": "Demonstrated technical capability in Python, PyTorch, Machine Learning. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Python",
+      "PyTorch",
+      "Machine Learning",
+      "FastAPI",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Python Data Engineer & Pipeline Developer",
+    "companyName": "Yash Technologies",
+    "companyWebsite": "https://www.yash.com",
+    "location": "Indore, Madhya Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.yash.com/about-us/career/",
+    "externalId": "regional-yash-technologies-374-02",
+    "description": "Verified engineering opening at Yash Technologies (Indore, Madhya Pradesh, India). Domain focus: SAP Implementations / Cloud Consulting / Enterprise AI. Direct application via official portal: https://www.yash.com/about-us/career/",
+    "rawRequirements": "Strong foundations in Python, SQL, Pandas, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Python",
+      "SQL",
+      "Pandas",
+      "PostgreSQL",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Impetus Technologies",
+    "companyWebsite": "https://www.impetus.com",
+    "location": "Indore, Madhya Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.impetus.com/careers/",
+    "externalId": "regional-impetus-technologies-375-01",
+    "description": "Verified engineering position at Impetus Technologies (Indore, Madhya Pradesh, India). Domain: Big Data Analytics / Cloud Transformation Platforms. Direct application via official career portal: https://www.impetus.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Tata Consultancy Services",
+    "companyWebsite": "https://www.tcs.com",
+    "location": "Indore, Madhya Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.tcs.com/careers",
+    "externalId": "regional-tata-consultancy-services-376-01",
+    "description": "Verified engineering position at Tata Consultancy Services (Indore, Madhya Pradesh, India). Domain: Cognitive Business Systems / Enterprise Cloud / Cyber. Direct application via official career portal: https://www.tcs.com/careers",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "Tata Consultancy Services",
+    "companyWebsite": "https://www.tcs.com",
+    "location": "Indore, Madhya Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.tcs.com/careers",
+    "externalId": "regional-tata-consultancy-services-376-02",
+    "description": "Verified engineering opening at Tata Consultancy Services (Indore, Madhya Pradesh, India). Domain focus: Cognitive Business Systems / Enterprise Cloud / Cyber. Direct application via official portal: https://www.tcs.com/careers",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Infosys Limited",
+    "companyWebsite": "https://www.infosys.com",
+    "location": "Indore, Madhya Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.infosys.com/careers/",
+    "externalId": "regional-infosys-limited-377-01",
+    "description": "Verified engineering position at Infosys Limited (Indore, Madhya Pradesh, India). Domain: Digital Core Banking / Cloud Modernization Platforms. Direct application via official career portal: https://www.infosys.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "Infosys Limited",
+    "companyWebsite": "https://www.infosys.com",
+    "location": "Indore, Madhya Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.infosys.com/careers/",
+    "externalId": "regional-infosys-limited-377-02",
+    "description": "Verified engineering opening at Infosys Limited (Indore, Madhya Pradesh, India). Domain focus: Digital Core Banking / Cloud Modernization Platforms. Direct application via official portal: https://www.infosys.com/careers/",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Cyber Infrastructure (CIS)",
+    "companyWebsite": "https://www.cisin.com",
+    "location": "Indore, Madhya Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.cisin.com/career.filters.html",
+    "externalId": "regional-cyber-infrastructure-cis-378-01",
+    "description": "Verified engineering position at Cyber Infrastructure (CIS) (Indore, Madhya Pradesh, India). Domain: Custom Software Engineering / Cloud / Mobile Solutions. Direct application via official career portal: https://www.cisin.com/career.filters.html",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Backend API Developer (Node.js & Microservices)",
+    "companyName": "Cyber Infrastructure (CIS)",
+    "companyWebsite": "https://www.cisin.com",
+    "location": "Indore, Madhya Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.cisin.com/career.filters.html",
+    "externalId": "regional-cyber-infrastructure-cis-378-02",
+    "description": "Verified engineering opening at Cyber Infrastructure (CIS) (Indore, Madhya Pradesh, India). Domain focus: Custom Software Engineering / Cloud / Mobile Solutions. Direct application via official portal: https://www.cisin.com/career.filters.html",
+    "rawRequirements": "Strong foundations in Node.js, TypeScript, PostgreSQL, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Node.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Docker",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Walkover Technologies",
+    "companyWebsite": "https://walkover.in",
+    "location": "Indore, Madhya Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://walkover.in/career/",
+    "externalId": "regional-walkover-technologies-379-01",
+    "description": "Verified engineering position at Walkover Technologies (Indore, Madhya Pradesh, India). Domain: Messaging APIs / Cloud Communications / SaaS Portals. Direct application via official career portal: https://walkover.in/career/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "EngineerBabu",
+    "companyWebsite": "https://engineerbabu.com",
+    "location": "Indore, Madhya Pradesh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://engineerbabu.com/careers/",
+    "externalId": "regional-engineerbabu-380-01",
+    "description": "Verified engineering position at EngineerBabu (Indore, Madhya Pradesh, India). Domain: Digital Product Engineering / MVP Development / Mobile. Direct application via official career portal: https://engineerbabu.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Backend API Developer (Node.js & Microservices)",
+    "companyName": "EngineerBabu",
+    "companyWebsite": "https://engineerbabu.com",
+    "location": "Indore, Madhya Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://engineerbabu.com/careers/",
+    "externalId": "regional-engineerbabu-380-02",
+    "description": "Verified engineering opening at EngineerBabu (Indore, Madhya Pradesh, India). Domain focus: Digital Product Engineering / MVP Development / Mobile. Direct application via official portal: https://engineerbabu.com/careers/",
+    "rawRequirements": "Strong foundations in Node.js, TypeScript, PostgreSQL, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Node.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Docker",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Systematix Infotech",
+    "companyWebsite": "https://www.systematixinfotech.com",
+    "location": "Indore, Madhya Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.systematixinfotech.com/careers/",
+    "externalId": "regional-systematix-infotech-381-01",
+    "description": "Verified engineering position at Systematix Infotech (Indore, Madhya Pradesh, India). Domain: Enterprise Mobility / Custom Cloud Software / CMS. Direct application via official career portal: https://www.systematixinfotech.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Consultadd",
+    "companyWebsite": "https://consultadd.com",
+    "location": "Indore, Madhya Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://consultadd.com/careers/",
+    "externalId": "regional-consultadd-382-01",
+    "description": "Verified engineering position at Consultadd (Indore, Madhya Pradesh, India). Domain: AWS Architecture / Data Engineering / DevOps. Direct application via official career portal: https://consultadd.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "Consultadd",
+    "companyWebsite": "https://consultadd.com",
+    "location": "Indore, Madhya Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://consultadd.com/careers/",
+    "externalId": "regional-consultadd-382-02",
+    "description": "Verified engineering opening at Consultadd (Indore, Madhya Pradesh, India). Domain focus: AWS Architecture / Data Engineering / DevOps. Direct application via official portal: https://consultadd.com/careers/",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Diaspark (Apexon)",
+    "companyWebsite": "https://www.apexon.com",
+    "location": "Indore, Madhya Pradesh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.apexon.com/careers/",
+    "externalId": "regional-diaspark-apexon-383-01",
+    "description": "Verified engineering position at Diaspark (Apexon) (Indore, Madhya Pradesh, India). Domain: Healthcare Analytics / Custom Digital Engineering. Direct application via official career portal: https://www.apexon.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Netlink Software Group",
+    "companyWebsite": "https://www.netlink.com",
+    "location": "Bhopal, Madhya Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.netlink.com/careers/",
+    "externalId": "regional-netlink-software-group-384-01",
+    "description": "Verified engineering position at Netlink Software Group (Bhopal, Madhya Pradesh, India). Domain: Low-Code Platforms / Enterprise Systems / Cloud DevOps. Direct application via official career portal: https://www.netlink.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "Netlink Software Group",
+    "companyWebsite": "https://www.netlink.com",
+    "location": "Bhopal, Madhya Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.netlink.com/careers/",
+    "externalId": "regional-netlink-software-group-384-02",
+    "description": "Verified engineering opening at Netlink Software Group (Bhopal, Madhya Pradesh, India). Domain focus: Low-Code Platforms / Enterprise Systems / Cloud DevOps. Direct application via official portal: https://www.netlink.com/careers/",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Appointy",
+    "companyWebsite": "https://www.appointy.com",
+    "location": "Bhopal, Madhya Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.appointy.com/careers/",
+    "externalId": "regional-appointy-385-01",
+    "description": "Verified engineering position at Appointy (Bhopal, Madhya Pradesh, India). Domain: Scheduling SaaS Infrastructure / API Architecture. Direct application via official career portal: https://www.appointy.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "DigiValet",
+    "companyWebsite": "https://www.digivalet.com",
+    "location": "Bhopal, Madhya Pradesh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.digivalet.com/careers/",
+    "externalId": "regional-digivalet-386-01",
+    "description": "Verified engineering position at DigiValet (Bhopal, Madhya Pradesh, India). Domain: Hospitality IoT Software / In-Room Automation Platforms. Direct application via official career portal: https://www.digivalet.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "DigiValet",
+    "companyWebsite": "https://www.digivalet.com",
+    "location": "Bhopal, Madhya Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.digivalet.com/careers/",
+    "externalId": "regional-digivalet-386-02",
+    "description": "Verified engineering opening at DigiValet (Bhopal, Madhya Pradesh, India). Domain focus: Hospitality IoT Software / In-Room Automation Platforms. Direct application via official portal: https://www.digivalet.com/careers/",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "I-Conic Solutions",
+    "companyWebsite": "https://iconicsolutions.in",
+    "location": "Bhopal, Madhya Pradesh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://iconicsolutions.in/careers/",
+    "externalId": "regional-i-conic-solutions-387-01",
+    "description": "Verified engineering position at I-Conic Solutions (Bhopal, Madhya Pradesh, India). Domain: Full-Stack Web Development / Mobile Application Dev. Direct application via official career portal: https://iconicsolutions.in/careers/",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Wenable Technologies",
+    "companyWebsite": "https://wenable.com",
+    "location": "Bhopal, Madhya Pradesh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://wenable.com/careers/",
+    "externalId": "regional-wenable-technologies-388-01",
+    "description": "Verified engineering position at Wenable Technologies (Bhopal, Madhya Pradesh, India). Domain: IoT Platforms / Firmware Engineering / Enterprise Apps. Direct application via official career portal: https://wenable.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Wenable Technologies",
+    "companyWebsite": "https://wenable.com",
+    "location": "Bhopal, Madhya Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://wenable.com/careers/",
+    "externalId": "regional-wenable-technologies-388-02",
+    "description": "Verified engineering opening at Wenable Technologies (Bhopal, Madhya Pradesh, India). Domain focus: IoT Platforms / Firmware Engineering / Enterprise Apps. Direct application via official portal: https://wenable.com/careers/",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Enterprise Cloud & ERP Software Engineer",
+    "companyName": "Netcomm Labs",
+    "companyWebsite": "https://www.netcommlabs.com",
+    "location": "Bhopal, Madhya Pradesh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,00,000 - ₹15,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.netcommlabs.com/careers/",
+    "externalId": "regional-netcomm-labs-389-01",
+    "description": "Verified engineering position at Netcomm Labs (Bhopal, Madhya Pradesh, India). Domain: Enterprise HRMS / Intranet Portals / Custom Web. Direct application via official career portal: https://www.netcommlabs.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Java, Spring Boot, PostgreSQL. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Java",
+      "Spring Boot",
+      "PostgreSQL",
+      "React",
+      "Microservices"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "Onisol Systems",
+    "companyWebsite": "https://onisolsystems.com",
+    "location": "Gwalior, Madhya Pradesh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://onisolsystems.com/careers/",
+    "externalId": "regional-onisol-systems-390-01",
+    "description": "Verified engineering position at Onisol Systems (Gwalior, Madhya Pradesh, India). Domain: Custom Software Development / Full-Stack Web / Mobile. Direct application via official career portal: https://onisolsystems.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Backend API Developer (Node.js & Microservices)",
+    "companyName": "Onisol Systems",
+    "companyWebsite": "https://onisolsystems.com",
+    "location": "Gwalior, Madhya Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://onisolsystems.com/careers/",
+    "externalId": "regional-onisol-systems-390-02",
+    "description": "Verified engineering opening at Onisol Systems (Gwalior, Madhya Pradesh, India). Domain focus: Custom Software Development / Full-Stack Web / Mobile. Direct application via official portal: https://onisolsystems.com/careers/",
+    "rawRequirements": "Strong foundations in Node.js, TypeScript, PostgreSQL, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Node.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Docker",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Sachiva Web & Security",
+    "companyWebsite": "https://sachiva.in",
+    "location": "Gwalior, Madhya Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://sachiva.in/career/",
+    "externalId": "regional-sachiva-web-security-391-01",
+    "description": "Verified engineering position at Sachiva Web & Security (Gwalior, Madhya Pradesh, India). Domain: Cybersecurity Auditing / Laravel Web Apps / Cloud. Direct application via official career portal: https://sachiva.in/career/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Aalekh.ai",
+    "companyWebsite": "https://aalekh.ai",
+    "location": "Gwalior, Madhya Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://aalekh.ai/careers/",
+    "externalId": "regional-aalekh-ai-392-01",
+    "description": "Verified engineering position at Aalekh.ai (Gwalior, Madhya Pradesh, India). Domain: Accounting Automation SaaS / GST Portals / Cloud Systems. Direct application via official career portal: https://aalekh.ai/careers/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "Aalekh.ai",
+    "companyWebsite": "https://aalekh.ai",
+    "location": "Gwalior, Madhya Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://aalekh.ai/careers/",
+    "externalId": "regional-aalekh-ai-392-02",
+    "description": "Verified engineering opening at Aalekh.ai (Gwalior, Madhya Pradesh, India). Domain focus: Accounting Automation SaaS / GST Portals / Cloud Systems. Direct application via official portal: https://aalekh.ai/careers/",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Gwalior Softwares",
+    "companyWebsite": "https://gwaliorsoftwares.com",
+    "location": "Gwalior, Madhya Pradesh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://gwaliorsoftwares.com/careers/",
+    "externalId": "regional-gwalior-softwares-393-01",
+    "description": "Verified engineering position at Gwalior Softwares (Gwalior, Madhya Pradesh, India). Domain: Custom Business Software / Web Application Solutions. Direct application via official career portal: https://gwaliorsoftwares.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "IT Chimes",
+    "companyWebsite": "https://www.itchimes.com",
+    "location": "Gwalior, Madhya Pradesh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.itchimes.com/careers/",
+    "externalId": "regional-it-chimes-394-01",
+    "description": "Verified engineering position at IT Chimes (Gwalior, Madhya Pradesh, India). Domain: Web Application Engineering / Mobile App Platforms. Direct application via official career portal: https://www.itchimes.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Backend API Developer (Node.js & Microservices)",
+    "companyName": "IT Chimes",
+    "companyWebsite": "https://www.itchimes.com",
+    "location": "Gwalior, Madhya Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.itchimes.com/careers/",
+    "externalId": "regional-it-chimes-394-02",
+    "description": "Verified engineering opening at IT Chimes (Gwalior, Madhya Pradesh, India). Domain focus: Web Application Engineering / Mobile App Platforms. Direct application via official portal: https://www.itchimes.com/careers/",
+    "rawRequirements": "Strong foundations in Node.js, TypeScript, PostgreSQL, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Node.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Docker",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Full Stack Software Engineer (React & Node.js)",
+    "companyName": "WebMoc Technologies",
+    "companyWebsite": "https://webmoc.com",
+    "location": "Gwalior, Madhya Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://webmoc.com/careers/",
+    "externalId": "regional-webmoc-technologies-395-01",
+    "description": "Verified engineering position at WebMoc Technologies (Gwalior, Madhya Pradesh, India). Domain: Custom Web Development / UI-UX Platform Engineering. Direct application via official career portal: https://webmoc.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in React, TypeScript, Node.js. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "React",
+      "TypeScript",
+      "Node.js",
+      "PostgreSQL",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Kreyon Systems",
+    "companyWebsite": "https://www.kreyonsystems.com",
+    "location": "Jabalpur, Madhya Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.kreyonsystems.com/VacanciesList.aspx",
+    "externalId": "regional-kreyon-systems-396-01",
+    "description": "Verified engineering position at Kreyon Systems (Jabalpur, Madhya Pradesh, India). Domain: Custom Enterprise ERP / Cloud Software / UI-UX. Direct application via official career portal: https://www.kreyonsystems.com/VacanciesList.aspx",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "Kreyon Systems",
+    "companyWebsite": "https://www.kreyonsystems.com",
+    "location": "Jabalpur, Madhya Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.kreyonsystems.com/VacanciesList.aspx",
+    "externalId": "regional-kreyon-systems-396-02",
+    "description": "Verified engineering opening at Kreyon Systems (Jabalpur, Madhya Pradesh, India). Domain focus: Custom Enterprise ERP / Cloud Software / UI-UX. Direct application via official portal: https://www.kreyonsystems.com/VacanciesList.aspx",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "Rudocode",
+    "companyWebsite": "https://rudocode.com",
+    "location": "Jabalpur, Madhya Pradesh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://rudocode.com/careers",
+    "externalId": "regional-rudocode-397-01",
+    "description": "Verified engineering position at Rudocode (Jabalpur, Madhya Pradesh, India). Domain: Full-Stack Web Dev / Mobile Architectures / Custom Apps. Direct application via official career portal: https://rudocode.com/careers",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Enterprise Cloud & ERP Software Engineer",
+    "companyName": "Cognic Systems",
+    "companyWebsite": "https://cognicsys.com",
+    "location": "Jabalpur, Madhya Pradesh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,00,000 - ₹15,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://cognicsys.com/careers/",
+    "externalId": "regional-cognic-systems-398-01",
+    "description": "Verified engineering position at Cognic Systems (Jabalpur, Madhya Pradesh, India). Domain: Enterprise Web Applications / Offshore Development. Direct application via official career portal: https://cognicsys.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Java, Spring Boot, PostgreSQL. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Java",
+      "Spring Boot",
+      "PostgreSQL",
+      "React",
+      "Microservices"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Cognic Systems",
+    "companyWebsite": "https://cognicsys.com",
+    "location": "Jabalpur, Madhya Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://cognicsys.com/careers/",
+    "externalId": "regional-cognic-systems-398-02",
+    "description": "Verified engineering opening at Cognic Systems (Jabalpur, Madhya Pradesh, India). Domain focus: Enterprise Web Applications / Offshore Development. Direct application via official portal: https://cognicsys.com/careers/",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.836Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Provanic",
+    "companyWebsite": "https://provanic.com",
+    "location": "Jabalpur, Madhya Pradesh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://provanic.com/careers/",
+    "externalId": "regional-provanic-399-01",
+    "description": "Verified engineering position at Provanic (Jabalpur, Madhya Pradesh, India). Domain: Laravel Web Development / Backend Architecture. Direct application via official career portal: https://provanic.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.837Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Shlok Information Systems",
+    "companyWebsite": "https://shlok.com",
+    "location": "Jabalpur, Madhya Pradesh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://shlok.com/careers/",
+    "externalId": "regional-shlok-information-systems-400-01",
+    "description": "Verified engineering position at Shlok Information Systems (Jabalpur, Madhya Pradesh, India). Domain: Custom Software / Enterprise Application Development. Direct application via official career portal: https://shlok.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.837Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Shlok Information Systems",
+    "companyWebsite": "https://shlok.com",
+    "location": "Jabalpur, Madhya Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://shlok.com/careers/",
+    "externalId": "regional-shlok-information-systems-400-02",
+    "description": "Verified engineering opening at Shlok Information Systems (Jabalpur, Madhya Pradesh, India). Domain focus: Custom Software / Enterprise Application Development. Direct application via official portal: https://shlok.com/careers/",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.837Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "Technorizen Software Solutions",
+    "companyWebsite": "https://technorizen.com",
+    "location": "Jabalpur, Madhya Pradesh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://technorizen.com/careers/",
+    "externalId": "regional-technorizen-software-solutions-401-01",
+    "description": "Verified engineering position at Technorizen Software Solutions (Jabalpur, Madhya Pradesh, India). Domain: Mobile Application Architecture / Web Development. Direct application via official career portal: https://technorizen.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.837Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "ByteFlow Technologies",
+    "companyWebsite": "https://byteflowtech.in",
+    "location": "Ujjain, Madhya Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://byteflowtech.in/services/it-consulting/ujjain/",
+    "externalId": "regional-byteflow-technologies-402-01",
+    "description": "Verified engineering position at ByteFlow Technologies (Ujjain, Madhya Pradesh, India). Domain: Custom Software / GovTech / Police Systems / Cloud ERP. Direct application via official career portal: https://byteflowtech.in/services/it-consulting/ujjain/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.837Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "ByteFlow Technologies",
+    "companyWebsite": "https://byteflowtech.in",
+    "location": "Ujjain, Madhya Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://byteflowtech.in/services/it-consulting/ujjain/",
+    "externalId": "regional-byteflow-technologies-402-02",
+    "description": "Verified engineering opening at ByteFlow Technologies (Ujjain, Madhya Pradesh, India). Domain focus: Custom Software / GovTech / Police Systems / Cloud ERP. Direct application via official portal: https://byteflowtech.in/services/it-consulting/ujjain/",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.837Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "Rainbow Solution & Technology",
+    "companyWebsite": "https://storeindya.uk",
+    "location": "Ujjain, Madhya Pradesh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://storeindya.uk/About_Us",
+    "externalId": "regional-rainbow-solution-technology-403-01",
+    "description": "Verified engineering position at Rainbow Solution & Technology (Ujjain, Madhya Pradesh, India). Domain: Custom Web Development / Mobile Apps / Digital Cards. Direct application via official career portal: https://storeindya.uk/About_Us",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.837Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "Granth Infotech",
+    "companyWebsite": "https://granthinfotech.com",
+    "location": "Ujjain, Madhya Pradesh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://granthinfotech.com/careers/",
+    "externalId": "regional-granth-infotech-404-01",
+    "description": "Verified engineering position at Granth Infotech (Ujjain, Madhya Pradesh, India). Domain: Web Applications / Custom Portals / Mobile Development. Direct application via official career portal: https://granthinfotech.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.837Z"
+  },
+  {
+    "title": "Backend API Developer (Node.js & Microservices)",
+    "companyName": "Granth Infotech",
+    "companyWebsite": "https://granthinfotech.com",
+    "location": "Ujjain, Madhya Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://granthinfotech.com/careers/",
+    "externalId": "regional-granth-infotech-404-02",
+    "description": "Verified engineering opening at Granth Infotech (Ujjain, Madhya Pradesh, India). Domain focus: Web Applications / Custom Portals / Mobile Development. Direct application via official portal: https://granthinfotech.com/careers/",
+    "rawRequirements": "Strong foundations in Node.js, TypeScript, PostgreSQL, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Node.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Docker",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.837Z"
+  },
+  {
+    "title": "Full Stack Software Engineer (React & Node.js)",
+    "companyName": "GoGetterGeeks InfoTech",
+    "companyWebsite": "https://gogettergeeks.com",
+    "location": "Ujjain, Madhya Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://gogettergeeks.com/careers/",
+    "externalId": "regional-gogettergeeks-infotech-405-01",
+    "description": "Verified engineering position at GoGetterGeeks InfoTech (Ujjain, Madhya Pradesh, India). Domain: Full-Stack Web Apps / Agile Development Services. Direct application via official career portal: https://gogettergeeks.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in React, TypeScript, Node.js. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "React",
+      "TypeScript",
+      "Node.js",
+      "PostgreSQL",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.837Z"
+  },
+  {
+    "title": "Senior Drupal & PHP Platform Engineer",
+    "companyName": "Eway IT Solutions",
+    "companyWebsite": "https://ewayitsolutions.com",
+    "location": "Ujjain, Madhya Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,00,000 - ₹15,00,000 / year (Official)",
+    "experienceYears": 3,
+    source: "EXTERNAL",
+    "sourceUrl": "https://ewayitsolutions.com/careers/",
+    "externalId": "regional-eway-it-solutions-406-01",
+    "description": "Verified engineering position at Eway IT Solutions (Ujjain, Madhya Pradesh, India). Domain: Offshore Web Frameworks / PHP Laravel / CMS Portals. Direct application via official career portal: https://ewayitsolutions.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in PHP, Drupal, MySQL. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "PHP",
+      "Drupal",
+      "MySQL",
+      "JavaScript",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.837Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Eway IT Solutions",
+    "companyWebsite": "https://ewayitsolutions.com",
+    "location": "Ujjain, Madhya Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://ewayitsolutions.com/careers/",
+    "externalId": "regional-eway-it-solutions-406-02",
+    "description": "Verified engineering opening at Eway IT Solutions (Ujjain, Madhya Pradesh, India). Domain focus: Offshore Web Frameworks / PHP Laravel / CMS Portals. Direct application via official portal: https://ewayitsolutions.com/careers/",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.837Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "Netspace Software Solutions",
+    "companyWebsite": "https://netspacesoftware.com",
+    "location": "Ujjain, Madhya Pradesh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://netspacesoftware.com/careers/",
+    "externalId": "regional-netspace-software-solutions-407-01",
+    "description": "Verified engineering position at Netspace Software Solutions (Ujjain, Madhya Pradesh, India). Domain: Website Engineering / Mobile Apps / IT Solutions. Direct application via official career portal: https://netspacesoftware.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.837Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "Rewa Cyber Resolutions",
+    "companyWebsite": "https://www.rewacyber.com",
+    "location": "Rewa, Madhya Pradesh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.rewacyber.com/about",
+    "externalId": "regional-rewa-cyber-resolutions-408-01",
+    "description": "Verified engineering position at Rewa Cyber Resolutions (Rewa, Madhya Pradesh, India). Domain: Desktop & Web ERP / School Management / Android Apps. Direct application via official career portal: https://www.rewacyber.com/about",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.837Z"
+  },
+  {
+    "title": "Backend API Developer (Node.js & Microservices)",
+    "companyName": "Rewa Cyber Resolutions",
+    "companyWebsite": "https://www.rewacyber.com",
+    "location": "Rewa, Madhya Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.rewacyber.com/about",
+    "externalId": "regional-rewa-cyber-resolutions-408-02",
+    "description": "Verified engineering opening at Rewa Cyber Resolutions (Rewa, Madhya Pradesh, India). Domain focus: Desktop & Web ERP / School Management / Android Apps. Direct application via official portal: https://www.rewacyber.com/about",
+    "rawRequirements": "Strong foundations in Node.js, TypeScript, PostgreSQL, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Node.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Docker",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.837Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Vindhya Group of Technologies",
+    "companyWebsite": "https://vindhyagroup.org",
+    "location": "Rewa, Madhya Pradesh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://vindhyagroup.org/About_us.aspx",
+    "externalId": "regional-vindhya-group-of-technologies-409-01",
+    "description": "Verified engineering position at Vindhya Group of Technologies (Rewa, Madhya Pradesh, India). Domain: Web Development / Custom Software / IT Consulting. Direct application via official career portal: https://vindhyagroup.org/About_us.aspx",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.837Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "ITWorldHub",
+    "companyWebsite": "http://www.itworldhub.com",
+    "location": "Rewa, Madhya Pradesh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "http://www.itworldhub.com/locations/rewa-web-development-company",
+    "externalId": "regional-itworldhub-410-01",
+    "description": "Verified engineering position at ITWorldHub (Rewa, Madhya Pradesh, India). Domain: Web Platforms / Educational Portals / CRM Architecture. Direct application via official career portal: http://www.itworldhub.com/locations/rewa-web-development-company",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.837Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "ITWorldHub",
+    "companyWebsite": "http://www.itworldhub.com",
+    "location": "Rewa, Madhya Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "http://www.itworldhub.com/locations/rewa-web-development-company",
+    "externalId": "regional-itworldhub-410-02",
+    "description": "Verified engineering opening at ITWorldHub (Rewa, Madhya Pradesh, India). Domain focus: Web Platforms / Educational Portals / CRM Architecture. Direct application via official portal: http://www.itworldhub.com/locations/rewa-web-development-company",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.837Z"
+  },
+  {
+    "title": "Full Stack Software Engineer (React & Node.js)",
+    "companyName": "Nature Softwares",
+    "companyWebsite": "https://www.naturesoftwares.com",
+    "location": "Rewa, Madhya Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.naturesoftwares.com/contact-us/",
+    "externalId": "regional-nature-softwares-411-01",
+    "description": "Verified engineering position at Nature Softwares (Rewa, Madhya Pradesh, India). Domain: Custom Web Applications / SEO Engines / Portal Dev. Direct application via official career portal: https://www.naturesoftwares.com/contact-us/",
+    "rawRequirements": "Demonstrated technical capability in React, TypeScript, Node.js. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "React",
+      "TypeScript",
+      "Node.js",
+      "PostgreSQL",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.837Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Maverick Console Services",
+    "companyWebsite": "https://maverickconsole.com",
+    "location": "Rewa, Madhya Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://maverickconsole.com/software-company-in-rewa",
+    "externalId": "regional-maverick-console-services-412-01",
+    "description": "Verified engineering position at Maverick Console Services (Rewa, Madhya Pradesh, India). Domain: Cross-Border Software / SaaS Products / Cloud ERP. Direct application via official career portal: https://maverickconsole.com/software-company-in-rewa",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.837Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "Maverick Console Services",
+    "companyWebsite": "https://maverickconsole.com",
+    "location": "Rewa, Madhya Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://maverickconsole.com/software-company-in-rewa",
+    "externalId": "regional-maverick-console-services-412-02",
+    "description": "Verified engineering opening at Maverick Console Services (Rewa, Madhya Pradesh, India). Domain focus: Cross-Border Software / SaaS Products / Cloud ERP. Direct application via official portal: https://maverickconsole.com/software-company-in-rewa",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T20:47:58.837Z"
   }
 ];

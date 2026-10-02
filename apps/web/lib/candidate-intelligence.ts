@@ -295,7 +295,28 @@ export function scoreJobForCandidate(
 
   if (candidate.location && candidate.location !== "ALL") {
     const candLoc = candidate.location.toLowerCase();
-    const cityMatch = isRemote || jobLoc.includes(candLoc) || (candLoc === "tricity" && (jobLoc.includes("chandigarh") || jobLoc.includes("mohali")));
+    let cityMatch = isRemote;
+    if (!cityMatch) {
+      if (candLoc === "chandigarh") {
+        cityMatch = jobLoc.includes("chandigarh");
+      } else if (candLoc === "mohali") {
+        cityMatch = jobLoc.includes("mohali");
+      } else if (candLoc === "panchkula") {
+        cityMatch = jobLoc.includes("panchkula");
+      } else if (candLoc === "greater_noida" || candLoc === "greater noida") {
+        cityMatch = jobLoc.includes("greater noida");
+      } else if (candLoc === "noida") {
+        cityMatch = jobLoc.includes("noida") && !jobLoc.includes("greater noida");
+      } else if (candLoc === "navi_mumbai" || candLoc === "navi mumbai") {
+        cityMatch = jobLoc.includes("navi mumbai");
+      } else if (candLoc === "mumbai") {
+        cityMatch = jobLoc.includes("mumbai") && !jobLoc.includes("navi mumbai");
+      } else if (candLoc === "delhi_ncr") {
+        cityMatch = jobLoc.includes("delhi") || jobLoc.includes("noida") || jobLoc.includes("gurgaon") || jobLoc.includes("gurugram");
+      } else {
+        cityMatch = jobLoc.includes(candLoc);
+      }
+    }
     if (!cityMatch) {
       locScore -= 4;
       locationMatch = false;

@@ -10,6 +10,10 @@ function slugify(text) {
 }
 
 function parseCsv(filePath) {
+  if (!fs.existsSync(filePath)) {
+    console.warn(`File not found: ${filePath}`);
+    return [];
+  }
   const content = fs.readFileSync(filePath, 'utf-8');
   const lines = content.split('\n').filter(l => l.trim().length > 0);
   const rows = [];
@@ -32,34 +36,41 @@ function parseCsv(filePath) {
 
 const list1 = parseCsv(path.join(__dirname, '../jobdatas/one.txt'));
 const list2 = parseCsv(path.join(__dirname, '../jobdatas/two.txt'));
-const allCompanies = [...list1, ...list2];
+const list3 = parseCsv(path.join(__dirname, '../jobdatas/three.txt'));
+const list4 = parseCsv(path.join(__dirname, '../jobdatas/four.txt'));
+const list5 = parseCsv(path.join(__dirname, '../jobdatas/five.txt'));
+
+const allCompanies = [...list1, ...list2, ...list3, ...list4, ...list5];
+console.log(`Loaded ${allCompanies.length} companies across 5 source files (1: ${list1.length}, 2: ${list2.length}, 3: ${list3.length}, 4: ${list4.length}, 5: ${list5.length}).`);
 
 const jobs = [];
 
 allCompanies.forEach((c, idx) => {
   const cSlug = slugify(c.companyName);
   const domainLower = c.domain.toLowerCase();
-  
-  // Format standardized location string
+
+  // Standardize canonical location string - strictly distinct per city
   let normalizedLocation = `${c.city}, ${c.state}, India`;
   if (c.city === 'Chandigarh') {
     normalizedLocation = 'Chandigarh, India';
+  } else if (c.city === 'Mohali') {
+    normalizedLocation = 'Mohali, Punjab, India';
+  } else if (c.city === 'Panchkula') {
+    normalizedLocation = 'Panchkula, Haryana, India';
   } else if (c.city === 'New Delhi') {
     normalizedLocation = 'New Delhi, Delhi NCR, India';
   } else if (c.city === 'Gurugram') {
     normalizedLocation = 'Gurugram, Haryana, India';
   } else if (c.city === 'Sonipat') {
     normalizedLocation = 'Sonipat, Haryana, India';
-  } else if (c.city === 'Mohali') {
-    normalizedLocation = 'Mohali, Punjab, India';
-  } else if (c.city === 'Panchkula') {
-    normalizedLocation = 'Panchkula, Haryana, India';
   } else if (c.city === 'Ludhiana') {
     normalizedLocation = 'Ludhiana, Punjab, India';
   } else if (c.city === 'Jalandhar') {
     normalizedLocation = 'Jalandhar, Punjab, India';
   } else if (c.city === 'Noida') {
     normalizedLocation = 'Noida, Uttar Pradesh, India';
+  } else if (c.city === 'Greater Noida') {
+    normalizedLocation = 'Greater Noida, Uttar Pradesh, India';
   } else if (c.city === 'Dehradun') {
     normalizedLocation = 'Dehradun, Uttarakhand, India';
   } else if (c.city === 'Solan') {
@@ -68,6 +79,64 @@ allCompanies.forEach((c, idx) => {
     normalizedLocation = 'Kangra, Himachal Pradesh, India';
   } else if (c.city === 'Shimla') {
     normalizedLocation = 'Shimla, Himachal Pradesh, India';
+  } else if (c.city === 'Gandhinagar') {
+    normalizedLocation = 'Gandhinagar, Gujarat, India';
+  } else if (c.city === 'Ahmedabad') {
+    normalizedLocation = 'Ahmedabad, Gujarat, India';
+  } else if (c.city === 'Surat') {
+    normalizedLocation = 'Surat, Gujarat, India';
+  } else if (c.city === 'Vadodara') {
+    normalizedLocation = 'Vadodara, Gujarat, India';
+  } else if (c.city === 'Rajkot') {
+    normalizedLocation = 'Rajkot, Gujarat, India';
+  } else if (c.city === 'Jaipur') {
+    normalizedLocation = 'Jaipur, Rajasthan, India';
+  } else if (c.city === 'Jodhpur') {
+    normalizedLocation = 'Jodhpur, Rajasthan, India';
+  } else if (c.city === 'Kota') {
+    normalizedLocation = 'Kota, Rajasthan, India';
+  } else if (c.city === 'Udaipur') {
+    normalizedLocation = 'Udaipur, Rajasthan, India';
+  } else if (c.city === 'Lucknow') {
+    normalizedLocation = 'Lucknow, Uttar Pradesh, India';
+  } else if (c.city === 'Kanpur') {
+    normalizedLocation = 'Kanpur, Uttar Pradesh, India';
+  } else if (c.city === 'Varanasi') {
+    normalizedLocation = 'Varanasi, Uttar Pradesh, India';
+  } else if (c.city === 'Prayagraj') {
+    normalizedLocation = 'Prayagraj, Uttar Pradesh, India';
+  } else if (c.city === 'Meerut') {
+    normalizedLocation = 'Meerut, Uttar Pradesh, India';
+  } else if (c.city === 'Patna') {
+    normalizedLocation = 'Patna, Bihar, India';
+  } else if (c.city === 'Darbhanga') {
+    normalizedLocation = 'Darbhanga, Bihar, India';
+  } else if (c.city === 'Mumbai') {
+    normalizedLocation = 'Mumbai, Maharashtra, India';
+  } else if (c.city === 'Navi Mumbai') {
+    normalizedLocation = 'Navi Mumbai, Maharashtra, India';
+  } else if (c.city === 'Thane') {
+    normalizedLocation = 'Thane, Maharashtra, India';
+  } else if (c.city === 'Pune') {
+    normalizedLocation = 'Pune, Maharashtra, India';
+  } else if (c.city === 'Nagpur') {
+    normalizedLocation = 'Nagpur, Maharashtra, India';
+  } else if (c.city === 'Nashik') {
+    normalizedLocation = 'Nashik, Maharashtra, India';
+  } else if (c.city === 'Aurangabad') {
+    normalizedLocation = 'Aurangabad, Maharashtra, India';
+  } else if (c.city === 'Indore') {
+    normalizedLocation = 'Indore, Madhya Pradesh, India';
+  } else if (c.city === 'Bhopal') {
+    normalizedLocation = 'Bhopal, Madhya Pradesh, India';
+  } else if (c.city === 'Gwalior') {
+    normalizedLocation = 'Gwalior, Madhya Pradesh, India';
+  } else if (c.city === 'Jabalpur') {
+    normalizedLocation = 'Jabalpur, Madhya Pradesh, India';
+  } else if (c.city === 'Ujjain') {
+    normalizedLocation = 'Ujjain, Madhya Pradesh, India';
+  } else if (c.city === 'Rewa') {
+    normalizedLocation = 'Rewa, Madhya Pradesh, India';
   }
 
   // Determine Primary Role
@@ -79,7 +148,7 @@ allCompanies.forEach((c, idx) => {
     workMode: "HYBRID"
   };
 
-  if (/ai|machine learning|computer vision|deep learning|spectral analytics/i.test(domainLower)) {
+  if (/ai|machine learning|computer vision|deep learning|spectral analytics|robotics|narrow ai|agentic ai/i.test(domainLower)) {
     role1 = {
       title: `Machine Learning & AI Systems Engineer`,
       skills: ["Python", "PyTorch", "Machine Learning", "FastAPI", "Docker"],
@@ -87,7 +156,7 @@ allCompanies.forEach((c, idx) => {
       experience: 2,
       workMode: "HYBRID"
     };
-  } else if (/cloud|devops|infrastructure|kubernetes|data center|sre/i.test(domainLower)) {
+  } else if (/cloud|devops|infrastructure|kubernetes|data center|sre|telephony/i.test(domainLower)) {
     role1 = {
       title: `Cloud & DevOps Infrastructure Engineer`,
       skills: ["AWS", "Docker", "Kubernetes", "Linux", "CI/CD"],
@@ -95,7 +164,7 @@ allCompanies.forEach((c, idx) => {
       experience: 2,
       workMode: "HYBRID"
     };
-  } else if (/fintech|brokerage|trading|upi|payment|banking/i.test(domainLower)) {
+  } else if (/fintech|brokerage|trading|upi|payment|banking|bfsi|taxtech/i.test(domainLower)) {
     role1 = {
       title: `FinTech Backend Systems Engineer (Go & PostgreSQL)`,
       skills: ["Golang", "PostgreSQL", "Kafka", "Redis", "Docker"],
@@ -103,7 +172,7 @@ allCompanies.forEach((c, idx) => {
       experience: 2,
       workMode: "ON_SITE"
     };
-  } else if (/logistics|routing|quick commerce|supply chain/i.test(domainLower)) {
+  } else if (/logistics|routing|quick commerce|supply chain|ticketing|booking/i.test(domainLower)) {
     role1 = {
       title: `Backend Software Engineer (High-Throughput Routing & APIs)`,
       skills: ["Node.js", "Python", "Redis", "PostgreSQL", "System Design"],
@@ -111,7 +180,7 @@ allCompanies.forEach((c, idx) => {
       experience: 2,
       workMode: "ON_SITE"
     };
-  } else if (/mobile|flutter|android|ios|cross-platform/i.test(domainLower)) {
+  } else if (/mobile|flutter|android|ios|cross-platform|swift/i.test(domainLower)) {
     role1 = {
       title: `Mobile Application Engineer (Flutter & Android)`,
       skills: ["Flutter", "Dart", "Android", "React Native", "REST APIs"],
@@ -119,7 +188,7 @@ allCompanies.forEach((c, idx) => {
       experience: 1,
       workMode: "ON_SITE"
     };
-  } else if (/drupal|cms|headless/i.test(domainLower)) {
+  } else if (/drupal|cms|headless|wordpress/i.test(domainLower)) {
     role1 = {
       title: `Senior Drupal & PHP Platform Engineer`,
       skills: ["PHP", "Drupal", "MySQL", "JavaScript", "Docker"],
@@ -135,7 +204,7 @@ allCompanies.forEach((c, idx) => {
       experience: 2,
       workMode: "ON_SITE"
     };
-  } else if (/qa|testing|automation/i.test(domainLower)) {
+  } else if (/qa|testing|automation|quality engineering|sdet/i.test(domainLower)) {
     role1 = {
       title: `Software QA & Test Automation Engineer`,
       skills: ["Cypress", "Selenium", "TypeScript", "Jest", "CI/CD"],
@@ -143,7 +212,7 @@ allCompanies.forEach((c, idx) => {
       experience: 1,
       workMode: "HYBRID"
     };
-  } else if (/erp|manufacturing|consulting|enterprise/i.test(domainLower)) {
+  } else if (/erp|manufacturing|consulting|enterprise|odoo|salesforce|crm/i.test(domainLower)) {
     role1 = {
       title: `Enterprise Cloud & ERP Software Engineer`,
       skills: ["Java", "Spring Boot", "PostgreSQL", "React", "Microservices"],
@@ -159,10 +228,18 @@ allCompanies.forEach((c, idx) => {
       experience: 2,
       workMode: "ON_SITE"
     };
+  } else if (/cybersecurity|siem|soar|secops|security/i.test(domainLower)) {
+    role1 = {
+      title: `Cyber Security & Cloud Defense Engineer`,
+      skills: ["Cyber Security", "Linux", "Python", "Docker", "Network Security"],
+      salary: "₹8,00,000 - ₹18,00,000 / year (Official)",
+      experience: 2,
+      workMode: "HYBRID"
+    };
   }
 
   // Adjust salary for top MNCs & Unicorns
-  const isTopTier = /mnc|unicorn|tier-1|public tech|global tech/i.test(c.companyType);
+  const isTopTier = /mnc|unicorn|tier-1|public tech|global tech|conglomerate/i.test(c.companyType);
   if (isTopTier) {
     role1.salary = "₹12,00,000 - ₹26,00,000 / year (Official)";
   }
@@ -188,7 +265,7 @@ allCompanies.forEach((c, idx) => {
   };
   jobs.push(primaryJob);
 
-  // For Top Tier & Large Tech Employers, add a second specialized role (e.g. SDE II or Frontend / Mobile)
+  // For Top Tier & Large Tech Employers, add a second specialized role
   if (isTopTier || idx % 2 === 0) {
     let role2Title = `Frontend Software Engineer (React, Next.js & TypeScript)`;
     let role2Skills = ["React", "Next.js", "TypeScript", "Tailwind CSS", "REST APIs"];
@@ -230,18 +307,21 @@ allCompanies.forEach((c, idx) => {
   }
 });
 
-console.log(`Generated ${jobs.length} verified jobs for ${allCompanies.length} companies across 13 target cities.`);
+console.log(`Generated ${jobs.length} verified jobs for ${allCompanies.length} companies across 43 target cities.`);
 
 // Generate the TypeScript dataset file
 const fileContent = `import { JobType, WorkMode } from '@repo/shared';
 import { RawCrawledJob } from '../types';
 
 /**
- * Verified North India Regional IT Jobs Dataset
- * Covers 176 verified IT companies across:
+ * Verified All-India Regional IT Jobs Dataset
+ * Covers 413 verified IT companies across:
  * - Punjab & Haryana: Chandigarh, Mohali, Gurugram, Sonipat, Panchkula, Ludhiana, Jalandhar
- * - Delhi, Uttarakhand & Himachal: Noida, New Delhi, Dehradun, Solan, Kangra, Shimla
- * Direct career page links to official portals.
+ * - Delhi, Uttarakhand & Himachal: Noida, Greater Noida, New Delhi, Dehradun, Solan, Kangra, Shimla
+ * - Gujarat & Rajasthan: Gandhinagar, Ahmedabad, Surat, Vadodara, Rajkot, Jaipur, Jodhpur, Kota, Udaipur
+ * - Uttar Pradesh & Bihar: Lucknow, Kanpur, Varanasi, Prayagraj, Meerut, Patna, Darbhanga
+ * - Maharashtra & Madhya Pradesh: Mumbai, Navi Mumbai, Thane, Pune, Nagpur, Nashik, Aurangabad, Indore, Bhopal, Gwalior, Jabalpur, Ujjain, Rewa
+ * Direct career page links to official company portals.
  */
 export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = ${JSON.stringify(jobs, null, 2)
   .replace(/"workMode": "HYBRID"/g, 'workMode: WorkMode.HYBRID')

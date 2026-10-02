@@ -1,0 +1,76 @@
+Company Name,City,State,Company Type,Primary Tech Domain,Official Website,Career Page URL
+Tata Consultancy Services (Garima Park),Gandhinagar,Gujarat,Enterprise IT / MNC,Cloud Systems / Cognitive Business / BFSI Tech,https://www.tcs.com,https://www.tcs.com/careers
+Infosys Limited,Gandhinagar,Gujarat,Enterprise IT / MNC,Core Banking / Enterprise Cloud Platforms / AI,https://www.infosys.com,https://www.infosys.com/careers/
+IBM India,Gandhinagar,Gujarat,Global Tech / MNC,Hybrid Cloud / Enterprise AI / IT Consulting,https://www.ibm.com,https://www.ibm.com/careers/
+Capgemini India,Gandhinagar,Gujarat,Enterprise IT / MNC,Application Dev / Cloud Infrastructure / Data,https://www.capgemini.com,https://www.capgemini.com/in-en/careers/
+Cybage Software,Gandhinagar,Gujarat,IT Enterprise / Product,Product Engineering / Data Analytics / Cloud,https://www.cybage.com,https://www.cybage.com/careers
+Xopple Infotech,Gandhinagar,Gujarat,Software Company,Mobile Apps / Game Dev / Web Architecture,https://www.xopple.com,https://www.xopple.com/
+Rumbum Software Service,Gandhinagar,Gujarat,Tech Startup,AI Mobile & Web Apps / Flutter / Swift,https://rumbum.in,https://rumbum.in/careers/
+KoderXpert Technologies,Gandhinagar,Gujarat,Software Company,Odoo ERP Solutions / Cloud Systems / Web Dev,https://koderxpert.com,https://koderxpert.com/careers/
+ForshTec Systems,Gandhinagar,Gujarat,CyberTech Startup,Cybersecurity / SIEM / SOAR / SecOps Automation,https://forshtec.com,https://forshtec.com/contact-us/
+Prahya Tech Services,Gandhinagar,Gujarat,Tech Startup,Web Development / Cloud Applications / UI-UX,https://prahyatech.com,https://prahyatech.com/careers/
+TatvaSoft,Ahmedabad,Gujarat,Software Company,Enterprise Custom Software / .NET / Cloud SaaS,https://www.tatvasoft.com,https://www.tatvasoft.com/careers/
+Radixweb,Ahmedabad,Gujarat,Software Company,Application Modernization / Cloud / Full-Stack Dev,https://radixweb.com,https://radixweb.com/careers
+Bacancy Technology,Ahmedabad,Gujarat,Software Enterprise,Product Development / Agile Dev / Web3 / Cloud,https://www.bacancytechnology.com,https://www.bacancytechnology.com/careers
+Hyperlink InfoSystem,Ahmedabad,Gujarat,Software Enterprise,Mobile Applications / AI-ML / Blockchain Platforms,https://www.hyperlinkinfosystem.com,https://www.hyperlinkinfosystem.com/career.html
+IndiaNIC,Ahmedabad,Gujarat,Software Enterprise,Custom Software / IoT Systems / Mobile Architecture,https://www.indianic.com,https://www.indianic.com/careers/
+Simform,Ahmedabad,Gujarat,Product Engineering,AWS Premier Cloud / Microservices / DevOps / AI,https://www.simform.com,https://www.simform.com/careers/
+Crest Data Systems,Ahmedabad,Gujarat,Enterprise Software,Cybersecurity Platforms / Telemetry Integrations / AI,https://www.crestdata.ai,https://www.crestdata.ai/careers/
+OpenXcell,Ahmedabad,Gujarat,Software Enterprise,Custom Software / Mobile Platforms / SaaS Apps,https://www.openxcell.com,https://www.openxcell.com/careers/
+Rapidops,Ahmedabad,Gujarat,Product Engineering,Digital Platform Engineering / Analytics / Cloud,https://www.rapidops.com,https://www.rapidops.com/careers/
+Yudiz Solutions,Ahmedabad,Gujarat,Public IT Company,Game Development / Blockchain / AR-VR / Web Apps,https://www.yudiz.com,https://www.yudiz.com/careers/
+Cygnet Infotech,Ahmedabad,Gujarat,Software Enterprise,TaxTech / Digital Transformation / Cloud ERP,https://www.cygnetinfotech.com,https://www.cygnetinfotech.com/careers/
+Hidden Brains InfoTech,Ahmedabad,Gujarat,Software Enterprise,Enterprise Web Dev / IoT / Mobility Architectures,https://www.hiddenbrains.com,https://www.hiddenbrains.com/careers.html
+Agile Infoways,Ahmedabad,Gujarat,Software Company,Open Source Platforms / Cloud Consulting / Python,https://www.agileinfoways.com,https://www.agileinfoways.com/career/
+Brainvire Infotech,Ahmedabad,Gujarat,Software Enterprise,Digital Transformation / Retail Tech / CRM SaaS,https://www.brainvire.com,https://www.brainvire.com/careers/
+Casepoint,Surat,Gujarat,LegalTech Enterprise,eDiscovery Platforms / Legal AI / C# .NET SQL,https://www.casepoint.com,https://www.casepoint.com/careers/
+Artoon Solutions,Surat,Gujarat,Gaming Studio / Tech,Mobile Gaming Platforms / Physics Engines / Web Apps,https://artoonsolutions.com,https://artoonsolutions.com/careers/
+Narola Infotech,Surat,Gujarat,Software Enterprise,Custom Web Development / Flutter / Cloud APIs,https://www.narolainfotech.com,https://www.narolainfotech.com/careers/
+Webashlar Software Solution,Surat,Gujarat,Software Company,Front-End & Back-End Web / GIS / AR-VR Systems,https://www.webashlar.com,https://www.webashlar.com/careers/
+Vasundhra Infotech,Surat,Gujarat,Software Company,Mobile Apps / Unity 3D Games / SaaS Platforms,https://vasundhra.info,https://vasundhra.info/careers/
+Daydreamsoft Infotech,Surat,Gujarat,Software Company,Enterprise Web Applications / Unity / Node.js,https://daydreamsoft.com,https://daydreamsoft.com/career/
+Crest Infosystems,Surat,Gujarat,Software Company,Enterprise Custom Software / RPA / AI-ML Platforms,https://www.crestinfosystems.com,https://www.crestinfosystems.com/careers/
+Logicwind,Surat,Gujarat,Software Company,Custom Web Development / TV Apps / Laravel / Node.js,https://logicwind.com,https://logicwind.com/careers/
+Webito Infotech,Surat,Gujarat,Software Company,Full-Stack Web Dev / Flutter / Laravel Solutions,https://webitoinfotech.com,https://webitoinfotech.com/careers/
+ELaunch Solution,Surat,Gujarat,Software Company,Custom ERP / HRM / E-Commerce Architecture,https://elaunchsolution.com,https://elaunchsolution.com/career/
+TechStaunch Software Solutions,Surat,Gujarat,Tech Startup,Custom Software / Conversational AI / Full-Stack,https://techstaunch.com,https://techstaunch.com/careers/
+WeeTech Solution,Surat,Gujarat,Software Company,Web Applications / Mobile Development / CMS,https://www.weetechsolution.com,https://www.weetechsolution.com/careers/
+L&T Technology Services (LTTS),Vadodara,Gujarat,Enterprise ER&D / MNC,Automotive Embedded Systems / Industrial IoT / AI,https://www.ltts.com,https://www.ltts.com/careers/india
+Rishabh Software,Vadodara,Gujarat,Software Enterprise,Cloud Modernization / AdTech / Digital Manufacturing,https://www.rishabhsoft.com,https://www.rishabhsoft.com/careers
+Enlighten Infosystems,Vadodara,Gujarat,Software Company,Custom ERP Solutions / CRM Modules / Database Apps,https://enlighteninfosystems.com,https://enlighteninfosystems.com/career/
+Civica India,Vadodara,Gujarat,Enterprise Tech / MNC,Public Sector Cloud Software / Core Development,https://www.civica.com,https://www.civica.com/en-gb/careers/
+Netweb Software,Vadodara,Gujarat,Software Company,Custom Application Dev / Enterprise Software,https://www.netweb.biz,https://www.netweb.biz/careers/
+Guru TechnoLabs,Rajkot,Gujarat,Software Company,Web & Mobile Application Development / E-Commerce,https://www.gurutechnolabs.com,https://www.gurutechnolabs.com/careers/
+Infotop Solutions,Rajkot,Gujarat,Software Company,Custom Software Development / Web Architecture,https://www.infotopsolutions.com,https://www.infotopsolutions.com/careers.php
+Elsner Technologies,Rajkot,Gujarat,Software Company,Magento E-Commerce / Full-Stack Web / Mobile Dev,https://www.elsner.com,https://www.elsner.com/careers/
+Arth Technology,Rajkot,Gujarat,Software Company,Custom ERP / Industrial Inventory Systems / Web,https://arthtechnology.com,https://arthtechnology.com/career.php
+Samarpan Infotech,Rajkot,Gujarat,Software Company,Cloud Applications / Cross-Platform Mobile / React,https://www.samarpaninfotech.com,https://www.samarpaninfotech.com/career/
+GirnarSoft (CarDekho),Jaipur,Rajasthan,Unicorn / Product,Automotive Tech / Pricing Engines / Search Infra,https://www.girnarsoft.com,https://www.girnarsoft.com/careers.php
+Cyntexa,Jaipur,Rajasthan,Enterprise Cloud / CRM,Salesforce Architecture / ServiceNow / AWS Cloud,https://cyntexa.com,https://cyntexa.com/careers/
+Metacube Software,Jaipur,Rajasthan,Software Enterprise,Product Engineering / Manufacturing Analytics / QA,https://www.metacube.com,https://www.metacube.com/careers.php
+Dotsquares,Jaipur,Rajasthan,Software Enterprise,Custom Web Development / Enterprise Cloud / Mobility,https://www.dotsquares.com,https://www.dotsquares.com/careers/
+Infosys Limited,Jaipur,Rajasthan,Enterprise IT / MNC,Core IT Transformation / Enterprise Architecture,https://www.infosys.com,https://www.infosys.com/careers/
+Genpact,Jaipur,Rajasthan,Enterprise Tech / MNC,Enterprise Cloud Solutions / Process AI / Analytics,https://www.genpact.com,https://www.genpact.com/careers
+Wipro Limited,Jaipur,Rajasthan,Enterprise IT / MNC,IT Infrastructure Management / Cloud Platforms,https://www.wipro.com,https://careers.wipro.com/
+Appirio (Wipro Company),Jaipur,Rajasthan,Cloud Consultancy,Cloud Integration / Salesforce Solutions / API Dev,https://www.wipro.com,https://careers.wipro.com/
+Constant Contact India,Jaipur,Rajasthan,MNC / Product,Digital Marketing Automation / High-Scale SaaS,https://www.constantcontact.com,https://www.constantcontact.com/about/careers
+Capsitech,Jodhpur,Rajasthan,Software Company,Web Systems / Custom Software Dev / Digital Apps,https://www.capsitech.com,https://www.capsitech.com/careers/
+C G Technosoft,Jodhpur,Rajasthan,IT Enterprise,Enterprise IT Services / Application Modernization,https://www.cgtechnosoft.com,https://www.cgtechnosoft.com/career.html
+E-Cybertech Solution,Jodhpur,Rajasthan,Software Company,School ERP / Hospitality Tech / Lead Management,https://www.ecybertech.com,https://www.ecybertech.com/career/
+Appinfosol IT Services,Jodhpur,Rajasthan,Tech Startup,Web Application Architecture / Mobile Systems,https://www.appinfosol.com,https://www.appinfosol.com/career/
+Adiyogi Technosoft,Jodhpur,Rajasthan,Software Company,Enterprise Web Engineering / IT Solutions / Mobile,https://adiyogitechnosoft.com,https://adiyogitechnosoft.com/career/
+Coderhill,Jodhpur,Rajasthan,Tech Startup,Custom Software Development / Enterprise ERP,https://coderhill.in,https://coderhill.in/contact/
+Webmitra,Jodhpur,Rajasthan,Software Company,Web Application Development / Cloud Portals,https://webmitra.in,https://webmitra.in/career/
+VinaV Software Solutions,Kota,Rajasthan,Tech Startup,Workflow Automation / WhatsApp Bots / Custom SaaS,https://vinavsoftwaresolutions.com,https://vinavsoftwaresolutions.com/contact/
+Kriscent Techno Hub,Kota,Rajasthan,Software Company,Custom Software Development / Robotics & Drones / AI,https://www.kriscent.in,https://www.kriscent.in/careers/
+Shiv Shakti Digiworld,Kota,Rajasthan,Software Company,WordPress Custom Dev / Web Apps / APIs,https://shivshaktidigiworld.in,https://kpdir.com/website-development-in-kota-professional-web-design-development-services-shiv-shakti-digiworld/
+SolutionAverInfotech,Kota,Rajasthan,IT Services,Custom Enterprise Portals / Mobile Applications,https://solutionaverinfotech.com,https://solutionaverinfotech.com/careers/
+Technogogues IT Solutions,Kota,Rajasthan,Software Company,Custom Software Architecture / Web Development,https://technogogues.com,https://technogogues.com/career/
+Rightview Digitech,Kota,Rajasthan,Tech Startup,Web Development / Custom Software Platforms,https://rightviewdigitech.com,https://rightviewdigitech.com/careers/
+Snaptic Solutions,Kota,Rajasthan,Tech Startup,Web Design & Development / Digital Portals,https://snapticsolutions.com,https://snapticsolutions.com/careers/
+Secure Meters,Udaipur,Rajasthan,Smart Grid Tech / MNC,Energy Measurement IoT / Embedded Firmware / SCADA,https://www.securemeters.com,https://careers.securemeters.com/
+Arcgate Technologies,Udaipur,Rajasthan,Data / AI Enterprise,AI Data Annotation / Machine Learning Ops / SaaS BPO,https://www.arcgate.com,https://www.arcgate.com/join
+Advaiya Solutions,Udaipur,Rajasthan,Cloud / Enterprise Dev,Microsoft Azure / Cloud Architecture / Power BI,https://advaiya.com,https://advaiya.com/careers
+Obbserv Online,Udaipur,Rajasthan,Tech Scale-up,Performance Technology / Digital Architecture,https://obbserv.com,https://obbserv.com/career/
+WestoWeb India,Udaipur,Rajasthan,Tech Startup,Web Platforms / Cloud E-Commerce / Full-Stack,https://westoweb.com,https://westoweb.com/careers/
+Agrawal Technologies,Udaipur,Rajasthan,Software Company,Web Development / Custom Software Portals,https://agrawaltechnologies.com,https://agrawaltechnologies.com/contact-us/
