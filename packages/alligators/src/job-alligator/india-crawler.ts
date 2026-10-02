@@ -372,12 +372,15 @@ export function normalizeIndiaLocation(locRaw?: string): {
     normLoc = "Bengaluru, India";
     isIndia = true;
   } else if (lower.includes("gurgaon") || lower.includes("gurugram")) {
-    normLoc = "Gurugram, India";
+    normLoc = "Gurugram, Haryana, India";
     isIndia = true;
   } else if (lower.includes("noida")) {
-    normLoc = "Noida, India";
+    normLoc = "Noida, Uttar Pradesh, India";
     isIndia = true;
-  } else if (lower.includes("delhi") || lower.includes("ncr") || lower.includes("new delhi")) {
+  } else if (lower.includes("new delhi")) {
+    normLoc = "New Delhi, Delhi NCR, India";
+    isIndia = true;
+  } else if (lower.includes("delhi") || lower.includes("ncr")) {
     normLoc = "Delhi NCR, India";
     isIndia = true;
   } else if (lower.includes("panchkula")) {
@@ -393,7 +396,7 @@ export function normalizeIndiaLocation(locRaw?: string): {
     normLoc = "Chandigarh / Tricity, India";
     isIndia = true;
   } else if (lower.includes("dehradun")) {
-    normLoc = "Dehradun, India";
+    normLoc = "Dehradun, Uttarakhand, India";
     isIndia = true;
   } else if (lower.includes("hyderabad") || lower.includes("secunderabad")) {
     normLoc = "Hyderabad, India";
