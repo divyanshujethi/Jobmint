@@ -30,6 +30,10 @@ async function run() {
         r = await sql`SELECT count(*) FROM jobs WHERE location ILIKE '%Mumbai%' AND location NOT ILIKE '%Navi Mumbai%'`;
       } else if (c === 'Raipur') {
         r = await sql`SELECT count(*) FROM jobs WHERE location ILIKE '%Raipur%' AND location NOT ILIKE '%Nava Raipur%'`;
+      } else if (c === 'Patna') {
+        r = await sql`SELECT count(*) FROM jobs WHERE location ILIKE '%Patna%' AND location NOT ILIKE '%Visakhapatnam%'`;
+      } else if (c === 'Anantapur') {
+        r = await sql`SELECT count(*) FROM jobs WHERE location ILIKE '%Anantapur%' AND location NOT ILIKE '%Thiruvananthapuram%'`;
       } else {
         const pattern = '%' + c + '%';
         r = await sql`SELECT count(*) FROM jobs WHERE location ILIKE ${pattern}`;

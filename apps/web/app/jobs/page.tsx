@@ -219,11 +219,11 @@ export default function JobsPage() {
         } else if (loc === "uttar_pradesh" || loc === "up") {
           if (!jLoc.includes("uttar pradesh") && !jLoc.includes("noida") && !jLoc.includes("lucknow") && !jLoc.includes("kanpur") && !jLoc.includes("varanasi") && !jLoc.includes("prayagraj") && !jLoc.includes("meerut")) return false;
         } else if (loc === "patna") {
-          if (!jLoc.includes("patna")) return false;
+          if (!jLoc.includes("patna") || jLoc.includes("visakhapatnam")) return false;
         } else if (loc === "darbhanga") {
           if (!jLoc.includes("darbhanga")) return false;
         } else if (loc === "bihar") {
-          if (!jLoc.includes("bihar") && !jLoc.includes("patna") && !jLoc.includes("darbhanga")) return false;
+          if (!jLoc.includes("bihar") && (!jLoc.includes("patna") || jLoc.includes("visakhapatnam")) && !jLoc.includes("darbhanga")) return false;
         } else if (loc === "pune") {
           if (!jLoc.includes("pune")) return false;
         } else if (loc === "nagpur") {
@@ -369,7 +369,7 @@ export default function JobsPage() {
         } else if (loc === "tirupati") {
           if (!jLoc.includes("tirupati")) return false;
         } else if (loc === "anantapur") {
-          if (!jLoc.includes("anantapur") && !jLoc.includes("ananthapur")) return false;
+          if ((!jLoc.includes("anantapur") && !jLoc.includes("ananthapur")) || jLoc.includes("thiruvananthapuram")) return false;
         } else if (loc === "andhra_pradesh" || loc === "andhra") {
           if (!jLoc.includes("andhra") && !jLoc.includes("visakhapatnam") && !jLoc.includes("vijayawada") && !jLoc.includes("guntur") && !jLoc.includes("tirupati")) return false;
         } else if (loc === "chennai") {
