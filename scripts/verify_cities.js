@@ -33,7 +33,7 @@ async function run() {
     }
   }
 
-  const verified = await sql`SELECT count(*) FROM jobs WHERE "isVerified" = true`;
+  const verified = await sql`SELECT count(*) FROM jobs WHERE is_verified = true`;
   console.log('\nTOTAL VERIFIED JOBS:', verified[0].count);
   console.log('TOTAL REGIONAL AUDITED JOBS:', allFound);
 
