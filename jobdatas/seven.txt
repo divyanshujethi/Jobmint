@@ -1,0 +1,69 @@
+Company Name,City,State,Company Type,Primary Tech Domain,Official Website,Career Page URL
+Infosys Limited,Bhubaneswar,Odisha,Enterprise IT / MNC,Core Banking / Enterprise Cloud / AI Transformation,https://www.infosys.com,https://www.infosys.com/careers/
+Tata Consultancy Services,Bhubaneswar,Odisha,Enterprise IT / MNC,Cognitive Business Operations / Cloud Infrastructure,https://www.tcs.com,https://www.tcs.com/careers
+Wipro Technologies,Bhubaneswar,Odisha,Enterprise IT / MNC,Enterprise Cloud Solutions / Digital Infrastructure,https://www.wipro.com,https://careers.wipro.com/
+LTIMindtree,Bhubaneswar,Odisha,Enterprise IT / Public,Digital Engineering / Cloud Modernization / Data,https://www.ltimindtree.com,https://www.ltimindtree.com/careers/
+Capgemini India,Bhubaneswar,Odisha,Enterprise IT / MNC,Application Modernization / Cloud Infrastructure / Data,https://www.capgemini.com,https://www.capgemini.com/in-en/careers/
+Cognizant Technology Solutions,Bhubaneswar,Odisha,Enterprise IT / MNC,Digital Engineering / Enterprise Cloud Systems / BFSI,https://www.cognizant.com,https://careers.cognizant.com/
+Mindfire Solutions,Bhubaneswar,Odisha,Software Enterprise,Custom Enterprise Software / Full-Stack / Cloud DevOps,https://www.mindfiresolutions.com,https://www.mindfiresolutions.com/careers/
+Muvi,Bhubaneswar,Odisha,Product Scale-up / SaaS,Streaming Media Architecture / OTT SaaS Platforms,https://www.muvi.com,https://www.muvi.com/careers.html
+CureBay,Bhubaneswar,Odisha,HealthTech Scale-up,Healthcare SaaS / Tele-Medicine / Cloud Diagnostics,https://www.curebay.com,https://www.curebay.com/careers
+Datoms (Phoenix Robotix),Bhubaneswar,Odisha,IoT Tech Scale-up,Industrial IoT Platforms / Asset Telemetry / Edge AI,https://datoms.io,https://datoms.io/careers
+BonV Aero,Bhubaneswar,Odisha,DeepTech Startup,Autonomous Drone Logistics / Embedded Flight Control,https://bonvaero.com,https://bonvaero.com/careers
+Enterprise System Solutions (ESSPL),Bhubaneswar,Odisha,Software Enterprise,Supply Chain Technology / Business Intelligence / Cloud,https://www.esspl.com,https://www.esspl.com/careers/
+Ajatus Software,Bhubaneswar,Odisha,Software Company,Mobile Application Architecture / Full-Stack Web Dev,https://ajatus.co.in,https://ajatus.co.in/careers/
+Smaket.ai,Bhubaneswar,Odisha,SaaS Startup,GST Billing Software / Accounting Automation SaaS,https://www.smaket.ai,https://www.smaket.ai/contact-us
+Computer Lab,Bhubaneswar,Odisha,IT Enterprise,E-Governance Software / Data Digitization / BPO,https://computerlab.co.in,https://computerlab.co.in/contact.html
+Quocent,Bhubaneswar,Odisha,Software Company,Turnkey Digital Platforms / AI / IoT / E-Governance,https://quocent.com,https://quocent.com/careers
+Swadhin IT Solutions,Cuttack,Odisha,Software Company,Enterprise ERP / Custom Software / Healthcare IT,https://sitsindia.co.in,https://sitsindia.co.in/careers/
+Websicon,Cuttack,Odisha,Tech Startup,AI Chatbots / Business Automation / Mobile Apps,https://websicon.in,https://websicon.in/careers/
+Shopweb,Cuttack,Odisha,Software Company,Cross-Platform Mobile Apps / Software Testing / Web,https://www.shopweb.in,https://www.shopweb.in/career
+IT Infoways,Cuttack,Odisha,IT Services,Custom Web Development / Enterprise Digital Services,https://itinfoways.com,https://itinfoways.com/career/
+Webbsky Technology,Cuttack,Odisha,Software Company,Housing Society Software / Enterprise Web Portals,https://www.webbskytechnology.in,https://www.webbskytechnology.in/careers.html
+Cakiweb Cuttack,Cuttack,Odisha,Software Company,Enterprise Custom Software / Web Apps / ERP,https://cakiweb.com,https://cakiweb.com/career
+Cakiweb Puri,Puri,Odisha,Software Company,Web Applications / E-Commerce Systems / Custom Software,https://cakiweb.com,https://cakiweb.com/career
+Puri Tech Solutions,Puri,Odisha,Tech Startup,Custom Web Portals / Mobile Apps / Digital Services,https://puritech.in,https://puritech.in/careers
+Lyfsoft Technologies,Balasore,Odisha,Software Company,Web Systems / Marine Export ERP / WooCommerce Tech,https://lyfsoft.com,https://lyfsoft.com/careers
+CS Web Solution,Balasore,Odisha,Software Company,Web Application Development / SEO / Mobile Solutions,https://www.cswebsolution.com,https://www.cswebsolution.com/career.php
+Net Cloud Systems,Balasore,Odisha,IT Services,Web Development / Cloud Hosting / Network Management,https://netcloudsystems.com,https://netcloudsystems.com/careers
+Eduweb Software Solutions,Balasore,Odisha,Software Company,Educational ERP Platforms / Web Systems / Database,https://eduwebsoftware.com,https://eduwebsoftware.com/careers
+Mland Technoedge,Balasore,Odisha,Tech Startup,Responsive Web Systems / E-Commerce Portals,https://mlandtechnoedge.com,https://mlandtechnoedge.com/contact
+MSRM Technologies,Berhampur,Odisha,Software Company,Custom Business ERP / Mobile Apps / AI Automation,https://msrmtech.in,https://msrmtech.in/contact/
+MySoftWorld Berhampur,Berhampur,Odisha,Software Company,POS Systems / GST Accounting / Enterprise ERP,https://www.mysoftworld.com,https://www.mysoftworld.com/career
+Avestan Technologies,Rourkela,Odisha,Software Company,Healthcare IT Solutions / Clinical Management Software,https://avestantechnologies.com,https://avestantechnologies.com/careers/
+Shopweb Rourkela,Rourkela,Odisha,Software Company,Mobile Application Architecture / Web Development,https://www.shopweb.in,https://www.shopweb.in/career
+Swadhin IT Solutions Sambalpur,Sambalpur,Odisha,Software Company,Custom Software Development / Enterprise Web Apps,https://sitsindia.co.in,https://sitsindia.co.in/careers/
+Sambalpur Infotech,Sambalpur,Odisha,Tech Startup,Web Application Portals / Custom Software Modules,https://sambalpurinfotech.com,https://sambalpurinfotech.com/careers
+DeveloperBox Innovation,Raipur,Chhattisgarh,Software Enterprise,Custom Software Development / AI HRMS Platforms,https://developerbox.co.in,https://developerbox.co.in/careers/
+GimBooks,Raipur,Chhattisgarh,FinTech Scale-up,Mobile Invoicing SaaS / Accounting Automation Tech,https://www.gimbooks.com,https://www.gimbooks.com/careers
+Hackshade Technologies,Raipur,Chhattisgarh,IT Consulting / Cyber,Custom ERP / Mobile Apps / VAPT Security Auditing,https://hackshade.in,https://hackshade.in/careers
+RAYS IT & DESIGN,Raipur,Chhattisgarh,Software Company,Web & Mobile App Development / Digital Platforms,https://www.raysitworld.com,https://www.raysitworld.com/careers
+Clarion IT,Raipur,Chhattisgarh,Software Company,Custom Web Development / Enterprise Applications,https://clarionit.in,https://clarionit.in/career/
+RBA Solution,Raipur,Chhattisgarh,IT Services,Web Application Architecture / Custom CMS Platforms,https://rbasolution.com,https://rbasolution.com/career.php
+STPI Nava Raipur Units,Nava Raipur,Chhattisgarh,State IT Enterprise,Cloud Data Infrastructure / Incubation Services,https://raipur.stpi.in,https://raipur.stpi.in/careers
+N.A.I.R. Solutions Nava Raipur,Nava Raipur,Chhattisgarh,Software Company,Enterprise Cloud Software / ERP Systems / Mobile,https://nairsolutions.org,https://nairsolutions.org/contact
+Codelent Technologies,Bhilai,Chhattisgarh,Tech Startup,Custom Software Development / AI Automation / ERP,https://codelenttechnologies.com,https://codelenttechnologies.com/careers
+N.A.I.R. Solutions,Bhilai,Chhattisgarh,Software Company,Manufacturing ERP / Mobile Applications / Web Systems,https://nairsolutions.org,https://nairsolutions.org/contact
+Techonet Software,Bhilai,Chhattisgarh,Software Company,Custom Software / E-Commerce Systems / Web Dev,https://www.onetin.com,https://www.onetin.com/careers
+Ishdev Technology,Bhilai,Chhattisgarh,Software Company,Business Automation / Web Applications / Mobile,https://ishdevtechnology.com,https://ishdevtechnology.com/careers
+Brightcode Software Services,Ranchi,Jharkhand,Software Enterprise,Enterprise ERP / CRM Software / Cross-Platform Apps,https://brightcodess.com,https://brightcodess.com/career
+MATROP Private Limited,Ranchi,Jharkhand,Software Company,Enterprise ERP Products / Full-Stack Web / Mobile,https://www.matrop.com,https://www.matrop.com/career
+Tripledots Software Services,Ranchi,Jharkhand,Software Company,Custom Software Development / Web & Mobile Apps,https://tripledotss.com,https://tripledotss.com/career.php
+HITCS (Horizon IT Consultancy),Ranchi,Jharkhand,Software Company,E-Commerce Portals / Custom Software / Mobile,https://www.hitcs.in,https://www.hitcs.in/career
+Yaseer Innovative Software (YISPL),Ranchi,Jharkhand,Software Startup,AI Agent Architectures / LLM Fine-Tuning / Web,https://yis.ykrox.com,https://yis.ykrox.com/jobs/
+Jharkhand IT Services,Ranchi,Jharkhand,Software Company,Flutter Mobile Development / PHP Laravel Cloud Apps,https://jharkhanditservices.com,https://jharkhanditservices.com/career.php
+Integrated Software Enterprises (ISE),Jamshedpur,Jharkhand,Software Company,Custom Software / Manufacturing ERP / Web Apps,http://isesoftworld.com,http://isesoftworld.com/Home/Career
+Veps Infotech,Jamshedpur,Jharkhand,Software Company,School ERP Solutions / Mobile Applications / Web,http://www.vepsinfotech.com,http://www.vepsinfotech.com/contact.html
+BrightTech IT Solutions Jamshedpur,Jamshedpur,Jharkhand,IT Services,Custom Web Development / Cloud Security / Mobility,https://www.brighttechitsolutions.com,https://www.brighttechitsolutions.com/careers
+Xedok Software Jamshedpur,Jamshedpur,Jharkhand,Software Company,Banking Software / Inventory ERP / Web Systems,https://www.xedok.com,https://www.xedok.com/career
+PaulTech Software Services,Jamshedpur,Jharkhand,Software Company,Enterprise Software Architecture / Web Development,https://paultech.in,https://paultech.in/careers
+Webaikon,Bokaro,Jharkhand,Software Company,School ERP Software / Custom Web Development / Apps,https://webaikon.com,https://webaikon.com/career
+BrightTech IT Solutions Bokaro,Bokaro,Jharkhand,Software Company,Web App Engineering / Cloud Solutions / Mobile Dev,https://www.brighttechitsolutions.com,https://www.brighttechitsolutions.com/careers
+Ininiti Software Solutions,Bokaro,Jharkhand,Software Company,Construction Management ERP / Industrial Software,https://www.innitisoftware.com,https://www.innitisoftware.com/careers
+AK Consultancy & Services (AKCS),Dhanbad,Jharkhand,Software Enterprise,Custom ERP / High-Speed Web Architecture / SaaS,https://akcsgroup.com,https://akcsgroup.com/career
+Kinex Technologies,Dhanbad,Jharkhand,Software Company,Digital Growth Systems / Web Portals / Mobile Apps,https://kinextechnologies.com,https://kinextechnologies.com/careers
+Uinfo Technology,Dhanbad,Jharkhand,Software Company,Custom Business Software / Web Application Portals,https://uinfotechnology.com,https://uinfotechnology.com/careers
+Sparsh IT Solutions,Dhanbad,Jharkhand,Software Company,Web Development / Lead Generation Systems / Cloud,https://sparshitsolutions.com,https://sparshitsolutions.com/careers
+Jaihind Software,Dhanbad,Jharkhand,Software Company,Custom Software Systems / Web Development / IT Ops,https://jaihindsoftware.com,https://jaihindsoftware.com/career
+Shiva Clicksoft,Deoghar,Jharkhand,Software Company,Billing Software / School ERP / Custom Web Systems,https://www.shivaclicksoft.com,https://www.shivaclicksoft.com/career
+Deoghar Software Labs,Deoghar,Jharkhand,Tech Startup,Custom Business Applications / Web Portals / POS,https://deoghartech.com,https://deoghartech.com/careers

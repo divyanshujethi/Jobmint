@@ -311,6 +311,10 @@ export function scoreJobForCandidate(
         cityMatch = jobLoc.includes("navi mumbai");
       } else if (candLoc === "mumbai") {
         cityMatch = jobLoc.includes("mumbai") && !jobLoc.includes("navi mumbai");
+      } else if (candLoc === "nava_raipur" || candLoc === "nava raipur") {
+        cityMatch = jobLoc.includes("nava raipur");
+      } else if (candLoc === "raipur") {
+        cityMatch = jobLoc.includes("raipur") && !jobLoc.includes("nava raipur");
       } else if (candLoc === "delhi_ncr") {
         cityMatch = jobLoc.includes("delhi") || jobLoc.includes("noida") || jobLoc.includes("gurgaon") || jobLoc.includes("gurugram");
       } else {

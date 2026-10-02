@@ -39,9 +39,11 @@ const list2 = parseCsv(path.join(__dirname, '../jobdatas/two.txt'));
 const list3 = parseCsv(path.join(__dirname, '../jobdatas/three.txt'));
 const list4 = parseCsv(path.join(__dirname, '../jobdatas/four.txt'));
 const list5 = parseCsv(path.join(__dirname, '../jobdatas/five.txt'));
+const list6 = parseCsv(path.join(__dirname, '../jobdatas/six.txt'));
+const list7 = parseCsv(path.join(__dirname, '../jobdatas/seven.txt'));
 
-const allCompanies = [...list1, ...list2, ...list3, ...list4, ...list5];
-console.log(`Loaded ${allCompanies.length} companies across 5 source files (1: ${list1.length}, 2: ${list2.length}, 3: ${list3.length}, 4: ${list4.length}, 5: ${list5.length}).`);
+const allCompanies = [...list1, ...list2, ...list3, ...list4, ...list5, ...list6, ...list7];
+console.log(`Loaded ${allCompanies.length} companies across 7 source files (1: ${list1.length}, 2: ${list2.length}, 3: ${list3.length}, 4: ${list4.length}, 5: ${list5.length}, 6: ${list6.length}, 7: ${list7.length}).`);
 
 const jobs = [];
 
@@ -137,6 +139,60 @@ allCompanies.forEach((c, idx) => {
     normalizedLocation = 'Ujjain, Madhya Pradesh, India';
   } else if (c.city === 'Rewa') {
     normalizedLocation = 'Rewa, Madhya Pradesh, India';
+  } else if (c.city === 'Guwahati') {
+    normalizedLocation = 'Guwahati, Assam, India';
+  } else if (c.city === 'Shillong') {
+    normalizedLocation = 'Shillong, Meghalaya, India';
+  } else if (c.city === 'Kohima') {
+    normalizedLocation = 'Kohima, Nagaland, India';
+  } else if (c.city === 'Imphal') {
+    normalizedLocation = 'Imphal, Manipur, India';
+  } else if (c.city === 'Agartala') {
+    normalizedLocation = 'Agartala, Tripura, India';
+  } else if (c.city === 'Aizawl') {
+    normalizedLocation = 'Aizawl, Mizoram, India';
+  } else if (c.city === 'Itanagar') {
+    normalizedLocation = 'Itanagar, Arunachal Pradesh, India';
+  } else if (c.city === 'Gangtok') {
+    normalizedLocation = 'Gangtok, Sikkim, India';
+  } else if (c.city === 'Kolkata') {
+    normalizedLocation = 'Kolkata, West Bengal, India';
+  } else if (c.city === 'Siliguri') {
+    normalizedLocation = 'Siliguri, West Bengal, India';
+  } else if (c.city === 'Durgapur') {
+    normalizedLocation = 'Durgapur, West Bengal, India';
+  } else if (c.city === 'Kharagpur') {
+    normalizedLocation = 'Kharagpur, West Bengal, India';
+  } else if (c.city === 'Ranchi') {
+    normalizedLocation = 'Ranchi, Jharkhand, India';
+  } else if (c.city === 'Jamshedpur') {
+    normalizedLocation = 'Jamshedpur, Jharkhand, India';
+  } else if (c.city === 'Deoghar') {
+    normalizedLocation = 'Deoghar, Jharkhand, India';
+  } else if (c.city === 'Bokaro') {
+    normalizedLocation = 'Bokaro, Jharkhand, India';
+  } else if (c.city === 'Dhanbad') {
+    normalizedLocation = 'Dhanbad, Jharkhand, India';
+  } else if (c.city === 'Nava Raipur') {
+    normalizedLocation = 'Nava Raipur, Chhattisgarh, India';
+  } else if (c.city === 'Bhilai') {
+    normalizedLocation = 'Bhilai, Chhattisgarh, India';
+  } else if (c.city === 'Raipur') {
+    normalizedLocation = 'Raipur, Chhattisgarh, India';
+  } else if (c.city === 'Bhubaneswar') {
+    normalizedLocation = 'Bhubaneswar, Odisha, India';
+  } else if (c.city === 'Cuttack') {
+    normalizedLocation = 'Cuttack, Odisha, India';
+  } else if (c.city === 'Rourkela') {
+    normalizedLocation = 'Rourkela, Odisha, India';
+  } else if (c.city === 'Sambalpur') {
+    normalizedLocation = 'Sambalpur, Odisha, India';
+  } else if (c.city === 'Berhampur') {
+    normalizedLocation = 'Berhampur, Odisha, India';
+  } else if (c.city === 'Balasore') {
+    normalizedLocation = 'Balasore, Odisha, India';
+  } else if (c.city === 'Puri') {
+    normalizedLocation = 'Puri, Odisha, India';
   }
 
   // Determine Primary Role
@@ -307,7 +363,7 @@ allCompanies.forEach((c, idx) => {
   }
 });
 
-console.log(`Generated ${jobs.length} verified jobs for ${allCompanies.length} companies across 43 target cities.`);
+console.log(`Generated ${jobs.length} verified jobs for ${allCompanies.length} companies across all target cities.`);
 
 // Generate the TypeScript dataset file
 const fileContent = `import { JobType, WorkMode } from '@repo/shared';
@@ -315,12 +371,14 @@ import { RawCrawledJob } from '../types';
 
 /**
  * Verified All-India Regional IT Jobs Dataset
- * Covers 413 verified IT companies across:
- * - Punjab & Haryana: Chandigarh, Mohali, Gurugram, Sonipat, Panchkula, Ludhiana, Jalandhar
- * - Delhi, Uttarakhand & Himachal: Noida, Greater Noida, New Delhi, Dehradun, Solan, Kangra, Shimla
- * - Gujarat & Rajasthan: Gandhinagar, Ahmedabad, Surat, Vadodara, Rajkot, Jaipur, Jodhpur, Kota, Udaipur
- * - Uttar Pradesh & Bihar: Lucknow, Kanpur, Varanasi, Prayagraj, Meerut, Patna, Darbhanga
- * - Maharashtra & Madhya Pradesh: Mumbai, Navi Mumbai, Thane, Pune, Nagpur, Nashik, Aurangabad, Indore, Bhopal, Gwalior, Jabalpur, Ujjain, Rewa
+ * Covers 546 verified IT companies across:
+ * - File 1: Punjab & Haryana (Chandigarh, Mohali, Gurugram, Sonipat, Panchkula, Ludhiana, Jalandhar)
+ * - File 2: Delhi, Uttarakhand & Himachal (Noida, Greater Noida, New Delhi, Dehradun, Solan, Kangra, Shimla)
+ * - File 3: Gujarat & Rajasthan (Gandhinagar, Ahmedabad, Surat, Vadodara, Rajkot, Jaipur, Jodhpur, Kota, Udaipur)
+ * - File 4: Uttar Pradesh & Bihar (Greater Noida, Lucknow, Kanpur, Varanasi, Prayagraj, Meerut, Patna, Darbhanga)
+ * - File 5: Maharashtra & Madhya Pradesh (Mumbai, Navi Mumbai, Thane, Pune, Nagpur, Nashik, Aurangabad, Indore, Bhopal, Gwalior, Jabalpur, Ujjain, Rewa)
+ * - File 6: 7 Sisters, West Bengal & Sikkim (Guwahati, Shillong, Kohima, Imphal, Agartala, Aizawl, Itanagar, Gangtok, Kolkata, Siliguri, Durgapur, Kharagpur)
+ * - File 7: Jharkhand, Chhattisgarh & Odisha (Ranchi, Jamshedpur, Deoghar, Bokaro, Dhanbad, Nava Raipur, Bhilai, Raipur, Bhubaneswar, Cuttack, Rourkela, Sambalpur, Berhampur, Balasore, Puri)
  * Direct career page links to official company portals.
  */
 export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = ${JSON.stringify(jobs, null, 2)

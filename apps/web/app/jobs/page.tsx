@@ -248,14 +248,76 @@ export default function JobsPage() {
           if (!jLoc.includes("rewa")) return false;
         } else if (loc === "madhya_pradesh" || loc === "mp") {
           if (!jLoc.includes("madhya pradesh") && !jLoc.includes("indore") && !jLoc.includes("bhopal") && !jLoc.includes("gwalior") && !jLoc.includes("jabalpur") && !jLoc.includes("ujjain") && !jLoc.includes("rewa")) return false;
+        } else if (loc === "guwahati") {
+          if (!jLoc.includes("guwahati")) return false;
+        } else if (loc === "shillong") {
+          if (!jLoc.includes("shillong")) return false;
+        } else if (loc === "kohima") {
+          if (!jLoc.includes("kohima")) return false;
+        } else if (loc === "imphal") {
+          if (!jLoc.includes("imphal")) return false;
+        } else if (loc === "agartala") {
+          if (!jLoc.includes("agartala")) return false;
+        } else if (loc === "aizawl") {
+          if (!jLoc.includes("aizawl")) return false;
+        } else if (loc === "itanagar") {
+          if (!jLoc.includes("itanagar")) return false;
+        } else if (loc === "gangtok") {
+          if (!jLoc.includes("gangtok")) return false;
+        } else if (loc === "kolkata") {
+          if (!jLoc.includes("kolkata")) return false;
+        } else if (loc === "siliguri") {
+          if (!jLoc.includes("siliguri")) return false;
+        } else if (loc === "durgapur") {
+          if (!jLoc.includes("durgapur")) return false;
+        } else if (loc === "kharagpur") {
+          if (!jLoc.includes("kharagpur")) return false;
+        } else if (loc === "west_bengal") {
+          if (!jLoc.includes("west bengal") && !jLoc.includes("kolkata") && !jLoc.includes("siliguri") && !jLoc.includes("durgapur") && !jLoc.includes("kharagpur")) return false;
+        } else if (loc === "northeast" || loc === "seven_sisters") {
+          if (!jLoc.includes("assam") && !jLoc.includes("guwahati") && !jLoc.includes("shillong") && !jLoc.includes("meghalaya") && !jLoc.includes("kohima") && !jLoc.includes("nagaland") && !jLoc.includes("imphal") && !jLoc.includes("manipur") && !jLoc.includes("agartala") && !jLoc.includes("tripura") && !jLoc.includes("aizawl") && !jLoc.includes("mizoram") && !jLoc.includes("itanagar") && !jLoc.includes("arunachal") && !jLoc.includes("gangtok") && !jLoc.includes("sikkim")) return false;
+        } else if (loc === "ranchi") {
+          if (!jLoc.includes("ranchi")) return false;
+        } else if (loc === "jamshedpur") {
+          if (!jLoc.includes("jamshedpur")) return false;
+        } else if (loc === "deoghar") {
+          if (!jLoc.includes("deoghar")) return false;
+        } else if (loc === "bokaro") {
+          if (!jLoc.includes("bokaro")) return false;
+        } else if (loc === "dhanbad") {
+          if (!jLoc.includes("dhanbad")) return false;
+        } else if (loc === "jharkhand") {
+          if (!jLoc.includes("jharkhand") && !jLoc.includes("ranchi") && !jLoc.includes("jamshedpur") && !jLoc.includes("deoghar") && !jLoc.includes("bokaro") && !jLoc.includes("dhanbad")) return false;
+        } else if (loc === "nava_raipur" || loc === "nava raipur") {
+          if (!jLoc.includes("nava raipur")) return false;
+        } else if (loc === "bhilai") {
+          if (!jLoc.includes("bhilai")) return false;
+        } else if (loc === "raipur") {
+          if (!jLoc.includes("raipur") || jLoc.includes("nava raipur")) return false;
+        } else if (loc === "chhattisgarh") {
+          if (!jLoc.includes("chhattisgarh") && !jLoc.includes("raipur") && !jLoc.includes("bhilai")) return false;
+        } else if (loc === "bhubaneswar") {
+          if (!jLoc.includes("bhubaneswar")) return false;
+        } else if (loc === "cuttack") {
+          if (!jLoc.includes("cuttack")) return false;
+        } else if (loc === "rourkela") {
+          if (!jLoc.includes("rourkela")) return false;
+        } else if (loc === "sambalpur") {
+          if (!jLoc.includes("sambalpur")) return false;
+        } else if (loc === "berhampur") {
+          if (!jLoc.includes("berhampur")) return false;
+        } else if (loc === "balasore") {
+          if (!jLoc.includes("balasore")) return false;
+        } else if (loc === "puri") {
+          if (!jLoc.includes("puri")) return false;
+        } else if (loc === "odisha") {
+          if (!jLoc.includes("odisha") && !jLoc.includes("orissa") && !jLoc.includes("bhubaneswar") && !jLoc.includes("cuttack") && !jLoc.includes("rourkela") && !jLoc.includes("puri")) return false;
         } else if (loc === "bengaluru") {
           if (!jLoc.includes("bengaluru") && !jLoc.includes("bangalore")) return false;
         } else if (loc === "hyderabad") {
           if (!jLoc.includes("hyderabad")) return false;
         } else if (loc === "chennai") {
           if (!jLoc.includes("chennai")) return false;
-        } else if (loc === "kolkata") {
-          if (!jLoc.includes("kolkata")) return false;
         } else if (loc === "kochi") {
           if (!jLoc.includes("kochi") && !jLoc.includes("cochin") && !jLoc.includes("kerala")) return false;
         } else if (loc === "remote") {
@@ -419,7 +481,11 @@ export default function JobsPage() {
           { label: "📍 Patna", action: () => setSelectedLocation("patna") },
           { label: "📍 Mumbai", action: () => setSelectedLocation("mumbai") },
           { label: "📍 Pune", action: () => setSelectedLocation("pune") },
-          { label: "📍 Indore", action: () => setSelectedLocation("indore") },
+          { label: "📍 Kolkata", action: () => setSelectedLocation("kolkata") },
+          { label: "📍 Bhubaneswar", action: () => setSelectedLocation("bhubaneswar") },
+          { label: "📍 Ranchi", action: () => setSelectedLocation("ranchi") },
+          { label: "📍 Raipur", action: () => setSelectedLocation("raipur") },
+          { label: "📍 Guwahati", action: () => setSelectedLocation("guwahati") },
           { label: "🇮🇳 Bengaluru", action: () => setSelectedLocation("bengaluru") },
           { label: "📍 Hyderabad", action: () => setSelectedLocation("hyderabad") },
           { label: "🌐 Remote India", action: () => { setSelectedMode(WorkMode.REMOTE); setSelectedLocation("india"); } },
@@ -739,6 +805,23 @@ export default function JobsPage() {
             { id: "jabalpur", label: "Jabalpur" },
             { id: "ujjain", label: "Ujjain" },
             { id: "rewa", label: "Rewa" },
+            { id: "kolkata", label: "Kolkata" },
+            { id: "siliguri", label: "Siliguri" },
+            { id: "durgapur", label: "Durgapur" },
+            { id: "kharagpur", label: "Kharagpur" },
+            { id: "guwahati", label: "Guwahati" },
+            { id: "shillong", label: "Shillong" },
+            { id: "gangtok", label: "Gangtok" },
+            { id: "ranchi", label: "Ranchi" },
+            { id: "jamshedpur", label: "Jamshedpur" },
+            { id: "dhanbad", label: "Dhanbad" },
+            { id: "raipur", label: "Raipur" },
+            { id: "nava_raipur", label: "Nava Raipur" },
+            { id: "bhilai", label: "Bhilai" },
+            { id: "bhubaneswar", label: "Bhubaneswar" },
+            { id: "cuttack", label: "Cuttack" },
+            { id: "rourkela", label: "Rourkela" },
+            { id: "puri", label: "Puri" },
             { id: "bengaluru", label: "Bengaluru" },
             { id: "hyderabad", label: "Hyderabad" },
             { id: "remote", label: "Remote" },
@@ -817,6 +900,42 @@ export default function JobsPage() {
                 <option value="darbhanga">Darbhanga, Bihar</option>
                 <option value="bihar">Bihar (All Hubs)</option>
               </optgroup>
+              <optgroup label="West Bengal & Northeast (7 Sisters & Sikkim)">
+                <option value="kolkata">Kolkata, West Bengal</option>
+                <option value="siliguri">Siliguri, West Bengal</option>
+                <option value="durgapur">Durgapur, West Bengal</option>
+                <option value="kharagpur">Kharagpur, West Bengal</option>
+                <option value="west_bengal">West Bengal (All Hubs)</option>
+                <option value="guwahati">Guwahati, Assam</option>
+                <option value="shillong">Shillong, Meghalaya</option>
+                <option value="gangtok">Gangtok, Sikkim</option>
+                <option value="agartala">Agartala, Tripura</option>
+                <option value="imphal">Imphal, Manipur</option>
+                <option value="aizawl">Aizawl, Mizoram</option>
+                <option value="kohima">Kohima, Nagaland</option>
+                <option value="itanagar">Itanagar, Arunachal Pradesh</option>
+                <option value="northeast">Northeast & 7 Sisters (All Hubs)</option>
+              </optgroup>
+              <optgroup label="Odisha, Jharkhand & Chhattisgarh">
+                <option value="bhubaneswar">Bhubaneswar, Odisha</option>
+                <option value="cuttack">Cuttack, Odisha</option>
+                <option value="rourkela">Rourkela, Odisha</option>
+                <option value="sambalpur">Sambalpur, Odisha</option>
+                <option value="berhampur">Berhampur, Odisha</option>
+                <option value="balasore">Balasore, Odisha</option>
+                <option value="puri">Puri, Odisha</option>
+                <option value="odisha">Odisha (All Hubs)</option>
+                <option value="ranchi">Ranchi, Jharkhand</option>
+                <option value="jamshedpur">Jamshedpur, Jharkhand</option>
+                <option value="deoghar">Deoghar, Jharkhand</option>
+                <option value="bokaro">Bokaro, Jharkhand</option>
+                <option value="dhanbad">Dhanbad, Jharkhand</option>
+                <option value="jharkhand">Jharkhand (All Hubs)</option>
+                <option value="raipur">Raipur, Chhattisgarh</option>
+                <option value="nava_raipur">Nava Raipur, Chhattisgarh</option>
+                <option value="bhilai">Bhilai, Chhattisgarh</option>
+                <option value="chhattisgarh">Chhattisgarh (All Hubs)</option>
+              </optgroup>
               <optgroup label="Gujarat & Rajasthan">
                 <option value="ahmedabad">Ahmedabad, Gujarat</option>
                 <option value="gandhinagar">Gandhinagar, Gujarat</option>
@@ -859,7 +978,6 @@ export default function JobsPage() {
                 <option value="bengaluru">Bengaluru / Bangalore</option>
                 <option value="hyderabad">Hyderabad</option>
                 <option value="chennai">Chennai</option>
-                <option value="kolkata">Kolkata</option>
                 <option value="kochi">Kochi / Kerala</option>
               </optgroup>
               <optgroup label="Work Mode & Scope">
@@ -932,6 +1050,12 @@ export default function JobsPage() {
                     ? "Greater Noida"
                     : selectedLocation === "navi_mumbai"
                     ? "Navi Mumbai"
+                    : selectedLocation === "nava_raipur"
+                    ? "Nava Raipur"
+                    : selectedLocation === "west_bengal"
+                    ? "West Bengal"
+                    : selectedLocation === "northeast" || selectedLocation === "seven_sisters"
+                    ? "Northeast / 7 Sisters"
                     : selectedLocation === "uttar_pradesh"
                     ? "Uttar Pradesh"
                     : selectedLocation === "madhya_pradesh"

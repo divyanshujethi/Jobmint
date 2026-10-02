@@ -11,6 +11,8 @@ async function run() {
     'File 3 - Gujarat & Rajasthan': ['Ahmedabad', 'Gandhinagar', 'Surat', 'Vadodara', 'Rajkot', 'Jaipur', 'Jodhpur', 'Kota', 'Udaipur'],
     'File 4 - Uttar Pradesh & Bihar': ['Greater Noida', 'Lucknow', 'Kanpur', 'Varanasi', 'Prayagraj', 'Meerut', 'Patna', 'Darbhanga'],
     'File 5 - Madhya Pradesh & Maharashtra': ['Indore', 'Bhopal', 'Gwalior', 'Jabalpur', 'Ujjain', 'Rewa', 'Pune', 'Mumbai', 'Navi Mumbai', 'Thane', 'Nagpur', 'Nashik', 'Aurangabad'],
+    'File 6 - 7 Sisters, WB & Sikkim': ['Guwahati', 'Shillong', 'Kohima', 'Imphal', 'Agartala', 'Aizawl', 'Itanagar', 'Gangtok', 'Kolkata', 'Siliguri', 'Durgapur', 'Kharagpur'],
+    'File 7 - Jharkhand, Chhattisgarh & Odisha': ['Ranchi', 'Jamshedpur', 'Deoghar', 'Bokaro', 'Dhanbad', 'Nava Raipur', 'Bhilai', 'Raipur', 'Bhubaneswar', 'Cuttack', 'Rourkela', 'Sambalpur', 'Berhampur', 'Balasore', 'Puri'],
   };
 
   console.log('\n--- VERIFIED TECH JOBS BY CITY & REGION ---');
@@ -23,6 +25,8 @@ async function run() {
         r = await sql`SELECT count(*) FROM jobs WHERE location ILIKE '%Noida%' AND location NOT ILIKE '%Greater Noida%'`;
       } else if (c === 'Mumbai') {
         r = await sql`SELECT count(*) FROM jobs WHERE location ILIKE '%Mumbai%' AND location NOT ILIKE '%Navi Mumbai%'`;
+      } else if (c === 'Raipur') {
+        r = await sql`SELECT count(*) FROM jobs WHERE location ILIKE '%Raipur%' AND location NOT ILIKE '%Nava Raipur%'`;
       } else {
         const pattern = '%' + c + '%';
         r = await sql`SELECT count(*) FROM jobs WHERE location ILIKE ${pattern}`;

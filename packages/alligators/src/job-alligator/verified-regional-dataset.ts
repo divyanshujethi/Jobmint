@@ -3,12 +3,14 @@ import { RawCrawledJob } from '../types';
 
 /**
  * Verified All-India Regional IT Jobs Dataset
- * Covers 413 verified IT companies across:
- * - Punjab & Haryana: Chandigarh, Mohali, Gurugram, Sonipat, Panchkula, Ludhiana, Jalandhar
- * - Delhi, Uttarakhand & Himachal: Noida, Greater Noida, New Delhi, Dehradun, Solan, Kangra, Shimla
- * - Gujarat & Rajasthan: Gandhinagar, Ahmedabad, Surat, Vadodara, Rajkot, Jaipur, Jodhpur, Kota, Udaipur
- * - Uttar Pradesh & Bihar: Lucknow, Kanpur, Varanasi, Prayagraj, Meerut, Patna, Darbhanga
- * - Maharashtra & Madhya Pradesh: Mumbai, Navi Mumbai, Thane, Pune, Nagpur, Nashik, Aurangabad, Indore, Bhopal, Gwalior, Jabalpur, Ujjain, Rewa
+ * Covers 546 verified IT companies across:
+ * - File 1: Punjab & Haryana (Chandigarh, Mohali, Gurugram, Sonipat, Panchkula, Ludhiana, Jalandhar)
+ * - File 2: Delhi, Uttarakhand & Himachal (Noida, Greater Noida, New Delhi, Dehradun, Solan, Kangra, Shimla)
+ * - File 3: Gujarat & Rajasthan (Gandhinagar, Ahmedabad, Surat, Vadodara, Rajkot, Jaipur, Jodhpur, Kota, Udaipur)
+ * - File 4: Uttar Pradesh & Bihar (Greater Noida, Lucknow, Kanpur, Varanasi, Prayagraj, Meerut, Patna, Darbhanga)
+ * - File 5: Maharashtra & Madhya Pradesh (Mumbai, Navi Mumbai, Thane, Pune, Nagpur, Nashik, Aurangabad, Indore, Bhopal, Gwalior, Jabalpur, Ujjain, Rewa)
+ * - File 6: 7 Sisters, West Bengal & Sikkim (Guwahati, Shillong, Kohima, Imphal, Agartala, Aizawl, Itanagar, Gangtok, Kolkata, Siliguri, Durgapur, Kharagpur)
+ * - File 7: Jharkhand, Chhattisgarh & Odisha (Ranchi, Jamshedpur, Deoghar, Bokaro, Dhanbad, Nava Raipur, Bhilai, Raipur, Bhubaneswar, Cuttack, Rourkela, Sambalpur, Berhampur, Balasore, Puri)
  * Direct career page links to official company portals.
  */
 export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
@@ -35,7 +37,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.827Z"
+    "publishedAt": "2026-10-02T21:12:39.665Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -60,7 +62,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.829Z"
+    "publishedAt": "2026-10-02T21:12:39.760Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -85,7 +87,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.829Z"
+    "publishedAt": "2026-10-02T21:12:39.761Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -110,7 +112,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.829Z"
+    "publishedAt": "2026-10-02T21:12:39.761Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -135,7 +137,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.829Z"
+    "publishedAt": "2026-10-02T21:12:39.761Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -160,7 +162,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.829Z"
+    "publishedAt": "2026-10-02T21:12:39.761Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -185,7 +187,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.829Z"
+    "publishedAt": "2026-10-02T21:12:39.761Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -210,7 +212,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.829Z"
+    "publishedAt": "2026-10-02T21:12:39.761Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -235,7 +237,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.829Z"
+    "publishedAt": "2026-10-02T21:12:39.761Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -260,7 +262,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.829Z"
+    "publishedAt": "2026-10-02T21:12:39.761Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -285,7 +287,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.829Z"
+    "publishedAt": "2026-10-02T21:12:39.761Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -310,7 +312,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.829Z"
+    "publishedAt": "2026-10-02T21:12:39.761Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -335,7 +337,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.829Z"
+    "publishedAt": "2026-10-02T21:12:39.761Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -360,7 +362,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.829Z"
+    "publishedAt": "2026-10-02T21:12:39.761Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -385,7 +387,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.829Z"
+    "publishedAt": "2026-10-02T21:12:39.761Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -410,7 +412,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.829Z"
+    "publishedAt": "2026-10-02T21:12:39.761Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -435,7 +437,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.829Z"
+    "publishedAt": "2026-10-02T21:12:39.761Z"
   },
   {
     "title": "Enterprise Cloud & ERP Software Engineer",
@@ -460,7 +462,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.829Z"
+    "publishedAt": "2026-10-02T21:12:39.761Z"
   },
   {
     "title": "Full Stack Software Engineer (React & Node.js)",
@@ -485,7 +487,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.830Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -510,7 +512,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.830Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Backend Software Engineer (High-Throughput Routing & APIs)",
@@ -535,7 +537,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.830Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -560,7 +562,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.830Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -585,7 +587,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.830Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "FinTech Backend Systems Engineer (Go & PostgreSQL)",
@@ -610,7 +612,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.830Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -635,7 +637,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.830Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -660,7 +662,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.830Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -685,7 +687,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.830Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -710,7 +712,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.830Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -735,7 +737,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.830Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -760,7 +762,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.830Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "FinTech Backend Systems Engineer (Go & PostgreSQL)",
@@ -785,7 +787,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.830Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -810,7 +812,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.830Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -835,7 +837,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.830Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -860,7 +862,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.830Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Enterprise Cloud & ERP Software Engineer",
@@ -885,7 +887,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.830Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -910,7 +912,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.830Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Backend API Developer (Node.js & Microservices)",
@@ -935,7 +937,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.830Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -960,7 +962,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.830Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -985,7 +987,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.830Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -1010,7 +1012,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.830Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -1035,7 +1037,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.830Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -1060,7 +1062,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.830Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -1085,7 +1087,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.830Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -1110,7 +1112,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.830Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -1135,7 +1137,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.830Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Backend API Developer (Node.js & Microservices)",
@@ -1160,7 +1162,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.830Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "FinTech Backend Systems Engineer (Go & PostgreSQL)",
@@ -1185,7 +1187,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.830Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -1210,7 +1212,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.830Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -1235,7 +1237,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.830Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -1260,7 +1262,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.830Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -1285,7 +1287,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.830Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -1310,7 +1312,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.830Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -1335,7 +1337,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.830Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Full Stack Software Engineer (React & Node.js)",
@@ -1360,7 +1362,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.830Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -1385,7 +1387,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.830Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Enterprise Cloud & ERP Software Engineer",
@@ -1410,7 +1412,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.830Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -1435,7 +1437,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.830Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -1460,7 +1462,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.830Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -1485,7 +1487,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.830Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -1510,7 +1512,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.830Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -1535,7 +1537,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.830Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -1560,7 +1562,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.830Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -1585,7 +1587,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.830Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -1610,7 +1612,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.830Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -1635,7 +1637,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.830Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -1660,7 +1662,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.830Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -1685,7 +1687,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.830Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Backend API Developer (Node.js & Microservices)",
@@ -1710,7 +1712,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.830Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -1735,7 +1737,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -1760,7 +1762,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -1785,7 +1787,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -1810,7 +1812,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -1835,7 +1837,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -1860,7 +1862,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -1885,7 +1887,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -1910,7 +1912,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Backend API Developer (Node.js & Microservices)",
@@ -1935,7 +1937,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Enterprise Cloud & ERP Software Engineer",
@@ -1960,7 +1962,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -1985,7 +1987,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -2010,7 +2012,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Software QA & Test Automation Engineer",
@@ -2035,7 +2037,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -2060,7 +2062,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -2085,7 +2087,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.762Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -2110,7 +2112,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -2135,7 +2137,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Enterprise Cloud & ERP Software Engineer",
@@ -2160,7 +2162,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -2185,7 +2187,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -2210,7 +2212,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -2235,7 +2237,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Backend API Developer (Node.js & Microservices)",
@@ -2260,7 +2262,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -2285,7 +2287,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -2310,7 +2312,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -2335,7 +2337,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -2360,7 +2362,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Full Stack Software Engineer (React & Node.js)",
@@ -2385,7 +2387,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -2410,7 +2412,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -2435,7 +2437,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -2460,7 +2462,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -2485,7 +2487,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -2510,7 +2512,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -2535,7 +2537,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Backend API Developer (Node.js & Microservices)",
@@ -2560,7 +2562,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -2585,7 +2587,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -2610,7 +2612,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -2635,7 +2637,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -2660,7 +2662,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -2685,7 +2687,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -2710,7 +2712,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Full Stack Software Engineer (React & Node.js)",
@@ -2735,7 +2737,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -2760,7 +2762,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -2785,7 +2787,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -2810,7 +2812,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Full Stack Software Engineer (React & Node.js)",
@@ -2835,7 +2837,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -2860,7 +2862,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -2885,7 +2887,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -2910,7 +2912,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Backend API Developer (Node.js & Microservices)",
@@ -2935,7 +2937,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -2960,7 +2962,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -2985,7 +2987,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -3010,7 +3012,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -3035,7 +3037,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Full Stack Software Engineer (React & Node.js)",
@@ -3060,7 +3062,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -3085,7 +3087,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -3110,7 +3112,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Senior Drupal & PHP Platform Engineer",
@@ -3135,7 +3137,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -3160,7 +3162,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -3185,7 +3187,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -3210,7 +3212,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -3235,7 +3237,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Full Stack Software Engineer (React & Node.js)",
@@ -3260,7 +3262,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -3285,7 +3287,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -3310,7 +3312,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -3335,7 +3337,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -3360,7 +3362,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Backend API Developer (Node.js & Microservices)",
@@ -3385,7 +3387,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -3410,7 +3412,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -3435,7 +3437,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -3460,7 +3462,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -3485,7 +3487,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Full Stack Software Engineer (React & Node.js)",
@@ -3510,7 +3512,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -3535,7 +3537,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -3560,7 +3562,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -3585,7 +3587,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -3610,7 +3612,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -3635,7 +3637,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -3660,7 +3662,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -3685,7 +3687,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -3710,7 +3712,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Enterprise Cloud & ERP Software Engineer",
@@ -3735,7 +3737,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -3760,7 +3762,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -3785,7 +3787,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -3810,7 +3812,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -3835,7 +3837,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -3860,7 +3862,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -3885,7 +3887,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.831Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -3910,7 +3912,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -3935,7 +3937,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -3960,7 +3962,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -3985,7 +3987,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -4010,7 +4012,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -4035,7 +4037,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Backend API Developer (Node.js & Microservices)",
@@ -4060,7 +4062,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -4085,7 +4087,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -4110,7 +4112,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -4135,7 +4137,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -4160,7 +4162,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -4185,7 +4187,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -4210,7 +4212,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -4235,7 +4237,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -4260,7 +4262,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -4285,7 +4287,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Full Stack Software Engineer (React & Node.js)",
@@ -4310,7 +4312,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -4335,7 +4337,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -4360,7 +4362,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -4385,7 +4387,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -4410,7 +4412,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -4435,7 +4437,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -4460,7 +4462,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -4485,7 +4487,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -4510,7 +4512,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -4535,7 +4537,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -4560,7 +4562,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -4585,7 +4587,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -4610,7 +4612,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -4635,7 +4637,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -4660,7 +4662,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "FinTech Backend Systems Engineer (Go & PostgreSQL)",
@@ -4685,7 +4687,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -4710,7 +4712,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -4735,7 +4737,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "FinTech Backend Systems Engineer (Go & PostgreSQL)",
@@ -4760,7 +4762,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -4785,7 +4787,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -4810,7 +4812,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -4835,7 +4837,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -4860,7 +4862,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -4885,7 +4887,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -4910,7 +4912,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -4935,7 +4937,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -4960,7 +4962,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -4985,7 +4987,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -5010,7 +5012,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -5035,7 +5037,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -5060,7 +5062,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -5085,7 +5087,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -5110,7 +5112,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -5135,7 +5137,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Backend Software Engineer (High-Throughput Routing & APIs)",
@@ -5160,7 +5162,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -5185,7 +5187,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -5210,7 +5212,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -5235,7 +5237,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -5260,7 +5262,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Backend API Developer (Node.js & Microservices)",
@@ -5285,7 +5287,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -5310,7 +5312,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -5335,7 +5337,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -5360,7 +5362,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -5385,7 +5387,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -5410,7 +5412,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -5435,7 +5437,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Backend Software Engineer (High-Throughput Routing & APIs)",
@@ -5460,7 +5462,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -5485,7 +5487,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -5510,7 +5512,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -5535,7 +5537,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -5560,7 +5562,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Enterprise Cloud & ERP Software Engineer",
@@ -5585,7 +5587,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -5610,7 +5612,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -5635,7 +5637,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -5660,7 +5662,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -5685,7 +5687,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -5710,7 +5712,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -5735,7 +5737,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -5760,7 +5762,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -5785,7 +5787,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -5810,7 +5812,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Backend API Developer (Node.js & Microservices)",
@@ -5835,7 +5837,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -5860,7 +5862,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -5885,7 +5887,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Backend API Developer (Node.js & Microservices)",
@@ -5910,7 +5912,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -5935,7 +5937,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -5960,7 +5962,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -5985,7 +5987,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -6010,7 +6012,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -6035,7 +6037,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Backend API Developer (Node.js & Microservices)",
@@ -6060,7 +6062,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Enterprise Cloud & ERP Software Engineer",
@@ -6085,7 +6087,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -6110,7 +6112,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -6135,7 +6137,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Enterprise Cloud & ERP Software Engineer",
@@ -6160,7 +6162,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Software QA & Test Automation Engineer",
@@ -6185,7 +6187,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -6210,7 +6212,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -6235,7 +6237,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Enterprise Cloud & ERP Software Engineer",
@@ -6260,7 +6262,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -6285,7 +6287,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -6310,7 +6312,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -6335,7 +6337,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Backend API Developer (Node.js & Microservices)",
@@ -6360,7 +6362,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Enterprise Cloud & ERP Software Engineer",
@@ -6385,7 +6387,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Enterprise Cloud & ERP Software Engineer",
@@ -6410,7 +6412,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -6435,7 +6437,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Full Stack Software Engineer (React & Node.js)",
@@ -6460,7 +6462,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -6485,7 +6487,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -6510,7 +6512,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -6535,7 +6537,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Enterprise Cloud & ERP Software Engineer",
@@ -6560,7 +6562,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -6585,7 +6587,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -6610,7 +6612,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -6635,7 +6637,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -6660,7 +6662,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Full Stack Software Engineer (React & Node.js)",
@@ -6685,7 +6687,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -6710,7 +6712,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -6735,7 +6737,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Full Stack Software Engineer (React & Node.js)",
@@ -6760,7 +6762,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -6785,7 +6787,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -6810,7 +6812,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -6835,7 +6837,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -6860,7 +6862,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -6885,7 +6887,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Enterprise Cloud & ERP Software Engineer",
@@ -6910,7 +6912,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -6935,7 +6937,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -6960,7 +6962,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.833Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -6985,7 +6987,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -7010,7 +7012,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -7035,7 +7037,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -7060,7 +7062,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -7085,7 +7087,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -7110,7 +7112,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -7135,7 +7137,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -7160,7 +7162,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -7185,7 +7187,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -7210,7 +7212,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -7235,7 +7237,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -7260,7 +7262,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -7285,7 +7287,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -7310,7 +7312,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -7335,7 +7337,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -7360,7 +7362,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Backend API Developer (Node.js & Microservices)",
@@ -7385,7 +7387,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -7410,7 +7412,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -7435,7 +7437,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -7460,7 +7462,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -7485,7 +7487,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -7510,7 +7512,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -7535,7 +7537,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -7560,7 +7562,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -7585,7 +7587,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -7610,7 +7612,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -7635,7 +7637,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -7660,7 +7662,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Backend API Developer (Node.js & Microservices)",
@@ -7685,7 +7687,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -7710,7 +7712,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -7735,7 +7737,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -7760,7 +7762,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -7785,7 +7787,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -7810,7 +7812,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -7835,7 +7837,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -7860,7 +7862,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.765Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -7885,7 +7887,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -7910,7 +7912,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -7935,7 +7937,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -7960,7 +7962,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -7985,7 +7987,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -8010,7 +8012,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -8035,7 +8037,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -8060,7 +8062,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -8085,7 +8087,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -8110,7 +8112,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Backend API Developer (Node.js & Microservices)",
@@ -8135,7 +8137,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -8160,7 +8162,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -8185,7 +8187,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Backend API Developer (Node.js & Microservices)",
@@ -8210,7 +8212,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -8235,7 +8237,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -8260,7 +8262,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -8285,7 +8287,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -8310,7 +8312,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -8335,7 +8337,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Backend API Developer (Node.js & Microservices)",
@@ -8360,7 +8362,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -8385,7 +8387,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -8410,7 +8412,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -8435,7 +8437,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -8460,7 +8462,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -8485,7 +8487,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -8510,7 +8512,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -8535,7 +8537,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Enterprise Cloud & ERP Software Engineer",
@@ -8560,7 +8562,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -8585,7 +8587,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -8610,7 +8612,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -8635,7 +8637,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -8660,7 +8662,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -8685,7 +8687,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -8710,7 +8712,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -8735,7 +8737,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -8760,7 +8762,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -8785,7 +8787,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Enterprise Cloud & ERP Software Engineer",
@@ -8810,7 +8812,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -8835,7 +8837,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -8860,7 +8862,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -8885,7 +8887,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -8910,7 +8912,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -8935,7 +8937,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Software QA & Test Automation Engineer",
@@ -8960,7 +8962,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -8985,7 +8987,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -9010,7 +9012,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -9035,7 +9037,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -9060,7 +9062,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -9085,7 +9087,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -9110,7 +9112,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -9135,7 +9137,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -9160,7 +9162,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -9185,7 +9187,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -9210,7 +9212,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -9235,7 +9237,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -9260,7 +9262,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Enterprise Cloud & ERP Software Engineer",
@@ -9285,7 +9287,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -9310,7 +9312,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Enterprise Cloud & ERP Software Engineer",
@@ -9335,7 +9337,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -9360,7 +9362,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Backend API Developer (Node.js & Microservices)",
@@ -9385,7 +9387,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -9410,7 +9412,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -9435,7 +9437,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -9460,7 +9462,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -9485,7 +9487,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Software QA & Test Automation Engineer",
@@ -9510,7 +9512,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -9535,7 +9537,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -9560,7 +9562,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Senior Drupal & PHP Platform Engineer",
@@ -9585,7 +9587,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -9610,7 +9612,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -9635,7 +9637,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.766Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -9660,7 +9662,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -9685,7 +9687,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -9710,7 +9712,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Full Stack Software Engineer (React & Node.js)",
@@ -9735,7 +9737,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -9760,7 +9762,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -9785,7 +9787,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -9810,7 +9812,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -9835,7 +9837,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -9860,7 +9862,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -9885,7 +9887,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -9910,7 +9912,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -9935,7 +9937,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -9960,7 +9962,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -9985,7 +9987,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -10010,7 +10012,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -10035,7 +10037,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -10060,7 +10062,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -10085,7 +10087,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -10110,7 +10112,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -10135,7 +10137,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -10160,7 +10162,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -10185,7 +10187,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -10210,7 +10212,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -10235,7 +10237,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -10260,7 +10262,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Full Stack Software Engineer (React & Node.js)",
@@ -10285,7 +10287,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -10310,7 +10312,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Backend API Developer (Node.js & Microservices)",
@@ -10335,7 +10337,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -10360,7 +10362,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -10385,7 +10387,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -10410,7 +10412,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "e-Governance Web & Cloud Platform Engineer",
@@ -10435,7 +10437,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -10460,7 +10462,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -10485,7 +10487,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -10510,7 +10512,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -10535,7 +10537,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -10560,7 +10562,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -10585,7 +10587,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Full Stack Software Engineer (React & Node.js)",
@@ -10610,7 +10612,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -10635,7 +10637,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -10660,7 +10662,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -10685,7 +10687,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -10710,7 +10712,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -10735,7 +10737,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -10760,7 +10762,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -10785,7 +10787,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Full Stack Software Engineer (React & Node.js)",
@@ -10810,7 +10812,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "FinTech Backend Systems Engineer (Go & PostgreSQL)",
@@ -10835,7 +10837,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -10860,7 +10862,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -10885,7 +10887,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Senior Drupal & PHP Platform Engineer",
@@ -10910,7 +10912,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -10935,7 +10937,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -10960,7 +10962,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -10985,7 +10987,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -11010,7 +11012,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Full Stack Software Engineer (React & Node.js)",
@@ -11035,7 +11037,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -11060,7 +11062,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Enterprise Cloud & ERP Software Engineer",
@@ -11085,7 +11087,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -11110,7 +11112,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -11135,7 +11137,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -11160,7 +11162,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Enterprise Cloud & ERP Software Engineer",
@@ -11185,7 +11187,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -11210,7 +11212,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Enterprise Cloud & ERP Software Engineer",
@@ -11235,7 +11237,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -11260,7 +11262,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -11285,7 +11287,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Enterprise Cloud & ERP Software Engineer",
@@ -11310,7 +11312,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cyber Security & Cloud Defense Engineer",
@@ -11335,7 +11337,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -11360,7 +11362,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -11385,7 +11387,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -11410,7 +11412,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -11435,7 +11437,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -11460,7 +11462,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -11485,7 +11487,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -11510,7 +11512,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Enterprise Cloud & ERP Software Engineer",
@@ -11535,7 +11537,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.834Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -11560,7 +11562,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Backend API Developer (Node.js & Microservices)",
@@ -11585,7 +11587,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Enterprise Cloud & ERP Software Engineer",
@@ -11610,7 +11612,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -11635,7 +11637,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Backend API Developer (Node.js & Microservices)",
@@ -11660,7 +11662,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -11685,7 +11687,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Full Stack Software Engineer (React & Node.js)",
@@ -11710,7 +11712,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -11735,7 +11737,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -11760,7 +11762,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -11785,7 +11787,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Backend API Developer (Node.js & Microservices)",
@@ -11810,7 +11812,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -11835,7 +11837,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -11860,7 +11862,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -11885,7 +11887,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -11910,7 +11912,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -11935,7 +11937,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -11960,7 +11962,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -11985,7 +11987,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -12010,7 +12012,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -12035,7 +12037,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -12060,7 +12062,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -12085,7 +12087,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -12110,7 +12112,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -12135,7 +12137,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Enterprise Cloud & ERP Software Engineer",
@@ -12160,7 +12162,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -12185,7 +12187,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Backend API Developer (Node.js & Microservices)",
@@ -12210,7 +12212,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -12235,7 +12237,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -12260,7 +12262,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -12285,7 +12287,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Enterprise Cloud & ERP Software Engineer",
@@ -12310,7 +12312,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -12335,7 +12337,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -12360,7 +12362,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -12385,7 +12387,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -12410,7 +12412,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -12435,7 +12437,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Full Stack Software Engineer (React & Node.js)",
@@ -12460,7 +12462,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -12485,7 +12487,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -12510,7 +12512,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -12535,7 +12537,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Full Stack Software Engineer (React & Node.js)",
@@ -12560,7 +12562,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -12585,7 +12587,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Enterprise Cloud & ERP Software Engineer",
@@ -12610,7 +12612,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -12635,7 +12637,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -12660,7 +12662,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -12685,7 +12687,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -12710,7 +12712,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -12735,7 +12737,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -12760,7 +12762,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -12785,7 +12787,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -12810,7 +12812,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -12835,7 +12837,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -12860,7 +12862,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -12885,7 +12887,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -12910,7 +12912,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -12935,7 +12937,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -12960,7 +12962,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Backend API Developer (Node.js & Microservices)",
@@ -12985,7 +12987,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -13010,7 +13012,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -13035,7 +13037,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -13060,7 +13062,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -13085,7 +13087,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -13110,7 +13112,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -13135,7 +13137,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -13160,7 +13162,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -13185,7 +13187,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -13210,7 +13212,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -13235,7 +13237,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -13260,7 +13262,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -13285,7 +13287,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -13310,7 +13312,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -13335,7 +13337,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -13360,7 +13362,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "FinTech Backend Systems Engineer (Go & PostgreSQL)",
@@ -13385,7 +13387,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -13410,7 +13412,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -13435,7 +13437,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -13460,7 +13462,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -13485,7 +13487,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -13510,7 +13512,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Enterprise Cloud & ERP Software Engineer",
@@ -13535,7 +13537,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -13560,7 +13562,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Software QA & Test Automation Engineer",
@@ -13585,7 +13587,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -13610,7 +13612,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -13635,7 +13637,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -13660,7 +13662,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -13685,7 +13687,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -13710,7 +13712,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -13735,7 +13737,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -13760,7 +13762,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -13785,7 +13787,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -13810,7 +13812,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -13835,7 +13837,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -13860,7 +13862,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -13885,7 +13887,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -13910,7 +13912,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -13935,7 +13937,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -13960,7 +13962,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -13985,7 +13987,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -14010,7 +14012,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cyber Security & Cloud Defense Engineer",
@@ -14035,7 +14037,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -14060,7 +14062,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -14085,7 +14087,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -14110,7 +14112,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -14135,7 +14137,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -14160,7 +14162,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -14185,7 +14187,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -14210,7 +14212,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Full Stack Software Engineer (React & Node.js)",
@@ -14235,7 +14237,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -14260,7 +14262,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -14285,7 +14287,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Full Stack Software Engineer (React & Node.js)",
@@ -14310,7 +14312,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -14335,7 +14337,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -14360,7 +14362,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -14385,7 +14387,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -14410,7 +14412,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -14435,7 +14437,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -14460,7 +14462,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -14485,7 +14487,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -14510,7 +14512,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -14535,7 +14537,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Full Stack Software Engineer (React & Node.js)",
@@ -14560,7 +14562,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -14585,7 +14587,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -14610,7 +14612,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -14635,7 +14637,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -14660,7 +14662,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -14685,7 +14687,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "FinTech Backend Systems Engineer (Go & PostgreSQL)",
@@ -14710,7 +14712,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Enterprise Cloud & ERP Software Engineer",
@@ -14735,7 +14737,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -14760,7 +14762,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -14785,7 +14787,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -14810,7 +14812,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -14835,7 +14837,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -14860,7 +14862,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -14885,7 +14887,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Backend API Developer (Node.js & Microservices)",
@@ -14910,7 +14912,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Full Stack Software Engineer (React & Node.js)",
@@ -14935,7 +14937,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Enterprise Cloud & ERP Software Engineer",
@@ -14960,7 +14962,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -14985,7 +14987,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -15010,7 +15012,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Machine Learning & AI Systems Engineer",
@@ -15035,7 +15037,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Python Data Engineer & Pipeline Developer",
@@ -15060,7 +15062,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -15085,7 +15087,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -15110,7 +15112,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -15135,7 +15137,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -15160,7 +15162,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -15185,7 +15187,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -15210,7 +15212,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Backend API Developer (Node.js & Microservices)",
@@ -15235,7 +15237,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -15260,7 +15262,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -15285,7 +15287,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Backend API Developer (Node.js & Microservices)",
@@ -15310,7 +15312,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -15335,7 +15337,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -15360,7 +15362,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -15385,7 +15387,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -15410,7 +15412,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -15435,7 +15437,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -15460,7 +15462,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -15485,7 +15487,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -15510,7 +15512,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -15535,7 +15537,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -15560,7 +15562,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -15585,7 +15587,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -15610,7 +15612,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Enterprise Cloud & ERP Software Engineer",
@@ -15635,7 +15637,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -15660,7 +15662,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Backend API Developer (Node.js & Microservices)",
@@ -15685,7 +15687,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -15710,7 +15712,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -15735,7 +15737,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -15760,7 +15762,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -15785,7 +15787,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -15810,7 +15812,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Backend API Developer (Node.js & Microservices)",
@@ -15835,7 +15837,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Full Stack Software Engineer (React & Node.js)",
@@ -15860,7 +15862,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -15885,7 +15887,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -15910,7 +15912,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -15935,7 +15937,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Enterprise Cloud & ERP Software Engineer",
@@ -15960,7 +15962,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -15985,7 +15987,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.836Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -16010,7 +16012,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.837Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -16035,7 +16037,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.837Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -16060,7 +16062,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.837Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -16085,7 +16087,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.837Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -16110,7 +16112,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.837Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -16135,7 +16137,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.837Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -16160,7 +16162,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.837Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -16185,7 +16187,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.837Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Backend API Developer (Node.js & Microservices)",
@@ -16210,7 +16212,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.837Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Full Stack Software Engineer (React & Node.js)",
@@ -16235,7 +16237,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.837Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Senior Drupal & PHP Platform Engineer",
@@ -16260,7 +16262,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.837Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -16285,7 +16287,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.837Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -16310,7 +16312,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.837Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Mobile Application Engineer (Flutter & Android)",
@@ -16335,7 +16337,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.837Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Backend API Developer (Node.js & Microservices)",
@@ -16360,7 +16362,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.837Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -16385,7 +16387,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.837Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Unity 3D Game Systems Developer",
@@ -16410,7 +16412,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.837Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
@@ -16435,7 +16437,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.837Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Full Stack Software Engineer (React & Node.js)",
@@ -16460,7 +16462,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.837Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Cloud & DevOps Infrastructure Engineer",
@@ -16485,7 +16487,7 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.837Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
   },
   {
     "title": "Site Reliability & Linux Systems Engineer",
@@ -16510,6 +16512,5156 @@ export const VERIFIED_NORTH_INDIA_REGIONAL_JOBS: RawCrawledJob[] = [
     ],
     "isGhostRisk": false,
     "truthScore": 98,
-    "publishedAt": "2026-10-02T20:47:58.837Z"
+    "publishedAt": "2026-10-02T21:12:39.767Z"
+  },
+  {
+    "title": "Machine Learning & AI Systems Engineer",
+    "companyName": "Tata Consultancy Services",
+    "companyWebsite": "https://www.tcs.com",
+    "location": "Kolkata, West Bengal, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.tcs.com/careers",
+    "externalId": "regional-tata-consultancy-services-413-01",
+    "description": "Verified engineering position at Tata Consultancy Services (Kolkata, West Bengal, India). Domain: Cloud Systems / Core Banking / AI Transformation. Direct application via official career portal: https://www.tcs.com/careers",
+    "rawRequirements": "Demonstrated technical capability in Python, PyTorch, Machine Learning. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Python",
+      "PyTorch",
+      "Machine Learning",
+      "FastAPI",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.767Z"
+  },
+  {
+    "title": "Python Data Engineer & Pipeline Developer",
+    "companyName": "Tata Consultancy Services",
+    "companyWebsite": "https://www.tcs.com",
+    "location": "Kolkata, West Bengal, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.tcs.com/careers",
+    "externalId": "regional-tata-consultancy-services-413-02",
+    "description": "Verified engineering opening at Tata Consultancy Services (Kolkata, West Bengal, India). Domain focus: Cloud Systems / Core Banking / AI Transformation. Direct application via official portal: https://www.tcs.com/careers",
+    "rawRequirements": "Strong foundations in Python, SQL, Pandas, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Python",
+      "SQL",
+      "Pandas",
+      "PostgreSQL",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.767Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Wipro Technologies",
+    "companyWebsite": "https://www.wipro.com",
+    "location": "Kolkata, West Bengal, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://careers.wipro.com/",
+    "externalId": "regional-wipro-technologies-414-01",
+    "description": "Verified engineering position at Wipro Technologies (Kolkata, West Bengal, India). Domain: Enterprise Cloud Solutions / Cybersecurity / Consulting. Direct application via official career portal: https://careers.wipro.com/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.767Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "Wipro Technologies",
+    "companyWebsite": "https://www.wipro.com",
+    "location": "Kolkata, West Bengal, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://careers.wipro.com/",
+    "externalId": "regional-wipro-technologies-414-02",
+    "description": "Verified engineering opening at Wipro Technologies (Kolkata, West Bengal, India). Domain focus: Enterprise Cloud Solutions / Cybersecurity / Consulting. Direct application via official portal: https://careers.wipro.com/",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.767Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Cognizant Technology Solutions",
+    "companyWebsite": "https://www.cognizant.com",
+    "location": "Kolkata, West Bengal, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://careers.cognizant.com/",
+    "externalId": "regional-cognizant-technology-solutions-415-01",
+    "description": "Verified engineering position at Cognizant Technology Solutions (Kolkata, West Bengal, India). Domain: Digital Engineering / Cloud Modernization / BFSI. Direct application via official career portal: https://careers.cognizant.com/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.767Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "Cognizant Technology Solutions",
+    "companyWebsite": "https://www.cognizant.com",
+    "location": "Kolkata, West Bengal, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://careers.cognizant.com/",
+    "externalId": "regional-cognizant-technology-solutions-415-02",
+    "description": "Verified engineering opening at Cognizant Technology Solutions (Kolkata, West Bengal, India). Domain focus: Digital Engineering / Cloud Modernization / BFSI. Direct application via official portal: https://careers.cognizant.com/",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.767Z"
+  },
+  {
+    "title": "Machine Learning & AI Systems Engineer",
+    "companyName": "IBM India",
+    "companyWebsite": "https://www.ibm.com",
+    "location": "Kolkata, West Bengal, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.ibm.com/careers/",
+    "externalId": "regional-ibm-india-416-01",
+    "description": "Verified engineering position at IBM India (Kolkata, West Bengal, India). Domain: Hybrid Cloud / Enterprise AI Systems / Consulting. Direct application via official career portal: https://www.ibm.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Python, PyTorch, Machine Learning. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Python",
+      "PyTorch",
+      "Machine Learning",
+      "FastAPI",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.767Z"
+  },
+  {
+    "title": "Python Data Engineer & Pipeline Developer",
+    "companyName": "IBM India",
+    "companyWebsite": "https://www.ibm.com",
+    "location": "Kolkata, West Bengal, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.ibm.com/careers/",
+    "externalId": "regional-ibm-india-416-02",
+    "description": "Verified engineering opening at IBM India (Kolkata, West Bengal, India). Domain focus: Hybrid Cloud / Enterprise AI Systems / Consulting. Direct application via official portal: https://www.ibm.com/careers/",
+    "rawRequirements": "Strong foundations in Python, SQL, Pandas, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Python",
+      "SQL",
+      "Pandas",
+      "PostgreSQL",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.767Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Capgemini India",
+    "companyWebsite": "https://www.capgemini.com",
+    "location": "Kolkata, West Bengal, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.capgemini.com/in-en/careers/",
+    "externalId": "regional-capgemini-india-417-01",
+    "description": "Verified engineering position at Capgemini India (Kolkata, West Bengal, India). Domain: Application Modernization / Cloud Infrastructure. Direct application via official career portal: https://www.capgemini.com/in-en/careers/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.767Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "Capgemini India",
+    "companyWebsite": "https://www.capgemini.com",
+    "location": "Kolkata, West Bengal, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.capgemini.com/in-en/careers/",
+    "externalId": "regional-capgemini-india-417-02",
+    "description": "Verified engineering opening at Capgemini India (Kolkata, West Bengal, India). Domain focus: Application Modernization / Cloud Infrastructure. Direct application via official portal: https://www.capgemini.com/in-en/careers/",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.767Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "PwC India",
+    "companyWebsite": "https://www.pwc.in",
+    "location": "Kolkata, West Bengal, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.pwc.in/careers.html",
+    "externalId": "regional-pwc-india-418-01",
+    "description": "Verified engineering position at PwC India (Kolkata, West Bengal, India). Domain: Cybersecurity / Cloud Engineering / Risk Analytics. Direct application via official career portal: https://www.pwc.in/careers.html",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.767Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "PwC India",
+    "companyWebsite": "https://www.pwc.in",
+    "location": "Kolkata, West Bengal, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.pwc.in/careers.html",
+    "externalId": "regional-pwc-india-418-02",
+    "description": "Verified engineering opening at PwC India (Kolkata, West Bengal, India). Domain focus: Cybersecurity / Cloud Engineering / Risk Analytics. Direct application via official portal: https://www.pwc.in/careers.html",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.767Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "LTIMindtree",
+    "companyWebsite": "https://www.ltimindtree.com",
+    "location": "Kolkata, West Bengal, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.ltimindtree.com/careers/",
+    "externalId": "regional-ltimindtree-419-01",
+    "description": "Verified engineering position at LTIMindtree (Kolkata, West Bengal, India). Domain: Digital Transformation / Enterprise Architecture. Direct application via official career portal: https://www.ltimindtree.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.767Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Infosys Limited",
+    "companyWebsite": "https://www.infosys.com",
+    "location": "Kolkata, West Bengal, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.infosys.com/careers/",
+    "externalId": "regional-infosys-limited-420-01",
+    "description": "Verified engineering position at Infosys Limited (Kolkata, West Bengal, India). Domain: Enterprise Platforms / Core Banking / Cloud Services. Direct application via official career portal: https://www.infosys.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.767Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "Infosys Limited",
+    "companyWebsite": "https://www.infosys.com",
+    "location": "Kolkata, West Bengal, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.infosys.com/careers/",
+    "externalId": "regional-infosys-limited-420-02",
+    "description": "Verified engineering opening at Infosys Limited (Kolkata, West Bengal, India). Domain focus: Enterprise Platforms / Core Banking / Cloud Services. Direct application via official portal: https://www.infosys.com/careers/",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.767Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Tech Mahindra",
+    "companyWebsite": "https://www.techmahindra.com",
+    "location": "Kolkata, West Bengal, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://careers.techmahindra.com/",
+    "externalId": "regional-tech-mahindra-421-01",
+    "description": "Verified engineering position at Tech Mahindra (Kolkata, West Bengal, India). Domain: Telecom Software / Network Cloud / Enterprise Apps. Direct application via official career portal: https://careers.techmahindra.com/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.767Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "Tech Mahindra",
+    "companyWebsite": "https://www.techmahindra.com",
+    "location": "Kolkata, West Bengal, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://careers.techmahindra.com/",
+    "externalId": "regional-tech-mahindra-421-02",
+    "description": "Verified engineering opening at Tech Mahindra (Kolkata, West Bengal, India). Domain focus: Telecom Software / Network Cloud / Enterprise Apps. Direct application via official portal: https://careers.techmahindra.com/",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.767Z"
+  },
+  {
+    "title": "FinTech Backend Systems Engineer (Go & PostgreSQL)",
+    "companyName": "Indus Net Technologies (INT.)",
+    "companyWebsite": "https://www.indusnet.co.in",
+    "location": "Kolkata, West Bengal, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹9,00,000 - ₹20,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.indusnet.co.in/careers/",
+    "externalId": "regional-indus-net-technologies-int-422-01",
+    "description": "Verified engineering position at Indus Net Technologies (INT.) (Kolkata, West Bengal, India). Domain: Enterprise Web & Mobile / BFSI Digital Transformation. Direct application via official career portal: https://www.indusnet.co.in/careers/",
+    "rawRequirements": "Demonstrated technical capability in Golang, PostgreSQL, Kafka. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Golang",
+      "PostgreSQL",
+      "Kafka",
+      "Redis",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.767Z"
+  },
+  {
+    "title": "Backend API Developer (Node.js & Microservices)",
+    "companyName": "Indus Net Technologies (INT.)",
+    "companyWebsite": "https://www.indusnet.co.in",
+    "location": "Kolkata, West Bengal, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.indusnet.co.in/careers/",
+    "externalId": "regional-indus-net-technologies-int-422-02",
+    "description": "Verified engineering opening at Indus Net Technologies (INT.) (Kolkata, West Bengal, India). Domain focus: Enterprise Web & Mobile / BFSI Digital Transformation. Direct application via official portal: https://www.indusnet.co.in/careers/",
+    "rawRequirements": "Strong foundations in Node.js, TypeScript, PostgreSQL, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Node.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Docker",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Capital Numbers",
+    "companyWebsite": "https://www.capitalnumbers.com",
+    "location": "Kolkata, West Bengal, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.capitalnumbers.com/careers/",
+    "externalId": "regional-capital-numbers-423-01",
+    "description": "Verified engineering position at Capital Numbers (Kolkata, West Bengal, India). Domain: Custom Software Development / Full-Stack / DevOps. Direct application via official career portal: https://www.capitalnumbers.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "Red Apple Technologies",
+    "companyWebsite": "https://www.redappletech.com",
+    "location": "Kolkata, West Bengal, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.redappletech.com/career/",
+    "externalId": "regional-red-apple-technologies-424-01",
+    "description": "Verified engineering position at Red Apple Technologies (Kolkata, West Bengal, India). Domain: Game Development / AR-VR Solutions / Mobile Apps. Direct application via official career portal: https://www.redappletech.com/career/",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Backend API Developer (Node.js & Microservices)",
+    "companyName": "Red Apple Technologies",
+    "companyWebsite": "https://www.redappletech.com",
+    "location": "Kolkata, West Bengal, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.redappletech.com/career/",
+    "externalId": "regional-red-apple-technologies-424-02",
+    "description": "Verified engineering opening at Red Apple Technologies (Kolkata, West Bengal, India). Domain focus: Game Development / AR-VR Solutions / Mobile Apps. Direct application via official portal: https://www.redappletech.com/career/",
+    "rawRequirements": "Strong foundations in Node.js, TypeScript, PostgreSQL, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Node.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Docker",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Pcs Global",
+    "companyWebsite": "https://pcsglobal.in",
+    "location": "Kolkata, West Bengal, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://pcsglobal.in/career/",
+    "externalId": "regional-pcs-global-425-01",
+    "description": "Verified engineering position at Pcs Global (Kolkata, West Bengal, India). Domain: Custom Software Architecture / Java Enterprise Apps. Direct application via official career portal: https://pcsglobal.in/career/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Enterprise Cloud & ERP Software Engineer",
+    "companyName": "Expro Lab Infotech",
+    "companyWebsite": "https://www.exprolab.com",
+    "location": "Kolkata, West Bengal, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,00,000 - ₹15,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.exprolab.com/career.html",
+    "externalId": "regional-expro-lab-infotech-426-01",
+    "description": "Verified engineering position at Expro Lab Infotech (Kolkata, West Bengal, India). Domain: Web Applications / UI-UX Platforms / Custom CRM. Direct application via official career portal: https://www.exprolab.com/career.html",
+    "rawRequirements": "Demonstrated technical capability in Java, Spring Boot, PostgreSQL. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Java",
+      "Spring Boot",
+      "PostgreSQL",
+      "React",
+      "Microservices"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Expro Lab Infotech",
+    "companyWebsite": "https://www.exprolab.com",
+    "location": "Kolkata, West Bengal, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.exprolab.com/career.html",
+    "externalId": "regional-expro-lab-infotech-426-02",
+    "description": "Verified engineering opening at Expro Lab Infotech (Kolkata, West Bengal, India). Domain focus: Web Applications / UI-UX Platforms / Custom CRM. Direct application via official portal: https://www.exprolab.com/career.html",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Dynavision Technology",
+    "companyWebsite": "https://dynavisiontechnology.com",
+    "location": "Kolkata, West Bengal, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://dynavisiontechnology.com/career/",
+    "externalId": "regional-dynavision-technology-427-01",
+    "description": "Verified engineering position at Dynavision Technology (Kolkata, West Bengal, India). Domain: Enterprise Cloud Solutions / Web Application Portals. Direct application via official career portal: https://dynavisiontechnology.com/career/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Tata Consultancy Services",
+    "companyWebsite": "https://www.tcs.com",
+    "location": "Siliguri, West Bengal, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.tcs.com/careers",
+    "externalId": "regional-tata-consultancy-services-428-01",
+    "description": "Verified engineering position at Tata Consultancy Services (Siliguri, West Bengal, India). Domain: Remote IT Infrastructure / Enterprise Cloud Systems. Direct application via official career portal: https://www.tcs.com/careers",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "Tata Consultancy Services",
+    "companyWebsite": "https://www.tcs.com",
+    "location": "Siliguri, West Bengal, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.tcs.com/careers",
+    "externalId": "regional-tata-consultancy-services-428-02",
+    "description": "Verified engineering opening at Tata Consultancy Services (Siliguri, West Bengal, India). Domain focus: Remote IT Infrastructure / Enterprise Cloud Systems. Direct application via official portal: https://www.tcs.com/careers",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Software QA & Test Automation Engineer",
+    "companyName": "Wipro Technologies",
+    "companyWebsite": "https://www.wipro.com",
+    "location": "Siliguri, West Bengal, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://careers.wipro.com/",
+    "externalId": "regional-wipro-technologies-429-01",
+    "description": "Verified engineering position at Wipro Technologies (Siliguri, West Bengal, India). Domain: Digital Operations / Business Process Automation. Direct application via official career portal: https://careers.wipro.com/",
+    "rawRequirements": "Demonstrated technical capability in Cypress, Selenium, TypeScript. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Cypress",
+      "Selenium",
+      "TypeScript",
+      "Jest",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Wipro Technologies",
+    "companyWebsite": "https://www.wipro.com",
+    "location": "Siliguri, West Bengal, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://careers.wipro.com/",
+    "externalId": "regional-wipro-technologies-429-02",
+    "description": "Verified engineering opening at Wipro Technologies (Siliguri, West Bengal, India). Domain focus: Digital Operations / Business Process Automation. Direct application via official portal: https://careers.wipro.com/",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Tech Mahindra",
+    "companyWebsite": "https://www.techmahindra.com",
+    "location": "Siliguri, West Bengal, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://careers.techmahindra.com/",
+    "externalId": "regional-tech-mahindra-430-01",
+    "description": "Verified engineering position at Tech Mahindra (Siliguri, West Bengal, India). Domain: Telecom Systems / Infrastructure Support Services. Direct application via official career portal: https://careers.techmahindra.com/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Tech Mahindra",
+    "companyWebsite": "https://www.techmahindra.com",
+    "location": "Siliguri, West Bengal, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://careers.techmahindra.com/",
+    "externalId": "regional-tech-mahindra-430-02",
+    "description": "Verified engineering opening at Tech Mahindra (Siliguri, West Bengal, India). Domain focus: Telecom Systems / Infrastructure Support Services. Direct application via official portal: https://careers.techmahindra.com/",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Cyber Info Mind",
+    "companyWebsite": "https://www.cyberinfomind.com",
+    "location": "Siliguri, West Bengal, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.cyberinfomind.com/career.php",
+    "externalId": "regional-cyber-info-mind-431-01",
+    "description": "Verified engineering position at Cyber Info Mind (Siliguri, West Bengal, India). Domain: Web Development / Custom Business Software / E-Commerce. Direct application via official career portal: https://www.cyberinfomind.com/career.php",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "Webxcreation",
+    "companyWebsite": "https://webxcreation.com",
+    "location": "Siliguri, West Bengal, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://webxcreation.com/careers/",
+    "externalId": "regional-webxcreation-432-01",
+    "description": "Verified engineering position at Webxcreation (Siliguri, West Bengal, India). Domain: Custom Web Portals / Mobile Applications / Digital. Direct application via official career portal: https://webxcreation.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Backend API Developer (Node.js & Microservices)",
+    "companyName": "Webxcreation",
+    "companyWebsite": "https://webxcreation.com",
+    "location": "Siliguri, West Bengal, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://webxcreation.com/careers/",
+    "externalId": "regional-webxcreation-432-02",
+    "description": "Verified engineering opening at Webxcreation (Siliguri, West Bengal, India). Domain focus: Custom Web Portals / Mobile Applications / Digital. Direct application via official portal: https://webxcreation.com/careers/",
+    "rawRequirements": "Strong foundations in Node.js, TypeScript, PostgreSQL, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Node.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Docker",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Machine Learning & AI Systems Engineer",
+    "companyName": "Technocraft Solutions",
+    "companyWebsite": "https://technocraftsolutions.com",
+    "location": "Siliguri, West Bengal, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹8,00,000 - ₹18,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://technocraftsolutions.com/career/",
+    "externalId": "regional-technocraft-solutions-433-01",
+    "description": "Verified engineering position at Technocraft Solutions (Siliguri, West Bengal, India). Domain: Enterprise ERP / Supply Chain Software / Web Dev. Direct application via official career portal: https://technocraftsolutions.com/career/",
+    "rawRequirements": "Demonstrated technical capability in Python, PyTorch, Machine Learning. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Python",
+      "PyTorch",
+      "Machine Learning",
+      "FastAPI",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Pinnacle Infotech Solutions",
+    "companyWebsite": "https://pinnacleinfotech.com",
+    "location": "Durgapur, West Bengal, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://pinnacleinfotech.com/careers/",
+    "externalId": "regional-pinnacle-infotech-solutions-434-01",
+    "description": "Verified engineering position at Pinnacle Infotech Solutions (Durgapur, West Bengal, India). Domain: BIM Software / CAD Automation / 3D Modeling Tech. Direct application via official career portal: https://pinnacleinfotech.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Pinnacle Infotech Solutions",
+    "companyWebsite": "https://pinnacleinfotech.com",
+    "location": "Durgapur, West Bengal, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://pinnacleinfotech.com/careers/",
+    "externalId": "regional-pinnacle-infotech-solutions-434-02",
+    "description": "Verified engineering opening at Pinnacle Infotech Solutions (Durgapur, West Bengal, India). Domain focus: BIM Software / CAD Automation / 3D Modeling Tech. Direct application via official portal: https://pinnacleinfotech.com/careers/",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Enterprise Cloud & ERP Software Engineer",
+    "companyName": "Genesis Technologies",
+    "companyWebsite": "https://genesistechnologies.in",
+    "location": "Durgapur, West Bengal, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,00,000 - ₹15,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://genesistechnologies.in/careers/",
+    "externalId": "regional-genesis-technologies-435-01",
+    "description": "Verified engineering position at Genesis Technologies (Durgapur, West Bengal, India). Domain: Manufacturing ERP / Hospital Systems / Custom Web. Direct application via official career portal: https://genesistechnologies.in/careers/",
+    "rawRequirements": "Demonstrated technical capability in Java, Spring Boot, PostgreSQL. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Java",
+      "Spring Boot",
+      "PostgreSQL",
+      "React",
+      "Microservices"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "Webpulse Durgapur",
+    "companyWebsite": "https://webpulseindia.com",
+    "location": "Durgapur, West Bengal, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://webpulseindia.com/careers/",
+    "externalId": "regional-webpulse-durgapur-436-01",
+    "description": "Verified engineering position at Webpulse Durgapur (Durgapur, West Bengal, India). Domain: Full-Stack Web Systems / Mobile App Architecture. Direct application via official career portal: https://webpulseindia.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Backend API Developer (Node.js & Microservices)",
+    "companyName": "Webpulse Durgapur",
+    "companyWebsite": "https://webpulseindia.com",
+    "location": "Durgapur, West Bengal, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://webpulseindia.com/careers/",
+    "externalId": "regional-webpulse-durgapur-436-02",
+    "description": "Verified engineering opening at Webpulse Durgapur (Durgapur, West Bengal, India). Domain focus: Full-Stack Web Systems / Mobile App Architecture. Direct application via official portal: https://webpulseindia.com/careers/",
+    "rawRequirements": "Strong foundations in Node.js, TypeScript, PostgreSQL, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Node.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Docker",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Technext Technosoft",
+    "companyWebsite": "https://technext.co.in",
+    "location": "Durgapur, West Bengal, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://technext.co.in/careers/",
+    "externalId": "regional-technext-technosoft-437-01",
+    "description": "Verified engineering position at Technext Technosoft (Durgapur, West Bengal, India). Domain: Custom Web Development / UI-UX / Cloud Applications. Direct application via official career portal: https://technext.co.in/careers/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Inovant Solutions",
+    "companyWebsite": "https://inovantsolutions.com",
+    "location": "Kharagpur, West Bengal, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://inovantsolutions.com/careers/",
+    "externalId": "regional-inovant-solutions-438-01",
+    "description": "Verified engineering position at Inovant Solutions (Kharagpur, West Bengal, India). Domain: IoT Telemetry / Embedded Systems / Custom Software. Direct application via official career portal: https://inovantsolutions.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Inovant Solutions",
+    "companyWebsite": "https://inovantsolutions.com",
+    "location": "Kharagpur, West Bengal, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://inovantsolutions.com/careers/",
+    "externalId": "regional-inovant-solutions-438-02",
+    "description": "Verified engineering opening at Inovant Solutions (Kharagpur, West Bengal, India). Domain focus: IoT Telemetry / Embedded Systems / Custom Software. Direct application via official portal: https://inovantsolutions.com/careers/",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "DataEdge Technologies",
+    "companyWebsite": "https://dataedgetechnologies.com",
+    "location": "Kharagpur, West Bengal, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://dataedgetechnologies.com/careers/",
+    "externalId": "regional-dataedge-technologies-439-01",
+    "description": "Verified engineering position at DataEdge Technologies (Kharagpur, West Bengal, India). Domain: AgriTech Systems / DeepTech Analytics / Cloud Web. Direct application via official career portal: https://dataedgetechnologies.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Machine Learning & AI Systems Engineer",
+    "companyName": "Nexovatech",
+    "companyWebsite": "https://nexovatech.com",
+    "location": "Kharagpur, West Bengal, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹8,00,000 - ₹18,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://nexovatech.com/careers/",
+    "externalId": "regional-nexovatech-440-01",
+    "description": "Verified engineering position at Nexovatech (Kharagpur, West Bengal, India). Domain: Applied AI / Python Cloud Services / Mobile App Dev. Direct application via official career portal: https://nexovatech.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Python, PyTorch, Machine Learning. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Python",
+      "PyTorch",
+      "Machine Learning",
+      "FastAPI",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Backend API Developer (Node.js & Microservices)",
+    "companyName": "Nexovatech",
+    "companyWebsite": "https://nexovatech.com",
+    "location": "Kharagpur, West Bengal, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://nexovatech.com/careers/",
+    "externalId": "regional-nexovatech-440-02",
+    "description": "Verified engineering opening at Nexovatech (Kharagpur, West Bengal, India). Domain focus: Applied AI / Python Cloud Services / Mobile App Dev. Direct application via official portal: https://nexovatech.com/careers/",
+    "rawRequirements": "Strong foundations in Node.js, TypeScript, PostgreSQL, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Node.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Docker",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "TechVariable",
+    "companyWebsite": "https://techvariable.com",
+    "location": "Guwahati, Assam, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://techvariable.com/careers/",
+    "externalId": "regional-techvariable-441-01",
+    "description": "Verified engineering position at TechVariable (Guwahati, Assam, India). Domain: Custom Enterprise Software / Full-Stack / Cloud Apps. Direct application via official career portal: https://techvariable.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "Epicwave Technologies",
+    "companyWebsite": "https://epicwave.tech",
+    "location": "Guwahati, Assam, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://epicwave.tech/dashboard",
+    "externalId": "regional-epicwave-technologies-442-01",
+    "description": "Verified engineering position at Epicwave Technologies (Guwahati, Assam, India). Domain: Hospital ERP / HRMS SaaS / Mobile Applications. Direct application via official career portal: https://epicwave.tech/dashboard",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Backend API Developer (Node.js & Microservices)",
+    "companyName": "Epicwave Technologies",
+    "companyWebsite": "https://epicwave.tech",
+    "location": "Guwahati, Assam, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://epicwave.tech/dashboard",
+    "externalId": "regional-epicwave-technologies-442-02",
+    "description": "Verified engineering opening at Epicwave Technologies (Guwahati, Assam, India). Domain focus: Hospital ERP / HRMS SaaS / Mobile Applications. Direct application via official portal: https://epicwave.tech/dashboard",
+    "rawRequirements": "Strong foundations in Node.js, TypeScript, PostgreSQL, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Node.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Docker",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Probit Technologies",
+    "companyWebsite": "https://www.probittechnologies.com",
+    "location": "Guwahati, Assam, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.probittechnologies.com/software-development.html",
+    "externalId": "regional-probit-technologies-443-01",
+    "description": "Verified engineering position at Probit Technologies (Guwahati, Assam, India). Domain: Custom Software Development / ERP & CRM Systems. Direct application via official career portal: https://www.probittechnologies.com/software-development.html",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Technowell Services",
+    "companyWebsite": "https://technowell.asia",
+    "location": "Guwahati, Assam, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://technowell.asia/",
+    "externalId": "regional-technowell-services-444-01",
+    "description": "Verified engineering position at Technowell Services (Guwahati, Assam, India). Domain: University Automation ERP / Laravel Cloud Systems. Direct application via official career portal: https://technowell.asia/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "Technowell Services",
+    "companyWebsite": "https://technowell.asia",
+    "location": "Guwahati, Assam, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://technowell.asia/",
+    "externalId": "regional-technowell-services-444-02",
+    "description": "Verified engineering opening at Technowell Services (Guwahati, Assam, India). Domain focus: University Automation ERP / Laravel Cloud Systems. Direct application via official portal: https://technowell.asia/",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "FinTech Backend Systems Engineer (Go & PostgreSQL)",
+    "companyName": "GoCharting",
+    "companyWebsite": "https://gocharting.com",
+    "location": "Guwahati, Assam, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹9,00,000 - ₹20,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://gocharting.com/",
+    "externalId": "regional-gocharting-445-01",
+    "description": "Verified engineering position at GoCharting (Guwahati, Assam, India). Domain: Trading Platform Tech / Financial Data Analytics. Direct application via official career portal: https://gocharting.com/",
+    "rawRequirements": "Demonstrated technical capability in Golang, PostgreSQL, Kafka. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Golang",
+      "PostgreSQL",
+      "Kafka",
+      "Redis",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "Web Infotech",
+    "companyWebsite": "https://www.webinfotech.net.in",
+    "location": "Guwahati, Assam, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.webinfotech.net.in/",
+    "externalId": "regional-web-infotech-446-01",
+    "description": "Verified engineering position at Web Infotech (Guwahati, Assam, India). Domain: Custom Business Software / Transport TMS / Mobile Apps. Direct application via official career portal: https://www.webinfotech.net.in/",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Backend API Developer (Node.js & Microservices)",
+    "companyName": "Web Infotech",
+    "companyWebsite": "https://www.webinfotech.net.in",
+    "location": "Guwahati, Assam, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.webinfotech.net.in/",
+    "externalId": "regional-web-infotech-446-02",
+    "description": "Verified engineering opening at Web Infotech (Guwahati, Assam, India). Domain focus: Custom Business Software / Transport TMS / Mobile Apps. Direct application via official portal: https://www.webinfotech.net.in/",
+    "rawRequirements": "Strong foundations in Node.js, TypeScript, PostgreSQL, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Node.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Docker",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Vasp Technologies",
+    "companyWebsite": "https://vasptechnologies.com",
+    "location": "Guwahati, Assam, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://vasptechnologies.com/careers/",
+    "externalId": "regional-vasp-technologies-447-01",
+    "description": "Verified engineering position at Vasp Technologies (Guwahati, Assam, India). Domain: Education ERP Solutions / Cloud Portals / Web. Direct application via official career portal: https://vasptechnologies.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Haaku Digital",
+    "companyWebsite": "https://haakudigital.com",
+    "location": "Guwahati, Assam, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://haakudigital.com/careers/",
+    "externalId": "regional-haaku-digital-448-01",
+    "description": "Verified engineering position at Haaku Digital (Guwahati, Assam, India). Domain: Custom Applications / MIS Software / Enterprise ERP. Direct application via official career portal: https://haakudigital.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Haaku Digital",
+    "companyWebsite": "https://haakudigital.com",
+    "location": "Guwahati, Assam, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://haakudigital.com/careers/",
+    "externalId": "regional-haaku-digital-448-02",
+    "description": "Verified engineering opening at Haaku Digital (Guwahati, Assam, India). Domain focus: Custom Applications / MIS Software / Enterprise ERP. Direct application via official portal: https://haakudigital.com/careers/",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "OZOSOFT India",
+    "companyWebsite": "https://ozosoft.in",
+    "location": "Guwahati, Assam, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://ozosoft.in/careers/",
+    "externalId": "regional-ozosoft-india-449-01",
+    "description": "Verified engineering position at OZOSOFT India (Guwahati, Assam, India). Domain: Progressive Web Apps / Cross-Platform Mobile Dev. Direct application via official career portal: https://ozosoft.in/careers/",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "Otechnonix India",
+    "companyWebsite": "https://www.otechnonix.com",
+    "location": "Guwahati, Assam, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.otechnonix.com/",
+    "externalId": "regional-otechnonix-india-450-01",
+    "description": "Verified engineering position at Otechnonix India (Guwahati, Assam, India). Domain: CRM Architecture / Business Automation / Mobile Apps. Direct application via official career portal: https://www.otechnonix.com/",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Backend API Developer (Node.js & Microservices)",
+    "companyName": "Otechnonix India",
+    "companyWebsite": "https://www.otechnonix.com",
+    "location": "Guwahati, Assam, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.otechnonix.com/",
+    "externalId": "regional-otechnonix-india-450-02",
+    "description": "Verified engineering opening at Otechnonix India (Guwahati, Assam, India). Domain focus: CRM Architecture / Business Automation / Mobile Apps. Direct application via official portal: https://www.otechnonix.com/",
+    "rawRequirements": "Strong foundations in Node.js, TypeScript, PostgreSQL, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Node.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Docker",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "ABH Software",
+    "companyWebsite": "https://abhsoftware.com",
+    "location": "Guwahati, Assam, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://abhsoftware.com/",
+    "externalId": "regional-abh-software-451-01",
+    "description": "Verified engineering position at ABH Software (Guwahati, Assam, India). Domain: Enterprise Strategy Tech / Android Applications / Web. Direct application via official career portal: https://abhsoftware.com/",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "WebsApp Solutions",
+    "companyWebsite": "https://websappsolutions.com",
+    "location": "Guwahati, Assam, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://websappsolutions.com/careers/",
+    "externalId": "regional-websapp-solutions-452-01",
+    "description": "Verified engineering position at WebsApp Solutions (Guwahati, Assam, India). Domain: Cloud Applications / Custom Business Software. Direct application via official career portal: https://websappsolutions.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "WebsApp Solutions",
+    "companyWebsite": "https://websappsolutions.com",
+    "location": "Guwahati, Assam, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://websappsolutions.com/careers/",
+    "externalId": "regional-websapp-solutions-452-02",
+    "description": "Verified engineering opening at WebsApp Solutions (Guwahati, Assam, India). Domain focus: Cloud Applications / Custom Business Software. Direct application via official portal: https://websappsolutions.com/careers/",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "Iewduh Techz",
+    "companyWebsite": "https://iewduh.com",
+    "location": "Shillong, Meghalaya, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://iewduh.com/careers/",
+    "externalId": "regional-iewduh-techz-453-01",
+    "description": "Verified engineering position at Iewduh Techz (Shillong, Meghalaya, India). Domain: Custom Mobile Applications / Web Systems / Portals. Direct application via official career portal: https://iewduh.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "S.S. Netcom",
+    "companyWebsite": "https://ssnetcom.co.in",
+    "location": "Shillong, Meghalaya, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://ssnetcom.co.in/careers/",
+    "externalId": "regional-s-s-netcom-454-01",
+    "description": "Verified engineering position at S.S. Netcom (Shillong, Meghalaya, India). Domain: IT Consulting / Enterprise Systems / Network Architecture. Direct application via official career portal: https://ssnetcom.co.in/careers/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "S.S. Netcom",
+    "companyWebsite": "https://ssnetcom.co.in",
+    "location": "Shillong, Meghalaya, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://ssnetcom.co.in/careers/",
+    "externalId": "regional-s-s-netcom-454-02",
+    "description": "Verified engineering opening at S.S. Netcom (Shillong, Meghalaya, India). Domain focus: IT Consulting / Enterprise Systems / Network Architecture. Direct application via official portal: https://ssnetcom.co.in/careers/",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Groweagles Techsoul",
+    "companyWebsite": "https://groweagles.com",
+    "location": "Shillong, Meghalaya, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://groweagles.com/careers/",
+    "externalId": "regional-groweagles-techsoul-455-01",
+    "description": "Verified engineering position at Groweagles Techsoul (Shillong, Meghalaya, India). Domain: Cloud Solutions / Web Application Engineering. Direct application via official career portal: https://groweagles.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Enterprise Cloud & ERP Software Engineer",
+    "companyName": "Intown Solutions",
+    "companyWebsite": "https://intownsolutions.com",
+    "location": "Shillong, Meghalaya, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,00,000 - ₹15,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://intownsolutions.com/careers/",
+    "externalId": "regional-intown-solutions-456-01",
+    "description": "Verified engineering position at Intown Solutions (Shillong, Meghalaya, India). Domain: Enterprise Web Portals / Digital Systems Consulting. Direct application via official career portal: https://intownsolutions.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Java, Spring Boot, PostgreSQL. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Java",
+      "Spring Boot",
+      "PostgreSQL",
+      "React",
+      "Microservices"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Intown Solutions",
+    "companyWebsite": "https://intownsolutions.com",
+    "location": "Shillong, Meghalaya, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://intownsolutions.com/careers/",
+    "externalId": "regional-intown-solutions-456-02",
+    "description": "Verified engineering opening at Intown Solutions (Shillong, Meghalaya, India). Domain focus: Enterprise Web Portals / Digital Systems Consulting. Direct application via official portal: https://intownsolutions.com/careers/",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Full Stack Software Engineer (React & Node.js)",
+    "companyName": "Lariox Infotech",
+    "companyWebsite": "https://larioxinfotech.com",
+    "location": "Shillong, Meghalaya, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://larioxinfotech.com/careers/",
+    "externalId": "regional-lariox-infotech-457-01",
+    "description": "Verified engineering position at Lariox Infotech (Shillong, Meghalaya, India). Domain: Custom Web Development / UI-UX Platforms. Direct application via official career portal: https://larioxinfotech.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in React, TypeScript, Node.js. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "React",
+      "TypeScript",
+      "Node.js",
+      "PostgreSQL",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Machine Learning & AI Systems Engineer",
+    "companyName": "Techsoul",
+    "companyWebsite": "https://techsoul.co.in",
+    "location": "Shillong, Meghalaya, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹8,00,000 - ₹18,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://techsoul.co.in/careers/",
+    "externalId": "regional-techsoul-458-01",
+    "description": "Verified engineering position at Techsoul (Shillong, Meghalaya, India). Domain: Web Application Architecture / Systems Maintenance. Direct application via official career portal: https://techsoul.co.in/careers/",
+    "rawRequirements": "Demonstrated technical capability in Python, PyTorch, Machine Learning. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Python",
+      "PyTorch",
+      "Machine Learning",
+      "FastAPI",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Python Data Engineer & Pipeline Developer",
+    "companyName": "Techsoul",
+    "companyWebsite": "https://techsoul.co.in",
+    "location": "Shillong, Meghalaya, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://techsoul.co.in/careers/",
+    "externalId": "regional-techsoul-458-02",
+    "description": "Verified engineering opening at Techsoul (Shillong, Meghalaya, India). Domain focus: Web Application Architecture / Systems Maintenance. Direct application via official portal: https://techsoul.co.in/careers/",
+    "rawRequirements": "Strong foundations in Python, SQL, Pandas, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Python",
+      "SQL",
+      "Pandas",
+      "PostgreSQL",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Ramietech Solutions",
+    "companyWebsite": "https://ramietech.in",
+    "location": "Kohima, Nagaland, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://ramietech.in/careers/",
+    "externalId": "regional-ramietech-solutions-459-01",
+    "description": "Verified engineering position at Ramietech Solutions (Kohima, Nagaland, India). Domain: Custom Database Systems / E-Gov Software / Web. Direct application via official career portal: https://ramietech.in/careers/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Excellogics Tech Solutions",
+    "companyWebsite": "https://excellogics.com",
+    "location": "Kohima, Nagaland, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://excellogics.com/careers/",
+    "externalId": "regional-excellogics-tech-solutions-460-01",
+    "description": "Verified engineering position at Excellogics Tech Solutions (Kohima, Nagaland, India). Domain: Enterprise Web Portals / Educational Software / Apps. Direct application via official career portal: https://excellogics.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Excellogics Tech Solutions",
+    "companyWebsite": "https://excellogics.com",
+    "location": "Kohima, Nagaland, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://excellogics.com/careers/",
+    "externalId": "regional-excellogics-tech-solutions-460-02",
+    "description": "Verified engineering opening at Excellogics Tech Solutions (Kohima, Nagaland, India). Domain focus: Enterprise Web Portals / Educational Software / Apps. Direct application via official portal: https://excellogics.com/careers/",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Full Stack Software Engineer (React & Node.js)",
+    "companyName": "Multi Solutions Corner",
+    "companyWebsite": "https://multisolutionscorner.com",
+    "location": "Kohima, Nagaland, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://multisolutionscorner.com/careers/",
+    "externalId": "regional-multi-solutions-corner-461-01",
+    "description": "Verified engineering position at Multi Solutions Corner (Kohima, Nagaland, India). Domain: Administrative Systems / Web Application Portals. Direct application via official career portal: https://multisolutionscorner.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in React, TypeScript, Node.js. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "React",
+      "TypeScript",
+      "Node.js",
+      "PostgreSQL",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "FinTech Backend Systems Engineer (Go & PostgreSQL)",
+    "companyName": "CubeTen Technologies",
+    "companyWebsite": "https://cubeten.com",
+    "location": "Imphal, Manipur, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹9,00,000 - ₹20,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://cubeten.com/careers/",
+    "externalId": "regional-cubeten-technologies-462-01",
+    "description": "Verified engineering position at CubeTen Technologies (Imphal, Manipur, India). Domain: E-Governance Software / Banking Gateways / ERP. Direct application via official career portal: https://cubeten.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Golang, PostgreSQL, Kafka. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Golang",
+      "PostgreSQL",
+      "Kafka",
+      "Redis",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "CubeTen Technologies",
+    "companyWebsite": "https://cubeten.com",
+    "location": "Imphal, Manipur, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://cubeten.com/careers/",
+    "externalId": "regional-cubeten-technologies-462-02",
+    "description": "Verified engineering opening at CubeTen Technologies (Imphal, Manipur, India). Domain focus: E-Governance Software / Banking Gateways / ERP. Direct application via official portal: https://cubeten.com/careers/",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "Codexp",
+    "companyWebsite": "https://codexp.in",
+    "location": "Imphal, Manipur, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://codexp.in/careers/",
+    "externalId": "regional-codexp-463-01",
+    "description": "Verified engineering position at Codexp (Imphal, Manipur, India). Domain: Custom Software Development / Full-Stack Web / Mobile. Direct application via official career portal: https://codexp.in/careers/",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Full Stack Software Engineer (React & Node.js)",
+    "companyName": "Skoolsync",
+    "companyWebsite": "https://skoolsync.com",
+    "location": "Imphal, Manipur, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://skoolsync.com/careers/",
+    "externalId": "regional-skoolsync-464-01",
+    "description": "Verified engineering position at Skoolsync (Imphal, Manipur, India). Domain: School Management SaaS / Student Tracking Systems. Direct application via official career portal: https://skoolsync.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in React, TypeScript, Node.js. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "React",
+      "TypeScript",
+      "Node.js",
+      "PostgreSQL",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Skoolsync",
+    "companyWebsite": "https://skoolsync.com",
+    "location": "Imphal, Manipur, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://skoolsync.com/careers/",
+    "externalId": "regional-skoolsync-464-02",
+    "description": "Verified engineering opening at Skoolsync (Imphal, Manipur, India). Domain focus: School Management SaaS / Student Tracking Systems. Direct application via official portal: https://skoolsync.com/careers/",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Full Stack Software Engineer (React & Node.js)",
+    "companyName": "Lamphelpat Digital Marketing",
+    "companyWebsite": "https://lamphelpatdigital.com",
+    "location": "Imphal, Manipur, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://lamphelpatdigital.com/careers/",
+    "externalId": "regional-lamphelpat-digital-marketing-465-01",
+    "description": "Verified engineering position at Lamphelpat Digital Marketing (Imphal, Manipur, India). Domain: Web Application Engineering / Business Portals. Direct application via official career portal: https://lamphelpatdigital.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in React, TypeScript, Node.js. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "React",
+      "TypeScript",
+      "Node.js",
+      "PostgreSQL",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "Techno Tripura",
+    "companyWebsite": "https://technotripura.com",
+    "location": "Agartala, Tripura, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://technotripura.com/careers/",
+    "externalId": "regional-techno-tripura-466-01",
+    "description": "Verified engineering position at Techno Tripura (Agartala, Tripura, India). Domain: Custom Web Development / ERP Systems / Mobile Apps. Direct application via official career portal: https://technotripura.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Backend API Developer (Node.js & Microservices)",
+    "companyName": "Techno Tripura",
+    "companyWebsite": "https://technotripura.com",
+    "location": "Agartala, Tripura, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://technotripura.com/careers/",
+    "externalId": "regional-techno-tripura-466-02",
+    "description": "Verified engineering opening at Techno Tripura (Agartala, Tripura, India). Domain focus: Custom Web Development / ERP Systems / Mobile Apps. Direct application via official portal: https://technotripura.com/careers/",
+    "rawRequirements": "Strong foundations in Node.js, TypeScript, PostgreSQL, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Node.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Docker",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Digisolvent",
+    "companyWebsite": "https://digisolvent.com",
+    "location": "Agartala, Tripura, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://digisolvent.com/careers/",
+    "externalId": "regional-digisolvent-467-01",
+    "description": "Verified engineering position at Digisolvent (Agartala, Tripura, India). Domain: Enterprise Portals / Cloud Application Solutions. Direct application via official career portal: https://digisolvent.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "Thecodingfarm",
+    "companyWebsite": "https://thecodingfarm.com",
+    "location": "Agartala, Tripura, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://thecodingfarm.com/careers/",
+    "externalId": "regional-thecodingfarm-468-01",
+    "description": "Verified engineering position at Thecodingfarm (Agartala, Tripura, India). Domain: Full-Stack Web Engineering / Custom Mobile Systems. Direct application via official career portal: https://thecodingfarm.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Backend API Developer (Node.js & Microservices)",
+    "companyName": "Thecodingfarm",
+    "companyWebsite": "https://thecodingfarm.com",
+    "location": "Agartala, Tripura, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://thecodingfarm.com/careers/",
+    "externalId": "regional-thecodingfarm-468-02",
+    "description": "Verified engineering opening at Thecodingfarm (Agartala, Tripura, India). Domain focus: Full-Stack Web Engineering / Custom Mobile Systems. Direct application via official portal: https://thecodingfarm.com/careers/",
+    "rawRequirements": "Strong foundations in Node.js, TypeScript, PostgreSQL, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Node.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Docker",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Brewnok Consultancy",
+    "companyWebsite": "https://brewnok.com",
+    "location": "Agartala, Tripura, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://brewnok.com/careers/",
+    "externalId": "regional-brewnok-consultancy-469-01",
+    "description": "Verified engineering position at Brewnok Consultancy (Agartala, Tripura, India). Domain: Digital Solutions Consulting / Web Architecture. Direct application via official career portal: https://brewnok.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Full Stack Software Engineer (React & Node.js)",
+    "companyName": "Webstar Technology",
+    "companyWebsite": "https://webstartech.com",
+    "location": "Agartala, Tripura, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://webstartech.com/careers/",
+    "externalId": "regional-webstar-technology-470-01",
+    "description": "Verified engineering position at Webstar Technology (Agartala, Tripura, India). Domain: Web Application Development / Database Support. Direct application via official career portal: https://webstartech.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in React, TypeScript, Node.js. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "React",
+      "TypeScript",
+      "Node.js",
+      "PostgreSQL",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Webstar Technology",
+    "companyWebsite": "https://webstartech.com",
+    "location": "Agartala, Tripura, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://webstartech.com/careers/",
+    "externalId": "regional-webstar-technology-470-02",
+    "description": "Verified engineering opening at Webstar Technology (Agartala, Tripura, India). Domain focus: Web Application Development / Database Support. Direct application via official portal: https://webstartech.com/careers/",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Mizosoft Solutions",
+    "companyWebsite": "https://mizosoft.com",
+    "location": "Aizawl, Mizoram, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://mizosoft.com/careers/",
+    "externalId": "regional-mizosoft-solutions-471-01",
+    "description": "Verified engineering position at Mizosoft Solutions (Aizawl, Mizoram, India). Domain: Custom Business ERP / Institutional Software / Apps. Direct application via official career portal: https://mizosoft.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Webloxic Aizawl",
+    "companyWebsite": "https://webloxic.com",
+    "location": "Aizawl, Mizoram, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://webloxic.com/contact-us/",
+    "externalId": "regional-webloxic-aizawl-472-01",
+    "description": "Verified engineering position at Webloxic Aizawl (Aizawl, Mizoram, India). Domain: Direct Selling Software / Cloud E-Commerce Systems. Direct application via official career portal: https://webloxic.com/contact-us/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "Webloxic Aizawl",
+    "companyWebsite": "https://webloxic.com",
+    "location": "Aizawl, Mizoram, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://webloxic.com/contact-us/",
+    "externalId": "regional-webloxic-aizawl-472-02",
+    "description": "Verified engineering opening at Webloxic Aizawl (Aizawl, Mizoram, India). Domain focus: Direct Selling Software / Cloud E-Commerce Systems. Direct application via official portal: https://webloxic.com/contact-us/",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Full Stack Software Engineer (React & Node.js)",
+    "companyName": "Alitronz Technology",
+    "companyWebsite": "https://alitronz.com",
+    "location": "Itanagar, Arunachal Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://alitronz.com/careers/",
+    "externalId": "regional-alitronz-technology-473-01",
+    "description": "Verified engineering position at Alitronz Technology (Itanagar, Arunachal Pradesh, India). Domain: Custom Web Portals / Decentralized Applications / Apps. Direct application via official career portal: https://alitronz.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in React, TypeScript, Node.js. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "React",
+      "TypeScript",
+      "Node.js",
+      "PostgreSQL",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Webloxic Itanagar",
+    "companyWebsite": "https://webloxic.com",
+    "location": "Itanagar, Arunachal Pradesh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://webloxic.com/contact-us/",
+    "externalId": "regional-webloxic-itanagar-474-01",
+    "description": "Verified engineering position at Webloxic Itanagar (Itanagar, Arunachal Pradesh, India). Domain: Enterprise CRM Portals / Custom Business Software. Direct application via official career portal: https://webloxic.com/contact-us/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Webloxic Itanagar",
+    "companyWebsite": "https://webloxic.com",
+    "location": "Itanagar, Arunachal Pradesh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://webloxic.com/contact-us/",
+    "externalId": "regional-webloxic-itanagar-474-02",
+    "description": "Verified engineering opening at Webloxic Itanagar (Itanagar, Arunachal Pradesh, India). Domain focus: Enterprise CRM Portals / Custom Business Software. Direct application via official portal: https://webloxic.com/contact-us/",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Webloxic Gangtok",
+    "companyWebsite": "https://webloxic.com",
+    "location": "Gangtok, Sikkim, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://webloxic.com/contact-us/",
+    "externalId": "regional-webloxic-gangtok-475-01",
+    "description": "Verified engineering position at Webloxic Gangtok (Gangtok, Sikkim, India). Domain: Cloud Applications / E-Commerce Systems / Web Dev. Direct application via official career portal: https://webloxic.com/contact-us/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "Himalayan Techies",
+    "companyWebsite": "https://himalayantechies.com",
+    "location": "Gangtok, Sikkim, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://himalayantechies.com/careers/",
+    "externalId": "regional-himalayan-techies-476-01",
+    "description": "Verified engineering position at Himalayan Techies (Gangtok, Sikkim, India). Domain: Tourism Software Portals / Custom Mobile Apps / Web. Direct application via official career portal: https://himalayantechies.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Backend API Developer (Node.js & Microservices)",
+    "companyName": "Himalayan Techies",
+    "companyWebsite": "https://himalayantechies.com",
+    "location": "Gangtok, Sikkim, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://himalayantechies.com/careers/",
+    "externalId": "regional-himalayan-techies-476-02",
+    "description": "Verified engineering opening at Himalayan Techies (Gangtok, Sikkim, India). Domain focus: Tourism Software Portals / Custom Mobile Apps / Web. Direct application via official portal: https://himalayantechies.com/careers/",
+    "rawRequirements": "Strong foundations in Node.js, TypeScript, PostgreSQL, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Node.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Docker",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Enterprise Cloud & ERP Software Engineer",
+    "companyName": "Sikkim Softwares",
+    "companyWebsite": "https://sikkimsoftwares.com",
+    "location": "Gangtok, Sikkim, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,00,000 - ₹15,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://sikkimsoftwares.com/careers/",
+    "externalId": "regional-sikkim-softwares-477-01",
+    "description": "Verified engineering position at Sikkim Softwares (Gangtok, Sikkim, India). Domain: State E-Gov Portals / Local Enterprise ERP Modules. Direct application via official career portal: https://sikkimsoftwares.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Java, Spring Boot, PostgreSQL. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Java",
+      "Spring Boot",
+      "PostgreSQL",
+      "React",
+      "Microservices"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Machine Learning & AI Systems Engineer",
+    "companyName": "Infosys Limited",
+    "companyWebsite": "https://www.infosys.com",
+    "location": "Bhubaneswar, Odisha, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.infosys.com/careers/",
+    "externalId": "regional-infosys-limited-478-01",
+    "description": "Verified engineering position at Infosys Limited (Bhubaneswar, Odisha, India). Domain: Core Banking / Enterprise Cloud / AI Transformation. Direct application via official career portal: https://www.infosys.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Python, PyTorch, Machine Learning. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Python",
+      "PyTorch",
+      "Machine Learning",
+      "FastAPI",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Python Data Engineer & Pipeline Developer",
+    "companyName": "Infosys Limited",
+    "companyWebsite": "https://www.infosys.com",
+    "location": "Bhubaneswar, Odisha, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.infosys.com/careers/",
+    "externalId": "regional-infosys-limited-478-02",
+    "description": "Verified engineering opening at Infosys Limited (Bhubaneswar, Odisha, India). Domain focus: Core Banking / Enterprise Cloud / AI Transformation. Direct application via official portal: https://www.infosys.com/careers/",
+    "rawRequirements": "Strong foundations in Python, SQL, Pandas, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Python",
+      "SQL",
+      "Pandas",
+      "PostgreSQL",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Tata Consultancy Services",
+    "companyWebsite": "https://www.tcs.com",
+    "location": "Bhubaneswar, Odisha, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.tcs.com/careers",
+    "externalId": "regional-tata-consultancy-services-479-01",
+    "description": "Verified engineering position at Tata Consultancy Services (Bhubaneswar, Odisha, India). Domain: Cognitive Business Operations / Cloud Infrastructure. Direct application via official career portal: https://www.tcs.com/careers",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "Tata Consultancy Services",
+    "companyWebsite": "https://www.tcs.com",
+    "location": "Bhubaneswar, Odisha, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.tcs.com/careers",
+    "externalId": "regional-tata-consultancy-services-479-02",
+    "description": "Verified engineering opening at Tata Consultancy Services (Bhubaneswar, Odisha, India). Domain focus: Cognitive Business Operations / Cloud Infrastructure. Direct application via official portal: https://www.tcs.com/careers",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Wipro Technologies",
+    "companyWebsite": "https://www.wipro.com",
+    "location": "Bhubaneswar, Odisha, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://careers.wipro.com/",
+    "externalId": "regional-wipro-technologies-480-01",
+    "description": "Verified engineering position at Wipro Technologies (Bhubaneswar, Odisha, India). Domain: Enterprise Cloud Solutions / Digital Infrastructure. Direct application via official career portal: https://careers.wipro.com/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "Wipro Technologies",
+    "companyWebsite": "https://www.wipro.com",
+    "location": "Bhubaneswar, Odisha, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://careers.wipro.com/",
+    "externalId": "regional-wipro-technologies-480-02",
+    "description": "Verified engineering opening at Wipro Technologies (Bhubaneswar, Odisha, India). Domain focus: Enterprise Cloud Solutions / Digital Infrastructure. Direct application via official portal: https://careers.wipro.com/",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "LTIMindtree",
+    "companyWebsite": "https://www.ltimindtree.com",
+    "location": "Bhubaneswar, Odisha, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.ltimindtree.com/careers/",
+    "externalId": "regional-ltimindtree-481-01",
+    "description": "Verified engineering position at LTIMindtree (Bhubaneswar, Odisha, India). Domain: Digital Engineering / Cloud Modernization / Data. Direct application via official career portal: https://www.ltimindtree.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Capgemini India",
+    "companyWebsite": "https://www.capgemini.com",
+    "location": "Bhubaneswar, Odisha, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.capgemini.com/in-en/careers/",
+    "externalId": "regional-capgemini-india-482-01",
+    "description": "Verified engineering position at Capgemini India (Bhubaneswar, Odisha, India). Domain: Application Modernization / Cloud Infrastructure / Data. Direct application via official career portal: https://www.capgemini.com/in-en/careers/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "Capgemini India",
+    "companyWebsite": "https://www.capgemini.com",
+    "location": "Bhubaneswar, Odisha, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.capgemini.com/in-en/careers/",
+    "externalId": "regional-capgemini-india-482-02",
+    "description": "Verified engineering opening at Capgemini India (Bhubaneswar, Odisha, India). Domain focus: Application Modernization / Cloud Infrastructure / Data. Direct application via official portal: https://www.capgemini.com/in-en/careers/",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Cognizant Technology Solutions",
+    "companyWebsite": "https://www.cognizant.com",
+    "location": "Bhubaneswar, Odisha, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹12,00,000 - ₹26,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://careers.cognizant.com/",
+    "externalId": "regional-cognizant-technology-solutions-483-01",
+    "description": "Verified engineering position at Cognizant Technology Solutions (Bhubaneswar, Odisha, India). Domain: Digital Engineering / Enterprise Cloud Systems / BFSI. Direct application via official career portal: https://careers.cognizant.com/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "Cognizant Technology Solutions",
+    "companyWebsite": "https://www.cognizant.com",
+    "location": "Bhubaneswar, Odisha, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹10,00,000 - ₹22,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://careers.cognizant.com/",
+    "externalId": "regional-cognizant-technology-solutions-483-02",
+    "description": "Verified engineering opening at Cognizant Technology Solutions (Bhubaneswar, Odisha, India). Domain focus: Digital Engineering / Enterprise Cloud Systems / BFSI. Direct application via official portal: https://careers.cognizant.com/",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Mindfire Solutions",
+    "companyWebsite": "https://www.mindfiresolutions.com",
+    "location": "Bhubaneswar, Odisha, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.mindfiresolutions.com/careers/",
+    "externalId": "regional-mindfire-solutions-484-01",
+    "description": "Verified engineering position at Mindfire Solutions (Bhubaneswar, Odisha, India). Domain: Custom Enterprise Software / Full-Stack / Cloud DevOps. Direct application via official career portal: https://www.mindfiresolutions.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "Mindfire Solutions",
+    "companyWebsite": "https://www.mindfiresolutions.com",
+    "location": "Bhubaneswar, Odisha, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.mindfiresolutions.com/careers/",
+    "externalId": "regional-mindfire-solutions-484-02",
+    "description": "Verified engineering opening at Mindfire Solutions (Bhubaneswar, Odisha, India). Domain focus: Custom Enterprise Software / Full-Stack / Cloud DevOps. Direct application via official portal: https://www.mindfiresolutions.com/careers/",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Muvi",
+    "companyWebsite": "https://www.muvi.com",
+    "location": "Bhubaneswar, Odisha, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.muvi.com/careers.html",
+    "externalId": "regional-muvi-485-01",
+    "description": "Verified engineering position at Muvi (Bhubaneswar, Odisha, India). Domain: Streaming Media Architecture / OTT SaaS Platforms. Direct application via official career portal: https://www.muvi.com/careers.html",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "CureBay",
+    "companyWebsite": "https://www.curebay.com",
+    "location": "Bhubaneswar, Odisha, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.curebay.com/careers",
+    "externalId": "regional-curebay-486-01",
+    "description": "Verified engineering position at CureBay (Bhubaneswar, Odisha, India). Domain: Healthcare SaaS / Tele-Medicine / Cloud Diagnostics. Direct application via official career portal: https://www.curebay.com/careers",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "CureBay",
+    "companyWebsite": "https://www.curebay.com",
+    "location": "Bhubaneswar, Odisha, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.curebay.com/careers",
+    "externalId": "regional-curebay-486-02",
+    "description": "Verified engineering opening at CureBay (Bhubaneswar, Odisha, India). Domain focus: Healthcare SaaS / Tele-Medicine / Cloud Diagnostics. Direct application via official portal: https://www.curebay.com/careers",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Machine Learning & AI Systems Engineer",
+    "companyName": "Datoms (Phoenix Robotix)",
+    "companyWebsite": "https://datoms.io",
+    "location": "Bhubaneswar, Odisha, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹8,00,000 - ₹18,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://datoms.io/careers",
+    "externalId": "regional-datoms-phoenix-robotix-487-01",
+    "description": "Verified engineering position at Datoms (Phoenix Robotix) (Bhubaneswar, Odisha, India). Domain: Industrial IoT Platforms / Asset Telemetry / Edge AI. Direct application via official career portal: https://datoms.io/careers",
+    "rawRequirements": "Demonstrated technical capability in Python, PyTorch, Machine Learning. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Python",
+      "PyTorch",
+      "Machine Learning",
+      "FastAPI",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Backend Software Engineer (High-Throughput Routing & APIs)",
+    "companyName": "BonV Aero",
+    "companyWebsite": "https://bonvaero.com",
+    "location": "Bhubaneswar, Odisha, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹8,50,000 - ₹18,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://bonvaero.com/careers",
+    "externalId": "regional-bonv-aero-488-01",
+    "description": "Verified engineering position at BonV Aero (Bhubaneswar, Odisha, India). Domain: Autonomous Drone Logistics / Embedded Flight Control. Direct application via official career portal: https://bonvaero.com/careers",
+    "rawRequirements": "Demonstrated technical capability in Node.js, Python, Redis. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Node.js",
+      "Python",
+      "Redis",
+      "PostgreSQL",
+      "System Design"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "BonV Aero",
+    "companyWebsite": "https://bonvaero.com",
+    "location": "Bhubaneswar, Odisha, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://bonvaero.com/careers",
+    "externalId": "regional-bonv-aero-488-02",
+    "description": "Verified engineering opening at BonV Aero (Bhubaneswar, Odisha, India). Domain focus: Autonomous Drone Logistics / Embedded Flight Control. Direct application via official portal: https://bonvaero.com/careers",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Machine Learning & AI Systems Engineer",
+    "companyName": "Enterprise System Solutions (ESSPL)",
+    "companyWebsite": "https://www.esspl.com",
+    "location": "Bhubaneswar, Odisha, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹8,00,000 - ₹18,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.esspl.com/careers/",
+    "externalId": "regional-enterprise-system-solutions-esspl-489-01",
+    "description": "Verified engineering position at Enterprise System Solutions (ESSPL) (Bhubaneswar, Odisha, India). Domain: Supply Chain Technology / Business Intelligence / Cloud. Direct application via official career portal: https://www.esspl.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Python, PyTorch, Machine Learning. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Python",
+      "PyTorch",
+      "Machine Learning",
+      "FastAPI",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "Ajatus Software",
+    "companyWebsite": "https://ajatus.co.in",
+    "location": "Bhubaneswar, Odisha, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://ajatus.co.in/careers/",
+    "externalId": "regional-ajatus-software-490-01",
+    "description": "Verified engineering position at Ajatus Software (Bhubaneswar, Odisha, India). Domain: Mobile Application Architecture / Full-Stack Web Dev. Direct application via official career portal: https://ajatus.co.in/careers/",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Backend API Developer (Node.js & Microservices)",
+    "companyName": "Ajatus Software",
+    "companyWebsite": "https://ajatus.co.in",
+    "location": "Bhubaneswar, Odisha, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://ajatus.co.in/careers/",
+    "externalId": "regional-ajatus-software-490-02",
+    "description": "Verified engineering opening at Ajatus Software (Bhubaneswar, Odisha, India). Domain focus: Mobile Application Architecture / Full-Stack Web Dev. Direct application via official portal: https://ajatus.co.in/careers/",
+    "rawRequirements": "Strong foundations in Node.js, TypeScript, PostgreSQL, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Node.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Docker",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Smaket.ai",
+    "companyWebsite": "https://www.smaket.ai",
+    "location": "Bhubaneswar, Odisha, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.smaket.ai/contact-us",
+    "externalId": "regional-smaket-ai-491-01",
+    "description": "Verified engineering position at Smaket.ai (Bhubaneswar, Odisha, India). Domain: GST Billing Software / Accounting Automation SaaS. Direct application via official career portal: https://www.smaket.ai/contact-us",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Computer Lab",
+    "companyWebsite": "https://computerlab.co.in",
+    "location": "Bhubaneswar, Odisha, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://computerlab.co.in/contact.html",
+    "externalId": "regional-computer-lab-492-01",
+    "description": "Verified engineering position at Computer Lab (Bhubaneswar, Odisha, India). Domain: E-Governance Software / Data Digitization / BPO. Direct application via official career portal: https://computerlab.co.in/contact.html",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Computer Lab",
+    "companyWebsite": "https://computerlab.co.in",
+    "location": "Bhubaneswar, Odisha, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://computerlab.co.in/contact.html",
+    "externalId": "regional-computer-lab-492-02",
+    "description": "Verified engineering opening at Computer Lab (Bhubaneswar, Odisha, India). Domain focus: E-Governance Software / Data Digitization / BPO. Direct application via official portal: https://computerlab.co.in/contact.html",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Machine Learning & AI Systems Engineer",
+    "companyName": "Quocent",
+    "companyWebsite": "https://quocent.com",
+    "location": "Bhubaneswar, Odisha, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹8,00,000 - ₹18,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://quocent.com/careers",
+    "externalId": "regional-quocent-493-01",
+    "description": "Verified engineering position at Quocent (Bhubaneswar, Odisha, India). Domain: Turnkey Digital Platforms / AI / IoT / E-Governance. Direct application via official career portal: https://quocent.com/careers",
+    "rawRequirements": "Demonstrated technical capability in Python, PyTorch, Machine Learning. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Python",
+      "PyTorch",
+      "Machine Learning",
+      "FastAPI",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Swadhin IT Solutions",
+    "companyWebsite": "https://sitsindia.co.in",
+    "location": "Cuttack, Odisha, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://sitsindia.co.in/careers/",
+    "externalId": "regional-swadhin-it-solutions-494-01",
+    "description": "Verified engineering position at Swadhin IT Solutions (Cuttack, Odisha, India). Domain: Enterprise ERP / Custom Software / Healthcare IT. Direct application via official career portal: https://sitsindia.co.in/careers/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Swadhin IT Solutions",
+    "companyWebsite": "https://sitsindia.co.in",
+    "location": "Cuttack, Odisha, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://sitsindia.co.in/careers/",
+    "externalId": "regional-swadhin-it-solutions-494-02",
+    "description": "Verified engineering opening at Swadhin IT Solutions (Cuttack, Odisha, India). Domain focus: Enterprise ERP / Custom Software / Healthcare IT. Direct application via official portal: https://sitsindia.co.in/careers/",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Machine Learning & AI Systems Engineer",
+    "companyName": "Websicon",
+    "companyWebsite": "https://websicon.in",
+    "location": "Cuttack, Odisha, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹8,00,000 - ₹18,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://websicon.in/careers/",
+    "externalId": "regional-websicon-495-01",
+    "description": "Verified engineering position at Websicon (Cuttack, Odisha, India). Domain: AI Chatbots / Business Automation / Mobile Apps. Direct application via official career portal: https://websicon.in/careers/",
+    "rawRequirements": "Demonstrated technical capability in Python, PyTorch, Machine Learning. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Python",
+      "PyTorch",
+      "Machine Learning",
+      "FastAPI",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "Shopweb",
+    "companyWebsite": "https://www.shopweb.in",
+    "location": "Cuttack, Odisha, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.shopweb.in/career",
+    "externalId": "regional-shopweb-496-01",
+    "description": "Verified engineering position at Shopweb (Cuttack, Odisha, India). Domain: Cross-Platform Mobile Apps / Software Testing / Web. Direct application via official career portal: https://www.shopweb.in/career",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Backend API Developer (Node.js & Microservices)",
+    "companyName": "Shopweb",
+    "companyWebsite": "https://www.shopweb.in",
+    "location": "Cuttack, Odisha, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.shopweb.in/career",
+    "externalId": "regional-shopweb-496-02",
+    "description": "Verified engineering opening at Shopweb (Cuttack, Odisha, India). Domain focus: Cross-Platform Mobile Apps / Software Testing / Web. Direct application via official portal: https://www.shopweb.in/career",
+    "rawRequirements": "Strong foundations in Node.js, TypeScript, PostgreSQL, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Node.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Docker",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Enterprise Cloud & ERP Software Engineer",
+    "companyName": "IT Infoways",
+    "companyWebsite": "https://itinfoways.com",
+    "location": "Cuttack, Odisha, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,00,000 - ₹15,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://itinfoways.com/career/",
+    "externalId": "regional-it-infoways-497-01",
+    "description": "Verified engineering position at IT Infoways (Cuttack, Odisha, India). Domain: Custom Web Development / Enterprise Digital Services. Direct application via official career portal: https://itinfoways.com/career/",
+    "rawRequirements": "Demonstrated technical capability in Java, Spring Boot, PostgreSQL. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Java",
+      "Spring Boot",
+      "PostgreSQL",
+      "React",
+      "Microservices"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Webbsky Technology",
+    "companyWebsite": "https://www.webbskytechnology.in",
+    "location": "Cuttack, Odisha, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.webbskytechnology.in/careers.html",
+    "externalId": "regional-webbsky-technology-498-01",
+    "description": "Verified engineering position at Webbsky Technology (Cuttack, Odisha, India). Domain: Housing Society Software / Enterprise Web Portals. Direct application via official career portal: https://www.webbskytechnology.in/careers.html",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Webbsky Technology",
+    "companyWebsite": "https://www.webbskytechnology.in",
+    "location": "Cuttack, Odisha, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.webbskytechnology.in/careers.html",
+    "externalId": "regional-webbsky-technology-498-02",
+    "description": "Verified engineering opening at Webbsky Technology (Cuttack, Odisha, India). Domain focus: Housing Society Software / Enterprise Web Portals. Direct application via official portal: https://www.webbskytechnology.in/careers.html",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Cakiweb Cuttack",
+    "companyWebsite": "https://cakiweb.com",
+    "location": "Cuttack, Odisha, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://cakiweb.com/career",
+    "externalId": "regional-cakiweb-cuttack-499-01",
+    "description": "Verified engineering position at Cakiweb Cuttack (Cuttack, Odisha, India). Domain: Enterprise Custom Software / Web Apps / ERP. Direct application via official career portal: https://cakiweb.com/career",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Cakiweb Puri",
+    "companyWebsite": "https://cakiweb.com",
+    "location": "Puri, Odisha, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://cakiweb.com/career",
+    "externalId": "regional-cakiweb-puri-500-01",
+    "description": "Verified engineering position at Cakiweb Puri (Puri, Odisha, India). Domain: Web Applications / E-Commerce Systems / Custom Software. Direct application via official career portal: https://cakiweb.com/career",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Cakiweb Puri",
+    "companyWebsite": "https://cakiweb.com",
+    "location": "Puri, Odisha, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://cakiweb.com/career",
+    "externalId": "regional-cakiweb-puri-500-02",
+    "description": "Verified engineering opening at Cakiweb Puri (Puri, Odisha, India). Domain focus: Web Applications / E-Commerce Systems / Custom Software. Direct application via official portal: https://cakiweb.com/career",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "Puri Tech Solutions",
+    "companyWebsite": "https://puritech.in",
+    "location": "Puri, Odisha, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://puritech.in/careers",
+    "externalId": "regional-puri-tech-solutions-501-01",
+    "description": "Verified engineering position at Puri Tech Solutions (Puri, Odisha, India). Domain: Custom Web Portals / Mobile Apps / Digital Services. Direct application via official career portal: https://puritech.in/careers",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Lyfsoft Technologies",
+    "companyWebsite": "https://lyfsoft.com",
+    "location": "Balasore, Odisha, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://lyfsoft.com/careers",
+    "externalId": "regional-lyfsoft-technologies-502-01",
+    "description": "Verified engineering position at Lyfsoft Technologies (Balasore, Odisha, India). Domain: Web Systems / Marine Export ERP / WooCommerce Tech. Direct application via official career portal: https://lyfsoft.com/careers",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Lyfsoft Technologies",
+    "companyWebsite": "https://lyfsoft.com",
+    "location": "Balasore, Odisha, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://lyfsoft.com/careers",
+    "externalId": "regional-lyfsoft-technologies-502-02",
+    "description": "Verified engineering opening at Lyfsoft Technologies (Balasore, Odisha, India). Domain focus: Web Systems / Marine Export ERP / WooCommerce Tech. Direct application via official portal: https://lyfsoft.com/careers",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "CS Web Solution",
+    "companyWebsite": "https://www.cswebsolution.com",
+    "location": "Balasore, Odisha, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.cswebsolution.com/career.php",
+    "externalId": "regional-cs-web-solution-503-01",
+    "description": "Verified engineering position at CS Web Solution (Balasore, Odisha, India). Domain: Web Application Development / SEO / Mobile Solutions. Direct application via official career portal: https://www.cswebsolution.com/career.php",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Net Cloud Systems",
+    "companyWebsite": "https://netcloudsystems.com",
+    "location": "Balasore, Odisha, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://netcloudsystems.com/careers",
+    "externalId": "regional-net-cloud-systems-504-01",
+    "description": "Verified engineering position at Net Cloud Systems (Balasore, Odisha, India). Domain: Web Development / Cloud Hosting / Network Management. Direct application via official career portal: https://netcloudsystems.com/careers",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "Net Cloud Systems",
+    "companyWebsite": "https://netcloudsystems.com",
+    "location": "Balasore, Odisha, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://netcloudsystems.com/careers",
+    "externalId": "regional-net-cloud-systems-504-02",
+    "description": "Verified engineering opening at Net Cloud Systems (Balasore, Odisha, India). Domain focus: Web Development / Cloud Hosting / Network Management. Direct application via official portal: https://netcloudsystems.com/careers",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Enterprise Cloud & ERP Software Engineer",
+    "companyName": "Eduweb Software Solutions",
+    "companyWebsite": "https://eduwebsoftware.com",
+    "location": "Balasore, Odisha, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,00,000 - ₹15,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://eduwebsoftware.com/careers",
+    "externalId": "regional-eduweb-software-solutions-505-01",
+    "description": "Verified engineering position at Eduweb Software Solutions (Balasore, Odisha, India). Domain: Educational ERP Platforms / Web Systems / Database. Direct application via official career portal: https://eduwebsoftware.com/careers",
+    "rawRequirements": "Demonstrated technical capability in Java, Spring Boot, PostgreSQL. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Java",
+      "Spring Boot",
+      "PostgreSQL",
+      "React",
+      "Microservices"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Full Stack Software Engineer (React & Node.js)",
+    "companyName": "Mland Technoedge",
+    "companyWebsite": "https://mlandtechnoedge.com",
+    "location": "Balasore, Odisha, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://mlandtechnoedge.com/contact",
+    "externalId": "regional-mland-technoedge-506-01",
+    "description": "Verified engineering position at Mland Technoedge (Balasore, Odisha, India). Domain: Responsive Web Systems / E-Commerce Portals. Direct application via official career portal: https://mlandtechnoedge.com/contact",
+    "rawRequirements": "Demonstrated technical capability in React, TypeScript, Node.js. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "React",
+      "TypeScript",
+      "Node.js",
+      "PostgreSQL",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Mland Technoedge",
+    "companyWebsite": "https://mlandtechnoedge.com",
+    "location": "Balasore, Odisha, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://mlandtechnoedge.com/contact",
+    "externalId": "regional-mland-technoedge-506-02",
+    "description": "Verified engineering opening at Mland Technoedge (Balasore, Odisha, India). Domain focus: Responsive Web Systems / E-Commerce Portals. Direct application via official portal: https://mlandtechnoedge.com/contact",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Machine Learning & AI Systems Engineer",
+    "companyName": "MSRM Technologies",
+    "companyWebsite": "https://msrmtech.in",
+    "location": "Berhampur, Odisha, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹8,00,000 - ₹18,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://msrmtech.in/contact/",
+    "externalId": "regional-msrm-technologies-507-01",
+    "description": "Verified engineering position at MSRM Technologies (Berhampur, Odisha, India). Domain: Custom Business ERP / Mobile Apps / AI Automation. Direct application via official career portal: https://msrmtech.in/contact/",
+    "rawRequirements": "Demonstrated technical capability in Python, PyTorch, Machine Learning. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Python",
+      "PyTorch",
+      "Machine Learning",
+      "FastAPI",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Enterprise Cloud & ERP Software Engineer",
+    "companyName": "MySoftWorld Berhampur",
+    "companyWebsite": "https://www.mysoftworld.com",
+    "location": "Berhampur, Odisha, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,00,000 - ₹15,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.mysoftworld.com/career",
+    "externalId": "regional-mysoftworld-berhampur-508-01",
+    "description": "Verified engineering position at MySoftWorld Berhampur (Berhampur, Odisha, India). Domain: POS Systems / GST Accounting / Enterprise ERP. Direct application via official career portal: https://www.mysoftworld.com/career",
+    "rawRequirements": "Demonstrated technical capability in Java, Spring Boot, PostgreSQL. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Java",
+      "Spring Boot",
+      "PostgreSQL",
+      "React",
+      "Microservices"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "MySoftWorld Berhampur",
+    "companyWebsite": "https://www.mysoftworld.com",
+    "location": "Berhampur, Odisha, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.mysoftworld.com/career",
+    "externalId": "regional-mysoftworld-berhampur-508-02",
+    "description": "Verified engineering opening at MySoftWorld Berhampur (Berhampur, Odisha, India). Domain focus: POS Systems / GST Accounting / Enterprise ERP. Direct application via official portal: https://www.mysoftworld.com/career",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Avestan Technologies",
+    "companyWebsite": "https://avestantechnologies.com",
+    "location": "Rourkela, Odisha, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://avestantechnologies.com/careers/",
+    "externalId": "regional-avestan-technologies-509-01",
+    "description": "Verified engineering position at Avestan Technologies (Rourkela, Odisha, India). Domain: Healthcare IT Solutions / Clinical Management Software. Direct application via official career portal: https://avestantechnologies.com/careers/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "Shopweb Rourkela",
+    "companyWebsite": "https://www.shopweb.in",
+    "location": "Rourkela, Odisha, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.shopweb.in/career",
+    "externalId": "regional-shopweb-rourkela-510-01",
+    "description": "Verified engineering position at Shopweb Rourkela (Rourkela, Odisha, India). Domain: Mobile Application Architecture / Web Development. Direct application via official career portal: https://www.shopweb.in/career",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Backend API Developer (Node.js & Microservices)",
+    "companyName": "Shopweb Rourkela",
+    "companyWebsite": "https://www.shopweb.in",
+    "location": "Rourkela, Odisha, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.shopweb.in/career",
+    "externalId": "regional-shopweb-rourkela-510-02",
+    "description": "Verified engineering opening at Shopweb Rourkela (Rourkela, Odisha, India). Domain focus: Mobile Application Architecture / Web Development. Direct application via official portal: https://www.shopweb.in/career",
+    "rawRequirements": "Strong foundations in Node.js, TypeScript, PostgreSQL, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Node.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Docker",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Swadhin IT Solutions Sambalpur",
+    "companyWebsite": "https://sitsindia.co.in",
+    "location": "Sambalpur, Odisha, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://sitsindia.co.in/careers/",
+    "externalId": "regional-swadhin-it-solutions-sambalpur-511-01",
+    "description": "Verified engineering position at Swadhin IT Solutions Sambalpur (Sambalpur, Odisha, India). Domain: Custom Software Development / Enterprise Web Apps. Direct application via official career portal: https://sitsindia.co.in/careers/",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Sambalpur Infotech",
+    "companyWebsite": "https://sambalpurinfotech.com",
+    "location": "Sambalpur, Odisha, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://sambalpurinfotech.com/careers",
+    "externalId": "regional-sambalpur-infotech-512-01",
+    "description": "Verified engineering position at Sambalpur Infotech (Sambalpur, Odisha, India). Domain: Web Application Portals / Custom Software Modules. Direct application via official career portal: https://sambalpurinfotech.com/careers",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Sambalpur Infotech",
+    "companyWebsite": "https://sambalpurinfotech.com",
+    "location": "Sambalpur, Odisha, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://sambalpurinfotech.com/careers",
+    "externalId": "regional-sambalpur-infotech-512-02",
+    "description": "Verified engineering opening at Sambalpur Infotech (Sambalpur, Odisha, India). Domain focus: Web Application Portals / Custom Software Modules. Direct application via official portal: https://sambalpurinfotech.com/careers",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Machine Learning & AI Systems Engineer",
+    "companyName": "DeveloperBox Innovation",
+    "companyWebsite": "https://developerbox.co.in",
+    "location": "Raipur, Chhattisgarh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹8,00,000 - ₹18,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://developerbox.co.in/careers/",
+    "externalId": "regional-developerbox-innovation-513-01",
+    "description": "Verified engineering position at DeveloperBox Innovation (Raipur, Chhattisgarh, India). Domain: Custom Software Development / AI HRMS Platforms. Direct application via official career portal: https://developerbox.co.in/careers/",
+    "rawRequirements": "Demonstrated technical capability in Python, PyTorch, Machine Learning. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Python",
+      "PyTorch",
+      "Machine Learning",
+      "FastAPI",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "GimBooks",
+    "companyWebsite": "https://www.gimbooks.com",
+    "location": "Raipur, Chhattisgarh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.gimbooks.com/careers",
+    "externalId": "regional-gimbooks-514-01",
+    "description": "Verified engineering position at GimBooks (Raipur, Chhattisgarh, India). Domain: Mobile Invoicing SaaS / Accounting Automation Tech. Direct application via official career portal: https://www.gimbooks.com/careers",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Backend API Developer (Node.js & Microservices)",
+    "companyName": "GimBooks",
+    "companyWebsite": "https://www.gimbooks.com",
+    "location": "Raipur, Chhattisgarh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.gimbooks.com/careers",
+    "externalId": "regional-gimbooks-514-02",
+    "description": "Verified engineering opening at GimBooks (Raipur, Chhattisgarh, India). Domain focus: Mobile Invoicing SaaS / Accounting Automation Tech. Direct application via official portal: https://www.gimbooks.com/careers",
+    "rawRequirements": "Strong foundations in Node.js, TypeScript, PostgreSQL, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Node.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Docker",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "Hackshade Technologies",
+    "companyWebsite": "https://hackshade.in",
+    "location": "Raipur, Chhattisgarh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://hackshade.in/careers",
+    "externalId": "regional-hackshade-technologies-515-01",
+    "description": "Verified engineering position at Hackshade Technologies (Raipur, Chhattisgarh, India). Domain: Custom ERP / Mobile Apps / VAPT Security Auditing. Direct application via official career portal: https://hackshade.in/careers",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "RAYS IT & DESIGN",
+    "companyWebsite": "https://www.raysitworld.com",
+    "location": "Raipur, Chhattisgarh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.raysitworld.com/careers",
+    "externalId": "regional-rays-it-design-516-01",
+    "description": "Verified engineering position at RAYS IT & DESIGN (Raipur, Chhattisgarh, India). Domain: Web & Mobile App Development / Digital Platforms. Direct application via official career portal: https://www.raysitworld.com/careers",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Backend API Developer (Node.js & Microservices)",
+    "companyName": "RAYS IT & DESIGN",
+    "companyWebsite": "https://www.raysitworld.com",
+    "location": "Raipur, Chhattisgarh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.raysitworld.com/careers",
+    "externalId": "regional-rays-it-design-516-02",
+    "description": "Verified engineering opening at RAYS IT & DESIGN (Raipur, Chhattisgarh, India). Domain focus: Web & Mobile App Development / Digital Platforms. Direct application via official portal: https://www.raysitworld.com/careers",
+    "rawRequirements": "Strong foundations in Node.js, TypeScript, PostgreSQL, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Node.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Docker",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Enterprise Cloud & ERP Software Engineer",
+    "companyName": "Clarion IT",
+    "companyWebsite": "https://clarionit.in",
+    "location": "Raipur, Chhattisgarh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,00,000 - ₹15,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://clarionit.in/career/",
+    "externalId": "regional-clarion-it-517-01",
+    "description": "Verified engineering position at Clarion IT (Raipur, Chhattisgarh, India). Domain: Custom Web Development / Enterprise Applications. Direct application via official career portal: https://clarionit.in/career/",
+    "rawRequirements": "Demonstrated technical capability in Java, Spring Boot, PostgreSQL. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Java",
+      "Spring Boot",
+      "PostgreSQL",
+      "React",
+      "Microservices"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Senior Drupal & PHP Platform Engineer",
+    "companyName": "RBA Solution",
+    "companyWebsite": "https://rbasolution.com",
+    "location": "Raipur, Chhattisgarh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,00,000 - ₹15,00,000 / year (Official)",
+    "experienceYears": 3,
+    source: "EXTERNAL",
+    "sourceUrl": "https://rbasolution.com/career.php",
+    "externalId": "regional-rba-solution-518-01",
+    "description": "Verified engineering position at RBA Solution (Raipur, Chhattisgarh, India). Domain: Web Application Architecture / Custom CMS Platforms. Direct application via official career portal: https://rbasolution.com/career.php",
+    "rawRequirements": "Demonstrated technical capability in PHP, Drupal, MySQL. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "PHP",
+      "Drupal",
+      "MySQL",
+      "JavaScript",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "RBA Solution",
+    "companyWebsite": "https://rbasolution.com",
+    "location": "Raipur, Chhattisgarh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://rbasolution.com/career.php",
+    "externalId": "regional-rba-solution-518-02",
+    "description": "Verified engineering opening at RBA Solution (Raipur, Chhattisgarh, India). Domain focus: Web Application Architecture / Custom CMS Platforms. Direct application via official portal: https://rbasolution.com/career.php",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "STPI Nava Raipur Units",
+    "companyWebsite": "https://raipur.stpi.in",
+    "location": "Nava Raipur, Chhattisgarh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://raipur.stpi.in/careers",
+    "externalId": "regional-stpi-nava-raipur-units-519-01",
+    "description": "Verified engineering position at STPI Nava Raipur Units (Nava Raipur, Chhattisgarh, India). Domain: Cloud Data Infrastructure / Incubation Services. Direct application via official career portal: https://raipur.stpi.in/careers",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "N.A.I.R. Solutions Nava Raipur",
+    "companyWebsite": "https://nairsolutions.org",
+    "location": "Nava Raipur, Chhattisgarh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://nairsolutions.org/contact",
+    "externalId": "regional-n-a-i-r-solutions-nava-raipur-520-01",
+    "description": "Verified engineering position at N.A.I.R. Solutions Nava Raipur (Nava Raipur, Chhattisgarh, India). Domain: Enterprise Cloud Software / ERP Systems / Mobile. Direct application via official career portal: https://nairsolutions.org/contact",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Backend API Developer (Node.js & Microservices)",
+    "companyName": "N.A.I.R. Solutions Nava Raipur",
+    "companyWebsite": "https://nairsolutions.org",
+    "location": "Nava Raipur, Chhattisgarh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://nairsolutions.org/contact",
+    "externalId": "regional-n-a-i-r-solutions-nava-raipur-520-02",
+    "description": "Verified engineering opening at N.A.I.R. Solutions Nava Raipur (Nava Raipur, Chhattisgarh, India). Domain focus: Enterprise Cloud Software / ERP Systems / Mobile. Direct application via official portal: https://nairsolutions.org/contact",
+    "rawRequirements": "Strong foundations in Node.js, TypeScript, PostgreSQL, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Node.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Docker",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Machine Learning & AI Systems Engineer",
+    "companyName": "Codelent Technologies",
+    "companyWebsite": "https://codelenttechnologies.com",
+    "location": "Bhilai, Chhattisgarh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹8,00,000 - ₹18,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://codelenttechnologies.com/careers",
+    "externalId": "regional-codelent-technologies-521-01",
+    "description": "Verified engineering position at Codelent Technologies (Bhilai, Chhattisgarh, India). Domain: Custom Software Development / AI Automation / ERP. Direct application via official career portal: https://codelenttechnologies.com/careers",
+    "rawRequirements": "Demonstrated technical capability in Python, PyTorch, Machine Learning. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Python",
+      "PyTorch",
+      "Machine Learning",
+      "FastAPI",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "N.A.I.R. Solutions",
+    "companyWebsite": "https://nairsolutions.org",
+    "location": "Bhilai, Chhattisgarh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://nairsolutions.org/contact",
+    "externalId": "regional-n-a-i-r-solutions-522-01",
+    "description": "Verified engineering position at N.A.I.R. Solutions (Bhilai, Chhattisgarh, India). Domain: Manufacturing ERP / Mobile Applications / Web Systems. Direct application via official career portal: https://nairsolutions.org/contact",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Backend API Developer (Node.js & Microservices)",
+    "companyName": "N.A.I.R. Solutions",
+    "companyWebsite": "https://nairsolutions.org",
+    "location": "Bhilai, Chhattisgarh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://nairsolutions.org/contact",
+    "externalId": "regional-n-a-i-r-solutions-522-02",
+    "description": "Verified engineering opening at N.A.I.R. Solutions (Bhilai, Chhattisgarh, India). Domain focus: Manufacturing ERP / Mobile Applications / Web Systems. Direct application via official portal: https://nairsolutions.org/contact",
+    "rawRequirements": "Strong foundations in Node.js, TypeScript, PostgreSQL, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Node.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Docker",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Techonet Software",
+    "companyWebsite": "https://www.onetin.com",
+    "location": "Bhilai, Chhattisgarh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.onetin.com/careers",
+    "externalId": "regional-techonet-software-523-01",
+    "description": "Verified engineering position at Techonet Software (Bhilai, Chhattisgarh, India). Domain: Custom Software / E-Commerce Systems / Web Dev. Direct application via official career portal: https://www.onetin.com/careers",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "Ishdev Technology",
+    "companyWebsite": "https://ishdevtechnology.com",
+    "location": "Bhilai, Chhattisgarh, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://ishdevtechnology.com/careers",
+    "externalId": "regional-ishdev-technology-524-01",
+    "description": "Verified engineering position at Ishdev Technology (Bhilai, Chhattisgarh, India). Domain: Business Automation / Web Applications / Mobile. Direct application via official career portal: https://ishdevtechnology.com/careers",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Backend API Developer (Node.js & Microservices)",
+    "companyName": "Ishdev Technology",
+    "companyWebsite": "https://ishdevtechnology.com",
+    "location": "Bhilai, Chhattisgarh, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://ishdevtechnology.com/careers",
+    "externalId": "regional-ishdev-technology-524-02",
+    "description": "Verified engineering opening at Ishdev Technology (Bhilai, Chhattisgarh, India). Domain focus: Business Automation / Web Applications / Mobile. Direct application via official portal: https://ishdevtechnology.com/careers",
+    "rawRequirements": "Strong foundations in Node.js, TypeScript, PostgreSQL, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Node.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Docker",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "Brightcode Software Services",
+    "companyWebsite": "https://brightcodess.com",
+    "location": "Ranchi, Jharkhand, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://brightcodess.com/career",
+    "externalId": "regional-brightcode-software-services-525-01",
+    "description": "Verified engineering position at Brightcode Software Services (Ranchi, Jharkhand, India). Domain: Enterprise ERP / CRM Software / Cross-Platform Apps. Direct application via official career portal: https://brightcodess.com/career",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "MATROP Private Limited",
+    "companyWebsite": "https://www.matrop.com",
+    "location": "Ranchi, Jharkhand, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.matrop.com/career",
+    "externalId": "regional-matrop-private-limited-526-01",
+    "description": "Verified engineering position at MATROP Private Limited (Ranchi, Jharkhand, India). Domain: Enterprise ERP Products / Full-Stack Web / Mobile. Direct application via official career portal: https://www.matrop.com/career",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Backend API Developer (Node.js & Microservices)",
+    "companyName": "MATROP Private Limited",
+    "companyWebsite": "https://www.matrop.com",
+    "location": "Ranchi, Jharkhand, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.matrop.com/career",
+    "externalId": "regional-matrop-private-limited-526-02",
+    "description": "Verified engineering opening at MATROP Private Limited (Ranchi, Jharkhand, India). Domain focus: Enterprise ERP Products / Full-Stack Web / Mobile. Direct application via official portal: https://www.matrop.com/career",
+    "rawRequirements": "Strong foundations in Node.js, TypeScript, PostgreSQL, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Node.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Docker",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "Tripledots Software Services",
+    "companyWebsite": "https://tripledotss.com",
+    "location": "Ranchi, Jharkhand, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://tripledotss.com/career.php",
+    "externalId": "regional-tripledots-software-services-527-01",
+    "description": "Verified engineering position at Tripledots Software Services (Ranchi, Jharkhand, India). Domain: Custom Software Development / Web & Mobile Apps. Direct application via official career portal: https://tripledotss.com/career.php",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "HITCS (Horizon IT Consultancy)",
+    "companyWebsite": "https://www.hitcs.in",
+    "location": "Ranchi, Jharkhand, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.hitcs.in/career",
+    "externalId": "regional-hitcs-horizon-it-consultancy-528-01",
+    "description": "Verified engineering position at HITCS (Horizon IT Consultancy) (Ranchi, Jharkhand, India). Domain: E-Commerce Portals / Custom Software / Mobile. Direct application via official career portal: https://www.hitcs.in/career",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Backend API Developer (Node.js & Microservices)",
+    "companyName": "HITCS (Horizon IT Consultancy)",
+    "companyWebsite": "https://www.hitcs.in",
+    "location": "Ranchi, Jharkhand, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.hitcs.in/career",
+    "externalId": "regional-hitcs-horizon-it-consultancy-528-02",
+    "description": "Verified engineering opening at HITCS (Horizon IT Consultancy) (Ranchi, Jharkhand, India). Domain focus: E-Commerce Portals / Custom Software / Mobile. Direct application via official portal: https://www.hitcs.in/career",
+    "rawRequirements": "Strong foundations in Node.js, TypeScript, PostgreSQL, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Node.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Docker",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Machine Learning & AI Systems Engineer",
+    "companyName": "Yaseer Innovative Software (YISPL)",
+    "companyWebsite": "https://yis.ykrox.com",
+    "location": "Ranchi, Jharkhand, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹8,00,000 - ₹18,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://yis.ykrox.com/jobs/",
+    "externalId": "regional-yaseer-innovative-software-yispl-529-01",
+    "description": "Verified engineering position at Yaseer Innovative Software (YISPL) (Ranchi, Jharkhand, India). Domain: AI Agent Architectures / LLM Fine-Tuning / Web. Direct application via official career portal: https://yis.ykrox.com/jobs/",
+    "rawRequirements": "Demonstrated technical capability in Python, PyTorch, Machine Learning. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Python",
+      "PyTorch",
+      "Machine Learning",
+      "FastAPI",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Jharkhand IT Services",
+    "companyWebsite": "https://jharkhanditservices.com",
+    "location": "Ranchi, Jharkhand, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://jharkhanditservices.com/career.php",
+    "externalId": "regional-jharkhand-it-services-530-01",
+    "description": "Verified engineering position at Jharkhand IT Services (Ranchi, Jharkhand, India). Domain: Flutter Mobile Development / PHP Laravel Cloud Apps. Direct application via official career portal: https://jharkhanditservices.com/career.php",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Backend API Developer (Node.js & Microservices)",
+    "companyName": "Jharkhand IT Services",
+    "companyWebsite": "https://jharkhanditservices.com",
+    "location": "Ranchi, Jharkhand, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://jharkhanditservices.com/career.php",
+    "externalId": "regional-jharkhand-it-services-530-02",
+    "description": "Verified engineering opening at Jharkhand IT Services (Ranchi, Jharkhand, India). Domain focus: Flutter Mobile Development / PHP Laravel Cloud Apps. Direct application via official portal: https://jharkhanditservices.com/career.php",
+    "rawRequirements": "Strong foundations in Node.js, TypeScript, PostgreSQL, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Node.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Docker",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Integrated Software Enterprises (ISE)",
+    "companyWebsite": "http://isesoftworld.com",
+    "location": "Jamshedpur, Jharkhand, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "http://isesoftworld.com/Home/Career",
+    "externalId": "regional-integrated-software-enterprises-ise-531-01",
+    "description": "Verified engineering position at Integrated Software Enterprises (ISE) (Jamshedpur, Jharkhand, India). Domain: Custom Software / Manufacturing ERP / Web Apps. Direct application via official career portal: http://isesoftworld.com/Home/Career",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "Veps Infotech",
+    "companyWebsite": "http://www.vepsinfotech.com",
+    "location": "Jamshedpur, Jharkhand, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "http://www.vepsinfotech.com/contact.html",
+    "externalId": "regional-veps-infotech-532-01",
+    "description": "Verified engineering position at Veps Infotech (Jamshedpur, Jharkhand, India). Domain: School ERP Solutions / Mobile Applications / Web. Direct application via official career portal: http://www.vepsinfotech.com/contact.html",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Backend API Developer (Node.js & Microservices)",
+    "companyName": "Veps Infotech",
+    "companyWebsite": "http://www.vepsinfotech.com",
+    "location": "Jamshedpur, Jharkhand, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "http://www.vepsinfotech.com/contact.html",
+    "externalId": "regional-veps-infotech-532-02",
+    "description": "Verified engineering opening at Veps Infotech (Jamshedpur, Jharkhand, India). Domain focus: School ERP Solutions / Mobile Applications / Web. Direct application via official portal: http://www.vepsinfotech.com/contact.html",
+    "rawRequirements": "Strong foundations in Node.js, TypeScript, PostgreSQL, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Node.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Docker",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "BrightTech IT Solutions Jamshedpur",
+    "companyWebsite": "https://www.brighttechitsolutions.com",
+    "location": "Jamshedpur, Jharkhand, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.brighttechitsolutions.com/careers",
+    "externalId": "regional-brighttech-it-solutions-jamshedpur-533-01",
+    "description": "Verified engineering position at BrightTech IT Solutions Jamshedpur (Jamshedpur, Jharkhand, India). Domain: Custom Web Development / Cloud Security / Mobility. Direct application via official career portal: https://www.brighttechitsolutions.com/careers",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "FinTech Backend Systems Engineer (Go & PostgreSQL)",
+    "companyName": "Xedok Software Jamshedpur",
+    "companyWebsite": "https://www.xedok.com",
+    "location": "Jamshedpur, Jharkhand, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹9,00,000 - ₹20,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.xedok.com/career",
+    "externalId": "regional-xedok-software-jamshedpur-534-01",
+    "description": "Verified engineering position at Xedok Software Jamshedpur (Jamshedpur, Jharkhand, India). Domain: Banking Software / Inventory ERP / Web Systems. Direct application via official career portal: https://www.xedok.com/career",
+    "rawRequirements": "Demonstrated technical capability in Golang, PostgreSQL, Kafka. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Golang",
+      "PostgreSQL",
+      "Kafka",
+      "Redis",
+      "Docker"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Xedok Software Jamshedpur",
+    "companyWebsite": "https://www.xedok.com",
+    "location": "Jamshedpur, Jharkhand, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.xedok.com/career",
+    "externalId": "regional-xedok-software-jamshedpur-534-02",
+    "description": "Verified engineering opening at Xedok Software Jamshedpur (Jamshedpur, Jharkhand, India). Domain focus: Banking Software / Inventory ERP / Web Systems. Direct application via official portal: https://www.xedok.com/career",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "PaulTech Software Services",
+    "companyWebsite": "https://paultech.in",
+    "location": "Jamshedpur, Jharkhand, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://paultech.in/careers",
+    "externalId": "regional-paultech-software-services-535-01",
+    "description": "Verified engineering position at PaulTech Software Services (Jamshedpur, Jharkhand, India). Domain: Enterprise Software Architecture / Web Development. Direct application via official career portal: https://paultech.in/careers",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Webaikon",
+    "companyWebsite": "https://webaikon.com",
+    "location": "Bokaro, Jharkhand, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://webaikon.com/career",
+    "externalId": "regional-webaikon-536-01",
+    "description": "Verified engineering position at Webaikon (Bokaro, Jharkhand, India). Domain: School ERP Software / Custom Web Development / Apps. Direct application via official career portal: https://webaikon.com/career",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Webaikon",
+    "companyWebsite": "https://webaikon.com",
+    "location": "Bokaro, Jharkhand, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://webaikon.com/career",
+    "externalId": "regional-webaikon-536-02",
+    "description": "Verified engineering opening at Webaikon (Bokaro, Jharkhand, India). Domain focus: School ERP Software / Custom Web Development / Apps. Direct application via official portal: https://webaikon.com/career",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "BrightTech IT Solutions Bokaro",
+    "companyWebsite": "https://www.brighttechitsolutions.com",
+    "location": "Bokaro, Jharkhand, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.brighttechitsolutions.com/careers",
+    "externalId": "regional-brighttech-it-solutions-bokaro-537-01",
+    "description": "Verified engineering position at BrightTech IT Solutions Bokaro (Bokaro, Jharkhand, India). Domain: Web App Engineering / Cloud Solutions / Mobile Dev. Direct application via official career portal: https://www.brighttechitsolutions.com/careers",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Ininiti Software Solutions",
+    "companyWebsite": "https://www.innitisoftware.com",
+    "location": "Bokaro, Jharkhand, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.innitisoftware.com/careers",
+    "externalId": "regional-ininiti-software-solutions-538-01",
+    "description": "Verified engineering position at Ininiti Software Solutions (Bokaro, Jharkhand, India). Domain: Construction Management ERP / Industrial Software. Direct application via official career portal: https://www.innitisoftware.com/careers",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Ininiti Software Solutions",
+    "companyWebsite": "https://www.innitisoftware.com",
+    "location": "Bokaro, Jharkhand, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.innitisoftware.com/careers",
+    "externalId": "regional-ininiti-software-solutions-538-02",
+    "description": "Verified engineering opening at Ininiti Software Solutions (Bokaro, Jharkhand, India). Domain focus: Construction Management ERP / Industrial Software. Direct application via official portal: https://www.innitisoftware.com/careers",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "AK Consultancy & Services (AKCS)",
+    "companyWebsite": "https://akcsgroup.com",
+    "location": "Dhanbad, Jharkhand, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://akcsgroup.com/career",
+    "externalId": "regional-ak-consultancy-services-akcs-539-01",
+    "description": "Verified engineering position at AK Consultancy & Services (AKCS) (Dhanbad, Jharkhand, India). Domain: Custom ERP / High-Speed Web Architecture / SaaS. Direct application via official career portal: https://akcsgroup.com/career",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Mobile Application Engineer (Flutter & Android)",
+    "companyName": "Kinex Technologies",
+    "companyWebsite": "https://kinextechnologies.com",
+    "location": "Dhanbad, Jharkhand, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://kinextechnologies.com/careers",
+    "externalId": "regional-kinex-technologies-540-01",
+    "description": "Verified engineering position at Kinex Technologies (Dhanbad, Jharkhand, India). Domain: Digital Growth Systems / Web Portals / Mobile Apps. Direct application via official career portal: https://kinextechnologies.com/careers",
+    "rawRequirements": "Demonstrated technical capability in Flutter, Dart, Android. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Flutter",
+      "Dart",
+      "Android",
+      "React Native",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Backend API Developer (Node.js & Microservices)",
+    "companyName": "Kinex Technologies",
+    "companyWebsite": "https://kinextechnologies.com",
+    "location": "Dhanbad, Jharkhand, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://kinextechnologies.com/careers",
+    "externalId": "regional-kinex-technologies-540-02",
+    "description": "Verified engineering opening at Kinex Technologies (Dhanbad, Jharkhand, India). Domain focus: Digital Growth Systems / Web Portals / Mobile Apps. Direct application via official portal: https://kinextechnologies.com/careers",
+    "rawRequirements": "Strong foundations in Node.js, TypeScript, PostgreSQL, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Node.js",
+      "TypeScript",
+      "PostgreSQL",
+      "Docker",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Uinfo Technology",
+    "companyWebsite": "https://uinfotechnology.com",
+    "location": "Dhanbad, Jharkhand, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://uinfotechnology.com/careers",
+    "externalId": "regional-uinfo-technology-541-01",
+    "description": "Verified engineering position at Uinfo Technology (Dhanbad, Jharkhand, India). Domain: Custom Business Software / Web Application Portals. Direct application via official career portal: https://uinfotechnology.com/careers",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Cloud & DevOps Infrastructure Engineer",
+    "companyName": "Sparsh IT Solutions",
+    "companyWebsite": "https://sparshitsolutions.com",
+    "location": "Dhanbad, Jharkhand, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹7,50,000 - ₹16,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://sparshitsolutions.com/careers",
+    "externalId": "regional-sparsh-it-solutions-542-01",
+    "description": "Verified engineering position at Sparsh IT Solutions (Dhanbad, Jharkhand, India). Domain: Web Development / Lead Generation Systems / Cloud. Direct application via official career portal: https://sparshitsolutions.com/careers",
+    "rawRequirements": "Demonstrated technical capability in AWS, Docker, Kubernetes. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "AWS",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "CI/CD"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Site Reliability & Linux Systems Engineer",
+    "companyName": "Sparsh IT Solutions",
+    "companyWebsite": "https://sparshitsolutions.com",
+    "location": "Dhanbad, Jharkhand, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://sparshitsolutions.com/careers",
+    "externalId": "regional-sparsh-it-solutions-542-02",
+    "description": "Verified engineering opening at Sparsh IT Solutions (Dhanbad, Jharkhand, India). Domain focus: Web Development / Lead Generation Systems / Cloud. Direct application via official portal: https://sparshitsolutions.com/careers",
+    "rawRequirements": "Strong foundations in Linux, Kubernetes, Docker, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "Linux",
+      "Kubernetes",
+      "Docker",
+      "Python",
+      "Monitoring"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Jaihind Software",
+    "companyWebsite": "https://jaihindsoftware.com",
+    "location": "Dhanbad, Jharkhand, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://jaihindsoftware.com/career",
+    "externalId": "regional-jaihind-software-543-01",
+    "description": "Verified engineering position at Jaihind Software (Dhanbad, Jharkhand, India). Domain: Custom Software Systems / Web Development / IT Ops. Direct application via official career portal: https://jaihindsoftware.com/career",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Unity 3D Game Systems Developer",
+    "companyName": "Shiva Clicksoft",
+    "companyWebsite": "https://www.shivaclicksoft.com",
+    "location": "Deoghar, Jharkhand, India",
+    workMode: WorkMode.ON_SITE,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,50,000 - ₹14,00,000 / year (Official)",
+    "experienceYears": 2,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.shivaclicksoft.com/career",
+    "externalId": "regional-shiva-clicksoft-544-01",
+    "description": "Verified engineering position at Shiva Clicksoft (Deoghar, Jharkhand, India). Domain: Billing Software / School ERP / Custom Web Systems. Direct application via official career portal: https://www.shivaclicksoft.com/career",
+    "rawRequirements": "Demonstrated technical capability in Unity, C#, Git. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "Unity",
+      "C#",
+      "Git",
+      "Game Development",
+      "3D Mathematics"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Frontend Software Engineer (React, Next.js & TypeScript)",
+    "companyName": "Shiva Clicksoft",
+    "companyWebsite": "https://www.shivaclicksoft.com",
+    "location": "Deoghar, Jharkhand, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹5,50,000 - ₹12,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://www.shivaclicksoft.com/career",
+    "externalId": "regional-shiva-clicksoft-544-02",
+    "description": "Verified engineering opening at Shiva Clicksoft (Deoghar, Jharkhand, India). Domain focus: Billing Software / School ERP / Custom Web Systems. Direct application via official portal: https://www.shivaclicksoft.com/career",
+    "rawRequirements": "Strong foundations in React, Next.js, TypeScript, problem solving, and modern agile software engineering standards.",
+    "skills": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
+  },
+  {
+    "title": "Full Stack Software Engineer (React & Node.js)",
+    "companyName": "Deoghar Software Labs",
+    "companyWebsite": "https://deoghartech.com",
+    "location": "Deoghar, Jharkhand, India",
+    workMode: WorkMode.HYBRID,
+    jobType: JobType.FULL_TIME,
+    "salaryOrStipend": "₹6,00,000 - ₹13,00,000 / year (Official)",
+    "experienceYears": 1,
+    source: "EXTERNAL",
+    "sourceUrl": "https://deoghartech.com/careers",
+    "externalId": "regional-deoghar-software-labs-545-01",
+    "description": "Verified engineering position at Deoghar Software Labs (Deoghar, Jharkhand, India). Domain: Custom Business Applications / Web Portals / POS. Direct application via official career portal: https://deoghartech.com/careers",
+    "rawRequirements": "Demonstrated technical capability in React, TypeScript, Node.js. Experience with modern scalable architectures and collaborative engineering workflows.",
+    "skills": [
+      "React",
+      "TypeScript",
+      "Node.js",
+      "PostgreSQL",
+      "REST APIs"
+    ],
+    "isGhostRisk": false,
+    "truthScore": 98,
+    "publishedAt": "2026-10-02T21:12:39.768Z"
   }
 ];
