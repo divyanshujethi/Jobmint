@@ -40,9 +40,43 @@ const testCases = [
   }
 ];
 
+function sanitizeOrderTags(tags) {
+  if (!tags || typeof tags !== "object") return undefined;
+
+  const sanitized = {};
+  const entries = Object.entries(tags);
+
+  for (const [key, value] of entries) {
+    if (!key || (typeof value !== "string" && typeof value !== "number")) continue;
+
+    const cleanKey = String(key)
+      .replace(/[^a-zA-Z0-9_]/g, "_")
+      .slice(0, 50);
+
+    if (!cleanKey) continue;
+
+    const cleanValue = String(value)
+      .replace(/<[^>]*>/g, "") // strip HTML tags
+      .replace(/[\r\n\t]+/g, " ") // replace newlines/tabs with space
+      .replace(/[^\x20-\x7E]/g, "") // remove emojis & non-ASCII characters
+      .trim()
+      .slice(0, 100);
+
+    if (cleanValue.length > 0) {
+      sanitized[cleanKey] = cleanValue;
+    }
+
+    if (Object.keys(sanitized).length >= 10) break;
+  }
+
+  return Object.keys(sanitized).length > 0 ? sanitized : undefined;
+}
+
 async function run() {
   for (const tc of testCases) {
-    console.log(`\nTesting: ${tc.name}`);
+    console.log(`\nTesting with sanitizer: ${tc.name}`);
+    const cleanedTags = sanitizeOrderTags(tc.tags);
+    console.log('Sanitized tags:', cleanedTags);
     try {
       const order = await createCashfreeOrder({
         orderId: 'test_' + Date.now().toString(36),
@@ -53,7 +87,7 @@ async function run() {
           customerPhone: '9876543210'
         },
         returnUrl: 'https://rolenest.in/payment/verify?order_id={order_id}',
-        orderTags: tc.tags
+        orderTags: cleanedTags
       });
       console.log('SUCCESS! order_id:', order.order_id);
     } catch (err) {
@@ -63,3 +97,4 @@ async function run() {
 }
 
 run();
+
