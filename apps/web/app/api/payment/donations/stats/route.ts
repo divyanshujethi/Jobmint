@@ -28,7 +28,11 @@ export async function GET() {
       WHERE status = 'PAID';
     `);
 
-    const row = (result as any)?.rows?.[0] || { total_amount: "0", donor_count: 0 };
+    const row =
+      (Array.isArray(result) ? result[0] : (result as any)?.rows?.[0]) || {
+        total_amount: "0",
+        donor_count: 0,
+      };
     return NextResponse.json({
       success: true,
       totalAmount: Math.round(Number(row.total_amount) || 0),

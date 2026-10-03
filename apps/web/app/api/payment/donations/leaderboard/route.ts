@@ -51,7 +51,8 @@ export async function GET() {
       LIMIT 20;
     `);
 
-    const rows = (result as any[]).map((row: any, index: number) => ({
+    const rawList: any[] = Array.isArray(result) ? result : (result as any)?.rows || [];
+    const rows = rawList.map((row: any, index: number) => ({
       rank: index + 1,
       displayName: row.is_anonymous ? "Anonymous Supporter" : String(row.display_name || "Anonymous Supporter"),
       totalAmount: Number(row.total_amount || 0),

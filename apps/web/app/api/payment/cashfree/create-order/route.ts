@@ -248,6 +248,8 @@ export async function POST(req: NextRequest) {
             status VARCHAR(32) DEFAULT 'PENDING',
             created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
           );
+        `);
+        await db.execute(sql`
           INSERT INTO community_donations (id, order_id, amount, donor_name, donor_email, donor_phone, donor_note, gateway, status)
           VALUES (${orderId}, ${orderId}, ${finalAmount}, ${userName}, ${userEmail}, ${resolvedPhone}, ${donorNote || ''}, 'cashfree', 'PENDING')
           ON CONFLICT (order_id) DO UPDATE SET

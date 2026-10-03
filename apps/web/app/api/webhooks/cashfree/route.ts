@@ -40,6 +40,8 @@ export async function POST(req: NextRequest) {
               status VARCHAR(32) DEFAULT 'PAID',
               created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
             );
+          `);
+          await db.execute(sql`
             INSERT INTO community_donations (id, order_id, amount, donor_name, donor_email, donor_phone, donor_note, gateway, status)
             VALUES (${order.order_id}, ${order.order_id}, ${order.order_amount}, ${order.customer_details?.customer_name || 'Community Supporter'}, ${customerEmail || ''}, ${order.customer_details?.customer_phone || ''}, ${order.order_note || ''}, 'cashfree', 'PAID')
             ON CONFLICT (order_id) DO UPDATE SET status = 'PAID';
