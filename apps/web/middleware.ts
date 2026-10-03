@@ -37,31 +37,52 @@ export function middleware(req: NextRequest) {
       return NextResponse.rewrite(new URL("/internship-bootcamp", req.url));
     }
 
+    // Allow payment verification page on internship subdomain
+    if (pathname === "/payment/verify") {
+      return NextResponse.next();
+    }
+
     // Rewrite /:slug (e.g. /ai-ml, /portal, /verify/...) to /internship-bootcamp/:slug
     return NextResponse.rewrite(new URL(`/internship-bootcamp${pathname}`, req.url));
   }
 
-  // 2. If accessed on main web (rolenest.in):
-  // User explicitly requested: "this will not we rolenest.in/internship-bootcamp in this, only in internship.rolenest.in"
+  const isDonationSubdomain =
+    host.startsWith("donate.") ||
+    host.startsWith("donation.") ||
+    req.headers.get("x-is-donation") === "1";
+
+  // 2. If accessed on donation.rolenest.in or donate.rolenest.in subdomain:
+  if (isDonationSubdomain) {
+    // If someone types /donate/..., redirect to clean URL /...
+    if (pathname === "/donate" || pathname === "/donate/") {
+      const redirectUrl = req.nextUrl.clone();
+      redirectUrl.pathname = "/";
+      return NextResponse.redirect(redirectUrl, 308);
+    }
+
+    // Rewrite root to /donate
+    if (pathname === "/") {
+      return NextResponse.rewrite(new URL("/donate", req.url));
+    }
+
+    // Allow payment verification page on donation subdomain
+    if (pathname === "/payment/verify") {
+      return NextResponse.next();
+    }
+
+    // Non-donation pages (like /jobs, /pricing) should NOT work on donation subdomain!
+    // Rewriting to /donate${pathname} triggers 404 (e.g. /donate/jobs does not exist)
+    return NextResponse.rewrite(new URL(`/donate${pathname}`, req.url));
+  }
+
+  // 3. If accessed on main web (rolenest.in):
   if (pathname === "/internship-bootcamp" || pathname.startsWith("/internship-bootcamp/")) {
     const subpath = pathname.replace(/^\/internship-bootcamp/, "") || "/";
     return NextResponse.redirect(new URL(`https://internship.rolenest.in${subpath}`), 308);
   }
 
-  // 3. If accessed on donate page or donate subdomain:
-  if (
-    pathname === "/donate" ||
-    pathname.startsWith("/donate/") ||
-    host.startsWith("donate.") ||
-    host.startsWith("donation.")
-  ) {
-    const requestHeaders = new Headers(req.headers);
-    requestHeaders.set("x-is-donation", "1");
-    return NextResponse.next({
-      request: {
-        headers: requestHeaders,
-      },
-    });
+  if (pathname === "/donate" || pathname.startsWith("/donate/")) {
+    return NextResponse.redirect(new URL("https://donation.rolenest.in/"), 308);
   }
 
   return NextResponse.next();

@@ -144,11 +144,14 @@ export async function GET(req: NextRequest) {
       });
     }
 
+    const isDonationOrder = order.order_id?.includes("don_") || order.order_id?.includes("donation");
     return NextResponse.json({
       success: false,
       orderStatus: order.order_status,
       isPaid: false,
       orderId: order.order_id,
+      amount: order.order_amount,
+      plan: isDonationOrder ? "donation" : undefined,
     });
   } catch (error: any) {
     console.error("[Cashfree Verify Error]:", error);

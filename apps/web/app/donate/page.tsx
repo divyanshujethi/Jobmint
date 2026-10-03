@@ -89,6 +89,26 @@ export default function DonatePage() {
   }>>([]);
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [paymentBanner, setPaymentBanner] = useState<"success" | "cancelled" | null>(null);
+  const [successOrderId, setSuccessOrderId] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const donationParam = params.get("donation");
+      const orderIdParam = params.get("order_id");
+      if (donationParam === "success") {
+        setPaymentBanner("success");
+        if (orderIdParam) setSuccessOrderId(orderIdParam);
+        const cleanUrl = window.location.pathname;
+        window.history.replaceState({}, "", cleanUrl);
+      } else if (donationParam === "cancelled") {
+        setPaymentBanner("cancelled");
+        const cleanUrl = window.location.pathname;
+        window.history.replaceState({}, "", cleanUrl);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     fetch("/api/payment/donations/stats")
@@ -266,6 +286,33 @@ export default function DonatePage() {
           </div>
         </div>
       </header>
+      {paymentBanner === "success" && (
+        <div className="bg-emerald-950/90 border-b border-emerald-500/40 px-4 py-3 text-center text-sm font-semibold text-emerald-300 flex items-center justify-center gap-2.5 shadow-xl animate-in fade-in slide-in-from-top-2">
+          <Heart className="h-4 w-4 fill-rose-500 text-rose-500 animate-pulse shrink-0" />
+          <span>
+            Thank you for your generous contribution! Your payment has been received and verified.
+            {successOrderId ? ` (Order ID: ${successOrderId})` : ""}
+          </span>
+          <button
+            onClick={() => setPaymentBanner(null)}
+            className="ml-3 text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-900 border border-slate-700 transition-colors"
+          >
+            Dismiss
+          </button>
+        </div>
+      )}
+      {paymentBanner === "cancelled" && (
+        <div className="bg-amber-950/90 border-b border-amber-500/40 px-4 py-3 text-center text-sm font-semibold text-amber-300 flex items-center justify-center gap-2.5 shadow-xl animate-in fade-in slide-in-from-top-2">
+          <HelpCircle className="h-4 w-4 text-amber-400 shrink-0" />
+          <span>Payment was not completed. You can try again whenever you are ready.</span>
+          <button
+            onClick={() => setPaymentBanner(null)}
+            className="ml-3 text-xs text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-900 border border-slate-700 transition-colors"
+          >
+            Dismiss
+          </button>
+        </div>
+      )}
 
       {/* Main Content Area */}
       <main className="flex-1 py-12 px-4 sm:px-6 lg:px-8">

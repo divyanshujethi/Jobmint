@@ -210,9 +210,27 @@ export async function POST(req: NextRequest) {
       ? `rn_don_${finalAmount}_${uniqueSuffix}`
       : `rn_${plan}_${uniqueSuffix}`;
 
-    const origin = req.headers.get("origin") || process.env.NEXTAUTH_URL || "https://rolenest.in";
-    const returnUrl = `${origin}/payment/verify?order_id={order_id}`;
-    const notifyUrl = `${origin}/api/webhooks/cashfree`;
+    const hostHeader = (req.headers.get("x-forwarded-host") || req.headers.get("host") || "").toLowerCase();
+    const protoHeader = req.headers.get("x-forwarded-proto") || "https";
+    const originHeader = req.headers.get("origin");
+
+    let origin = originHeader;
+    if (!origin && hostHeader) {
+      origin = `${protoHeader}://${hostHeader}`;
+    }
+    if (!origin) {
+      origin = isDonation
+        ? "https://donation.rolenest.in"
+        : process.env.NEXTAUTH_URL || "https://rolenest.in";
+    }
+
+    // If it's a donation, guarantee returnUrl points to donation.rolenest.in
+    if (isDonation && !origin.includes("donation.") && !origin.includes("donate.")) {
+      origin = "https://donation.rolenest.in";
+    }
+
+    const returnUrl = `${origin}/payment/verify?order_id={order_id}${isDonation ? "&plan=donation" : ""}`;
+    const notifyUrl = `https://rolenest.in/api/webhooks/cashfree`;
 
     // Pre-save donation into database with full donorNote (including any emojis & user formatting)
     if (isDonation) {
