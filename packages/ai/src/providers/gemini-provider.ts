@@ -1,6 +1,11 @@
 export async function callGeminiProvider(
   prompt: string,
-  model = process.env.GEMINI_MODEL || "gemini-3.6-flash"
+  model = process.env.GEMINI_MODEL || "gemini-3.8-flash",
+  options?: {
+    temperature?: number;
+    maxOutputTokens?: number;
+    responseMimeType?: string;
+  }
 ): Promise<{ success: boolean; text: string; modelUsed: string; latencyMs: number }> {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
@@ -8,6 +13,14 @@ export async function callGeminiProvider(
   }
 
   const startTime = Date.now();
+  const generationConfig: Record<string, any> = {
+    temperature: options?.temperature ?? 0.2,
+    maxOutputTokens: options?.maxOutputTokens ?? 4000,
+  };
+  if (options?.responseMimeType) {
+    generationConfig.responseMimeType = options.responseMimeType;
+  }
+
   const response = await fetch(
     `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
     {
@@ -15,10 +28,7 @@ export async function callGeminiProvider(
       headers: { "Content-Type": "application/json", "User-Agent": "JobMint/1.0" },
       body: JSON.stringify({
         contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: {
-          temperature: 0.2,
-          maxOutputTokens: 800,
-        },
+        generationConfig,
       }),
     }
   );

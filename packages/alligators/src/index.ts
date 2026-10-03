@@ -13,6 +13,7 @@ export * from './job-alligator/github-internships';
 export * from './job-alligator/simplify-crawler';
 export * from './job-alligator/india-crawler';
 export * from './job-alligator/company-discovery';
+export * from './job-alligator/ai-career-scraper';
 export * from './job-alligator/verified-regional-dataset';
 export * from './study-alligator/curated-sources';
 export * from './study-alligator/canvas-binder';
