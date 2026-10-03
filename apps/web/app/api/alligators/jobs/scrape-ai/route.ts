@@ -1,11 +1,28 @@
 import { NextResponse } from "next/server";
 import { scrapeCustomCareerWithAI } from "@repo/alligators";
 import { persistCrawledJobs } from "@/lib/job-ingestion";
+import { checkRateLimit } from "@/lib/rate-limit";
 
 export const maxDuration = 60; // 60s max for AI web scraping & DB ingestion
 
 export async function POST(request: Request): Promise<NextResponse> {
   try {
+    const rateLimit = await checkRateLimit(request as any, {
+      maxRequests: 6,
+      windowSeconds: 60,
+      prefix: "rl:ai:scraper",
+    });
+
+    if (!rateLimit.allowed) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: `AI Scraper rate limit exceeded. Please wait ${rateLimit.resetInSeconds}s before making another request.`,
+        },
+        { status: 429 }
+      );
+    }
+
     const body = await request.json();
     const url = body.url?.trim();
     const companyName = body.companyName?.trim();
@@ -49,6 +66,22 @@ export async function POST(request: Request): Promise<NextResponse> {
 
 export async function GET(request: Request): Promise<NextResponse> {
   try {
+    const rateLimit = await checkRateLimit(request as any, {
+      maxRequests: 6,
+      windowSeconds: 60,
+      prefix: "rl:ai:scraper:get",
+    });
+
+    if (!rateLimit.allowed) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: `AI Scraper rate limit exceeded. Please wait ${rateLimit.resetInSeconds}s before making another request.`,
+        },
+        { status: 429 }
+      );
+    }
+
     const { searchParams } = new URL(request.url);
     const url = searchParams.get("url")?.trim();
     const companyName = searchParams.get("name")?.trim();

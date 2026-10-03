@@ -1,9 +1,16 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Search, MapPin, Sparkles, ArrowRight, BookOpen, CheckCircle, ShieldCheck, Zap, TrendingUp, FileText } from "lucide-react";
 import { APP_CONFIG } from "@repo/shared";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { TruthTellerPreview } from "@/components/truth-teller-preview";
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: "/",
+  },
+};
 
 export default function HomePage() {
   return (
