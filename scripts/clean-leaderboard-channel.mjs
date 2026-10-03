@@ -35,23 +35,20 @@ async function run() {
     return;
   }
 
-  // Keep the oldest message (last item in msgs array), bulk delete all others
+  // Keep the oldest message (last item in msgs array), delete all others
   const keepMsg = msgs[msgs.length - 1];
   const toDelete = msgs.filter((m) => m.id !== keepMsg.id).map((m) => m.id);
 
-  console.log(`Keeping message ${keepMsg.id}. Bulk deleting ${toDelete.length} duplicates...`);
+  console.log(`Keeping message ${keepMsg.id}. Deleting ${toDelete.length} duplicates...`);
   
-  // Bulk delete allows up to 100 messages at once
-  while (toDelete.length > 0) {
-    const chunk = toDelete.splice(0, 100);
-    if (chunk.length === 1) {
-      await discordFetch(`/channels/${CHANNEL_ID}/messages/${chunk[0]}`, 'DELETE');
-    } else {
-      await discordFetch(`/channels/${CHANNEL_ID}/messages/bulk-delete`, 'POST', {
-        messages: chunk,
-      });
+  for (const id of toDelete) {
+    try {
+      await discordFetch(`/channels/${CHANNEL_ID}/messages/${id}`, 'DELETE');
+      console.log(`Deleted message ${id}`);
+      await new Promise((r) => setTimeout(r, 600));
+    } catch (err) {
+      console.warn(`Failed to delete ${id}:`, err.message);
     }
-    console.log(`Deleted batch of ${chunk.length} messages.`);
   }
 
   console.log('Done! Checking remaining messages...');
