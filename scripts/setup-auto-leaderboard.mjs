@@ -234,4 +234,7 @@ async function main() {
   console.log('\n✨ Auto Leaderboard setup complete!');
 }
 
-main().catch(console.error);
+// Only run if executed directly from command line (not when imported as a helper library)
+if (process.argv[1] && process.argv[1].endsWith('setup-auto-leaderboard.mjs')) {
+  main().catch(console.error);
+}
