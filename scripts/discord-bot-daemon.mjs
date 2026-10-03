@@ -1388,8 +1388,13 @@ async function handleDispatch(eventType, data) {
 }
 
 // Automated Daily POTD Checker
+let isPOTDSchedulerRunning = false;
 function startPOTDAutoScheduler() {
-  console.log('⏰ Starting Automated Daily POTD Scheduler...');
+  if (isPOTDSchedulerRunning) {
+    return; // Prevent duplicate timers on gateway reconnect
+  }
+  isPOTDSchedulerRunning = true;
+  console.log('⏰ Starting Automated Daily POTD Scheduler (single instance)...');
   setInterval(async () => {
     try {
       const today = new Date().toLocaleDateString('en-IN', { timeZone: 'Asia/Kolkata' });
@@ -1421,68 +1426,98 @@ function startPOTDAutoScheduler() {
   }, 30 * 60 * 1000); // Check every 30 minutes
 }
 
-// Automated Leaderboard and Standup Reminder Scheduler
-let lastStandupMorningDate = '';
-let lastStandupEveningDate = '';
+// Automated Leaderboard (In-Place Silent Update & Zero-Spam Architecture)
+let isLeaderboardSchedulerRunning = false;
+let pinnedLeaderboardMessageId = null;
 
-function startLeaderboardAndStandupScheduler() {
-  console.log('⏰ Starting Automated Leaderboard & Standup Scheduler...');
+async function purgeLeaderboardSpamAndEnsureSingleMessage() {
+  try {
+    const msgs = await discordFetch(`/channels/${CHANNELS.LEADERBOARD}/messages?limit=100`);
+    if (Array.isArray(msgs) && msgs.length > 0) {
+      console.log(`[Leaderboard] Found ${msgs.length} messages in #intern-leaderboard.`);
+      if (msgs.length > 1) {
+        console.log(`[Leaderboard] Purging ${msgs.length - 1} duplicate spam messages to keep channel clean...`);
+        // Keep the most recent or pinned message
+        const keepId = msgs[0].id;
+        pinnedLeaderboardMessageId = keepId;
+        for (let i = 1; i < msgs.length; i++) {
+          try {
+            await discordFetch(`/channels/${CHANNELS.LEADERBOARD}/messages/${msgs[i].id}`, 'DELETE');
+            await new Promise((r) => setTimeout(r, 600)); // avoid rate limits
+          } catch (e) {}
+        }
+        console.log(`[Leaderboard] Cleanup complete. Single message retained: ${keepId}`);
+      } else {
+        pinnedLeaderboardMessageId = msgs[0].id;
+      }
+    }
+  } catch (err) {
+    console.error('[Leaderboard Cleanup Error]:', err);
+  }
+}
 
-  // 1. Refresh Leaderboard every 6 hours
-  setInterval(async () => {
-    try {
-      console.log('[Leaderboard Scheduler] Refreshing #intern-leaderboard from database...');
-      const liveData = await fetchLiveLeaderboardData();
-      const embed = buildLiveLeaderboardEmbed(liveData);
-      const msg = await sendChannelMessage(CHANNELS.LEADERBOARD, {
+async function updateLeaderboardInPlace() {
+  try {
+    const liveData = await fetchLiveLeaderboardData();
+    const embed = buildLiveLeaderboardEmbed(liveData);
+
+    if (!pinnedLeaderboardMessageId) {
+      try {
+        const pins = await discordFetch(`/channels/${CHANNELS.LEADERBOARD}/pins`);
+        if (Array.isArray(pins) && pins.length > 0) {
+          pinnedLeaderboardMessageId = pins[0].id;
+        } else {
+          const msgs = await discordFetch(`/channels/${CHANNELS.LEADERBOARD}/messages?limit=5`);
+          if (Array.isArray(msgs) && msgs.length > 0) {
+            pinnedLeaderboardMessageId = msgs[0].id;
+          }
+        }
+      } catch (e) {}
+    }
+
+    if (pinnedLeaderboardMessageId) {
+      // In-place edit (PATCH): sends ZERO notifications, zero dings, zero unread alerts!
+      const res = await discordFetch(`/channels/${CHANNELS.LEADERBOARD}/messages/${pinnedLeaderboardMessageId}`, 'PATCH', {
         embeds: [embed],
       });
-      if (msg && msg.id) {
-        try {
-          await fetch(`${API_BASE}/channels/${CHANNELS.LEADERBOARD}/messages/${msg.id}/reactions/🏆/@me`, {
-            method: 'PUT',
-            headers: { Authorization: `Bot ${BOT_TOKEN}` },
-          });
-        } catch (e) {}
+      if (res && res.id) {
+        console.log(`[Leaderboard] Silently updated #${pinnedLeaderboardMessageId} in-place (no notifications sent).`);
+        return;
       }
-    } catch (err) {
-      console.error('[Leaderboard Scheduler Error]:', err);
     }
-  }, 6 * 60 * 60 * 1000);
 
-  // 2. Standup Announcements (10 AM & 6 PM IST)
+    // Only if channel is completely empty, post initial single message
+    console.log('[Leaderboard] Channel empty. Posting initial single message...');
+    const newMsg = await sendChannelMessage(CHANNELS.LEADERBOARD, {
+      embeds: [embed],
+    });
+    if (newMsg && newMsg.id) {
+      pinnedLeaderboardMessageId = newMsg.id;
+      try {
+        await discordFetch(`/channels/${CHANNELS.LEADERBOARD}/pins/${newMsg.id}`, 'PUT');
+      } catch (e) {}
+    }
+  } catch (err) {
+    console.error('[Leaderboard Silent Update Error]:', err);
+  }
+}
+
+function startLeaderboardAndStandupScheduler() {
+  if (isLeaderboardSchedulerRunning) {
+    return; // Prevent duplicate timers on gateway reconnect
+  }
+  isLeaderboardSchedulerRunning = true;
+  console.log('⏰ Starting Automated Leaderboard Scheduler (single instance, silent in-place updates)...');
+
+  // Initial cleanup of old spam messages and update the retained message
+  purgeLeaderboardSpamAndEnsureSingleMessage().then(() => {
+    updateLeaderboardInPlace();
+  });
+
+  // Silently refresh the single leaderboard message every 12 hours (PATCH only, zero spam notifications)
   setInterval(async () => {
-    try {
-      const now = new Date();
-      const istTimeStr = now.toLocaleTimeString('en-US', {
-        timeZone: 'Asia/Kolkata',
-        hour12: false,
-        hour: '2-digit',
-        minute: '2-digit',
-      });
-      const today = now.toLocaleDateString('en-IN', { timeZone: 'Asia/Kolkata' });
-
-      // Morning Standup (10:00 to 10:15 IST)
-      if (istTimeStr.startsWith('10:') && lastStandupMorningDate !== today) {
-        lastStandupMorningDate = today;
-        console.log('[Standup Scheduler] Posting Morning Standup Prompt...');
-        await sendChannelMessage(CHANNELS.DAILY_STANDUP, {
-          content: '☀️ **Morning Cohort Standup is LIVE!**\n\nMentors are currently hosting daily office hours in `🎙️ Mentor Standup & Office Hours`.\n\n• Download your milestone blueprint with **/sop**\n• Run your code in the in-browser sandbox\n• Push clean commits to your repository for automated audit.',
-        });
-      }
-
-      // Evening Standup Recap (18:00 to 18:15 IST)
-      if (istTimeStr.startsWith('18:') && lastStandupEveningDate !== today) {
-        lastStandupEveningDate = today;
-        console.log('[Standup Scheduler] Posting Evening Standup Wrap Prompt...');
-        await sendChannelMessage(CHANNELS.DAILY_STANDUP, {
-          content: '🌙 **Evening Standup Milestone Reminder**\n\nEnsure today\'s milestone code is pushed to your GitHub repo and submitted here before midnight for automated credit evaluation. Use **/myprogress** to verify your streak!',
-        });
-      }
-    } catch (err) {
-      console.error('[Standup Scheduler Error]:', err);
-    }
-  }, 10 * 60 * 1000); // Check every 10 minutes
+    await updateLeaderboardInPlace();
+  }, 12 * 60 * 60 * 1000);
 
   // 3. Sync Server Stats with Real Discord & Database Telemetry
   const syncServerStats = async () => {
