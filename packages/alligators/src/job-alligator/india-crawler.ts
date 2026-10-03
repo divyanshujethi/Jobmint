@@ -4,12 +4,7 @@ import { extractCanonicalSkills } from "./skill-extractor";
 import { evaluateJobTruth } from "./truth-filter";
 import { VERIFIED_NORTH_INDIA_REGIONAL_JOBS } from "./verified-regional-dataset";
 
-interface TargetBoard {
-  companyName: string;
-  type: "greenhouse" | "lever" | "ashby";
-  token: string;
-  website: string;
-}
+import { TargetBoard, getDiscoveredBoards, discoverStartupBoards } from "./company-discovery";
 
 const INDIAN_TARGET_BOARDS: TargetBoard[] = [
   // High-Growth Indian Startups & AI Labs
@@ -1081,6 +1076,7 @@ export async function crawlGrazittiJobs(): Promise<RawCrawledJob[]> {
 
 export async function crawlIndiaTechBoards(options?: {
   maxPerCompany?: number;
+  enableDiscovery?: boolean;
 }): Promise<RawCrawledJob[]> {
   const maxPerCompany = options?.maxPerCompany ?? 25;
   const results: RawCrawledJob[] = [];
@@ -1095,8 +1091,33 @@ export async function crawlIndiaTechBoards(options?: {
     results.push(...liveGrazittiJobs);
   }
 
-  // 3. Crawl official ATS boards
-  for (const board of INDIAN_TARGET_BOARDS) {
+  // 3. Optional Autonomous Startup Discovery
+  if (options?.enableDiscovery) {
+    try {
+      console.log("[India Alligator] Running Autonomous Startup & Career Discovery...");
+      await discoverStartupBoards({ concurrency: 4, maxDiscover: 12 });
+    } catch (err: any) {
+      console.error("[India Alligator] Discovery error:", err?.message || err);
+    }
+  }
+
+  // Merge static target boards with newly discovered boards
+  const targetBoards: TargetBoard[] = [...INDIAN_TARGET_BOARDS];
+  const discoveredBoards = getDiscoveredBoards();
+  for (const disc of discoveredBoards) {
+    if (
+      !targetBoards.some(
+        (b) =>
+          b.type === disc.type &&
+          b.token.toLowerCase() === disc.token.toLowerCase()
+      )
+    ) {
+      targetBoards.push(disc);
+    }
+  }
+
+  // 4. Crawl official ATS boards
+  for (const board of targetBoards) {
     try {
       if (board.type === "greenhouse") {
         const res = await fetch(

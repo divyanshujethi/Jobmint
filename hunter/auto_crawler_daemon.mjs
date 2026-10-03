@@ -5,7 +5,7 @@
  */
 
 const INTERVAL_MS = 6 * 60 * 60 * 1000; // Crawl every 6 hours (4 times daily)
-const CRAWL_URL = "http://localhost:3000/api/alligators/jobs/crawl";
+const CRAWL_URL = "http://localhost:3000/api/alligators/jobs/crawl?discover=true";
 
 async function executeCrawl() {
   const timestamp = new Date().toISOString();

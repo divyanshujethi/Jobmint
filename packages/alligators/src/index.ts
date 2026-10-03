@@ -12,27 +12,30 @@ export * from './job-alligator/lever-crawler';
 export * from './job-alligator/github-internships';
 export * from './job-alligator/simplify-crawler';
 export * from './job-alligator/india-crawler';
+export * from './job-alligator/company-discovery';
 export * from './job-alligator/verified-regional-dataset';
 export * from './study-alligator/curated-sources';
 export * from './study-alligator/canvas-binder';
 
 /**
  * Master Runner for Job Alligator:
- * Aggregates verified tech positions from Indian Unicorns (Greenhouse/Lever),
- * Global India engineering hubs, and tech internships.
+ * Aggregates verified tech positions from Indian Unicorns (Greenhouse/Lever/Ashby),
+ * Global India engineering hubs, autonomous startup discovery, and tech internships.
  */
 export async function runJobAlligator(options?: {
   internshipLimit?: number;
   newGradLimit?: number;
   maxPerCompany?: number;
+  enableDiscovery?: boolean;
 }) {
   const startTime = Date.now();
   const internshipLimit = options?.internshipLimit ?? 20;
   const newGradLimit = options?.newGradLimit ?? 20;
   const maxPerCompany = options?.maxPerCompany ?? 20;
+  const enableDiscovery = options?.enableDiscovery ?? false;
 
   const [indiaJobs, internships, newGrads, gitlabJobs, canonicalJobs] = await Promise.all([
-    crawlIndiaTechBoards({ maxPerCompany }).catch((err) => {
+    crawlIndiaTechBoards({ maxPerCompany, enableDiscovery }).catch((err) => {
       console.error("[Job Alligator] India crawler failed:", err);
       return [];
     }),
