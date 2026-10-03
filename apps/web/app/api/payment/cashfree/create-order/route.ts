@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { createCashfreeOrder } from "@/lib/cashfree";
-import { db, users, candidateProfiles, eq } from "@repo/database";
+import { db, users, candidateProfiles, eq, sql } from "@repo/database";
 
 const PLAN_CONFIGS: Record<
   string,
@@ -214,20 +214,55 @@ export async function POST(req: NextRequest) {
     const returnUrl = `${origin}/payment/verify?order_id={order_id}`;
     const notifyUrl = `${origin}/api/webhooks/cashfree`;
 
+    // Pre-save donation into database with full donorNote (including any emojis & user formatting)
+    if (isDonation) {
+      try {
+        await db.execute(sql`
+          CREATE TABLE IF NOT EXISTS community_donations (
+            id VARCHAR(64) PRIMARY KEY,
+            order_id VARCHAR(128) UNIQUE NOT NULL,
+            amount NUMERIC(10, 2) NOT NULL,
+            donor_name VARCHAR(255),
+            donor_email VARCHAR(255),
+            donor_phone VARCHAR(32),
+            donor_note TEXT,
+            gateway VARCHAR(32) DEFAULT 'cashfree',
+            status VARCHAR(32) DEFAULT 'PENDING',
+            created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+          );
+          INSERT INTO community_donations (id, order_id, amount, donor_name, donor_email, donor_phone, donor_note, gateway, status)
+          VALUES (${orderId}, ${orderId}, ${finalAmount}, ${userName}, ${userEmail}, ${resolvedPhone}, ${donorNote || ''}, 'cashfree', 'PENDING')
+          ON CONFLICT (order_id) DO UPDATE SET
+            donor_note = EXCLUDED.donor_note,
+            donor_name = EXCLUDED.donor_name;
+        `);
+      } catch (dbErr) {
+        console.warn("[Donation Pre-Save Warning]:", dbErr);
+      }
+    }
+
     const tags: Record<string, string> = {
       plan,
-      planName,
-      planDurationMs: String(planDurationMs),
-      userId,
-      userEmail,
-      customerPhone: resolvedPhone,
-      community: "RitualDev & Role Nest",
+      plan_name: String(planName).slice(0, 50),
+      plan_duration_ms: String(planDurationMs),
+      user_id: userId,
+      user_email: userEmail,
+      customer_phone: resolvedPhone,
+      community: "RitualDev Role Nest",
     };
     if (isDonation && donorNote) {
-      tags.donorNote = String(donorNote).slice(0, 100);
+      const cleanNote = String(donorNote)
+        .replace(/<[^>]*>/g, "")
+        .replace(/[\r\n\t]+/g, " ")
+        .replace(/[^\x20-\x7E]/g, "")
+        .trim()
+        .slice(0, 100);
+      if (cleanNote) {
+        tags.donor_note = cleanNote;
+      }
     }
     if (jobId) {
-      tags.jobId = jobId;
+      tags.job_id = jobId;
     }
 
     const order = await createCashfreeOrder({

@@ -46,6 +46,59 @@ export interface CashfreeOrderResponse {
 }
 
 /**
+ * Sanitizes order_tags to strictly comply with Cashfree Payment Gateway constraints:
+ * - Keys must be alphanumeric and underscores only, max 50 chars
+ * - Values must not contain HTML, emojis, line breaks, or non-ASCII characters
+ * - Values max length is 100 characters
+ * - Maximum of 10 tags per order
+ * - Reserved/problematic keys like 'brand_image' are filtered out
+ */
+export function sanitizeOrderTags(tags?: Record<string, string>): Record<string, string> | undefined {
+  if (!tags || typeof tags !== "object") return undefined;
+
+  const sanitized: Record<string, string> = {};
+  const reservedKeys = new Set(["brand_image"]);
+
+  for (const [key, value] of Object.entries(tags)) {
+    if (!key || (typeof value !== "string" && typeof value !== "number")) continue;
+
+    const cleanKey = String(key)
+      .replace(/[^a-zA-Z0-9_]/g, "_")
+      .slice(0, 50);
+
+    if (!cleanKey || reservedKeys.has(cleanKey.toLowerCase())) continue;
+
+    const cleanValue = String(value)
+      .replace(/<[^>]*>/g, "") // strip HTML tags
+      .replace(/[\r\n\t]+/g, " ") // replace newlines/tabs with space
+      .replace(/[^\x20-\x7E]/g, "") // remove emojis & non-ASCII characters
+      .trim()
+      .slice(0, 100);
+
+    if (cleanValue.length > 0) {
+      sanitized[cleanKey] = cleanValue;
+    }
+
+    if (Object.keys(sanitized).length >= 10) break;
+  }
+
+  return Object.keys(sanitized).length > 0 ? sanitized : undefined;
+}
+
+export function sanitizeOrderNote(note?: string): string {
+  if (!note) return "Role Nest Contribution";
+  return (
+    String(note)
+      .replace(/<[^>]*>/g, "")
+      .replace(/[\r\n\t]+/g, " ")
+      .replace(/₹/g, "INR ")
+      .replace(/[^\x20-\x7E]/g, "")
+      .trim()
+      .slice(0, 200) || "Role Nest Contribution"
+  );
+}
+
+/**
  * Creates a Cashfree payment order and returns the payment_session_id
  */
 export async function createCashfreeOrder(params: CreateOrderParams): Promise<CashfreeOrderResponse> {
@@ -65,11 +118,12 @@ export async function createCashfreeOrder(params: CreateOrderParams): Promise<Ca
       return_url: params.returnUrl,
       notify_url: params.notifyUrl || undefined,
     },
-    order_note: params.orderNote || "Role Nest Pro",
+    order_note: sanitizeOrderNote(params.orderNote),
   };
 
-  if (params.orderTags) {
-    payload.order_tags = params.orderTags;
+  const cleanTags = sanitizeOrderTags(params.orderTags);
+  if (cleanTags) {
+    payload.order_tags = cleanTags;
   }
 
   const res = await fetch(url, {
