@@ -629,7 +629,7 @@ ${data.skills.map((s) => `    \\textbf{${escapeLatex(s.category)}}{: ${escapeLat
       '<html>' +
       '<head>' +
       '  <meta charset="utf-8" />' +
-      '  <title>' + (data.fullName || "Resume") + ' - Harvard ATS Resume</title>' +
+      '  <title>' + (data.fullName || "Resume") + ' - ATS Resume</title>' +
       '  <style>' +
       '    @page { size: letter portrait; margin: 0.45in 0.5in 0.45in 0.5in; }' +
       '    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }' +
@@ -715,7 +715,7 @@ ${data.skills.map((s) => `    \\textbf{${escapeLatex(s.category)}}{: ${escapeLat
               <div className="flex items-center gap-2">
                 <h1 className="font-extrabold text-slate-900 text-lg flex items-center gap-2">
                   <FileText className="h-5 w-5 text-emerald-600" />
-                  1-Click Harvard / Stanford ATS Resume Builder
+                  Single-Column ATS Resume Builder
                 </h1>
                 {atsAudit.isMultiPage ? (
                   <span className="rounded-full bg-amber-100 text-amber-800 px-2.5 py-0.5 text-[11px] font-bold border border-amber-300">
@@ -728,7 +728,7 @@ ${data.skills.map((s) => `    \\textbf{${escapeLatex(s.category)}}{: ${escapeLat
                 )}
               </div>
               <p className="text-xs text-slate-500">
-                Guaranteed 100% ATS parser pass rate. Single-column, zero-bloat formatting.
+                Recruiter-approved single-column, zero-bloat formatting crafted for modern ATS parsers.
               </p>
             </div>
           </div>
@@ -845,7 +845,7 @@ ${data.skills.map((s) => `    \\textbf{${escapeLatex(s.category)}}{: ${escapeLat
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
                       <h3 className="font-bold text-slate-900 text-sm">Personal &amp; Contact Info</h3>
-                      <span className="text-[11px] text-slate-400">Harvard Single-Line Format</span>
+                      <span className="text-[11px] text-slate-400">Standard Single-Line Format</span>
                     </div>
 
                     <div>

@@ -332,7 +332,7 @@ export default function DonatePage() {
             </h1>
 
             <p className="text-sm sm:text-base text-slate-300 leading-relaxed max-w-2xl mx-auto">
-              Jointly supported by <strong>RitualDev Lab</strong>, <strong>Role Nest</strong>, and <strong>DevShelf</strong>. Your contribution keeps tech career telemetry, Harvard ATS tools, and developer learning roadmaps completely free for students.
+              Jointly supported by <strong>RitualDev Lab</strong>, <strong>Role Nest</strong>, and <strong>DevShelf</strong>. Your contribution keeps tech career telemetry, standard ATS tools, and developer learning roadmaps completely free for students.
             </p>
 
             {/* Real Live Community Ledger - Zero Fake Funding */}
@@ -501,7 +501,7 @@ export default function DonatePage() {
                       </a>
                     </div>
                     <p className="text-slate-400 leading-relaxed text-[11.5px]">
-                      Career intelligence platform. 100% verified direct job links, Harvard ATS resume analyzer, and Truth Teller anti-ghosting telemetry. Zero recruiter fees for freshers.
+                      Career intelligence platform. 100% verified direct job links, single-column ATS resume analyzer, and Truth Teller application telemetry. Zero recruiter fees for freshers.
                     </p>
                   </div>
                 </div>

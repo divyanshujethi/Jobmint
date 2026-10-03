@@ -265,7 +265,7 @@ export async function GET(req: NextRequest) {
           owner: "divyanshujethi",
           avatarUrl: "https://github.com/divyanshujethi.png",
           description:
-            "Zero-Ghosting Candidate-First Career and Engineering Evaluation Platform with Verified Dev Scores and Real-Time Sandboxes.",
+            "Candidate-First Career and Engineering Evaluation Platform with Verified Dev Scores and Real-Time Sandboxes.",
           language: "TypeScript",
           languageColor: "#3178c6",
           stars: 48,

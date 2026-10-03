@@ -115,7 +115,7 @@ const INITIAL_PROGRAMS: VirtualInternshipProgram[] = [
 ];
 
 export default function CertificationsHubPage() {
-  const [activeTab, setActiveTab] = useState<"JOBMINT" | "GLOBAL">("JOBMINT");
+  const [activeTab, setActiveTab] = useState<"ROLENEST" | "GLOBAL">("ROLENEST");
   const [programs, setPrograms] = useState<VirtualInternshipProgram[]>(INITIAL_PROGRAMS);
   const [searchQuery, setSearchQuery] = useState("");
   const [isCrawling, setIsCrawling] = useState(false);
@@ -184,9 +184,9 @@ export default function CertificationsHubPage() {
           <div className="flex items-center justify-center pt-4">
             <div className="inline-flex rounded-2xl bg-slate-100 p-1.5 border border-slate-200 shadow-sm">
               <button
-                onClick={() => setActiveTab("JOBMINT")}
+                onClick={() => setActiveTab("ROLENEST")}
                 className={`flex items-center gap-2 rounded-xl px-5 py-2.5 text-xs sm:text-sm font-bold transition-all ${
-                  activeTab === "JOBMINT"
+                  activeTab === "ROLENEST"
                     ? "bg-emerald-600 text-white shadow-sm"
                     : "text-slate-600 hover:text-slate-900"
                 }`}
@@ -218,7 +218,7 @@ export default function CertificationsHubPage() {
               <Input
                 type="text"
                 placeholder={
-                  activeTab === "JOBMINT"
+                  activeTab === "ROLENEST"
                     ? "Search Role Nest courses or skills..."
                     : "Search simulations, companies, skills..."
                 }
@@ -230,7 +230,7 @@ export default function CertificationsHubPage() {
           </div>
 
           <div className="flex items-center gap-3">
-            {activeTab === "JOBMINT" ? (
+            {activeTab === "ROLENEST" ? (
               <Link href="/certificates/verify/JM-AI-GPT-7B29A1">
                 <Button
                   variant="outline"
@@ -263,8 +263,8 @@ export default function CertificationsHubPage() {
           </div>
         )}
 
-        {/* TAB 1: JOBMINT COURSE COMPLETION CERTIFICATES */}
-        {activeTab === "JOBMINT" && (
+        {/* TAB 1: ROLENEST COURSE COMPLETION CERTIFICATES */}
+        {activeTab === "ROLENEST" && (
           <div className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {filteredRoleNestCourses.map((course) => (

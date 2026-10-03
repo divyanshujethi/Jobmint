@@ -14,15 +14,15 @@ export function TruthTellerPreview() {
             </span>
           </div>
           <h3 className="mt-1 text-xl font-bold text-slate-900">
-            Never wonder &quot;Did they even look at my resume?&quot;
+            Stop losing track of where you applied.
           </h3>
           <p className="mt-1 text-sm text-slate-500">
-            Real activity logs with verifiable timestamps. If a company stops reviewing, we tell you immediately.
+            Self-tracked application timeline with automated 7-day follow-up reminders. When an application goes silent, we prompt you with tested outreach templates.
           </p>
         </div>
         <div className="flex items-center gap-2">
           <Badge variant="warning" className="w-fit gap-1 text-xs py-1">
-            <Clock className="h-3.5 w-3.5" /> 7-Day Ghosting Protection
+            <Clock className="h-3.5 w-3.5" /> 7-Day Follow-Up Reminders
           </Badge>
           <Link href="/applications">
             <Badge className="w-fit gap-1 text-xs py-1 bg-emerald-100 text-emerald-800 border-emerald-300 hover:bg-emerald-200 cursor-pointer">

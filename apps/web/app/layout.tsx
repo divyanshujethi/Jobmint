@@ -63,7 +63,7 @@ export const metadata: Metadata = {
     siteName: "Role Nest",
     title: "Role Nest — Tech Jobs, Internships & Truth Teller Telemetry",
     description:
-      "Explore verified software engineer jobs, high-stipend internships, and real-time Truth Teller hiring telemetry with zero ghosting.",
+      "Explore verified software engineer jobs, high-stipend internships, and smart application tracking with direct ATS links.",
     images: [
       {
         url: "/icon-512.png",

@@ -898,7 +898,7 @@ export const CANVAS_TRACKS: CanvasTrack[] = [
         matchedJobsCount: 60,
         skills: ["Time Complexity Analysis", "Clean Code Under Pressure", "Edge Case Handling"],
         keyTopics: ["Communicating thought process aloud to interviewers", "Dry running test cases before writing code", "Identifying corner cases (overflow, empty, duplicates)", "Optimizing space and time tradeoffs on the fly"],
-        description: "Simulate real Google, Microsoft, and Uber 45-minute live technical coding rounds with verified automated test execution on RoleNest.",
+        description: "Simulate rigorous 45-minute live technical coding rounds with verified automated test execution on RoleNest.",
         projectTask: "Solve 10 Medium and 5 Hard challenges with 100% acceptance and sub-20 minute completion times.",
         mentalModelSnippet: "# Interview Protocol:\n# 1. Clarify constraints & edge cases (3 mins)\n# 2. State brute force approach & complexity (2 mins)\n# 3. Propose optimal algorithm with hash/pointers (5 mins)\n# 4. Write clean code (15 mins)\n# 5. Dry run with edge test cases (5 mins)",
         matchedCourseId: "striver-a2z-dsa",

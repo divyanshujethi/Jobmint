@@ -368,7 +368,7 @@ export default function LeaderboardPage() {
             <Link href="/resume/builder">
               <Button variant="outline" size="sm" className="border-slate-300 text-slate-800 hover:bg-slate-100 font-bold text-xs gap-1.5">
                 <FileText className="h-3.5 w-3.5 text-blue-600" />
-                1-Click Harvard ATS Resume
+                1-Click ATS Resume Builder
               </Button>
             </Link>
           </div>

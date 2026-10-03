@@ -172,7 +172,7 @@ export const PSEO_TOPICS: Record<string, PseoTopic> = {
     title: "Full Stack Developer Jobs",
     metaTitle: "Full Stack Developer Jobs in India (2026) | Role Nest",
     metaDescription:
-      "Find top Full Stack Developer roles with React, Next.js, Node.js, and cloud deployments. Verified hiring transparency and zero ghosting.",
+      "Find top Full Stack Developer roles with React, Next.js, Node.js, and cloud deployments. Verified active ATS direct links and smart application tracking.",
     heading: "Full Stack Developer Jobs",
     subheading:
       "End-to-end product development roles combining modern frontend user interfaces with robust backend architectures.",
@@ -278,7 +278,7 @@ export function resolvePseoCategory(slug: string): PseoTopic | null {
         metaTitle: `${titleWords} (2026) | Role Nest`,
         metaDescription: `Discover verified ${titleWords} with transparent salaries, recruiter response telemetry, and verified tech teams on Role Nest.`,
         heading: `${titleWords}`,
-        subheading: `Verified opportunities curated by Role Nest Truth Teller. Transparent hiring telemetry with zero ghosting.`,
+        subheading: `Verified opportunities curated by Role Nest Truth Teller. Direct ATS application links with 7-day follow-up tracking.`,
         filterFn: (job) => {
           const haystack = `${job.title} ${job.skills.join(" ")} ${job.location} ${job.workMode} ${job.description}`.toLowerCase();
           return tokens.some((token) => haystack.includes(token));
@@ -292,7 +292,7 @@ export function resolvePseoCategory(slug: string): PseoTopic | null {
         faqs: [
           {
             question: `How are ${titleWords} verified on Role Nest?`,
-            answer: `Every role is validated for compensation transparency, active recruiter participation, and zero ghosting via our Truth Teller tracking engine.`,
+            answer: `Every role is validated for direct ATS apply links, active company postings, and smart follow-up reminders via our Truth Teller tracking engine.`,
           },
         ],
       };

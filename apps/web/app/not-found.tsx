@@ -109,7 +109,7 @@ export default function NotFound() {
                 ATS Resume Builder
               </div>
               <div className="text-[11px] text-slate-500">
-                1-Click Harvard / Stanford PDF
+                1-Click Single-Column PDF
               </div>
             </div>
           </Link>

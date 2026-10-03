@@ -64,7 +64,7 @@ export default function ResumeStoragePage() {
             </div>
             <h3 className="text-sm font-semibold text-slate-900">ATS Quality Check</h3>
             <p className="mt-1 text-xs text-slate-500 leading-relaxed">
-              Uploaded files are verified for single-column Harvard ATS readability so applicant tracking systems parse your technical skills flawlessly.
+              Uploaded files are verified for standard single-column ATS readability so applicant tracking systems parse your technical skills flawlessly.
             </p>
           </div>
         </div>

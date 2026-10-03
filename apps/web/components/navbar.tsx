@@ -308,7 +308,7 @@ export function Navbar() {
                           <FileText className="h-4 w-4 text-blue-600 shrink-0 mt-0.5" />
                           <div>
                             <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5 group-hover:text-blue-600 transition-colors">
-                              Harvard ATS Resume
+                              ATS Resume Builder
                               <span className="rounded bg-blue-50 text-blue-700 px-1 py-0.2 text-[9px] font-mono">LaTeX</span>
                             </div>
                             <div className="text-[11px] text-slate-500">1-click single-column builder</div>
@@ -916,7 +916,7 @@ export function Navbar() {
                 >
                   <span className="flex items-center gap-2">
                     <FileText className="h-3.5 w-3.5 text-blue-600" />
-                    Harvard ATS Resume Builder
+                    ATS Resume Builder
                   </span>
                   <span className="rounded bg-blue-50 text-blue-700 px-1.5 py-0.5 text-[9px] font-mono font-bold">1-Click</span>
                 </Link>

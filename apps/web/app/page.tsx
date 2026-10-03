@@ -29,7 +29,7 @@ export default function HomePage() {
                 className="group inline-flex items-center gap-1.5 rounded-full border border-blue-200 bg-blue-50/90 hover:bg-blue-100 px-3 py-1 text-xs font-bold text-blue-900 transition-all shadow-sm"
               >
                 <FileText className="h-3.5 w-3.5 text-blue-600" />
-                <span>Harvard ATS Resume Builder</span>
+                <span>Standard ATS Resume Builder</span>
                 <span className="rounded bg-blue-200/60 px-1 py-0.2 text-[9px] text-blue-800 uppercase font-mono">LaTeX &amp; PDF</span>
                 <ArrowRight className="h-3 w-3 text-blue-600 group-hover:translate-x-0.5 transition-transform" />
               </Link>
@@ -41,7 +41,7 @@ export default function HomePage() {
             </h1>
             
             <p className="text-lg text-slate-600 sm:text-xl">
-              Apply to verified internships and junior tech roles. Know exactly when your resume is viewed, why you match, and where to learn missing skills for free.
+              Apply to verified internships and junior tech roles. Track your applications with smart follow-up alerts, transparent match diagnostics, and curated learning roadmaps.
             </p>
 
             {/* SEARCH BAR */}
@@ -120,14 +120,14 @@ export default function HomePage() {
               </div>
 
               <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-white leading-tight">
-                1-Click Harvard / ATS <br />
+                1-Click Recruiter-Approved <br />
                 <span className="bg-gradient-to-r from-blue-400 via-emerald-300 to-teal-300 bg-clip-text text-transparent">
-                  Resume Builder &amp; LaTeX Export
+                  Single-Column Resume &amp; LaTeX Export
                 </span>
               </h2>
 
               <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-                Stop getting filtered by algorithmic Applicant Tracking Systems. Build an industry-standard, single-column resume recommended by Harvard OCS and engineering hiring managers at Google, Microsoft, and Uber.
+                Stop getting filtered by algorithmic Applicant Tracking Systems. Build an industry-standard, single-column resume engineered to pass modern ATS parsers with clean LaTeX and PDF output.
               </p>
 
               {/* Feature Checkpoints */}
@@ -243,7 +243,7 @@ export default function HomePage() {
 
                 {/* Action overlay bar */}
                 <div className="mt-4 pt-3 border-t border-slate-200 flex items-center justify-between font-sans">
-                  <span className="text-[11px] font-mono text-slate-500">Harvard Standard (LaTeX / PDF)</span>
+                  <span className="text-[11px] font-mono text-slate-500">Standard ATS (LaTeX / PDF)</span>
                   <Link
                     href="/resume/builder"
                     className="text-xs font-bold text-emerald-600 hover:text-emerald-700 flex items-center gap-1"
@@ -290,7 +290,12 @@ export default function HomePage() {
             <div className="rounded-xl border border-slate-700 bg-slate-950/80 p-6 text-slate-100 shadow-lg">
               <div className="flex items-center justify-between border-b border-slate-800 pb-4">
                 <div>
-                  <span className="text-xs text-slate-400">Target Role</span>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-[10px] font-mono text-emerald-400/90 bg-emerald-950/60 border border-emerald-800/40 rounded px-1.5 py-0.5">
+                      Illustrative Example
+                    </span>
+                    <span className="text-xs text-slate-400">Target Role</span>
+                  </div>
                   <h4 className="font-bold text-lg text-white">AI / Deep Learning Intern</h4>
                 </div>
                 <div className="text-right">
@@ -302,16 +307,16 @@ export default function HomePage() {
               <div className="mt-4 space-y-2.5 text-xs">
                 <div className="flex items-center gap-2 text-emerald-300">
                   <CheckCircle className="h-4 w-4 text-emerald-400 shrink-0" />
-                  <span>Python & NumPy (Strong match)</span>
+                  <span>Python &amp; NumPy (Strong match)</span>
                 </div>
                 <div className="flex items-center gap-2 text-emerald-300">
                   <CheckCircle className="h-4 w-4 text-emerald-400 shrink-0" />
-                  <span>Git & Open Source Contributions</span>
+                  <span>Git &amp; Open Source Contributions</span>
                 </div>
                 <div className="flex items-center justify-between rounded-lg bg-amber-950/40 border border-amber-800/60 p-2.5 text-amber-200 mt-3">
                   <div>
-                    <span className="font-semibold block">Missing: PyTorch & Tensor basics</span>
-                    <span className="text-[11px] text-amber-300/80">Required by 82% of similar companies</span>
+                    <span className="font-semibold block">Missing: PyTorch &amp; Tensor basics</span>
+                    <span className="text-[11px] text-amber-300/80">Frequent prerequisite in active AI job specs</span>
                   </div>
                   <Link
                     href="/roadmaps/ai-engineer"

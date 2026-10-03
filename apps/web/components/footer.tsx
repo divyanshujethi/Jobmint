@@ -111,7 +111,7 @@ export function Footer() {
               </li>
               <li>
                 <Link href="/resume/builder" className="hover:text-emerald-600 font-semibold text-blue-700 flex items-center gap-1.5">
-                  📄 Harvard ATS Resume Builder (PDF &amp; LaTeX)
+                  📄 Standard ATS Resume Builder (PDF &amp; LaTeX)
                 </Link>
               </li>
               <li>

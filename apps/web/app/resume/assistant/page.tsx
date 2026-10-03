@@ -300,7 +300,7 @@ export default function ResumeAssistantPage() {
                   1-Click Resume Sync
                 </div>
                 <p className="text-[11px] text-slate-600 leading-relaxed">
-                  Save your enhanced bullet points directly to your Harvard / Stanford ATS Resume Builder for instant PDF export.
+                  Save your enhanced bullet points directly to your ATS Resume Builder for instant PDF export.
                 </p>
               </div>
             </div>
