@@ -3,6 +3,7 @@ import { RawCrawledJob } from "../types";
 import { extractCanonicalSkills } from "./skill-extractor";
 import { evaluateJobTruth } from "./truth-filter";
 import { VERIFIED_NORTH_INDIA_REGIONAL_JOBS } from "./verified-regional-dataset";
+import { VERIFIED_REGIONAL_TECH_INTERNSHIPS } from "./verified-regional-internships";
 
 import { TargetBoard, getDiscoveredBoards, discoverStartupBoards } from "./company-discovery";
 
@@ -1081,9 +1082,10 @@ export async function crawlIndiaTechBoards(options?: {
   const maxPerCompany = options?.maxPerCompany ?? 25;
   const results: RawCrawledJob[] = [];
 
-  // 1. Ingest verified regional IT park jobs (Tricity & Dehradun) and North India Tech Companies (Punjab, Haryana, HP, Uttarakhand, Delhi NCR)
+  // 1. Ingest verified regional IT park jobs & internships across all Indian cities
   results.push(...VERIFIED_REGIONAL_TECH_JOBS);
   results.push(...VERIFIED_NORTH_INDIA_REGIONAL_JOBS);
+  results.push(...VERIFIED_REGIONAL_TECH_INTERNSHIPS);
 
   // 2. Crawl live Grazitti Interactive career portal
   const liveGrazittiJobs = await crawlGrazittiJobs().catch(() => []);
