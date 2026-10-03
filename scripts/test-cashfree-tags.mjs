@@ -3,29 +3,40 @@ import { CASHFREE_CONFIG, createCashfreeOrder } from '../apps/web/lib/cashfree.t
 
 const testCases = [
   {
-    name: 'Current tags with special characters',
-    tags: {
-      plan: 'donation',
-      planName: 'Community Support Donation (RitualDev & Role Nest)',
-      planDurationMs: '0',
-      userId: 'guest_123',
-      userEmail: 'donor@gmail.com',
-      customerPhone: '9876543210',
-      community: 'RitualDev & Role Nest',
-    }
+    name: 'with emoji in donorNote',
+    tags: { plan: 'donation', donorNote: 'Thank you! ❤️' }
   },
   {
-    name: 'Sanitized alphanumeric tags',
-    tags: {
-      plan: 'donation',
-      user_id: 'guest_123',
-      donor_email: 'donor@gmail.com',
-      donor_phone: '9876543210',
-    }
+    name: 'with newline in donorNote',
+    tags: { plan: 'donation', donorNote: 'Line 1\nLine 2' }
   },
   {
-    name: 'Empty tags',
-    tags: undefined
+    name: 'with url in donorNote',
+    tags: { plan: 'donation', donorNote: 'Check https://rolenest.in' }
+  },
+  {
+    name: 'with HTML in donorNote',
+    tags: { plan: 'donation', donorNote: '<b>Bold</b>' }
+  },
+  {
+    name: 'with empty string value',
+    tags: { plan: 'donation', donorNote: '' }
+  },
+  {
+    name: 'with checkout_context reserved key',
+    tags: { checkout_context: 'Test context' }
+  },
+  {
+    name: 'with brand_image key http',
+    tags: { brand_image: 'http://example.com/logo.png' }
+  },
+  {
+    name: 'with brand_image key https',
+    tags: { brand_image: 'https://example.com/logo.png' }
+  },
+  {
+    name: 'with long text > 100 chars',
+    tags: { plan: 'donation', note: 'A'.repeat(120) }
   }
 ];
 
