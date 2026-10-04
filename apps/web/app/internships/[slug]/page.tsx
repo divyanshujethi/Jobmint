@@ -94,8 +94,71 @@ export default async function InternshipSlugPage({ params }: InternshipPageProps
     notFound();
   }
 
+  const htmlDescription = `
+    <p>${job.description || `${job.title} internship opportunity at ${job.companyName}.`}</p>
+    ${job.responsibilities && job.responsibilities.length > 0 ? `<h3>Responsibilities</h3><ul>${job.responsibilities.map((r: string) => `<li>${r}</li>`).join("")}</ul>` : ""}
+    ${job.requirements && job.requirements.length > 0 ? `<h3>Requirements</h3><ul>${job.requirements.map((r: string) => `<li>${r}</li>`).join("")}</ul>` : ""}
+    ${job.skills && job.skills.length > 0 ? `<p><strong>Core Skills:</strong> ${job.skills.join(", ")}</p>` : ""}
+  `.trim();
+
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "JobPosting",
+    title: job.title,
+    description: htmlDescription,
+    directApply: true,
+    identifier: {
+      "@type": "PropertyValue",
+      name: job.companyName,
+      value: job.id,
+    },
+    datePosted: job.postedAt || new Date().toISOString(),
+    validThrough: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000).toISOString(),
+    employmentType: "INTERN",
+    hiringOrganization: {
+      "@type": "Organization",
+      name: job.companyName,
+      sameAs: `https://rolenest.in/companies/${job.companySlug}`,
+      logo: job.companyLogoUrl || undefined,
+    },
+    jobLocation: {
+      "@type": "Place",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: job.location || "Remote",
+        addressCountry: "IN",
+      },
+    },
+    jobLocationType: job.workMode === "REMOTE" ? "TELECOMMUTE" : undefined,
+    applicantLocationRequirements:
+      job.workMode === "REMOTE"
+        ? {
+            "@type": "Country",
+            name: "India",
+          }
+        : undefined,
+    skills: job.skills.join(", "),
+    industry: "Information Technology",
+    baseSalary: job.minSalary
+      ? {
+          "@type": "MonetaryAmount",
+          currency: "INR",
+          value: {
+            "@type": "QuantitativeValue",
+            minValue: job.minSalary,
+            maxValue: job.maxSalary || job.minSalary,
+            unitText: "MONTH",
+          },
+        }
+      : undefined,
+  };
+
   return (
-    <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8 space-y-6">
+    <div className="mx-auto max-w-4xl px-4 py-8 pb-24 sm:pb-8 sm:px-6 lg:px-8 space-y-6">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
       {/* Breadcrumb */}
       <div className="flex items-center gap-2 text-xs text-slate-500 font-medium">
         <Link href="/" className="hover:text-emerald-700">Home</Link>
@@ -133,7 +196,7 @@ export default async function InternshipSlugPage({ params }: InternshipPageProps
             </div>
           </div>
 
-          <div className="shrink-0">
+          <div className="shrink-0 hidden sm:block">
             <JobApplyButton
               jobId={job.id}
               jobTitle={job.title}
@@ -176,6 +239,27 @@ export default async function InternshipSlugPage({ params }: InternshipPageProps
             sourceUrl={job.sourceUrl}
           />
         </div>
+      </div>
+
+      {/* MOBILE STICKY APPLY BAR (Hidden on sm+) */}
+      <div className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200 px-4 py-3 sm:hidden shadow-lg flex items-center justify-between gap-3">
+        <div className="min-w-0 flex-1">
+          <div className="text-xs font-bold text-slate-900 truncate">{job.title}</div>
+          <div className="text-[11px] text-emerald-700 font-semibold truncate">
+            {job.companyName} • {job.salaryOrStipend || "Stipend"}
+          </div>
+        </div>
+        <JobApplyButton
+          jobId={job.id}
+          jobTitle={job.title}
+          companyName={job.companyName}
+          requiredSkills={job.skills}
+          jobDescription={job.description}
+          source={job.source}
+          sourceUrl={job.sourceUrl}
+          size="sm"
+          className="font-bold shrink-0 shadow-sm"
+        />
       </div>
     </div>
   );

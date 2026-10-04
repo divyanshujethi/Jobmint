@@ -61,6 +61,42 @@ export function PseoLanding({ topic, jobs }: PseoLandingProps) {
     })),
   };
 
+  // ItemList Schema for Google Search Job Carousel
+  const itemListJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    itemListElement: jobs.slice(0, 15).map((j, idx) => ({
+      "@type": "ListItem",
+      position: idx + 1,
+      item: {
+        "@type": "JobPosting",
+        title: j.title,
+        description: `<p>${j.description || `${j.title} at ${j.companyName}`}</p>`,
+        directApply: true,
+        datePosted: j.postedAt || new Date().toISOString(),
+        validThrough: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000).toISOString(),
+        employmentType:
+          j.jobType === "FULL_TIME" ? "FULL_TIME" : j.jobType === "INTERNSHIP" ? "INTERN" : "OTHER",
+        hiringOrganization: {
+          "@type": "Organization",
+          name: j.companyName,
+          sameAs: `https://rolenest.in/companies/${j.companySlug}`,
+          logo: j.companyLogoUrl || undefined,
+        },
+        jobLocation: {
+          "@type": "Place",
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: j.location || "India",
+            addressCountry: "IN",
+          },
+        },
+        jobLocationType: j.workMode === "REMOTE" ? "TELECOMMUTE" : undefined,
+        url: `https://rolenest.in/jobs/${j.slug}`,
+      },
+    })),
+  };
+
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8 space-y-10">
       <script
@@ -71,6 +107,12 @@ export function PseoLanding({ topic, jobs }: PseoLandingProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
+      {jobs.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
+        />
+      )}
 
       {/* BREADCRUMB */}
       <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-slate-500 font-medium">

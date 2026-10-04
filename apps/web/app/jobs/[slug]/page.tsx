@@ -116,13 +116,21 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
     notFound();
   }
 
+  const htmlDescription = `
+    <p>${job.description || `${job.title} opportunity at ${job.companyName}.`}</p>
+    ${job.responsibilities && job.responsibilities.length > 0 ? `<h3>Key Responsibilities:</h3><ul>${job.responsibilities.map((r: string) => `<li>${r}</li>`).join("")}</ul>` : ""}
+    ${job.requirements && job.requirements.length > 0 ? `<h3>Requirements:</h3><ul>${job.requirements.map((r: string) => `<li>${r}</li>`).join("")}</ul>` : ""}
+    ${job.skills && job.skills.length > 0 ? `<p><strong>Required Skills:</strong> ${job.skills.join(", ")}</p>` : ""}
+  `.trim();
+
   const structuredData = {
     "@context": "https://schema.org",
     "@graph": [
       {
         "@type": "JobPosting",
         title: job.title,
-        description: job.description || `${job.title} at ${job.companyName}`,
+        description: htmlDescription,
+        directApply: true,
         identifier: {
           "@type": "PropertyValue",
           name: job.companyName,
@@ -136,6 +144,7 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
           "@type": "Organization",
           name: job.companyName,
           sameAs: `https://rolenest.in/companies/${job.companySlug}`,
+          logo: job.companyLogoUrl || undefined,
         },
         jobLocation: {
           "@type": "Place",
@@ -146,6 +155,15 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
           },
         },
         jobLocationType: job.workMode === "REMOTE" ? "TELECOMMUTE" : undefined,
+        applicantLocationRequirements:
+          job.workMode === "REMOTE"
+            ? {
+                "@type": "Country",
+                name: "India",
+              }
+            : undefined,
+        skills: job.skills.join(", "),
+        industry: "Information Technology",
         baseSalary: job.minSalary
           ? {
               "@type": "MonetaryAmount",
@@ -154,7 +172,7 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
                 "@type": "QuantitativeValue",
                 minValue: job.minSalary,
                 maxValue: job.maxSalary || job.minSalary,
-                unitText: "YEAR",
+                unitText: job.jobType === "INTERNSHIP" ? "MONTH" : "YEAR",
               },
             }
           : undefined,
@@ -186,7 +204,7 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
   };
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-5xl px-4 py-8 pb-24 sm:pb-8 sm:px-6 lg:px-8">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
@@ -514,6 +532,27 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
             )}
           </div>
         </div>
+      </div>
+
+      {/* MOBILE STICKY APPLY BAR (Hidden on sm+) */}
+      <div className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200 px-4 py-3 sm:hidden shadow-lg flex items-center justify-between gap-3">
+        <div className="min-w-0 flex-1">
+          <div className="text-xs font-bold text-slate-900 truncate">{job.title}</div>
+          <div className="text-[11px] text-emerald-700 font-semibold truncate">
+            {job.companyName} • {job.salaryOrStipend}
+          </div>
+        </div>
+        <JobApplyButton
+          jobId={job.id}
+          jobTitle={job.title}
+          companyName={job.companyName}
+          requiredSkills={job.skills}
+          jobDescription={job.description}
+          source={job.source}
+          sourceUrl={job.sourceUrl}
+          size="sm"
+          className="font-bold shrink-0 shadow-sm"
+        />
       </div>
     </div>
   );

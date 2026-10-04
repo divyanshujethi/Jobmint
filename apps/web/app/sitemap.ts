@@ -29,26 +29,40 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${baseUrl}/privacy`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.4 },
   ];
 
-  // 2. Dynamic Job Slugs from Database
+  // 2. Dynamic Job Slugs from Database (Scaled up to 5,000)
   let jobRoutes: MetadataRoute.Sitemap = [];
   try {
     const liveJobs = await db
       .select({
         slug: jobs.slug,
+        jobType: jobs.jobType,
         updatedAt: jobs.updatedAt,
         createdAt: jobs.createdAt,
       })
       .from(jobs)
       .where(eq(jobs.isActive, true))
-      .limit(500);
+      .limit(5000);
 
     if (liveJobs && liveJobs.length > 0) {
-      jobRoutes = liveJobs.map((j) => ({
-        url: `${baseUrl}/jobs/${j.slug}`,
-        lastModified: j.updatedAt || j.createdAt || new Date(),
-        changeFrequency: "daily" as const,
-        priority: 0.9,
-      }));
+      jobRoutes = liveJobs.flatMap((j) => {
+        const routes: MetadataRoute.Sitemap = [
+          {
+            url: `${baseUrl}/jobs/${j.slug}`,
+            lastModified: j.updatedAt || j.createdAt || new Date(),
+            changeFrequency: "daily" as const,
+            priority: 0.9,
+          },
+        ];
+        if (j.jobType === "INTERNSHIP") {
+          routes.push({
+            url: `${baseUrl}/internships/${j.slug}`,
+            lastModified: j.updatedAt || j.createdAt || new Date(),
+            changeFrequency: "daily" as const,
+            priority: 0.9,
+          });
+        }
+        return routes;
+      });
     } else {
       jobRoutes = MOCK_JOBS.map((j) => ({
         url: `${baseUrl}/jobs/${j.slug}`,
@@ -75,7 +89,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         updatedAt: companies.updatedAt,
       })
       .from(companies)
-      .limit(200);
+      .limit(1000);
 
     companyRoutes = liveCompanies.map((c) => ({
       url: `${baseUrl}/companies/${c.slug}`,
