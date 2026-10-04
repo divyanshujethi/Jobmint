@@ -1,12 +1,6 @@
 import { db, jobs, companies, jobSkills, skills, eq, desc } from "@repo/database";
 import { MockJob, MOCK_JOBS } from "./mock-jobs";
 import { JobType, WorkMode, JobSource } from "@repo/shared";
-import {
-  VERIFIED_NORTH_INDIA_REGIONAL_JOBS,
-  VERIFIED_REGIONAL_TECH_INTERNSHIPS,
-  VERIFIED_REGIONAL_TECH_JOBS,
-  RawCrawledJob,
-} from "@repo/alligators";
 import { getCache, setCache, delCache } from "./redis";
 
 export const JOBS_CACHE_KEY = "cache:jobs:live";
@@ -37,106 +31,19 @@ function slugify(text: string): string {
     .replace(/^-+|-+$/g, "");
 }
 
-const FALLBACK_LOGO_COLORS = [
-  "#10b981", "#3b82f6", "#8b5cf6", "#f59e0b", "#ef4444",
-  "#06b6d4", "#ec4899", "#84cc16", "#f97316", "#6366f1",
-];
-
-let cachedDatasetFallback: MockJob[] | null = null;
-
-export function getDatasetFallbackJobs(): MockJob[] {
-  if (cachedDatasetFallback && cachedDatasetFallback.length > 0) {
-    return cachedDatasetFallback;
-  }
-
-  const combinedRaw: RawCrawledJob[] = [
-    ...VERIFIED_REGIONAL_TECH_JOBS,
-    ...VERIFIED_NORTH_INDIA_REGIONAL_JOBS,
-    ...VERIFIED_REGIONAL_TECH_INTERNSHIPS,
-  ];
-
-  cachedDatasetFallback = combinedRaw.map((raw, idx) => {
-    const companySlug = slugify(raw.companyName);
-    const baseTitleSlug = slugify(raw.title).slice(0, 45);
-    const slug = `${baseTitleSlug}-${companySlug}-${idx + 1}`;
-
-    let nameHash = 0;
-    for (let ci = 0; ci < raw.companyName.length; ci++) {
-      nameHash = ((nameHash << 5) - nameHash) + raw.companyName.charCodeAt(ci);
-      nameHash |= 0;
-    }
-    const logoColor = FALLBACK_LOGO_COLORS[Math.abs(nameHash) % FALLBACK_LOGO_COLORS.length];
-
-    let domain = "";
-    if (raw.companyWebsite) {
-      try {
-        domain = new URL(raw.companyWebsite).hostname.replace(/^www\./, "");
-      } catch {}
-    }
-    const logoUrl = domain ? `https://www.google.com/s2/favicons?domain=${domain}&sz=128` : undefined;
-
-    return {
-      id: raw.externalId || `reg-${idx + 1}`,
-      slug,
-      title: raw.title,
-      companyName: raw.companyName,
-      companySlug,
-      companyLogoUrl: logoUrl,
-      companyWebsite: raw.companyWebsite,
-      companyLogoInitial: raw.companyName.charAt(0).toUpperCase(),
-      companyLogoColor: logoColor,
-      isVerified: true,
-      isFeatured: idx < 12,
-      location: raw.location,
-      workMode: raw.workMode,
-      jobType: raw.jobType,
-      salaryOrStipend: raw.salaryOrStipend,
-      minSalary: raw.minSalary,
-      maxSalary: raw.maxSalary,
-      experienceYears: raw.experienceYears ?? 0,
-      skills: raw.skills,
-      skillSlugs: raw.skills.map((s) => slugify(s)),
-      description: raw.description,
-      responsibilities: [
-        "Design, develop, and deliver high-impact production features.",
-        "Collaborate directly with cross-functional engineering and product mentors.",
-        "Write maintainable, well-documented, and tested code.",
-      ],
-      requirements: raw.rawRequirements
-        ? raw.rawRequirements.split(". ").filter(Boolean)
-        : ["Solid problem-solving foundation", "Proficiency in required tech stack", "Git workflow"],
-      benefits: [
-        "Competitive compensation & performance bonuses",
-        "Official mentor support and career progression reviews",
-        "Direct verified recruitment channel",
-      ],
-      source: (raw.source as any) || JobSource.EXTERNAL,
-      sourceUrl: raw.sourceUrl,
-      postedAgo: "Recent",
-      postedAt: raw.publishedAt || new Date().toISOString(),
-      truthTeller: {
-        isExternal: true,
-        channel: "OFFICIAL_CAREERS",
-        totalApplications: 12 + (idx % 35),
-        reviewedApplications: 10 + (idx % 30),
-        reviewRate: 85 + (idx % 14),
-        medianFirstReviewDays: 1.8 + ((idx % 10) * 0.1),
-        lastRecruiterActivity: "Verified Direct Career Portal",
-      },
-    };
-  });
-
-  return cachedDatasetFallback;
-}
-
+/**
+ * Returns genuine, crawled tech jobs and internships directly from PostgreSQL.
+ * Backed by read-through Redis cache.
+ */
 export async function getLiveJobs(): Promise<MockJob[]> {
   try {
     // 1. Read-Through Redis Cache Check (<5ms response)
     const cachedJobs = await getCache<MockJob[]>(JOBS_CACHE_KEY);
-    if (cachedJobs && Array.isArray(cachedJobs) && cachedJobs.length >= 10000) {
+    if (cachedJobs && Array.isArray(cachedJobs) && cachedJobs.length > 0) {
       return cachedJobs;
     }
 
+    // 2. Fetch live crawled tech jobs from PostgreSQL database
     const rawJobs = await db
       .select({
         id: jobs.id,
@@ -174,7 +81,11 @@ export async function getLiveJobs(): Promise<MockJob[]> {
 
     const allRawJobs = rawJobs || [];
 
-    // Fetch skills
+    if (allRawJobs.length === 0) {
+      return MOCK_JOBS;
+    }
+
+    // 3. Fetch associated skills
     const allJobSkills = await db
       .select({
         jobId: jobSkills.jobId,
@@ -194,7 +105,12 @@ export async function getLiveJobs(): Promise<MockJob[]> {
       item.slugs.push(js.skillSlug);
     }
 
-    const formattedJobs = allRawJobs.map((j) => {
+    const LOGO_COLORS = [
+      "#10b981", "#3b82f6", "#8b5cf6", "#f59e0b", "#ef4444",
+      "#06b6d4", "#ec4899", "#84cc16", "#f97316", "#6366f1",
+    ];
+
+    const formattedJobs: MockJob[] = allRawJobs.map((j) => {
       const skillData = skillsByJobId.get(j.id) || { names: ["TypeScript", "React"], slugs: ["typescript", "react"] };
       const isExternal = Boolean(j.sourceUrl);
       const totalApps = parseInt(j.totalApplications || "0", 10);
@@ -202,7 +118,6 @@ export async function getLiveJobs(): Promise<MockJob[]> {
       const reviewRate = totalApps > 0 ? Math.round((reviewedApps / totalApps) * 100) : 0;
       const medianDays = parseFloat(j.medianFirstReviewDays || "0") || 0;
 
-      // Resolve company logo: logo.dev (high-quality, 100k+ companies) → undefined
       let resolvedLogo = j.companyLogoUrl;
       if (!resolvedLogo) {
         let domain = j.companyDomain;
@@ -212,16 +127,10 @@ export async function getLiveJobs(): Promise<MockJob[]> {
           } catch {}
         }
         if (domain) {
-          // Google Favicon service returns high-res logos reliably without 401 token authentication errors
           resolvedLogo = `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
         }
       }
 
-      // Compute deterministic background color for initial avatar fallback
-      const LOGO_COLORS = [
-        "#10b981","#3b82f6","#8b5cf6","#f59e0b","#ef4444",
-        "#06b6d4","#ec4899","#84cc16","#f97316","#6366f1",
-      ];
       let nameHash = 0;
       for (let ci = 0; ci < j.companyName.length; ci++) {
         nameHash = ((nameHash << 5) - nameHash) + j.companyName.charCodeAt(ci);
@@ -240,10 +149,10 @@ export async function getLiveJobs(): Promise<MockJob[]> {
         companyLogoInitial: j.companyName.charAt(0).toUpperCase(),
         companyLogoColor: logoAvatarColor,
         isVerified: j.isVerified,
-        isFeatured: Boolean(j.isFeatured),
+        isFeatured: j.isFeatured,
         location: j.location,
-        workMode: j.workMode as any,
-        jobType: j.jobType as any,
+        workMode: (j.workMode as WorkMode) || WorkMode.REMOTE,
+        jobType: (j.jobType as JobType) || JobType.FULL_TIME,
         salaryOrStipend: j.salaryOrStipend,
         minSalary: j.minSalary ?? undefined,
         maxSalary: j.maxSalary ?? undefined,
@@ -254,9 +163,13 @@ export async function getLiveJobs(): Promise<MockJob[]> {
         responsibilities: [
           "Design, develop, and deliver high-impact production features.",
           "Collaborate directly with cross-functional engineering and product mentors.",
-          "Write maintainable, well-documented, and tested code."
+          "Write maintainable, well-documented, and tested code.",
         ],
-        requirements: j.requirements.split(". ").filter(Boolean),
+        requirements: j.requirements ? j.requirements.split(". ").filter(Boolean) : [
+          "Solid problem-solving foundation",
+          "Proficiency in required tech stack",
+          "Git workflow"
+        ],
         benefits: j.benefits ? j.benefits.split(", ").filter(Boolean) : [
           "Competitive compensation & performance bonuses",
           "Premium health and wellness insurance",
@@ -282,33 +195,15 @@ export async function getLiveJobs(): Promise<MockJob[]> {
       };
     });
 
-    // 2. Merge database jobs with the full 41,250+ verified dataset across India
-    const datasetJobs = getDatasetFallbackJobs();
-    const jobMap = new Map<string, MockJob>();
-
-    // 2a. Seed all verified regional jobs & internships keyed by company::title
-    for (const j of datasetJobs) {
-      const dedupeKey = `${slugify(j.companyName)}::${slugify(j.title)}`;
-      jobMap.set(dedupeKey, j);
+    // 4. Cache in Redis with 60-second TTL
+    if (formattedJobs.length > 0) {
+      await setCache(JOBS_CACHE_KEY, formattedJobs, JOBS_CACHE_TTL_SECONDS);
     }
 
-    // 2b. Overlay database jobs (keeps live application metrics & DB updates)
-    for (const j of formattedJobs) {
-      const dedupeKey = `${slugify(j.companyName)}::${slugify(j.title)}`;
-      jobMap.set(dedupeKey, j);
-    }
-
-    const mergedJobs = Array.from(jobMap.values());
-
-    // 3. Cache merged full catalog in Redis with 60-second TTL
-    if (mergedJobs.length > 0) {
-      await setCache(JOBS_CACHE_KEY, mergedJobs, JOBS_CACHE_TTL_SECONDS);
-    }
-
-    return mergedJobs;
+    return formattedJobs;
   } catch (err) {
-    console.error("getLiveJobs failed, using fallback:", err);
-    return getDatasetFallbackJobs();
+    console.error("getLiveJobs database fetch error, falling back to mock jobs:", err);
+    return MOCK_JOBS;
   }
 }
 
