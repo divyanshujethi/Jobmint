@@ -9,8 +9,13 @@ export default function RoadmapsIndexPage() {
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
       {/* HEADER */}
       <div className="text-center max-w-2xl mx-auto space-y-3">
-        <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-800 bg-blue-50 px-3 py-1 rounded-full">
-          <Sparkles className="h-3.5 w-3.5 text-blue-600" /> 100% Free Open Educational Guides
+        <div className="flex flex-wrap items-center justify-center gap-2">
+          <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-purple-800 bg-purple-50 border border-purple-200 px-3 py-1 rounded-full">
+            <Sparkles className="h-3.5 w-3.5 text-purple-600" /> RoleNest Labs (Beta)
+          </div>
+          <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-800 bg-blue-50 px-3 py-1 rounded-full">
+            <span>100% Free Open Educational Guides</span>
+          </div>
         </div>
         <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
           Career Roadmaps for Young Talent

@@ -346,9 +346,9 @@ export default function LeaderboardPage() {
         
         {/* HERO TITLE & PLATFORM QUICK ACTIONS */}
         <div className="text-center space-y-3">
-          <div className="inline-flex items-center gap-2 rounded-full bg-emerald-50 border border-emerald-200 px-3.5 py-1 text-xs font-mono font-semibold text-emerald-800">
-            <Trophy className="h-4 w-4 text-emerald-600" />
-            Role Nest Builder Pulse &amp; Inter-College Arena
+          <div className="inline-flex items-center gap-2 rounded-full bg-purple-50 border border-purple-200 px-3.5 py-1 text-xs font-mono font-semibold text-purple-900">
+            <Trophy className="h-4 w-4 text-purple-600" />
+            RoleNest Labs (Beta) • Campus Battles &amp; Builder Pulse
           </div>
           <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-slate-900">
             Leaderboard &amp; Campus Battles

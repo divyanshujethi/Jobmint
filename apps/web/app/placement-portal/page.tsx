@@ -79,9 +79,9 @@ export default function PlacementPortalPage() {
             </p>
           </div>
 
-          <div className="bg-neutral-900 border border-neutral-800 px-3.5 py-2 rounded-xl text-xs font-mono flex items-center gap-2 text-emerald-400 self-start sm:self-auto">
-            <ShieldCheck className="w-4 h-4" />
-            <span>100% Free Campus Tool</span>
+          <div className="bg-neutral-900 border border-purple-800/80 px-3.5 py-2 rounded-xl text-xs font-mono flex items-center gap-2 text-purple-300 self-start sm:self-auto">
+            <span className="h-2 w-2 rounded-full bg-purple-400 animate-pulse" />
+            <span>RoleNest Labs (Beta)</span>
           </div>
         </div>
 

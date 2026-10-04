@@ -186,8 +186,8 @@ export default function BountyNestPage() {
             <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-amber-100 text-amber-700">
               <Gift className="h-5 w-5" />
             </span>
-            <span className="rounded-full bg-amber-50 border border-amber-300 px-3 py-0.5 text-xs font-bold text-amber-800 font-mono">
-              Bounty Nest™ Employee Referral Network
+            <span className="rounded-full bg-purple-50 border border-purple-200 px-3 py-0.5 text-xs font-bold text-purple-800 font-mono">
+              RoleNest Labs (Beta) • Bounty Nest™ Referrals
             </span>
           </div>
 

@@ -83,6 +83,9 @@ export default function StudyPodsPage() {
               <Link href="/jobs" className="hover:text-emerald-600 transition-colors">Role Nest</Link>
               <span>/</span>
               <span className="text-slate-800 font-semibold">Study Pods</span>
+              <span className="rounded-full bg-purple-100 text-purple-800 border border-purple-200 px-2 py-0.2 text-[10px] font-bold">
+                RoleNest Labs (Beta)
+              </span>
             </div>
             <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 flex items-center gap-3">
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100 text-emerald-700">

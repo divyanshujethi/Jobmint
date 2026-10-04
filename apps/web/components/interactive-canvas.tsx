@@ -413,8 +413,8 @@ export function InteractiveStudyCanvas() {
           <div>
             <h1 className="text-base font-extrabold text-slate-900 flex items-center gap-2">
               Interactive Study &amp; Developer Skill Canvas
-              <span className="rounded-full bg-emerald-50 border border-emerald-200 px-2 py-0.5 text-[10px] font-bold text-emerald-700 font-mono">
-                2026 Edition
+              <span className="rounded-full bg-purple-50 border border-purple-200 px-2 py-0.5 text-[10px] font-bold text-purple-700 font-mono">
+                RoleNest Labs (Beta)
               </span>
             </h1>
             <p className="text-xs text-slate-600">

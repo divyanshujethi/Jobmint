@@ -324,6 +324,9 @@ function POTDWorkspace() {
             <span className="font-bold text-sm text-white">
               Problem of the Day
             </span>
+            <span className="rounded bg-purple-950/80 border border-purple-800 text-purple-300 px-1.5 py-0.5 text-[9px] font-mono font-bold hidden sm:inline">
+              RoleNest Labs (Beta)
+            </span>
             <span className="rounded bg-emerald-950 border border-emerald-800 px-2 py-0.5 text-[10px] font-mono text-emerald-300 font-bold">
               +50 XP
             </span>

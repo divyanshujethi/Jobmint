@@ -33,8 +33,8 @@ export function Footer() {
   return (
     <footer className="border-t border-slate-200 bg-white print:hidden">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div className="space-y-4 md:col-span-1">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
+          <div className="space-y-4 sm:col-span-2 lg:col-span-1">
             <div className="flex items-center gap-2">
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-600 text-white font-bold text-sm">
                 R
@@ -74,94 +74,109 @@ export function Footer() {
             </div>
           </div>
 
+          {/* COLUMN 2: 3 CORE PILLARS (LAUNCH SCOPE) */}
           <div>
-            <h3 className="text-sm font-semibold text-slate-900 tracking-wider uppercase">
-              Candidates &amp; Learning
-            </h3>
-            <ul className="mt-4 space-y-2 text-sm text-slate-600">
+            <div className="flex items-center gap-1.5">
+              <h3 className="text-sm font-bold text-slate-900 tracking-wider uppercase">
+                Core Pillars
+              </h3>
+              <span className="rounded bg-emerald-50 text-emerald-800 border border-emerald-200 px-1.5 py-0.2 text-[9px] font-mono font-bold">
+                Launch
+              </span>
+            </div>
+            <ul className="mt-4 space-y-2.5 text-xs text-slate-600">
               <li>
+                <Link href="/jobs" className="hover:text-emerald-600 font-bold text-slate-800 flex items-center gap-1.5">
+                  💼 Verified Tech Jobs
+                </Link>
+              </li>
+              <li>
+                <Link href="/internships" className="hover:text-emerald-600 font-bold text-slate-800 flex items-center gap-1.5">
+                  ✨ Paid Tech Internships
+                </Link>
+              </li>
+              <li>
+                <Link href="/applications" className="hover:text-emerald-600 font-bold text-emerald-800 flex items-center gap-1.5">
+                  ⏱️ Application Tracker &amp; Nudges
+                </Link>
+              </li>
+              <li>
+                <Link href="/resume/builder" className="hover:text-emerald-600 font-bold text-blue-700 flex items-center gap-1.5">
+                  📄 ATS Resume Builder (LaTeX)
+                </Link>
+              </li>
+              <li>
+                <Link href="/resume/assistant" className="hover:text-emerald-600 font-semibold text-purple-700 flex items-center gap-1.5">
+                  🪄 AI Bullet Improver (STAR)
+                </Link>
+              </li>
+              <li>
+                <Link href="/profile/resume" className="hover:text-emerald-600 text-slate-600 flex items-center gap-1.5">
+                  🔒 Candidate Resume Vault
+                </Link>
+              </li>
+              <li className="pt-1">
                 <button
                   type="button"
                   onClick={triggerPwaInstall}
-                  className="flex items-center gap-1.5 text-xs font-bold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-2.5 py-1.5 rounded-lg transition-colors w-full text-left"
+                  className="flex items-center gap-1.5 text-xs font-bold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-2 py-1.5 rounded-lg transition-colors w-full text-left"
                 >
                   <Download className="h-3.5 w-3.5 text-emerald-600" />
-                  Install Role Nest App (PWA)
+                  Install App (PWA)
                 </button>
               </li>
+            </ul>
+          </div>
+
+          {/* COLUMN 3: ROLENEST LABS & COMMUNITY (BETA) */}
+          <div>
+            <div className="flex items-center gap-1.5">
+              <h3 className="text-sm font-bold text-slate-900 tracking-wider uppercase">
+                RoleNest Labs
+              </h3>
+              <span className="rounded bg-purple-100 text-purple-800 border border-purple-200 px-1.5 py-0.2 text-[9px] font-mono font-bold">
+                Beta
+              </span>
+            </div>
+            <ul className="mt-4 space-y-2 text-xs text-slate-600">
               <li>
-                <Link href="/leaderboard" className="hover:text-emerald-600 font-semibold text-amber-700 flex items-center gap-1.5">
-                  🔥 Daily Streaks &amp; Campus Battles
+                <Link href="/potd" className="hover:text-emerald-600 font-medium text-orange-700 flex items-center gap-1.5">
+                  ⚡ Problem of the Day (+50 XP)
                 </Link>
               </li>
               <li>
-                <Link href="/bounties" className="hover:text-emerald-600 font-semibold text-amber-700 flex items-center gap-1.5">
-                  💰 Bounty Nest™ Employee Referrals
+                <Link href="/leaderboard" className="hover:text-emerald-600 font-medium text-amber-700 flex items-center gap-1.5">
+                  🔥 Daily Streaks &amp; Battles
                 </Link>
               </li>
               <li>
-                <Link href="/salaries" className="hover:text-emerald-600 font-semibold text-emerald-700 flex items-center gap-1.5">
-                  💵 Real Tech Salaries &amp; Timelines
+                <Link href="/study-pods" className="hover:text-emerald-600 font-medium text-indigo-700 flex items-center gap-1.5">
+                  👥 Peer Study Pods &amp; Mocks
                 </Link>
               </li>
               <li>
-                <Link href="/potd" className="hover:text-emerald-600 font-semibold text-orange-700 flex items-center gap-1.5">
-                  ⚡ Problem of the Day (POTD +50 XP)
+                <Link href="/canvas" className="hover:text-emerald-600 font-medium text-emerald-700 flex items-center gap-1.5">
+                  🗺️ Visual Skill Canvas (Nodes)
                 </Link>
               </li>
               <li>
-                <Link href="/resume/builder" className="hover:text-emerald-600 font-semibold text-blue-700 flex items-center gap-1.5">
-                  📄 Standard ATS Resume Builder (PDF &amp; LaTeX)
+                <Link href="/roadmaps" className="hover:text-emerald-600 font-medium text-blue-700 flex items-center gap-1.5">
+                  🧭 Open Career Roadmaps
                 </Link>
               </li>
               <li>
-                <Link href="/courses" className="hover:text-emerald-600 font-semibold text-emerald-700">
-                  Interactive Courses &amp; Diplomas
+                <Link href="/salaries" className="hover:text-emerald-600 font-medium text-emerald-700 flex items-center gap-1.5">
+                  💵 Tech Salaries &amp; CTC
                 </Link>
               </li>
               <li>
-                <Link href="/playlists" className="hover:text-emerald-600 font-semibold text-red-600 flex items-center gap-1">
-                  Best YouTube Playlists Hub
+                <Link href="/bounties" className="hover:text-emerald-600 font-medium text-amber-700 flex items-center gap-1.5">
+                  💰 Bounty Nest™ Referrals
                 </Link>
               </li>
               <li>
-                <Link href="/certificates" className="hover:text-emerald-600 font-semibold text-emerald-700">
-                  🎓 Free Course Diplomas &amp; Hub
-                </Link>
-              </li>
-              <li>
-                <Link href="/certificates/verify/JM-AI-GPT-7B29A1" className="hover:text-emerald-600 text-xs text-slate-500">
-                  Verify Certificate ID (Demo)
-                </Link>
-              </li>
-              <li>
-                <Link href="/jobs" className="hover:text-emerald-600">
-                  Browse Jobs
-                </Link>
-              </li>
-              <li>
-                <Link href="/internships" className="hover:text-emerald-600">
-                  Fresher Internships
-                </Link>
-              </li>
-              <li>
-                <Link href="/roadmaps" className="hover:text-emerald-600">
-                  Career Roadmaps (Free)
-                </Link>
-              </li>
-              <li>
-                <Link href="/canvas" className="hover:text-emerald-600 font-medium text-emerald-700">
-                  Visual Skill Canvas (Node Graph)
-                </Link>
-              </li>
-              <li>
-                <Link href="/study-pods" className="hover:text-emerald-600 font-medium text-indigo-600">
-                  Peer Study Pods &amp; Mocks
-                </Link>
-              </li>
-              <li>
-                <Link href="/profile/resume" className="hover:text-emerald-600 font-medium text-emerald-700">
-                  Candidate Resume Vault
+                <Link href="/certificates" className="hover:text-emerald-600 text-slate-500">
+                  🎓 Free Course Diplomas
                 </Link>
               </li>
             </ul>
