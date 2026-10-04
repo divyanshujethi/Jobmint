@@ -4,11 +4,17 @@ import { crawlGitHubInternships } from './job-alligator/github-internships';
 import { crawlSimplifyInternships, crawlSimplifyNewGrad } from './job-alligator/simplify-crawler';
 import { crawlIndiaTechBoards, normalizeIndiaLocation } from './job-alligator/india-crawler';
 
+import { crawlHimalayasJobs } from './job-alligator/himalayas-crawler';
+import { crawlAllAshbyBoards } from './job-alligator/ashby-crawler';
+
 export * from './types';
 export * from './job-alligator/skill-extractor';
 export * from './job-alligator/truth-filter';
+export * from './job-alligator/geo-exclusion-engine';
 export * from './job-alligator/greenhouse-crawler';
 export * from './job-alligator/lever-crawler';
+export * from './job-alligator/ashby-crawler';
+export * from './job-alligator/himalayas-crawler';
 export * from './job-alligator/github-internships';
 export * from './job-alligator/simplify-crawler';
 export * from './job-alligator/india-crawler';
@@ -20,7 +26,8 @@ export * from './study-alligator/canvas-binder';
 /**
  * Master Runner for Job Alligator:
  * Aggregates verified tech positions from Indian Unicorns (Greenhouse/Lever/Ashby),
- * Global India engineering hubs, autonomous startup discovery, and tech internships.
+ * Global Remote opportunities (Himalayas), autonomous startup discovery, and tech internships.
+ * Filtered via the 3-Layer Geo-Exclusion Engine.
  */
 export async function runJobAlligator(options?: {
   internshipLimit?: number;
@@ -29,16 +36,18 @@ export async function runJobAlligator(options?: {
   enableDiscovery?: boolean;
 }) {
   const startTime = Date.now();
-  const internshipLimit = options?.internshipLimit ?? 20;
-  const newGradLimit = options?.newGradLimit ?? 20;
+  const internshipLimit = options?.internshipLimit ?? 30;
+  const newGradLimit = options?.newGradLimit ?? 30;
   const maxPerCompany = options?.maxPerCompany ?? 20;
   const enableDiscovery = options?.enableDiscovery ?? false;
 
-  const [indiaJobs, internships, newGrads, gitlabJobs, canonicalJobs] = await Promise.all([
+  const [indiaJobs, ashbyJobs, himalayasJobs, internships, newGrads, gitlabJobs, canonicalJobs] = await Promise.all([
     crawlIndiaTechBoards({ maxPerCompany, enableDiscovery }).catch((err) => {
       console.error("[Job Alligator] India crawler failed:", err);
       return [];
     }),
+    crawlAllAshbyBoards({ maxPerCompany }).catch(() => []),
+    crawlHimalayasJobs({ limit: 80 }).catch(() => []),
     crawlSimplifyInternships({ limit: internshipLimit }).catch(() => []),
     crawlSimplifyNewGrad({ limit: newGradLimit }).catch(() => []),
     crawlGreenhouseBoard('gitlab', 'GitLab').catch(() => []),
@@ -47,6 +56,8 @@ export async function runJobAlligator(options?: {
 
   const allJobs = [
     ...indiaJobs,
+    ...ashbyJobs,
+    ...himalayasJobs,
     ...internships,
     ...newGrads,
     ...gitlabJobs,

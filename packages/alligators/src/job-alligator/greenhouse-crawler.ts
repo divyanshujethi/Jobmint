@@ -4,9 +4,11 @@ import { extractCanonicalSkills } from './skill-extractor';
 import { evaluateJobTruth } from './truth-filter';
 import { normalizeIndiaLocation, isTechRole, detectExperienceAndType } from './india-crawler';
 
+import { verifyOpportunityEligibility } from './geo-exclusion-engine';
+
 /**
  * Crawls public Greenhouse JOB Board APIs.
- * Strictly filters out foreign on-site positions and non-tech titles.
+ * Strictly filters out foreign on-site positions and non-tech titles using the 3-Layer Geo-Exclusion Engine.
  */
 export async function crawlGreenhouseBoard(boardToken: string, companyName: string): Promise<RawCrawledJob[]> {
   const results: RawCrawledJob[] = [];
@@ -30,15 +32,24 @@ export async function crawlGreenhouseBoard(boardToken: string, companyName: stri
       if (!isTechRole(title)) continue;
 
       const locRaw = job.location?.name || "";
-      const locInfo = normalizeIndiaLocation(locRaw);
+      
+      // 3-Layer Geo-Exclusion Engine Check
+      const eligibility = await verifyOpportunityEligibility(
+        {
+          rawLocation: locRaw,
+          isRemote: locRaw.toLowerCase().includes("remote"),
+        },
+        title,
+        companyName
+      );
 
-      // MANDATORY: STRICT INDIA OR REMOTE ONLY - SKIP FOREIGN ON-SITE
-      if (!locInfo.isIndiaOrRemote) {
+      if (!eligibility.isEligible) {
         continue;
       }
 
       const { experienceYears, jobType } = detectExperienceAndType(title);
-      const desc = `Verified position for ${title} at ${companyName}. Location: ${locInfo.location}. Apply directly on the official ${companyName} Greenhouse career portal.`;
+      const isRemote = locRaw.toLowerCase().includes("remote") || eligibility.normalizedLocation.toLowerCase().includes("remote");
+      const desc = `Verified position for ${title} at ${companyName}. Location: ${eligibility.normalizedLocation}. Apply directly on the official ${companyName} Greenhouse career portal.`;
       const salary = jobType === JobType.INTERNSHIP 
         ? "Competitive Internship Stipend (Official)" 
         : "Competitive Market Compensation (Official)";
@@ -57,8 +68,8 @@ export async function crawlGreenhouseBoard(boardToken: string, companyName: stri
         title,
         companyName,
         companyWebsite: `https://${boardToken}.com`,
-        location: locInfo.location,
-        workMode: locInfo.workMode,
+        location: eligibility.normalizedLocation,
+        workMode: isRemote ? WorkMode.REMOTE : WorkMode.HYBRID,
         jobType,
         salaryOrStipend: salary,
         experienceYears,

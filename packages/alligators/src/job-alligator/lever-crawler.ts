@@ -4,9 +4,11 @@ import { extractCanonicalSkills } from './skill-extractor';
 import { evaluateJobTruth } from './truth-filter';
 import { normalizeIndiaLocation, isTechRole, detectExperienceAndType } from './india-crawler';
 
+import { verifyOpportunityEligibility } from './geo-exclusion-engine';
+
 /**
  * Crawls public Lever boards.
- * Strictly filters out foreign on-site positions and non-tech titles.
+ * Strictly filters out foreign on-site positions and non-tech titles using the 3-Layer Geo-Exclusion Engine.
  */
 export async function crawlLeverSite(siteName: string, companyName: string): Promise<RawCrawledJob[]> {
   const results: RawCrawledJob[] = [];
@@ -30,15 +32,27 @@ export async function crawlLeverSite(siteName: string, companyName: string): Pro
       if (!isTechRole(title)) continue;
 
       const locRaw = posting.categories?.location || "";
-      const locInfo = normalizeIndiaLocation(locRaw);
+      const workplaceType = (posting.workplaceType || "").toLowerCase();
+      const isRemote = workplaceType === "remote" || locRaw.toLowerCase().includes("remote");
 
-      // MANDATORY: STRICT INDIA OR REMOTE ONLY - SKIP FOREIGN ON-SITE
-      if (!locInfo.isIndiaOrRemote) {
+      // 3-Layer Geo-Exclusion Engine Check
+      const eligibility = await verifyOpportunityEligibility(
+        {
+          rawLocation: locRaw,
+          workplaceType,
+          isRemote,
+        },
+        title,
+        companyName,
+        posting.descriptionPlain || ""
+      );
+
+      if (!eligibility.isEligible) {
         continue;
       }
 
       const { experienceYears, jobType } = detectExperienceAndType(title);
-      const desc = `Verified position for ${title} at ${companyName}. Location: ${locInfo.location}. Apply directly on the official ${companyName} Lever portal.`;
+      const desc = `Verified position for ${title} at ${companyName}. Location: ${eligibility.normalizedLocation}. Apply directly on the official ${companyName} Lever portal.`;
       const salary = jobType === JobType.INTERNSHIP 
         ? "Competitive Internship Stipend (Official)" 
         : "Competitive Market Compensation (Official)";
@@ -57,8 +71,8 @@ export async function crawlLeverSite(siteName: string, companyName: string): Pro
         title,
         companyName,
         companyWebsite: `https://${siteName}.com`,
-        location: locInfo.location,
-        workMode: locInfo.workMode,
+        location: eligibility.normalizedLocation,
+        workMode: isRemote ? WorkMode.REMOTE : WorkMode.HYBRID,
         jobType,
         salaryOrStipend: salary,
         experienceYears,
