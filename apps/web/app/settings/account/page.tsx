@@ -304,7 +304,7 @@ export default function AccountSettingsPage() {
                             month: "short",
                             year: "numeric",
                           })}`
-                        : "Lifetime Pro Access Active"
+                        : "Pro Access Active"
                       : profile?.proExpiresAt && new Date(profile.proExpiresAt) <= new Date()
                       ? `Your Pro subscription ended on ${new Date(profile.proExpiresAt).toLocaleDateString("en-IN", {
                           day: "numeric",

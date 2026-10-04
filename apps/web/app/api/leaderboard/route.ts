@@ -15,7 +15,7 @@ interface StreakLeader {
   verifiedDevScore: number;
   badgesCount: number;
   recentBadge: string;
-  planBadge?: "none" | "student" | "pro" | "plus" | "lifetime";
+  planBadge?: "none" | "student" | "pro";
   isPriorityPlaced?: boolean;
   isCurrentUser?: boolean;
 }
@@ -79,16 +79,11 @@ export async function GET(req: NextRequest) {
         .leftJoin(userStreaks, eq(users.id, userStreaks.userId))
         .leftJoin(candidateProfiles, eq(users.id, candidateProfiles.userId))
         .orderBy(
-          sql`CASE 
-            WHEN ${users.isPro} = true AND (${users.planTier} IN ('plus', 'pro_plus', 'annual', 'pro_annual', 'lifetime')) THEN 1
-            WHEN ${users.isPro} = true THEN 2
-            ELSE 3
-          END ASC`,
           sql`COALESCE(${userStreaks.currentStreak}, 0) DESC`,
           sql`COALESCE(${userStreaks.totalXp}, 0) DESC`,
           desc(users.createdAt)
         )
-        .limit(50);
+        .limit(100);
     } catch (err) {
       console.error("DB Leaderboard query error:", err);
     }
@@ -100,7 +95,37 @@ export async function GET(req: NextRequest) {
       day: "2-digit",
     }).format(new Date());
 
-    const leaders: StreakLeader[] = dbUsers.map((u, index) => {
+    // Deduplicate users by email or ID to prevent multiple rows
+    const uniqueUserMap = new Map<string, any>();
+    for (const u of dbUsers) {
+      const key = (u.email && u.email.trim().toLowerCase()) || u.id;
+      if (!uniqueUserMap.has(key)) {
+        uniqueUserMap.set(key, { ...u, unlockedBadges: [...(u.unlockedBadges || [])] });
+      } else {
+        const existing = uniqueUserMap.get(key);
+        // Merge streaks and XP to the highest achieved
+        existing.currentStreak = Math.max(existing.currentStreak || 0, u.currentStreak || 0);
+        existing.longestStreak = Math.max(existing.longestStreak || 0, u.longestStreak || 0);
+        existing.totalXp = Math.max(existing.totalXp || 0, u.totalXp || 0);
+        existing.isPro = Boolean(existing.isPro || u.isPro);
+        if (u.planTier && (!existing.planTier || existing.planTier === "free")) {
+          existing.planTier = u.planTier;
+        }
+        if (!existing.name && u.name) existing.name = u.name;
+        if (!existing.image && u.image) existing.image = u.image;
+        if (Array.isArray(u.unlockedBadges)) {
+          const mergedBadges = Array.from(new Set([...existing.unlockedBadges, ...u.unlockedBadges]));
+          existing.unlockedBadges = mergedBadges;
+        }
+        if (currentUserId && (u.id === currentUserId || existing.id === currentUserId)) {
+          existing.id = currentUserId;
+        }
+      }
+    }
+
+    const deduplicatedUsers = Array.from(uniqueUserMap.values());
+
+    const processedLeaders: StreakLeader[] = deduplicatedUsers.map((u) => {
       const badges: string[] = u.unlockedBadges || [];
       const rawBadge = badges.length > 0 ? badges[badges.length - 1] : "";
       const recentBadgeName = rawBadge.replace(/_/g, " ").toLowerCase();
@@ -110,7 +135,7 @@ export async function GET(req: NextRequest) {
 
       const xp = u.totalXp || 0;
       const streak = u.currentStreak || 0;
-      // Monotonic verified DevScore: active builders scale with XP & consistency; inactive get 0
+      // Monotonic verified DevScore: active builders scale with XP & consistency
       const score = (xp > 0 || streak > 0)
         ? Math.min(1000, 500 + Math.round(xp * 0.8) + (streak * 15))
         : 0;
@@ -119,31 +144,26 @@ export async function GET(req: NextRequest) {
         u.isPro && (!u.proExpiresAt || new Date(u.proExpiresAt) > new Date());
       const rawTier = (u.planTier || "free").toLowerCase();
 
-      let planBadge: "none" | "student" | "pro" | "plus" | "lifetime" = "none";
+      let planBadge: "none" | "student" | "pro" = "none";
       let isPriorityPlaced = false;
 
       if (isStillActive) {
-        if (rawTier === "lifetime") {
-          planBadge = "lifetime";
-          isPriorityPlaced = true;
-        } else if (rawTier.includes("plus") || rawTier.includes("annual")) {
-          planBadge = "plus";
-          isPriorityPlaced = true;
-        } else if (rawTier === "student") {
+        if (rawTier === "student") {
           planBadge = "student";
         } else {
           planBadge = "pro";
+          isPriorityPlaced = true;
         }
       }
 
       return {
-        rank: index + 1,
+        rank: 1, // Will be set after merit sorting
         userId: u.id,
-        name: u.name || (u.email ? u.email.split("@")[0] : "Builder #" + (index + 1)),
+        name: u.name || (u.email ? u.email.split("@")[0] : "Builder"),
         avatarUrl: u.image || "https://api.dicebear.com/7.x/bottts/svg?seed=" + encodeURIComponent(u.id),
-        currentStreak: u.currentStreak || 0,
+        currentStreak: streak,
         longestStreak: u.longestStreak || 0,
-        totalXp: u.totalXp || 0,
+        totalXp: xp,
         verifiedDevScore: score,
         badgesCount: badges.length,
         recentBadge: formattedBadge,
@@ -152,6 +172,35 @@ export async function GET(req: NextRequest) {
         isCurrentUser: currentUserId === u.id,
       };
     });
+
+    // PURE MERIT-BASED RANKING:
+    // 1. Current daily streak DESC
+    // 2. Total XP DESC
+    // 3. Verified DevScore DESC
+    // 4. Longest streak DESC
+    // 5. Badges count DESC
+    processedLeaders.sort((a, b) => {
+      if (b.currentStreak !== a.currentStreak) {
+        return b.currentStreak - a.currentStreak;
+      }
+      if (b.totalXp !== a.totalXp) {
+        return b.totalXp - a.totalXp;
+      }
+      if (b.verifiedDevScore !== a.verifiedDevScore) {
+        return b.verifiedDevScore - a.verifiedDevScore;
+      }
+      if (b.longestStreak !== a.longestStreak) {
+        return b.longestStreak - a.longestStreak;
+      }
+      return b.badgesCount - a.badgesCount;
+    });
+
+    // Assign canonical ranks
+    processedLeaders.forEach((leader, idx) => {
+      leader.rank = idx + 1;
+    });
+
+    const leaders = processedLeaders;
 
     const totalBuildersActiveToday = dbUsers.filter(
       (u) => u.lastCheckInDate === todayStr || (u.currentStreak || 0) > 0

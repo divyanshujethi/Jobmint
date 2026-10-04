@@ -108,22 +108,6 @@ const PLAN_DETAILS: Record<
       "Priority Telegram / WhatsApp Job Alert Pings",
     ],
   },
-  lifetime: {
-    name: "Founder Lifetime Pass",
-    price: 2999,
-    period: "One-Time Payment • Limited 100 Seats",
-    badge: "Limited to 100 Seats",
-    badgeColor: "bg-amber-500 text-slate-950 font-black",
-    description: "Early supporter founder tier: Lifetime core access + 100 AI tokens/month cap. Zero renewals forever.",
-    features: [
-      "Lifetime continuous access to all job crawling & tracker tools",
-      "Monthly allowance of 100 AI generation tokens for tailoring & cover letters",
-      "Unlimited tracked applications with 7-day follow-up reminders",
-      "Golden Founder Badge with immutable cryptographic proof",
-      "VIP early access to upcoming crawler & platform features",
-      "Zero recurring renewals forever",
-    ],
-  },
   featured_job: {
     name: "Role Nest Featured Job Listing",
     price: 1499,
@@ -281,10 +265,6 @@ export default function PricingPage() {
 
   const handleMentorshipCheckout = () => {
     initiatePlanCheckout("mentorship_session");
-  };
-
-  const handleLifetimeCheckout = () => {
-    initiatePlanCheckout("lifetime");
   };
 
   const handleFeaturedCheckout = () => {
@@ -643,9 +623,9 @@ export default function PricingPage() {
                 </div>
               </div>
 
-              {/* SPECIALIZED SERVICES & EARLY SUPPORTER TIER */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
-                {/* 1. STANDALONE 1-ON-1 HUMAN MENTORSHIP */}
+              {/* SPECIALIZED SERVICES: 1-ON-1 HUMAN MENTORSHIP */}
+              <div className="max-w-2xl mx-auto pt-2">
+                {/* STANDALONE 1-ON-1 HUMAN MENTORSHIP */}
                 <div className="rounded-3xl border border-purple-200 bg-linear-to-br from-purple-50/40 via-white to-white p-6 shadow-sm flex flex-col justify-between hover:border-purple-300 transition-all">
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
@@ -693,62 +673,6 @@ export default function PricingPage() {
                     >
                       <Video className="h-3.5 w-3.5" />
                       Book 1-on-1 Review Session — ₹799
-                    </Button>
-                  </div>
-                </div>
-
-                {/* 2. FOUNDER LIFETIME PASS (LIMITED TO 100 LAUNCH SEATS) */}
-                <div className="rounded-3xl border-2 border-amber-400 bg-linear-to-br from-amber-50/50 via-white to-amber-50/20 p-6 shadow-md flex flex-col justify-between hover:border-amber-500 transition-all relative overflow-hidden">
-                  <div className="absolute -top-3 right-5 rounded-full bg-amber-500 text-slate-950 font-black px-3 py-0.5 text-[10px] uppercase tracking-wider shadow-xs flex items-center gap-1">
-                    <Sparkles className="h-3 w-3 fill-slate-950" /> Limited 100 Launch Seats
-                  </div>
-
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-100 text-amber-800 font-bold shrink-0">
-                          <Crown className="h-5 w-5" />
-                        </div>
-                        <div>
-                          <h4 className="text-base font-black text-slate-900">Founder Lifetime Pass</h4>
-                          <span className="rounded bg-amber-100 text-amber-900 px-2 py-0.5 text-[10px] font-extrabold uppercase">
-                            Early Supporter Tier
-                          </span>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <span className="text-2xl font-black text-slate-900">₹2,999</span>
-                        <span className="text-xs text-amber-800 font-bold block">One-time payment</span>
-                      </div>
-                    </div>
-
-                    <p className="text-xs text-slate-600 leading-relaxed">
-                      Back Role Nest during launch. Enjoy continuous core access forever with zero renewals, transparently capped at 100 AI generation tokens/month with no human audit liabilities.
-                    </p>
-
-                    <div className="space-y-1.5 text-xs text-slate-700 pt-2 border-t border-slate-100">
-                      <div className="flex items-center gap-2">
-                        <Check className="h-3.5 w-3.5 text-amber-600 shrink-0" />
-                        <span><strong>Lifetime Core Platform Access</strong> with zero recurring renewal fees forever</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Check className="h-3.5 w-3.5 text-amber-600 shrink-0" />
-                        <span><strong>100 AI Tokens / Month Allowance</strong> for ATS tailoring &amp; cover letters</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Check className="h-3.5 w-3.5 text-amber-600 shrink-0" />
-                        <span><strong>Golden Founder Badge</strong> with immutable cryptographic verification</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="pt-5">
-                    <Button
-                      onClick={handleLifetimeCheckout}
-                      className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-black text-xs h-10 shadow-md flex items-center justify-center gap-1.5"
-                    >
-                      <Sparkles className="h-3.5 w-3.5 fill-slate-950" />
-                      Claim Founder Seat — ₹2,999 (Limited Seats)
                     </Button>
                   </div>
                 </div>

@@ -5,7 +5,7 @@ export interface PlanLimits {
   maxTrackedApplications: number;
   maxMockQuestionsPerJob: number;
   allowCustomCourses: boolean;
-  badge: "none" | "student" | "pro" | "plus" | "lifetime";
+  badge: "none" | "student" | "pro";
   priorityPlacement: boolean;
   githubDeepAudit: boolean;
 }
@@ -43,7 +43,7 @@ export const PLAN_LIMITS: Record<string, PlanLimits> = {
     maxTrackedApplications: Infinity,
     maxMockQuestionsPerJob: Infinity,
     allowCustomCourses: true,
-    badge: "plus",
+    badge: "pro",
     priorityPlacement: true,
     githubDeepAudit: true,
   },
@@ -52,7 +52,7 @@ export const PLAN_LIMITS: Record<string, PlanLimits> = {
     maxTrackedApplications: Infinity,
     maxMockQuestionsPerJob: Infinity,
     allowCustomCourses: true,
-    badge: "plus",
+    badge: "pro",
     priorityPlacement: true,
     githubDeepAudit: true,
   },
@@ -61,7 +61,7 @@ export const PLAN_LIMITS: Record<string, PlanLimits> = {
     maxTrackedApplications: Infinity,
     maxMockQuestionsPerJob: Infinity,
     allowCustomCourses: true,
-    badge: "plus",
+    badge: "pro",
     priorityPlacement: true,
     githubDeepAudit: true,
   },
@@ -70,7 +70,7 @@ export const PLAN_LIMITS: Record<string, PlanLimits> = {
     maxTrackedApplications: Infinity,
     maxMockQuestionsPerJob: Infinity,
     allowCustomCourses: true,
-    badge: "plus",
+    badge: "pro",
     priorityPlacement: true,
     githubDeepAudit: true,
   },
@@ -79,7 +79,7 @@ export const PLAN_LIMITS: Record<string, PlanLimits> = {
     maxTrackedApplications: Infinity,
     maxMockQuestionsPerJob: Infinity,
     allowCustomCourses: true,
-    badge: "lifetime",
+    badge: "pro",
     priorityPlacement: true,
     githubDeepAudit: true,
   },

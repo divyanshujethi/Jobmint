@@ -51,7 +51,7 @@ interface StreakLeader {
   verifiedDevScore: number;
   badgesCount: number;
   recentBadge: string;
-  planBadge?: "none" | "student" | "pro" | "plus" | "lifetime";
+  planBadge?: "none" | "student" | "pro";
   isPriorityPlaced?: boolean;
   isCurrentUser?: boolean;
 }
@@ -658,10 +658,11 @@ export default function LeaderboardPage() {
                             <div className="flex items-center gap-3">
                               <Image
                                 src={leader.avatarUrl}
-                                alt={leader.name}
+                                alt=""
+                                role="presentation"
                                 width={32}
                                 height={32}
-                                className="h-8 w-8 rounded-full border border-slate-200 object-cover"
+                                className="h-8 w-8 rounded-full border border-slate-200 object-cover shrink-0"
                               />
                               <div>
                                 <span className="font-bold text-slate-900 block flex items-center gap-1.5 flex-wrap">
@@ -669,16 +670,6 @@ export default function LeaderboardPage() {
                                   {leader.isCurrentUser && (
                                     <span className="rounded bg-emerald-100 text-emerald-800 px-1 py-0.2 text-[9px] font-mono">
                                       You
-                                    </span>
-                                  )}
-                                  {leader.planBadge === "lifetime" && (
-                                    <span className="inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 text-white px-2 py-0.5 text-[9px] font-bold shadow-xs">
-                                      <Crown className="h-2.5 w-2.5 fill-white text-white" /> Lifetime Fellow
-                                    </span>
-                                  )}
-                                  {leader.planBadge === "plus" && (
-                                    <span className="inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-amber-400 to-yellow-500 text-amber-950 px-2 py-0.5 text-[9px] font-bold shadow-xs border border-amber-300">
-                                      <Sparkles className="h-2.5 w-2.5 fill-amber-700 text-amber-700" /> Plus Verified
                                     </span>
                                   )}
                                   {leader.planBadge === "pro" && (
