@@ -11,6 +11,9 @@ import { crawlRemotiveJobs } from './job-alligator/remotive-crawler';
 import { crawlRemoteOkJobs } from './job-alligator/remoteok-crawler';
 import { fetchApifyDataset } from './job-alligator/apify-crawler';
 
+import { crawlViaSearchDorking } from './job-alligator/search-dorker';
+import { siphonSitemaps } from './job-alligator/sitemap-siphoner';
+
 export * from './types';
 export * from './job-alligator/skill-extractor';
 export * from './job-alligator/truth-filter';
@@ -23,6 +26,8 @@ export * from './job-alligator/jobspipe-crawler';
 export * from './job-alligator/remotive-crawler';
 export * from './job-alligator/remoteok-crawler';
 export * from './job-alligator/apify-crawler';
+export * from './job-alligator/search-dorker';
+export * from './job-alligator/sitemap-siphoner';
 export * from './job-alligator/github-internships';
 export * from './job-alligator/simplify-crawler';
 export * from './job-alligator/india-crawler';
@@ -35,7 +40,7 @@ export * from './study-alligator/canvas-binder';
  * Master Runner for Job Alligator:
  * Aggregates verified tech positions from Indian Unicorns (Greenhouse/Lever/Ashby),
  * JobsPipe (India & Remote), Global Remote opportunities (Himalayas, Remotive, RemoteOK),
- * autonomous startup discovery, and tech internships.
+ * Search Engine Dorking (DuckDuckGo), Deep Sitemap.xml Siphoning, autonomous startup discovery, and tech internships.
  * Filtered via the 3-Layer Geo-Exclusion Engine.
  */
 export async function runJobAlligator(options?: {
@@ -57,6 +62,8 @@ export async function runJobAlligator(options?: {
     himalayasJobs,
     remotiveJobs,
     remoteOkJobs,
+    dorkedJobs,
+    sitemapJobs,
     internships,
     newGrads,
     gitlabJobs,
@@ -74,6 +81,8 @@ export async function runJobAlligator(options?: {
     crawlHimalayasJobs({ limit: 80 }).catch(() => []),
     crawlRemotiveJobs({ limit: 40 }).catch(() => []),
     crawlRemoteOkJobs({ limit: 40 }).catch(() => []),
+    crawlViaSearchDorking({ maxPerCompany: 5 }).catch(() => []),
+    siphonSitemaps({ maxUrlsPerSource: 20 }).catch(() => []),
     crawlSimplifyInternships({ limit: internshipLimit }).catch(() => []),
     crawlSimplifyNewGrad({ limit: newGradLimit }).catch(() => []),
     crawlGreenhouseBoard('gitlab', 'GitLab').catch(() => []),
@@ -87,6 +96,8 @@ export async function runJobAlligator(options?: {
     ...himalayasJobs,
     ...remotiveJobs,
     ...remoteOkJobs,
+    ...dorkedJobs,
+    ...sitemapJobs,
     ...internships,
     ...newGrads,
     ...gitlabJobs,
