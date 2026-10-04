@@ -29,6 +29,10 @@ import {
   Building2,
   ExternalLink,
   Crown,
+  X,
+  MessageCircle,
+  Linkedin,
+  ArrowRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LEETCODE_PROBLEMS, Problem } from "@/lib/problems-data";
@@ -1233,6 +1237,92 @@ function POTDWorkspace() {
                 </Button>
               </form>
             )}
+          </div>
+        </div>
+      )}
+
+      {/* CELEBRATION & VIRAL SHARE MODAL */}
+      {showProCelebration && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-sm p-4 animate-in fade-in">
+          <div className="relative w-full max-w-md rounded-3xl border border-emerald-500/40 bg-slate-900 p-6 sm:p-7 shadow-2xl text-slate-100 space-y-5">
+            <button
+              onClick={() => setShowProCelebration(false)}
+              className="absolute right-4 top-4 p-1.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+            >
+              <X className="h-5 w-5" />
+            </button>
+
+            <div className="text-center space-y-2">
+              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-emerald-500/20 border border-emerald-500/50 text-3xl shadow-lg">
+                🎉
+              </div>
+              <h3 className="text-xl font-black text-white">
+                Challenge Conquered!
+              </h3>
+              <p className="text-xs text-slate-400">
+                All test cases passed. Your daily habit streak is locked in and your DevScore has been boosted!
+              </p>
+            </div>
+
+            {/* STATS TILES */}
+            <div className="grid grid-cols-3 gap-2 text-center">
+              <div className="rounded-xl bg-slate-800/80 border border-slate-700/60 p-2.5">
+                <span className="text-[10px] uppercase font-bold text-slate-400 block">XP Earned</span>
+                <span className="text-lg font-black text-emerald-400">+50 XP</span>
+              </div>
+              <div className="rounded-xl bg-slate-800/80 border border-slate-700/60 p-2.5">
+                <span className="text-[10px] uppercase font-bold text-slate-400 block">Daily Streak</span>
+                <span className="text-lg font-black text-amber-400 flex items-center justify-center gap-1">
+                  <Flame className="h-4 w-4 fill-amber-400" /> Saved
+                </span>
+              </div>
+              <div className="rounded-xl bg-slate-800/80 border border-slate-700/60 p-2.5">
+                <span className="text-[10px] uppercase font-bold text-slate-400 block">DevScore</span>
+                <span className="text-lg font-black text-blue-400">{userDevScore || 750}</span>
+              </div>
+            </div>
+
+            {/* VIRAL SHARE ACTIONS */}
+            <div className="space-y-2 pt-2 border-t border-slate-800">
+              <span className="text-xs font-bold text-slate-300 block">
+                Share your victory &amp; challenge your peers:
+              </span>
+              <div className="grid grid-cols-2 gap-2">
+                <Button
+                  onClick={() => {
+                    const shareText = encodeURIComponent(
+                      `🔥 Just solved today's coding problem "${currentProblem.title}" on Role Nest! Current DevScore: ${userDevScore || 750}/1000. Try solving it here: https://rolenest.in/potd?problem=${currentProblem.slug}`
+                    );
+                    window.open(`https://api.whatsapp.com/send?text=${shareText}`, "_blank", "noopener,noreferrer");
+                  }}
+                  className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs gap-1.5 py-2.5 h-auto rounded-xl"
+                >
+                  <MessageCircle className="h-4 w-4 fill-white" />
+                  WhatsApp
+                </Button>
+                <Button
+                  onClick={() => {
+                    const postUrl = encodeURIComponent(`https://rolenest.in/potd?problem=${currentProblem.slug}`);
+                    window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${postUrl}`, "_blank", "noopener,noreferrer");
+                  }}
+                  className="bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs gap-1.5 py-2.5 h-auto rounded-xl"
+                >
+                  <Linkedin className="h-4 w-4 fill-white" />
+                  LinkedIn
+                </Button>
+              </div>
+            </div>
+
+            {/* NEXT STEP CTA */}
+            <div className="pt-2 flex items-center justify-between gap-2">
+              <Link
+                href="/jobs"
+                className="w-full text-center py-2.5 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs transition-colors flex items-center justify-center gap-1.5"
+              >
+                <span>Browse Jobs Hiring This Skill</span>
+                <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
+            </div>
           </div>
         </div>
       )}

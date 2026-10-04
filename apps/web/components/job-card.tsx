@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { ShieldCheck, Bookmark, ArrowRight, Clock, MapPin, Sparkles, ExternalLink, Zap } from "lucide-react";
+import { ShieldCheck, Bookmark, ArrowRight, Clock, MapPin, Sparkles, ExternalLink, Zap, MessageCircle } from "lucide-react";
 import { MockJob } from "@/lib/mock-jobs";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
@@ -240,6 +240,20 @@ export function JobCard({ job, candidateIntel }: JobCardProps) {
               <ExternalLink className="h-3 w-3" />
             </a>
           )}
+          <button
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              const url = `https://rolenest.in/jobs/${job.slug}?ref=share_card_wa`;
+              const text = encodeURIComponent(`🔥 ${job.title} at ${job.companyName} (${job.salaryOrStipend}) with direct ATS link on Role Nest: ${url}`);
+              window.open(`https://api.whatsapp.com/send?text=${text}`, "_blank", "noopener,noreferrer");
+            }}
+            className="p-2 rounded-lg text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 transition-colors cursor-pointer shrink-0"
+            title="Share opening on WhatsApp"
+          >
+            <MessageCircle className="h-4 w-4" />
+          </button>
           <Link href={`/jobs/${job.slug}`} className="w-full sm:w-auto">
             <Button size="sm" variant="outline" className="w-full sm:w-auto text-xs font-semibold gap-1">
               View & Match <ArrowRight className="h-3 w-3" />

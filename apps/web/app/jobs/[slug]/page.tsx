@@ -22,6 +22,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { JobApplyButton } from "@/components/job-apply-button";
 import { GapToOfferDiagnostic } from "@/components/gap-to-offer-diagnostic";
+import { SocialShareBar } from "@/components/social-share-bar";
 
 interface JobPageProps {
   params: Promise<{ slug: string }>;
@@ -298,6 +299,16 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
                 </div>
               </div>
             )}
+
+            {/* SOCIAL SHARE & REFERRAL HOOK */}
+            <div className="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between flex-wrap gap-2">
+              <SocialShareBar
+                title={job.title}
+                companyName={job.companyName}
+                salaryOrStipend={job.salaryOrStipend}
+                type="job"
+              />
+            </div>
 
             <div className="mt-5 sm:hidden">
               <JobApplyButton

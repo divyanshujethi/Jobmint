@@ -38,6 +38,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { DemoSandboxModal } from "@/components/demo-sandbox-modal";
+import { SponsoredChallengeBanner } from "@/components/sponsored-challenge-banner";
 
 interface StreakLeader {
   rank: number;
@@ -528,6 +529,9 @@ export default function LeaderboardPage() {
             </div>
           </div>
         </div>
+
+        {/* HIGH-YIELD SPONSORED HACKATHON B2B BANNER */}
+        <SponsoredChallengeBanner />
 
         {/* NAVIGATION TABS */}
         <div className="flex items-center justify-center">

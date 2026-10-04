@@ -6,6 +6,7 @@ import { MockJob } from "@/lib/mock-jobs";
 import { JobCard } from "@/components/job-card";
 import { ScrollToTop } from "@/components/scroll-to-top";
 import { RoloMascot } from "@/components/rolo-mascot";
+import { InstantAlertsBanner } from "@/components/instant-alerts-modal";
 import { JobType, WorkMode } from "@repo/shared";
 
 export default function InternshipsPage() {
@@ -193,6 +194,9 @@ export default function InternshipsPage() {
             </button>
           )}
         </div>
+
+        {/* INSTANT WHATSAPP & TELEGRAM ALERTS */}
+        <InstantAlertsBanner />
 
         <div className="mt-4 flex items-center justify-between text-xs text-slate-500 font-mono">
           <span>Showing {filteredInternships.length} live openings</span>

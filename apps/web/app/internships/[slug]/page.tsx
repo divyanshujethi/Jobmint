@@ -6,6 +6,7 @@ import { resolvePseoCategory } from "@/lib/pseo-data";
 import { PseoLanding } from "@/components/pseo-landing";
 import { JobApplyButton } from "@/components/job-apply-button";
 import { Badge } from "@/components/ui/badge";
+import { SocialShareBar } from "@/components/social-share-bar";
 import { MapPin, Clock, Building2, ShieldCheck, ArrowRight } from "lucide-react";
 
 interface InternshipPageProps {
@@ -237,6 +238,16 @@ export default async function InternshipSlugPage({ params }: InternshipPageProps
             jobDescription={job.description}
             source={job.source}
             sourceUrl={job.sourceUrl}
+          />
+        </div>
+
+        {/* Social Share & Referral Hook */}
+        <div className="pt-4 border-t border-slate-100 flex items-center justify-between flex-wrap gap-2">
+          <SocialShareBar
+            title={job.title}
+            companyName={job.companyName}
+            salaryOrStipend={job.salaryOrStipend}
+            type="internship"
           />
         </div>
       </div>

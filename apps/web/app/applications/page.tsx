@@ -18,6 +18,10 @@ import {
   Crown,
   Zap,
   ExternalLink,
+  Mail,
+  Copy,
+  Check,
+  X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -31,6 +35,9 @@ export default function ApplicationsTrackerPage() {
   const [activeFilter, setActiveFilter] = useState<string>("ALL");
   const [planTier, setPlanTier] = useState<string>("free");
   const [maxLimit, setMaxLimit] = useState<number>(5);
+  const [followUpApp, setFollowUpApp] = useState<CandidateApplication | null>(null);
+  const [copiedTemplate, setCopiedTemplate] = useState<string | null>(null);
+  const [followUpMarked, setFollowUpMarked] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
     // 1. Check session
@@ -379,20 +386,44 @@ export default function ApplicationsTrackerPage() {
                     </a>
                   )}
 
-                  {(app as any).isExternal ? (
+                  {followUpMarked[app.id] ? (
+                    <Badge variant="success" className="gap-1 py-1 font-bold">
+                      <Check className="h-3.5 w-3.5" /> Follow-Up Logged (+14d)
+                    </Badge>
+                  ) : (app as any).isExternal ? (
                     (app as any).followUpDueDays === 0 ? (
-                      <Badge variant="warning" className="gap-1 py-1 font-bold">
-                        <AlertCircle className="h-3.5 w-3.5" /> Follow Up Recommended (7d+)
-                      </Badge>
+                      <>
+                        <Badge variant="warning" className="gap-1 py-1 font-bold">
+                          <AlertCircle className="h-3.5 w-3.5" /> Follow Up Recommended (7d+)
+                        </Badge>
+                        <button
+                          type="button"
+                          onClick={() => setFollowUpApp(app)}
+                          className="inline-flex items-center gap-1 text-xs font-bold text-amber-900 bg-amber-100 hover:bg-amber-200 border border-amber-300 px-2.5 py-1 rounded-xl transition-colors cursor-pointer"
+                        >
+                          <Mail className="h-3.5 w-3.5 text-amber-700" />
+                          <span>Outreach Templates</span>
+                        </button>
+                      </>
                     ) : (
                       <Badge variant="secondary" className="gap-1 py-1 font-bold bg-slate-100 text-slate-800">
                         <Clock className="h-3.5 w-3.5 text-slate-500" /> Follow Up in {(app as any).followUpDueDays}d
                       </Badge>
                     )
                   ) : app.isGhosted ? (
-                    <Badge variant="warning" className="gap-1 py-1 font-bold">
-                      <AlertCircle className="h-3.5 w-3.5" /> No Activity (7+ Days)
-                    </Badge>
+                    <>
+                      <Badge variant="warning" className="gap-1 py-1 font-bold">
+                        <AlertCircle className="h-3.5 w-3.5" /> No Activity (7+ Days)
+                      </Badge>
+                      <button
+                        type="button"
+                        onClick={() => setFollowUpApp(app)}
+                        className="inline-flex items-center gap-1 text-xs font-bold text-amber-900 bg-amber-100 hover:bg-amber-200 border border-amber-300 px-2.5 py-1 rounded-xl transition-colors cursor-pointer"
+                      >
+                        <Mail className="h-3.5 w-3.5 text-amber-700" />
+                        <span>Outreach Templates</span>
+                      </button>
+                    </>
                   ) : app.status === ApplicationStatus.SHORTLISTED ? (
                     <Badge variant="success" className="gap-1 py-1 font-bold">
                       <Sparkles className="h-3.5 w-3.5" /> Shortlisted
@@ -470,6 +501,116 @@ export default function ApplicationsTrackerPage() {
           ))
         )}
       </div>
+
+      {/* FOLLOW-UP TEMPLATES & OUTREACH MODAL */}
+      {followUpApp && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/70 backdrop-blur-xs p-4 animate-in fade-in">
+          <div className="relative w-full max-w-lg rounded-3xl border border-slate-200 bg-white p-6 sm:p-7 shadow-2xl text-slate-900 space-y-4">
+            <button
+              onClick={() => setFollowUpApp(null)}
+              className="absolute right-4 top-4 p-1.5 rounded-xl text-slate-400 hover:text-slate-700 transition-colors cursor-pointer"
+            >
+              <X className="h-5 w-5" />
+            </button>
+
+            <div className="flex items-center gap-2">
+              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-100 text-amber-700">
+                <Mail className="h-5 w-5" />
+              </span>
+              <div>
+                <h3 className="text-lg font-bold text-slate-900">
+                  Follow-Up Templates for {followUpApp.companyName}
+                </h3>
+                <p className="text-xs text-slate-500">
+                  Polite recruiter outreach templates to respectfully check your application status.
+                </p>
+              </div>
+            </div>
+
+            {/* EMAIL TEMPLATE */}
+            <div className="space-y-1.5">
+              <div className="flex items-center justify-between text-xs">
+                <span className="font-bold text-slate-700 flex items-center gap-1">
+                  📧 Professional Recruiter Follow-up Email:
+                </span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const emailBody = `Subject: Following up on my application for ${followUpApp.jobTitle} - ${sessionUser?.name || "Candidate"}\n\nDear Hiring Team at ${followUpApp.companyName},\n\nI hope this email finds you well.\n\nI am writing to respectfully follow up on my application for the ${followUpApp.jobTitle} position, which I submitted on ${followUpApp.appliedDateFormatted}.\n\nI remain very enthusiastic about ${followUpApp.companyName} and believe my technical background aligns well with your team's goals. I would welcome the opportunity to discuss how I can contribute.\n\nPlease let me know if you need any additional project links or references. Thank you for your time and consideration!\n\nBest regards,\n${sessionUser?.name || "Candidate"}`;
+                    navigator.clipboard.writeText(emailBody);
+                    setCopiedTemplate("email");
+                    setTimeout(() => setCopiedTemplate(null), 2500);
+                  }}
+                  className="font-semibold text-emerald-700 hover:text-emerald-800 flex items-center gap-1 cursor-pointer"
+                >
+                  {copiedTemplate === "email" ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
+                  {copiedTemplate === "email" ? "Copied!" : "Copy Email"}
+                </button>
+              </div>
+              <div className="rounded-xl bg-slate-50 border border-slate-200 p-3 text-[11px] text-slate-700 font-mono whitespace-pre-wrap leading-relaxed max-h-36 overflow-y-auto">
+                {`Subject: Following up on my application for ${followUpApp.jobTitle} - ${sessionUser?.name || "Candidate"}
+
+Dear Hiring Team at ${followUpApp.companyName},
+
+I hope this email finds you well.
+
+I am writing to respectfully follow up on my application for the ${followUpApp.jobTitle} position, which I submitted on ${followUpApp.appliedDateFormatted}.
+
+I remain very enthusiastic about ${followUpApp.companyName} and believe my technical background aligns well with your team's goals. I would welcome the opportunity to discuss how I can contribute.
+
+Thank you for your time and consideration!
+
+Best regards,
+${sessionUser?.name || "Candidate"}`}
+              </div>
+            </div>
+
+            {/* LINKEDIN NOTE */}
+            <div className="space-y-1.5 pt-2 border-t border-slate-100">
+              <div className="flex items-center justify-between text-xs">
+                <span className="font-bold text-slate-700 flex items-center gap-1">
+                  💼 LinkedIn Connection Note (&lt;300 chars):
+                </span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const liNote = `Hi! I applied for the ${followUpApp.jobTitle} role at ${followUpApp.companyName}. I'm excited about your engineering mission and would love to connect and share my portfolio. Thanks for your time!`;
+                    navigator.clipboard.writeText(liNote);
+                    setCopiedTemplate("linkedin");
+                    setTimeout(() => setCopiedTemplate(null), 2500);
+                  }}
+                  className="font-semibold text-blue-700 hover:text-blue-800 flex items-center gap-1 cursor-pointer"
+                >
+                  {copiedTemplate === "linkedin" ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
+                  {copiedTemplate === "linkedin" ? "Copied!" : "Copy Note"}
+                </button>
+              </div>
+              <div className="rounded-xl bg-slate-50 border border-slate-200 p-3 text-[11px] text-slate-700 font-mono">
+                {`Hi! I applied for the ${followUpApp.jobTitle} role at ${followUpApp.companyName}. I'm excited about your engineering mission and would love to connect and share my portfolio. Thanks for your time!`}
+              </div>
+            </div>
+
+            <div className="pt-2 flex items-center justify-between gap-3">
+              <Button
+                variant="outline"
+                onClick={() => setFollowUpApp(null)}
+                className="text-xs"
+              >
+                Close
+              </Button>
+              <Button
+                onClick={() => {
+                  setFollowUpMarked((prev) => ({ ...prev, [followUpApp.id]: true }));
+                  setFollowUpApp(null);
+                }}
+                className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs"
+              >
+                Mark as Followed Up (+14 Days Snooze)
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
