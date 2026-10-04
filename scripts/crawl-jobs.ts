@@ -1,14 +1,34 @@
 /**
  * Role Nest - Job Alligator Master Crawler Script
  * Crawls active tech internships and early career positions from SimplifyJobs,
- * Greenhouse, and Lever, and persists them into the PostgreSQL database.
+ * Greenhouse, Lever, and Indian Tech Boards, and persists them into PostgreSQL using high-performance batching.
  * 
  * Usage:
  * npx tsx scripts/crawl-jobs.ts [internshipLimit] [newGradLimit]
  */
 
-import { runJobAlligator, normalizeIndiaLocation } from "../packages/alligators/src/index";
-import { db, jobs, companies, skills, jobSkills, eq, or } from "../packages/database/src/index";
+import fs from "fs";
+import path from "path";
+
+// Auto-load root .env if not loaded
+if (!process.env.DATABASE_URL) {
+  const envPath = path.resolve(__dirname, "../.env");
+  if (fs.existsSync(envPath)) {
+    const lines = fs.readFileSync(envPath, "utf-8").split("\n");
+    for (const line of lines) {
+      const trimmed = line.trim();
+      if (trimmed && !trimmed.startsWith("#") && trimmed.includes("=")) {
+        const [k, ...v] = trimmed.split("=");
+        if (k && v && !process.env[k.trim()]) {
+          process.env[k.trim()] = v.join("=").trim().replace(/^["']|["']$/g, "");
+        }
+      }
+    }
+  }
+}
+
+import { runJobAlligator, normalizeIndiaLocation, RawCrawledJob } from "../packages/alligators/src/index";
+import { db, jobs, companies, skills, jobSkills, inArray } from "../packages/database/src/index";
 import { JobSource } from "../packages/shared/src/index";
 import crypto from "crypto";
 
@@ -32,21 +52,25 @@ function extractDomain(urlStr?: string): string | null {
 
 async function main() {
   console.log("🐊 =====================================================");
-  console.log("🐊 ROLE NEST - JOB ALLIGATOR LIVE CRAWLER & PERSISTER");
+  console.log("🐊 ROLE NEST - JOB ALLIGATOR BATCH CRAWLER & PERSISTER");
   console.log("🐊 =====================================================");
 
-  const internshipLimit = parseInt(process.argv[2] || "60", 10);
-  const newGradLimit = parseInt(process.argv[3] || "60", 10);
+  const internshipLimit = parseInt(process.argv[2] || "500", 10);
+  const newGradLimit = parseInt(process.argv[3] || "500", 10);
 
   console.log(`📡 Fetching live tech opportunities (Internships limit: ${internshipLimit}, New Grad limit: ${newGradLimit})...`);
-  const crawlResult = await runJobAlligator({ internshipLimit, newGradLimit });
+  const crawlResult = await runJobAlligator({
+    internshipLimit,
+    newGradLimit,
+    enableDiscovery: true,
+  });
 
   console.log(`✅ Crawl finished in ${(crawlResult.durationMs / 1000).toFixed(1)}s.`);
   console.log(`📊 Total crawled: ${crawlResult.stats.totalCrawled}, Accepted: ${crawlResult.stats.accepted}`);
 
-  console.log("\n💾 Persisting to PostgreSQL database...");
+  console.log("\n💾 Persisting to PostgreSQL database in batches...");
 
-  // Cache existing skills
+  // 1. Cache existing skills
   const existingSkills = await db.select({ id: skills.id, name: skills.name, slug: skills.slug }).from(skills);
   const skillMap = new Map<string, string>();
   for (const s of existingSkills) {
@@ -54,7 +78,7 @@ async function main() {
     skillMap.set(s.name.toLowerCase(), s.id);
   }
 
-  // Cache existing companies
+  // 2. Cache existing companies
   const existingCompanies = await db.select({ id: companies.id, name: companies.name, slug: companies.slug }).from(companies);
   const companyMap = new Map<string, string>();
   for (const c of existingCompanies) {
@@ -62,178 +86,268 @@ async function main() {
     companyMap.set(c.name.toLowerCase(), c.id);
   }
 
-  let inserted = 0;
-  let updated = 0;
+  // 3. Cache existing jobs (sourceUrl and externalJobId)
+  const existingJobs = await db
+    .select({ id: jobs.id, sourceUrl: jobs.sourceUrl, externalJobId: jobs.externalJobId })
+    .from(jobs);
+  const existingJobUrlMap = new Map<string, string>();
+  const existingJobExtIdMap = new Map<string, string>();
+  for (const j of existingJobs) {
+    if (j.sourceUrl) existingJobUrlMap.set(j.sourceUrl, j.id);
+    if (j.externalJobId) existingJobExtIdMap.set(j.externalJobId, j.id);
+  }
+
+  // 4. Filter and collect missing companies & skills
+  interface ValidJobItem {
+    raw: RawCrawledJob;
+    companySlug: string;
+    companyCleanName: string;
+    location: string;
+    workMode: string;
+  }
+  const validItems: ValidJobItem[] = [];
+  const missingCompanies = new Map<string, { name: string; slug: string; website?: string; domain: string; location: string }>();
+  const missingSkills = new Map<string, string>();
   let skipped = 0;
 
   for (const job of crawlResult.jobs) {
-    try {
-      if (!job.sourceUrl || !job.title || !job.companyName) {
-        skipped++;
-        continue;
+    if (!job.sourceUrl || !job.title || !job.companyName) {
+      skipped++;
+      continue;
+    }
+
+    const locInfo = normalizeIndiaLocation(job.location);
+    if (!locInfo.isIndiaOrRemote) {
+      skipped++;
+      continue;
+    }
+
+    const companyCleanName = job.companyName.trim();
+    const companySlug = slugify(companyCleanName);
+    const domain = extractDomain(job.companyWebsite) || `${companySlug}.com`;
+    const loc = locInfo.location || "Remote";
+
+    if (!companyMap.has(companySlug) && !companyMap.has(companyCleanName.toLowerCase())) {
+      if (!missingCompanies.has(companySlug)) {
+        missingCompanies.set(companySlug, {
+          name: companyCleanName,
+          slug: companySlug,
+          website: job.companyWebsite || `https://${domain}`,
+          domain,
+          location: loc,
+        });
       }
+    }
 
-      // Mandatory Safety Check: Strictly require India or Remote
-      const locInfo = normalizeIndiaLocation(job.location);
-      if (!locInfo.isIndiaOrRemote) {
-        skipped++;
-        continue;
+    for (const skillName of job.skills || []) {
+      const sSlug = slugify(skillName);
+      if (!skillMap.has(sSlug) && !skillMap.has(skillName.toLowerCase())) {
+        if (!missingSkills.has(sSlug)) {
+          missingSkills.set(sSlug, skillName);
+        }
       }
-      job.location = locInfo.location;
-      job.workMode = locInfo.workMode;
+    }
 
-      // 1. Company
-      const companyCleanName = job.companyName.trim();
-      const companySlug = slugify(companyCleanName);
-      let companyId = companyMap.get(companySlug) || companyMap.get(companyCleanName.toLowerCase());
+    validItems.push({
+      raw: job,
+      companySlug,
+      companyCleanName,
+      location: loc,
+      workMode: locInfo.workMode,
+    });
+  }
 
-      if (!companyId) {
-        const domain = extractDomain(job.companyWebsite) || `${companySlug}.com`;
-        const newCompanyId = crypto.randomUUID();
-        try {
-          await db.insert(companies).values({
-            id: newCompanyId,
-            name: companyCleanName,
-            slug: companySlug,
-            website: job.companyWebsite || `https://${domain}`,
-            domain,
-            description: `Verified technology hiring organization.`,
-            location: job.location || "Remote",
-            industry: "Technology",
-            isVerified: true,
-            totalApplications: "0",
-            reviewedApplications: "0",
-            medianFirstReviewDays: "2.1",
-            lastActiveAt: new Date(),
-          });
-          companyId = newCompanyId;
-          companyMap.set(companySlug, companyId);
-          companyMap.set(companyCleanName.toLowerCase(), companyId);
-        } catch {
-          const found = await db
-            .select({ id: companies.id })
-            .from(companies)
-            .where(or(eq(companies.slug, companySlug), eq(companies.name, companyCleanName)))
-            .limit(1);
-          if (found.length > 0) {
-            companyId = found[0]!.id;
-            companyMap.set(companySlug, companyId);
-          } else {
-            skipped++;
-            continue;
+  // 5. Bulk insert missing companies
+  if (missingCompanies.size > 0) {
+    const companiesToInsert = Array.from(missingCompanies.values()).map((c) => ({
+      id: crypto.randomUUID(),
+      name: c.name,
+      slug: c.slug,
+      website: c.website,
+      domain: c.domain,
+      description: "Verified technology hiring organization.",
+      location: c.location,
+      industry: "Technology",
+      isVerified: true,
+      totalApplications: "0",
+      reviewedApplications: "0",
+      medianFirstReviewDays: "2.1",
+      lastActiveAt: new Date(),
+    }));
+
+    for (let i = 0; i < companiesToInsert.length; i += 200) {
+      const chunk = companiesToInsert.slice(i, i + 200);
+      try {
+        await db.insert(companies).values(chunk).onConflictDoNothing();
+      } catch {
+        for (const item of chunk) {
+          try {
+            await db.insert(companies).values(item).onConflictDoNothing();
+          } catch {
+            // ignore
           }
         }
       }
+    }
 
-      // 2. Check if job exists
-      const existingJob = await db
-        .select({ id: jobs.id, slug: jobs.slug })
-        .from(jobs)
-        .where(
-          or(
-            eq(jobs.sourceUrl, job.sourceUrl),
-            job.externalId ? eq(jobs.externalJobId, job.externalId) : undefined
-          )
-        )
-        .limit(1);
+    const reloadedCompanies = await db.select({ id: companies.id, name: companies.name, slug: companies.slug }).from(companies);
+    for (const c of reloadedCompanies) {
+      companyMap.set(c.slug, c.id);
+      companyMap.set(c.name.toLowerCase(), c.id);
+    }
+  }
 
-      if (existingJob.length > 0) {
+  // 6. Bulk insert missing skills
+  if (missingSkills.size > 0) {
+    const skillsToInsert = Array.from(missingSkills.entries()).map(([slug, name]) => ({
+      id: crypto.randomUUID(),
+      name,
+      slug,
+      category: "Technology",
+    }));
+
+    for (let i = 0; i < skillsToInsert.length; i += 200) {
+      const chunk = skillsToInsert.slice(i, i + 200);
+      try {
+        await db.insert(skills).values(chunk).onConflictDoNothing();
+      } catch {
+        for (const item of chunk) {
+          try {
+            await db.insert(skills).values(item).onConflictDoNothing();
+          } catch {
+            // ignore
+          }
+        }
+      }
+    }
+
+    const reloadedSkills = await db.select({ id: skills.id, name: skills.name, slug: skills.slug }).from(skills);
+    for (const s of reloadedSkills) {
+      skillMap.set(s.slug, s.id);
+      skillMap.set(s.name.toLowerCase(), s.id);
+    }
+  }
+
+  // 7. Partition into toTouch and toInsert
+  const jobIdsToTouch: string[] = [];
+  const jobsToInsert: Array<typeof jobs.$inferInsert> = [];
+  const jobSkillsToInsert: Array<typeof jobSkills.$inferInsert> = [];
+  const seenInsertUrls = new Set<string>();
+
+  for (const item of validItems) {
+    const { raw: job, companySlug, companyCleanName, location, workMode } = item;
+    const companyId = companyMap.get(companySlug) || companyMap.get(companyCleanName.toLowerCase());
+    if (!companyId) {
+      skipped++;
+      continue;
+    }
+
+    const existingId =
+      (job.sourceUrl && existingJobUrlMap.get(job.sourceUrl)) ||
+      (job.externalId && existingJobExtIdMap.get(job.externalId));
+
+    if (existingId) {
+      jobIdsToTouch.push(existingId);
+      continue;
+    }
+
+    if (seenInsertUrls.has(job.sourceUrl)) {
+      skipped++;
+      continue;
+    }
+    seenInsertUrls.add(job.sourceUrl);
+
+    const baseTitleSlug = slugify(job.title).slice(0, 45);
+    const randomSuffix = Math.random().toString(36).substring(2, 6);
+    const jobSlug = `${baseTitleSlug}-${companySlug}-${randomSuffix}`;
+    const newJobId = crypto.randomUUID();
+
+    jobsToInsert.push({
+      id: newJobId,
+      companyId,
+      title: job.title,
+      slug: jobSlug,
+      jobType: job.jobType,
+      workMode: workMode as any,
+      location,
+      salaryOrStipend: job.salaryOrStipend || "Competitive (Official)",
+      experienceYears: job.experienceYears ?? 0,
+      description: job.description,
+      requirements:
+        job.rawRequirements ||
+        `Strong problem solving foundations, knowledge of modern software engineering practices, and interest in working with ${companyCleanName}'s engineering team.`,
+      benefits: "Official mentor support, direct career feedback, verified hiring progression timeline.",
+      source: JobSource.EXTERNAL,
+      sourceUrl: job.sourceUrl,
+      externalJobId: job.externalId,
+      isActive: true,
+      isFeatured: false,
+      firstSeenAt: new Date(),
+      lastCheckedAt: new Date(),
+    });
+
+    for (const skillName of job.skills || []) {
+      const sSlug = slugify(skillName);
+      const skillId = skillMap.get(sSlug) || skillMap.get(skillName.toLowerCase());
+      if (skillId) {
+        jobSkillsToInsert.push({
+          id: crypto.randomUUID(),
+          jobId: newJobId,
+          skillId,
+          isRequired: true,
+        });
+      }
+    }
+  }
+
+  // 8. Batch touch existing jobs
+  if (jobIdsToTouch.length > 0) {
+    for (let i = 0; i < jobIdsToTouch.length; i += 500) {
+      const chunk = jobIdsToTouch.slice(i, i + 500);
+      try {
         await db
           .update(jobs)
           .set({
             isActive: true,
             lastCheckedAt: new Date(),
-            sourceUrl: job.sourceUrl,
             updatedAt: new Date(),
           })
-          .where(eq(jobs.id, existingJob[0]!.id));
-        updated++;
-        continue;
+          .where(inArray(jobs.id, chunk));
+      } catch (err: any) {
+        console.error(`Error updating batch:`, err.message);
       }
+    }
+  }
 
-      // 3. Insert new job
-      const baseTitleSlug = slugify(job.title).slice(0, 45);
-      const randomSuffix = Math.random().toString(36).substring(2, 6);
-      const jobSlug = `${baseTitleSlug}-${companySlug}-${randomSuffix}`;
-      const newJobId = crypto.randomUUID();
-
-      await db.insert(jobs).values({
-        id: newJobId,
-        companyId,
-        title: job.title,
-        slug: jobSlug,
-        jobType: job.jobType,
-        workMode: job.workMode,
-        location: job.location || "Remote",
-        salaryOrStipend: job.salaryOrStipend || "Competitive (Official)",
-        experienceYears: 0,
-        description: job.description,
-        requirements:
-          job.rawRequirements ||
-          `Strong problem solving foundations, knowledge of modern software engineering practices, and interest in working with ${companyCleanName}'s engineering team.`,
-        benefits:
-          "Official mentor support, direct career feedback, verified hiring progression timeline.",
-        source: JobSource.EXTERNAL,
-        sourceUrl: job.sourceUrl,
-        externalJobId: job.externalId,
-        isActive: true,
-        isFeatured: false,
-        firstSeenAt: new Date(),
-        lastCheckedAt: new Date(),
-      });
-
-      // 4. Skills
-      for (const skillName of job.skills || []) {
-        const sSlug = slugify(skillName);
-        let skillId = skillMap.get(sSlug) || skillMap.get(skillName.toLowerCase());
-
-        if (!skillId) {
-          skillId = crypto.randomUUID();
-          try {
-            await db.insert(skills).values({
-              id: skillId,
-              name: skillName,
-              slug: sSlug,
-              category: "Technology",
-            });
-            skillMap.set(sSlug, skillId);
-            skillMap.set(skillName.toLowerCase(), skillId);
-          } catch {
-            const found = await db
-              .select({ id: skills.id })
-              .from(skills)
-              .where(eq(skills.slug, sSlug))
-              .limit(1);
-            if (found.length > 0) {
-              skillId = found[0]!.id;
-              skillMap.set(sSlug, skillId);
-            }
-          }
-        }
-
-        if (skillId) {
-          try {
-            await db.insert(jobSkills).values({
-              id: crypto.randomUUID(),
-              jobId: newJobId,
-              skillId,
-              isRequired: true,
-            });
-          } catch {
-            // ignore duplicate skill mapping
-          }
-        }
+  // 9. Batch insert new jobs
+  let inserted = 0;
+  if (jobsToInsert.length > 0) {
+    for (let i = 0; i < jobsToInsert.length; i += 500) {
+      const chunk = jobsToInsert.slice(i, i + 500);
+      try {
+        await db.insert(jobs).values(chunk).onConflictDoNothing();
+        inserted += chunk.length;
+      } catch (err: any) {
+        console.error(`Error inserting job batch:`, err.message);
       }
+    }
+  }
 
-      inserted++;
-    } catch (err: any) {
-      console.error(`Failed to ingest "${job.title}":`, err.message);
+  // 10. Batch insert jobSkills
+  if (jobSkillsToInsert.length > 0) {
+    for (let i = 0; i < jobSkillsToInsert.length; i += 500) {
+      const chunk = jobSkillsToInsert.slice(i, i + 500);
+      try {
+        await db.insert(jobSkills).values(chunk).onConflictDoNothing();
+      } catch {
+        // ignore duplicate skill mapping
+      }
     }
   }
 
   console.log(`\n🎉 Ingestion Complete!`);
   console.log(`   ✨ New Jobs Added:     ${inserted}`);
-  console.log(`   🔄 Existing Updated:   ${updated}`);
+  console.log(`   🔄 Existing Updated:   ${jobIdsToTouch.length}`);
   console.log(`   ⏭️ Skipped/Duplicates: ${skipped}`);
   console.log(`   Total Processed:       ${crawlResult.jobs.length}`);
 

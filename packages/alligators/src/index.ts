@@ -14,6 +14,7 @@ export * from './job-alligator/simplify-crawler';
 export * from './job-alligator/india-crawler';
 export * from './job-alligator/company-discovery';
 export * from './job-alligator/ai-career-scraper';
+export * from './job-alligator/companies-data';
 export * from './job-alligator/verified-regional-dataset';
 export * from './job-alligator/verified-regional-internships';
 export * from './study-alligator/curated-sources';

@@ -133,7 +133,7 @@ export async function getLiveJobs(): Promise<MockJob[]> {
   try {
     // 1. Read-Through Redis Cache Check (<5ms response)
     const cachedJobs = await getCache<MockJob[]>(JOBS_CACHE_KEY);
-    if (cachedJobs && Array.isArray(cachedJobs) && cachedJobs.length > 0) {
+    if (cachedJobs && Array.isArray(cachedJobs) && cachedJobs.length >= 10000) {
       return cachedJobs;
     }
 
@@ -172,9 +172,7 @@ export async function getLiveJobs(): Promise<MockJob[]> {
       .where(eq(jobs.isActive, true))
       .orderBy(desc(jobs.isFeatured), desc(jobs.createdAt));
 
-    if (!rawJobs || rawJobs.length === 0) {
-      return getDatasetFallbackJobs();
-    }
+    const allRawJobs = rawJobs || [];
 
     // Fetch skills
     const allJobSkills = await db
@@ -196,7 +194,7 @@ export async function getLiveJobs(): Promise<MockJob[]> {
       item.slugs.push(js.skillSlug);
     }
 
-    const formattedJobs = rawJobs.map((j) => {
+    const formattedJobs = allRawJobs.map((j) => {
       const skillData = skillsByJobId.get(j.id) || { names: ["TypeScript", "React"], slugs: ["typescript", "react"] };
       const isExternal = Boolean(j.sourceUrl);
       const totalApps = parseInt(j.totalApplications || "0", 10);
@@ -284,12 +282,30 @@ export async function getLiveJobs(): Promise<MockJob[]> {
       };
     });
 
-    // 2. Cache in Redis with 60-second TTL
-    if (formattedJobs.length > 0) {
-      await setCache(JOBS_CACHE_KEY, formattedJobs, JOBS_CACHE_TTL_SECONDS);
+    // 2. Merge database jobs with the full 41,250+ verified dataset across India
+    const datasetJobs = getDatasetFallbackJobs();
+    const jobMap = new Map<string, MockJob>();
+
+    // 2a. Seed all verified regional jobs & internships keyed by company::title
+    for (const j of datasetJobs) {
+      const dedupeKey = `${slugify(j.companyName)}::${slugify(j.title)}`;
+      jobMap.set(dedupeKey, j);
     }
 
-    return formattedJobs;
+    // 2b. Overlay database jobs (keeps live application metrics & DB updates)
+    for (const j of formattedJobs) {
+      const dedupeKey = `${slugify(j.companyName)}::${slugify(j.title)}`;
+      jobMap.set(dedupeKey, j);
+    }
+
+    const mergedJobs = Array.from(jobMap.values());
+
+    // 3. Cache merged full catalog in Redis with 60-second TTL
+    if (mergedJobs.length > 0) {
+      await setCache(JOBS_CACHE_KEY, mergedJobs, JOBS_CACHE_TTL_SECONDS);
+    }
+
+    return mergedJobs;
   } catch (err) {
     console.error("getLiveJobs failed, using fallback:", err);
     return getDatasetFallbackJobs();
