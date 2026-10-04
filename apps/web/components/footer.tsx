@@ -208,8 +208,8 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/transparency" className="hover:text-emerald-600">
-                  Our Transparency Pledge
+                <Link href="/transparency" className="hover:text-emerald-600 font-semibold text-emerald-800">
+                  Verification &amp; Transparency Standard
                 </Link>
               </li>
             </ul>
@@ -308,7 +308,7 @@ export function Footer() {
               </Link>
               <span>•</span>
               <Link href="/transparency" className="text-slate-500 hover:text-emerald-700">
-                Transparency Pledge
+                Verification &amp; Transparency
               </Link>
               <span>•</span>
               <Link href="/privacy" className="text-slate-500 hover:text-emerald-700">

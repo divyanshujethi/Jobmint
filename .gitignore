@@ -65,6 +65,7 @@ pnpm-debug.log*
 
 # Secrets, certificates, and backups
 *.pdf
+JobMint_Verified_Certificate*
 hunter/*.pem
 hunter/*.key*
 *.sql.gz

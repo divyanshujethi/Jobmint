@@ -343,7 +343,7 @@ export default function SalariesPage() {
             <span className="text-2xl font-black text-slate-900">{avgDaysOffer} Days</span>
             <span className="text-xs font-bold text-blue-600">Round 1 to Final Letter</span>
           </div>
-          <p className="text-[11px] text-slate-500 mt-1">Zero-Ghosting telemetry tracking across applicants.</p>
+          <p className="text-[11px] text-slate-500 mt-1">Aggregated candidate journal and community benchmarks.</p>
         </div>
 
         <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-xs">
@@ -388,6 +388,19 @@ export default function SalariesPage() {
         </div>
       </div>
 
+      {/* METHODOLOGY & TRANSPARENCY NOTICE */}
+      <div className="mt-6 rounded-2xl bg-slate-50 border border-slate-200/80 p-4 text-xs text-slate-600 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+        <div className="flex items-center gap-2">
+          <ShieldCheck className="h-4 w-4 text-emerald-600 shrink-0" />
+          <span>
+            <strong>Community Methodology:</strong> CTC and response speeds are aggregated from verified anonymous candidate submissions and public community benchmarks. They do not constitute official employer telemetry.
+          </span>
+        </div>
+        <Link href="/transparency" className="font-semibold text-emerald-700 hover:text-emerald-800 underline whitespace-nowrap shrink-0">
+          Read Transparency Standard &rarr;
+        </Link>
+      </div>
+
       {/* SALARIES TABLE / CARDS */}
       <div className="mt-6 rounded-3xl border border-slate-200 bg-white overflow-hidden shadow-xs">
         <div className="divide-y divide-slate-100">
@@ -425,7 +438,7 @@ export default function SalariesPage() {
                         {s.daysToOffer} Days to Offer
                       </div>
                       <div className="text-[11px] text-slate-400">
-                        Review in {s.daysToFirstReview}d • Ghosting: {s.ghostingRate}%
+                        Review in {s.daysToFirstReview}d • Candidate-Reported Ghosting: {s.ghostingRate}%
                       </div>
                     </div>
 
@@ -455,7 +468,7 @@ export default function SalariesPage() {
                     </div>
 
                     <div className="rounded-2xl bg-slate-50 p-3 space-y-1">
-                      <span className="font-bold text-slate-700 block">Interview Telemetry:</span>
+                      <span className="font-bold text-slate-700 block">Candidate-Reported Hiring Experience:</span>
                       <div className="flex justify-between text-slate-600">
                         <span>Avg. Days to First Round:</span>
                         <strong className="text-slate-900">{s.daysToFirstReview} days</strong>
@@ -465,14 +478,14 @@ export default function SalariesPage() {
                         <strong className="text-slate-900">{s.daysToOffer} days</strong>
                       </div>
                       <div className="flex justify-between text-slate-600">
-                        <span>Ghosting Probability:</span>
-                        <strong className="text-emerald-700">{s.ghostingRate}% (Low)</strong>
+                        <span>Reported Ghosting Rate:</span>
+                        <strong className="text-emerald-700">{s.ghostingRate}%</strong>
                       </div>
                     </div>
 
                     <div className="rounded-2xl bg-emerald-50/70 border border-emerald-200/60 p-3 flex flex-col justify-between">
                       <div>
-                        <span className="font-bold text-emerald-950 block">Verified Insight Status:</span>
+                        <span className="font-bold text-emerald-950 block">Candidate Benchmark Status:</span>
                         <p className="text-[11px] text-emerald-800 mt-0.5">
                           Calculated from {s.verifiedSubmissions} candidate reports. Standardized to Indian CTC formats.
                         </p>

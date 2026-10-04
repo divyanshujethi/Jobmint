@@ -1,6 +1,6 @@
 export const APP_CONFIG = {
   name: "Role Nest",
-  tagline: "Find opportunities without being left guessing after you apply.",
+  tagline: "Find opportunities without being left guessing.",
   description: "A transparent job and internship discovery platform for students, freshers, and high-growth companies.",
   version: "0.1.0",
   urls: {

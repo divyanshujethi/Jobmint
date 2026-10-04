@@ -17,11 +17,11 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXTAUTH_URL || "https://rolenest.in"),
   title: {
-    default: "Role Nest — Tech Jobs, Internships & Truth Teller Telemetry",
+    default: "Role Nest — Find opportunities without being left guessing",
     template: `%s | ${APP_CONFIG.name}`,
   },
   description:
-    "Role Nest is the transparent tech careers platform. Explore verified software engineer jobs, high-stipend internships, interactive coding challenges, and honest Truth Teller hiring telemetry.",
+    "Role Nest is the transparent tech careers platform. Explore verified software engineer jobs, high-stipend internships with direct ATS links, real-time match diagnostics, and personal application journaling.",
   applicationName: "Role Nest",
   keywords: [
     "tech jobs",
@@ -61,9 +61,9 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://rolenest.in",
     siteName: "Role Nest",
-    title: "Role Nest — Tech Jobs, Internships & Truth Teller Telemetry",
+    title: "Role Nest — Find opportunities without being left guessing",
     description:
-      "Explore verified software engineer jobs, high-stipend internships, and smart application tracking with direct ATS links.",
+      "Explore verified software engineer jobs, high-stipend internships, and smart personal application tracking with direct ATS links.",
     images: [
       {
         url: "/icon-512.png",
@@ -75,9 +75,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Role Nest — Tech Jobs, Internships & Truth Teller Telemetry",
+    title: "Role Nest — Find opportunities without being left guessing",
     description:
-      "Explore verified developer jobs, high-stipend tech internships, and real-time Truth Teller application telemetry.",
+      "Explore verified developer jobs, high-stipend tech internships, and personal application journaling with direct ATS links.",
     images: ["/icon-512.png"],
     creator: "@RoleNest",
   },

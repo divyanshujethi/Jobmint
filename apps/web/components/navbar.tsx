@@ -976,6 +976,18 @@ export function Navbar() {
                     </span>
                     <span className="text-[9px] font-mono text-emerald-700">🇮🇳</span>
                   </Link>
+
+                  <Link
+                    href="/transparency"
+                    className="flex items-center justify-between py-1.5 px-2.5 rounded-lg text-xs font-semibold text-emerald-800 bg-emerald-50/70 hover:bg-emerald-100 transition-colors mt-1"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <span className="flex items-center gap-2">
+                      <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />
+                      Verification &amp; Transparency
+                    </span>
+                    <span className="text-[9px] font-mono text-emerald-700 font-bold">Standard</span>
+                  </Link>
                 </div>
               </div>
             </div>

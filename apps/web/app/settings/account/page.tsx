@@ -60,7 +60,7 @@ export default function AccountSettingsPage() {
       })
       .catch((err) => console.error("Error loading profile:", err));
 
-    const savedNominee = localStorage.getItem("jobmint_dpdp_nominee");
+    const savedNominee = localStorage.getItem("rolenest_dpdp_nominee") || localStorage.getItem("jobmint_dpdp_nominee");
     if (savedNominee) {
       try {
         const parsed = JSON.parse(savedNominee);
@@ -84,7 +84,7 @@ export default function AccountSettingsPage() {
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = `jobmint-dpdp-data-export-${Date.now()}.json`;
+      a.download = `rolenest-dpdp-data-export-${Date.now()}.json`;
       document.body.appendChild(a);
       a.click();
       a.remove();
@@ -100,7 +100,7 @@ export default function AccountSettingsPage() {
   const handleSaveNominee = (e: React.FormEvent) => {
     e.preventDefault();
     localStorage.setItem(
-      "jobmint_dpdp_nominee",
+      "rolenest_dpdp_nominee",
       JSON.stringify({ name: nomineeName, email: nomineeEmail, updatedAt: new Date().toISOString() })
     );
     setNomineeSaved(true);
