@@ -103,7 +103,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  // 5. Programmatic SEO Landing Pages (pSEO)
+  // 5. Programmatic SEO Landing Pages (pSEO) for Jobs & Internships
   const pseoRoutes: MetadataRoute.Sitemap = Object.keys(PSEO_TOPICS).map((slug) => ({
     url: `${baseUrl}/jobs/${slug}`,
     lastModified: new Date(),
@@ -111,5 +111,28 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.9,
   }));
 
-  return [...staticRoutes, ...pseoRoutes, ...jobRoutes, ...companyRoutes, ...roadmapRoutes];
+  const internshipPseoSlugs = [
+    "python-freshers-pune",
+    "react-developer-bangalore",
+    "fresher-internships-bangalore",
+    "web-development-delhi",
+    "frontend-developer-chennai",
+    "ai-engineer-hyderabad",
+    "backend-developer-noida",
+  ];
+  const internshipPseoRoutes: MetadataRoute.Sitemap = internshipPseoSlugs.map((slug) => ({
+    url: `${baseUrl}/internships/${slug}`,
+    lastModified: new Date(),
+    changeFrequency: "daily" as const,
+    priority: 0.9,
+  }));
+
+  return [
+    ...staticRoutes,
+    ...pseoRoutes,
+    ...internshipPseoRoutes,
+    ...jobRoutes,
+    ...companyRoutes,
+    ...roadmapRoutes,
+  ];
 }

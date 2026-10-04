@@ -247,6 +247,178 @@ export const PSEO_TOPICS: Record<string, PseoTopic> = {
       },
     ],
   },
+  "react-developer-bangalore": {
+    slug: "react-developer-bangalore",
+    title: "React Developer Bangalore",
+    metaTitle: "React Developer Jobs in Bangalore (2026) | Role Nest",
+    metaDescription:
+      "Find verified React Developer jobs in Bangalore for 2026. Explore frontend and fullstack roles with competitive CTC bands, transparent tech stacks, and direct ATS links.",
+    heading: "React Developer Jobs in Bengaluru",
+    subheading:
+      "Verified frontend and full-stack React opportunities across Koramangala, Indiranagar, and Whitefield with direct ATS links and 7-day follow-up tracking.",
+    filterFn: (job) => {
+      const loc = job.location.toLowerCase();
+      const isBangalore = loc.includes("bangalore") || loc.includes("bengaluru") || job.workMode === "REMOTE";
+      const text = `${job.title} ${job.skills.join(" ")} ${job.description}`.toLowerCase();
+      const isReact = text.includes("react") || text.includes("frontend") || text.includes("next");
+      return isBangalore && isReact;
+    },
+    relatedSlugs: [
+      "golang-hyderabad",
+      "python-freshers-pune",
+      "remote-frontend-developer",
+      "fresher-internships-bangalore",
+    ],
+    faqs: [
+      {
+        question: "What is the average salary for a React Developer in Bangalore?",
+        answer:
+          "React Developers in Bangalore earn between ₹8,00,000 to ₹28,00,000 annually, depending on experience with TypeScript, Next.js, and modern state management systems.",
+      },
+      {
+        question: "Which Bangalore tech companies are actively hiring React developers?",
+        answer:
+          "Product leaders like Razorpay, Swiggy, Zerodha, Postman, and Flipkart frequently hire React engineers via direct ATS links indexed on Role Nest.",
+      },
+      {
+        question: "Are remote React developer jobs available from Bangalore?",
+        answer:
+          "Yes, over 40% of React developer roles offer hybrid or fully remote arrangements with competitive compensation.",
+      },
+    ],
+  },
+  "python-freshers-pune": {
+    slug: "python-freshers-pune",
+    title: "Python Freshers Pune",
+    metaTitle: "Python Fresher Internships & Jobs in Pune (2026) | Role Nest",
+    metaDescription:
+      "Apply for verified Python fresher internships and entry-level developer roles in Pune. Verified stipends, mentorship, and direct company applications with no middlemen.",
+    heading: "Python Fresher Internships & Jobs in Pune",
+    subheading:
+      "Top Pune IT hubs (Hinjawadi, Magarpatta, Baner) hiring 2024-2026 freshers for Python, Django, FastAPI, and data engineering internships with verified PPO potential.",
+    filterFn: (job) => {
+      const loc = job.location.toLowerCase();
+      const isPune = loc.includes("pune") || job.workMode === "REMOTE";
+      const text = `${job.title} ${job.skills.join(" ")} ${job.description}`.toLowerCase();
+      const isPython = text.includes("python") || text.includes("django") || text.includes("fastapi");
+      const isFresher =
+        job.jobType === "INTERNSHIP" ||
+        job.experienceYears <= 1 ||
+        text.includes("intern") ||
+        text.includes("fresher");
+      return isPune && isPython && isFresher;
+    },
+    relatedSlugs: [
+      "react-developer-bangalore",
+      "golang-hyderabad",
+      "fresher-developer-jobs",
+      "python-ai-engineer",
+    ],
+    faqs: [
+      {
+        question: "What is the typical stipend for Python interns in Pune?",
+        answer:
+          "Python interns in Pune typically receive stipends ranging from ₹20,000 to ₹45,000/month, often converting to full-time junior engineer packages of ₹5 - ₹10 LPA upon completion.",
+      },
+      {
+        question: "Can final-year college students apply for Pune Python internships?",
+        answer:
+          "Yes, pre-final and final-year students (2025-2026 batches) with strong problem-solving fundamentals and basic Python projects can apply directly.",
+      },
+    ],
+  },
+  "golang-hyderabad": {
+    slug: "golang-hyderabad",
+    title: "Golang Jobs Hyderabad",
+    metaTitle: "Golang Developer Jobs in Hyderabad (2026) | Role Nest",
+    metaDescription:
+      "Discover verified Golang backend engineering jobs in Hyderabad (HITEC City / Gachibowli). High-concurrency distributed systems with competitive CTC.",
+    heading: "Golang Backend Developer Jobs in Hyderabad",
+    subheading:
+      "High-performance systems and backend Go roles across Cyberabad tech parks with direct ATS apply links and verified recruiter review times.",
+    filterFn: (job) => {
+      const loc = job.location.toLowerCase();
+      const isHyd = loc.includes("hyderabad") || loc.includes("secunderabad") || job.workMode === "REMOTE";
+      const text = `${job.title} ${job.skills.join(" ")} ${job.description}`.toLowerCase();
+      const isGo = text.includes("golang") || text.includes("go developer") || text.includes("backend");
+      return isHyd && isGo;
+    },
+    relatedSlugs: [
+      "react-developer-bangalore",
+      "python-freshers-pune",
+      "backend-developer-jobs",
+      "full-stack-developer-jobs",
+    ],
+    faqs: [
+      {
+        question: "What is the demand for Golang developers in Hyderabad?",
+        answer:
+          "Hyderabad has seen a massive surge in demand for Go developers for microservices, financial trading platforms, and cloud infrastructure teams in HITEC City and Gachibowli.",
+      },
+      {
+        question: "What CTC can a Golang engineer in Hyderabad expect?",
+        answer:
+          "Golang developers with 1-4 years of experience in Hyderabad command ₹14,00,000 to ₹32,00,000 annually, depending on concurrency and distributed systems expertise.",
+      },
+    ],
+  },
+};
+
+const INDIAN_TECH_CITIES: Record<string, string> = {
+  bangalore: "Bengaluru",
+  bengaluru: "Bengaluru",
+  hyderabad: "Hyderabad",
+  pune: "Pune",
+  delhi: "Delhi-NCR",
+  noida: "Noida",
+  gurgaon: "Gurugram",
+  gurugram: "Gurugram",
+  mumbai: "Mumbai",
+  chennai: "Chennai",
+  kolkata: "Kolkata",
+  ahmedabad: "Ahmedabad",
+  jaipur: "Jaipur",
+  chandigarh: "Chandigarh",
+  mohali: "Mohali",
+  panchkula: "Panchkula",
+  indore: "Indore",
+  bhopal: "Bhopal",
+  kochi: "Kochi",
+  coimbatore: "Coimbatore",
+  nagpur: "Nagpur",
+  lucknow: "Lucknow",
+  bhubaneswar: "Bhubaneswar",
+  goa: "Goa",
+  dehradun: "Dehradun",
+};
+
+const KNOWN_TECH_SKILLS: Record<string, string> = {
+  react: "React",
+  python: "Python",
+  golang: "Golang",
+  go: "Go",
+  java: "Java",
+  typescript: "TypeScript",
+  javascript: "JavaScript",
+  node: "Node.js",
+  nodejs: "Node.js",
+  nextjs: "Next.js",
+  vue: "Vue.js",
+  angular: "Angular",
+  rust: "Rust",
+  devops: "DevOps",
+  cloud: "Cloud",
+  aws: "AWS",
+  docker: "Docker",
+  kubernetes: "Kubernetes",
+  ai: "AI & ML",
+  ml: "Machine Learning",
+  frontend: "Frontend",
+  backend: "Backend",
+  fullstack: "Full Stack",
+  android: "Android",
+  flutter: "Flutter",
+  ios: "iOS",
 };
 
 /**
@@ -258,46 +430,131 @@ export function resolvePseoCategory(slug: string): PseoTopic | null {
     return PSEO_TOPICS[normalized];
   }
 
-  // Fallback pattern matching: e.g. "react-jobs", "remote-devops", "internships-in-delhi"
   const tokens = normalized.split("-").filter(Boolean);
-  if (tokens.length >= 2) {
-    const isJobSearch =
-      tokens.includes("jobs") ||
-      tokens.includes("engineer") ||
-      tokens.includes("developer") ||
-      tokens.includes("internship") ||
-      tokens.includes("internships") ||
-      tokens.includes("remote") ||
-      tokens.includes("fresher");
+  if (tokens.length < 2) return null;
 
-    if (isJobSearch) {
-      const titleWords = tokens.map((t) => t.charAt(0).toUpperCase() + t.slice(1)).join(" ");
-      return {
-        slug: normalized,
-        title: titleWords,
-        metaTitle: `${titleWords} (2026) | Role Nest`,
-        metaDescription: `Discover verified ${titleWords} with transparent salaries, recruiter response telemetry, and verified tech teams on Role Nest.`,
-        heading: `${titleWords}`,
-        subheading: `Verified opportunities curated by Role Nest Truth Teller. Direct ATS application links with 7-day follow-up tracking.`,
-        filterFn: (job) => {
-          const haystack = `${job.title} ${job.skills.join(" ")} ${job.location} ${job.workMode} ${job.description}`.toLowerCase();
-          return tokens.some((token) => haystack.includes(token));
-        },
-        relatedSlugs: [
-          "remote-frontend-developer",
-          "fresher-internships-bangalore",
-          "python-ai-engineer",
-          "backend-developer-jobs",
-        ],
-        faqs: [
-          {
-            question: `How are ${titleWords} verified on Role Nest?`,
-            answer: `Every role is validated for direct ATS apply links, active company postings, and smart follow-up reminders via our Truth Teller tracking engine.`,
-          },
-        ],
-      };
+  // Detect city, skill, and intent from tokens
+  let detectedCity: string | null = null;
+  let cityDisplayName = "";
+  for (const [key, val] of Object.entries(INDIAN_TECH_CITIES)) {
+    if (tokens.includes(key)) {
+      detectedCity = key;
+      cityDisplayName = val;
+      break;
     }
   }
 
-  return null;
+  let detectedSkill: string | null = null;
+  let skillDisplayName = "";
+  for (const [key, val] of Object.entries(KNOWN_TECH_SKILLS)) {
+    if (tokens.includes(key)) {
+      detectedSkill = key;
+      skillDisplayName = val;
+      break;
+    }
+  }
+
+  const isInternship =
+    tokens.includes("intern") ||
+    tokens.includes("internship") ||
+    tokens.includes("internships");
+
+  const isFresher =
+    tokens.includes("fresher") ||
+    tokens.includes("freshers") ||
+    tokens.includes("junior");
+
+  const isJobSearch =
+    isInternship ||
+    isFresher ||
+    tokens.includes("jobs") ||
+    tokens.includes("job") ||
+    tokens.includes("engineer") ||
+    tokens.includes("developer") ||
+    tokens.includes("remote") ||
+    (detectedCity !== null && detectedSkill !== null);
+
+  if (!isJobSearch) {
+    return null;
+  }
+
+  const titleWords = tokens.map((t) => t.charAt(0).toUpperCase() + t.slice(1)).join(" ");
+  const headingText = detectedCity
+    ? `${skillDisplayName || "Software"} ${isInternship ? "Internships" : isFresher ? "Fresher Roles" : "Jobs"} in ${cityDisplayName}`
+    : `${titleWords}`;
+
+  const metaTitleText = detectedCity
+    ? `${skillDisplayName || "Tech"} ${isInternship ? "Internships" : "Jobs"} in ${cityDisplayName} (2026) | Role Nest`
+    : `${titleWords} (2026) | Role Nest`;
+
+  const metaDescText = detectedCity
+    ? `Discover verified ${skillDisplayName || "software"} ${isInternship ? "internships" : "jobs"} in ${cityDisplayName}. Direct ATS application links, transparent compensation, and verified recruiter review times.`
+    : `Discover verified ${titleWords} with transparent salaries, recruiter response telemetry, and verified tech teams on Role Nest.`;
+
+  return {
+    slug: normalized,
+    title: headingText,
+    metaTitle: metaTitleText,
+    metaDescription: metaDescText,
+    heading: headingText,
+    subheading: `Verified tech opportunities in ${cityDisplayName || "India"}. Direct ATS application links with Truth Teller anti-ghosting follow-up tracking.`,
+    filterFn: (job) => {
+      const haystack = `${job.title} ${job.skills.join(" ")} ${job.location} ${job.workMode} ${job.description}`.toLowerCase();
+      
+      // City check
+      if (detectedCity) {
+        const isLocMatch =
+          job.location.toLowerCase().includes(detectedCity) ||
+          job.workMode === "REMOTE" ||
+          job.location.toLowerCase().includes("remote");
+        if (!isLocMatch) return false;
+      }
+
+      // Skill check
+      if (detectedSkill) {
+        const isSkillMatch =
+          job.skills.some((s) => s.toLowerCase().includes(detectedSkill!)) ||
+          haystack.includes(detectedSkill);
+        if (!isSkillMatch) return false;
+      }
+
+      // Internship / Fresher check
+      if (isInternship || isFresher) {
+        const isEntry =
+          job.jobType === "INTERNSHIP" ||
+          job.experienceYears <= 1 ||
+          job.title.toLowerCase().includes("intern") ||
+          job.title.toLowerCase().includes("fresher");
+        if (!isEntry) return false;
+      }
+
+      // General fallback if no specific city/skill detected
+      if (!detectedCity && !detectedSkill) {
+        return tokens.some((token) => haystack.includes(token));
+      }
+
+      return true;
+    },
+    relatedSlugs: [
+      "react-developer-bangalore",
+      "python-freshers-pune",
+      "golang-hyderabad",
+      "remote-frontend-developer",
+      "fresher-internships-bangalore",
+    ],
+    faqs: [
+      {
+        question: `What are the typical requirements for ${titleWords}?`,
+        answer: `Employers look for solid data structures and algorithm foundations, proficiency in ${skillDisplayName || "modern frameworks"}, and clean GitHub proof-of-work.`,
+      },
+      {
+        question: `How does Role Nest guarantee recruiter review for ${titleWords}?`,
+        answer: `Every opening on Role Nest features direct ATS links without middleman portals. Our Truth Teller telemetry nudges you for follow-ups if an employer takes more than 7 days to review.`,
+      },
+      {
+        question: `Are freshers eligible for roles in ${cityDisplayName || "top tech hubs"}?`,
+        answer: `Yes, verified companies on Role Nest welcome early-career talent and final-year students with verified skill proof-of-work and DevScore ratings.`,
+      },
+    ],
+  };
 }

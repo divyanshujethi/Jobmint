@@ -249,11 +249,11 @@ export interface CleanupResult {
 
 /**
  * Automatically marks un-crawled jobs as inactive and purges dead expired jobs.
- * - If an external job was not refreshed in the last `staleDaysThreshold` (default 7 days),
+ * - If an external job was not refreshed in the last `staleDaysThreshold` (default 14 days, configurable 14-21 days),
  *   it has been taken down / filled on the employer's ATS portal -> set isActive = false.
  * - If an external job has been inactive for >30 days and has 0 applications, purge it completely.
  */
-export async function cleanupStaleJobs(staleDaysThreshold = 7): Promise<CleanupResult> {
+export async function cleanupStaleJobs(staleDaysThreshold = 14): Promise<CleanupResult> {
   const thresholdDate = new Date(Date.now() - staleDaysThreshold * 24 * 60 * 60 * 1000);
   const purgeDate = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
 

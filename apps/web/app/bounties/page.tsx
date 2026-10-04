@@ -75,6 +75,16 @@ export default function BountyNestPage() {
   const [postSuccessMessage, setPostSuccessMessage] = useState<string | null>(null);
   const [postError, setPostError] = useState<string | null>(null);
 
+  // Form states for Startup Direct Placement Bounty
+  const [showStartupBountyModal, setShowStartupBountyModal] = useState(false);
+  const [startupName, setStartupName] = useState("");
+  const [startupEmail, setStartupEmail] = useState("");
+  const [startupRole, setStartupRole] = useState("");
+  const [startupCtc, setStartupCtc] = useState("₹8 - ₹18 LPA");
+  const [startupFeeModel, setStartupFeeModel] = useState<"FLAT" | "CTC">("FLAT");
+  const [isSubmittingStartup, setIsSubmittingStartup] = useState(false);
+  const [startupSubmitted, setStartupSubmitted] = useState(false);
+
   useEffect(() => {
     fetch("/api/bounties")
       .then((res) => res.json())
@@ -199,15 +209,46 @@ export default function BountyNestPage() {
           </p>
         </div>
 
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
+          <Button
+            onClick={() => setShowStartupBountyModal(true)}
+            className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs gap-1.5 shadow-sm min-h-[44px]"
+          >
+            <Building2 className="h-4 w-4" />
+            Hire via Startup Bounty (₹0 Upfront)
+          </Button>
           <Button
             onClick={() => setShowPostBountyModal(true)}
-            className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs gap-1.5 shadow-sm min-h-[44px]"
+            variant="outline"
+            className="border-emerald-600 text-emerald-700 hover:bg-emerald-50 font-bold text-xs gap-1.5 shadow-xs min-h-[44px]"
           >
             <Plus className="h-4 w-4" />
             Post Employee Referral Slot
           </Button>
         </div>
+      </div>
+
+      {/* STARTUP DIRECT PLACEMENT BOUNTY PROPOSITION BANNER */}
+      <div className="mt-6 rounded-3xl border border-indigo-200 bg-linear-to-r from-indigo-900 via-slate-900 to-indigo-950 p-6 text-white shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
+        <div className="space-y-2 max-w-2xl">
+          <div className="inline-flex items-center gap-1.5 rounded-full bg-indigo-500/20 px-3 py-1 text-[11px] font-bold text-indigo-300 border border-indigo-400/30">
+            <Sparkles className="h-3.5 w-3.5 text-indigo-300" />
+            STARTUP DIRECT REFERRAL PROGRAM (WEEK 4+)
+          </div>
+          <h3 className="text-xl sm:text-2xl font-black tracking-tight text-white">
+            Hire Pre-Vetted Engineers at Flat ₹35,000 / Hire (or 8–10% CTC)
+          </h3>
+          <p className="text-xs text-indigo-100 leading-relaxed">
+            Zero upfront fee. We source, screen GitHub repositories, and evaluate candidates via our sandbox DevScore engine. Pay only after your new engineer completes 30 days of successful onboarding.
+          </p>
+        </div>
+
+        <Button
+          onClick={() => setShowStartupBountyModal(true)}
+          className="bg-white hover:bg-slate-100 text-indigo-950 font-black text-xs px-5 py-3 rounded-2xl shrink-0 shadow-lg"
+        >
+          Partner With RoleNest →
+        </Button>
       </div>
 
       {/* VALUE PROPOSITION TILES */}
@@ -633,6 +674,144 @@ export default function BountyNestPage() {
                 )}
               </Button>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* MODAL 3: STARTUP DIRECT PLACEMENT BOUNTY PARTNERSHIP */}
+      {showStartupBountyModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/70 backdrop-blur-xs p-4">
+          <div className="w-full max-w-lg rounded-3xl bg-white p-6 sm:p-8 shadow-2xl space-y-5 border border-slate-200 animate-in fade-in zoom-in-95 duration-150">
+            <div className="flex items-start justify-between">
+              <div>
+                <span className="rounded-full bg-indigo-100 text-indigo-800 px-3 py-1 text-[10px] font-black uppercase tracking-wider">
+                  Startup Referral Partnership
+                </span>
+                <h3 className="text-xl font-black text-slate-900 mt-2">
+                  Hire Pre-Vetted Engineers (₹0 Upfront)
+                </h3>
+                <p className="text-xs text-slate-500 mt-1">
+                  Pay 8-10% CTC or a flat ₹35,000 bounty only upon candidate joining and 30-day retention.
+                </p>
+              </div>
+              <button
+                onClick={() => {
+                  setShowStartupBountyModal(false);
+                  setStartupSubmitted(false);
+                }}
+                className="p-1.5 text-slate-400 hover:text-slate-700 rounded-lg hover:bg-slate-100"
+              >
+                ✕
+              </button>
+            </div>
+
+            {startupSubmitted ? (
+              <div className="rounded-2xl bg-indigo-50 border border-indigo-200 p-6 text-center space-y-3">
+                <CheckCircle2 className="h-10 w-10 text-indigo-600 mx-auto" />
+                <h4 className="font-black text-slate-900 text-base">Inquiry Received!</h4>
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  Our founder placement team will review your requirements and reach out at <strong>{startupEmail}</strong> within 12 hours with candidate shortlists.
+                </p>
+                <Button
+                  onClick={() => {
+                    setShowStartupBountyModal(false);
+                    setStartupSubmitted(false);
+                  }}
+                  className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs"
+                >
+                  Done
+                </Button>
+              </div>
+            ) : (
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  setIsSubmittingStartup(true);
+                  setTimeout(() => {
+                    setIsSubmittingStartup(false);
+                    setStartupSubmitted(true);
+                  }, 800);
+                }}
+                className="space-y-4 text-xs"
+              >
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="font-bold text-slate-700 block mb-1">Company / Startup Name</label>
+                    <input
+                      type="text"
+                      required
+                      value={startupName}
+                      onChange={(e) => setStartupName(e.target.value)}
+                      placeholder="e.g. Acme AI, Sarvam"
+                      className="w-full rounded-xl border border-slate-200 p-2.5 text-xs focus:outline-none focus:border-indigo-500"
+                    />
+                  </div>
+                  <div>
+                    <label className="font-bold text-slate-700 block mb-1">Founder / Work Email</label>
+                    <input
+                      type="email"
+                      required
+                      value={startupEmail}
+                      onChange={(e) => setStartupEmail(e.target.value)}
+                      placeholder="founder@company.com"
+                      className="w-full rounded-xl border border-slate-200 p-2.5 text-xs focus:outline-none focus:border-indigo-500"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="font-bold text-slate-700 block mb-1">Target Engineering Role &amp; Tech Stack</label>
+                  <input
+                    type="text"
+                    required
+                    value={startupRole}
+                    onChange={(e) => setStartupRole(e.target.value)}
+                    placeholder="e.g. Fullstack (Next.js + Node) or Golang Backend"
+                    className="w-full rounded-xl border border-slate-200 p-2.5 text-xs focus:outline-none focus:border-indigo-500"
+                  />
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="font-bold text-slate-700 block mb-1">Target CTC Budget</label>
+                    <input
+                      type="text"
+                      value={startupCtc}
+                      onChange={(e) => setStartupCtc(e.target.value)}
+                      placeholder="e.g. ₹10 - ₹20 LPA"
+                      className="w-full rounded-xl border border-slate-200 p-2.5 text-xs focus:outline-none focus:border-indigo-500"
+                    />
+                  </div>
+                  <div>
+                    <label className="font-bold text-slate-700 block mb-1">Placement Fee Model</label>
+                    <select
+                      value={startupFeeModel}
+                      onChange={(e) => setStartupFeeModel(e.target.value as any)}
+                      className="w-full rounded-xl border border-slate-200 p-2.5 text-xs focus:outline-none focus:border-indigo-500 bg-white"
+                    >
+                      <option value="FLAT">Flat ₹35,000 / Hire</option>
+                      <option value="CTC">8.33% of First-Year CTC</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="rounded-xl bg-slate-50 border border-slate-200 p-3 text-[11px] text-slate-600 space-y-1">
+                  <div className="font-bold text-slate-800 flex items-center gap-1">
+                    <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" />
+                    RoleNest Startup Guarantee:
+                  </div>
+                  <p>Includes candidate DevScore, GitHub commit history audit, 1-on-1 interview notes, and a 60-day free replacement guarantee.</p>
+                </div>
+
+                <Button
+                  type="submit"
+                  disabled={isSubmittingStartup}
+                  className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 rounded-xl min-h-[44px]"
+                >
+                  {isSubmittingStartup ? "Connecting to Placement Team..." : "Submit Hiring Intake (Free)"}
+                </Button>
+              </form>
+            )}
           </div>
         </div>
       )}

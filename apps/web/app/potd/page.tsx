@@ -138,6 +138,14 @@ function POTDWorkspace() {
   const [mobileTab, setMobileTab] = useState<"PROBLEM" | "CODE">("PROBLEM");
   const [showProCelebration, setShowProCelebration] = useState(false);
 
+  // Sponsored Hackathons / POTD B2B Monetization State
+  const [showSponsorModal, setShowSponsorModal] = useState(false);
+  const [sponsorCompany, setSponsorCompany] = useState("");
+  const [sponsorEmail, setSponsorEmail] = useState("");
+  const [sponsorTier, setSponsorTier] = useState<"STANDARD" | "PRO" | "FLAGSHIP">("PRO");
+  const [isSubmittingSponsor, setIsSubmittingSponsor] = useState(false);
+  const [sponsorSubmitted, setSponsorSubmitted] = useState(false);
+
   useEffect(() => {
     try {
       const storedCampus = localStorage.getItem("rolenest_user_campus");
@@ -604,6 +612,31 @@ function POTDWorkspace() {
                   </p>
                 </div>
 
+                {/* B2B SPONSORED HACKATHON PROPOSITION BANNER */}
+                <div className="rounded-2xl border border-amber-500/30 bg-linear-to-r from-amber-950/40 via-slate-900 to-amber-950/30 p-4 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/20 px-2.5 py-0.5 text-[10px] font-bold text-amber-300 border border-amber-500/30">
+                      <Sparkles className="h-3 w-3 text-amber-300" />
+                      TECH RECRUITERS &amp; COMPANIES
+                    </span>
+                    <span className="text-[10px] font-mono text-amber-200">
+                      ₹25k - ₹75k / Contest
+                    </span>
+                  </div>
+                  <div>
+                    <h4 className="text-xs font-bold text-white">Sponsor a Weekend Hiring Hackathon</h4>
+                    <p className="text-[11px] text-slate-300 mt-0.5 leading-relaxed">
+                      Host custom problems in our anti-cheat sandbox. Reach 5,000+ top student coders and receive direct candidate shortlists.
+                    </p>
+                  </div>
+                  <Button
+                    onClick={() => setShowSponsorModal(true)}
+                    className="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs h-8 rounded-xl shadow-xs"
+                  >
+                    Sponsor Next Weekend Contest →
+                  </Button>
+                </div>
+
                 {/* College Selector / Affiliation Card */}
                 <div className="rounded-2xl border border-slate-800 bg-slate-900/90 p-4 space-y-2.5">
                   <div className="flex items-center justify-between text-xs">
@@ -1054,6 +1087,155 @@ function POTDWorkspace() {
         </div>
 
       </div>
+
+      {/* MODAL: SPONSOR A WEEKEND HIRING HACKATHON */}
+      {showSponsorModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-xs p-4 text-slate-900">
+          <div className="w-full max-w-lg rounded-3xl bg-white p-6 sm:p-8 shadow-2xl space-y-5 border border-slate-200 animate-in fade-in zoom-in-95 duration-150">
+            <div className="flex items-start justify-between">
+              <div>
+                <span className="rounded-full bg-amber-100 text-amber-900 px-3 py-1 text-[10px] font-black uppercase tracking-wider">
+                  Employer Contest Sponsorship
+                </span>
+                <h3 className="text-xl font-black text-slate-900 mt-2">
+                  Sponsor a Weekend Hiring Hackathon
+                </h3>
+                <p className="text-xs text-slate-500 mt-1">
+                  Host custom engineering challenges. Benchmark talent in our anti-cheat sandbox and hire the top 1% solvers.
+                </p>
+              </div>
+              <button
+                onClick={() => {
+                  setShowSponsorModal(false);
+                  setSponsorSubmitted(false);
+                }}
+                className="p-1.5 text-slate-400 hover:text-slate-700 rounded-lg hover:bg-slate-100"
+              >
+                ✕
+              </button>
+            </div>
+
+            {sponsorSubmitted ? (
+              <div className="rounded-2xl bg-amber-50 border border-amber-200 p-6 text-center space-y-3">
+                <CheckCircle2 className="h-10 w-10 text-amber-600 mx-auto" />
+                <h4 className="font-black text-slate-900 text-base">Sponsorship Request Received!</h4>
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  Our developer relations and contest engineering team will contact <strong>{sponsorEmail}</strong> within 12 hours with problem curation specs and schedule dates.
+                </p>
+                <Button
+                  onClick={() => {
+                    setShowSponsorModal(false);
+                    setSponsorSubmitted(false);
+                  }}
+                  className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs"
+                >
+                  Done
+                </Button>
+              </div>
+            ) : (
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  setIsSubmittingSponsor(true);
+                  setTimeout(() => {
+                    setIsSubmittingSponsor(false);
+                    setSponsorSubmitted(true);
+                  }, 800);
+                }}
+                className="space-y-4 text-xs"
+              >
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="font-bold text-slate-700 block mb-1">Company / Team Name</label>
+                    <input
+                      type="text"
+                      required
+                      value={sponsorCompany}
+                      onChange={(e) => setSponsorCompany(e.target.value)}
+                      placeholder="e.g. Swiggy, Cred, Sarvam AI"
+                      className="w-full rounded-xl border border-slate-200 p-2.5 text-xs focus:outline-none focus:border-amber-500"
+                    />
+                  </div>
+                  <div>
+                    <label className="font-bold text-slate-700 block mb-1">Recruiter / Work Email</label>
+                    <input
+                      type="email"
+                      required
+                      value={sponsorEmail}
+                      onChange={(e) => setSponsorEmail(e.target.value)}
+                      placeholder="recruiter@company.com"
+                      className="w-full rounded-xl border border-slate-200 p-2.5 text-xs focus:outline-none focus:border-amber-500"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="font-bold text-slate-700 block mb-1">Select Hackathon Sponsorship Package</label>
+                  <div className="grid grid-cols-3 gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setSponsorTier("STANDARD")}
+                      className={`p-2.5 rounded-xl border text-left transition-all ${
+                        sponsorTier === "STANDARD"
+                          ? "border-amber-500 bg-amber-50/50 ring-1 ring-amber-500"
+                          : "border-slate-200 hover:bg-slate-50"
+                      }`}
+                    >
+                      <div className="font-black text-slate-900 text-[11px]">Weekend Sprint</div>
+                      <div className="text-amber-700 font-bold text-xs mt-0.5">₹24,999</div>
+                      <div className="text-[10px] text-slate-500 mt-1">Top 50 shortlists</div>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => setSponsorTier("PRO")}
+                      className={`p-2.5 rounded-xl border text-left transition-all ${
+                        sponsorTier === "PRO"
+                          ? "border-amber-500 bg-amber-50/50 ring-1 ring-amber-500"
+                          : "border-slate-200 hover:bg-slate-50"
+                      }`}
+                    >
+                      <div className="font-black text-slate-900 text-[11px]">Pro Hackathon</div>
+                      <div className="text-amber-700 font-bold text-xs mt-0.5">₹49,999</div>
+                      <div className="text-[10px] text-slate-500 mt-1">Custom sandbox + 150 candidates</div>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => setSponsorTier("FLAGSHIP")}
+                      className={`p-2.5 rounded-xl border text-left transition-all ${
+                        sponsorTier === "FLAGSHIP"
+                          ? "border-amber-500 bg-amber-50/50 ring-1 ring-amber-500"
+                          : "border-slate-200 hover:bg-slate-50"
+                      }`}
+                    >
+                      <div className="font-black text-slate-900 text-[11px]">Flagship Blitz</div>
+                      <div className="text-amber-700 font-bold text-xs mt-0.5">₹74,999</div>
+                      <div className="text-[10px] text-slate-500 mt-1">Pan-India campus push</div>
+                    </button>
+                  </div>
+                </div>
+
+                <div className="rounded-xl bg-slate-50 border border-slate-200 p-3 text-[11px] text-slate-600 space-y-1">
+                  <div className="font-bold text-slate-800 flex items-center gap-1">
+                    <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" />
+                    Sponsor Deliverables:
+                  </div>
+                  <p>Dedicated branded banner on the POTD problem page, verified DevScore candidate export, automated anti-plagiarism reports, and fast-track interview scheduling links.</p>
+                </div>
+
+                <Button
+                  type="submit"
+                  disabled={isSubmittingSponsor}
+                  className="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-black py-2.5 rounded-xl min-h-[44px]"
+                >
+                  {isSubmittingSponsor ? "Confirming Booking..." : "Submit Hackathon Sponsorship Request"}
+                </Button>
+              </form>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

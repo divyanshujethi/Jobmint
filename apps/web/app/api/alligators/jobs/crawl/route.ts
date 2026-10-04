@@ -9,7 +9,7 @@ export async function GET(request: Request): Promise<NextResponse> {
     const { searchParams } = new URL(request.url);
     const internshipLimit = parseInt(searchParams.get("internshipLimit") || "50", 10);
     const newGradLimit = parseInt(searchParams.get("newGradLimit") || "50", 10);
-    const staleDays = parseInt(searchParams.get("staleDays") || "7", 10);
+    const staleDays = parseInt(searchParams.get("staleDays") || "14", 10);
     const enableDiscovery = searchParams.get("discover") === "true";
 
     const crawlResult = await runJobAlligator({

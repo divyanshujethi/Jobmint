@@ -1189,6 +1189,86 @@ export default function PricingPage() {
               </div>
             </div>
 
+            {/* HIGH-TICKET B2B & CAMPUS MONETIZATION SOLUTIONS */}
+            <div className="space-y-6 pt-10 border-t border-slate-200">
+              <div className="text-center space-y-1">
+                <span className="rounded-full bg-indigo-100 text-indigo-800 px-3 py-1 text-[10px] font-mono font-bold uppercase tracking-wider">
+                  HIGH-YIELD B2B &amp; CAMPUS PLATFORMS
+                </span>
+                <h3 className="text-2xl font-black text-slate-900 mt-2">
+                  Enterprise Solutions &amp; Campus Partnerships
+                </h3>
+                <p className="text-xs text-slate-500 max-w-2xl mx-auto">
+                  High-ticket monetization options for fast-growing startups, enterprise hiring blitzes, and engineering college placement cells.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {/* B2B 1: Direct Placement Bounty */}
+                <div className="rounded-3xl border border-indigo-200 bg-linear-to-b from-indigo-50/40 to-white p-6 shadow-sm flex flex-col justify-between space-y-4">
+                  <div className="space-y-3">
+                    <span className="rounded-full bg-indigo-100 text-indigo-700 px-2.5 py-0.5 text-[9px] font-bold">
+                      ₹0 UPFRONT RISK
+                    </span>
+                    <h4 className="text-lg font-black text-slate-900">Direct Placement Bounty</h4>
+                    <div className="text-xl font-black text-indigo-900">
+                      Flat ₹35k <span className="text-xs font-normal text-slate-500">/ hire or 8-10% CTC</span>
+                    </div>
+                    <p className="text-xs text-slate-600 leading-relaxed">
+                      Partner with RoleNest to hire pre-screened junior and mid-level engineers with audited GitHub repositories and verified DevScores. Pay only on 30-day candidate retention.
+                    </p>
+                  </div>
+                  <Link href="/bounties">
+                    <Button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs h-10 rounded-xl">
+                      Explore Startup Bounties →
+                    </Button>
+                  </Link>
+                </div>
+
+                {/* B2B 2: Sponsored Challenges */}
+                <div className="rounded-3xl border border-amber-200 bg-linear-to-b from-amber-50/40 to-white p-6 shadow-sm flex flex-col justify-between space-y-4">
+                  <div className="space-y-3">
+                    <span className="rounded-full bg-amber-100 text-amber-800 px-2.5 py-0.5 text-[9px] font-bold">
+                      POTD / HACKATHON ENGINE
+                    </span>
+                    <h4 className="text-lg font-black text-slate-900">Sponsored Weekend Hackathons</h4>
+                    <div className="text-xl font-black text-amber-900">
+                      ₹25k - ₹75k <span className="text-xs font-normal text-slate-500">/ contest</span>
+                    </div>
+                    <p className="text-xs text-slate-600 leading-relaxed">
+                      Host custom problems in our anti-cheat code runner. Reach 5,000+ active student coders and receive direct candidate shortlists of top 1% solvers.
+                    </p>
+                  </div>
+                  <Link href="/potd">
+                    <Button className="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs h-10 rounded-xl">
+                      Sponsor a Hackathon →
+                    </Button>
+                  </Link>
+                </div>
+
+                {/* B2B 3: College Placement SaaS */}
+                <div className="rounded-3xl border border-emerald-200 bg-linear-to-b from-emerald-50/40 to-white p-6 shadow-sm flex flex-col justify-between space-y-4">
+                  <div className="space-y-3">
+                    <span className="rounded-full bg-emerald-100 text-emerald-800 px-2.5 py-0.5 text-[9px] font-bold">
+                      ANNUAL TPO LICENSE
+                    </span>
+                    <h4 className="text-lg font-black text-slate-900">College Placement Cell SaaS</h4>
+                    <div className="text-xl font-black text-emerald-900">
+                      ₹25k - ₹50k <span className="text-xs font-normal text-slate-500">/ year</span>
+                    </div>
+                    <p className="text-xs text-slate-600 leading-relaxed">
+                      Institutional platform for Training &amp; Placement Officers (TPOs) to track student batch readiness, syndicate verified off-campus drives, and coordinate campus visits.
+                    </p>
+                  </div>
+                  <Link href="/placement-portal">
+                    <Button className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs h-10 rounded-xl">
+                      Onboard College Placement Cell →
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            </div>
+
             {/* Employer Comparison Matrix */}
             <div className="space-y-6 pt-10 border-t border-slate-200">
               <div className="text-center space-y-1">
