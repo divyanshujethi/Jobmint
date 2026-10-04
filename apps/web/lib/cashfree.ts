@@ -171,3 +171,56 @@ export async function getCashfreeOrder(orderId: string): Promise<CashfreeOrderRe
 
   return await res.json();
 }
+
+/**
+ * Cryptographically verifies Cashfree webhook signature (HMAC-SHA256)
+ * to prevent unauthorized tampering, spoofing, or replay attacks.
+ */
+export function verifyCashfreeWebhookSignature({
+  rawBody,
+  signature,
+  timestamp,
+  secretKey = CASHFREE_CONFIG.secretKey,
+}: {
+  rawBody: string;
+  signature: string | null;
+  timestamp: string | null;
+  secretKey?: string;
+}): boolean {
+  if (!signature || !timestamp || !secretKey) {
+    return false;
+  }
+
+  // Prevent replay attacks: ensure timestamp is within 15 minutes of current server time
+  const parsedTs = parseInt(timestamp, 10);
+  if (!isNaN(parsedTs)) {
+    const tsMs = parsedTs > 1e11 ? parsedTs : parsedTs * 1000;
+    const now = Date.now();
+    const fifteenMinutes = 15 * 60 * 1000;
+    if (Math.abs(now - tsMs) > fifteenMinutes) {
+      console.warn(`[Cashfree Webhook] Timestamp drifted by > 15 minutes: ${timestamp}`);
+      return false;
+    }
+  }
+
+  try {
+    const crypto = require("crypto");
+    const payload = `${timestamp}${rawBody}`;
+    const expectedSignature = crypto
+      .createHmac("sha256", secretKey)
+      .update(payload)
+      .digest("base64");
+
+    const sigBuffer = Buffer.from(signature, "utf-8");
+    const expBuffer = Buffer.from(expectedSignature, "utf-8");
+
+    if (sigBuffer.length !== expBuffer.length) {
+      return false;
+    }
+
+    return crypto.timingSafeEqual(sigBuffer, expBuffer);
+  } catch (err) {
+    console.error("[Cashfree Webhook Signature Error]:", err);
+    return false;
+  }
+}

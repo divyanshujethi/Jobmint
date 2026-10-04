@@ -115,8 +115,9 @@ export default function TermsPage() {
                 All digital transactions are processed through <strong>Cashfree Payments India Pvt. Ltd.</strong>, an RBI-licensed Payment Aggregator supporting UPI (Google Pay, PhonePe, Paytm, CRED, BHIM), RuPay/Visa/Mastercard debit and credit cards, and NetBanking across all Indian banks.
               </p>
               <ul className="list-disc pl-5 space-y-1.5 text-xs sm:text-sm text-slate-600">
-                <li><strong>Pricing:</strong> Role Nest Pro is offered at ₹199/month, Role Nest Plus (Career Accelerator - 3 Months Sprint) is ₹499/quarter, or ₹1,499/year (Annual Pass). Employer Featured Job Listings are ₹1,499 for 30 days.</li>
-                <li><strong>Billing &amp; Access:</strong> Subscriptions grant instant access for the duration purchased (30, 90, or 365 days). You can renew or manage your plan inside <Link href="/settings/account" className="text-emerald-700 underline font-semibold">Account Settings</Link>.</li>
+                <li><strong>Candidate Pricing:</strong> Role Nest offers Campus Student Pass at ₹99/month (with verified student credentials), Role Nest Pro at ₹199/month or ₹1,499/year (Annual Pass). Standalone 1-on-1 Senior Staff Engineer Resume &amp; Mock Audits are available separately at ₹799/session.</li>
+                <li><strong>Employer Pricing:</strong> Employer Featured Job Listings are ₹1,499 for 30 days of elevated placement.</li>
+                <li><strong>Billing &amp; Access:</strong> Subscriptions grant instant access for the duration purchased (30 or 365 days). You can renew or manage your plan inside <Link href="/settings/account" className="text-emerald-700 underline font-semibold">Account Settings</Link>.</li>
                 <li><strong>Taxes:</strong> All prices displayed on Role Nest are in Indian National Rupees (INR) and include all statutory taxes where applicable.</li>
                 <li><strong>Payment Security:</strong> Role Nest never stores or accesses your raw card numbers, CVVs, or UPI MPINs. All payment processing takes place via Cashfree&apos;s RBI-compliant and PCI-DSS Level 1 certified infrastructure.</li>
               </ul>
@@ -154,7 +155,36 @@ export default function TermsPage() {
 
             <section className="space-y-2">
               <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-                9. Limitation of Liability
+                9. Public Job Listings, Aggregation &amp; Employer De-Listing
+              </h2>
+              <p>
+                Role Nest indexes publicly accessible job opportunities and official ATS feeds (such as Greenhouse, Lever, Workday, Ashby, and BambooHR) to help candidates discover openings with direct employer application links:
+              </p>
+              <ul className="list-disc pl-5 space-y-1 text-xs sm:text-sm text-slate-600">
+                <li>
+                  <strong>Direct ATS Redirection:</strong> All application links redirect candidates directly to the employer&apos;s authoritative portal. Role Nest never acts as an unauthorized intermediary or alters application materials.
+                </li>
+                <li>
+                  <strong>Verification Badge Transparency:</strong> A &ldquo;Verified ATS Link&rdquo; badge signifies that the application destination has been parsed and verified against an authentic, active employer career system.
+                </li>
+                <li>
+                  <strong>Instant De-Listing SLA:</strong> Employers or authorized company representatives who wish to edit, close, or de-list a job posting or claim company pages may email <a href="mailto:support@rolenest.in" className="text-emerald-700 underline font-semibold">support@rolenest.in</a>. All verified de-listing requests are honored within <strong>24 business hours</strong>.
+                </li>
+              </ul>
+            </section>
+
+            <section className="space-y-2">
+              <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+                10. Definition of Service Lifetime &amp; AI Compute Fair Use
+              </h2>
+              <p>
+                Any promotional &ldquo;Lifetime&rdquo; access license refers strictly to the operational lifecycle of the Role Nest software platform and its automated digital tooling. It does not constitute an equity grant, perpetual service SLA, or recurring manual human advisory service. AI-assisted generation tools (ATS scoring, bullet generation, mock interviews) remain subject to generous fair-use token allowances to safeguard infrastructure stability against bot depletion.
+              </p>
+            </section>
+
+            <section className="space-y-2">
+              <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+                11. Limitation of Liability
               </h2>
               <p>
                 To the fullest extent permitted by applicable law, Role Nest, RitualDev Lab, and its operators shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including loss of profits, data, or employment opportunities, arising out of your access to or use of the platform.
@@ -163,7 +193,7 @@ export default function TermsPage() {
 
             <section className="space-y-2">
               <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-                10. Governing Law &amp; Dispute Resolution
+                12. Governing Law &amp; Dispute Resolution
               </h2>
               <p>
                 These Terms shall be governed by and construed in accordance with the laws of India. Any disputes arising under or in connection with these Terms shall be subject to the exclusive jurisdiction of the competent courts in Noida, Uttar Pradesh, India.

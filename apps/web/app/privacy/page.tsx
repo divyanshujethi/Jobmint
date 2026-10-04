@@ -309,6 +309,30 @@ export default function PrivacyPage() {
               </p>
             </section>
 
+            {/* SECTION 8 */}
+            <section className="space-y-2">
+              <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+                8. Error Telemetry, Performance Monitoring &amp; Diagnostics (Sentry)
+              </h2>
+              <p>
+                To maintain uptime, detect application crashes, and fix user-facing defects, Role Nest integrates Sentry (Functional Software, Inc.) for application error tracking and performance telemetry:
+              </p>
+              <ul className="list-disc pl-5 space-y-1 text-xs sm:text-sm text-slate-600">
+                <li>
+                  <strong>Diagnostic Scope:</strong> Telemetry records stack traces, browser user-agents, network response codes, and runtime JavaScript exceptions to isolate reproducible crashes.
+                </li>
+                <li>
+                  <strong>Client-Side PII Masking:</strong> All text inputs, passwords, credit card/UPI identifiers, and sensitive form fields are masked on the client before diagnostic events are transmitted (<code>maskAllText: true</code>, <code>blockAllMedia: true</code>).
+                </li>
+                <li>
+                  <strong>Conservative Sampling:</strong> Crash traces and session diagnostics are collected at conservative production sample rates (under 10%) and automatically purged under standardized 30-day retention policies.
+                </li>
+                <li>
+                  <strong>No Ad Tracking:</strong> Error telemetry is strictly isolated for system reliability and is never sold, leased, or utilized for advertising or user tracking profiles.
+                </li>
+              </ul>
+            </section>
+
             <div className="pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
               <div className="flex items-center gap-2">
                 <ShieldCheck className="h-4 w-4 text-emerald-600" />

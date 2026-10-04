@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db, applications, applicationEvents, jobs, companies, candidateProfiles, users, eq, desc } from "@repo/database";
+import { db, applications, applicationEvents, jobs, companies, candidateProfiles, users, eq, desc, inArray } from "@repo/database";
 import { auth } from "@/auth";
 import { sendEmail, applicationSubmittedTemplate } from "@repo/email";
 
@@ -78,8 +78,15 @@ export async function GET(req: NextRequest) {
       .where(eq(applications.candidateProfileId, candidateProfileId))
       .orderBy(desc(applications.appliedAt));
 
-    // Fetch application events for Truth Teller timeline
-    const allEvents = await db.select().from(applicationEvents);
+    // Fetch application events for Truth Teller timeline (strictly scoped to candidate's own applications)
+    const appIds = dbApps.map((a) => a.id);
+    const allEvents =
+      appIds.length > 0
+        ? await db
+            .select()
+            .from(applicationEvents)
+            .where(inArray(applicationEvents.applicationId, appIds))
+        : [];
     const eventsMap = new Map<string, any[]>();
     for (const ev of allEvents) {
       if (!eventsMap.has(ev.applicationId)) {

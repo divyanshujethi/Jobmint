@@ -1,12 +1,37 @@
 import { NextRequest, NextResponse } from "next/server";
 import { checkAiQuota, incrementAiQuota } from "@/lib/ai-quota";
 import { callFastLlm } from "@/lib/ai-service";
+import { checkRateLimit } from "@/lib/rate-limit";
 
 export const dynamic = "force-dynamic";
 
 export async function POST(req: NextRequest) {
   try {
-    // 1. Quota Check
+    // 1. Sliding window rate limit (8 requests per minute per IP/user)
+    const rateLimit = await checkRateLimit(req, {
+      maxRequests: 8,
+      windowSeconds: 60,
+      prefix: "rl:job-draft",
+    });
+    if (!rateLimit.allowed) {
+      return NextResponse.json(
+        {
+          error: `Rate limit reached. Please wait ${rateLimit.resetInSeconds}s before generating another job description draft.`,
+          resetInSeconds: rateLimit.resetInSeconds,
+        },
+        {
+          status: 429,
+          headers: {
+            "Retry-After": String(rateLimit.resetInSeconds),
+            "X-RateLimit-Limit": String(rateLimit.limit),
+            "X-RateLimit-Remaining": String(rateLimit.remaining),
+            "X-RateLimit-Reset": String(rateLimit.resetInSeconds),
+          },
+        }
+      );
+    }
+
+    // 2. Quota Check
     const quota = await checkAiQuota(req);
     if (!quota.allowed) {
       return NextResponse.json(

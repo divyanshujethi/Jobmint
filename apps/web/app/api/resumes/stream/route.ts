@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getFileBuffer, verifySignedToken } from "@repo/storage";
 import { auth } from "@/auth";
+import { db, candidateProfiles, applications, eq, and, ilike } from "@repo/database";
 import * as path from "path";
 
 export async function GET(req: NextRequest) {
@@ -34,7 +35,7 @@ export async function GET(req: NextRequest) {
 
     const safeKey = path.basename(key);
 
-    // 1. Check SuperAdmin or Owner Session Authorization
+    // 1. Check SuperAdmin Session Authorization
     const session = await auth();
     const adminEmails = (
       process.env.ADMIN_EMAILS ||
@@ -50,7 +51,38 @@ export async function GET(req: NextRequest) {
 
     let isAuthorized = Boolean(isAdmin);
 
-    // 2. If not SuperAdmin, verify time-limited signed HMAC token
+    // 2. Candidate Profile & Application Ownership Check (IDOR protection)
+    if (!isAuthorized && session?.user?.id) {
+      try {
+        const [profile] = await db
+          .select({ id: candidateProfiles.id, resumeUrl: candidateProfiles.resumeUrl })
+          .from(candidateProfiles)
+          .where(eq(candidateProfiles.userId, session.user.id))
+          .limit(1);
+
+        if (profile?.resumeUrl && profile.resumeUrl.includes(safeKey)) {
+          isAuthorized = true;
+        } else if (profile?.id) {
+          const [ownedApp] = await db
+            .select({ id: applications.id })
+            .from(applications)
+            .where(
+              and(
+                eq(applications.candidateProfileId, profile.id),
+                ilike(applications.resumeUrl, `%${safeKey}%`)
+              )
+            )
+            .limit(1);
+          if (ownedApp) {
+            isAuthorized = true;
+          }
+        }
+      } catch (err) {
+        console.error("[Resume Stream Auth Error]:", err);
+      }
+    }
+
+    // 3. If not SuperAdmin or Verified Owner, verify time-limited signed HMAC token
     if (!isAuthorized) {
       if (token && expires) {
         const expiresAt = parseInt(expires, 10);

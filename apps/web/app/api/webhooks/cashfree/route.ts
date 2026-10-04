@@ -1,10 +1,38 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getCashfreeOrder } from "@/lib/cashfree";
+import { getCashfreeOrder, verifyCashfreeWebhookSignature } from "@/lib/cashfree";
 import { db, users, jobs, eq, sql } from "@repo/database";
 
 export async function POST(req: NextRequest) {
   try {
-    const rawBody = await req.json();
+    const rawBodyText = await req.text();
+    const signature = req.headers.get("x-webhook-signature");
+    const timestamp = req.headers.get("x-webhook-timestamp");
+
+    // Cryptographic HMAC-SHA256 Signature Verification
+    if (signature && timestamp) {
+      const isValid = verifyCashfreeWebhookSignature({
+        rawBody: rawBodyText,
+        signature,
+        timestamp,
+      });
+
+      if (!isValid) {
+        console.error("[Cashfree Webhook Rejected]: Invalid HMAC signature or timestamp drift.");
+        if (process.env.NODE_ENV === "production") {
+          return NextResponse.json({ error: "Invalid webhook signature" }, { status: 401 });
+        }
+      }
+    } else if (process.env.NODE_ENV === "production") {
+      console.warn("[Cashfree Webhook Warning]: Missing webhook signature or timestamp headers in production.");
+    }
+
+    let rawBody: any = {};
+    try {
+      rawBody = JSON.parse(rawBodyText);
+    } catch {
+      return NextResponse.json({ error: "Invalid JSON payload" }, { status: 400 });
+    }
+
     console.log("[Cashfree Webhook Received]:", JSON.stringify(rawBody));
 
     const orderId =
