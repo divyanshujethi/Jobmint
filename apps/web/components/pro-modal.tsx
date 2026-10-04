@@ -27,7 +27,7 @@ interface ProModalProps {
 }
 
 export function ProModal({ isOpen, onClose, user }: ProModalProps) {
-  const [selectedPlan, setSelectedPlan] = useState<"pro" | "pro_plus">("pro");
+  const [selectedPlan, setSelectedPlan] = useState<"student" | "pro" | "pro_annual">("pro");
   const [loading, setLoading] = useState(false);
 
   if (!isOpen) return null;
@@ -46,28 +46,28 @@ export function ProModal({ isOpen, onClose, user }: ProModalProps) {
   const benefits = [
     {
       icon: <Bot className="h-4 w-4 text-emerald-600" />,
-      title: "Unlimited AI Technical Mock Interviews",
-      desc: "Live interactive coding & behavioral practice with instant scoring & feedback.",
+      title: "Unlimited AI ATS Resume Tailoring & STAR Rewrites",
+      desc: "Instant alignment with targeted job descriptions to pass applicant tracking systems.",
     },
     {
       icon: <FileCheck className="h-4 w-4 text-emerald-600" />,
-      title: "AI Resume & ATS Keyword Optimizer",
-      desc: "Instant alignment with targeted job descriptions to beat applicant filters.",
+      title: "Custom Cover Letter & Interview Prep Generator",
+      desc: "Generate role-tailored pitch letters and behavioral STAR answers for any job.",
     },
     {
       icon: <Crown className="h-4 w-4 text-amber-500" />,
-      title: "Verified Pro Candidate Badge",
-      desc: "Stand out to hiring managers with verified technical skills and project badges.",
+      title: "Verified Pro Candidate Badge & Priority Search",
+      desc: "Stand out to hiring managers with verified technical skill tags and recruiter visibility.",
     },
     {
       icon: <Zap className="h-4 w-4 text-emerald-600" />,
-      title: "Custom 30-Day Job Course Generator",
-      desc: "Generate targeted study courses for any company or tech stack.",
+      title: "Priority Telegram & WhatsApp Job Alert Pings",
+      desc: "Instant notifications when new high-match tech jobs or paid internships are crawled.",
     },
     {
       icon: <MessageSquare className="h-4 w-4 text-emerald-600" />,
-      title: "Truth Teller Anti-Ghosting Telemetry",
-      desc: "Real-time employer response times and 7-day recruiter inactivity alerts.",
+      title: "Application Tracker & 7-Day Follow-Up Alerts",
+      desc: "Keep all your applications organized with automated follow-up reminders.",
     },
   ];
 
@@ -82,49 +82,63 @@ export function ProModal({ isOpen, onClose, user }: ProModalProps) {
             <X className="h-5 w-5" />
           </button>
           <div className="inline-flex items-center gap-1.5 rounded-full bg-amber-400/20 px-3 py-1 text-xs font-bold text-amber-300 backdrop-blur-md mb-2 border border-amber-300/30">
-            <Crown className="h-3.5 w-3.5" /> ROLE NEST PRO &amp; PLUS
+            <Crown className="h-3.5 w-3.5" /> ROLE NEST PRO
           </div>
           <h2 className="text-2xl font-black tracking-tight">Supercharge Your Career</h2>
           <p className="text-xs text-emerald-100 mt-1">
-            Stand out in tech hiring with automated AI preparation, ATS matching, and verified proof-of-work.
+            Job search &amp; application links are 100% Free Forever. Premium AI generation tools require a Pro upgrade.
           </p>
         </div>
 
-        {/* PLAN SELECTOR TOGGLE */}
-        <div className="p-4 bg-slate-50 border-b border-slate-200 grid grid-cols-2 gap-2">
+        {/* PLAN SELECTOR TOGGLE — 3 CLEAN TIERS */}
+        <div className="p-3 bg-slate-50 border-b border-slate-200 grid grid-cols-3 gap-2">
+          <button
+            type="button"
+            onClick={() => setSelectedPlan("student")}
+            className={`rounded-2xl p-2.5 text-left border transition-all ${
+              selectedPlan === "student"
+                ? "bg-white border-indigo-500 shadow-sm ring-1 ring-indigo-500/20"
+                : "bg-slate-100/70 border-slate-200 text-slate-600 hover:bg-white"
+            }`}
+          >
+            <div className="text-[9px] font-bold uppercase text-indigo-700">Campus Pass</div>
+            <div className="text-lg font-black text-slate-900">₹99<span className="text-[10px] font-normal text-slate-500">/mo</span></div>
+            <div className="text-[9px] text-slate-500 mt-0.5">Student ID verified</div>
+          </button>
+
           <button
             type="button"
             onClick={() => setSelectedPlan("pro")}
-            className={`rounded-2xl p-3 text-left border transition-all ${
+            className={`rounded-2xl p-2.5 text-left border transition-all ${
               selectedPlan === "pro"
                 ? "bg-white border-emerald-500 shadow-sm ring-1 ring-emerald-500/20"
-                : "bg-slate-100/70 border-slate-200 text-slate-600"
+                : "bg-slate-100/70 border-slate-200 text-slate-600 hover:bg-white"
             }`}
           >
-            <div className="text-[10px] font-bold uppercase text-emerald-700">Pro Monthly</div>
-            <div className="text-xl font-black text-slate-900">₹199<span className="text-xs font-normal text-slate-500">/mo</span></div>
-            <div className="text-[10px] text-slate-500 mt-0.5">30-day full access</div>
+            <div className="text-[9px] font-bold uppercase text-emerald-700">Pro Monthly</div>
+            <div className="text-lg font-black text-slate-900">₹199<span className="text-[10px] font-normal text-slate-500">/mo</span></div>
+            <div className="text-[9px] text-slate-500 mt-0.5">Full 30-day access</div>
           </button>
 
           <button
             type="button"
-            onClick={() => setSelectedPlan("pro_plus")}
-            className={`rounded-2xl p-3 text-left border transition-all relative ${
-              selectedPlan === "pro_plus"
-                ? "bg-white border-emerald-500 shadow-sm ring-1 ring-emerald-500/20"
-                : "bg-slate-100/70 border-slate-200 text-slate-600"
+            onClick={() => setSelectedPlan("pro_annual")}
+            className={`rounded-2xl p-2.5 text-left border transition-all relative ${
+              selectedPlan === "pro_annual"
+                ? "bg-white border-amber-500 shadow-sm ring-1 ring-amber-500/20"
+                : "bg-slate-100/70 border-slate-200 text-slate-600 hover:bg-white"
             }`}
           >
-            <span className="absolute -top-2 right-2 rounded-full bg-emerald-600 text-white text-[8px] font-bold px-1.5 py-0.2">
-              SAVE 16%
+            <span className="absolute -top-2 right-1.5 rounded-full bg-amber-600 text-white text-[7px] font-black px-1 py-0.2">
+              SAVE 37%
             </span>
-            <div className="text-[10px] font-bold uppercase text-amber-700">Plus 3-Mo Sprint</div>
-            <div className="text-xl font-black text-slate-900">₹499<span className="text-xs font-normal text-slate-500">/3 mos</span></div>
-            <div className="text-[10px] text-slate-500 mt-0.5">₹166/mo • Best Value</div>
+            <div className="text-[9px] font-bold uppercase text-amber-700">Annual Pass</div>
+            <div className="text-lg font-black text-slate-900">₹1,499<span className="text-[10px] font-normal text-slate-500">/yr</span></div>
+            <div className="text-[9px] text-slate-500 mt-0.5">₹125/mo • Best Value</div>
           </button>
         </div>
 
-        <div className="p-6 space-y-3.5 max-h-[340px] overflow-y-auto">
+        <div className="p-6 space-y-3.5 max-h-[300px] overflow-y-auto">
           {benefits.map((b, i) => (
             <div key={i} className="flex items-start gap-3 text-left">
               <div className="rounded-lg bg-emerald-50 p-1.5 shrink-0 mt-0.5 border border-emerald-100">
@@ -147,9 +161,11 @@ export function ProModal({ isOpen, onClose, user }: ProModalProps) {
             <CreditCard className="h-4 w-4" />
             {loading
               ? "Launching Cashfree..."
-              : selectedPlan === "pro"
-                ? "Activate Pro — ₹199/mo"
-                : "Activate Plus — ₹499 (3 Mos)"}
+              : selectedPlan === "student"
+                ? "Activate Campus Pass — ₹99/mo"
+                : selectedPlan === "pro"
+                  ? "Activate Pro — ₹199/mo"
+                  : "Activate Annual Pass — ₹1,499/yr"}
             <ArrowRight className="h-4 w-4 ml-1" />
           </Button>
           <div className="flex items-center justify-center gap-3 text-xs font-semibold">
@@ -158,7 +174,7 @@ export function ProModal({ isOpen, onClose, user }: ProModalProps) {
               onClick={onClose}
               className="text-emerald-700 hover:text-emerald-800 hover:underline"
             >
-              Explore all plans (Quarterly &amp; Annual) →
+              View detailed tier comparison →
             </a>
             <span className="text-slate-300">•</span>
             <a

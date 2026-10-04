@@ -48,11 +48,17 @@ const PLAN_CONFIGS: Record<
     durationMs: 365 * 24 * 60 * 60 * 1000,
     description: "1 full year Pro access • Lifetime Proof-of-Work Verification • 1-Click Tailored Bullets",
   },
+  mentorship_session: {
+    name: "1-on-1 Senior Engineer Resume & Mock Review",
+    amount: 799,
+    durationMs: 30 * 24 * 60 * 60 * 1000,
+    description: "45-min live session • Line-by-line ATS resume review • Project architecture critique • Live mock interview",
+  },
   lifetime: {
-    name: "Role Nest Lifetime Fellow Access",
+    name: "Role Nest Founder Lifetime Pass (Launch Edition)",
     amount: 2999,
     durationMs: 100 * 365 * 24 * 60 * 60 * 1000,
-    description: "Lifetime All-Inclusive Access • Zero Renewals • 1-on-1 Architecture Audit • Golden Fellow Badge",
+    description: "Lifetime Core Access • 100 AI Tokens/Month Cap • Immutable Founder Badge • Limited 100 Launch Seats",
   },
   featured_job: {
     name: "Role Nest Featured Job Listing (30 Days)",

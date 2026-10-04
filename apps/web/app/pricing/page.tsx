@@ -25,8 +25,9 @@ import {
   Loader2,
   Heart,
   AlertCircle,
-  TrendingUp,
   FileCheck,
+  FileText,
+  Video,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -77,20 +78,19 @@ const PLAN_DETAILS: Record<
       "Verified Pro Badge in public candidate showcase",
     ],
   },
-  pro_plus: {
-    name: "Role Nest Plus",
-    price: 499,
-    period: "90 Days Sprint Access (Save 16%)",
-    badge: "Most Popular",
-    badgeColor: "bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950",
-    description: "Career Accelerator: Priority recruiter placement & GitHub code audit",
+  mentorship_session: {
+    name: "1-on-1 Senior Engineer Review",
+    price: 799,
+    period: "45-Minute Live Video Session",
+    badge: "1-on-1 Mentorship",
+    badgeColor: "bg-purple-600 text-white font-bold",
+    description: "Line-by-line ATS resume review, project architecture critique, and live technical mock interview",
     features: [
-      "90-Day Full Hiring Cycle Continuous Access",
-      "Top Priority Recruiter Placement in verified showcase",
-      "DevScore GitHub Deep Code & Cadence Audit",
-      "Unlimited Tracked Applications in pipeline",
-      "Early Crawler Job Alerts via Telegram/WhatsApp",
-      "Exclusive Plus Gold Badge with Cryptographic Proof",
+      "45-Minute 1-on-1 Live Video Session with Senior Engineer",
+      "Line-by-line single-column ATS resume audit & STAR rewrites",
+      "GitHub portfolio code & system architecture review",
+      "Live fresher technical interview simulation & scorecard",
+      "Personalized 7-day interview action plan report",
     ],
   },
   pro_annual: {
@@ -99,29 +99,29 @@ const PLAN_DETAILS: Record<
     period: "365 Days Access (Save 37%)",
     badge: "Best Long-Term Value",
     badgeColor: "bg-amber-600 text-white",
-    description: "Full year continuous access with all Pro & Plus benefits",
+    description: "Full year continuous access with all Pro features (₹125/month)",
     features: [
-      "Full 1-Year Continuous Pro & Plus Access (365 Days)",
+      "Full 1-Year Continuous Pro Access (365 Days)",
       "Continuous DevScore Audits & GitHub Tracking",
       "Priority Placement across all Recruiter search feeds",
-      "Unlimited AI ATS Scans & Course Generations",
-      "Lifetime Proof-of-Work Verification Storage",
+      "Unlimited AI ATS Scans, Tailoring & Cover Letters",
+      "Priority Telegram / WhatsApp Job Alert Pings",
     ],
   },
   lifetime: {
-    name: "Role Nest Lifetime Fellow",
+    name: "Founder Lifetime Pass",
     price: 2999,
-    period: "One-Time Payment • Lifetime Access",
-    badge: "VIP Lifetime",
-    badgeColor: "bg-gradient-to-r from-amber-500 via-yellow-500 to-orange-500 text-slate-950 font-black",
-    description: "One-time investment, zero renewals forever + 1-on-1 Portfolio Architecture Audit",
+    period: "One-Time Payment • Limited 100 Seats",
+    badge: "Limited to 100 Seats",
+    badgeColor: "bg-amber-500 text-slate-950 font-black",
+    description: "Early supporter founder tier: Lifetime core access + 100 AI tokens/month cap. Zero renewals forever.",
     features: [
-      "Lifetime Continuous All-Inclusive Access (Zero renewals forever)",
-      "Unlimited Tracked Applications in pipeline",
-      "Unlimited AI ATS Scans, Course Generations & Star Rewriters",
-      "Direct 1-on-1 Architecture & Code Audit by Role Nest Senior Staff",
-      "Immutable Cryptographic Lifetime Fellow Badge",
-      "Early VIP Access to all future AI agents & recruiter networks",
+      "Lifetime continuous access to all job crawling & tracker tools",
+      "Monthly allowance of 100 AI generation tokens for tailoring & cover letters",
+      "Unlimited tracked applications with 7-day follow-up reminders",
+      "Golden Founder Badge with immutable cryptographic proof",
+      "VIP early access to upcoming crawler & platform features",
+      "Zero recurring renewals forever",
     ],
   },
   featured_job: {
@@ -275,12 +275,12 @@ export default function PricingPage() {
     initiatePlanCheckout("pro");
   };
 
-  const handlePlusCheckout = () => {
-    initiatePlanCheckout("pro_plus");
-  };
-
   const handleAnnualCheckout = () => {
     initiatePlanCheckout("pro_annual");
+  };
+
+  const handleMentorshipCheckout = () => {
+    initiatePlanCheckout("mentorship_session");
   };
 
   const handleLifetimeCheckout = () => {
@@ -413,18 +413,28 @@ export default function PricingPage() {
                 </Link>
               </div>
 
-              {/* Candidate Plan Cards: 4 Comprehensive Pillars (Free, Student ₹99, Pro ₹199, Plus ₹499) */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
-                {/* Tier 1: Free Community */}
+              {/* CLEAR FREE VS PAID MESSAGING BANNER */}
+              <div className="rounded-2xl border border-emerald-300 bg-emerald-50/90 p-4 shadow-xs text-center max-w-3xl mx-auto">
+                <p className="text-xs sm:text-sm font-bold text-emerald-950 flex items-center justify-center gap-2">
+                  <ShieldCheck className="h-4 w-4 text-emerald-700 shrink-0" />
+                  <span>
+                    Job search &amp; application links are <strong>100% Free Forever</strong>. Premium AI generation tools require a Pro upgrade.
+                  </span>
+                </p>
+              </div>
+
+              {/* Candidate Plan Cards: 3 Streamlined Tiers (Free, Campus Student Pass ₹99, Pro Member ₹199/mo or ₹1,499/yr) */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+                {/* TIER 1: FREE FOREVER */}
                 <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm flex flex-col justify-between hover:border-slate-300 transition-all">
                   <div className="space-y-5">
                     <div className="flex items-center justify-between">
                       <div>
-                        <h3 className="text-lg font-bold text-slate-900">Free Community</h3>
-                        <p className="text-xs text-slate-500 mt-0.5">Core job discovery &amp; daily coding problems.</p>
+                        <h3 className="text-lg font-bold text-slate-900">Free Forever</h3>
+                        <p className="text-xs text-slate-500 mt-0.5">Core job discovery &amp; direct ATS applications.</p>
                       </div>
-                      <span className="rounded-full bg-slate-100 text-slate-700 px-2.5 py-0.5 text-[10px] font-bold">
-                        Free Forever
+                      <span className="rounded-full bg-slate-100 text-slate-700 px-2.5 py-0.5 text-[10px] font-bold font-mono">
+                        ₹0 Forever
                       </span>
                     </div>
                     <div>
@@ -432,18 +442,17 @@ export default function PricingPage() {
                         <span className="text-3xl font-black text-slate-900">₹0</span>
                         <span className="text-xs text-slate-500 font-semibold">/ forever</span>
                       </div>
-                      <p className="text-[11px] text-slate-500 font-medium mt-1">No credit card or payment required</p>
+                      <p className="text-[11px] text-slate-500 font-medium mt-1">Zero paywalls on searching or applying to jobs</p>
                     </div>
 
-                    {/* What You Get */}
                     <div className="space-y-2 pt-2 border-t border-slate-100">
                       <div className="text-[10px] font-extrabold uppercase tracking-wider text-emerald-800 flex items-center gap-1">
-                        <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" /> Included Features (100% Real):
+                        <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" /> What&apos;s Included (100% Free):
                       </div>
                       <ul className="space-y-2 text-xs text-slate-600">
                         <li className="flex items-start gap-2">
                           <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
-                          <span>Search 590+ live tech jobs &amp; internships</span>
+                          <span>Full access to all 590+ verified tech jobs &amp; internships</span>
                         </li>
                         <li className="flex items-start gap-2">
                           <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
@@ -451,73 +460,48 @@ export default function PricingPage() {
                         </li>
                         <li className="flex items-start gap-2">
                           <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                          <span>Application Tracker (up to 5 active tracked applications)</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                          <span>Standard Single-Column ATS Resume Builder (LaTeX &amp; PDF)</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                          <span>3 AI ATS resume scans &amp; match analyses total</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                          <span>Daily Problem of the Day (POTD) Monaco coding challenges</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
                           <span>Indian Govt Tech Careers Portal (<Link href="/gov-tech" className="text-emerald-700 underline font-semibold">/gov-tech</Link>)</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
-                          <span>Daily Problem of the Day (POTD) with Monaco runner</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
-                          <span>All 4 Curated 30-Day Study Hubs (<Link href="/study" className="text-emerald-700 underline font-semibold">/study</Link>)</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
-                          <span>Truth Teller public company ghosting statistics</span>
-                        </li>
-                      </ul>
-                    </div>
-
-                    {/* Explicit Limitations */}
-                    <div className="space-y-2 pt-3 border-t border-slate-100">
-                      <div className="text-[10px] font-extrabold uppercase tracking-wider text-slate-500 flex items-center gap-1">
-                        <AlertCircle className="h-3.5 w-3.5 text-slate-400" /> Explicit Free Limitations:
-                      </div>
-                      <ul className="space-y-1.5 text-[11px] text-slate-500">
-                        <li className="flex items-start gap-1.5">
-                          <span className="text-amber-500 font-bold">•</span>
-                          <span><strong>AI Quota:</strong> 3 generations total (ATS resume scans / JD drafts)</span>
-                        </li>
-                        <li className="flex items-start gap-1.5">
-                          <span className="text-amber-500 font-bold">•</span>
-                          <span><strong>Interview Prep:</strong> 3 mock questions per job</span>
-                        </li>
-                        <li className="flex items-start gap-1.5">
-                          <span className="text-amber-500 font-bold">•</span>
-                          <span><strong>Tracking:</strong> Up to 5 simultaneous active tracked applications</span>
-                        </li>
-                        <li className="flex items-start gap-1.5">
-                          <span className="text-amber-500 font-bold">•</span>
-                          <span><strong>Directory:</strong> Standard unbadged candidate listing</span>
-                        </li>
-                        <li className="flex items-start gap-1.5">
-                          <span className="text-amber-500 font-bold">•</span>
-                          <span><strong>Courses:</strong> Curated tracks only (no custom AI-generated syllabi)</span>
                         </li>
                       </ul>
                     </div>
                   </div>
                   <div className="pt-6">
                     <Link href="/jobs">
-                      <Button variant="outline" className="w-full font-bold text-xs h-10">
+                      <Button variant="outline" className="w-full font-bold text-xs h-10 border-slate-300">
                         Get Started Free
                       </Button>
                     </Link>
                   </div>
                 </div>
 
-                {/* Tier 2: Campus & Student Pass (₹99 / month) */}
+                {/* TIER 2: CAMPUS STUDENT PASS (₹99 / month) */}
                 <div className="relative rounded-3xl border border-indigo-300 bg-white p-6 shadow-md flex flex-col justify-between hover:border-indigo-400 transition-all">
                   <div className="absolute -top-3 right-5 rounded-full bg-indigo-600 px-3 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-white shadow-sm flex items-center gap-1">
-                    <GraduationCap className="h-3 w-3" /> Student Special
+                    <GraduationCap className="h-3 w-3" /> Student Verified
                   </div>
                   <div className="space-y-5">
                     <div className="flex items-center justify-between">
                       <div>
                         <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-                          Campus Pass
+                          Campus Student Pass
                         </h3>
-                        <p className="text-xs text-slate-500 mt-0.5">Budget accelerator for university students &amp; freshers.</p>
+                        <p className="text-xs text-slate-500 mt-0.5">Budget accelerator for enrolled students &amp; freshers.</p>
                       </div>
                     </div>
                     <div>
@@ -525,29 +509,33 @@ export default function PricingPage() {
                         <span className="text-3xl font-black text-slate-900">₹99</span>
                         <span className="text-xs text-slate-500 font-semibold">/ month</span>
                       </div>
-                      <p className="text-[11px] text-indigo-700 font-medium mt-1">₹3.3 / day • Special price for students</p>
+                      <p className="text-[11px] text-indigo-700 font-medium mt-1">₹3.3 / day • Verified via .edu or college student ID</p>
                     </div>
 
                     <div className="space-y-2 pt-2 border-t border-slate-100">
                       <div className="text-[10px] font-extrabold uppercase tracking-wider text-indigo-800 flex items-center gap-1">
-                        <CheckCircle2 className="h-3.5 w-3.5 text-indigo-600" /> Student Features:
+                        <CheckCircle2 className="h-3.5 w-3.5 text-indigo-600" /> Student Perks:
                       </div>
                       <ul className="space-y-2 text-xs text-slate-700">
                         <li className="flex items-start gap-2">
                           <Check className="h-4 w-4 text-indigo-600 shrink-0 mt-0.5" />
-                          <span><strong>15 AI ATS Resume Scans</strong> &amp; Google XYZ accomplishment rewrites</span>
+                          <span><strong>Unlimited AI Resume Tailoring</strong> &amp; Google XYZ STAR bullet improver</span>
                         </li>
                         <li className="flex items-start gap-2">
                           <Check className="h-4 w-4 text-indigo-600 shrink-0 mt-0.5" />
-                          <span><strong>Track up to 10 Active Applications</strong> in Kanban pipeline</span>
+                          <span><strong>Interview Prep Question Generator</strong> customized to any job description</span>
                         </li>
                         <li className="flex items-start gap-2">
                           <Check className="h-4 w-4 text-indigo-600 shrink-0 mt-0.5" />
-                          <span><strong>POTD Monaco Complete Solutions</strong>, edge cases &amp; hints</span>
+                          <span><strong>Track up to 15 Active Applications</strong> in pipeline with 7-day follow-up nudges</span>
                         </li>
                         <li className="flex items-start gap-2">
                           <Check className="h-4 w-4 text-indigo-600 shrink-0 mt-0.5" />
-                          <span><strong>Verified Student Badge</strong> on public profile &amp; leaderboard</span>
+                          <span><strong>Verified Student Developer Badge</strong> on public profile &amp; leaderboard</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <Check className="h-4 w-4 text-indigo-600 shrink-0 mt-0.5" />
+                          <span><strong>Monaco POTD Complete Solutions</strong>, edge cases &amp; test-case hints</span>
                         </li>
                         <li className="flex items-start gap-2">
                           <Check className="h-4 w-4 text-indigo-600 shrink-0 mt-0.5" />
@@ -556,24 +544,8 @@ export default function PricingPage() {
                       </ul>
                     </div>
 
-                    <div className="space-y-2 pt-3 border-t border-slate-100">
-                      <div className="text-[10px] font-extrabold uppercase tracking-wider text-slate-500 flex items-center gap-1">
-                        <AlertCircle className="h-3.5 w-3.5 text-slate-400" /> Student Plan Boundaries:
-                      </div>
-                      <ul className="space-y-1.5 text-[11px] text-slate-500">
-                        <li className="flex items-start gap-1.5">
-                          <span className="text-slate-400 font-bold">•</span>
-                          <span><strong>Eligibility:</strong> Intended for enrolled college students &amp; freshers</span>
-                        </li>
-                        <li className="flex items-start gap-1.5">
-                          <span className="text-slate-400 font-bold">•</span>
-                          <span><strong>Quota:</strong> 15 AI scans/mo (Unlimited in Pro &amp; Plus)</span>
-                        </li>
-                        <li className="flex items-start gap-1.5">
-                          <span className="text-slate-400 font-bold">•</span>
-                          <span><strong>Courses:</strong> Curated tracks included (Custom AI generator in Pro)</span>
-                        </li>
-                      </ul>
+                    <div className="p-2.5 rounded-xl bg-indigo-50/70 border border-indigo-100 text-[11px] text-indigo-900 leading-tight">
+                      <strong>Verification Note:</strong> Open to any student with a valid college ID card or university email address.
                     </div>
                   </div>
                   <div className="pt-6">
@@ -586,10 +558,10 @@ export default function PricingPage() {
                   </div>
                 </div>
 
-                {/* Tier 3: Role Nest Pro (₹199 / month) */}
+                {/* TIER 3: PRO MEMBER (MONTHLY ₹199 OR ANNUAL ₹1,499) */}
                 <div className="relative rounded-3xl border-2 border-emerald-500 bg-white p-6 shadow-xl flex flex-col justify-between ring-1 ring-emerald-500/20">
-                  <div className="absolute -top-3 right-5 rounded-full bg-emerald-600 px-3 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-white shadow-sm flex items-center gap-1">
-                    <Crown className="h-3 w-3" /> Pro Monthly Flagship
+                  <div className="absolute -top-3 right-5 rounded-full bg-gradient-to-r from-emerald-600 to-teal-600 px-3 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-white shadow-sm flex items-center gap-1">
+                    <Crown className="h-3 w-3" /> Most Popular • Career Edge
                   </div>
                   <div className="space-y-5">
                     <div className="flex items-center justify-between">
@@ -597,235 +569,150 @@ export default function PricingPage() {
                         <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
                           Role Nest Pro
                         </h3>
-                        <p className="text-xs text-slate-500 mt-0.5">AI ATS scoring, custom course engine &amp; ghosting tracker.</p>
+                        <p className="text-xs text-slate-500 mt-0.5">The complete AI &amp; job tracking unfair advantage.</p>
                       </div>
                     </div>
-                    <div>
+
+                    {/* Dual Pricing Display */}
+                    <div className="space-y-2">
                       <div className="flex items-baseline gap-1">
                         <span className="text-3xl font-black text-slate-900">₹199</span>
                         <span className="text-xs text-slate-500 font-semibold">/ month</span>
+                        <span className="text-slate-300 mx-1.5">•</span>
+                        <span className="text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full">
+                          or ₹1,499 / year (Save 37%)
+                        </span>
                       </div>
-                      <p className="text-[11px] text-emerald-700 font-medium mt-1">₹6.6 / day • 30 days active access</p>
+                      <p className="text-[11px] text-emerald-700 font-medium">Billed monthly at ₹199 or annual pass at ₹125/mo</p>
                     </div>
 
                     <div className="space-y-2 pt-2 border-t border-slate-100">
                       <div className="text-[10px] font-extrabold uppercase tracking-wider text-emerald-800 flex items-center gap-1">
-                        <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" /> Pro Features (100% Real):
+                        <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" /> Full Pro Suite:
                       </div>
                       <ul className="space-y-2 text-xs text-slate-700">
                         <li className="flex items-start gap-2">
                           <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
-                          <span><strong>Unlimited AI ATS Resume Matcher</strong> with job-specific gap analysis</span>
+                          <span><strong>Unlimited AI Resume Tailoring</strong> &amp; job gap analysis</span>
                         </li>
                         <li className="flex items-start gap-2">
                           <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
-                          <span><strong>AI Accomplishment Bullet Rewriter</strong> in Google XYZ format</span>
+                          <span><strong>Custom Cover Letter &amp; STAR Bullet Writer</strong></span>
                         </li>
                         <li className="flex items-start gap-2">
                           <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
-                          <span><strong>Custom 30-Day Job-to-Course AI Generator</strong> tailored to any job description</span>
+                          <span><strong>Priority Telegram &amp; WhatsApp Alert Pings</strong> for instant new matches</span>
                         </li>
                         <li className="flex items-start gap-2">
                           <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
-                          <span><strong>Track up to 25 Active Applications</strong> in Kanban pipeline</span>
+                          <span><strong>Unlimited Tracked Applications</strong> with automated 7-day follow-up alerts</span>
                         </li>
                         <li className="flex items-start gap-2">
                           <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
-                          <span><strong>7-Day Recruiter Inactivity &amp; Ghosting Warnings</strong></span>
+                          <span><strong>DevScore GitHub Analytics</strong> &amp; proof-of-work code audits</span>
                         </li>
                         <li className="flex items-start gap-2">
                           <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
-                          <span><strong>Verified Pro Badge</strong> in public candidate showcase</span>
+                          <span><strong>Verified Pro Candidate Badge</strong> in recruiter search feeds</span>
                         </li>
-                      </ul>
-                    </div>
-
-                    <div className="space-y-2 pt-3 border-t border-slate-100">
-                      <div className="text-[10px] font-extrabold uppercase tracking-wider text-slate-500 flex items-center gap-1">
-                        <AlertCircle className="h-3.5 w-3.5 text-slate-400" /> Pro Plan Boundaries:
-                      </div>
-                      <ul className="space-y-1.5 text-[11px] text-slate-500">
-                        <li className="flex items-start gap-1.5">
-                          <span className="text-slate-400 font-bold">•</span>
-                          <span><strong>Duration:</strong> 30 days access per renewal</span>
-                        </li>
-                        <li className="flex items-start gap-1.5">
-                          <span className="text-slate-400 font-bold">•</span>
-                          <span><strong>Placement:</strong> Standard verified queue (Priority placement is in Plus)</span>
-                        </li>
-                        <li className="flex items-start gap-1.5">
-                          <span className="text-slate-400 font-bold">•</span>
-                          <span><strong>DevScore:</strong> Automated summary (Deep GitHub code audit is in Plus)</span>
+                        <li className="flex items-start gap-2">
+                          <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                          <span><strong>Custom 30-Day Job-to-Course AI Generator</strong> tailored to any JD</span>
                         </li>
                       </ul>
                     </div>
                   </div>
-                  <div className="pt-6">
+
+                  <div className="pt-6 space-y-2">
                     <Button
                       onClick={handleProCheckout}
-                      className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs h-10 shadow-md"
+                      className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs h-10 shadow-md flex items-center justify-center gap-1.5"
                     >
-                      Get Pro Access — ₹199
+                      <CreditCard className="h-3.5 w-3.5" />
+                      Get Pro Monthly — ₹199/mo
                     </Button>
-                  </div>
-                </div>
-
-                {/* Tier 4: Role Nest Plus (₹499 / 3 months) */}
-                <div className="relative rounded-3xl border-2 border-amber-400 bg-linear-to-b from-amber-50/40 via-white to-white p-6 shadow-xl flex flex-col justify-between ring-1 ring-amber-400/30">
-                  <div className="absolute -top-3 right-5 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 px-3 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-slate-950 shadow-sm flex items-center gap-1">
-                    <Flame className="h-3 w-3 fill-slate-950" /> Most Popular • Save 16%
-                  </div>
-                  <div className="space-y-5">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-                          Role Nest Plus
-                        </h3>
-                        <p className="text-xs text-slate-500 mt-0.5">Career Accelerator: Priority placement &amp; deep audits.</p>
-                      </div>
-                    </div>
-                    <div>
-                      <div className="flex items-baseline gap-1">
-                        <span className="text-3xl font-black text-slate-900">₹499</span>
-                        <span className="text-xs text-slate-500 font-semibold">/ 3-month sprint</span>
-                      </div>
-                      <p className="text-[11px] text-amber-800 font-medium mt-1">₹166 / month • 90 days total access • Save 16%</p>
-                    </div>
-
-                    <div className="space-y-2 pt-2 border-t border-slate-100">
-                      <div className="text-[10px] font-extrabold uppercase tracking-wider text-amber-900 flex items-center gap-1">
-                        <CheckCircle2 className="h-3.5 w-3.5 text-amber-600" /> Everything in Pro PLUS:
-                      </div>
-                      <ul className="space-y-2 text-xs text-slate-700">
-                        <li className="flex items-start gap-2">
-                          <Check className="h-4 w-4 text-amber-600 shrink-0 mt-0.5" />
-                          <span><strong>90-Day Uninterrupted Access</strong> (Full interview hiring cycle)</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <Check className="h-4 w-4 text-amber-600 shrink-0 mt-0.5" />
-                          <span><strong>Top Priority Recruiter Placement</strong> in verified talent showcase</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <Check className="h-4 w-4 text-amber-600 shrink-0 mt-0.5" />
-                          <span><strong>DevScore GitHub Deep Audit</strong> (Commit cadence, complexity, clean code score)</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <Check className="h-4 w-4 text-amber-600 shrink-0 mt-0.5" />
-                          <span><strong>Unlimited Tracked Applications</strong> in candidate Kanban pipeline</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <Check className="h-4 w-4 text-amber-600 shrink-0 mt-0.5" />
-                          <span><strong>Early Crawler Job Alerts</strong> via Telegram/WhatsApp webhook notifications</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <Check className="h-4 w-4 text-amber-600 shrink-0 mt-0.5" />
-                          <span><strong>Exclusive Plus Badge</strong> with cryptographic proof verification</span>
-                        </li>
-                      </ul>
-                    </div>
-
-                    <div className="space-y-2 pt-3 border-t border-slate-100">
-                      <div className="text-[10px] font-extrabold uppercase tracking-wider text-slate-500 flex items-center gap-1">
-                        <AlertCircle className="h-3.5 w-3.5 text-slate-400" /> Plus Plan Terms:
-                      </div>
-                      <ul className="space-y-1.5 text-[11px] text-slate-500">
-                        <li className="flex items-start gap-1.5">
-                          <span className="text-slate-400 font-bold">•</span>
-                          <span><strong>Duration:</strong> 90 full days of continuous access</span>
-                        </li>
-                        <li className="flex items-start gap-1.5">
-                          <span className="text-slate-400 font-bold">•</span>
-                          <span><strong>Cost:</strong> Billed as single upfront payment of ₹499 via UPI/Card</span>
-                        </li>
-                        <li className="flex items-start gap-1.5">
-                          <span className="text-slate-400 font-bold">•</span>
-                          <span><strong>Refunds:</strong> Unconditional 14-day money-back guarantee</span>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div className="pt-6">
                     <Button
-                      onClick={handlePlusCheckout}
-                      className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-black text-xs h-10 shadow-md"
+                      onClick={handleAnnualCheckout}
+                      variant="outline"
+                      className="w-full border-amber-300 bg-amber-50/70 hover:bg-amber-100 text-amber-950 font-bold text-xs h-9 flex items-center justify-center gap-1.5"
                     >
-                      Get Plus Access — ₹499
+                      <Sparkles className="h-3 w-3 text-amber-600" />
+                      Activate Annual Pass — ₹1,499/yr (Save 37%)
                     </Button>
                   </div>
                 </div>
               </div>
 
-              {/* LONG-TERM POWERHOUSE PLANS (ANNUAL & LIFETIME FELLOW) */}
+              {/* SPECIALIZED SERVICES & EARLY SUPPORTER TIER */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
-                {/* 1. Annual Career Pass */}
-                <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm flex flex-col justify-between hover:border-slate-300 transition-all">
+                {/* 1. STANDALONE 1-ON-1 HUMAN MENTORSHIP */}
+                <div className="rounded-3xl border border-purple-200 bg-linear-to-br from-purple-50/40 via-white to-white p-6 shadow-sm flex flex-col justify-between hover:border-purple-300 transition-all">
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-100 text-amber-800 font-black shrink-0">
-                          <Crown className="h-5 w-5" />
+                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-purple-100 text-purple-700 font-bold shrink-0">
+                          <Video className="h-5 w-5" />
                         </div>
                         <div>
-                          <h4 className="text-base font-bold text-slate-900">Annual Career Pass</h4>
-                          <span className="rounded bg-amber-100 text-amber-900 px-2 py-0.5 text-[10px] font-extrabold uppercase">
-                            Save 37% • Best Long-Term Value
+                          <h4 className="text-base font-bold text-slate-900">1-on-1 Senior Engineer Review</h4>
+                          <span className="rounded bg-purple-100 text-purple-800 px-2 py-0.5 text-[10px] font-extrabold uppercase font-mono">
+                            Human Mentorship • 45-Min Session
                           </span>
                         </div>
                       </div>
                       <div className="text-right">
-                        <span className="text-2xl font-black text-slate-900">₹1,499</span>
-                        <span className="text-xs text-slate-500 font-semibold block">/ 1 year (₹125/mo)</span>
+                        <span className="text-2xl font-black text-slate-900">₹799</span>
+                        <span className="text-xs text-slate-500 font-semibold block">per session</span>
                       </div>
                     </div>
 
                     <p className="text-xs text-slate-600 leading-relaxed">
-                      Continuous year-round access for long-term career growth. Includes complete Plus benefits, DevScore GitHub audits, priority placement across recruiter search feeds, and unlimited AI ATS features for 365 days.
+                      Need personal human feedback? Book a focused 45-minute live video session with an experienced Senior Software Engineer. We do not bury human labor in subscriptions—mentorship is offered cleanly on-demand.
                     </p>
 
                     <div className="space-y-1.5 text-xs text-slate-700 pt-2 border-t border-slate-100">
                       <div className="flex items-center gap-2">
-                        <Check className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
-                        <span>Full 365 days of continuous all-inclusive access</span>
+                        <Check className="h-3.5 w-3.5 text-purple-600 shrink-0" />
+                        <span>Line-by-line single-column ATS resume review &amp; STAR bullet overhaul</span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <Check className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
-                        <span>Continuous GitHub DevScore tracking &amp; code auditing</span>
+                        <Check className="h-3.5 w-3.5 text-purple-600 shrink-0" />
+                        <span>GitHub project architecture critique &amp; clean-code recommendations</span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <Check className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
-                        <span>Annual Gold Diploma with tamper-proof QR verification</span>
+                        <Check className="h-3.5 w-3.5 text-purple-600 shrink-0" />
+                        <span>Live fresher technical interview simulation with scorecard &amp; 7-day action plan</span>
                       </div>
                     </div>
                   </div>
 
                   <div className="pt-5">
                     <Button
-                      onClick={handleAnnualCheckout}
-                      variant="outline"
-                      className="w-full font-bold text-xs h-10 border-amber-300 text-amber-950 hover:bg-amber-50"
+                      onClick={handleMentorshipCheckout}
+                      className="w-full bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs h-10 shadow-sm flex items-center justify-center gap-1.5"
                     >
-                      <CreditCard className="h-3.5 w-3.5 mr-1.5" />
-                      Activate Annual Pass — ₹1,499
+                      <Video className="h-3.5 w-3.5" />
+                      Book 1-on-1 Review Session — ₹799
                     </Button>
                   </div>
                 </div>
 
-                {/* 2. Lifetime Fellow Pass */}
-                <div className="rounded-3xl border-2 border-amber-500 bg-gradient-to-br from-amber-500/10 via-white to-orange-500/10 p-6 shadow-md flex flex-col justify-between hover:border-amber-600 transition-all relative overflow-hidden">
-                  <div className="absolute -top-3 right-5 rounded-full bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 px-3 py-0.5 text-[10px] font-black uppercase tracking-wider text-slate-950 shadow-xs flex items-center gap-1">
-                    <Sparkles className="h-3 w-3 fill-slate-950" /> Never Renew Again
+                {/* 2. FOUNDER LIFETIME PASS (LIMITED TO 100 LAUNCH SEATS) */}
+                <div className="rounded-3xl border-2 border-amber-400 bg-linear-to-br from-amber-50/50 via-white to-amber-50/20 p-6 shadow-md flex flex-col justify-between hover:border-amber-500 transition-all relative overflow-hidden">
+                  <div className="absolute -top-3 right-5 rounded-full bg-amber-500 text-slate-950 font-black px-3 py-0.5 text-[10px] uppercase tracking-wider shadow-xs flex items-center gap-1">
+                    <Sparkles className="h-3 w-3 fill-slate-950" /> Limited 100 Launch Seats
                   </div>
 
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 text-slate-950 font-black shrink-0 shadow-xs">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-100 text-amber-800 font-bold shrink-0">
                           <Crown className="h-5 w-5" />
                         </div>
                         <div>
-                          <h4 className="text-base font-black text-slate-900">Lifetime Fellow Pass</h4>
-                          <span className="rounded bg-emerald-100 text-emerald-900 px-2 py-0.5 text-[10px] font-extrabold uppercase">
-                            VIP One-Time Investment
+                          <h4 className="text-base font-black text-slate-900">Founder Lifetime Pass</h4>
+                          <span className="rounded bg-amber-100 text-amber-900 px-2 py-0.5 text-[10px] font-extrabold uppercase">
+                            Early Supporter Tier
                           </span>
                         </div>
                       </div>
@@ -836,21 +723,21 @@ export default function PricingPage() {
                     </div>
 
                     <p className="text-xs text-slate-600 leading-relaxed">
-                      Invest once in your engineering career. Zero recurring subscription fees forever. Unlimited applications, unlimited AI ATS scans, custom syllabi, and direct 1-on-1 architecture feedback.
+                      Back Role Nest during launch. Enjoy continuous core access forever with zero renewals, transparently capped at 100 AI generation tokens/month with no human audit liabilities.
                     </p>
 
                     <div className="space-y-1.5 text-xs text-slate-700 pt-2 border-t border-slate-100">
                       <div className="flex items-center gap-2">
                         <Check className="h-3.5 w-3.5 text-amber-600 shrink-0" />
-                        <span><strong>Lifetime All-Inclusive Access</strong> (Zero recurring renewals forever)</span>
+                        <span><strong>Lifetime Core Platform Access</strong> with zero recurring renewal fees forever</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <Check className="h-3.5 w-3.5 text-amber-600 shrink-0" />
-                        <span><strong>Direct 1-on-1 Code &amp; Portfolio Audit</strong> by Senior Staff Engineers</span>
+                        <span><strong>100 AI Tokens / Month Allowance</strong> for ATS tailoring &amp; cover letters</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <Check className="h-3.5 w-3.5 text-amber-600 shrink-0" />
-                        <span><strong>Golden Lifetime Fellow Badge</strong> with cryptographic proof verification</span>
+                        <span><strong>Golden Founder Badge</strong> with immutable cryptographic verification</span>
                       </div>
                     </div>
                   </div>
@@ -858,10 +745,10 @@ export default function PricingPage() {
                   <div className="pt-5">
                     <Button
                       onClick={handleLifetimeCheckout}
-                      className="w-full bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-black text-xs h-10 shadow-md"
+                      className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-black text-xs h-10 shadow-md flex items-center justify-center gap-1.5"
                     >
-                      <Sparkles className="h-3.5 w-3.5 mr-1.5 fill-slate-950" />
-                      Activate Lifetime Fellow — ₹2,999
+                      <Sparkles className="h-3.5 w-3.5 fill-slate-950" />
+                      Claim Founder Seat — ₹2,999 (Limited Seats)
                     </Button>
                   </div>
                 </div>
@@ -881,8 +768,8 @@ export default function PricingPage() {
                     <tr className="border-b border-slate-200 bg-slate-50/75">
                       <th className="p-4 font-bold text-slate-900">Features &amp; Limitations</th>
                       <th className="p-4 font-bold text-slate-900 text-center">Free Community</th>
-                      <th className="p-4 font-bold text-emerald-700 text-center bg-emerald-50/50">Role Nest Pro</th>
-                      <th className="p-4 font-bold text-amber-800 text-center bg-amber-50/50">Role Nest Plus</th>
+                      <th className="p-4 font-bold text-indigo-700 text-center bg-indigo-50/50">Campus Student Pass</th>
+                      <th className="p-4 font-bold text-emerald-700 text-center bg-emerald-50/50">Role Nest Pro (Monthly / Annual)</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-100 text-slate-700">
@@ -892,64 +779,64 @@ export default function PricingPage() {
                       </td>
                     </tr>
                     <tr>
-                      <td className="p-4 font-medium">590+ Live Verified Tech Jobs (ATS Crawled)</td>
+                      <td className="p-4 font-medium">590+ Live Verified Tech Jobs &amp; Internships</td>
                       <td className="p-4 text-center text-emerald-600 font-bold">✓ Included</td>
+                      <td className="p-4 text-center text-emerald-600 font-bold bg-indigo-50/30">✓ Included</td>
                       <td className="p-4 text-center text-emerald-600 font-bold bg-emerald-50/30">✓ Included</td>
-                      <td className="p-4 text-center text-emerald-600 font-bold bg-amber-50/20">✓ Included</td>
                     </tr>
                     <tr>
                       <td className="p-4 font-medium">Direct Official ATS Links (Greenhouse, Lever, Ashby)</td>
                       <td className="p-4 text-center text-emerald-600 font-bold">✓ 100% Direct</td>
+                      <td className="p-4 text-center text-emerald-600 font-bold bg-indigo-50/30">✓ 100% Direct</td>
                       <td className="p-4 text-center text-emerald-600 font-bold bg-emerald-50/30">✓ 100% Direct</td>
-                      <td className="p-4 text-center text-emerald-600 font-bold bg-amber-50/20">✓ 100% Direct</td>
                     </tr>
                     <tr>
                       <td className="p-4 font-medium">Indian Govt Tech Careers Portal (/gov-tech)</td>
                       <td className="p-4 text-center text-emerald-600 font-bold">✓ Included</td>
+                      <td className="p-4 text-center text-emerald-600 font-bold bg-indigo-50/30">✓ Included</td>
                       <td className="p-4 text-center text-emerald-600 font-bold bg-emerald-50/30">✓ Included</td>
-                      <td className="p-4 text-center text-emerald-600 font-bold bg-amber-50/20">✓ Included</td>
+                    </tr>
+                    <tr>
+                      <td className="p-4 font-medium">Standard Single-Column ATS Resume Builder</td>
+                      <td className="p-4 text-center text-emerald-600 font-bold">✓ Included (LaTeX)</td>
+                      <td className="p-4 text-center text-emerald-600 font-bold bg-indigo-50/30">✓ Included (LaTeX)</td>
+                      <td className="p-4 text-center text-emerald-600 font-bold bg-emerald-50/30">✓ Included (LaTeX)</td>
                     </tr>
                     <tr>
                       <td className="p-4 font-medium">Daily Problem of the Day (Monaco Editor Runner)</td>
                       <td className="p-4 text-center text-emerald-600 font-bold">✓ Included</td>
-                      <td className="p-4 text-center text-emerald-600 font-bold bg-emerald-50/30">✓ Included</td>
-                      <td className="p-4 text-center text-emerald-600 font-bold bg-amber-50/20">✓ Included</td>
-                    </tr>
-                    <tr>
-                      <td className="p-4 font-medium">30-Day Curated Interactive Study Hubs (/study)</td>
-                      <td className="p-4 text-center text-emerald-600 font-bold">✓ 4 Pre-set Tracks</td>
-                      <td className="p-4 text-center text-emerald-600 font-bold bg-emerald-50/30">✓ 4 Pre-set Tracks</td>
-                      <td className="p-4 text-center text-emerald-600 font-bold bg-amber-50/20">✓ 4 Pre-set Tracks</td>
+                      <td className="p-4 text-center text-emerald-600 font-bold bg-indigo-50/30">✓ Full Solutions</td>
+                      <td className="p-4 text-center text-emerald-600 font-bold bg-emerald-50/30">✓ Full Solutions</td>
                     </tr>
 
                     <tr className="bg-slate-50/50">
                       <td colSpan={4} className="p-3 font-extrabold uppercase tracking-wider text-[10px] text-slate-500">
-                        AI Career Suite &amp; Course Synthesizer
+                        AI Career Suite &amp; Automation
                       </td>
                     </tr>
                     <tr>
                       <td className="p-4 font-medium">AI ATS Resume Matcher &amp; Keyword Gap Analysis</td>
                       <td className="p-4 text-center text-slate-500">3 scans trial limit</td>
+                      <td className="p-4 text-center text-indigo-700 font-bold bg-indigo-50/30">Unlimited</td>
                       <td className="p-4 text-center text-emerald-600 font-bold bg-emerald-50/30">Unlimited</td>
-                      <td className="p-4 text-center text-emerald-600 font-bold bg-amber-50/20">Unlimited</td>
                     </tr>
                     <tr>
-                      <td className="p-4 font-medium">Gap-to-Offer Bullets (Google XYZ Format)</td>
+                      <td className="p-4 font-medium">STAR Accomplishment Bullet Improver</td>
                       <td className="p-4 text-center text-slate-400">—</td>
+                      <td className="p-4 text-center text-indigo-700 font-bold bg-indigo-50/30">Unlimited</td>
                       <td className="p-4 text-center text-emerald-600 font-bold bg-emerald-50/30">Unlimited</td>
-                      <td className="p-4 text-center text-emerald-600 font-bold bg-amber-50/20">Unlimited</td>
                     </tr>
                     <tr>
-                      <td className="p-4 font-medium">Custom 30-Day Job-to-Course AI Synthesizer</td>
-                      <td className="p-4 text-center text-slate-400">—</td>
-                      <td className="p-4 text-center text-emerald-600 font-bold bg-emerald-50/30">Unlimited</td>
-                      <td className="p-4 text-center text-emerald-600 font-bold bg-amber-50/20">Unlimited</td>
-                    </tr>
-                    <tr>
-                      <td className="p-4 font-medium">AI Mock Interview Questions per Job</td>
+                      <td className="p-4 font-medium">Interview Prep Question Generator</td>
                       <td className="p-4 text-center text-slate-500">3 questions</td>
+                      <td className="p-4 text-center text-indigo-700 font-bold bg-indigo-50/30">Full Suite</td>
                       <td className="p-4 text-center text-emerald-600 font-bold bg-emerald-50/30">Full Suite</td>
-                      <td className="p-4 text-center text-emerald-600 font-bold bg-amber-50/20">Full Suite</td>
+                    </tr>
+                    <tr>
+                      <td className="p-4 font-medium">Custom Cover Letter Writer</td>
+                      <td className="p-4 text-center text-slate-400">—</td>
+                      <td className="p-4 text-center text-slate-400 bg-indigo-50/30">—</td>
+                      <td className="p-4 text-center text-emerald-600 font-bold bg-emerald-50/30">Unlimited</td>
                     </tr>
 
                     <tr className="bg-slate-50/50">
@@ -960,32 +847,32 @@ export default function PricingPage() {
                     <tr>
                       <td className="p-4 font-medium">Simultaneously Tracked Applications Limit</td>
                       <td className="p-4 text-center text-slate-500">Max 5 jobs</td>
-                      <td className="p-4 text-center text-emerald-600 font-bold bg-emerald-50/30">Max 25 jobs</td>
-                      <td className="p-4 text-center text-emerald-600 font-bold bg-amber-50/20">Unlimited</td>
+                      <td className="p-4 text-center text-indigo-700 font-bold bg-indigo-50/30">Max 15 jobs</td>
+                      <td className="p-4 text-center text-emerald-600 font-bold bg-emerald-50/30">Unlimited</td>
                     </tr>
                     <tr>
-                      <td className="p-4 font-medium">7-Day Employer Inactivity &amp; Ghosting Alerts</td>
+                      <td className="p-4 font-medium">7-Day Follow-Up &amp; Recruiter Inactivity Reminders</td>
                       <td className="p-4 text-center text-slate-400">—</td>
+                      <td className="p-4 text-center text-indigo-700 font-bold bg-indigo-50/30">✓ Active</td>
                       <td className="p-4 text-center text-emerald-600 font-bold bg-emerald-50/30">✓ Active</td>
-                      <td className="p-4 text-center text-emerald-600 font-bold bg-amber-50/20">✓ Active</td>
+                    </tr>
+                    <tr>
+                      <td className="p-4 font-medium">Telegram / WhatsApp Instant Job Match Pings</td>
+                      <td className="p-4 text-center text-slate-400">—</td>
+                      <td className="p-4 text-center text-slate-400 bg-indigo-50/30">—</td>
+                      <td className="p-4 text-center text-emerald-600 font-bold bg-emerald-50/30">✓ Instant Pings</td>
                     </tr>
                     <tr>
                       <td className="p-4 font-medium">Candidate Directory Badge</td>
                       <td className="p-4 text-center text-slate-400">Standard (None)</td>
-                      <td className="p-4 text-center text-emerald-600 font-bold bg-emerald-50/30">Verified Pro Badge</td>
-                      <td className="p-4 text-center text-amber-700 font-bold bg-amber-50/20">Verified Plus Badge</td>
+                      <td className="p-4 text-center text-indigo-700 font-bold bg-indigo-50/30">Verified Student</td>
+                      <td className="p-4 text-center text-emerald-600 font-bold bg-emerald-50/30">Verified Pro</td>
                     </tr>
                     <tr>
-                      <td className="p-4 font-medium">Recruiter Search Placement</td>
-                      <td className="p-4 text-center text-slate-400">Standard Queue</td>
-                      <td className="p-4 text-center text-slate-700 font-medium bg-emerald-50/30">Verified Queue</td>
-                      <td className="p-4 text-center text-amber-700 font-bold bg-amber-50/20">Top Priority Placement</td>
-                    </tr>
-                    <tr>
-                      <td className="p-4 font-medium">DevScore GitHub Repository Deep Audit</td>
+                      <td className="p-4 font-medium">DevScore GitHub Code Cadence Audit</td>
                       <td className="p-4 text-center text-slate-400">—</td>
-                      <td className="p-4 text-center text-slate-600 font-medium bg-emerald-50/30">Basic Score</td>
-                      <td className="p-4 text-center text-amber-700 font-bold bg-amber-50/20">Full Deep Audit</td>
+                      <td className="p-4 text-center text-slate-600 font-medium bg-indigo-50/30">Basic Score</td>
+                      <td className="p-4 text-center text-emerald-600 font-bold bg-emerald-50/30">Deep Audit</td>
                     </tr>
 
                     <tr className="bg-slate-50/50">
@@ -996,20 +883,14 @@ export default function PricingPage() {
                     <tr>
                       <td className="p-4 font-medium">Price</td>
                       <td className="p-4 text-center font-black text-slate-900">₹0</td>
-                      <td className="p-4 text-center font-black text-emerald-700 bg-emerald-50/30">₹199 / month</td>
-                      <td className="p-4 text-center font-black text-amber-800 bg-amber-50/20">₹499 / 3 months</td>
-                    </tr>
-                    <tr>
-                      <td className="p-4 font-medium">Equivalent Monthly Cost</td>
-                      <td className="p-4 text-center font-mono">₹0/mo</td>
-                      <td className="p-4 text-center font-mono bg-emerald-50/30">₹199/mo</td>
-                      <td className="p-4 text-center font-mono text-emerald-700 font-bold bg-amber-50/20">₹166/mo (Save 16%)</td>
+                      <td className="p-4 text-center font-black text-indigo-700 bg-indigo-50/30">₹99 / month</td>
+                      <td className="p-4 text-center font-black text-emerald-700 bg-emerald-50/30">₹199/mo or ₹1,499/yr</td>
                     </tr>
                     <tr>
                       <td className="p-4 font-medium">Access Duration</td>
-                      <td className="p-4 text-center font-mono">Lifetime</td>
-                      <td className="p-4 text-center font-mono bg-emerald-50/30">30 Days</td>
-                      <td className="p-4 text-center font-mono bg-amber-50/20">90 Days</td>
+                      <td className="p-4 text-center font-mono">Forever Free</td>
+                      <td className="p-4 text-center font-mono bg-indigo-50/30">30 Days</td>
+                      <td className="p-4 text-center font-mono bg-emerald-50/30">30 or 365 Days</td>
                     </tr>
                   </tbody>
                 </table>
@@ -1021,24 +902,24 @@ export default function PricingPage() {
               <h2 className="text-2xl font-black text-center text-slate-900">Frequently Asked Questions</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5 text-xs text-slate-600">
                 <div className="space-y-1.5 p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs">
-                  <h4 className="font-bold text-slate-900">What is the difference between Free, Pro (₹199), and Plus (₹499)?</h4>
-                  <p>Free provides unlimited search across 590+ tech jobs, direct ATS links, Govt tech jobs, and POTD coding challenges with 3 free AI trials. Pro (₹199/mo) unlocks unlimited AI ATS resume matching, accomplishment bullets, and custom course generation. Plus (₹499/3 mos) gives full 90-day access (₹166/mo), priority recruiter placement, and DevScore GitHub deep audits.</p>
+                  <h4 className="font-bold text-slate-900">What is the difference between Free, Campus Pass (₹99), and Pro?</h4>
+                  <p>Job searching, application links, standard resume building, and POTD challenges are 100% Free Forever. Campus Pass (₹99/mo for students) unlocks unlimited AI resume tailoring, STAR bullet rewrites, and 15 active application slots. Pro (₹199/mo or ₹1,499/yr) unlocks the complete suite including custom cover letters, instant Telegram/WhatsApp match alerts, unlimited application tracking, and DevScore audits.</p>
                 </div>
                 <div className="space-y-1.5 p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs">
-                  <h4 className="font-bold text-slate-900">Are the job listings and platform features 100% real?</h4>
-                  <p>Yes. Every job listing is crawled directly from authentic company ATS portals (Greenhouse, Lever, Ashby). We do not host fake companies, phantom jobs, or synthetic metrics. Every single feature advertised is backed by real, functional code in Role Nest.</p>
+                  <h4 className="font-bold text-slate-900">How do I verify for the ₹99 Campus Student Pass?</h4>
+                  <p>You can sign up with an active university/college email address (e.g., .edu, .ac.in) or upload a photo of your valid college student ID card. Once verified, your account receives the ₹99/mo student rate and Verified Student badge.</p>
+                </div>
+                <div className="space-y-1.5 p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs">
+                  <h4 className="font-bold text-slate-900">Can I book a 1-on-1 human resume &amp; mock interview review?</h4>
+                  <p>Yes! We offer an on-demand 45-minute live video session with an experienced Senior Software Engineer for ₹799. This includes a line-by-line single-column ATS resume audit, project architecture critique, and a live technical mock interview with an actionable scorecard.</p>
                 </div>
                 <div className="space-y-1.5 p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs">
                   <h4 className="font-bold text-slate-900">What payment methods are supported in India?</h4>
-                  <p>Via Cashfree Payments, we support all Indian UPI apps (Google Pay, PhonePe, Paytm, CRED, BHIM), Indian RuPay &amp; Visa/Mastercard debit and credit cards, and NetBanking across 50+ Indian banks.</p>
+                  <p>Via Cashfree Payments, we support all Indian UPI apps (Google Pay, PhonePe, Paytm, CRED, BHIM), Indian RuPay &amp; Visa/Mastercard debit/credit cards, and NetBanking across 50+ Indian banks.</p>
                 </div>
                 <div className="space-y-1.5 p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs">
-                  <h4 className="font-bold text-slate-900">Can I upgrade from Pro to Plus or Annual?</h4>
-                  <p>Yes. Upgrading or extending simply adds days to your active account. For example, upgrading to Plus adds 90 days on top of any remaining time on your account without any lost days or penalty.</p>
-                </div>
-                <div className="space-y-1.5 p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs">
-                  <h4 className="font-bold text-slate-900">Why are there limitations on the Free plan?</h4>
-                  <p>Direct ATS job browsing, POTD coding challenges, and study courses are 100% free forever. AI ATS resume scans and custom curriculum generation require high-performance LLM compute and token costs, which are covered by the ₹199 and ₹499 plans.</p>
+                  <h4 className="font-bold text-slate-900">Why are there limits on the Free plan?</h4>
+                  <p>Direct ATS job browsing, application tracking, and study roadmaps are 100% free forever. Generating AI ATS resume tailored bullets, cover letters, and custom syllabi requires LLM compute and token costs, which are covered by the ₹99 student and ₹199 Pro plans.</p>
                 </div>
                 <div className="space-y-1.5 p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs">
                   <h4 className="font-bold text-slate-900">How does the 14-day refund guarantee work?</h4>
