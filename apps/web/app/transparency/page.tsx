@@ -113,41 +113,79 @@ export default function TransparencyWallPage() {
         {/* HEADER */}
         <div className="text-center space-y-3">
           <div className="inline-flex items-center gap-2 rounded-full bg-emerald-50 border border-emerald-200 px-3.5 py-1 text-xs font-mono font-semibold text-emerald-800">
-            <Zap className="h-4 w-4 text-emerald-600" />
-            Radical Recruiter Accountability
+            <ShieldCheck className="h-4 w-4 text-emerald-600" />
+            Verification Methodology &amp; Transparency Standard
           </div>
           <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-slate-900">
-            The Truth Teller Transparency Wall
+            The Truth Teller Transparency Standards
           </h1>
           <p className="mx-auto max-w-2xl text-sm sm:text-base text-slate-600">
-            The anti-ghosting public ledger. We track every company&apos;s real response speed, notification rate, and application SLA so candidates never waste time on zombie postings.
+            Our public framework for job verification, anti-ghosting follow-up tracking, and automated listing freshness. Zero synthetic claims, 100% direct links.
           </p>
         </div>
 
-        {/* PLATFORM BENCHMARKS HUD */}
-        <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
-          <div className="rounded-2xl border-2 border-emerald-500/40 bg-emerald-50/50 p-5 text-center space-y-1 shadow-sm">
-            <div className="text-3xl font-black text-emerald-700 font-mono">68.4%</div>
-            <div className="text-xs font-bold text-emerald-950">Guaranteed Review Rate</div>
-            <div className="text-[11px] text-emerald-800">vs &lt;5% industry average on standard job boards</div>
+        {/* VERIFICATION TIERS FRAMEWORK */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div className="rounded-2xl border border-emerald-200 bg-white p-6 shadow-sm space-y-3">
+            <div className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-bold text-emerald-800 border border-emerald-200">
+              <ShieldCheck className="h-4 w-4 text-emerald-600" /> Tier 1: Verified ATS Link
+            </div>
+            <h3 className="font-bold text-base text-slate-900">Direct Enterprise ATS</h3>
+            <p className="text-xs text-slate-600 leading-relaxed">
+              Crawled directly from official employer ATS feeds (Greenhouse, Lever, Workday, Ashby, BambooHR). Clicking &ldquo;Apply&rdquo; opens the company&apos;s authenticated portal with zero intermediary hops or hidden data harvesting.
+            </p>
+            <div className="text-[11px] font-mono text-emerald-700 bg-emerald-50/60 p-2 rounded-lg border border-emerald-100">
+              • 100% Direct Official Link<br />
+              • Scanned for freshness every 24-48h<br />
+              • Auto-expires in 14-21 days
+            </div>
           </div>
 
-          <div className="rounded-2xl border border-slate-200 bg-white p-5 text-center space-y-1 shadow-sm">
-            <div className="text-3xl font-black text-emerald-600 font-mono">3.8%</div>
-            <div className="text-xs font-bold text-slate-800">Platform Ghosting Rate</div>
-            <div className="text-[11px] text-slate-500">vs 72% industry average on traditional job boards</div>
+          <div className="rounded-2xl border border-indigo-200 bg-white p-6 shadow-sm space-y-3">
+            <div className="inline-flex items-center gap-1.5 rounded-full bg-indigo-50 px-2.5 py-1 text-xs font-bold text-indigo-800 border border-indigo-200">
+              <Building2 className="h-4 w-4 text-indigo-600" /> Tier 2: Employer Verified
+            </div>
+            <h3 className="font-bold text-base text-slate-900">On-Platform Direct Postings</h3>
+            <p className="text-xs text-slate-600 leading-relaxed">
+              Opportunities posted directly by hiring managers with verified corporate email domains (e.g. <code>@swiggy.in</code>, <code>@cred.club</code>). Free mailboxes (@gmail) require administrative review before publishing.
+            </p>
+            <div className="text-[11px] font-mono text-indigo-700 bg-indigo-50/60 p-2 rounded-lg border border-indigo-100">
+              • Domain-verified corporate email<br />
+              • Recruiter response telemetry enabled<br />
+              • Direct in-app application flow
+            </div>
           </div>
 
-          <div className="rounded-2xl border border-slate-200 bg-white p-5 text-center space-y-1 shadow-sm">
-            <div className="text-3xl font-black text-cyan-600 font-mono">1.8 Days</div>
-            <div className="text-xs font-bold text-slate-800">Median Review Time</div>
-            <div className="text-[11px] text-slate-500">Verified by PostgreSQL application telemetry</div>
+          <div className="rounded-2xl border border-amber-200 bg-white p-6 shadow-sm space-y-3">
+            <div className="inline-flex items-center gap-1.5 rounded-full bg-amber-50 px-2.5 py-1 text-xs font-bold text-amber-800 border border-amber-200">
+              <Clock className="h-4 w-4 text-amber-600" /> Tier 3: Truth Teller Follow-Up
+            </div>
+            <h3 className="font-bold text-base text-slate-900">Personal Application Journal</h3>
+            <p className="text-xs text-slate-600 leading-relaxed">
+              When applying to external ATS links, Truth Teller serves as your personal applicant journal. It records application dates, monitors the 7-day follow-up window, and provides tailored outreach templates to hiring teams.
+            </p>
+            <div className="text-[11px] font-mono text-amber-700 bg-amber-50/60 p-2 rounded-lg border border-amber-100">
+              • Self-reported candidate journal<br />
+              • Automated 7-day follow-up nudge<br />
+              • Pre-written recruiter check-in drafts
+            </div>
           </div>
+        </div>
 
-          <div className="rounded-2xl border border-slate-200 bg-white p-5 text-center space-y-1 shadow-sm">
-            <div className="text-3xl font-black text-teal-600 font-mono">96.4%</div>
-            <div className="text-xs font-bold text-slate-800">Truth Teller SLA Compliance</div>
-            <div className="text-[11px] text-slate-500">Employers providing formal feedback within 7 days</div>
+        {/* METHODOLOGY CALLOUT BANNER */}
+        <div className="rounded-2xl border border-slate-200 bg-slate-900 text-white p-6 sm:p-8 space-y-4 shadow-sm">
+          <div className="flex items-center gap-2 text-emerald-400 font-mono text-xs font-semibold">
+            <Zap className="h-4 w-4" /> Freshness &amp; De-Listing Policy
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs sm:text-sm text-slate-300">
+            <div>
+              <strong className="text-white block text-sm mb-1">14-21 Day Automated TTL (Time-To-Live):</strong>
+              To prevent dead links and ghost opportunities, our autonomous indexing engine deactivates unconfirmed postings after 14–21 days unless re-validated by live career portal scans.
+            </div>
+            <div>
+              <strong className="text-white block text-sm mb-1">Employer De-Listing SLA (24 Hours):</strong>
+              Hiring managers or companies may request instant modification, closing, or de-listing of any job posting by emailing <a href="mailto:support@rolenest.in" className="text-emerald-400 underline">support@rolenest.in</a>. All requests are executed within 24 business hours.
+            </div>
           </div>
         </div>
 

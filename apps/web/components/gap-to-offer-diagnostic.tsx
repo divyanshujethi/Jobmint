@@ -59,7 +59,7 @@ export function GapToOfferDiagnostic({
   const [isProUser, setIsProUser] = useState(false);
 
   useEffect(() => {
-    // Check if user has uploaded resume or verified dev score saved in localStorage
+    // 1. Check if user has uploaded resume or verified dev score saved in localStorage
     try {
       const savedResume = localStorage.getItem("jobmint_candidate_resume_name");
       if (savedResume) {
@@ -72,21 +72,37 @@ export function GapToOfferDiagnostic({
         if (parsed.verifiedSkills && Array.isArray(parsed.verifiedSkills) && parsed.verifiedSkills.length > 0) {
           setCandidateSkills(parsed.verifiedSkills);
           setHasScanned(true);
-          return;
         }
       }
       const savedSkills = localStorage.getItem("jobmint_candidate_skills");
       if (savedSkills) {
         const parsed = JSON.parse(savedSkills);
         if (Array.isArray(parsed) && parsed.length > 0) {
-          setCandidateSkills(parsed);
+          setCandidateSkills((prev) => Array.from(new Set([...prev, ...parsed])));
           setHasScanned(true);
-          return;
         }
       }
     } catch {}
 
-    setCandidateSkills([]);
+    // 2. Fetch authenticated candidate profile skills & Pro status directly from PostgreSQL
+    fetch("/api/account/profile")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data?.success && data?.profile) {
+          if (data.profile.isPro) {
+            setIsProUser(true);
+          }
+          if (data.profile.skills && Array.isArray(data.profile.skills) && data.profile.skills.length > 0) {
+            setCandidateSkills((prev) => Array.from(new Set([...prev, ...data.profile.skills])));
+            setHasScanned(true);
+          }
+          if (data.profile.resumeUrl && !uploadedResumeName) {
+            const parts = data.profile.resumeUrl.split("/");
+            setUploadedResumeName(parts[parts.length - 1] || "My_Resume.pdf");
+          }
+        }
+      })
+      .catch(() => {});
   }, [jobSkills]);
 
   const handleResumeFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {

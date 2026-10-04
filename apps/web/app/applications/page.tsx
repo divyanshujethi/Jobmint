@@ -106,7 +106,7 @@ export default function ApplicationsTrackerPage() {
           <div>
             <h1 className="text-2xl font-bold text-slate-900">Sign In to Track Applications</h1>
             <p className="mt-2 text-xs text-slate-600 max-w-sm mx-auto leading-relaxed">
-              Truth Teller real-time status updates, recruiter read receipts, and ghosting protection telemetry are linked directly to your authenticated candidate profile.
+              Your personal application journal with smart 7-day follow-up countdowns, recruiter outreach drafts, and anti-ghosting timelines is linked directly to your authenticated profile.
             </p>
           </div>
           <div className="pt-2 flex flex-col gap-2.5">
@@ -133,13 +133,13 @@ export default function ApplicationsTrackerPage() {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-6">
         <div>
           <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-md mb-2">
-            <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" /> Truth Teller Verified Application Tracker
+            <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" /> Personal Application Journal &amp; Follow-Up Tracker
           </div>
           <h1 className="text-3xl font-extrabold tracking-tight text-slate-900">
             My Applications
           </h1>
           <p className="mt-1 text-sm text-slate-600">
-            Track real-time status, recruiter read receipts, and guaranteed activity alerts.
+            Personal application journal with smart 7-day follow-up countdowns, outreach templates, and recruiter timeline tracking.
           </p>
         </div>
 

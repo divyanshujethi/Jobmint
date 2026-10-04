@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/auth";
-import { db, users, candidateProfiles, eq } from "@repo/database";
+import { db, users, candidateProfiles, candidateSkills, skills, eq } from "@repo/database";
 
 export async function GET(req: NextRequest) {
   try {
@@ -33,6 +33,7 @@ export async function GET(req: NextRequest) {
     let userPhone = user.phone || "";
     const [profile] = await db
       .select({
+        id: candidateProfiles.id,
         phone: candidateProfiles.phone,
         resumeUrl: candidateProfiles.resumeUrl,
         headline: candidateProfiles.headline,
@@ -45,6 +46,20 @@ export async function GET(req: NextRequest) {
       .from(candidateProfiles)
       .where(eq(candidateProfiles.userId, user.id))
       .limit(1);
+
+    let userSkills: string[] = [];
+    if (profile?.id) {
+      try {
+        const sk = await db
+          .select({ name: skills.name })
+          .from(candidateSkills)
+          .innerJoin(skills, eq(candidateSkills.skillId, skills.id))
+          .where(eq(candidateSkills.profileId, profile.id));
+        userSkills = sk.map((s) => s.name);
+      } catch (err) {
+        console.warn("[Profile Skills Fetch Warning]:", err);
+      }
+    }
 
     if (profile?.phone && !userPhone) {
       userPhone = profile.phone;
@@ -121,6 +136,7 @@ export async function GET(req: NextRequest) {
         githubUrl: profile?.githubUrl || "",
         linkedinUrl: profile?.linkedinUrl || "",
         portfolioUrl: profile?.portfolioUrl || "",
+        skills: userSkills,
         completionPercent,
         missingFields,
       },

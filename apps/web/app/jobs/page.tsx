@@ -50,6 +50,8 @@ export default function JobsPage() {
   const [selectedExp, setSelectedExp] = useState<string>("ALL");
   const [selectedLocation, setSelectedLocation] = useState<string>("ALL");
   const [onlyVerified, setOnlyVerified] = useState(false);
+  const [onlyDirectAts, setOnlyDirectAts] = useState(false);
+  const [freshnessFilter, setFreshnessFilter] = useState<string>("ALL");
   const [jobs, setJobs] = useState<MockJob[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -437,9 +439,23 @@ export default function JobsPage() {
         return false;
       }
 
+      // Only Direct Official ATS Apply Links
+      if (onlyDirectAts && !job.sourceUrl) {
+        return false;
+      }
+
+      // Freshness Filter
+      if (freshnessFilter !== "ALL") {
+        const postedMs = new Date(job.postedAt || 0).getTime();
+        const ageHours = (Date.now() - postedMs) / (1000 * 60 * 60);
+        if (freshnessFilter === "24H" && ageHours > 24) return false;
+        if (freshnessFilter === "3D" && ageHours > 72) return false;
+        if (freshnessFilter === "7D" && ageHours > 168) return false;
+      }
+
       return true;
     });
-  }, [jobs, searchTerm, selectedType, selectedMode, selectedExp, selectedLocation, onlyVerified]);
+  }, [jobs, searchTerm, selectedType, selectedMode, selectedExp, selectedLocation, onlyVerified, onlyDirectAts, freshnessFilter]);
 
   // Diversified Feed: Interleaved round-robin by company so no 20 GitLab / 10 MongoDB in a row
   const diversifiedJobs = useMemo(() => {
@@ -470,7 +486,7 @@ export default function JobsPage() {
   // Reset pagination to page 1 whenever any filter changes
   useEffect(() => {
     setCurrentPage(1);
-  }, [searchTerm, selectedType, selectedMode, selectedExp, selectedLocation, onlyVerified, viewMode]);
+  }, [searchTerm, selectedType, selectedMode, selectedExp, selectedLocation, onlyVerified, onlyDirectAts, freshnessFilter, viewMode]);
 
   // Paginated Diversified Jobs
   const paginatedJobs = useMemo(() => {
@@ -494,7 +510,9 @@ export default function JobsPage() {
     selectedMode !== "ALL" ||
     selectedExp !== "ALL" ||
     selectedLocation !== "ALL" ||
-    onlyVerified;
+    onlyVerified ||
+    onlyDirectAts ||
+    freshnessFilter !== "ALL";
 
   const resetAllFilters = () => {
     setSearchTerm("");
@@ -503,6 +521,8 @@ export default function JobsPage() {
     setSelectedExp("ALL");
     setSelectedLocation("ALL");
     setOnlyVerified(false);
+    setOnlyDirectAts(false);
+    setFreshnessFilter("ALL");
     setCurrentPage(1);
   };
 
@@ -534,6 +554,13 @@ export default function JobsPage() {
       {/* PAGE HEADER */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-6">
         <div>
+          <Link
+            href="/transparency"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-2.5 py-1 rounded-md mb-2 transition-colors"
+          >
+            <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" />
+            Verification Methodology &amp; Anti-Ghosting Standards →
+          </Link>
           <h1 className="text-3xl font-extrabold tracking-tight text-slate-900">
             Explore Opportunities
           </h1>
@@ -986,7 +1013,7 @@ export default function JobsPage() {
         </div>
 
         {/* Row 2: Detailed Filters */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 pt-1 border-t border-slate-100">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2.5 pt-1 border-t border-slate-100">
           {/* Experience Filter */}
           <div>
             <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1">
@@ -1194,17 +1221,44 @@ export default function JobsPage() {
             </select>
           </div>
 
-          {/* Verified Toggle */}
-          <div className="flex flex-col justify-end">
-            <label className="min-h-[40px] inline-flex items-center gap-2.5 cursor-pointer font-semibold text-xs text-slate-700 select-none px-3 py-2 rounded-xl border border-slate-200 bg-slate-50/50 hover:bg-slate-100/60 transition-colors">
+          {/* Freshness Filter */}
+          <div>
+            <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1">
+              Freshness
+            </label>
+            <select
+              value={freshnessFilter}
+              onChange={(e) => setFreshnessFilter(e.target.value)}
+              className="w-full min-h-[40px] rounded-xl border border-slate-200 bg-slate-50/50 px-3 py-2 text-xs font-medium text-slate-800 focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
+            >
+              <option value="ALL">Any Time</option>
+              <option value="24H">Active in last 24h ⚡</option>
+              <option value="3D">Past 3 days</option>
+              <option value="7D">Past 7 days</option>
+            </select>
+          </div>
+
+          {/* Verification & ATS Toggles */}
+          <div className="flex flex-col justify-end gap-1.5">
+            <label className="min-h-[38px] inline-flex items-center gap-2 cursor-pointer font-semibold text-xs text-slate-700 select-none px-2.5 py-1.5 rounded-xl border border-slate-200 bg-slate-50/50 hover:bg-slate-100/60 transition-colors">
+              <input
+                type="checkbox"
+                checked={onlyDirectAts}
+                onChange={(e) => setOnlyDirectAts(e.target.checked)}
+                className="h-4 w-4 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500"
+              />
+              <Zap className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
+              <span className="truncate">Direct ATS Links Only</span>
+            </label>
+            <label className="min-h-[38px] inline-flex items-center gap-2 cursor-pointer font-semibold text-xs text-slate-700 select-none px-2.5 py-1.5 rounded-xl border border-slate-200 bg-slate-50/50 hover:bg-slate-100/60 transition-colors">
               <input
                 type="checkbox"
                 checked={onlyVerified}
                 onChange={(e) => setOnlyVerified(e.target.checked)}
                 className="h-4 w-4 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500"
               />
-              <ShieldCheck className="h-4 w-4 text-emerald-600" />
-              <span>Verified Companies Only</span>
+              <ShieldCheck className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
+              <span className="truncate">Verified Companies</span>
             </label>
           </div>
         </div>
@@ -1271,6 +1325,18 @@ export default function JobsPage() {
               <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 font-medium">
                 Verified Only
                 <X className="h-3 w-3 cursor-pointer hover:text-emerald-950" onClick={() => setOnlyVerified(false)} />
+              </span>
+            )}
+            {onlyDirectAts && (
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 font-medium">
+                Direct ATS Links
+                <X className="h-3 w-3 cursor-pointer hover:text-emerald-950" onClick={() => setOnlyDirectAts(false)} />
+              </span>
+            )}
+            {freshnessFilter !== "ALL" && (
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 font-medium">
+                Freshness: {freshnessFilter === "24H" ? "Last 24h" : freshnessFilter === "3D" ? "Past 3 Days" : "Past 7 Days"}
+                <X className="h-3 w-3 cursor-pointer hover:text-emerald-950" onClick={() => setFreshnessFilter("ALL")} />
               </span>
             )}
           </div>
