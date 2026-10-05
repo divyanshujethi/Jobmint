@@ -41,9 +41,12 @@ export async function POST(request: Request): Promise<NextResponse> {
   try {
     let body: any = {};
     try {
-      body = await request.json();
+      const text = await request.text();
+      if (text && text.trim()) {
+        body = JSON.parse(text);
+      }
     } catch {
-      // Body may be empty for default trigger
+      // Body may be empty
     }
 
     const targetUrl = body.playlistUrl || body.playlistId || body.url;
