@@ -11,7 +11,7 @@ export async function GET() {
   const itemsXml = liveJobs.map((job) => {
     const jobUrl = `${baseUrl}/jobs/${job.slug}`;
     const pubDate = new Date(job.postedAt || Date.now()).toUTCString();
-    const cleanDesc = job.description.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    const cleanDesc = (job.description || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
     const cleanTitle = `${job.title} at ${job.companyName} (${job.salaryOrStipend})`
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")

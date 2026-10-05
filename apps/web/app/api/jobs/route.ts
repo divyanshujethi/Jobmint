@@ -6,20 +6,32 @@ export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
     const q = searchParams.get('q') || '';
-    const type = searchParams.get('type') || 'ALL';
+    const rawType = searchParams.get('type') || 'ALL';
+    // Normalize type parameter to handle lowercase or uppercase gracefully
+    const type = rawType.toUpperCase();
     const mode = searchParams.get('mode') || 'ALL';
     const experience = searchParams.get('exp') || searchParams.get('experience') || 'ALL';
     const locationParam = searchParams.get('location') || searchParams.get('loc') || 'ALL';
     const verified = searchParams.get('verified') === 'true';
 
-    const cacheKey = `${JOBS_CACHE_KEY}:${type !== 'ALL' ? type : 'ALL'}:4000`;
-    const wasCached = !!(await getCache(cacheKey)) || !!(await getCache(JOBS_CACHE_KEY));
+    // Pagination & Projection parameters
+    const cursor = searchParams.get('cursor');
+    const page = parseInt(searchParams.get('page') || '0', 10);
+    const limitParam = searchParams.get('limit');
+    const isFull = searchParams.get('full') === 'true' || searchParams.get('fields') === 'full';
 
-    let jobs = await getLiveJobs({ limit: 4000, jobType: type });
+    // Fetch from Postgres backed by Redis with lean field projection
+    const allFetchedJobs = await getLiveJobs({
+      limit: 10000,
+      jobType: type,
+      includeDetails: isFull,
+    });
+
+    let filtered = allFetchedJobs;
 
     if (q) {
       const query = q.toLowerCase();
-      jobs = jobs.filter(
+      filtered = filtered.filter(
         (j) =>
           j.title.toLowerCase().includes(query) ||
           j.companyName.toLowerCase().includes(query) ||
@@ -29,12 +41,12 @@ export async function GET(req: NextRequest) {
     }
 
     if (type !== 'ALL') {
-      jobs = jobs.filter((j) => j.jobType === type);
+      filtered = filtered.filter((j) => (j.jobType || '').toUpperCase() === type);
     }
 
     if (mode !== 'ALL') {
       const targetMode = mode.toUpperCase().replace(/[-_]/g, '');
-      jobs = jobs.filter((j) => {
+      filtered = filtered.filter((j) => {
         const jMode = (j.workMode || '').toUpperCase().replace(/[-_]/g, '');
         if (targetMode === 'ONSITE') return jMode.includes('ONSITE') || jMode.includes('OFFICE');
         if (targetMode === 'REMOTE') return jMode.includes('REMOTE');
@@ -44,7 +56,7 @@ export async function GET(req: NextRequest) {
     }
 
     if (experience !== 'ALL') {
-      jobs = jobs.filter((j) => {
+      filtered = filtered.filter((j) => {
         const exp = j.experienceYears ?? 0;
         if (experience === '0' || experience === 'FRESHER') return exp === 0 || j.jobType === 'INTERNSHIP';
         if (experience === '1-2') return exp >= 1 && exp <= 2;
@@ -56,7 +68,7 @@ export async function GET(req: NextRequest) {
 
     if (locationParam !== 'ALL') {
       const loc = locationParam.toLowerCase();
-      jobs = jobs.filter((j) => {
+      filtered = filtered.filter((j) => {
         const jLoc = (j.location || '').toLowerCase();
         if (loc === 'bengaluru' || loc === 'bangalore') {
           return jLoc.includes('bengaluru') || jLoc.includes('bangalore');
@@ -77,18 +89,47 @@ export async function GET(req: NextRequest) {
     }
 
     if (verified) {
-      jobs = jobs.filter((j) => j.isVerified);
+      filtered = filtered.filter((j) => j.isVerified);
+    }
+
+    const total = filtered.length;
+
+    // Handle cursor or page pagination
+    let paginatedJobs = filtered;
+    let nextCursor: string | null = null;
+    let hasMore = false;
+
+    if (cursor || limitParam || page > 0) {
+      const pageSize = Math.min(Math.max(1, parseInt(limitParam || '50', 10)), 1000);
+
+      let startIndex = 0;
+      if (cursor) {
+        const cursorIdx = filtered.findIndex((j) => j.id === cursor);
+        if (cursorIdx !== -1) {
+          startIndex = cursorIdx + 1;
+        }
+      } else if (page > 1) {
+        startIndex = (page - 1) * pageSize;
+      }
+
+      paginatedJobs = filtered.slice(startIndex, startIndex + pageSize);
+      hasMore = startIndex + pageSize < filtered.length;
+      if (hasMore && paginatedJobs.length > 0) {
+        nextCursor = paginatedJobs[paginatedJobs.length - 1].id;
+      }
     }
 
     return NextResponse.json(
       {
-        jobs,
-        total: jobs.length,
-        source: wasCached ? 'redis-cache-hit' : 'postgresql-db-miss',
+        jobs: paginatedJobs,
+        total,
+        count: paginatedJobs.length,
+        hasMore,
+        nextCursor,
+        projection: isFull ? 'full' : 'lean',
       },
       {
         headers: {
-          'X-Cache': wasCached ? 'HIT' : 'MISS',
           'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=30',
         },
       }

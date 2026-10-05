@@ -349,7 +349,7 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
                 Key Responsibilities
               </h3>
               <ul className="mt-3 space-y-2 text-sm text-slate-600 list-disc list-inside">
-                {job.responsibilities.map((resp, idx) => (
+                {(job.responsibilities || []).map((resp, idx) => (
                   <li key={idx} className="leading-relaxed">
                     {resp}
                   </li>
@@ -362,7 +362,7 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
                 Requirements & Qualifications
               </h3>
               <ul className="mt-3 space-y-2 text-sm text-slate-600 list-disc list-inside">
-                {job.requirements.map((req, idx) => (
+                {(job.requirements || []).map((req, idx) => (
                   <li key={idx} className="leading-relaxed">
                     {req}
                   </li>
@@ -375,7 +375,7 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
                 Perks & Benefits
               </h3>
               <ul className="mt-3 space-y-2 text-sm text-slate-600 list-disc list-inside">
-                {job.benefits.map((benefit, idx) => (
+                {(job.benefits || []).map((benefit, idx) => (
                   <li key={idx} className="leading-relaxed">
                     {benefit}
                   </li>

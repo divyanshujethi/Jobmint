@@ -37,14 +37,15 @@ function slugify(text: string): string {
  * Backed by read-through Redis cache.
  */
 export async function getLiveJobs(
-  limitOrOptions: number | { limit?: number; jobType?: string } = 3000
+  limitOrOptions: number | { limit?: number; jobType?: string; includeDetails?: boolean } = 3000
 ): Promise<MockJob[]> {
   const limit = typeof limitOrOptions === "number" ? limitOrOptions : (limitOrOptions?.limit ?? 3000);
   const targetType =
     typeof limitOrOptions === "object" && limitOrOptions?.jobType && limitOrOptions.jobType !== "ALL"
-      ? limitOrOptions.jobType
+      ? limitOrOptions.jobType.toUpperCase()
       : "ALL";
-  const cacheKey = `${JOBS_CACHE_KEY}:${targetType}:${limit}`;
+  const includeDetails = typeof limitOrOptions === "object" ? !!limitOrOptions.includeDetails : false;
+  const cacheKey = `${JOBS_CACHE_KEY}:${targetType}:${limit}:${includeDetails ? "full" : "lean"}`;
 
   try {
     // 1. Read-Through Redis Cache Check (<5ms response)
@@ -160,7 +161,7 @@ export async function getLiveJobs(
       }
       const logoAvatarColor = LOGO_COLORS[Math.abs(nameHash) % LOGO_COLORS.length];
 
-      return {
+      const baseJob: MockJob = {
         id: j.id,
         slug: j.slug,
         title: j.title,
@@ -181,6 +182,147 @@ export async function getLiveJobs(
         experienceYears: j.experienceYears ?? 0,
         skills: skillData.names,
         skillSlugs: skillData.slugs,
+        source: (j.source as any) || JobSource.DIRECT,
+        sourceUrl: j.sourceUrl || undefined,
+        postedAgo: formatTimeAgo(j.createdAt),
+        postedAt: j.createdAt.toISOString(),
+        truthTeller: {
+          isExternal,
+          channel: isExternal ? (j.source || "OFFICIAL_CAREERS") : "DIRECT_ROLENEST",
+          totalApplications: totalApps,
+          reviewedApplications: reviewedApps,
+          reviewRate,
+          medianFirstReviewDays: medianDays,
+          lastRecruiterActivity: isExternal
+            ? "Verified Direct Career Portal"
+            : totalApps > 0
+              ? `Active recently`
+              : "Direct Role Nest Application",
+        },
+      };
+
+      if (includeDetails) {
+        baseJob.description = j.description;
+        baseJob.responsibilities = [
+          "Design, develop, and deliver high-impact production features.",
+          "Collaborate directly with cross-functional engineering and product mentors.",
+          "Write maintainable, well-documented, and tested code.",
+        ];
+        baseJob.requirements = j.requirements ? j.requirements.split(". ").filter(Boolean) : [
+          "Solid problem-solving foundation",
+          "Proficiency in required tech stack",
+          "Git workflow"
+        ];
+        baseJob.benefits = j.benefits ? j.benefits.split(", ").filter(Boolean) : [
+          "Competitive compensation & performance bonuses",
+          "Premium health and wellness insurance",
+          "Modern development hardware allowance"
+        ];
+      }
+
+      return baseJob;
+    });
+
+    // 4. Cache in Redis with 60-second TTL
+    if (formattedJobs.length > 0) {
+      await setCache(cacheKey, formattedJobs, JOBS_CACHE_TTL_SECONDS);
+    }
+
+    return formattedJobs;
+  } catch (err) {
+    console.error("getLiveJobs database fetch error, falling back to mock jobs:", err);
+    return MOCK_JOBS;
+  }
+}
+
+export async function getLiveJobBySlug(slug: string): Promise<MockJob | null> {
+  try {
+    const rawJobs = await db
+      .select({
+        id: jobs.id,
+        slug: jobs.slug,
+        title: jobs.title,
+        jobType: jobs.jobType,
+        workMode: jobs.workMode,
+        location: jobs.location,
+        salaryOrStipend: jobs.salaryOrStipend,
+        minSalary: jobs.minSalary,
+        maxSalary: jobs.maxSalary,
+        experienceYears: jobs.experienceYears,
+        description: jobs.description,
+        requirements: jobs.requirements,
+        benefits: jobs.benefits,
+        source: jobs.source,
+        sourceUrl: jobs.sourceUrl,
+        isFeatured: jobs.isFeatured,
+        createdAt: jobs.createdAt,
+        companyName: companies.name,
+        companySlug: companies.slug,
+        companyLogoUrl: companies.logoUrl,
+        companyWebsite: companies.website,
+        companyDomain: companies.domain,
+        isVerified: companies.isVerified,
+        totalApplications: companies.totalApplications,
+        reviewedApplications: companies.reviewedApplications,
+        medianFirstReviewDays: companies.medianFirstReviewDays,
+        lastActiveAt: companies.lastActiveAt,
+      })
+      .from(jobs)
+      .innerJoin(companies, eq(jobs.companyId, companies.id))
+      .where(and(eq(jobs.slug, slug), eq(jobs.isActive, true)))
+      .limit(1);
+
+    if (rawJobs && rawJobs.length > 0) {
+      const j = rawJobs[0];
+      const chunkSkills = await db
+        .select({
+          skillName: skills.name,
+          skillSlug: skills.slug,
+        })
+        .from(jobSkills)
+        .innerJoin(skills, eq(jobSkills.skillId, skills.id))
+        .where(eq(jobSkills.jobId, j.id));
+
+      const isExternal = Boolean(j.sourceUrl);
+      const totalApps = parseInt(j.totalApplications || "0", 10);
+      const reviewedApps = parseInt(j.reviewedApplications || "0", 10);
+      const reviewRate = totalApps > 0 ? Math.round((reviewedApps / totalApps) * 100) : 0;
+      const medianDays = parseFloat(j.medianFirstReviewDays || "0") || 0;
+
+      let resolvedLogo = j.companyLogoUrl;
+      if (!resolvedLogo) {
+        let domain = j.companyDomain;
+        if (!domain && j.companyWebsite) {
+          try {
+            domain = new URL(j.companyWebsite).hostname.replace(/^www\./, "");
+          } catch {}
+        }
+        if (domain) {
+          resolvedLogo = `https://www.google.com/s2/favicons?domain=${domain}&sz=128`;
+        }
+      }
+
+      return {
+        id: j.id,
+        slug: j.slug,
+        title: j.title,
+        companyName: j.companyName,
+        companySlug: j.companySlug,
+        companyLogoUrl: resolvedLogo || undefined,
+        companyWebsite: j.companyWebsite || undefined,
+        companyLogoInitial: j.companyName.charAt(0).toUpperCase(),
+        companyLogoColor: "#10b981",
+        isVerified: j.isVerified,
+        isFeatured: j.isFeatured,
+        location: j.location,
+        workMode: (j.workMode as WorkMode) || WorkMode.REMOTE,
+        jobType: (j.jobType as JobType) || JobType.FULL_TIME,
+        salaryOrStipend: j.salaryOrStipend,
+        minSalary: j.minSalary ?? undefined,
+        maxSalary: j.maxSalary ?? undefined,
+        experienceYears: j.experienceYears ?? 0,
+        skills: chunkSkills.map((s) => s.skillName),
+        skillSlugs: chunkSkills.map((s) => s.skillSlug),
         description: j.description,
         responsibilities: [
           "Design, develop, and deliver high-impact production features.",
@@ -215,24 +357,11 @@ export async function getLiveJobs(
               : "Direct Role Nest Application",
         },
       };
-    });
-
-    // 4. Cache in Redis with 60-second TTL
-    if (formattedJobs.length > 0) {
-      await setCache(cacheKey, formattedJobs, JOBS_CACHE_TTL_SECONDS);
-      if (targetType === "ALL") {
-        await setCache(JOBS_CACHE_KEY, formattedJobs, JOBS_CACHE_TTL_SECONDS);
-      }
     }
-
-    return formattedJobs;
   } catch (err) {
-    console.error("getLiveJobs database fetch error, falling back to mock jobs:", err);
-    return MOCK_JOBS;
+    console.error("getLiveJobBySlug error:", err);
   }
-}
 
-export async function getLiveJobBySlug(slug: string): Promise<MockJob | null> {
-  const all = await getLiveJobs();
-  return all.find((j) => j.slug === slug) || null;
+  // Fallback check
+  return MOCK_JOBS.find((j) => j.slug === slug) || null;
 }

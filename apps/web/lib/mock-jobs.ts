@@ -21,10 +21,10 @@ export interface MockJob {
   experienceYears: number; // 0 for fresher
   skills: string[]; // canonical skill names
   skillSlugs: string[];
-  description: string;
-  responsibilities: string[];
-  requirements: string[];
-  benefits: string[];
+  description?: string;
+  responsibilities?: string[];
+  requirements?: string[];
+  benefits?: string[];
   source: (typeof JobSource)[keyof typeof JobSource];
   sourceUrl?: string;
   postedAgo: string;
