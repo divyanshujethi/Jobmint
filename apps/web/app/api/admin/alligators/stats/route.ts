@@ -23,15 +23,34 @@ export async function GET() {
     }
 
     // 1. Query real job counts
-    const [totalJobsRes, activeJobsRes, internshipsRes] = await Promise.all([
+    const [
+      totalJobsRes,
+      activeJobsRes,
+      internshipsRes,
+      internshalaRes,
+      naukriRes,
+      linkedinRes,
+      founditRes,
+      atsRes,
+    ] = await Promise.all([
       db.select({ count: sql<number>`count(*)` }).from(jobs),
       db.select({ count: sql<number>`count(*)` }).from(jobs).where(eq(jobs.isActive, true)),
       db.select({ count: sql<number>`count(*)` }).from(jobs).where(eq(jobs.jobType, "INTERNSHIP")),
+      db.select({ count: sql<number>`count(*)` }).from(jobs).where(sql`${jobs.externalJobId} LIKE 'internshala-%'`),
+      db.select({ count: sql<number>`count(*)` }).from(jobs).where(sql`${jobs.externalJobId} LIKE 'naukri-%'`),
+      db.select({ count: sql<number>`count(*)` }).from(jobs).where(sql`${jobs.externalJobId} LIKE 'linkedin-%'`),
+      db.select({ count: sql<number>`count(*)` }).from(jobs).where(sql`${jobs.externalJobId} LIKE 'foundit-%'`),
+      db.select({ count: sql<number>`count(*)` }).from(jobs).where(sql`${jobs.externalJobId} LIKE 'gh-%' OR ${jobs.externalJobId} LIKE 'lever-%' OR ${jobs.externalJobId} LIKE 'sr-%'`),
     ]);
 
     const totalJobs = Number(totalJobsRes[0]?.count || 0);
     const activeJobs = Number(activeJobsRes[0]?.count || 0);
     const totalInternships = Number(internshipsRes[0]?.count || 0);
+    const internshalaCount = Number(internshalaRes[0]?.count || 0);
+    const naukriCount = Number(naukriRes[0]?.count || 0);
+    const linkedinCount = Number(linkedinRes[0]?.count || 0);
+    const founditCount = Number(founditRes[0]?.count || 0);
+    const atsCount = Number(atsRes[0]?.count || 0);
 
     // 2. Query real companies
     const [totalCompaniesRes, verifiedCompaniesRes] = await Promise.all([
@@ -75,6 +94,22 @@ export async function GET() {
     // 4. Calculate rejected ghost jobs (unverified / inactive / dropped by truth filter)
     const ghostJobsBlocked = Math.max(0, totalJobs - activeJobs);
 
+    // 5. Query genuine recent companies for the Verification Queue
+    const recentCompanies = await db
+      .select({
+        id: companies.id,
+        name: companies.name,
+        domain: companies.domain,
+        website: companies.website,
+        corporateEmail: companies.corporateEmail,
+        isVerified: companies.isVerified,
+        verificationMethod: companies.verificationMethod,
+        createdAt: companies.createdAt,
+      })
+      .from(companies)
+      .orderBy(desc(companies.createdAt))
+      .limit(10);
+
     return NextResponse.json({
       success: true,
       stats: {
@@ -82,8 +117,14 @@ export async function GET() {
         accepted: activeJobs,
         rejectedGhostJobs: ghostJobsBlocked,
         totalInternships,
+        internshalaCount,
+        naukriCount,
+        linkedinCount,
+        founditCount,
+        atsCount,
         totalCompanies,
         verifiedCompanies,
+        recentCompanies,
         topDemandedSkills: finalSkills,
         lastCrawlTimestamp: "Live PostgreSQL",
       },
