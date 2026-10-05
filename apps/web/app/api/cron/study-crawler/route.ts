@@ -15,7 +15,7 @@ export async function GET(request: Request): Promise<NextResponse> {
   try {
     const { searchParams } = new URL(request.url);
     const authHeader = request.headers.get("authorization");
-    const secretParam = searchParams.get("secret");
+    const secretParam = searchParams.get("secret") || searchParams.get("key");
 
     const validSecret = process.env.CRON_SECRET || "india-truth-cron-secret-2026";
     const isAuthorized =
