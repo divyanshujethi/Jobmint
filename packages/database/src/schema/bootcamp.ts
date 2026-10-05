@@ -1,71 +1,86 @@
-import { pgTable, text, timestamp, integer, boolean } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, integer, boolean, index } from "drizzle-orm/pg-core";
 import { users } from "./auth";
 
-export const bootcampEnrollments = pgTable("bootcamp_enrollments", {
-  id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
-  userId: text("user_id")
-    .notNull()
-    .references(() => users.id, { onDelete: "cascade" }),
-  trackId: text("track_id").notNull(),
-  studentName: text("student_name").notNull(),
-  studentEmail: text("student_email").notNull(),
-  studentPhone: text("student_phone"),
-  collegeName: text("college_name").notNull(),
-  degreeBranch: text("degree_branch").notNull(),
-  rollNumber: text("roll_number").notNull(),
-  nocAddressee: text("noc_addressee"),
-  semesterYear: text("semester_year"),
-  githubUsername: text("github_username"),
-  status: text("status").notNull().default("ACTIVE"),
-  offerLetterId: text("offer_letter_id").notNull().unique(),
-  nocLetterId: text("noc_letter_id").notNull().unique(),
-  currentDay: integer("current_day").notNull().default(1),
-  unlockedDay: integer("unlocked_day").notNull().default(1),
-  
-  // Open Source Contribution (target: https://github.com/RitualDev-Lab/DevShelf)
-  githubForkUrl: text("github_fork_url"),
-  osContributionPrUrl: text("os_contribution_pr_url"),
-  osContributionStatus: text("os_contribution_status").notNull().default("NOT_STARTED"),
-  
-  // Final Capstone & Certificate
-  capstoneRepoUrl: text("capstone_repo_url"),
-  certificateId: text("certificate_id"),
-  finalGrade: text("final_grade"),
-  finalScore: integer("final_score"),
+export const bootcampEnrollments = pgTable(
+  "bootcamp_enrollments",
+  {
+    id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
+    userId: text("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    trackId: text("track_id").notNull(),
+    studentName: text("student_name").notNull(),
+    studentEmail: text("student_email").notNull(),
+    studentPhone: text("student_phone"),
+    collegeName: text("college_name").notNull(),
+    degreeBranch: text("degree_branch").notNull(),
+    rollNumber: text("roll_number").notNull(),
+    nocAddressee: text("noc_addressee"),
+    semesterYear: text("semester_year"),
+    githubUsername: text("github_username"),
+    status: text("status").notNull().default("ACTIVE"),
+    offerLetterId: text("offer_letter_id").notNull().unique(),
+    nocLetterId: text("noc_letter_id").notNull().unique(),
+    currentDay: integer("current_day").notNull().default(1),
+    unlockedDay: integer("unlocked_day").notNull().default(1),
+    
+    // Open Source Contribution (target: https://github.com/RitualDev-Lab/DevShelf)
+    githubForkUrl: text("github_fork_url"),
+    osContributionPrUrl: text("os_contribution_pr_url"),
+    osContributionStatus: text("os_contribution_status").notNull().default("NOT_STARTED"),
+    
+    // Final Capstone & Certificate
+    capstoneRepoUrl: text("capstone_repo_url"),
+    certificateId: text("certificate_id"),
+    finalGrade: text("final_grade"),
+    finalScore: integer("final_score"),
 
-  // Payment details
-  paymentOrderId: text("payment_order_id"),
-  paymentStatus: text("payment_status").notNull().default("PAID"),
-  amountPaid: integer("amount_paid").notNull().default(499),
+    // Payment details
+    paymentOrderId: text("payment_order_id"),
+    paymentStatus: text("payment_status").notNull().default("PAID"),
+    amountPaid: integer("amount_paid").notNull().default(499),
 
-  enrolledAt: timestamp("enrolled_at", { withTimezone: true, mode: "date" }).defaultNow().notNull(),
-  updatedAt: timestamp("updated_at", { withTimezone: true, mode: "date" }).defaultNow().notNull(),
-});
+    enrolledAt: timestamp("enrolled_at", { withTimezone: true, mode: "date" }).defaultNow().notNull(),
+    updatedAt: timestamp("updated_at", { withTimezone: true, mode: "date" }).defaultNow().notNull(),
+  },
+  (table) => [
+    index("idx_bootcamp_enrollments_user_id").on(table.userId),
+    index("idx_bootcamp_enrollments_track_id").on(table.trackId),
+    index("idx_bootcamp_enrollments_status").on(table.status),
+  ]
+);
 
-export const bootcampDailySubmissions = pgTable("bootcamp_daily_submissions", {
-  id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
-  enrollmentId: text("enrollment_id")
-    .notNull()
-    .references(() => bootcampEnrollments.id, { onDelete: "cascade" }),
-  userId: text("user_id")
-    .notNull()
-    .references(() => users.id, { onDelete: "cascade" }),
-  trackId: text("track_id").notNull(),
-  dayNumber: integer("day_number").notNull(),
-  dayTitle: text("day_title").notNull(),
-  
-  // Submission proof in git repo
-  githubCommitUrl: text("github_commit_url").notNull(),
-  assignmentNotes: text("assignment_notes"),
-  codeSnippet: text("code_snippet"),
-  passedCodeChallenge: boolean("passed_code_challenge").default(false),
+export const bootcampDailySubmissions = pgTable(
+  "bootcamp_daily_submissions",
+  {
+    id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
+    enrollmentId: text("enrollment_id")
+      .notNull()
+      .references(() => bootcampEnrollments.id, { onDelete: "cascade" }),
+    userId: text("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    trackId: text("track_id").notNull(),
+    dayNumber: integer("day_number").notNull(),
+    dayTitle: text("day_title").notNull(),
+    
+    // Submission proof in git repo
+    githubCommitUrl: text("github_commit_url").notNull(),
+    assignmentNotes: text("assignment_notes"),
+    codeSnippet: text("code_snippet"),
+    passedCodeChallenge: boolean("passed_code_challenge").default(false),
 
-  status: text("status").notNull().default("SUBMITTED"),
-  mentorFeedback: text("mentor_feedback"),
+    status: text("status").notNull().default("SUBMITTED"),
+    mentorFeedback: text("mentor_feedback"),
 
-  submittedAt: timestamp("submitted_at", { withTimezone: true, mode: "date" }).defaultNow().notNull(),
-  updatedAt: timestamp("updated_at", { withTimezone: true, mode: "date" }).defaultNow().notNull(),
-});
+    submittedAt: timestamp("submitted_at", { withTimezone: true, mode: "date" }).defaultNow().notNull(),
+    updatedAt: timestamp("updated_at", { withTimezone: true, mode: "date" }).defaultNow().notNull(),
+  },
+  (table) => [
+    index("idx_bootcamp_submissions_enrollment_id").on(table.enrollmentId),
+    index("idx_bootcamp_submissions_user_track").on(table.userId, table.trackId),
+  ]
+);
 
 export const bootcampTrackSettings = pgTable("bootcamp_track_settings", {
   trackId: text("track_id").primaryKey(),
@@ -79,17 +94,23 @@ export const bootcampTrackSettings = pgTable("bootcamp_track_settings", {
   updatedAt: timestamp("updated_at", { withTimezone: true, mode: "date" }).defaultNow().notNull(),
 });
 
-export const bootcampWaitlist = pgTable("bootcamp_waitlist", {
-  id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
-  trackId: text("track_id").notNull(),
-  trackTitle: text("track_title"),
-  name: text("name").notNull(),
-  email: text("email").notNull(),
-  phone: text("phone"),
-  college: text("college"),
-  degreeBranch: text("degree_branch"),
-  notes: text("notes"),
-  notified: boolean("notified").default(false),
-  createdAt: timestamp("created_at", { withTimezone: true, mode: "date" }).defaultNow().notNull(),
-});
+export const bootcampWaitlist = pgTable(
+  "bootcamp_waitlist",
+  {
+    id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
+    trackId: text("track_id").notNull(),
+    trackTitle: text("track_title"),
+    name: text("name").notNull(),
+    email: text("email").notNull(),
+    phone: text("phone"),
+    college: text("college"),
+    degreeBranch: text("degree_branch"),
+    notes: text("notes"),
+    notified: boolean("notified").default(false),
+    createdAt: timestamp("created_at", { withTimezone: true, mode: "date" }).defaultNow().notNull(),
+  },
+  (table) => [
+    index("idx_bootcamp_waitlist_track_id").on(table.trackId),
+  ]
+);
 

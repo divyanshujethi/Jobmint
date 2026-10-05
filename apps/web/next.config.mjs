@@ -59,7 +59,7 @@ const nextConfig = {
             key: "Content-Security-Policy",
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://cdn.jsdelivr.net https://sdk.cashfree.com https://challenges.cloudflare.com",
+              "script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://sdk.cashfree.com https://challenges.cloudflare.com",
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "img-src 'self' data: blob: https: https://avatars.githubusercontent.com https://images.unsplash.com https://lh3.googleusercontent.com https://rolenest.in https://www.google.com https://*.cashfree.com https://cashfreelogo.cashfree.com",
               "font-src 'self' https://fonts.gstatic.com data:",

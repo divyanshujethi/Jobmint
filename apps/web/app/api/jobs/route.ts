@@ -1,9 +1,34 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getLiveJobs, JOBS_CACHE_KEY } from '@/lib/db-jobs';
 import { getCache } from '@/lib/redis';
+import { checkRateLimit } from '@/lib/rate-limit';
 
 export async function GET(req: NextRequest) {
   try {
+    // Rate limit: 120 requests per minute per IP for public jobs feed
+    const rateLimit = await checkRateLimit(req, {
+      maxRequests: 120,
+      windowSeconds: 60,
+      prefix: "rl:jobs",
+    });
+
+    if (!rateLimit.allowed) {
+      return NextResponse.json(
+        {
+          error: "Too Many Requests",
+          message: "You have exceeded the rate limit. Please try again shortly.",
+        },
+        {
+          status: 429,
+          headers: {
+            "Retry-After": String(rateLimit.resetInSeconds),
+            "X-RateLimit-Limit": String(rateLimit.limit),
+            "X-RateLimit-Remaining": String(rateLimit.remaining),
+            "X-RateLimit-Reset": String(rateLimit.resetInSeconds),
+          },
+        }
+      );
+    }
     const { searchParams } = new URL(req.url);
     const q = searchParams.get('q') || '';
     const rawType = searchParams.get('type') || 'ALL';
