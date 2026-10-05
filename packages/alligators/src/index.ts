@@ -13,6 +13,8 @@ import { fetchApifyDataset } from './job-alligator/apify-crawler';
 
 import { crawlViaSearchDorking } from './job-alligator/search-dorker';
 import { siphonSitemaps } from './job-alligator/sitemap-siphoner';
+import { crawlAdzunaIndia } from './job-alligator/adzuna-crawler';
+import { crawlJoobleIndia } from './job-alligator/jooble-crawler';
 
 export * from './types';
 export * from './job-alligator/skill-extractor';
@@ -26,6 +28,8 @@ export * from './job-alligator/jobspipe-crawler';
 export * from './job-alligator/remotive-crawler';
 export * from './job-alligator/remoteok-crawler';
 export * from './job-alligator/apify-crawler';
+export * from './job-alligator/adzuna-crawler';
+export * from './job-alligator/jooble-crawler';
 export * from './job-alligator/search-dorker';
 export * from './job-alligator/sitemap-siphoner';
 export * from './job-alligator/github-internships';
@@ -39,8 +43,9 @@ export * from './study-alligator/canvas-binder';
 /**
  * Master Runner for Job Alligator:
  * Aggregates verified tech positions from Indian Unicorns (Greenhouse/Lever/Ashby),
- * JobsPipe (India & Remote), Global Remote opportunities (Himalayas, Remotive, RemoteOK),
- * Search Engine Dorking (DuckDuckGo), Deep Sitemap.xml Siphoning, autonomous startup discovery, and tech internships.
+ * Adzuna India (100k+ IT roles), Jooble India, JobsPipe (India & Remote),
+ * Global Remote opportunities (Himalayas, Remotive, RemoteOK), Search Engine Dorking,
+ * Deep Sitemap Siphoning, and tech internships.
  * Filtered via the 3-Layer Geo-Exclusion Engine.
  */
 export async function runJobAlligator(options?: {
@@ -48,14 +53,18 @@ export async function runJobAlligator(options?: {
   newGradLimit?: number;
   maxPerCompany?: number;
   enableDiscovery?: boolean;
+  adzunaPages?: number;
 }) {
   const startTime = Date.now();
   const internshipLimit = options?.internshipLimit ?? 30;
   const newGradLimit = options?.newGradLimit ?? 30;
   const maxPerCompany = options?.maxPerCompany ?? 20;
   const enableDiscovery = options?.enableDiscovery ?? false;
+  const adzunaPages = options?.adzunaPages ?? 4;
 
   const [
+    adzunaJobs,
+    joobleJobs,
     indiaJobs,
     jobsPipeJobs,
     ashbyJobs,
@@ -69,6 +78,14 @@ export async function runJobAlligator(options?: {
     gitlabJobs,
     canonicalJobs,
   ] = await Promise.all([
+    crawlAdzunaIndia({ pages: adzunaPages, resultsPerPage: 50 }).catch((err) => {
+      console.error("[Job Alligator] Adzuna crawler failed:", err);
+      return [];
+    }),
+    crawlJoobleIndia().catch((err) => {
+      console.error("[Job Alligator] Jooble crawler failed:", err);
+      return [];
+    }),
     crawlIndiaTechBoards({ maxPerCompany, enableDiscovery }).catch((err) => {
       console.error("[Job Alligator] India crawler failed:", err);
       return [];
@@ -90,6 +107,8 @@ export async function runJobAlligator(options?: {
   ]);
 
   const allJobs = [
+    ...adzunaJobs,
+    ...joobleJobs,
     ...indiaJobs,
     ...jobsPipeJobs,
     ...ashbyJobs,
