@@ -1,4 +1,4 @@
-import { db, jobs, companies, jobSkills, skills, eq, desc } from "@repo/database";
+import { db, jobs, companies, jobSkills, skills, eq, desc, inArray } from "@repo/database";
 import { MockJob, MOCK_JOBS } from "./mock-jobs";
 import { JobType, WorkMode, JobSource } from "@repo/shared";
 import { getCache, setCache, delCache } from "./redis";
@@ -35,7 +35,7 @@ function slugify(text: string): string {
  * Returns genuine, crawled tech jobs and internships directly from PostgreSQL.
  * Backed by read-through Redis cache.
  */
-export async function getLiveJobs(): Promise<MockJob[]> {
+export async function getLiveJobs(limit = 2000): Promise<MockJob[]> {
   try {
     // 1. Read-Through Redis Cache Check (<5ms response)
     const cachedJobs = await getCache<MockJob[]>(JOBS_CACHE_KEY);
@@ -77,7 +77,8 @@ export async function getLiveJobs(): Promise<MockJob[]> {
       .from(jobs)
       .innerJoin(companies, eq(jobs.companyId, companies.id))
       .where(eq(jobs.isActive, true))
-      .orderBy(desc(jobs.isFeatured), desc(jobs.createdAt));
+      .orderBy(desc(jobs.isFeatured), desc(jobs.createdAt))
+      .limit(limit);
 
     const allRawJobs = rawJobs || [];
 
@@ -85,24 +86,30 @@ export async function getLiveJobs(): Promise<MockJob[]> {
       return MOCK_JOBS;
     }
 
-    // 3. Fetch associated skills
-    const allJobSkills = await db
-      .select({
-        jobId: jobSkills.jobId,
-        skillName: skills.name,
-        skillSlug: skills.slug,
-      })
-      .from(jobSkills)
-      .innerJoin(skills, eq(jobSkills.skillId, skills.id));
-
+    // 3. Fetch associated skills for the returned jobs only
+    const jobIds = allRawJobs.map((j) => j.id);
     const skillsByJobId = new Map<string, { names: string[]; slugs: string[] }>();
-    for (const js of allJobSkills) {
-      if (!skillsByJobId.has(js.jobId)) {
-        skillsByJobId.set(js.jobId, { names: [], slugs: [] });
+
+    for (let i = 0; i < jobIds.length; i += 500) {
+      const chunk = jobIds.slice(i, i + 500);
+      const chunkSkills = await db
+        .select({
+          jobId: jobSkills.jobId,
+          skillName: skills.name,
+          skillSlug: skills.slug,
+        })
+        .from(jobSkills)
+        .innerJoin(skills, eq(jobSkills.skillId, skills.id))
+        .where(inArray(jobSkills.jobId, chunk));
+
+      for (const js of chunkSkills) {
+        if (!skillsByJobId.has(js.jobId)) {
+          skillsByJobId.set(js.jobId, { names: [], slugs: [] });
+        }
+        const item = skillsByJobId.get(js.jobId)!;
+        item.names.push(js.skillName);
+        item.slugs.push(js.skillSlug);
       }
-      const item = skillsByJobId.get(js.jobId)!;
-      item.names.push(js.skillName);
-      item.slugs.push(js.skillSlug);
     }
 
     const LOGO_COLORS = [

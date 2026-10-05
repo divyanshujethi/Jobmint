@@ -212,12 +212,13 @@ async function getOrCreateCompany(client, companyName, location) {
 
   const newId = crypto.randomUUID();
   try {
+    const website = `https://${compSlug}.com`;
     await client.query(
-      `INSERT INTO companies (id, name, slug, domain, description, location, industry, is_verified, total_applications, reviewed_applications, median_first_review_days, last_active_at)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, true, '0', '0', '2.0', NOW())
+      `INSERT INTO companies (id, name, slug, website, domain, description, location, industry, is_verified, total_applications, reviewed_applications, median_first_review_days, last_active_at)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, true, '0', '0', '2.0', NOW())
        ON CONFLICT (slug) DO UPDATE SET last_active_at = NOW()
        RETURNING id`,
-      [newId, cleanName, compSlug, `${compSlug}.com`, "Verified technology employer hiring on RoleNest network.", location || "India", "Technology"]
+      [newId, cleanName, compSlug, website, `${compSlug}.com`, "Verified technology employer hiring on RoleNest network.", location || "India", "Technology"]
     );
     companyCache.set(compSlug, newId);
     return newId;
@@ -284,7 +285,7 @@ async function batchInsertJobs(client, jobList) {
         else updated++;
       }
     } catch (e) {
-      // Ignore individual collision errors
+      console.error("Job insert failed:", e.message);
     }
   }
 
@@ -363,6 +364,121 @@ async function runFounditStage(client, startSitemap = 0, count = 11, perSitemapL
 }
 
 /**
+ * STAGE 2: Adzuna India Developer API
+ */
+async function runAdzunaStage(client, keywords = ["software developer", "full stack", "frontend", "backend", "data engineer", "devops", "python", "react", "machine learning"], maxPages = 10) {
+  console.log(`\n🚀 [Adzuna Stage] Crawling Adzuna India Developer API across ${keywords.length} technical domains...`);
+  let inserted = 0;
+  let updated = 0;
+
+  for (const kw of keywords) {
+    for (let page = 1; page <= maxPages; page++) {
+      try {
+        const url = `https://api.adzuna.com/v1/api/jobs/in/search/${page}?app_id=${ADZUNA_APP_ID}&app_key=${ADZUNA_APP_KEY}&results_per_page=50&what=${encodeURIComponent(kw)}`;
+        const json = await new Promise((resolve, reject) => {
+          https.get(url, { headers: { "User-Agent": "Mozilla/5.0" }, timeout: 10000 }, (res) => {
+            if (res.statusCode !== 200) return resolve(null);
+            let data = "";
+            res.on("data", (d) => data += d);
+            res.on("end", () => {
+              try { resolve(JSON.parse(data)); } catch (e) { resolve(null); }
+            });
+          }).on("error", reject);
+        });
+
+        if (!json || !json.results || json.results.length === 0) break;
+
+        const batch = json.results.map((j) => ({
+          title: j.title ? j.title.replace(/<\/?[^>]+(>|$)/g, "") : kw,
+          companyName: j.company?.display_name || "Verified Enterprise",
+          location: j.location?.display_name || "India",
+          sourceUrl: j.redirect_url ? j.redirect_url.split("?")[0] : "",
+          externalId: `adzuna-${j.id}`,
+          jobType: "FULL_TIME",
+          workMode: "ON_SITE",
+          salaryOrStipend: j.salary_min && j.salary_max ? `₹${Math.round(j.salary_min / 100000)}L - ₹${Math.round(j.salary_max / 100000)}L PA` : "Competitive (Industry Standard)",
+          experienceYears: 2,
+          description: j.description ? j.description.replace(/<\/?[^>]+(>|$)/g, "") : `${j.title} at ${j.company?.display_name}`,
+        })).filter(j => j.sourceUrl);
+
+        const stats = await batchInsertJobs(client, batch);
+        inserted += stats.inserted;
+        updated += stats.updated;
+        process.stdout.write(`   [Adzuna ${kw} p.${page}: +${inserted} new, ~${updated} refreshed]\r`);
+      } catch (e) {
+        break;
+      }
+    }
+  }
+
+  console.log(`\n   ✅ Adzuna Stage complete: +${inserted} new, ~${updated} refreshed.`);
+  return { inserted, updated };
+}
+
+/**
+ * STAGE 3: Jooble India API
+ */
+async function runJoobleStage(client, keywords = ["software developer", "react developer", "backend engineer", "python developer"], maxPages = 5) {
+  console.log(`\n🚀 [Jooble Stage] Crawling Jooble India API...`);
+  let inserted = 0;
+  let updated = 0;
+
+  for (const kw of keywords) {
+    for (let page = 1; page <= maxPages; page++) {
+      try {
+        const body = JSON.stringify({ keywords: kw, location: "India", page });
+        const json = await new Promise((resolve, reject) => {
+          const req = https.request(`https://jooble.org/api/${JOOBLE_API_KEY}`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Content-Length": Buffer.byteLength(body),
+              "User-Agent": "Mozilla/5.0",
+            },
+            timeout: 10000,
+          }, (res) => {
+            if (res.statusCode !== 200) return resolve(null);
+            let data = "";
+            res.on("data", (d) => data += d);
+            res.on("end", () => {
+              try { resolve(JSON.parse(data)); } catch (e) { resolve(null); }
+            });
+          });
+          req.on("error", reject);
+          req.write(body);
+          req.end();
+        });
+
+        if (!json || !json.jobs || json.jobs.length === 0) break;
+
+        const batch = json.jobs.map((j) => ({
+          title: j.title ? j.title.replace(/<\/?[^>]+(>|$)/g, "") : kw,
+          companyName: j.company || "Verified Employer",
+          location: j.location || "India",
+          sourceUrl: j.link ? j.link.split("?")[0] : "",
+          externalId: `jooble-${j.id || slugify(j.title).slice(0, 20)}`,
+          jobType: "FULL_TIME",
+          workMode: "ON_SITE",
+          salaryOrStipend: j.salary || "Competitive (Industry Standard)",
+          experienceYears: 2,
+          description: j.snippet ? j.snippet.replace(/<\/?[^>]+(>|$)/g, "") : `${j.title} at ${j.company}`,
+        })).filter(j => j.sourceUrl);
+
+        const stats = await batchInsertJobs(client, batch);
+        inserted += stats.inserted;
+        updated += stats.updated;
+        process.stdout.write(`   [Jooble ${kw} p.${page}: +${inserted} new, ~${updated} refreshed]\r`);
+      } catch (e) {
+        break;
+      }
+    }
+  }
+
+  console.log(`\n   ✅ Jooble Stage complete: +${inserted} new, ~${updated} refreshed.`);
+  return { inserted, updated };
+}
+
+/**
  * Main Execution Loop
  */
 async function main() {
@@ -375,22 +491,44 @@ async function main() {
     const preCount = await client.query("SELECT count(*) as total, count(*) FILTER (WHERE is_active = true) as active FROM jobs");
     console.log(`📊 Current DB Stats: Total: ${preCount.rows[0].total}, Active: ${preCount.rows[0].active}`);
 
-    // Run Foundit Stage (Sitemaps 0 through 10)
+    // Stage 1: Foundit Sitemaps (0 through 10)
     const founditStats = await runFounditStage(client, 0, 11, 8000);
+
+    // Stage 2: Adzuna India Developer API
+    const adzunaStats = await runAdzunaStage(client);
+
+    // Stage 3: Jooble India API
+    const joobleStats = await runJoobleStage(client);
+
+    const totalAdded = founditStats.inserted + adzunaStats.inserted + joobleStats.inserted;
+    const totalRefreshed = founditStats.updated + adzunaStats.updated + joobleStats.updated;
 
     const postCount = await client.query("SELECT count(*) as total, count(*) FILTER (WHERE is_active = true) as active FROM jobs");
     console.log("\n🐊 ====================================================================");
     console.log(`🐊 BULK CRAWL CYCLE COMPLETE!`);
-    console.log(`🐊 Jobs Added: +${founditStats.inserted}, Jobs Refreshed: ~${founditStats.updated}`);
+    console.log(`🐊 Total Jobs Added: +${totalAdded}, Total Jobs Refreshed: ~${totalRefreshed}`);
     console.log(`🐊 Total in Database: ${postCount.rows[0].total} (Active: ${postCount.rows[0].active})`);
     console.log("🐊 ====================================================================");
   } finally {
     client.release();
-    await pool.end();
+    if (!process.argv.includes("--daemon")) {
+      await pool.end();
+    }
   }
 }
 
-main().catch((err) => {
-  console.error("Fatal Pipeline Failure:", err);
-  process.exit(1);
-});
+const isDaemon = process.argv.includes("--daemon");
+
+if (isDaemon) {
+  console.log("[Bulk Pipeline Daemon] Running in daemon mode. Initializing cycle every 6 hours.");
+  main().catch((err) => console.error("Initial crawl failed:", err));
+  setInterval(() => {
+    console.log(`\n[${new Date().toISOString()}] [Bulk Pipeline Daemon] Starting scheduled cycle...`);
+    main().catch((err) => console.error("Scheduled crawl cycle failed:", err));
+  }, 6 * 60 * 60 * 1000);
+} else {
+  main().catch((err) => {
+    console.error("Fatal Pipeline Failure:", err);
+    process.exit(1);
+  });
+}
