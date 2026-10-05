@@ -23,100 +23,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { CURATED_COURSES } from "@/lib/courses-data";
-
-interface VirtualInternshipProgram {
-  id: string;
-  company: string;
-  title: string;
-  provider: "Forage" | "Google" | "Cisco" | "Coursera" | "Microsoft" | "AWS";
-  category: "Software Engineering" | "Cloud & DevOps" | "Data & AI" | "Cybersecurity";
-  duration: string;
-  isFree: boolean;
-  hasCertificate: boolean;
-  url: string;
-  skills: string[];
-  tasks: string[];
-  description: string;
-}
-
-const INITIAL_PROGRAMS: VirtualInternshipProgram[] = [
-  {
-    id: "forage-walmart-swe",
-    company: "Walmart Global Tech",
-    title: "Advanced Software Engineering Virtual Experience",
-    provider: "Forage",
-    category: "Software Engineering",
-    duration: "4-5 hours",
-    isFree: true,
-    hasCertificate: true,
-    url: "https://www.theforage.com/simulations/walmart/advanced-software-engineering-9s4k",
-    skills: ["Java", "Data Structures", "Relational Database Design", "Processor Architecture"],
-    tasks: [
-      "Task 1: Advanced Data Structures (Heap implementation)",
-      "Task 2: Software Architecture & Relational Database Design",
-      "Task 3: Write performant inventory batch processing scripts",
-    ],
-    description: "Experience life as a Walmart software engineer. Build backend data structures and design scalable databases used in retail infrastructure.",
-  },
-  {
-    id: "forage-jpmorgan-swe",
-    company: "JPMorgan Chase & Co.",
-    title: "Software Engineering Virtual Experience Program",
-    provider: "Forage",
-    category: "Software Engineering",
-    duration: "5-6 hours",
-    isFree: true,
-    hasCertificate: true,
-    url: "https://www.theforage.com/simulations/jpmorgan/software-engineering-6s2m",
-    skills: ["Python", "TypeScript", "React", "Financial Data Streams"],
-    tasks: [
-      "Task 1: Interface with a stock price data feed",
-      "Task 2: Use JPMorgan Chase open source Perspective library",
-      "Task 3: Display real-time visual trader graphs",
-    ],
-    description: "Learn how developers build high-frequency financial visualization platforms using JPMorgan's open-source Perspective streaming engine.",
-  },
-  {
-    id: "google-cloud-computing-foundations",
-    company: "Google Cloud",
-    title: "Cloud Computing Foundations & Infrastructure",
-    provider: "Google",
-    category: "Cloud & DevOps",
-    duration: "8 hours (Self-paced)",
-    isFree: true,
-    hasCertificate: true,
-    url: "https://www.cloudskillsboost.google/paths/11",
-    skills: ["GCP", "Kubernetes", "IAM", "Cloud Storage", "BigQuery"],
-    tasks: [
-      "Deploy Compute Engine instances with secure VPC subnets",
-      "Configure Google Cloud Storage bucket IAM permissions",
-      "Deploy containerized microservices to Google Kubernetes Engine (GKE)",
-    ],
-    description: "Official Google Cloud Skills Boost curriculum. Earn official Google Cloud skill badges recognized across technical enterprises.",
-  },
-  {
-    id: "cisco-intro-cybersecurity",
-    company: "Cisco Networking Academy",
-    title: "Introduction to Cybersecurity & Threat Defense",
-    provider: "Cisco",
-    category: "Cybersecurity",
-    duration: "6 hours",
-    isFree: true,
-    hasCertificate: true,
-    url: "https://www.skillsforall.com/course/introduction-to-cybersecurity",
-    skills: ["Network Security", "Penetration Basics", "Threat Mitigation", "Cryptography"],
-    tasks: [
-      "Understand modern threat vectors (Malware, Phishing, Ransomware)",
-      "Configure basic firewall and authorization policies",
-      "Pass final Cisco Skills For All exam for verified digital badge",
-    ],
-    description: "Industry-standard introductory security certification course offered directly by Cisco Networking Academy.",
-  },
-];
+import {
+  VirtualInternshipProgram,
+  VERIFIED_VIRTUAL_INTERNSHIPS,
+} from "@/lib/virtual-internships-data";
 
 export default function CertificationsHubPage() {
   const [activeTab, setActiveTab] = useState<"ROLENEST" | "GLOBAL">("ROLENEST");
-  const [programs, setPrograms] = useState<VirtualInternshipProgram[]>(INITIAL_PROGRAMS);
+  const [programs, setPrograms] = useState<VirtualInternshipProgram[]>(VERIFIED_VIRTUAL_INTERNSHIPS);
   const [searchQuery, setSearchQuery] = useState("");
   const [isCrawling, setIsCrawling] = useState(false);
   const [crawlMessage, setCrawlMessage] = useState<string | null>(null);

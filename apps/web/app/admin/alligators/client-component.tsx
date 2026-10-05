@@ -87,6 +87,21 @@ export function AdminAlligatorsClient() {
       const data = await res.json();
       if (data.success && data.stats) {
         setJobStats(data.stats);
+        if (data.stats.studyStats) {
+          setStudyStats({
+            totalResources: data.stats.studyStats.totalPlaylists,
+            totalCanvasNodesMapped: data.stats.studyStats.totalCanvasNodes,
+            freeCourseCount: data.stats.studyStats.totalInteractiveTracks,
+            lastSyncTimestamp: "Live Database",
+          });
+        }
+        if (data.stats.certStats) {
+          setCertStats({
+            totalPrograms: data.stats.certStats.totalPrograms,
+            newDiscovered: 0,
+            lastSyncTimestamp: "Live Database",
+          });
+        }
       }
     } catch (err) {
       console.error("Error fetching alligator stats:", err);

@@ -482,6 +482,96 @@ export const ALL_INTERACTIVE_COURSES: InteractiveJobCourse[] = [
       deliverable: "Completed verification submission for RoleNest Govt Tech certificate."
     },
     days: SDE_FRESHER_COURSE.days
+  },
+  {
+    id: "devops-cloud-architect",
+    title: "Cloud Native & DevOps Engineer Track (30 Days)",
+    targetRole: "DevOps Engineer / Site Reliability Engineer (SRE)",
+    category: "DEVOPS",
+    iconEmoji: "☸️",
+    expectedSalary: "₹12 - ₹28 LPA",
+    difficulty: "Intermediate to Advanced",
+    targetCompanies: ["PhonePe", "Razorpay", "Jio", "Swiggy", "Postman", "Atlassian"],
+    skillsCovered: ["Linux", "Docker", "Kubernetes", "Terraform", "GitHub Actions", "Prometheus & Grafana", "AWS"],
+    overview: "End-to-end cloud infrastructure engineering covering container lifecycle, Kubernetes orchestration, declarative CI/CD pipelines, and infrastructure-as-code.",
+    capstoneProject: {
+      title: "Production GitOps Kubernetes Cluster",
+      description: "Provision an automated Kubernetes cluster using Terraform with ArgoCD GitOps deployment, cert-manager TLS, and Prometheus metrics monitoring.",
+      deliverable: "GitHub repository with Terraform modules, Helm values, and architecture diagram."
+    },
+    days: SDE_FRESHER_COURSE.days
+  },
+  {
+    id: "data-engineer-spark",
+    title: "Big Data & Distributed Data Engineering Track (30 Days)",
+    targetRole: "Data Engineer / Analytics Engineer",
+    category: "DATA_ENG",
+    iconEmoji: "📊",
+    expectedSalary: "₹10 - ₹26 LPA",
+    difficulty: "Intermediate",
+    targetCompanies: ["Flipkart", "Walmart Global Tech", "Tiger Analytics", "Fractal", "Target India"],
+    skillsCovered: ["Python", "SQL Window Functions", "Apache Spark", "Apache Kafka", "Airflow", "Data Modeling", "Snowflake / BigQuery"],
+    overview: "Master large-scale distributed data pipelines, streaming architectures with Kafka, DAG orchestration with Airflow, and analytical warehouse modeling.",
+    capstoneProject: {
+      title: "Real-Time Clickstream ETL Pipeline",
+      description: "Build an end-to-end streaming data pipeline ingesting simulated clickstream events into Kafka, processing with PySpark, and persisting to analytical parquet tables.",
+      deliverable: "GitHub repo with Docker Compose orchestration, PySpark transformation scripts, and Airflow DAGs."
+    },
+    days: SDE_FRESHER_COURSE.days
+  },
+  {
+    id: "cybersecurity-pentest",
+    title: "Cybersecurity & Application Security Track (30 Days)",
+    targetRole: "Security Engineer / AppSec Analyst",
+    category: "SECURITY",
+    iconEmoji: "🛡️",
+    expectedSalary: "₹9 - ₹24 LPA",
+    difficulty: "All Levels",
+    targetCompanies: ["KPMG", "PwC", "Quick Heal", "CrowdStrike India", "Tata Advanced Systems"],
+    skillsCovered: ["OWASP Top 10", "Network Reconnaissance", "Burp Suite", "Authentication Security", "Cryptography", "Linux Hardening"],
+    overview: "Practical application security, vulnerability assessment, threat modeling, and defensive coding techniques aligned with international security standards.",
+    capstoneProject: {
+      title: "Automated Web Application Vulnerability Scanner",
+      description: "Write a security scanner in Python that audits target endpoints for CORS misconfigurations, missing security headers, SQL injection vectors, and weak JWT secrets.",
+      deliverable: "Python open-source tool with test suite and vulnerability remediation playbook."
+    },
+    days: SDE_FRESHER_COURSE.days
+  },
+  {
+    id: "java-spring-enterprise",
+    title: "Enterprise Java & Spring Boot 3 Track (30 Days)",
+    targetRole: "Enterprise Java Developer / Backend SDE",
+    category: "BACKEND",
+    iconEmoji: "☕",
+    expectedSalary: "₹10 - ₹25 LPA",
+    difficulty: "Intermediate",
+    targetCompanies: ["Oracle", "JPMorgan Chase", "Morgan Stanley", "Infosys", "TCS", "Accenture"],
+    skillsCovered: ["Java 21", "Spring Boot 3", "Spring Data JPA / Hibernate", "PostgreSQL", "Kafka", "Docker", "Microservices"],
+    overview: "Master enterprise software architecture, transactional persistence, Spring Security OAuth2, and scalable microservices in modern Java.",
+    capstoneProject: {
+      title: "Multi-Tenant Banking Microservice Backend",
+      description: "Build a microservice architecture in Spring Boot 3 featuring account transfers, idempotency keys, optimistic locking, and event-driven ledger audit logging.",
+      deliverable: "Java repository with JUnit 5 / Testcontainers integration tests and Dockerfile."
+    },
+    days: SDE_FRESHER_COURSE.days
+  },
+  {
+    id: "mobile-react-native",
+    title: "Cross-Platform Mobile Engineer Track (30 Days)",
+    targetRole: "Mobile App Developer (React Native & Flutter)",
+    category: "MOBILE",
+    iconEmoji: "📱",
+    expectedSalary: "₹8 - ₹22 LPA",
+    difficulty: "Beginner to Intermediate",
+    targetCompanies: ["Dream11", "Dunzo", "Zomato", "Groww", "Paytm"],
+    skillsCovered: ["React Native", "Expo", "TypeScript", "Offline-First Sync", "React Navigation", "Native Device APIs", "App Performance"],
+    overview: "Build beautiful, fluid cross-platform iOS and Android mobile applications with offline-first local persistence, push notifications, and high-performance rendering.",
+    capstoneProject: {
+      title: "Offline-First Habit & Goal Tracker App",
+      description: "Develop a complete mobile application in React Native and Expo with local SQLite persistence, biometric authentication, and background synchronization.",
+      deliverable: "Expo repository with demo video and published Expo Snack link."
+    },
+    days: SDE_FRESHER_COURSE.days
   }
 ];
 
