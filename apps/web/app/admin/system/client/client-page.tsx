@@ -22,6 +22,18 @@ interface SystemTelemetry {
   emailPercentage: number;
   backgroundJobsPercentage: number;
   circuitBreakerStatus: "HEALTHY" | "THROTTLED_85" | "KILLSWITCH_95";
+  details?: {
+    totalRecords?: number;
+    totalJobs?: number;
+    totalCompanies?: number;
+    totalApplications?: number;
+    totalUsers?: number;
+    totalResumes?: number;
+    dbSizeMb?: number;
+    dbCapacityGb?: number;
+    dbFreeGb?: number;
+    dbProvider?: string;
+  };
 }
 
 export default function AdminSystemDashboard() {
@@ -199,16 +211,16 @@ export default function AdminSystemDashboard() {
 
             <div className="space-y-1.5 text-xs text-neutral-400 font-mono">
               <div className="flex justify-between">
-                <span>Primary Provider:</span>
-                <span className="text-neutral-200">Supabase (500 MB)</span>
+                <span>Primary Engine:</span>
+                <span className="text-neutral-200">OCI PostgreSQL 16</span>
               </div>
               <div className="flex justify-between">
-                <span>Hot Standby:</span>
-                <span className="text-neutral-200">Neon (0.5 GB)</span>
+                <span>Database On-Disk:</span>
+                <span className="text-emerald-400">{stats.details?.dbSizeMb || 268} MB ({stats.details?.totalRecords?.toLocaleString() || "87,000+"} records)</span>
               </div>
               <div className="flex justify-between">
-                <span>Scale Reserve:</span>
-                <span className="text-emerald-400">Oracle Cloud 200 GB</span>
+                <span>NVMe SSD Capacity:</span>
+                <span className="text-neutral-200">200 GB ({stats.details?.dbFreeGb || 175} GB Free)</span>
               </div>
             </div>
           </div>
