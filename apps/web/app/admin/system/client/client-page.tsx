@@ -39,16 +39,16 @@ export default function AdminSystemDashboard() {
   const refreshTelemetry = async () => {
     setLoading(true);
     try {
-      const res = await fetch("/api/ai");
+      const res = await fetch("/api/admin/system/telemetry");
       if (res.ok) {
         const data = await res.json();
-        if (data.aiPercentage !== undefined) {
-          setStats(data);
+        if (data.success && data.telemetry) {
+          setStats(data.telemetry);
           setLastRefreshed(new Date().toLocaleTimeString());
         }
       }
     } catch {
-      // Keep static defaults on error
+      // Fallback
     } finally {
       setLoading(false);
     }
@@ -129,7 +129,7 @@ export default function AdminSystemDashboard() {
                     : "bg-red-950/70 border-red-700 text-red-400"
                 }`}
               >
-                {stats.circuitBreakerStatus === "HEALTHY" ? "70%" : stats.circuitBreakerStatus === "THROTTLED_85" ? "85%" : "95%"}
+                {Math.max(stats.databasePercentage, stats.storagePercentage, stats.aiPercentage, stats.emailPercentage)}%
               </div>
               <div>
                 <div className="flex items-center gap-2">

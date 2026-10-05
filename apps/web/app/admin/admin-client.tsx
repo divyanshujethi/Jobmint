@@ -205,6 +205,13 @@ export function SuperAdminPanelClient() {
             Live /api/health
             <ExternalLink className="h-3 w-3 opacity-60" />
           </Link>
+          <Link
+            href="/admin/system"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-cyan-950/60 hover:bg-cyan-900/60 text-xs font-mono text-cyan-300 transition-colors border border-cyan-700/50"
+          >
+            <Server className="h-3.5 w-3.5 text-cyan-400" />
+            System Architecture
+          </Link>
           <button
             onClick={fetchAdminData}
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-mono text-slate-300 transition-colors"
@@ -256,6 +263,22 @@ export function SuperAdminPanelClient() {
             </button>
           );
         })}
+
+        <Link
+          href="/admin/system"
+          className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-cyan-950/40 text-cyan-300 hover:bg-cyan-900/50 hover:text-white transition-all whitespace-nowrap border border-cyan-800/60 font-semibold"
+        >
+          <Server className="h-4 w-4 text-cyan-400" />
+          <span>System Architecture</span>
+        </Link>
+
+        <Link
+          href="/admin/alligators"
+          className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-950/40 text-emerald-300 hover:bg-emerald-900/50 hover:text-white transition-all whitespace-nowrap border border-emerald-800/60 font-semibold"
+        >
+          <span>🐊</span>
+          <span>Alligators Crawler Deck</span>
+        </Link>
 
         <a
           href="https://internship.rolenest.in/admin"

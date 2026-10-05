@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import {
   ShieldCheck,
@@ -15,36 +15,44 @@ import { Button } from "@/components/ui/button";
 
 export function AdminAlligatorsClient() {
   const [jobStats, setJobStats] = useState<any>({
-    totalCrawled: 42,
-    accepted: 36,
-    rejectedGhostJobs: 6,
-    lastCrawlTimestamp: "Just now",
-    topDemandedSkills: [
-      { skill: "Next.js", count: 18 },
-      { skill: "PyTorch", count: 15 },
-      { skill: "TypeScript", count: 24 },
-      { skill: "Docker", count: 12 },
-      { skill: "PostgreSQL", count: 14 },
-    ],
+    totalCrawled: 0,
+    accepted: 0,
+    rejectedGhostJobs: 0,
+    lastCrawlTimestamp: "Loading...",
+    topDemandedSkills: [],
   });
+  const [isLoadingStats, setIsLoadingStats] = useState(true);
 
   const [studyStats, setStudyStats] = useState<any>({
     totalResources: 7,
     totalCanvasNodesMapped: 15,
     freeCourseCount: 7,
-    lastSyncTimestamp: "Just now",
+    lastSyncTimestamp: "Live Database",
   });
 
   const [certStats, setCertStats] = useState<any>({
     totalPrograms: 13,
     newDiscovered: 0,
-    lastSyncTimestamp: "Just now",
+    lastSyncTimestamp: "Live Database",
   });
 
   const [isJobRunning, setIsJobRunning] = useState(false);
   const [isStudyRunning, setIsStudyRunning] = useState(false);
   const [isCertRunning, setIsCertRunning] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
+
+  // Fetch genuine database stats on mount
+  useEffect(() => {
+    fetch("/api/admin/alligators/stats")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success && data.stats) {
+          setJobStats(data.stats);
+        }
+      })
+      .catch((err) => console.error("Error fetching alligator stats:", err))
+      .finally(() => setIsLoadingStats(false));
+  }, []);
 
   const triggerCertAlligator = async () => {
     setIsCertRunning(true);
@@ -128,17 +136,23 @@ export function AdminAlligatorsClient() {
             </p>
           </div>
 
-          <div className="flex items-center gap-3">
-            <Link href="/canvas">
-              <Button variant="outline" size="sm" className="border-slate-700 text-slate-200 hover:bg-slate-800 gap-1.5">
-                <Layers className="h-4 w-4 text-emerald-400" />
-                View Study Canvas
+          <div className="flex flex-wrap items-center gap-2.5">
+            <Link href="/admin">
+              <Button variant="outline" size="sm" className="border-emerald-700/80 bg-emerald-950/40 text-emerald-300 hover:bg-emerald-900/60 text-xs font-semibold gap-1.5">
+                <ShieldCheck className="h-4 w-4 text-emerald-400" />
+                Super Admin Panel
+              </Button>
+            </Link>
+            <Link href="/admin/system">
+              <Button variant="outline" size="sm" className="border-slate-700 text-slate-200 hover:bg-slate-800 text-xs gap-1.5">
+                <Building className="h-4 w-4 text-cyan-400" />
+                System Architecture
               </Button>
             </Link>
             <Link href="/jobs">
-              <Button variant="outline" size="sm" className="border-slate-700 text-slate-200 hover:bg-slate-800 gap-1.5">
+              <Button variant="outline" size="sm" className="border-slate-700 text-slate-200 hover:bg-slate-800 text-xs gap-1.5">
                 <Briefcase className="h-4 w-4 text-blue-400" />
-                View Job Feed
+                View Jobs
               </Button>
             </Link>
           </div>
