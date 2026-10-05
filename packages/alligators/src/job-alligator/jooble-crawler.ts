@@ -39,8 +39,15 @@ export async function crawlJoobleIndia(options?: {
     "software engineer",
     "frontend developer",
     "backend developer",
+    "full stack developer",
     "react developer",
     "python developer",
+    "node.js developer",
+    "devops engineer",
+    "data engineer",
+    "machine learning engineer",
+    "mobile developer",
+    "cloud engineer",
   ];
   const page = options?.page ?? 1;
   const results: RawCrawledJob[] = [];

@@ -57,12 +57,14 @@ async function main() {
 
   const internshipLimit = parseInt(process.argv[2] || "500", 10);
   const newGradLimit = parseInt(process.argv[3] || "500", 10);
+  const adzunaPages = parseInt(process.argv[4] || "50", 10);
 
-  console.log(`📡 Fetching live tech opportunities (Internships limit: ${internshipLimit}, New Grad limit: ${newGradLimit})...`);
+  console.log(`📡 Fetching live tech opportunities (Internships: ${internshipLimit}, New Grad: ${newGradLimit}, Adzuna Pages: ${adzunaPages})...`);
   const crawlResult = await runJobAlligator({
     internshipLimit,
     newGradLimit,
     enableDiscovery: true,
+    adzunaPages,
   });
 
   console.log(`✅ Crawl finished in ${(crawlResult.durationMs / 1000).toFixed(1)}s.`);

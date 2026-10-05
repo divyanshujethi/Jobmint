@@ -41,7 +41,7 @@ export async function crawlAdzunaIndia(options?: {
     return [];
   }
 
-  const pages = Math.min(options?.pages ?? 2, 20); // Default 2 pages = 100 jobs, up to 20 pages = 1,000 jobs per call
+  const pages = Math.min(options?.pages ?? 10, 500); // 50 jobs/page => up to 25,000 jobs
   const resultsPerPage = Math.min(options?.resultsPerPage ?? 50, 50);
   const keyword = options?.keyword ? `&what=${encodeURIComponent(options.keyword)}` : "";
   const results: RawCrawledJob[] = [];
