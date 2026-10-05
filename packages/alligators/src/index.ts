@@ -16,6 +16,9 @@ import { siphonSitemaps } from './job-alligator/sitemap-siphoner';
 import { crawlAdzunaIndia } from './job-alligator/adzuna-crawler';
 import { crawlJoobleIndia } from './job-alligator/jooble-crawler';
 import { crawlFounditIndia } from './job-alligator/foundit-crawler';
+import { crawlLinkedInGuestJobs } from './job-alligator/linkedin-guest-crawler';
+import { crawlSmartRecruitersJobs } from './job-alligator/smartrecruiters-crawler';
+import { crawlWorkableJobs } from './job-alligator/workable-crawler';
 
 export * from './types';
 export * from './job-alligator/skill-extractor';
@@ -32,6 +35,9 @@ export * from './job-alligator/apify-crawler';
 export * from './job-alligator/adzuna-crawler';
 export * from './job-alligator/jooble-crawler';
 export * from './job-alligator/foundit-crawler';
+export * from './job-alligator/linkedin-guest-crawler';
+export * from './job-alligator/smartrecruiters-crawler';
+export * from './job-alligator/workable-crawler';
 export * from './job-alligator/search-dorker';
 export * from './job-alligator/sitemap-siphoner';
 export * from './job-alligator/github-internships';
@@ -59,6 +65,9 @@ export async function runJobAlligator(options?: {
   founditLimit?: number;
   founditStartIndex?: number;
   founditSitemapCount?: number;
+  linkedinLimit?: number;
+  smartRecruitersLimit?: number;
+  workableLimit?: number;
 }) {
   const startTime = Date.now();
   const internshipLimit = options?.internshipLimit ?? 30;
@@ -69,11 +78,17 @@ export async function runJobAlligator(options?: {
   const founditLimit = options?.founditLimit ?? 5000;
   const founditStartIndex = options?.founditStartIndex ?? 0;
   const founditSitemapCount = options?.founditSitemapCount ?? 4;
+  const linkedinLimit = options?.linkedinLimit ?? 200;
+  const smartRecruitersLimit = options?.smartRecruitersLimit ?? 500;
+  const workableLimit = options?.workableLimit ?? 300;
 
   const [
     adzunaJobs,
     joobleJobs,
     founditJobs,
+    linkedInJobs,
+    smartRecruitersJobs,
+    workableJobs,
     indiaJobs,
     jobsPipeJobs,
     ashbyJobs,
@@ -103,6 +118,18 @@ export async function runJobAlligator(options?: {
       console.error("[Job Alligator] Foundit crawler failed:", err);
       return [];
     }),
+    crawlLinkedInGuestJobs({ totalLimit: linkedinLimit }).catch((err) => {
+      console.error("[Job Alligator] LinkedIn crawler failed:", err);
+      return [];
+    }),
+    crawlSmartRecruitersJobs({ limit: smartRecruitersLimit }).catch((err) => {
+      console.error("[Job Alligator] SmartRecruiters crawler failed:", err);
+      return [];
+    }),
+    crawlWorkableJobs({ limit: workableLimit }).catch((err) => {
+      console.error("[Job Alligator] Workable crawler failed:", err);
+      return [];
+    }),
     crawlIndiaTechBoards({ maxPerCompany, enableDiscovery }).catch((err) => {
       console.error("[Job Alligator] India crawler failed:", err);
       return [];
@@ -127,6 +154,9 @@ export async function runJobAlligator(options?: {
     ...adzunaJobs,
     ...joobleJobs,
     ...founditJobs,
+    ...linkedInJobs,
+    ...smartRecruitersJobs,
+    ...workableJobs,
     ...indiaJobs,
     ...jobsPipeJobs,
     ...ashbyJobs,

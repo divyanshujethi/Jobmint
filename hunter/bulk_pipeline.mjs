@@ -299,9 +299,16 @@ async function runFounditStage(client, startSitemap = 0, count = 11, perSitemapL
   console.log(`\n🚀 [Foundit Stage] Crawling Sitemaps ${startSitemap} to ${startSitemap + count - 1}...`);
   let totalFounditInserted = 0;
   let totalFounditUpdated = 0;
-
+  const sitemapUrls = [];
+  if (startSitemap === 0) {
+    sitemapUrls.push("https://www.foundit.in/xmlsitemap/todays-jobs-sitemap.xml.gz");
+  }
   for (let sIdx = startSitemap; sIdx < Math.min(startSitemap + count, 11); sIdx++) {
-    const sitemapUrl = `https://www.foundit.in/xmlsitemap/active-jobs-sitemap${sIdx}.xml.gz`;
+    sitemapUrls.push(`https://www.foundit.in/xmlsitemap/active-jobs-sitemap${sIdx}.xml.gz`);
+  }
+
+  for (const sitemapUrl of sitemapUrls) {
+    const sName = sitemapUrl.split("/").pop();
     console.log(`📡 Fetching ${sitemapUrl}...`);
     try {
       const xml = await fetchGzip(sitemapUrl);
@@ -354,9 +361,9 @@ async function runFounditStage(client, startSitemap = 0, count = 11, perSitemapL
         totalFounditUpdated += stats.updated;
       }
 
-      console.log(`\n   ✅ Sitemap ${sIdx} finished. Cumulative: +${totalFounditInserted} new, ~${totalFounditUpdated} refreshed.`);
+      console.log(`\n   ✅ ${sName} finished. Cumulative: +${totalFounditInserted} new, ~${totalFounditUpdated} refreshed.`);
     } catch (err) {
-      console.error(`   ❌ Failed sitemap ${sIdx}:`, err.message);
+      console.error(`   ❌ Failed ${sName}:`, err.message);
     }
   }
 
@@ -479,6 +486,329 @@ async function runJoobleStage(client, keywords = ["software developer", "react d
 }
 
 /**
+ * STAGE 4: LinkedIn Public Guest Search API
+ */
+async function runLinkedInStage(client, roles = [
+  "software engineer", "frontend developer", "backend developer",
+  "full stack engineer", "devops engineer", "data engineer",
+  "python developer", "react developer", "ai machine learning engineer",
+  "cloud engineer", "android developer", "ios developer"
+], locations = [
+  "Bengaluru, Karnataka, India", "Hyderabad, Telangana, India",
+  "Pune, Maharashtra, India", "Delhi NCR, India",
+  "Mumbai, Maharashtra, India", "Chennai, Tamil Nadu, India", "India"
+], maxPages = 4) {
+  console.log(`\n🚀 [LinkedIn Stage] Crawling LinkedIn Guest API across ${roles.length} roles and ${locations.length} hubs...`);
+  let inserted = 0;
+  let updated = 0;
+  const userAgents = [
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
+  ];
+
+  for (const role of roles) {
+    for (const loc of locations) {
+      for (let page = 0; page < maxPages; page++) {
+        const start = page * 25;
+        const encodedRole = encodeURIComponent(role);
+        const encodedLoc = encodeURIComponent(loc);
+        const url = `https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?keywords=${encodedRole}&location=${encodedLoc}&start=${start}`;
+
+        try {
+          const ua = userAgents[Math.floor(Math.random() * userAgents.length)];
+          const html = await new Promise((resolve, reject) => {
+            https.get(url, {
+              headers: {
+                "User-Agent": ua,
+                "Accept-Language": "en-US,en;q=0.9",
+                Accept: "text/html,application/xhtml+xml",
+              },
+              timeout: 10000,
+            }, (res) => {
+              if (res.statusCode !== 200) return resolve(null);
+              let data = "";
+              res.on("data", (d) => data += d);
+              res.on("end", () => resolve(data));
+            }).on("error", reject);
+          });
+
+          if (!html || html.length < 500) break;
+
+          const cardBlocks = html.split(/<li[^>]*>/i).slice(1);
+          const batch = [];
+
+          for (const card of cardBlocks) {
+            const linkMatch = card.match(/href="(https:\/\/[a-z]+\.linkedin\.com\/jobs\/view\/[^"?]+)/i);
+            const titleMatch = card.match(/<h3 class="[^"]*base-search-card__title[^"]*">([\s\S]*?)<\/h3>/i);
+            const companyMatch =
+              card.match(/<h4 class="[^"]*base-search-card__subtitle[^"]*">\s*<a[^>]*>([\s\S]*?)<\/a>/i) ||
+              card.match(/<h4 class="[^"]*base-search-card__subtitle[^"]*">([\s\S]*?)<\/h4>/i);
+            const locMatch = card.match(/<span class="[^"]*job-search-card__location[^"]*">([\s\S]*?)<\/span>/i);
+
+            if (!linkMatch || !titleMatch) continue;
+
+            const cleanText = (s) => s.replace(/<[^>]+>/g, " ").replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/\s+/g, " ").trim();
+            const rawUrl = linkMatch[1].split("?")[0];
+            const title = cleanText(titleMatch[1]);
+            const company = companyMatch ? cleanText(companyMatch[1]) : "Verified Employer";
+            const location = locMatch ? cleanText(locMatch[1]) : loc;
+
+            if (title.length < 3 || company.length < 2) continue;
+
+            const idMatch = rawUrl.match(/-([0-9]+)$/) || rawUrl.match(/\/([0-9]+)$/);
+            const externalId = idMatch ? `linkedin-${idMatch[1]}` : `linkedin-${slugify(title).slice(0, 15)}`;
+
+            batch.push({
+              title,
+              companyName: company,
+              location,
+              sourceUrl: rawUrl,
+              externalId,
+              jobType: "FULL_TIME",
+              workMode: location.toLowerCase().includes("remote") ? "REMOTE" : "ON_SITE",
+              salaryOrStipend: "Competitive (Industry Standard)",
+              experienceYears: 2,
+              description: `${title} role open at ${company}. Location: ${location}. Candidates can review verified responsibilities and apply directly on LinkedIn.`,
+            });
+          }
+
+          if (batch.length > 0) {
+            const stats = await batchInsertJobs(client, batch);
+            inserted += stats.inserted;
+            updated += stats.updated;
+            process.stdout.write(`   [LinkedIn ${role} in ${loc.split(',')[0]} p.${page + 1}: +${inserted} new, ~${updated} refreshed]\r`);
+          }
+
+          // Polite pacing: 300ms
+          await new Promise((r) => setTimeout(r, 300));
+        } catch (e) {
+          break;
+        }
+      }
+    }
+  }
+
+  console.log(`\n   ✅ LinkedIn Stage complete: +${inserted} new, ~${updated} refreshed.`);
+  return { inserted, updated };
+}
+
+/**
+ * STAGE 5: SmartRecruiters Public Enterprise ATS
+ */
+async function runSmartRecruitersStage(client) {
+  const companies = [
+    { identifier: "BoschGroup", name: "Bosch Global Software Technologies" },
+    { identifier: "WesternDigital", name: "Western Digital" },
+    { identifier: "publicissapient", name: "Publicis Sapient" },
+    { identifier: "ubisoft", name: "Ubisoft India" },
+    { identifier: "visa", name: "Visa" },
+    { identifier: "datadoghq", name: "Datadog" },
+    { identifier: "alstom", name: "Alstom Transportation" },
+    { identifier: "atos", name: "Atos Syntel" },
+    { identifier: "colt", name: "Colt Technology Services" },
+    { identifier: "CERN", name: "CERN" },
+  ];
+
+  console.log(`\n🚀 [SmartRecruiters Stage] Crawling ${companies.length} enterprise organizations...`);
+  let inserted = 0;
+  let updated = 0;
+
+  for (const comp of companies) {
+    try {
+      const url = `https://api.smartrecruiters.com/v1/companies/${comp.identifier}/postings?limit=100`;
+      const json = await new Promise((resolve, reject) => {
+        https.get(url, { headers: { "User-Agent": "RoleNest-Alligator/1.0", Accept: "application/json" }, timeout: 10000 }, (res) => {
+          if (res.statusCode !== 200) return resolve(null);
+          let data = "";
+          res.on("data", (d) => data += d);
+          res.on("end", () => {
+            try { resolve(JSON.parse(data)); } catch (e) { resolve(null); }
+          });
+        }).on("error", reject);
+      });
+
+      if (!json || !Array.isArray(json.content)) continue;
+
+      const batch = [];
+      for (const item of json.content) {
+        const title = (item.name || "").trim();
+        if (!title) continue;
+
+        const city = item.location?.city || "";
+        const region = item.location?.region || "";
+        const country = (item.location?.country || "").toUpperCase();
+        const isRemoteFlag = Boolean(item.location?.remote);
+        const isIndia = country === "IN" || country === "INDIA" || city.toLowerCase().includes("india") || region.toLowerCase().includes("india");
+
+        if (!isIndia && !isRemoteFlag) continue;
+
+        const locStr = isIndia
+          ? `${city ? city + ", " : ""}${region ? region + ", " : ""}India`
+          : "Remote (Worldwide)";
+
+        batch.push({
+          title,
+          companyName: comp.name,
+          location: isRemoteFlag ? "Remote, India" : locStr,
+          sourceUrl: `https://jobs.smartrecruiters.com/${comp.identifier}/${item.id}`,
+          externalId: `sr-${comp.identifier}-${item.id}`,
+          jobType: "FULL_TIME",
+          workMode: isRemoteFlag ? "REMOTE" : "ON_SITE",
+          salaryOrStipend: "Competitive (Industry Standard)",
+          experienceYears: 2,
+          description: `${title} role open at ${comp.name}. Direct application on official company ATS. Verified zero recruiter markup.`,
+        });
+      }
+
+      if (batch.length > 0) {
+        const stats = await batchInsertJobs(client, batch);
+        inserted += stats.inserted;
+        updated += stats.updated;
+        process.stdout.write(`   [SmartRecruiters ${comp.name}: +${inserted} new, ~${updated} refreshed]\r`);
+      }
+    } catch (e) {
+      continue;
+    }
+  }
+
+  console.log(`\n   ✅ SmartRecruiters Stage complete: +${inserted} new, ~${updated} refreshed.`);
+  return { inserted, updated };
+}
+
+/**
+ * STAGE 6: High-Tier Direct ATS (Greenhouse & Lever)
+ */
+async function runAtsStage(client) {
+  const ghBoards = [
+    { token: "stripe", name: "Stripe" },
+    { token: "cloudflare", name: "Cloudflare" },
+    { token: "mongodb", name: "MongoDB" },
+    { token: "datadog", name: "Datadog" },
+    { token: "coinbase", name: "Coinbase" },
+    { token: "elastic", name: "Elastic" },
+    { token: "rubrik", name: "Rubrik" },
+    { token: "instacart", name: "Instacart" },
+    { token: "twilio", name: "Twilio" },
+    { token: "thoughtworks", name: "Thoughtworks" },
+    { token: "slice", name: "Slice" },
+    { token: "razorpaysoftwareprivatelimited", name: "Razorpay" },
+    { token: "groww", name: "Groww" },
+  ];
+
+  const leverBoards = [
+    { site: "paytm", name: "Paytm" },
+    { site: "spotify", name: "Spotify" },
+    { site: "porter", name: "Porter" },
+    { site: "fampay", name: "FamPay" },
+    { site: "palantir", name: "Palantir" },
+  ];
+
+  console.log(`\n🚀 [ATS Stage] Crawling Greenhouse & Lever for top tech giants...`);
+  let inserted = 0;
+  let updated = 0;
+
+  // Greenhouse
+  for (const b of ghBoards) {
+    try {
+      const url = `https://boards-api.greenhouse.io/v1/boards/${b.token}/jobs`;
+      const json = await new Promise((resolve, reject) => {
+        https.get(url, { headers: { "User-Agent": "RoleNest/1.0" }, timeout: 10000 }, (res) => {
+          if (res.statusCode !== 200) return resolve(null);
+          let data = "";
+          res.on("data", (d) => data += d);
+          res.on("end", () => {
+            try { resolve(JSON.parse(data)); } catch (e) { resolve(null); }
+          });
+        }).on("error", reject);
+      });
+
+      if (!json || !Array.isArray(json.jobs)) continue;
+
+      const batch = [];
+      for (const item of json.jobs) {
+        const title = (item.title || "").trim();
+        const loc = item.location?.name || "India";
+        const isIndia = loc.toLowerCase().includes("india") || loc.toLowerCase().includes("bangalore") || loc.toLowerCase().includes("bengaluru") || loc.toLowerCase().includes("remote");
+        if (!isIndia) continue;
+
+        batch.push({
+          title,
+          companyName: b.name,
+          location: loc,
+          sourceUrl: item.absolute_url,
+          externalId: `gh-${b.token}-${item.id}`,
+          jobType: "FULL_TIME",
+          workMode: loc.toLowerCase().includes("remote") ? "REMOTE" : "ON_SITE",
+          salaryOrStipend: "Competitive (Industry Standard)",
+          experienceYears: 2,
+          description: `${title} role open at ${b.name}. Direct official application on Greenhouse.`,
+        });
+      }
+
+      if (batch.length > 0) {
+        const stats = await batchInsertJobs(client, batch);
+        inserted += stats.inserted;
+        updated += stats.updated;
+      }
+    } catch (e) {
+      continue;
+    }
+  }
+
+  // Lever
+  for (const l of leverBoards) {
+    try {
+      const url = `https://api.lever.co/v0/postings/${l.site}`;
+      const json = await new Promise((resolve, reject) => {
+        https.get(url, { headers: { "User-Agent": "RoleNest/1.0" }, timeout: 10000 }, (res) => {
+          if (res.statusCode !== 200) return resolve(null);
+          let data = "";
+          res.on("data", (d) => data += d);
+          res.on("end", () => {
+            try { resolve(JSON.parse(data)); } catch (e) { resolve(null); }
+          });
+        }).on("error", reject);
+      });
+
+      if (!json || !Array.isArray(json)) continue;
+
+      const batch = [];
+      for (const item of json) {
+        const title = (item.text || "").trim();
+        const loc = item.categories?.location || "India";
+        const isIndia = loc.toLowerCase().includes("india") || loc.toLowerCase().includes("bangalore") || loc.toLowerCase().includes("bengaluru") || loc.toLowerCase().includes("remote");
+        if (!isIndia) continue;
+
+        batch.push({
+          title,
+          companyName: l.name,
+          location: loc,
+          sourceUrl: item.hostedUrl,
+          externalId: `lever-${l.site}-${item.id}`,
+          jobType: "FULL_TIME",
+          workMode: loc.toLowerCase().includes("remote") ? "REMOTE" : "ON_SITE",
+          salaryOrStipend: "Competitive (Industry Standard)",
+          experienceYears: 2,
+          description: `${title} role open at ${l.name}. Direct official application on Lever.`,
+        });
+      }
+
+      if (batch.length > 0) {
+        const stats = await batchInsertJobs(client, batch);
+        inserted += stats.inserted;
+        updated += stats.updated;
+      }
+    } catch (e) {
+      continue;
+    }
+  }
+
+  console.log(`\n   ✅ ATS Stage complete: +${inserted} new, ~${updated} refreshed.`);
+  return { inserted, updated };
+}
+
+/**
  * Main Execution Loop
  */
 async function main() {
@@ -500,8 +830,30 @@ async function main() {
     // Stage 3: Jooble India API
     const joobleStats = await runJoobleStage(client);
 
-    const totalAdded = founditStats.inserted + adzunaStats.inserted + joobleStats.inserted;
-    const totalRefreshed = founditStats.updated + adzunaStats.updated + joobleStats.updated;
+    // Stage 4: LinkedIn Public Guest Search API
+    const linkedInStats = await runLinkedInStage(client);
+
+    // Stage 5: SmartRecruiters Public Enterprise ATS
+    const srStats = await runSmartRecruitersStage(client);
+
+    // Stage 6: High-Tier Direct ATS (Greenhouse & Lever)
+    const atsStats = await runAtsStage(client);
+
+    const totalAdded =
+      founditStats.inserted +
+      adzunaStats.inserted +
+      joobleStats.inserted +
+      linkedInStats.inserted +
+      srStats.inserted +
+      atsStats.inserted;
+
+    const totalRefreshed =
+      founditStats.updated +
+      adzunaStats.updated +
+      joobleStats.updated +
+      linkedInStats.updated +
+      srStats.updated +
+      atsStats.updated;
 
     const postCount = await client.query("SELECT count(*) as total, count(*) FILTER (WHERE is_active = true) as active FROM jobs");
     console.log("\n🐊 ====================================================================");
