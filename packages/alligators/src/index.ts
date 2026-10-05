@@ -15,6 +15,7 @@ import { crawlViaSearchDorking } from './job-alligator/search-dorker';
 import { siphonSitemaps } from './job-alligator/sitemap-siphoner';
 import { crawlAdzunaIndia } from './job-alligator/adzuna-crawler';
 import { crawlJoobleIndia } from './job-alligator/jooble-crawler';
+import { crawlFounditIndia } from './job-alligator/foundit-crawler';
 
 export * from './types';
 export * from './job-alligator/skill-extractor';
@@ -30,6 +31,7 @@ export * from './job-alligator/remoteok-crawler';
 export * from './job-alligator/apify-crawler';
 export * from './job-alligator/adzuna-crawler';
 export * from './job-alligator/jooble-crawler';
+export * from './job-alligator/foundit-crawler';
 export * from './job-alligator/search-dorker';
 export * from './job-alligator/sitemap-siphoner';
 export * from './job-alligator/github-internships';
@@ -54,6 +56,7 @@ export async function runJobAlligator(options?: {
   maxPerCompany?: number;
   enableDiscovery?: boolean;
   adzunaPages?: number;
+  founditLimit?: number;
 }) {
   const startTime = Date.now();
   const internshipLimit = options?.internshipLimit ?? 30;
@@ -61,10 +64,12 @@ export async function runJobAlligator(options?: {
   const maxPerCompany = options?.maxPerCompany ?? 20;
   const enableDiscovery = options?.enableDiscovery ?? false;
   const adzunaPages = options?.adzunaPages ?? 4;
+  const founditLimit = options?.founditLimit ?? 500;
 
   const [
     adzunaJobs,
     joobleJobs,
+    founditJobs,
     indiaJobs,
     jobsPipeJobs,
     ashbyJobs,
@@ -84,6 +89,10 @@ export async function runJobAlligator(options?: {
     }),
     crawlJoobleIndia().catch((err) => {
       console.error("[Job Alligator] Jooble crawler failed:", err);
+      return [];
+    }),
+    crawlFounditIndia({ limit: founditLimit, sitemapIndexCount: 2 }).catch((err) => {
+      console.error("[Job Alligator] Foundit crawler failed:", err);
       return [];
     }),
     crawlIndiaTechBoards({ maxPerCompany, enableDiscovery }).catch((err) => {
@@ -109,6 +118,7 @@ export async function runJobAlligator(options?: {
   const allJobs = [
     ...adzunaJobs,
     ...joobleJobs,
+    ...founditJobs,
     ...indiaJobs,
     ...jobsPipeJobs,
     ...ashbyJobs,

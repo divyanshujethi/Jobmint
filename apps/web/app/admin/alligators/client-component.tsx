@@ -69,9 +69,9 @@ export function AdminAlligatorsClient() {
 
   const triggerJobAlligator = async () => {
     setIsJobRunning(true);
-    setMessage("🐊 Job Alligator is crawling Adzuna India (100k+ pool), Jooble, Greenhouse, Lever, Ashby, and internships...");
+    setMessage("🐊 Job Alligator is crawling Foundit India (275k+ pool), Adzuna India (100k+ pool), Jooble, Greenhouse, Lever, Ashby, and internships...");
     try {
-      const res = await fetch("/api/alligators/jobs/crawl?adzunaPages=20&internshipLimit=100&newGradLimit=100");
+      const res = await fetch("/api/alligators/jobs/crawl?adzunaPages=20&founditLimit=1000&internshipLimit=100&newGradLimit=100");
       const data = await res.json();
       if (data.success && data.data?.stats) {
         setJobStats(data.data.stats);

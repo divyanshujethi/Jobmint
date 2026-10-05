@@ -10,6 +10,7 @@ export async function GET(request: Request): Promise<NextResponse> {
     const internshipLimit = parseInt(searchParams.get("internshipLimit") || "50", 10);
     const newGradLimit = parseInt(searchParams.get("newGradLimit") || "50", 10);
     const adzunaPages = parseInt(searchParams.get("adzunaPages") || "10", 10);
+    const founditLimit = parseInt(searchParams.get("founditLimit") || "500", 10);
     const staleDays = parseInt(searchParams.get("staleDays") || "14", 10);
     const enableDiscovery = searchParams.get("discover") === "true";
 
@@ -18,6 +19,7 @@ export async function GET(request: Request): Promise<NextResponse> {
       newGradLimit,
       enableDiscovery,
       adzunaPages,
+      founditLimit,
     });
     const ingestion = await persistCrawledJobs(crawlResult.jobs);
     const cleanup = await cleanupStaleJobs(staleDays);
