@@ -12,7 +12,10 @@ export interface VirtualInternshipProgram {
     | "IBM"
     | "freeCodeCamp"
     | "Postman"
-    | "MongoDB";
+    | "MongoDB"
+    | "Kaggle"
+    | "Linux Foundation"
+    | "Harvard University";
   category:
     | "Software Engineering"
     | "Cloud & DevOps"
@@ -780,4 +783,304 @@ export const VERIFIED_VIRTUAL_INTERNSHIPS: VirtualInternshipProgram[] = [
     ],
     description: "Industry-backed introductory artificial intelligence credentials awarded by IBM SkillsBuild for aspiring engineers and students.",
   },
+  // 38. GOOGLE CLOUD - INTRODUCTION TO GENERATIVE AI
+  {
+    id: "google-cloud-genai-path",
+    company: "Google Cloud",
+    title: "Introduction to Generative AI Learning Path",
+    provider: "Google",
+    category: "Data & AI",
+    duration: "5 hours",
+    isFree: true,
+    hasCertificate: true,
+    url: "https://www.cloudskillsboost.google/paths/118",
+    skills: ["Generative AI", "Large Language Models", "Attention Mechanism", "Transformer Models", "Responsible AI"],
+    tasks: [
+      "Understand foundational differences between traditional ML and Generative AI",
+      "Explore Large Language Models and natural language generation architectures",
+      "Pass final quiz to earn the official Google Cloud Skills Boost digital badge and completion credential",
+    ],
+    description: "Official microlearning path from Google Cloud introducing generative AI, transformers, and Google's responsible AI principles.",
+  },
+
+  // 39. AWS EDUCATE - CLOUD COMPUTING FOUNDATIONS
+  {
+    id: "aws-educate-cloud-foundations",
+    company: "Amazon Web Services",
+    title: "AWS Educate Cloud Computing Foundations & Builder Badges",
+    provider: "AWS",
+    category: "Cloud & DevOps",
+    duration: "10 hours",
+    isFree: true,
+    hasCertificate: true,
+    url: "https://aws.amazon.com/education/awseducate/",
+    skills: ["AWS Cloud", "Amazon S3", "Amazon EC2", "IAM Security", "Cloud Architecture"],
+    tasks: [
+      "Complete hands-on cloud labs without needing a credit card",
+      "Configure IAM policies and deploy scalable compute instances on EC2",
+      "Earn official AWS Educate digital badges on Credly",
+    ],
+    description: "100% free hands-on training directly from Amazon Web Services for students and early-career cloud builders.",
+  },
+
+  // 40. MICROSOFT LEARN - AZURE AI FUNDAMENTALS
+  {
+    id: "ms-azure-ai-fundamentals",
+    company: "Microsoft",
+    title: "Microsoft Azure AI Fundamentals Learning Path",
+    provider: "Microsoft",
+    category: "Data & AI",
+    duration: "6 hours",
+    isFree: true,
+    hasCertificate: true,
+    url: "https://learn.microsoft.com/en-us/training/paths/get-started-with-artificial-intelligence-on-azure/",
+    skills: ["Azure Cognitive Services", "Computer Vision", "Natural Language Processing", "Conversational AI"],
+    tasks: [
+      "Explore automated machine learning on Microsoft Azure",
+      "Detect visual objects using Azure Computer Vision models",
+      "Complete all knowledge checkpoints for official Microsoft Learn trophies and badges",
+    ],
+    description: "Comprehensive official learning path by Microsoft exploring artificial intelligence capabilities and services on Microsoft Azure.",
+  },
+
+  // 41. CISCO NETWORKING ACADEMY - PYTHON ESSENTIALS
+  {
+    id: "cisco-python-essentials",
+    company: "Cisco Networking Academy",
+    title: "Python Essentials 1 & 2 (OpenEDG Python Institute)",
+    provider: "Cisco",
+    category: "Software Engineering",
+    duration: "30 hours",
+    isFree: true,
+    hasCertificate: true,
+    url: "https://www.netacad.com/courses/programming/pcap-programming-essentials-python",
+    skills: ["Python", "Object-Oriented Programming", "Algorithm Design", "File I/O", "Data Structures"],
+    tasks: [
+      "Master fundamental algorithmic problem-solving in Python",
+      "Complete interactive browser-based coding labs and quizzes",
+      "Pass final comprehensive exam for official Cisco NetAcad Certificate of Completion",
+    ],
+    description: "Rigorous official programming certification track prepared by Cisco Networking Academy in partnership with OpenEDG Python Institute.",
+  },
+
+  // 42. CISCO NETWORKING ACADEMY - INTRODUCTION TO CYBERSECURITY
+  {
+    id: "cisco-intro-cybersecurity",
+    company: "Cisco Networking Academy",
+    title: "Introduction to Cybersecurity & Threat Defense",
+    provider: "Cisco",
+    category: "Cybersecurity",
+    duration: "15 hours",
+    isFree: true,
+    hasCertificate: true,
+    url: "https://www.netacad.com/courses/cybersecurity/introduction-cybersecurity",
+    skills: ["Cybersecurity", "Network Defense", "Threat Analysis", "Cryptography", "Security Ethics"],
+    tasks: [
+      "Understand enterprise threat vectors, malware taxonomy, and phishing campaigns",
+      "Explore defensive countermeasures and security governance standards",
+      "Earn official Cisco NetAcad certificate and verifiable digital badge",
+    ],
+    description: "Official introductory cybersecurity credential from global networking leader Cisco, covering modern threat landscapes and network hygiene.",
+  },
+
+  // 43. LINUX FOUNDATION - INTRODUCTION TO LINUX (LFS101x)
+  {
+    id: "linux-foundation-intro",
+    company: "The Linux Foundation",
+    title: "Introduction to Linux Systems & Open Source (LFS101x)",
+    provider: "Linux Foundation",
+    category: "Cloud & DevOps",
+    duration: "40 hours",
+    isFree: true,
+    hasCertificate: true,
+    url: "https://training.linuxfoundation.org/training/introduction-to-linux/",
+    skills: ["Linux", "Bash Scripting", "System Architecture", "Process Management", "Command Line"],
+    tasks: [
+      "Navigate graphical and command-line Linux distributions",
+      "Perform user and group permissions management and bash scripting",
+      "Complete self-paced assessments directly from the non-profit Linux Foundation",
+    ],
+    description: "Authoritative course from the creators and maintainers of the Linux operating system, teaching essential sysadmin and CLI workflows.",
+  },
+
+  // 44. HARVARD CS50x - COMPUTER SCIENCE CERTIFICATE
+  {
+    id: "harvard-cs50x-certificate",
+    company: "Harvard University",
+    title: "CS50x: Introduction to Computer Science",
+    provider: "Harvard University",
+    category: "Software Engineering",
+    duration: "60 hours",
+    isFree: true,
+    hasCertificate: true,
+    url: "https://cs50.harvard.edu/x/",
+    skills: ["C", "Python", "SQL", "HTML/CSS", "JavaScript", "Algorithms", "Memory Management"],
+    tasks: [
+      "Implement Speller with custom hashtables in pure C",
+      "Develop a full-stack financial stock trading application in Python/Flask",
+      "Score 70%+ on all 10 problem sets for the free official Harvard CS50 Certificate",
+    ],
+    description: "Harvard University's legendary introductory CS course. Completely free to audit and earn an official verifiable Harvard certificate of completion.",
+  },
+
+  // 45. KAGGLE LEARN - INTRO & INTERMEDIATE MACHINE LEARNING
+  {
+    id: "kaggle-machine-learning-cert",
+    company: "Kaggle",
+    title: "Kaggle Machine Learning & Feature Engineering Certificates",
+    provider: "Kaggle",
+    category: "Data & AI",
+    duration: "8 hours",
+    isFree: true,
+    hasCertificate: true,
+    url: "https://www.kaggle.com/learn",
+    skills: ["Scikit-Learn", "Machine Learning", "XGBoost", "Data Imputation", "Categorical Encoding"],
+    tasks: [
+      "Build Random Forest and XGBoost regression models on real housing datasets",
+      "Handle missing values and target encoding with pipeline cross-validation",
+      "Submit competitive models to receive official Kaggle verified certificates",
+    ],
+    description: "Fast-track hands-on machine learning micro-courses from Google Kaggle with instant execution and official certificate generation.",
+  },
+
+  // 46. KAGGLE LEARN - DEEP LEARNING & COMPUTER VISION
+  {
+    id: "kaggle-deep-learning-cert",
+    company: "Kaggle",
+    title: "Kaggle Deep Learning & Computer Vision Certification",
+    provider: "Kaggle",
+    category: "Data & AI",
+    duration: "8 hours",
+    isFree: true,
+    hasCertificate: true,
+    url: "https://www.kaggle.com/learn/deep-learning",
+    skills: ["TensorFlow", "Keras", "Convolutional Neural Networks", "Computer Vision", "Overfitting"],
+    tasks: [
+      "Construct sequential and functional Keras neural network architectures",
+      "Implement convolutional filter strides and max pooling layers",
+      "Apply stochastic gradient descent with dropout to earn Kaggle Deep Learning Diploma",
+    ],
+    description: "Practical deep learning track using TensorFlow and Keras to train computer vision models directly in cloud GPU notebooks.",
+  },
+
+  // 47. FORAGE - ACCENTURE DEVELOPER PROGRAM
+  {
+    id: "forage-accenture-dev",
+    company: "Accenture",
+    title: "Developer Virtual Experience Program",
+    provider: "Forage",
+    category: "Software Engineering",
+    duration: "4-5 hours",
+    isFree: true,
+    hasCertificate: true,
+    url: "https://www.theforage.com/simulations/accenture-nam/developer-w54q",
+    skills: ["Software Architecture", "Debugging", "User Stories", "SDLC", "Testing"],
+    tasks: [
+      "Task 1: Architecture review and debugging code defects",
+      "Task 2: Define technical requirements from business user stories",
+      "Task 3: Execute integration test suites and earn verified Accenture diploma",
+    ],
+    description: "Simulate consulting software engineering at Accenture. Review enterprise architectures and debug mission-critical application defects.",
+  },
+
+  // 48. FORAGE - DELOITTE TECHNOLOGY EXPERIENCE
+  {
+    id: "forage-deloitte-tech",
+    company: "Deloitte",
+    title: "Technology Virtual Experience Simulation",
+    provider: "Forage",
+    category: "Consulting & Product",
+    duration: "4-5 hours",
+    isFree: true,
+    hasCertificate: true,
+    url: "https://www.theforage.com/simulations/deloitte-au/technology-7h6z",
+    skills: ["Cloud Strategy", "Solution Architecture", "Data Analytics", "Client Advisory"],
+    tasks: [
+      "Assess client cloud migration readiness and define cost projections",
+      "Architect microservice integration topologies for enterprise clients",
+      "Produce executive summary report and receive verified Deloitte certificate",
+    ],
+    description: "Step into the shoes of a Deloitte technology consultant designing digital transformations and cloud architecture solutions.",
+  },
+
+  // 49. FORAGE - BCG DATA SCIENCE & STRATEGY
+  {
+    id: "forage-bcg-gamma",
+    company: "Boston Consulting Group (BCG)",
+    title: "Strategy Consulting & Data Science Simulation (BCG X)",
+    provider: "Forage",
+    category: "Data & AI",
+    duration: "5-6 hours",
+    isFree: true,
+    hasCertificate: true,
+    url: "https://www.theforage.com/simulations/bcg/data-science-x23z",
+    skills: ["Customer Churn Modeling", "Feature Engineering", "Python", "Executive Storytelling", "Random Forests"],
+    tasks: [
+      "Task 1: Business understanding and formulating customer churn hypotheses",
+      "Task 2: Exploratory data analysis and feature engineering on energy billing records",
+      "Task 3: Train machine learning churn classifier and pitch recommendations to C-suite",
+    ],
+    description: "Experience data science consulting at BCG X. Predict customer churn and translate analytical findings into strategic business value.",
+  },
+
+  // 50. FORAGE - PWC POWER BI ANALYTICS
+  {
+    id: "forage-pwc-powerbi",
+    company: "PwC",
+    title: "Power BI Data Analytics & Executive Dashboards",
+    provider: "Forage",
+    category: "Data & AI",
+    duration: "5-6 hours",
+    isFree: true,
+    hasCertificate: true,
+    url: "https://www.theforage.com/simulations/pwc-ch/power-bi-data-analytics-23b9",
+    skills: ["Power BI", "DAX Formulas", "Data Modeling", "Business Intelligence", "KPIs"],
+    tasks: [
+      "Task 1: Call center trend analysis and customer satisfaction dashboards",
+      "Task 2: Customer retention risk modeling with DAX calculated measures",
+      "Task 3: Diversity and executive inclusion scorecard for PwC client review",
+    ],
+    description: "Official PwC digital simulation teaching executive Power BI dashboard engineering, DAX formula calculations, and business storytelling.",
+  },
+
+  // 51. FORAGE - HEWLETT PACKARD SOFTWARE ENGINEERING
+  {
+    id: "forage-hp-swe",
+    company: "HP (Hewlett Packard)",
+    title: "Software Engineering Virtual Experience",
+    provider: "Forage",
+    category: "Software Engineering",
+    duration: "4-5 hours",
+    isFree: true,
+    hasCertificate: true,
+    url: "https://www.theforage.com/simulations/hp/software-engineering-9s4k",
+    skills: ["C++", "Device Drivers", "Firmware Architecture", "System Performance"],
+    tasks: [
+      "Review firmware architecture specifications and peripheral bus protocols",
+      "Optimize memory throughput and debug device communication buffers",
+      "Earn official HP completion certificate for LinkedIn profile",
+    ],
+    description: "Learn embedded and system software engineering practices directly from HP hardware and firmware specialists.",
+  },
+
+  // 52. FORAGE - DATACOM JUNIOR CLOUD DEVELOPER
+  {
+    id: "forage-datacom-cloud",
+    company: "Datacom",
+    title: "Junior Cloud & DevOps Developer Simulation",
+    provider: "Forage",
+    category: "Cloud & DevOps",
+    duration: "4-5 hours",
+    isFree: true,
+    hasCertificate: true,
+    url: "https://www.theforage.com/simulations/datacom/cloud-development-9s4k",
+    skills: ["Cloud Architecture", "AWS Lambda", "Serverless", "Infrastructure Security"],
+    tasks: [
+      "Deploy serverless function backend using AWS Lambda and API Gateway",
+      "Configure cloud monitoring alerts and diagnose latency bottlenecks",
+      "Receive official Datacom verified completion credential",
+    ],
+    description: "Hands-on cloud development simulation with Datacom engineers focusing on serverless cloud backends and automated monitoring.",
+  },
+
 ];

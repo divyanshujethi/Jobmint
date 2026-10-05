@@ -76,7 +76,8 @@ export async function POST(request: Request): Promise<NextResponse> {
       const ingested: any[] = [];
       const errors: string[] = [];
 
-      for (const seed of SEED_STUDY_PLAYLISTS.slice(0, 3)) {
+      const targetList = typeof body.limit === "number" ? SEED_STUDY_PLAYLISTS.slice(0, body.limit) : SEED_STUDY_PLAYLISTS;
+      for (const seed of targetList) {
         try {
           const crawled = await crawlYouTubePlaylist(seed.url, { category: seed.category });
           await saveDynamicPlaylist(crawled as unknown as CoursePlaylist);
