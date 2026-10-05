@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { db, jobs, companies, skills, jobSkills, eq, desc, sql } from "@repo/database";
 import { auth } from "@/auth";
 import { CURATED_COURSES } from "@/lib/courses-data";
+import { getDynamicPlaylists } from "@/lib/courses-store";
 import { VERIFIED_VIRTUAL_INTERNSHIPS } from "@/lib/virtual-internships-data";
 import { ALL_INTERACTIVE_COURSES } from "@/lib/study-courses-data";
 
@@ -113,6 +114,9 @@ export async function GET() {
       .orderBy(desc(companies.createdAt))
       .limit(10);
 
+    const dynamicPlaylists = await getDynamicPlaylists();
+    const totalAllPlaylists = CURATED_COURSES.length + dynamicPlaylists.length;
+
     return NextResponse.json({
       success: true,
       stats: {
@@ -129,7 +133,9 @@ export async function GET() {
         verifiedCompanies,
         recentCompanies,
         studyStats: {
-          totalPlaylists: CURATED_COURSES.length,
+          totalPlaylists: totalAllPlaylists,
+          curatedPlaylists: CURATED_COURSES.length,
+          dynamicPlaylists: dynamicPlaylists.length,
           totalInteractiveTracks: ALL_INTERACTIVE_COURSES.length,
           totalCanvasNodes: 28,
         },

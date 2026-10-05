@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button } from "./ui/button";
 import { ApplyModal } from "./apply-modal";
 import { ExternalLink, ShieldCheck, Check, BookmarkCheck } from "lucide-react";
+import { detectJobPlatform, sanitizeExternalJobUrl } from "@repo/shared";
 
 interface JobApplyButtonProps {
   jobId: string;
@@ -32,8 +33,11 @@ export function JobApplyButton({
   const [isTracked, setIsTracked] = useState(false);
   const [isTracking, setIsTracking] = useState(false);
 
-  // If this is an external verified role with official career link (e.g. Razorpay, Swiggy, Google)
-  if (sourceUrl) {
+  const safeUrl = sanitizeExternalJobUrl(sourceUrl);
+  const platform = detectJobPlatform(safeUrl, companyName);
+
+  // If this is an external verified role with official career link (e.g. Razorpay, Swiggy, Google, LinkedIn, Internshala, Naukri)
+  if (safeUrl) {
     const handleTrackApplication = async () => {
       setIsTracking(true);
       try {
@@ -42,7 +46,7 @@ export function JobApplyButton({
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             jobId,
-            coverNote: `Applied via official company portal: ${sourceUrl}`,
+            coverNote: `Applied via ${platform.displayName} portal: ${safeUrl}`,
           }),
         });
         if (res.ok) {
@@ -58,12 +62,12 @@ export function JobApplyButton({
     return (
       <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
         <a
-          href={sourceUrl}
+          href={safeUrl}
           target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm px-5 py-2.5 shadow-md shadow-emerald-600/20 transition-all text-center"
+          rel="noopener noreferrer nofollow"
+          className={`inline-flex items-center justify-center gap-2 rounded-xl font-bold text-sm px-5 py-2.5 shadow-md transition-all text-center ${platform.buttonClass}`}
         >
-          <span>Apply on Official Site</span>
+          <span>{platform.applyButtonLabel}</span>
           <ExternalLink className="h-4 w-4" />
         </a>
 

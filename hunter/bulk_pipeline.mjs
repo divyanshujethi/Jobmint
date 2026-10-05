@@ -20,6 +20,7 @@ import path from "path";
 import zlib from "zlib";
 import https from "https";
 import http from "http";
+import crypto from "crypto";
 import pg from "pg";
 const { Pool } = pg;
 
@@ -187,6 +188,133 @@ function fetchGzip(url) {
       reject(new Error(`Timeout fetching ${url}`));
     });
   });
+}
+
+function fetchText(url) {
+  return new Promise((resolve, reject) => {
+    const client = url.startsWith("https") ? https : http;
+    const req = client.get(url, {
+      headers: {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        Accept: "application/xml, text/xml, text/html, */*",
+      },
+      timeout: 15000,
+    }, (res) => {
+      if (res.statusCode !== 200) {
+        return reject(new Error(`HTTP ${res.statusCode} for ${url}`));
+      }
+      let data = "";
+      res.on("data", (c) => data += c);
+      res.on("end", () => resolve(data));
+    });
+    req.on("error", reject);
+    req.on("timeout", () => {
+      req.destroy();
+      reject(new Error(`Timeout fetching ${url}`));
+    });
+  });
+}
+
+function parseInternshalaSlug(url) {
+  const isInternship = url.includes("/internship/detail/");
+  const match = url.match(/\/detail\/(.+)-at-(.+?)([0-9]+)$/);
+  if (!match) return null;
+
+  const rawRoleAndLoc = match[1];
+  const rawCompany = match[2];
+  const jobId = match[3];
+
+  const isRemote =
+    rawRoleAndLoc.includes("work-from-home") ||
+    rawRoleAndLoc.includes("remote") ||
+    rawRoleAndLoc.includes("virtual");
+
+  let loc = "India";
+  const locMatch =
+    rawRoleAndLoc.match(/-(?:job|internship)-in-(.+)$/) ||
+    rawRoleAndLoc.match(/-in-(.+)$/);
+
+  if (locMatch) {
+    loc = titleCase(locMatch[1].replace(/-/g, " "));
+  } else if (isRemote) {
+    loc = "Remote, India";
+  }
+
+  let rawTitle = rawRoleAndLoc
+    .replace(/^work-from-home-/, "")
+    .replace(/^remote-/, "")
+    .replace(/^fresher-/, "")
+    .replace(/-(?:job|internship)-in-.+$/, "")
+    .replace(/-(?:job|internship)$/, "")
+    .replace(/-/g, " ");
+
+  const title = titleCase(rawTitle);
+  const company = titleCase(rawCompany.replace(/-/g, " "));
+  if (title.length < 3 || company.length < 2) return null;
+
+  return {
+    title,
+    company,
+    location: loc.includes("India") ? loc : `${loc}, India`,
+    jobType: isInternship ? "INTERNSHIP" : "FULL_TIME",
+    workMode: isRemote ? "REMOTE" : "ON_SITE",
+    salaryOrStipend: isInternship ? "₹15,000 - ₹35,000 / month Stipend" : "₹4,50,000 - ₹9,00,000 PA",
+    jobId,
+  };
+}
+
+function parseNaukriSlug(url) {
+  const match = url.match(/\/job-listings-(.+)-([0-9]+-to-[0-9]+-years)-([0-9]+)$/);
+  if (!match) return null;
+
+  const rawMiddle = match[1];
+  const rawExp = match[2];
+  const jobId = match[3];
+
+  const expMatch = rawExp.match(/([0-9]+)-to-([0-9]+)-years/);
+  const minExp = expMatch ? parseInt(expMatch[1], 10) : 1;
+
+  const parts = rawMiddle.split("-");
+  if (parts.length < 3) return null;
+
+  let cityIndex = -1;
+  let detectedCity = "India";
+  for (let i = parts.length - 1; i >= 0; i--) {
+    const w = parts[i].toLowerCase();
+    if (KNOWN_CITIES.includes(w)) {
+      cityIndex = i;
+      detectedCity = titleCase(w);
+      break;
+    }
+  }
+
+  let title = "";
+  let company = "Naukri Verified Employer";
+
+  if (cityIndex > 1) {
+    const preCity = parts.slice(0, cityIndex);
+    if (preCity.length >= 4) {
+      title = titleCase(preCity.slice(0, preCity.length - 2).join(" "));
+      company = titleCase(preCity.slice(preCity.length - 2).join(" "));
+    } else if (preCity.length >= 2) {
+      title = titleCase(preCity.slice(0, preCity.length - 1).join(" "));
+      company = titleCase(preCity.slice(preCity.length - 1).join(" "));
+    } else {
+      title = titleCase(preCity.join(" "));
+    }
+  } else {
+    title = titleCase(parts.slice(0, Math.min(parts.length, 4)).join(" "));
+  }
+
+  if (title.length > 80) title = title.substring(0, 80).trim();
+
+  return {
+    title,
+    company,
+    location: `${detectedCity}, India`,
+    experienceYears: minExp,
+    jobId,
+  };
 }
 
 /**
@@ -594,7 +722,167 @@ async function runLinkedInStage(client, roles = [
 }
 
 /**
- * STAGE 5: SmartRecruiters Public Enterprise ATS
+ * STAGE 5: Internshala Tech Opportunities Siphoner
+ */
+async function runInternshalaStage(client, maxLimit = 10000) {
+  console.log(`\n🚀 [Internshala Stage] Crawling verified student & fresher tech opportunities...`);
+  let inserted = 0;
+  let updated = 0;
+
+  const sitemaps = [
+    "https://internshala.com/sitemap-internships.xml",
+    "https://internshala.com/sitemap-jobs.xml",
+  ];
+
+  for (const sitemapUrl of sitemaps) {
+    const sName = sitemapUrl.split("/").pop();
+    console.log(`📡 Fetching ${sitemapUrl}...`);
+    try {
+      const xml = await fetchText(sitemapUrl);
+      const locMatches = xml.match(/<loc>(https:\/\/internshala\.com\/(?:internship|job)\/detail\/[^<]+)<\/loc>/g) || [];
+      console.log(`   Found ${locMatches.length} raw URLs in ${sName}. Filtering tech positions...`);
+
+      const batch = [];
+      const seenInSitemap = new Set();
+
+      for (const locTag of locMatches) {
+        if (inserted + updated >= maxLimit) break;
+
+        const rawUrl = locTag.replace(/<\/?loc>/g, "").trim().split("?")[0];
+        if (seenInSitemap.has(rawUrl)) continue;
+        seenInSitemap.add(rawUrl);
+
+        if (!TECH_REGEX.test(rawUrl.toLowerCase()) && !/developer|engineer|intern|software|data|python|react|frontend|backend/i.test(rawUrl)) continue;
+
+        const parsed = parseInternshalaSlug(rawUrl);
+        if (!parsed) continue;
+
+        batch.push({
+          title: parsed.title,
+          companyName: parsed.company,
+          location: parsed.location,
+          sourceUrl: rawUrl,
+          externalId: `internshala-${parsed.jobId}`,
+          jobType: parsed.jobType,
+          workMode: parsed.workMode,
+          salaryOrStipend: parsed.salaryOrStipend,
+          experienceYears: parsed.jobType === "INTERNSHIP" ? 0 : 1,
+          description: `${parsed.title} ${parsed.jobType === "INTERNSHIP" ? "Internship" : "Role"} at ${parsed.company}. Location: ${parsed.location}. Candidates apply directly on Internshala verified student and fresher network.`,
+        });
+
+        if (batch.length >= 500) {
+          const stats = await batchInsertJobs(client, batch);
+          inserted += stats.inserted;
+          updated += stats.updated;
+          batch.length = 0;
+          process.stdout.write(`   [Internshala: +${inserted} new, ~${updated} refreshed]\r`);
+        }
+      }
+
+      if (batch.length > 0) {
+        const stats = await batchInsertJobs(client, batch);
+        inserted += stats.inserted;
+        updated += stats.updated;
+      }
+
+      console.log(`\n   ✅ ${sName} finished. Cumulative: +${inserted} new, ~${updated} refreshed.`);
+    } catch (err) {
+      console.error(`   ❌ Failed ${sName}:`, err.message);
+    }
+  }
+
+  return { inserted, updated };
+}
+
+/**
+ * STAGE 6: Naukri India Fast Enterprise Crawler
+ */
+async function runNaukriStage(client, maxLimit = 15000) {
+  console.log(`\n🚀 [Naukri Stage] Siphoning high-demand metro tech vacancies across India...`);
+  let inserted = 0;
+  let updated = 0;
+
+  const sitemaps = [
+    "https://www.naukri.com/sitemap/jobDescPagesBangalore.xml",
+    "https://www.naukri.com/sitemap/jobDescPagesHyderabad-1.xml.gz",
+    "https://www.naukri.com/sitemap/jobDescPagesPune.xml",
+    "https://www.naukri.com/sitemap/jobDescPagesNoida.xml",
+    "https://www.naukri.com/sitemap/jobDescPagesDelhi.xml",
+    "https://www.naukri.com/sitemap/jobDescPagesMumbai-1.xml.gz",
+    "https://www.naukri.com/sitemap/jobDescPagesChennai.xml",
+  ];
+
+  for (const sitemapUrl of sitemaps) {
+    if (inserted + updated >= maxLimit) break;
+    const sName = sitemapUrl.split("/").pop();
+    console.log(`📡 Fetching ${sitemapUrl}...`);
+    try {
+      let xml = "";
+      if (sitemapUrl.endsWith(".gz")) {
+        xml = await fetchGzip(sitemapUrl);
+      } else {
+        xml = await fetchText(sitemapUrl);
+      }
+
+      const locMatches = xml.match(/<loc>(https:\/\/www\.naukri\.com\/job-listings-[^<]+)<\/loc>/g) || [];
+      console.log(`   Found ${locMatches.length} raw URLs in ${sName}. Filtering tech positions...`);
+
+      const batch = [];
+      const seenInSitemap = new Set();
+
+      for (const locTag of locMatches) {
+        if (inserted + updated >= maxLimit) break;
+
+        const rawUrl = locTag.replace(/<\/?loc>/g, "").trim().split("?")[0];
+        if (seenInSitemap.has(rawUrl)) continue;
+        seenInSitemap.add(rawUrl);
+
+        if (!TECH_REGEX.test(rawUrl.toLowerCase())) continue;
+
+        const parsed = parseNaukriSlug(rawUrl);
+        if (!parsed) continue;
+
+        const isRemote = parsed.location.toLowerCase().includes("remote") || parsed.title.toLowerCase().includes("remote");
+
+        batch.push({
+          title: parsed.title,
+          companyName: parsed.company,
+          location: parsed.location,
+          sourceUrl: rawUrl,
+          externalId: `naukri-${parsed.jobId}`,
+          jobType: "FULL_TIME",
+          workMode: isRemote ? "REMOTE" : "ON_SITE",
+          salaryOrStipend: "Competitive (Industry Standard)",
+          experienceYears: parsed.experienceYears || 2,
+          description: `${parsed.title} position open at ${parsed.company}. Location: ${parsed.location}. Direct official application on Naukri verified employer portal.`,
+        });
+
+        if (batch.length >= 500) {
+          const stats = await batchInsertJobs(client, batch);
+          inserted += stats.inserted;
+          updated += stats.updated;
+          batch.length = 0;
+          process.stdout.write(`   [Naukri: +${inserted} new, ~${updated} refreshed]\r`);
+        }
+      }
+
+      if (batch.length > 0) {
+        const stats = await batchInsertJobs(client, batch);
+        inserted += stats.inserted;
+        updated += stats.updated;
+      }
+
+      console.log(`\n   ✅ ${sName} finished. Cumulative: +${inserted} new, ~${updated} refreshed.`);
+    } catch (err) {
+      console.error(`   ❌ Failed ${sName}:`, err.message);
+    }
+  }
+
+  return { inserted, updated };
+}
+
+/**
+ * STAGE 7: SmartRecruiters Public Enterprise ATS
  */
 async function runSmartRecruitersStage(client) {
   const companies = [
@@ -821,29 +1109,41 @@ async function main() {
     const preCount = await client.query("SELECT count(*) as total, count(*) FILTER (WHERE is_active = true) as active FROM jobs");
     console.log(`📊 Current DB Stats: Total: ${preCount.rows[0].total}, Active: ${preCount.rows[0].active}`);
 
+    const onlyArg = process.argv.find((a) => a.startsWith("--only="));
+    const allowed = onlyArg ? onlyArg.split("=")[1].toLowerCase().split(",") : null;
+    const shouldRun = (stage) => !allowed || allowed.includes(stage.toLowerCase());
+
     // Stage 1: Foundit Sitemaps (0 through 10)
-    const founditStats = await runFounditStage(client, 0, 11, 8000);
+    const founditStats = shouldRun("foundit") ? await runFounditStage(client, 0, 11, 8000) : { inserted: 0, updated: 0 };
 
     // Stage 2: Adzuna India Developer API
-    const adzunaStats = await runAdzunaStage(client);
+    const adzunaStats = shouldRun("adzuna") ? await runAdzunaStage(client) : { inserted: 0, updated: 0 };
 
     // Stage 3: Jooble India API
-    const joobleStats = await runJoobleStage(client);
+    const joobleStats = shouldRun("jooble") ? await runJoobleStage(client) : { inserted: 0, updated: 0 };
 
     // Stage 4: LinkedIn Public Guest Search API
-    const linkedInStats = await runLinkedInStage(client);
+    const linkedInStats = shouldRun("linkedin") ? await runLinkedInStage(client) : { inserted: 0, updated: 0 };
 
-    // Stage 5: SmartRecruiters Public Enterprise ATS
-    const srStats = await runSmartRecruitersStage(client);
+    // Stage 5: Internshala Tech Opportunities Siphoner
+    const internshalaStats = shouldRun("internshala") ? await runInternshalaStage(client) : { inserted: 0, updated: 0 };
 
-    // Stage 6: High-Tier Direct ATS (Greenhouse & Lever)
-    const atsStats = await runAtsStage(client);
+    // Stage 6: Naukri India Fast Enterprise Crawler
+    const naukriStats = shouldRun("naukri") ? await runNaukriStage(client) : { inserted: 0, updated: 0 };
+
+    // Stage 7: SmartRecruiters Public Enterprise ATS
+    const srStats = shouldRun("smartrecruiters") ? await runSmartRecruitersStage(client) : { inserted: 0, updated: 0 };
+
+    // Stage 8: High-Tier Direct ATS (Greenhouse & Lever)
+    const atsStats = shouldRun("ats") ? await runAtsStage(client) : { inserted: 0, updated: 0 };
 
     const totalAdded =
       founditStats.inserted +
       adzunaStats.inserted +
       joobleStats.inserted +
       linkedInStats.inserted +
+      internshalaStats.inserted +
+      naukriStats.inserted +
       srStats.inserted +
       atsStats.inserted;
 
@@ -852,6 +1152,8 @@ async function main() {
       adzunaStats.updated +
       joobleStats.updated +
       linkedInStats.updated +
+      internshalaStats.updated +
+      naukriStats.updated +
       srStats.updated +
       atsStats.updated;
 

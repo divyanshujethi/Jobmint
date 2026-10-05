@@ -84,3 +84,19 @@ export async function delCache(...keys: string[]): Promise<void> {
     // Non-blocking fail-safe
   }
 }
+
+/**
+ * Invalidate cache keys matching pattern
+ */
+export async function delPattern(pattern: string): Promise<void> {
+  if (!redis) return;
+  try {
+    const keys = await redis.keys(pattern);
+    if (keys.length > 0) {
+      await redis.del(...keys);
+    }
+  } catch {
+    // Non-blocking fail-safe
+  }
+}
+

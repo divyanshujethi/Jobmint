@@ -1,7 +1,7 @@
-import { db, jobs, companies, jobSkills, skills, eq, desc, inArray } from "@repo/database";
+import { db, jobs, companies, jobSkills, skills, eq, and, desc, inArray } from "@repo/database";
 import { MockJob, MOCK_JOBS } from "./mock-jobs";
 import { JobType, WorkMode, JobSource } from "@repo/shared";
-import { getCache, setCache, delCache } from "./redis";
+import { getCache, setCache, delCache, delPattern } from "./redis";
 
 export const JOBS_CACHE_KEY = "cache:jobs:live";
 export const JOBS_CACHE_TTL_SECONDS = 60;
@@ -11,6 +11,7 @@ export const JOBS_CACHE_TTL_SECONDS = 60;
  */
 export async function invalidateJobsCache(): Promise<void> {
   await delCache(JOBS_CACHE_KEY);
+  await delPattern("cache:jobs:live*");
 }
 
 function formatTimeAgo(date: Date): string {
@@ -35,15 +36,29 @@ function slugify(text: string): string {
  * Returns genuine, crawled tech jobs and internships directly from PostgreSQL.
  * Backed by read-through Redis cache.
  */
-export async function getLiveJobs(limit = 2000): Promise<MockJob[]> {
+export async function getLiveJobs(
+  limitOrOptions: number | { limit?: number; jobType?: string } = 3000
+): Promise<MockJob[]> {
+  const limit = typeof limitOrOptions === "number" ? limitOrOptions : (limitOrOptions?.limit ?? 3000);
+  const targetType =
+    typeof limitOrOptions === "object" && limitOrOptions?.jobType && limitOrOptions.jobType !== "ALL"
+      ? limitOrOptions.jobType
+      : "ALL";
+  const cacheKey = `${JOBS_CACHE_KEY}:${targetType}:${limit}`;
+
   try {
     // 1. Read-Through Redis Cache Check (<5ms response)
-    const cachedJobs = await getCache<MockJob[]>(JOBS_CACHE_KEY);
+    const cachedJobs = await getCache<MockJob[]>(cacheKey);
     if (cachedJobs && Array.isArray(cachedJobs) && cachedJobs.length > 0) {
       return cachedJobs;
     }
 
     // 2. Fetch live crawled tech jobs from PostgreSQL database
+    const whereConditions = [eq(jobs.isActive, true)];
+    if (targetType !== "ALL") {
+      whereConditions.push(eq(jobs.jobType, targetType as any));
+    }
+
     const rawJobs = await db
       .select({
         id: jobs.id,
@@ -76,7 +91,7 @@ export async function getLiveJobs(limit = 2000): Promise<MockJob[]> {
       })
       .from(jobs)
       .innerJoin(companies, eq(jobs.companyId, companies.id))
-      .where(eq(jobs.isActive, true))
+      .where(and(...whereConditions))
       .orderBy(desc(jobs.isFeatured), desc(jobs.createdAt))
       .limit(limit);
 
@@ -204,7 +219,10 @@ export async function getLiveJobs(limit = 2000): Promise<MockJob[]> {
 
     // 4. Cache in Redis with 60-second TTL
     if (formattedJobs.length > 0) {
-      await setCache(JOBS_CACHE_KEY, formattedJobs, JOBS_CACHE_TTL_SECONDS);
+      await setCache(cacheKey, formattedJobs, JOBS_CACHE_TTL_SECONDS);
+      if (targetType === "ALL") {
+        await setCache(JOBS_CACHE_KEY, formattedJobs, JOBS_CACHE_TTL_SECONDS);
+      }
     }
 
     return formattedJobs;

@@ -7,6 +7,7 @@ import { MockJob } from "@/lib/mock-jobs";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { calculateJobMatch } from "@repo/matching";
+import { detectJobPlatform, sanitizeExternalJobUrl } from "@repo/shared";
 import { MatchScoreBadge } from "./match-score-badge";
 import {
   CandidateIntelProfile,
@@ -70,6 +71,8 @@ export function JobCard({ job, candidateIntel }: JobCardProps) {
     : null;
 
   const userSkillsLower = new Set((activeIntel?.skills || []).map((s) => s.toLowerCase().trim()));
+  const safeSourceUrl = sanitizeExternalJobUrl(job.sourceUrl);
+  const platformInfo = detectJobPlatform(safeSourceUrl, job.companyName);
 
   return (
     <div
@@ -212,9 +215,10 @@ export function JobCard({ job, candidateIntel }: JobCardProps) {
           <Clock className="h-3.5 w-3.5 text-slate-400" />
           <span>Posted {job.postedAgo}</span>
           <span>•</span>
-          {job.sourceUrl ? (
-            <span className="text-emerald-700 font-semibold inline-flex items-center gap-1">
-              Verified Direct Application Link
+          {safeSourceUrl ? (
+            <span className={`inline-flex items-center gap-1 font-semibold px-2 py-0.5 rounded-md border text-[11px] ${platformInfo.badgeClass}`}>
+              <ShieldCheck className="h-3 w-3" />
+              {platformInfo.badgeLabel}
             </span>
           ) : job.truthTeller.reviewRate > 0 ? (
             <span className="text-emerald-700 font-medium">
@@ -228,15 +232,15 @@ export function JobCard({ job, candidateIntel }: JobCardProps) {
         </div>
 
         <div className="flex items-center gap-2">
-          {job.sourceUrl && (
+          {safeSourceUrl && (
             <a
-              href={job.sourceUrl}
+              href={safeSourceUrl}
               target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs px-3 py-2 shadow-xs transition-colors shrink-0"
+              rel="noopener noreferrer nofollow"
+              className={`inline-flex items-center gap-1.5 rounded-lg font-bold text-xs px-3 py-2 shadow-xs transition-colors shrink-0 ${platformInfo.buttonClass}`}
               onClick={(e) => e.stopPropagation()}
             >
-              <span>Apply Official</span>
+              <span>{platformInfo.applyButtonLabel}</span>
               <ExternalLink className="h-3 w-3" />
             </a>
           )}

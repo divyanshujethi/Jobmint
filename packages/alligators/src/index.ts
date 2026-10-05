@@ -19,6 +19,8 @@ import { crawlFounditIndia } from './job-alligator/foundit-crawler';
 import { crawlLinkedInGuestJobs } from './job-alligator/linkedin-guest-crawler';
 import { crawlSmartRecruitersJobs } from './job-alligator/smartrecruiters-crawler';
 import { crawlWorkableJobs } from './job-alligator/workable-crawler';
+import { crawlInternshalaOpportunities } from './job-alligator/internshala-crawler';
+import { crawlNaukriIndia } from './job-alligator/naukri-crawler';
 
 export * from './types';
 export * from './job-alligator/skill-extractor';
@@ -38,6 +40,8 @@ export * from './job-alligator/foundit-crawler';
 export * from './job-alligator/linkedin-guest-crawler';
 export * from './job-alligator/smartrecruiters-crawler';
 export * from './job-alligator/workable-crawler';
+export * from './job-alligator/internshala-crawler';
+export * from './job-alligator/naukri-crawler';
 export * from './job-alligator/search-dorker';
 export * from './job-alligator/sitemap-siphoner';
 export * from './job-alligator/github-internships';
@@ -47,6 +51,7 @@ export * from './job-alligator/company-discovery';
 export * from './job-alligator/ai-career-scraper';
 export * from './study-alligator/curated-sources';
 export * from './study-alligator/canvas-binder';
+export * from './study-alligator/youtube-study-crawler';
 
 /**
  * Master Runner for Job Alligator:
@@ -68,6 +73,8 @@ export async function runJobAlligator(options?: {
   linkedinLimit?: number;
   smartRecruitersLimit?: number;
   workableLimit?: number;
+  internshalaLimit?: number;
+  naukriLimit?: number;
 }) {
   const startTime = Date.now();
   const internshipLimit = options?.internshipLimit ?? 30;
@@ -81,6 +88,8 @@ export async function runJobAlligator(options?: {
   const linkedinLimit = options?.linkedinLimit ?? 200;
   const smartRecruitersLimit = options?.smartRecruitersLimit ?? 500;
   const workableLimit = options?.workableLimit ?? 300;
+  const internshalaLimit = options?.internshalaLimit ?? 1000;
+  const naukriLimit = options?.naukriLimit ?? 2000;
 
   const [
     adzunaJobs,
@@ -89,6 +98,8 @@ export async function runJobAlligator(options?: {
     linkedInJobs,
     smartRecruitersJobs,
     workableJobs,
+    internshalaJobs,
+    naukriJobs,
     indiaJobs,
     jobsPipeJobs,
     ashbyJobs,
@@ -130,6 +141,14 @@ export async function runJobAlligator(options?: {
       console.error("[Job Alligator] Workable crawler failed:", err);
       return [];
     }),
+    crawlInternshalaOpportunities({ limit: internshalaLimit }).catch((err) => {
+      console.error("[Job Alligator] Internshala crawler failed:", err);
+      return [];
+    }),
+    crawlNaukriIndia({ limit: naukriLimit }).catch((err) => {
+      console.error("[Job Alligator] Naukri crawler failed:", err);
+      return [];
+    }),
     crawlIndiaTechBoards({ maxPerCompany, enableDiscovery }).catch((err) => {
       console.error("[Job Alligator] India crawler failed:", err);
       return [];
@@ -157,6 +176,8 @@ export async function runJobAlligator(options?: {
     ...linkedInJobs,
     ...smartRecruitersJobs,
     ...workableJobs,
+    ...internshalaJobs,
+    ...naukriJobs,
     ...indiaJobs,
     ...jobsPipeJobs,
     ...ashbyJobs,

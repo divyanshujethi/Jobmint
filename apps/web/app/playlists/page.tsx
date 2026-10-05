@@ -30,6 +30,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { CURATED_COURSES, CoursePlaylist, getCourseChapters, VideoChapter } from "@/lib/courses-data";
 
 export default function PlaylistsPage() {
+  const [courses, setCourses] = useState<CoursePlaylist[]>(CURATED_COURSES);
   const [selectedCategory, setSelectedCategory] = useState<string>("ALL");
   const [searchQuery, setSearchQuery] = useState("");
   const [activeModalCourse, setActiveModalCourse] = useState<CoursePlaylist | null>(null);
@@ -40,6 +41,21 @@ export default function PlaylistsPage() {
   const [bookmarkedIds, setBookmarkedIds] = useState<string[]>([]);
   const [completedIds, setCompletedIds] = useState<string[]>([]);
   const [collectionFilter, setCollectionFilter] = useState<"ALL" | "BOOKMARKED" | "COMPLETED">("ALL");
+
+  useEffect(() => {
+    async function loadDynamicPlaylists() {
+      try {
+        const res = await fetch("/api/playlists");
+        const data = await res.json();
+        if (data.success && Array.isArray(data.courses) && data.courses.length > 0) {
+          setCourses(data.courses);
+        }
+      } catch {
+        // Keep initial CURATED_COURSES fallback
+      }
+    }
+    loadDynamicPlaylists();
+  }, []);
 
   useEffect(() => {
     try {
@@ -75,7 +91,7 @@ export default function PlaylistsPage() {
     } catch {}
   };
 
-  const filtered = CURATED_COURSES.filter((course) => {
+  const filtered = courses.filter((course) => {
     // Collection Filter (All, Bookmarked, Completed)
     if (collectionFilter === "BOOKMARKED" && !bookmarkedIds.includes(course.id)) {
       return false;
@@ -103,7 +119,7 @@ export default function PlaylistsPage() {
   });
 
   const categories = [
-    { id: "ALL", label: `All Playlists (${CURATED_COURSES.length})`, color: "bg-slate-900 text-white" },
+    { id: "ALL", label: `All Playlists (${courses.length})`, color: "bg-slate-900 text-white" },
     { id: "AI_ML", label: "🤖 AI & GenAI", color: "bg-emerald-600 text-white" },
     { id: "WEB_DEV", label: "💻 Full Stack", color: "bg-teal-600 text-white" },
     { id: "DSA", label: "⚡ DSA & Coding", color: "bg-purple-600 text-white" },
@@ -172,7 +188,7 @@ export default function PlaylistsPage() {
               }`}
             >
               <ListVideo className="h-3.5 w-3.5" />
-              <span>All Courses ({CURATED_COURSES.length})</span>
+              <span>All Courses ({courses.length})</span>
             </button>
 
             <button

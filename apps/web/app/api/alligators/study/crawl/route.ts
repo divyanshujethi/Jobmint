@@ -1,18 +1,23 @@
 import { NextResponse } from "next/server";
-import { runStudyCrawler } from "@/lib/study-crawler";
-import { CURATED_COURSES } from "@/lib/courses-data";
+import { crawlYouTubePlaylist, SEED_STUDY_PLAYLISTS } from "@repo/alligators";
+import { getAllPlaylists, getDynamicPlaylists, saveDynamicPlaylist } from "@/lib/courses-store";
+import { CURATED_COURSES, CoursePlaylist } from "@/lib/courses-data";
 
-export const maxDuration = 30;
+export const maxDuration = 60;
+export const dynamic = "force-dynamic";
 
 export async function GET(): Promise<NextResponse> {
   try {
-    const crawlerResult = await runStudyCrawler();
+    const all = await getAllPlaylists();
+    const dynamicPlaylists = await getDynamicPlaylists();
 
     return NextResponse.json({
       success: true,
       data: {
-        totalPlaylists: CURATED_COURSES.length,
-        verifiedPlaylists: CURATED_COURSES.map((c) => ({
+        totalPlaylists: all.length,
+        curatedCount: CURATED_COURSES.length,
+        dynamicCount: dynamicPlaylists.length,
+        recentDynamic: dynamicPlaylists.slice(0, 10).map((c) => ({
           id: c.id,
           title: c.title,
           creator: c.creator,
@@ -20,19 +25,81 @@ export async function GET(): Promise<NextResponse> {
           totalVideos: c.totalVideos,
           duration: c.duration,
           youtubeUrl: c.youtubeUrl,
-          githubRepos: c.recommendedGithubRepos.length,
+          skills: c.skillsLearned,
         })),
-        crawlerStats: crawlerResult,
       },
     });
   } catch (err: any) {
     return NextResponse.json(
-      { success: false, error: err.message || "Failed to crawl study content" },
+      { success: false, error: err.message || "Failed to fetch study crawler stats" },
       { status: 500 }
     );
   }
 }
 
-export async function POST(): Promise<NextResponse> {
-  return GET();
+export async function POST(request: Request): Promise<NextResponse> {
+  try {
+    let body: any = {};
+    try {
+      body = await request.json();
+    } catch {
+      // Body may be empty for default trigger
+    }
+
+    const targetUrl = body.playlistUrl || body.playlistId || body.url;
+
+    // 1. Single Playlist On-Demand Ingestion
+    if (targetUrl) {
+      const crawled = await crawlYouTubePlaylist(targetUrl, {
+        category: body.category,
+        subcategory: body.subcategory,
+        difficulty: body.difficulty,
+      });
+
+      // Save to Redis and fallback file
+      await saveDynamicPlaylist(crawled as unknown as CoursePlaylist);
+
+      return NextResponse.json({
+        success: true,
+        data: {
+          course: crawled,
+          message: `Successfully crawled "${crawled.title}" by ${crawled.creator} (${crawled.totalVideos} videos, ${crawled.skillsLearned.length} skills detected). Added to /playlists!`,
+        },
+      });
+    }
+
+    // 2. Batch Sync Seeds
+    if (body.mode === "seed_sync") {
+      const ingested: any[] = [];
+      const errors: string[] = [];
+
+      for (const seed of SEED_STUDY_PLAYLISTS.slice(0, 3)) {
+        try {
+          const crawled = await crawlYouTubePlaylist(seed.url, { category: seed.category });
+          await saveDynamicPlaylist(crawled as unknown as CoursePlaylist);
+          ingested.push(crawled);
+        } catch (e: any) {
+          errors.push(`${seed.name}: ${e.message}`);
+        }
+      }
+
+      return NextResponse.json({
+        success: true,
+        data: {
+          syncedCount: ingested.length,
+          ingested: ingested.map((i) => ({ id: i.id, title: i.title, creator: i.creator, videos: i.totalVideos })),
+          errors,
+        },
+      });
+    }
+
+    // 3. Fallback: Return current status
+    return GET();
+  } catch (err: any) {
+    console.error("[Study Crawler API Error]:", err);
+    return NextResponse.json(
+      { success: false, error: err.message || "Failed to crawl YouTube playlist" },
+      { status: 500 }
+    );
+  }
 }

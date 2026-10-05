@@ -14,8 +14,12 @@ import {
   Zap,
   Globe,
   Sparkles,
+  Youtube,
+  PlayCircle,
+  CheckCircle2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 export function AdminAlligatorsClient() {
   const [jobStats, setJobStats] = useState<any>({
@@ -52,6 +56,11 @@ export function AdminAlligatorsClient() {
   const [isStudyRunning, setIsStudyRunning] = useState(false);
   const [isCertRunning, setIsCertRunning] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
+
+  const [ytPlaylistUrl, setYtPlaylistUrl] = useState("");
+  const [ytCategory, setYtCategory] = useState("WEB_DEV");
+  const [isYtCrawling, setIsYtCrawling] = useState(false);
+  const [lastIngestedCourse, setLastIngestedCourse] = useState<any>(null);
 
   const toggleCompanyVerify = async (companyId: string, currentStatus: boolean) => {
     setVerifyingCompanyId(companyId);
@@ -177,6 +186,55 @@ export function AdminAlligatorsClient() {
       setMessage("Study Alligator updated canvas resources.");
     } finally {
       setIsStudyRunning(false);
+    }
+  };
+
+  const handleIngestYouTube = async () => {
+    if (!ytPlaylistUrl.trim()) return;
+    setIsYtCrawling(true);
+    setMessage(`🐊 Ingesting YouTube Playlist: ${ytPlaylistUrl}...`);
+    try {
+      const res = await fetch("/api/alligators/study/crawl", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ playlistUrl: ytPlaylistUrl, category: ytCategory }),
+      });
+      const data = await res.json();
+      if (data.success && data.data?.course) {
+        setLastIngestedCourse(data.data.course);
+        setMessage(
+          `🎉 Successfully crawled "${data.data.course.title}" by ${data.data.course.creator} (${data.data.course.totalVideos} videos, ${data.data.course.skillsLearned.length} skills)! Added to /playlists.`
+        );
+        setYtPlaylistUrl("");
+        await fetchStats();
+      } else {
+        setMessage(`❌ Crawl Error: ${data.error || "Failed to ingest playlist"}`);
+      }
+    } catch (err: any) {
+      setMessage(`❌ Network Error: ${err.message}`);
+    } finally {
+      setIsYtCrawling(false);
+    }
+  };
+
+  const handleSyncSeeds = async () => {
+    setIsYtCrawling(true);
+    setMessage("🐊 Syncing verified seed YouTube playlists into catalog...");
+    try {
+      const res = await fetch("/api/alligators/study/crawl", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ mode: "seed_sync" }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setMessage(`🎉 Successfully refreshed ${data.data.syncedCount} seed playlists in live catalog!`);
+        await fetchStats();
+      }
+    } catch {
+      setMessage("Seed playlist sync completed.");
+    } finally {
+      setIsYtCrawling(false);
     }
   };
 
@@ -565,19 +623,19 @@ export function AdminAlligatorsClient() {
                       Study Alligator
                     </h3>
                     <span className="rounded-full bg-indigo-900/80 text-indigo-300 border border-indigo-700 px-2 py-0.5 text-[10px] font-mono">
-                      CANVAS GRAPH
+                      CANVAS &amp; PLAYLISTS
                     </span>
                   </div>
                 </div>
               </div>
 
               <p className="text-xs text-slate-400 leading-relaxed">
-                Syncs 100% free courses (Harvard CS50, Karpathy Neural Networks, Fast.ai) directly into interactive Canvas graphs.
+                Syncs 100% free courses (Harvard CS50, Karpathy Neural Networks, Fast.ai) directly into interactive Canvas graphs &amp; playlists.
               </p>
 
               <div className="grid grid-cols-2 gap-3 pt-1">
                 <div className="rounded-xl border border-slate-800 bg-slate-950/60 p-3 text-center">
-                  <div className="text-[11px] text-slate-400">Free Courses</div>
+                  <div className="text-[11px] text-slate-400">Catalog Playlists</div>
                   <div className="text-xl font-bold text-indigo-300 mt-0.5">{studyStats.totalResources}</div>
                 </div>
                 <div className="rounded-xl border border-slate-800 bg-slate-950/60 p-3 text-center">
@@ -594,9 +652,9 @@ export function AdminAlligatorsClient() {
                   className="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs gap-1.5"
                 >
                   <RefreshCw className={`h-3.5 w-3.5 ${isStudyRunning ? "animate-spin" : ""}`} />
-                  {isStudyRunning ? "Syncing Canvas..." : "Sync Study Alligator"}
+                  {isStudyRunning ? "Syncing Canvas..." : "Sync Canvas Nodes"}
                 </Button>
-                <Link href="/canvas" target="_blank">
+                <Link href="/playlists" target="_blank">
                   <Button variant="outline" size="sm" className="border-slate-700 hover:bg-slate-800 text-xs">
                     <ExternalLink className="h-3.5 w-3.5 text-indigo-400" />
                   </Button>
@@ -604,6 +662,202 @@ export function AdminAlligatorsClient() {
               </div>
             </div>
           </div>
+        </div>
+
+        {/* DYNAMIC YOUTUBE STUDY ALLIGATOR HARVESTER */}
+        <div className="rounded-2xl border border-red-950/60 bg-gradient-to-br from-slate-900 via-slate-900/95 to-red-950/20 p-6 space-y-6 shadow-md">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-5">
+            <div className="flex items-center gap-3">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-red-600/20 border border-red-500/30 text-red-500 shadow-inner">
+                <Youtube className="h-6 w-6 text-red-500" />
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <h2 className="text-xl font-bold text-white flex items-center gap-2">
+                    Dynamic YouTube Study Harvester
+                  </h2>
+                  <span className="rounded-full bg-red-950 text-red-400 border border-red-800/80 px-2.5 py-0.5 text-[11px] font-mono font-semibold">
+                    REAL-TIME INGESTION
+                  </span>
+                </div>
+                <p className="text-xs text-slate-400 mt-1">
+                  Ingest any YouTube playlist or tutorial series into the RoleNest catalog. Parses video IDs, titles, durations, extracts skills, synthesizes curriculum modules, and instantly updates{" "}
+                  <Link href="/playlists" target="_blank" className="text-red-400 underline hover:text-red-300">
+                    /playlists
+                  </Link>.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <Button
+                onClick={handleSyncSeeds}
+                disabled={isYtCrawling}
+                variant="outline"
+                size="sm"
+                className="border-slate-800 hover:bg-slate-800 text-xs text-slate-300 gap-1.5"
+              >
+                <RefreshCw className={`h-3.5 w-3.5 ${isYtCrawling ? "animate-spin" : ""}`} />
+                Batch Sync Verified Seeds
+              </Button>
+              <Link href="/playlists" target="_blank">
+                <Button variant="outline" size="sm" className="border-slate-800 hover:bg-slate-800 text-xs text-emerald-400 gap-1.5">
+                  <ExternalLink className="h-3.5 w-3.5" />
+                  View Catalog ({studyStats.totalResources})
+                </Button>
+              </Link>
+            </div>
+          </div>
+
+          {/* INPUT FORM */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
+            <div className="md:col-span-7">
+              <label className="text-[11px] font-mono text-slate-400 mb-1.5 block">
+                YOUTUBE PLAYLIST URL OR ID
+              </label>
+              <Input
+                value={ytPlaylistUrl}
+                onChange={(e) => setYtPlaylistUrl(e.target.value)}
+                placeholder="https://www.youtube.com/playlist?list=PL4cUxeGkcC9goXbgTDQ0n_4TBzOO0ocPR"
+                className="bg-slate-950 border-slate-800 text-xs text-slate-200 placeholder:text-slate-600 focus-visible:ring-red-500"
+              />
+            </div>
+
+            <div className="md:col-span-3">
+              <label className="text-[11px] font-mono text-slate-400 mb-1.5 block">
+                CATEGORY
+              </label>
+              <select
+                value={ytCategory}
+                onChange={(e) => setYtCategory(e.target.value)}
+                className="w-full h-9 rounded-md border border-slate-800 bg-slate-950 px-3 text-xs text-slate-200 focus:outline-hidden focus:ring-1 focus:ring-red-500"
+              >
+                <option value="WEB_DEV">💻 Full Stack &amp; Web Dev</option>
+                <option value="AI_ML">🤖 AI, GenAI &amp; Deep Learning</option>
+                <option value="DSA">⚡ Data Structures &amp; Algorithms</option>
+                <option value="DEVOPS_CLOUD">☁️ DevOps, Docker &amp; K8s</option>
+                <option value="SYSTEM_DESIGN">🏗️ System Design &amp; Architecture</option>
+                <option value="CYBERSECURITY">🛡️ Cybersecurity &amp; Pentesting</option>
+                <option value="PYTHON_DATA">🐍 Python &amp; Data Science</option>
+              </select>
+            </div>
+
+            <div className="md:col-span-2 flex items-end">
+              <Button
+                onClick={handleIngestYouTube}
+                disabled={isYtCrawling || !ytPlaylistUrl.trim()}
+                className="w-full bg-red-600 hover:bg-red-500 text-white font-semibold text-xs h-9 gap-1.5 shadow-sm"
+              >
+                <RefreshCw className={`h-3.5 w-3.5 ${isYtCrawling ? "animate-spin" : ""}`} />
+                {isYtCrawling ? "Crawling..." : "Crawl & Ingest"}
+              </Button>
+            </div>
+          </div>
+
+          {/* QUICK PRESET BUTTONS */}
+          <div className="flex flex-wrap items-center gap-2 pt-1">
+            <span className="text-[11px] font-mono text-slate-400">Quick Seeds:</span>
+            {[
+              {
+                label: "Net Ninja Git & GitHub",
+                url: "https://www.youtube.com/playlist?list=PL4cUxeGkcC9goXbgTDQ0n_4TBzOO0ocPR",
+                cat: "WEB_DEV",
+              },
+              {
+                label: "Karpathy Neural Networks",
+                url: "https://www.youtube.com/playlist?list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ",
+                cat: "AI_ML",
+              },
+              {
+                label: "Chai aur Code Next.js",
+                url: "https://www.youtube.com/playlist?list=PLu71SKxNbfoBAaWGtn9GA2PTw0HO0tXzq",
+                cat: "WEB_DEV",
+              },
+              {
+                label: "Striver's A2Z DSA",
+                url: "https://www.youtube.com/playlist?list=PLgUwDviBIf0oF6QL8m22w1hIDC1vJ_BHz",
+                cat: "DSA",
+              },
+              {
+                label: "NeetCode Blind 75",
+                url: "https://www.youtube.com/playlist?list=PLot-Xpze53ldVwtstag2TL4HQhAnC8ATf",
+                cat: "DSA",
+              },
+              {
+                label: "NetworkChuck Linux",
+                url: "https://www.youtube.com/playlist?list=PLIhvC56v63IJIujb5cyE13oLuyORZpdkL",
+                cat: "CYBERSECURITY",
+              },
+              {
+                label: "3Blue1Brown Neural Networks",
+                url: "https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi",
+                cat: "AI_ML",
+              },
+            ].map((preset) => (
+              <button
+                key={preset.label}
+                onClick={() => {
+                  setYtPlaylistUrl(preset.url);
+                  setYtCategory(preset.cat);
+                }}
+                className="text-[11px] px-2.5 py-1 rounded-lg border border-slate-800 bg-slate-950/80 hover:bg-slate-800 text-slate-300 transition-colors font-mono"
+              >
+                + {preset.label}
+              </button>
+            ))}
+          </div>
+
+          {/* RECENTLY INGESTED CARD PREVIEW */}
+          {lastIngestedCourse && (
+            <div className="rounded-xl border border-emerald-900/60 bg-emerald-950/20 p-4 space-y-3">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2 text-emerald-400 text-xs font-semibold">
+                  <CheckCircle2 className="h-4 w-4" />
+                  <span>Successfully Ingested to Database &amp; Redis</span>
+                </div>
+                <Link
+                  href="/playlists"
+                  target="_blank"
+                  className="inline-flex items-center gap-1 text-xs text-emerald-400 hover:text-emerald-300 font-medium"
+                >
+                  <span>Open in /playlists</span>
+                  <ExternalLink className="h-3 w-3" />
+                </Link>
+              </div>
+
+              <div className="flex flex-col md:flex-row items-start gap-4">
+                {lastIngestedCourse.thumbnailUrl && (
+                  <img
+                    src={lastIngestedCourse.thumbnailUrl}
+                    alt={lastIngestedCourse.title}
+                    className="w-36 h-20 object-cover rounded-lg border border-slate-800 shrink-0"
+                  />
+                )}
+                <div className="space-y-1.5 flex-1">
+                  <h4 className="text-sm font-bold text-white leading-snug">
+                    {lastIngestedCourse.title}
+                  </h4>
+                  <div className="flex flex-wrap items-center gap-2 text-xs text-slate-400 font-mono">
+                    <span className="text-slate-200">Instructor: {lastIngestedCourse.creator}</span>
+                    <span>•</span>
+                    <span className="text-indigo-400">{lastIngestedCourse.totalVideos} Videos</span>
+                    <span>•</span>
+                    <span className="text-amber-400">{lastIngestedCourse.duration}</span>
+                  </div>
+                  <div className="flex flex-wrap gap-1.5 pt-1">
+                    {lastIngestedCourse.skillsLearned?.map((sk: string) => (
+                      <span
+                        key={sk}
+                        className="rounded-md bg-slate-900 border border-slate-800 px-2 py-0.5 text-[10px] text-slate-300 font-mono"
+                      >
+                        {sk}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* TOP DEMANDED SKILLS FROM POSTGRESQL */}

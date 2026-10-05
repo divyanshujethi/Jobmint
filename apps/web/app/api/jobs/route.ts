@@ -4,7 +4,6 @@ import { getCache } from '@/lib/redis';
 
 export async function GET(req: NextRequest) {
   try {
-    const wasCached = !!(await getCache(JOBS_CACHE_KEY));
     const { searchParams } = new URL(req.url);
     const q = searchParams.get('q') || '';
     const type = searchParams.get('type') || 'ALL';
@@ -13,7 +12,10 @@ export async function GET(req: NextRequest) {
     const locationParam = searchParams.get('location') || searchParams.get('loc') || 'ALL';
     const verified = searchParams.get('verified') === 'true';
 
-    let jobs = await getLiveJobs();
+    const cacheKey = `${JOBS_CACHE_KEY}:${type !== 'ALL' ? type : 'ALL'}:4000`;
+    const wasCached = !!(await getCache(cacheKey)) || !!(await getCache(JOBS_CACHE_KEY));
+
+    let jobs = await getLiveJobs({ limit: 4000, jobType: type });
 
     if (q) {
       const query = q.toLowerCase();
