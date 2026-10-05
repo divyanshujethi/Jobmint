@@ -1,38 +1,49 @@
-import { pgTable, text, timestamp, boolean, integer } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, boolean, integer, index, uniqueIndex } from "drizzle-orm/pg-core";
 import { companies } from "./companies";
 import { skills } from "./skills";
 import { users } from "./auth";
 import { JobType, WorkMode, JobSource } from "@repo/shared";
 
-export const jobs = pgTable("jobs", {
-  id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
-  companyId: text("company_id")
-    .notNull()
-    .references(() => companies.id, { onDelete: "cascade" }),
-  title: text("title").notNull(),
-  slug: text("slug").notNull().unique(),
-  jobType: text("job_type").notNull().default(JobType.INTERNSHIP),
-  workMode: text("work_mode").notNull().default(WorkMode.REMOTE),
-  location: text("location").notNull(),
-  salaryOrStipend: text("salary_or_stipend").notNull(),
-  minSalary: integer("min_salary"),
-  maxSalary: integer("max_salary"),
-  experienceYears: integer("experience_years").default(0),
-  description: text("description").notNull(),
-  requirements: text("requirements").notNull(),
-  benefits: text("benefits"),
-  source: text("source").notNull().default(JobSource.DIRECT),
-  sourceUrl: text("source_url"),
-  externalJobId: text("external_job_id"),
-  isActive: boolean("is_active").default(true).notNull(),
-  isFeatured: boolean("is_featured").default(false).notNull(),
-  featuredExpiresAt: timestamp("featured_expires_at", { mode: "date" }),
-  expiresAt: timestamp("expires_at", { mode: "date" }),
-  firstSeenAt: timestamp("first_seen_at", { mode: "date" }).defaultNow().notNull(),
-  lastCheckedAt: timestamp("last_checked_at", { mode: "date" }).defaultNow().notNull(),
-  createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
-  updatedAt: timestamp("updated_at", { mode: "date" }).defaultNow().notNull(),
-});
+export const jobs = pgTable(
+  "jobs",
+  {
+    id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
+    companyId: text("company_id")
+      .notNull()
+      .references(() => companies.id, { onDelete: "cascade" }),
+    title: text("title").notNull(),
+    slug: text("slug").notNull().unique(),
+    jobType: text("job_type").notNull().default(JobType.INTERNSHIP),
+    workMode: text("work_mode").notNull().default(WorkMode.REMOTE),
+    location: text("location").notNull(),
+    salaryOrStipend: text("salary_or_stipend").notNull(),
+    minSalary: integer("min_salary"),
+    maxSalary: integer("max_salary"),
+    experienceYears: integer("experience_years").default(0),
+    description: text("description").notNull(),
+    requirements: text("requirements").notNull(),
+    benefits: text("benefits"),
+    source: text("source").notNull().default(JobSource.DIRECT),
+    sourceUrl: text("source_url"),
+    externalJobId: text("external_job_id"),
+    isActive: boolean("is_active").default(true).notNull(),
+    isFeatured: boolean("is_featured").default(false).notNull(),
+    featuredExpiresAt: timestamp("featured_expires_at", { mode: "date" }),
+    expiresAt: timestamp("expires_at", { mode: "date" }),
+    firstSeenAt: timestamp("first_seen_at", { mode: "date" }).defaultNow().notNull(),
+    lastCheckedAt: timestamp("last_checked_at", { mode: "date" }).defaultNow().notNull(),
+    createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
+    updatedAt: timestamp("updated_at", { mode: "date" }).defaultNow().notNull(),
+  },
+  (table) => [
+    uniqueIndex("idx_jobs_source_url").on(table.sourceUrl),
+    index("idx_jobs_external_id").on(table.externalJobId),
+    index("idx_jobs_is_active").on(table.isActive),
+    index("idx_jobs_company_id").on(table.companyId),
+    index("idx_jobs_created_at").on(table.createdAt),
+    index("idx_jobs_last_checked").on(table.lastCheckedAt),
+  ]
+);
 
 export const jobSkills = pgTable("job_skills", {
   id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),

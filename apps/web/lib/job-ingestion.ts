@@ -65,15 +65,33 @@ export async function persistCrawledJobs(crawledJobs: RawCrawledJob[]): Promise<
     companyMap.set(c.name.toLowerCase(), c.id);
   }
 
-  // 3. Cache existing jobs (sourceUrl and externalJobId) for instant duplicate / update check
-  const existingJobs = await db
-    .select({ id: jobs.id, sourceUrl: jobs.sourceUrl, externalJobId: jobs.externalJobId })
-    .from(jobs);
+  // 3. Batch query only the incoming sourceUrls and externalJobIds for instant O(1) duplicate / update check
+  const incomingUrls = crawledJobs.map((j) => j.sourceUrl).filter(Boolean);
+  const incomingExtIds = crawledJobs.map((j) => j.externalId).filter(Boolean) as string[];
+
   const existingJobUrlMap = new Map<string, string>();
   const existingJobExtIdMap = new Map<string, string>();
-  for (const j of existingJobs) {
-    if (j.sourceUrl) existingJobUrlMap.set(j.sourceUrl, j.id);
-    if (j.externalJobId) existingJobExtIdMap.set(j.externalJobId, j.id);
+
+  for (let i = 0; i < incomingUrls.length; i += 500) {
+    const chunk = incomingUrls.slice(i, i + 500);
+    const existing = await db
+      .select({ id: jobs.id, sourceUrl: jobs.sourceUrl })
+      .from(jobs)
+      .where(inArray(jobs.sourceUrl, chunk));
+    for (const j of existing) {
+      if (j.sourceUrl) existingJobUrlMap.set(j.sourceUrl, j.id);
+    }
+  }
+
+  for (let i = 0; i < incomingExtIds.length; i += 500) {
+    const chunk = incomingExtIds.slice(i, i + 500);
+    const existing = await db
+      .select({ id: jobs.id, externalJobId: jobs.externalJobId })
+      .from(jobs)
+      .where(inArray(jobs.externalJobId, chunk));
+    for (const j of existing) {
+      if (j.externalJobId) existingJobExtIdMap.set(j.externalJobId, j.id);
+    }
   }
 
   // 4. Filter valid jobs and pre-collect missing companies & missing skills

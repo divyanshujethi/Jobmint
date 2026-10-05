@@ -10,7 +10,9 @@ export async function GET(request: Request): Promise<NextResponse> {
     const internshipLimit = parseInt(searchParams.get("internshipLimit") || "50", 10);
     const newGradLimit = parseInt(searchParams.get("newGradLimit") || "50", 10);
     const adzunaPages = parseInt(searchParams.get("adzunaPages") || "10", 10);
-    const founditLimit = parseInt(searchParams.get("founditLimit") || "500", 10);
+    const founditLimit = parseInt(searchParams.get("founditLimit") || "2000", 10);
+    const founditStartIndex = parseInt(searchParams.get("founditStartIndex") || "0", 10);
+    const founditSitemapCount = parseInt(searchParams.get("founditSitemapCount") || "4", 10);
     const staleDays = parseInt(searchParams.get("staleDays") || "14", 10);
     const enableDiscovery = searchParams.get("discover") === "true";
 
@@ -20,6 +22,8 @@ export async function GET(request: Request): Promise<NextResponse> {
       enableDiscovery,
       adzunaPages,
       founditLimit,
+      founditStartIndex,
+      founditSitemapCount,
     });
     const ingestion = await persistCrawledJobs(crawlResult.jobs);
     const cleanup = await cleanupStaleJobs(staleDays);

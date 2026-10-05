@@ -184,16 +184,23 @@ export function parseFounditSlug(url: string): {
 
 export async function crawlFounditIndia(options?: {
   limit?: number;
+  startSitemapIndex?: number;
   sitemapIndexCount?: number;
 }): Promise<RawCrawledJob[]> {
-  const limit = options?.limit ?? 500;
-  const sitemapsToScan = Math.min(options?.sitemapIndexCount ?? 2, 6);
+  const limit = options?.limit ?? 5000;
+  const startIndex = options?.startSitemapIndex ?? 0;
+  const sitemapsToScan = Math.min(options?.sitemapIndexCount ?? 11, 11);
   const results: RawCrawledJob[] = [];
 
-  const sitemapUrls: string[] = [
-    "https://www.foundit.in/xmlsitemap/todays-jobs-sitemap.xml.gz",
-    ...Array.from({ length: sitemapsToScan }, (_, i) => `https://www.foundit.in/xmlsitemap/active-jobs-sitemap${i}.xml.gz`),
-  ];
+  const sitemapUrls: string[] = [];
+  if (startIndex === 0) {
+    sitemapUrls.push("https://www.foundit.in/xmlsitemap/todays-jobs-sitemap.xml.gz");
+  }
+  for (let i = startIndex; i < Math.min(startIndex + sitemapsToScan, 11); i++) {
+    sitemapUrls.push(`https://www.foundit.in/xmlsitemap/active-jobs-sitemap${i}.xml.gz`);
+  }
+
+  const seenUrls = new Set<string>();
 
   for (const sitemapUrl of sitemapUrls) {
     if (results.length >= limit) break;
@@ -219,7 +226,10 @@ export async function crawlFounditIndia(options?: {
       for (const locTag of locMatches) {
         if (results.length >= limit) break;
 
-        const rawUrl = locTag.replace(/<\/?loc>/g, "").trim();
+        const rawUrl = locTag.replace(/<\/?loc>/g, "").trim().split("?")[0];
+        if (seenUrls.has(rawUrl)) continue;
+        seenUrls.add(rawUrl);
+
         const lowerUrl = rawUrl.toLowerCase();
 
         // 1. Instant fast-path tech check on URL slug

@@ -57,6 +57,8 @@ export async function runJobAlligator(options?: {
   enableDiscovery?: boolean;
   adzunaPages?: number;
   founditLimit?: number;
+  founditStartIndex?: number;
+  founditSitemapCount?: number;
 }) {
   const startTime = Date.now();
   const internshipLimit = options?.internshipLimit ?? 30;
@@ -64,7 +66,9 @@ export async function runJobAlligator(options?: {
   const maxPerCompany = options?.maxPerCompany ?? 20;
   const enableDiscovery = options?.enableDiscovery ?? false;
   const adzunaPages = options?.adzunaPages ?? 4;
-  const founditLimit = options?.founditLimit ?? 500;
+  const founditLimit = options?.founditLimit ?? 5000;
+  const founditStartIndex = options?.founditStartIndex ?? 0;
+  const founditSitemapCount = options?.founditSitemapCount ?? 4;
 
   const [
     adzunaJobs,
@@ -91,7 +95,11 @@ export async function runJobAlligator(options?: {
       console.error("[Job Alligator] Jooble crawler failed:", err);
       return [];
     }),
-    crawlFounditIndia({ limit: founditLimit, sitemapIndexCount: 2 }).catch((err) => {
+    crawlFounditIndia({
+      limit: founditLimit,
+      startSitemapIndex: founditStartIndex,
+      sitemapIndexCount: founditSitemapCount,
+    }).catch((err) => {
       console.error("[Job Alligator] Foundit crawler failed:", err);
       return [];
     }),
