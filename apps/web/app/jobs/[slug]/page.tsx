@@ -15,7 +15,7 @@ import {
   Share2,
 } from "lucide-react";
 import { getLiveJobs, getLiveJobBySlug } from "@/lib/db-jobs";
-import { resolvePseoCategory } from "@/lib/pseo-data";
+import { resolvePseoCategory, getAllPseoSlugs } from "@/lib/pseo-data";
 import { PseoLanding } from "@/components/pseo-landing";
 import { getLearningGuideForSkill } from "@repo/shared";
 import { Button } from "@/components/ui/button";
@@ -27,6 +27,16 @@ import { SocialShareBar } from "@/components/social-share-bar";
 interface JobPageProps {
   params: Promise<{ slug: string }>;
 }
+
+/**
+ * Pre-render top city & role category landing pages at build time
+ */
+export async function generateStaticParams() {
+  const topSlugs = getAllPseoSlugs();
+  return topSlugs.map((slug) => ({ slug }));
+}
+
+export const dynamicParams = true;
 
 export async function generateMetadata({ params }: JobPageProps): Promise<Metadata> {
   const { slug } = await params;

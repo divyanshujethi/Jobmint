@@ -558,3 +558,11 @@ export function resolvePseoCategory(slug: string): PseoTopic | null {
     ],
   };
 }
+
+/**
+ * Returns all top preset city and role slugs for Next.js generateStaticParams
+ */
+export function getAllPseoSlugs(): string[] {
+  return Object.keys(PSEO_TOPICS);
+}
+
