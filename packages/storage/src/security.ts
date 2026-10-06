@@ -19,6 +19,49 @@ export function validatePdfMagicBytes(buffer: Buffer | Uint8Array): boolean {
 }
 
 /**
+ * Scans PDF buffer for malicious payloads, active code execution vectors, and structural validity.
+ */
+export function sanitizeAndValidatePdf(buffer: Buffer | Uint8Array): {
+  isValid: boolean;
+  error?: string;
+} {
+  if (!buffer || buffer.length < 32) {
+    return { isValid: false, error: "File is too small to be a valid PDF document." };
+  }
+
+  // 1. Verify Magic Header (%PDF-)
+  if (!validatePdfMagicBytes(buffer)) {
+    return { isValid: false, error: "Invalid file signature: header does not match PDF format (%PDF-)." };
+  }
+
+  // 2. Scan file content for dangerous active execution directives
+  const rawString = Buffer.from(buffer).toString("latin1");
+
+  // Check for End-of-File marker in last 2048 bytes
+  const tail = rawString.slice(-2048);
+  if (!tail.includes("%%EOF")) {
+    return { isValid: false, error: "Malformed PDF: Missing standard %%EOF termination marker." };
+  }
+
+  // Detect dangerous launch actions that attempt to run external binaries
+  if (/\/Launch\b/i.test(rawString)) {
+    return { isValid: false, error: "Security violation: Prohibited /Launch directive detected." };
+  }
+
+  // Detect embedded executable attachments
+  if (/\/EmbeddedFiles\b/i.test(rawString)) {
+    return { isValid: false, error: "Security violation: Prohibited /EmbeddedFiles attachment detected." };
+  }
+
+  // Detect dangerous automatic JavaScript execution hooks
+  if (/\/OpenAction\s*<<[^>]*\/JS/i.test(rawString) || /\/AA\s*<<[^>]*\/JS/i.test(rawString)) {
+    return { isValid: false, error: "Security violation: Prohibited automated script execution hook detected." };
+  }
+
+  return { isValid: true };
+}
+
+/**
  * Calculates cryptographic SHA-256 checksum for deduplication and integrity
  */
 export function computeSha256(buffer: Buffer | Uint8Array): string {

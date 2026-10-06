@@ -128,6 +128,7 @@ export async function GET(req: NextRequest) {
         "Content-Length": buffer.length.toString(),
         "Cache-Control": "private, max-age=3600",
         "X-Content-Type-Options": "nosniff",
+        "Content-Security-Policy": "default-src 'none'; sandbox",
       },
     });
   } catch (error: any) {

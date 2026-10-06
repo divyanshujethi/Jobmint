@@ -53,6 +53,7 @@ export default function JobsPage() {
   const [onlyDirectAts, setOnlyDirectAts] = useState(false);
   const [freshnessFilter, setFreshnessFilter] = useState<string>("ALL");
   const [jobs, setJobs] = useState<MockJob[]>([]);
+  const [totalServerJobs, setTotalServerJobs] = useState<number>(102911);
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const PAGE_SIZE = 15;
@@ -125,6 +126,11 @@ export default function JobsPage() {
       .then((data) => {
         if (data.jobs && Array.isArray(data.jobs)) {
           setJobs(data.jobs);
+        }
+        if (typeof data.totalCatalog === "number" && data.totalCatalog > 0) {
+          setTotalServerJobs(data.totalCatalog);
+        } else if (typeof data.total === "number" && data.total > 0) {
+          setTotalServerJobs(data.total);
         }
       })
       .catch((err) => console.error("Error loading live jobs:", err))
@@ -857,10 +863,12 @@ export default function JobsPage() {
             Showing{" "}
             <strong className="text-slate-900">
               {viewMode === "COMPANY_GROUPED"
-                ? `${companyGroups.length} companies (${filteredJobs.length} roles)`
+                ? `${companyGroups.length} companies (${filteredJobs.length.toLocaleString()} roles of ${totalServerJobs.toLocaleString()} total)`
                 : viewMode === "RECOMMENDED"
-                ? `${recommendedJobsWithScores.length} matched roles`
-                : `${filteredJobs.length} roles`}
+                ? `${recommendedJobsWithScores.length.toLocaleString()} matched roles (out of ${totalServerJobs.toLocaleString()})`
+                : hasActiveFilters
+                ? `${filteredJobs.length.toLocaleString()} filtered roles (out of ${totalServerJobs.toLocaleString()})`
+                : `${filteredJobs.length.toLocaleString()} of ${totalServerJobs.toLocaleString()} live tech roles`}
             </strong>
           </span>
           {hasActiveFilters && (

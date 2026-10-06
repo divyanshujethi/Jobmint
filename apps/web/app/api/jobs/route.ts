@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getLiveJobs, JOBS_CACHE_KEY } from '@/lib/db-jobs';
+import { getLiveJobs, getTotalActiveJobsCount, JOBS_CACHE_KEY } from '@/lib/db-jobs';
 import { getCache } from '@/lib/redis';
 import { checkRateLimit } from '@/lib/rate-limit';
 
@@ -45,12 +45,15 @@ export async function GET(req: NextRequest) {
     const limitParam = searchParams.get('limit');
     const isFull = searchParams.get('full') === 'true' || searchParams.get('fields') === 'full';
 
-    // Fetch from Postgres backed by Redis with lean field projection
-    const allFetchedJobs = await getLiveJobs({
-      limit: 10000,
-      jobType: type,
-      includeDetails: isFull,
-    });
+    // Fetch total count and live jobs concurrently from Postgres backed by Redis
+    const [totalCatalogCount, allFetchedJobs] = await Promise.all([
+      getTotalActiveJobsCount(type),
+      getLiveJobs({
+        limit: 10000,
+        jobType: type,
+        includeDetails: isFull,
+      }),
+    ]);
 
     let filtered = allFetchedJobs;
 
@@ -117,7 +120,15 @@ export async function GET(req: NextRequest) {
       filtered = filtered.filter((j) => j.isVerified);
     }
 
-    const total = filtered.length;
+    const hasUserFilters = Boolean(
+      q ||
+      mode !== 'ALL' ||
+      experience !== 'ALL' ||
+      locationParam !== 'ALL' ||
+      verified
+    );
+
+    const total = hasUserFilters ? filtered.length : totalCatalogCount;
 
     // Handle cursor or page pagination
     let paginatedJobs = filtered;
@@ -148,6 +159,7 @@ export async function GET(req: NextRequest) {
       {
         jobs: paginatedJobs,
         total,
+        totalCatalog: totalCatalogCount,
         count: paginatedJobs.length,
         hasMore,
         nextCursor,

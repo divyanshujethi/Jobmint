@@ -14,6 +14,7 @@ export default defineConfig({
       "@repo/alligators": path.resolve(import.meta.dirname, "./packages/alligators/src"),
       "@repo/shared": path.resolve(import.meta.dirname, "./packages/shared/src"),
       "@repo/database": path.resolve(import.meta.dirname, "./packages/database/src"),
+      "@repo/storage": path.resolve(import.meta.dirname, "./packages/storage/src"),
       "@": path.resolve(import.meta.dirname, "./apps/web"),
     },
   },

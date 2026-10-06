@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { uploadFile, validatePdfMagicBytes } from "@repo/storage";
+import { uploadFile, sanitizeAndValidatePdf } from "@repo/storage";
 import { checkRateLimit } from "@/lib/rate-limit";
 import { auth } from "@/auth";
 import { db, candidateProfiles, eq } from "@repo/database";
@@ -50,9 +50,10 @@ export async function POST(req: NextRequest) {
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
 
-    if (!validatePdfMagicBytes(buffer)) {
+    const pdfScan = sanitizeAndValidatePdf(buffer);
+    if (!pdfScan.isValid) {
       return NextResponse.json(
-        { error: "Security validation error: Uploaded file is not a valid PDF document." },
+        { error: `Security validation error: ${pdfScan.error || "Uploaded file is not a valid or safe PDF document."}` },
         { status: 400 }
       );
     }

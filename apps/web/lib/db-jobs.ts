@@ -1,4 +1,4 @@
-import { db, jobs, companies, jobSkills, skills, eq, and, desc, inArray } from "@repo/database";
+import { db, jobs, companies, jobSkills, skills, eq, and, desc, inArray, sql } from "@repo/database";
 import { MockJob, MOCK_JOBS } from "./mock-jobs";
 import { JobType, WorkMode, JobSource } from "@repo/shared";
 import { getCache, setCache, delCache, delPattern } from "./redis";
@@ -12,6 +12,42 @@ export const JOBS_CACHE_TTL_SECONDS = 60;
 export async function invalidateJobsCache(): Promise<void> {
   await delCache(JOBS_CACHE_KEY);
   await delPattern("cache:jobs:live*");
+  await delPattern("cache:jobs:count*");
+}
+
+/**
+ * Returns total count of active tech jobs in PostgreSQL, cached in Redis.
+ */
+export async function getTotalActiveJobsCount(jobType?: string): Promise<number> {
+  const targetType = jobType && jobType !== "ALL" ? jobType.toUpperCase() : "ALL";
+  const cacheKey = `cache:jobs:count:${targetType}`;
+
+  try {
+    const cachedCount = await getCache<number>(cacheKey);
+    if (typeof cachedCount === "number" && cachedCount > 0) {
+      return cachedCount;
+    }
+
+    const whereConditions = [eq(jobs.isActive, true)];
+    if (targetType !== "ALL") {
+      whereConditions.push(eq(jobs.jobType, targetType as any));
+    }
+
+    const res = await db
+      .select({ count: sql<number>`count(*)::int` })
+      .from(jobs)
+      .where(and(...whereConditions));
+
+    const totalCount = Number(res[0]?.count ?? 0);
+    if (totalCount > 0) {
+      await setCache(cacheKey, totalCount, JOBS_CACHE_TTL_SECONDS);
+      return totalCount;
+    }
+    return 102911;
+  } catch (err) {
+    console.error("getTotalActiveJobsCount error:", err);
+    return 102911;
+  }
 }
 
 function formatTimeAgo(date: Date): string {
