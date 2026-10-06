@@ -1383,37 +1383,6 @@ function POTDWorkspace() {
                 </div>
               )}
 
-              {/* PRO FEATURES TEASER PANEL */}
-              <div className="rounded-xl border border-amber-500/20 bg-amber-950/10 p-3 space-y-2">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-1.5 text-xs font-bold text-amber-400">
-                    <Crown className="h-3.5 w-3.5 fill-amber-400" />
-                    Arena Pro Features
-                  </div>
-                  <button
-                    onClick={() => setShowProModal(true)}
-                    className="text-[10px] font-black bg-amber-500 hover:bg-amber-400 text-slate-950 px-2 py-0.5 rounded-md transition-colors"
-                  >
-                    Upgrade ₹299/mo
-                  </button>
-                </div>
-                <div className="grid grid-cols-1 gap-1.5">
-                  {[
-                    { icon: Building2, color: "text-amber-400", label: "Company-Tagged Questions", desc: "Google, Amazon, Microsoft, Swiggy & Uber OA challenges" },
-                    { icon: Sparkles, color: "text-emerald-400", label: "AI Code Reviewer & Explainer", desc: "Step-by-step breakdowns & O(N) complexity proofs" },
-                    { icon: Zap, color: "text-blue-400", label: "Recruiter Fast-Track Referral", desc: "Top DevScore profiles bypass resume filters" },
-                    { icon: Clock, color: "text-purple-400", label: "Mock OA Assessment Simulator", desc: "Timed 60-min FAANG-style test conditions" },
-                  ].map(({ icon: Icon, color, label, desc }) => (
-                    <div key={label} className="flex items-start gap-2">
-                      <Icon className={`h-3.5 w-3.5 mt-0.5 shrink-0 ${color}`} />
-                      <div>
-                        <div className="text-[11px] font-semibold text-white">{label}</div>
-                        <div className="text-[10px] text-neutral-500 leading-tight">{desc}</div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
 
               {/* Errors (Compilation / Sandbox TLE) */}
               {report?.compilationError && (
