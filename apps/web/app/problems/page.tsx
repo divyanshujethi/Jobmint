@@ -20,10 +20,14 @@ import {
   Globe,
   Server,
   Layers,
+  Crown,
+  Building2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LEETCODE_PROBLEMS, Problem } from "@/lib/problems-data";
 import { ArenaNavbar } from "@/components/arena-navbar";
+import { ArenaFooter } from "@/components/arena-footer";
+import { ArenaProModal } from "@/components/arena-pro-modal";
 
 type DomainKey = "all" | "dsa" | "aiml" | "web" | "system";
 
@@ -68,6 +72,7 @@ export default function ProblemsCatalogPage() {
   const [selectedDifficulty, setSelectedDifficulty] = useState<string>("All");
   const [solvedSlugs, setSolvedSlugs] = useState<string[]>([]);
   const [unlockedBadges, setUnlockedBadges] = useState<string[]>([]);
+  const [showProModal, setShowProModal] = useState(false);
 
   useEffect(() => {
     try {
@@ -211,6 +216,34 @@ export default function ProblemsCatalogPage() {
                 Zero server lag &bull; 0ms local
               </div>
             </div>
+          </div>
+
+          {/* ARENA PRO MONETIZATION BANNER */}
+          <div className="rounded-2xl border border-amber-500/30 bg-linear-to-r from-amber-950/30 via-[#141414] to-[#121212] p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div className="flex items-start gap-3.5">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-500/20 text-amber-400 border border-amber-500/40">
+                <Crown className="h-5 w-5 fill-amber-400 text-amber-400" />
+              </div>
+              <div className="space-y-0.5">
+                <div className="text-xs font-bold text-white flex items-center gap-2">
+                  <span>Upgrade to Arena Pro</span>
+                  <span className="rounded-full bg-amber-500/20 text-amber-300 text-[10px] font-mono px-2 py-0.2 border border-amber-500/40">
+                    FAANG &amp; Unicorn Packs
+                  </span>
+                </div>
+                <p className="text-[11px] text-neutral-400 leading-relaxed max-w-xl">
+                  Unlock company-tagged challenges (Google, Amazon, Swiggy, Uber), AI code explanations, mock OA simulators, and direct recruiter referral fast-tracking.
+                </p>
+              </div>
+            </div>
+
+            <Button
+              onClick={() => setShowProModal(true)}
+              className="bg-linear-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-slate-950 font-black text-xs gap-1.5 shrink-0 px-4 py-2 shadow-xs transition-all hover:scale-[1.02]"
+            >
+              <Crown className="h-3.5 w-3.5 fill-slate-950" />
+              <span>Unlock Pro (₹299/mo)</span>
+            </Button>
           </div>
         </div>
       </div>
@@ -422,6 +455,13 @@ export default function ProblemsCatalogPage() {
           )}
         </div>
       </div>
+
+      <ArenaFooter />
+
+      <ArenaProModal
+        isOpen={showProModal}
+        onClose={() => setShowProModal(false)}
+      />
     </div>
   );
 }

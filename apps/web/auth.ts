@@ -110,5 +110,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         domain: process.env.NODE_ENV === "production" ? ".rolenest.in" : undefined,
       },
     },
+    callbackUrl: {
+      name: process.env.NODE_ENV === "production" ? "__Secure-authjs.callback-url" : "authjs.callback-url",
+      options: {
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        secure: process.env.NODE_ENV === "production",
+        domain: process.env.NODE_ENV === "production" ? ".rolenest.in" : undefined,
+      },
+    },
   },
 });

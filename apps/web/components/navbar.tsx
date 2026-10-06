@@ -259,8 +259,10 @@ export function Navbar() {
                         <span>Daily Practice &amp; Sandboxes</span>
                       </div>
                       <div className="space-y-1">
-                        <Link
-                          href="/potd"
+                        <a
+                          href="https://problem.rolenest.in/potd"
+                          target="_blank"
+                          rel="noopener noreferrer"
                           onClick={() => setToolsOpen(false)}
                           className="flex items-start gap-2.5 rounded-xl p-2 hover:bg-slate-50 transition-colors group"
                         >
@@ -272,10 +274,12 @@ export function Navbar() {
                             </div>
                             <div className="text-[11px] text-slate-500">In-browser runner &amp; streak</div>
                           </div>
-                        </Link>
+                        </a>
 
-                        <Link
-                          href="/problems"
+                        <a
+                          href="https://problem.rolenest.in/problems"
+                          target="_blank"
+                          rel="noopener noreferrer"
                           onClick={() => setToolsOpen(false)}
                           className="flex items-start gap-2.5 rounded-xl p-2 hover:bg-slate-50 transition-colors group"
                         >
@@ -283,11 +287,11 @@ export function Navbar() {
                           <div>
                             <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5 group-hover:text-emerald-600 transition-colors">
                               Problem Catalog
-                              <span className="rounded bg-emerald-50 text-emerald-700 px-1 py-0.2 text-[9px] font-mono">Monaco</span>
+                              <span className="rounded bg-emerald-50 text-emerald-700 px-1 py-0.2 text-[9px] font-mono">34+ DSA</span>
                             </div>
                             <div className="text-[11px] text-slate-500">LeetCode interview challenges</div>
                           </div>
-                        </Link>
+                        </a>
 
                         <Link
                           href="/leaderboard"
@@ -882,8 +886,10 @@ export function Navbar() {
                 </p>
 
                 <div className="grid grid-cols-1 gap-0.5 pt-1">
-                  <Link
-                    href="/potd"
+                  <a
+                    href="https://problem.rolenest.in/potd"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="flex items-center justify-between py-1 px-2.5 rounded-lg text-xs font-medium text-slate-700 hover:bg-white transition-colors"
                     onClick={() => setIsOpen(false)}
                   >
@@ -892,7 +898,7 @@ export function Navbar() {
                       Problem of the Day (POTD)
                     </span>
                     <span className="text-[9px] font-mono text-orange-700 font-bold">+50 XP</span>
-                  </Link>
+                  </a>
 
                   <Link
                     href="/leaderboard"

@@ -256,14 +256,16 @@ export function RoloMascot({
 
             {/* Secondary Direct Links */}
             <div className="grid grid-cols-3 gap-1.5 pt-1 border-t border-slate-800/80">
-              <Link
-                href="/potd"
+              <a
+                href="https://problem.rolenest.in/potd"
+                target="_blank"
+                rel="noopener noreferrer"
                 onClick={() => setIsOpen(false)}
                 className="flex flex-col items-center justify-center p-2 rounded-xl bg-slate-900/60 hover:bg-slate-850 border border-slate-800/60 text-center group"
               >
                 <Flame className="h-3.5 w-3.5 text-orange-400 group-hover:scale-110 transition-transform mb-1" />
                 <span className="text-[10px] font-bold text-slate-300">Daily POTD</span>
-              </Link>
+              </a>
 
               <Link
                 href="/resume/parser"

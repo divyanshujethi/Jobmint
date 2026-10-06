@@ -148,9 +148,14 @@ export function Footer() {
             </div>
             <ul className="mt-4 space-y-2 text-xs text-slate-600">
               <li>
-                <Link href="/potd" className="hover:text-emerald-600 font-medium text-orange-700 flex items-center gap-1.5">
+                <a
+                  href="https://problem.rolenest.in/potd"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-emerald-600 font-medium text-orange-700 flex items-center gap-1.5"
+                >
                   ⚡ Problem of the Day (+50 XP)
-                </Link>
+                </a>
               </li>
               <li>
                 <Link href="/leaderboard" className="hover:text-emerald-600 font-medium text-amber-700 flex items-center gap-1.5">

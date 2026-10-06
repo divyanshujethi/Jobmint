@@ -40,6 +40,7 @@ import { executeCodeInSandbox, ExecutionReport, SupportedLanguage, SUPPORTED_LAN
 import { openCashfreeCheckout } from "@/components/cashfree-provider";
 import { CodeEditorFallback } from "@/components/code-editor-fallback";
 import { ArenaNavbar } from "@/components/arena-navbar";
+import { ArenaFooter } from "@/components/arena-footer";
 
 // Lazy-load Monaco Editor on client side (no SSR, isolated bundle)
 const MonacoEditor = dynamic(() => import("@monaco-editor/react"), {
@@ -153,8 +154,18 @@ function POTDWorkspace() {
   const [sponsorTier, setSponsorTier] = useState<"STANDARD" | "PRO" | "FLAGSHIP">("PRO");
   const [isSubmittingSponsor, setIsSubmittingSponsor] = useState(false);
   const [sponsorSubmitted, setSponsorSubmitted] = useState(false);
+  const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
+    fetch("/api/auth/session")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data && data.user) {
+          setUser(data.user);
+        }
+      })
+      .catch(() => {});
+
     try {
       const storedCampus = localStorage.getItem("rolenest_user_campus");
       if (storedCampus) setSelectedCampus(storedCampus);
@@ -331,6 +342,26 @@ function POTDWorkspace() {
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-slate-100 flex flex-col font-sans">
       <ArenaNavbar />
+
+      {/* GUEST WARNING & LOGIN BANNER */}
+      {!user && (
+        <div className="bg-amber-950/40 border-b border-amber-800/60 px-4 py-2 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs font-mono text-amber-300">
+          <div className="flex items-center gap-2">
+            <span className="flex h-2 w-2 rounded-full bg-amber-400 animate-pulse shrink-0" />
+            <span>
+              You are coding as a <strong>Guest</strong>. Sign in with your RoleNest account to permanently track your streak, earn XP, and climb the Campus Leaderboard!
+            </span>
+          </div>
+          <a
+            href={`https://rolenest.in/login?callbackUrl=${encodeURIComponent(
+              typeof window !== "undefined" ? window.location.href : "https://problem.rolenest.in/potd"
+            )}`}
+            className="inline-flex items-center justify-center px-3 py-1 rounded-md bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-[11px] shrink-0 transition-colors"
+          >
+            Sign In with RoleNest
+          </a>
+        </div>
+      )}
 
       {/* LEETCODE STYLE PROBLEM CONTROL BAR */}
       <div className="border-b border-neutral-800 bg-[#0d0d0d] px-4 py-2 flex items-center justify-between shrink-0">
@@ -1367,6 +1398,8 @@ function POTDWorkspace() {
           </div>
         </div>
       )}
+
+      <ArenaFooter />
     </div>
   );
 }
