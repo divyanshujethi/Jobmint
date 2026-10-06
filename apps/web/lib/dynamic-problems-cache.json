@@ -1,0 +1,469 @@
+[
+  {
+    "id": "longest-palindromic-substring",
+    "slug": "longest-palindromic-substring",
+    "title": "Longest Palindromic Substring",
+    "difficulty": "Medium",
+    "category": "Dynamic Programming",
+    "acceptance": "51.0%",
+    "description": "Given a string `s`, return *the longest* *palindromic* *substring* in `s`.\n\n \n\nExample 1:\n\n```\nInput: s = \"babad\"\nOutput: \"bab\"\nExplanation: \"aba\" is also a valid answer.\n```\n\nExample 2:\n\n```\nInput: s = \"cbbd\"\nOutput: \"bb\"\n```\n\n \n\n**Constraints:**\n\n\t- `1 <= s.length <= 1000`\n\n\t- `s` consist of only digits and English letters.",
+    "realWorldContext": "Frequently tested in tech screening interviews at Uber & Amazon for evaluating dynamic programming proficiency.",
+    "examples": [
+      {
+        "input": "s = \"babad\"",
+        "output": "\"bab\"",
+        "explanation": "\"aba\" is also a valid answer."
+      },
+      {
+        "input": "s = \"cbbd\"",
+        "output": "\"bb\""
+      }
+    ],
+    "constraints": [
+      "`1 <= s.length <= 1000`",
+      "`s` consist of only digits and English letters."
+    ],
+    "hints": [
+      "How can we reuse a previously computed palindrome to compute a larger palindrome?",
+      "If “aba” is a palindrome, is “xabax” a palindrome? Similarly is “xabay” a palindrome?",
+      "Complexity based hint:</br>\r\nIf we use brute-force and check whether for every start and end position a substring is a palindrome we have O(n^2) start - end pairs and O(n) palindromic checks. Can we reduce the time for palindromic checks to O(1) by reusing some previous computation."
+    ],
+    "starterCodeJs": "/**\n * @param {string} s\n * @return {string}\n */\nvar longestPalindrome = function(s) {\n    \n};",
+    "starterCodeTs": "function longestPalindrome(s: string): string {\n    \n};",
+    "starterCodePy": "class Solution:\n    def longestPalindrome(self, s: str) -> str:\n        ",
+    "starterCodeCpp": "class Solution {\npublic:\n    string longestPalindrome(string s) {\n        \n    }\n};",
+    "starterCodeJava": "class Solution {\n    public String longestPalindrome(String s) {\n        \n    }\n}",
+    "testCases": [
+      {
+        "name": "Example 1",
+        "inputArgs": [
+          "babad"
+        ],
+        "expected": "bab"
+      },
+      {
+        "name": "Example 2",
+        "inputArgs": [
+          "cbbd"
+        ],
+        "expected": "bb"
+      }
+    ],
+    "editorial": "### Optimal Solution\n\nAnalyzes optimal state transitions and computational complexity under Dynamic Programming guidelines.",
+    "badgeName": "Longest Master",
+    "companies": [
+      "Uber",
+      "Amazon"
+    ],
+    "source": "LEETCODE_CRAWLER",
+    "isDailyPotd": false,
+    "potdDate": "2026-10-06"
+  },
+  {
+    "id": "median-of-two-sorted-arrays",
+    "slug": "median-of-two-sorted-arrays",
+    "title": "Median of Two Sorted Arrays",
+    "difficulty": "Hard",
+    "category": "Binary Search",
+    "acceptance": "51.0%",
+    "description": "Given two sorted arrays `nums1` and `nums2` of size `m` and `n` respectively, return **the median** of the two sorted arrays.\n\nThe overall run time complexity should be `O(log (m+n))`.\n\n \n\nExample 1:\n\n```\nInput: nums1 = [1,3], nums2 = [2]\nOutput: 2.00000\nExplanation: merged array = [1,2,3] and median is 2.\n```\n\nExample 2:\n\n```\nInput: nums1 = [1,2], nums2 = [3,4]\nOutput: 2.50000\nExplanation: merged array = [1,2,3,4] and median is (2 + 3) / 2 = 2.5.\n```\n\n \n\n**Constraints:**\n\n\t- `nums1.length == m`\n\n\t- `nums2.length == n`\n\n\t- `0 <= m <= 1000`\n\n\t- `0 <= n <= 1000`\n\n\t- `1 <= m + n <= 2000`\n\n\t- `-106 <= nums1[i], nums2[i] <= 106`",
+    "realWorldContext": "Frequently tested in tech screening interviews at Microsoft & Google for evaluating binary search proficiency.",
+    "examples": [
+      {
+        "input": "nums1 = [1,3], nums2 = [2]",
+        "output": "2.00000",
+        "explanation": "merged array = [1,2,3] and median is 2."
+      },
+      {
+        "input": "nums1 = [1,2], nums2 = [3,4]",
+        "output": "2.50000",
+        "explanation": "merged array = [1,2,3,4] and median is (2 + 3) / 2 = 2.5."
+      }
+    ],
+    "constraints": [
+      "`nums1.length == m`",
+      "`nums2.length == n`",
+      "`0 <= m <= 1000`",
+      "`0 <= n <= 1000`",
+      "`1 <= m + n <= 2000`",
+      "`-106 <= nums1[i], nums2[i] <= 106`"
+    ],
+    "hints": [],
+    "starterCodeJs": "/**\n * @param {number[]} nums1\n * @param {number[]} nums2\n * @return {number}\n */\nvar findMedianSortedArrays = function(nums1, nums2) {\n    \n};",
+    "starterCodeTs": "function findMedianSortedArrays(nums1: number[], nums2: number[]): number {\n    \n};",
+    "starterCodePy": "class Solution:\n    def findMedianSortedArrays(self, nums1: list[int], nums2: list[int]) -> float:\n        ",
+    "starterCodeCpp": "class Solution {\npublic:\n    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {\n        \n    }\n};",
+    "starterCodeJava": "class Solution {\n    public double findMedianSortedArrays(int[] nums1, int[] nums2) {\n        \n    }\n}",
+    "testCases": [
+      {
+        "name": "Example 1",
+        "inputArgs": [
+          [
+            1,
+            3
+          ],
+          [
+            2
+          ]
+        ],
+        "expected": 2
+      },
+      {
+        "name": "Example 2",
+        "inputArgs": [
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            4
+          ]
+        ],
+        "expected": 2.5
+      }
+    ],
+    "editorial": "### Optimal Solution\n\nAnalyzes optimal state transitions and computational complexity under Binary Search guidelines.",
+    "badgeName": "Median Master",
+    "companies": [
+      "Microsoft",
+      "Google"
+    ],
+    "source": "LEETCODE_CRAWLER",
+    "isDailyPotd": false,
+    "potdDate": "2026-10-06"
+  },
+  {
+    "id": "longest-substring-without-repeating-characters",
+    "slug": "longest-substring-without-repeating-characters",
+    "title": "Longest Substring Without Repeating Characters",
+    "difficulty": "Medium",
+    "category": "Sliding Window",
+    "acceptance": "51.0%",
+    "description": "Given a string `s`, find the length of the **longest** **substring** without duplicate characters.\n\n \n\nExample 1:\n\n```\nInput: s = \"abcabcbb\"\nOutput: 3\nExplanation: The answer is \"abc\", with the length of 3. Note that \"bca\" and \"cab\" are also correct answers.\n```\n\nExample 2:\n\n```\nInput: s = \"bbbbb\"\nOutput: 1\nExplanation: The answer is \"b\", with the length of 1.\n```\n\nExample 3:\n\n```\nInput: s = \"pwwkew\"\nOutput: 3\nExplanation: The answer is \"wke\", with the length of 3.\nNotice that the answer must be a substring, \"pwke\" is a subsequence and not a substring.\n```\n\n \n\n**Constraints:**\n\n\t- `0 <= s.length <= 105`\n\n\t- `s` consists of English letters, digits, symbols and spaces.",
+    "realWorldContext": "Frequently tested in tech screening interviews at Google & Amazon for evaluating sliding window proficiency.",
+    "examples": [
+      {
+        "input": "s = \"abcabcbb\"",
+        "output": "3",
+        "explanation": "The answer is \"abc\", with the length of 3. Note that \"bca\" and \"cab\" are also correct answers."
+      },
+      {
+        "input": "s = \"bbbbb\"",
+        "output": "1",
+        "explanation": "The answer is \"b\", with the length of 1."
+      },
+      {
+        "input": "s = \"pwwkew\"",
+        "output": "3",
+        "explanation": "The answer is \"wke\", with the length of 3.\nNotice that the answer must be a substring, \"pwke\" is a subsequence and not a substring."
+      }
+    ],
+    "constraints": [
+      "`0 <= s.length <= 105`",
+      "`s` consists of English letters, digits, symbols and spaces."
+    ],
+    "hints": [
+      "There are less than 100 unique characters. We can check all substrings with length at most 100 for example. This is a good enough approximation."
+    ],
+    "starterCodeJs": "/**\n * @param {string} s\n * @return {number}\n */\nvar lengthOfLongestSubstring = function(s) {\n    \n};",
+    "starterCodeTs": "function lengthOfLongestSubstring(s: string): number {\n    \n};",
+    "starterCodePy": "class Solution:\n    def lengthOfLongestSubstring(self, s: str) -> int:\n        ",
+    "starterCodeCpp": "class Solution {\npublic:\n    int lengthOfLongestSubstring(string s) {\n        \n    }\n};",
+    "starterCodeJava": "class Solution {\n    public int lengthOfLongestSubstring(String s) {\n        \n    }\n}",
+    "testCases": [
+      {
+        "name": "Example 1",
+        "inputArgs": [
+          "abcabcbb"
+        ],
+        "expected": 3
+      },
+      {
+        "name": "Example 2",
+        "inputArgs": [
+          "bbbbb"
+        ],
+        "expected": 1
+      },
+      {
+        "name": "Example 3",
+        "inputArgs": [
+          "pwwkew"
+        ],
+        "expected": 3
+      }
+    ],
+    "editorial": "### Optimal Solution\n\nAnalyzes optimal state transitions and computational complexity under Sliding Window guidelines.",
+    "badgeName": "Longest Master",
+    "companies": [
+      "Google",
+      "Amazon"
+    ],
+    "source": "LEETCODE_CRAWLER",
+    "isDailyPotd": false,
+    "potdDate": "2026-10-06"
+  },
+  {
+    "id": "add-two-numbers",
+    "slug": "add-two-numbers",
+    "title": "Add Two Numbers",
+    "difficulty": "Medium",
+    "category": "Arrays & Hashing",
+    "acceptance": "51.0%",
+    "description": "You are given two **non-empty** linked lists representing two non-negative integers. The digits are stored in **reverse order**, and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list.\n\nYou may assume the two numbers do not contain any leading zero, except the number 0 itself.\n\n \n\nExample 1:\n\n```\nInput: l1 = [2,4,3], l2 = [5,6,4]\nOutput: [7,0,8]\nExplanation: 342 + 465 = 807.\n```\n\nExample 2:\n\n```\nInput: l1 = [0], l2 = [0]\nOutput: [0]\n```\n\nExample 3:\n\n```\nInput: l1 = [9,9,9,9,9,9,9], l2 = [9,9,9,9]\nOutput: [8,9,9,9,0,0,0,1]\n```\n\n \n\n**Constraints:**\n\n\t- The number of nodes in each linked list is in the range `[1, 100]`.\n\n\t- `0 <= Node.val <= 9`\n\n\t- It is guaranteed that the list represents a number that does not have leading zeros.",
+    "realWorldContext": "Frequently tested in tech screening interviews at Google & Amazon for evaluating arrays & hashing proficiency.",
+    "examples": [
+      {
+        "input": "l1 = [2,4,3], l2 = [5,6,4]",
+        "output": "[7,0,8]",
+        "explanation": "342 + 465 = 807."
+      },
+      {
+        "input": "l1 = [0], l2 = [0]",
+        "output": "[0]"
+      },
+      {
+        "input": "l1 = [9,9,9,9,9,9,9], l2 = [9,9,9,9]",
+        "output": "[8,9,9,9,0,0,0,1]"
+      }
+    ],
+    "constraints": [
+      "The number of nodes in each linked list is in the range `[1, 100]`.",
+      "`0 <= Node.val <= 9`",
+      "It is guaranteed that the list represents a number that does not have leading zeros."
+    ],
+    "hints": [],
+    "starterCodeJs": "/**\n * Definition for singly-linked list.\n * function ListNode(val, next) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.next = (next===undefined ? null : next)\n * }\n */\n/**\n * @param {ListNode} l1\n * @param {ListNode} l2\n * @return {ListNode}\n */\nvar addTwoNumbers = function(l1, l2) {\n    \n};",
+    "starterCodeTs": "/**\n * Definition for singly-linked list.\n * class ListNode {\n *     val: number\n *     next: ListNode | null\n *     constructor(val?: number, next?: ListNode | null) {\n *         this.val = (val===undefined ? 0 : val)\n *         this.next = (next===undefined ? null : next)\n *     }\n * }\n */\n\nfunction addTwoNumbers(l1: ListNode | null, l2: ListNode | null): ListNode | null {\n    \n};",
+    "starterCodePy": "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, val=0, next=None):\n#         self.val = val\n#         self.next = next\nclass Solution:\n    def addTwoNumbers(self, l1: ListNode | None, l2: ListNode | None) -> ListNode | None:\n        ",
+    "starterCodeCpp": "/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode() : val(0), next(nullptr) {}\n *     ListNode(int x) : val(x), next(nullptr) {}\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\n * };\n */\nclass Solution {\npublic:\n    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {\n        \n    }\n};",
+    "starterCodeJava": "/**\n * Definition for singly-linked list.\n * public class ListNode {\n *     int val;\n *     ListNode next;\n *     ListNode() {}\n *     ListNode(int val) { this.val = val; }\n *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }\n * }\n */\nclass Solution {\n    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {\n        \n    }\n}",
+    "testCases": [
+      {
+        "name": "Example 1",
+        "inputArgs": [
+          [
+            2,
+            4,
+            3
+          ],
+          [
+            5,
+            6,
+            4
+          ]
+        ],
+        "expected": [
+          7,
+          0,
+          8
+        ]
+      },
+      {
+        "name": "Example 2",
+        "inputArgs": [
+          [
+            0
+          ],
+          [
+            0
+          ]
+        ],
+        "expected": [
+          0
+        ]
+      },
+      {
+        "name": "Example 3",
+        "inputArgs": [
+          [
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9
+          ],
+          [
+            9,
+            9,
+            9,
+            9
+          ]
+        ],
+        "expected": [
+          8,
+          9,
+          9,
+          9,
+          0,
+          0,
+          0,
+          1
+        ]
+      }
+    ],
+    "editorial": "### Optimal Solution\n\nAnalyzes optimal state transitions and computational complexity under Arrays & Hashing guidelines.",
+    "badgeName": "Add Master",
+    "companies": [
+      "Google",
+      "Amazon"
+    ],
+    "source": "LEETCODE_CRAWLER",
+    "isDailyPotd": false,
+    "potdDate": "2026-10-06"
+  },
+  {
+    "id": "two-sum",
+    "slug": "two-sum",
+    "title": "Two Sum",
+    "difficulty": "Easy",
+    "category": "Arrays & Hashing",
+    "acceptance": "51.0%",
+    "description": "You are given an array of integers `nums` and an integer `target`, return *indices of the two numbers such that they add up to `target`*.\n\nYou may assume that each input would have ***exactly* one solution**, and you may not use the *same* element twice.\n\nYou can return the answer in any order.\n\n \n\nExample 1:\n\n```\nInput: nums = [2,7,11,15], target = 9\nOutput: [0,1]\nExplanation: Because nums[0] + nums[1] == 9, we return [0, 1].\n```\n\nExample 2:\n\n```\nInput: nums = [3,2,4], target = 6\nOutput: [1,2]\n```\n\nExample 3:\n\n```\nInput: nums = [3,3], target = 6\nOutput: [0,1]\n```\n\n \n\n**Constraints:**\n\n\t- `2 <= nums.length <= 104`\n\n\t- `-109 <= nums[i] <= 109`\n\n\t- `-109 <= target <= 109`\n\n\t- **Only one valid answer exists.**\n\n \n\n**Follow-up: **Can you come up with an algorithm that is less than `O(n2)` time complexity?",
+    "realWorldContext": "Frequently tested in tech screening interviews at Amazon for evaluating arrays & hashing proficiency.",
+    "examples": [
+      {
+        "input": "nums = [2,7,11,15], target = 9",
+        "output": "[0,1]",
+        "explanation": "Because nums[0] + nums[1] == 9, we return [0, 1]."
+      },
+      {
+        "input": "nums = [3,2,4], target = 6",
+        "output": "[1,2]"
+      },
+      {
+        "input": "nums = [3,3], target = 6",
+        "output": "[0,1]"
+      }
+    ],
+    "constraints": [
+      "`2 <= nums.length <= 104`",
+      "`-109 <= nums[i] <= 109`",
+      "`-109 <= target <= 109`",
+      "Only one valid answer exists."
+    ],
+    "hints": [
+      "A really brute force way would be to search for all possible pairs of numbers but that would be too slow. Again, it's best to try out brute force solutions just for completeness. It is from these brute force solutions that you can come up with optimizations.",
+      "So, if we fix one of the numbers, say <code>x</code>, we have to scan the entire array to find the next number <code>y</code> which is <code>value - x</code> where value is the input parameter. Can we change our array somehow so that this search becomes faster?",
+      "The second train of thought is, without changing the array, can we use additional space somehow? Like maybe a hash map to speed up the search?"
+    ],
+    "starterCodeJs": "/**\n * @param {number[]} nums\n * @param {number} target\n * @return {number[]}\n */\nvar twoSum = function(nums, target) {\n    \n};",
+    "starterCodeTs": "function twoSum(nums: number[], target: number): number[] {\n    \n};",
+    "starterCodePy": "class Solution:\n    def twoSum(self, nums: list[int], target: int) -> list[int]:\n        ",
+    "starterCodeCpp": "class Solution {\npublic:\n    vector<int> twoSum(vector<int>& nums, int target) {\n        \n    }\n};",
+    "starterCodeJava": "class Solution {\n    public int[] twoSum(int[] nums, int target) {\n        \n    }\n}",
+    "testCases": [
+      {
+        "name": "Example 1",
+        "inputArgs": [
+          [
+            2,
+            7,
+            11,
+            15
+          ],
+          9
+        ],
+        "expected": [
+          0,
+          1
+        ]
+      },
+      {
+        "name": "Example 2",
+        "inputArgs": [
+          [
+            3,
+            2,
+            4
+          ],
+          6
+        ],
+        "expected": [
+          1,
+          2
+        ]
+      },
+      {
+        "name": "Example 3",
+        "inputArgs": [
+          [
+            3,
+            3
+          ],
+          6
+        ],
+        "expected": [
+          0,
+          1
+        ]
+      }
+    ],
+    "editorial": "### Optimal Solution\n\nAnalyzes optimal state transitions and computational complexity under Arrays & Hashing guidelines.",
+    "badgeName": "Two Master",
+    "companies": [
+      "Amazon"
+    ],
+    "source": "LEETCODE_CRAWLER",
+    "isDailyPotd": false,
+    "potdDate": "2026-10-06"
+  },
+  {
+    "id": "minimum-add-to-make-parentheses-valid",
+    "slug": "minimum-add-to-make-parentheses-valid",
+    "title": "Minimum Add to Make Parentheses Valid",
+    "difficulty": "Medium",
+    "category": "Stack",
+    "acceptance": "51.0%",
+    "description": "A parentheses string is valid if and only if:\n\n\t- It is the empty string,\n\n\t- It can be written as `AB` (`A` concatenated with `B`), where `A` and `B` are valid strings, or\n\n\t- It can be written as `(A)`, where `A` is a valid string.\n\nYou are given a parentheses string `s`. In one move, you can insert a parenthesis at any position of the string.\n\n\t- For example, if `s = \"()))\"`, you can insert an opening parenthesis to be `\"(**(**)))\"` or a closing parenthesis to be `\"())**)**)\"`.\n\nReturn *the minimum number of moves required to make *`s`* valid*.\n\n \n\nExample 1:\n\n```\nInput: s = \"())\"\nOutput: 1\n```\n\nExample 2:\n\n```\nInput: s = \"(((\"\nOutput: 3\n```\n\n \n\n**Constraints:**\n\n\t- `1 <= s.length <= 1000`\n\n\t- `s[i]` is either `'('` or `')'`.",
+    "realWorldContext": "Frequently tested in tech screening interviews at Uber & Amazon for evaluating stack proficiency.",
+    "examples": [
+      {
+        "input": "s = \"())\"",
+        "output": "1"
+      },
+      {
+        "input": "s = \"(((\"",
+        "output": "3"
+      }
+    ],
+    "constraints": [
+      "`1 <= s.length <= 1000`",
+      "`s[i]` is either `'('` or `')'`."
+    ],
+    "hints": [],
+    "starterCodeJs": "/**\n * @param {string} s\n * @return {number}\n */\nvar minAddToMakeValid = function(s) {\n    \n};",
+    "starterCodeTs": "function minAddToMakeValid(s: string): number {\n    \n};",
+    "starterCodePy": "class Solution:\n    def minAddToMakeValid(self, s: str) -> int:\n        ",
+    "starterCodeCpp": "class Solution {\npublic:\n    int minAddToMakeValid(string s) {\n        \n    }\n};",
+    "starterCodeJava": "class Solution {\n    public int minAddToMakeValid(String s) {\n        \n    }\n}",
+    "testCases": [
+      {
+        "name": "Example 1",
+        "inputArgs": [
+          "())"
+        ],
+        "expected": 1
+      },
+      {
+        "name": "Example 2",
+        "inputArgs": [
+          "((("
+        ],
+        "expected": 3
+      }
+    ],
+    "editorial": "### Optimal Solution\n\nAnalyzes optimal state transitions and computational complexity under Stack guidelines.",
+    "badgeName": "Minimum Master",
+    "companies": [
+      "Uber",
+      "Amazon"
+    ],
+    "source": "LEETCODE_CRAWLER",
+    "isDailyPotd": true,
+    "potdDate": "2026-10-06"
+  }
+]

@@ -149,6 +149,9 @@ function POTDWorkspace() {
     (problemSlug && LEETCODE_PROBLEMS.find((p) => p.slug === problemSlug)) ||
     standardDailyProblem;
 
+  const [allProblems, setAllProblems] = useState<Problem[]>(LEETCODE_PROBLEMS);
+  const [dailyProblem, setDailyProblem] = useState<Problem>(standardDailyProblem);
+  const [superHardList, setSuperHardList] = useState<Problem[]>(superHardDailyProblems);
   const [currentProblem, setCurrentProblem] = useState<Problem>(initialProblem);
   const [selectedLanguage, setSelectedLanguage] = useState<SupportedLanguage>("javascript");
   const [languageCodeMap, setLanguageCodeMap] = useState<Record<SupportedLanguage, string>>({
@@ -377,7 +380,7 @@ function POTDWorkspace() {
       })
       .catch(() => {});
 
-    // Fetch user streak for dev score
+      // Fetch user streak for dev score
     fetch("/api/streak")
       .then((res) => res.json())
       .then((data) => {
@@ -386,16 +389,58 @@ function POTDWorkspace() {
         }
       })
       .catch(() => {});
+
+    // Fetch dynamic Daily POTD & Super Hard problems
+    fetch("/api/arena/potd/daily")
+      .then((res) => res.json())
+      .then((data) => {
+        if (!data || !data.success) return;
+        if (data.daily) {
+          setDailyProblem(data.daily);
+          if (!problemSlug) {
+            setCurrentProblem(data.daily);
+          }
+        }
+        if (Array.isArray(data.superHard) && data.superHard.length > 0) {
+          setSuperHardList(data.superHard);
+        }
+      })
+      .catch((e) => console.warn("Failed to fetch daily POTD:", e));
+
+    // Fetch all catalog problems (static + crawled)
+    fetch("/api/arena/problems")
+      .then((res) => res.json())
+      .then((data) => {
+        if (!data || !data.success || !Array.isArray(data.problems)) return;
+        setAllProblems(data.problems);
+      })
+      .catch((e) => console.warn("Failed to fetch arena problems:", e));
   }, []);
 
   useEffect(() => {
     if (problemSlug) {
-      const found = LEETCODE_PROBLEMS.find((p) => p.slug === problemSlug);
-      if (found && found.id !== currentProblem.id) {
-        setCurrentProblem(found);
+      const found = allProblems.find((p) => p.slug === problemSlug);
+      if (found) {
+        if (found.id !== currentProblem.id) {
+          setCurrentProblem(found);
+        }
+      } else {
+        // Fetch specific dynamic problem by slug
+        fetch(`/api/arena/problems?slug=${encodeURIComponent(problemSlug)}`)
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.success && data.problem) {
+              setCurrentProblem(data.problem);
+              setAllProblems((prev) => {
+                if (prev.some((p) => p.slug === data.problem.slug)) return prev;
+                return [data.problem, ...prev];
+              });
+            }
+          })
+          .catch(() => {});
       }
     }
-  }, [problemSlug]);
+  }, [problemSlug, allProblems]);
 
   useEffect(() => {
     setLanguageCodeMap({
@@ -584,24 +629,24 @@ function POTDWorkspace() {
           {/* Daily Track Pills */}
           <div className="hidden xl:flex items-center gap-1.5">
             <button
-              onClick={() => setCurrentProblem(standardDailyProblem)}
-              title={`Standard POTD: ${standardDailyProblem.title}`}
+              onClick={() => setCurrentProblem(dailyProblem)}
+              title={`Standard POTD: ${dailyProblem.title}`}
               className={`px-2.5 py-1 rounded-md text-[11px] font-bold transition-all flex items-center gap-1 ${
-                currentProblem.id === standardDailyProblem.id
+                currentProblem.id === dailyProblem.id
                   ? "bg-amber-500 text-slate-950 shadow-xs"
                   : "bg-neutral-900 text-neutral-400 hover:text-white border border-neutral-800"
               }`}
             >
               <Flame className="h-3 w-3 fill-current text-orange-400" />
               <span>Standard POTD</span>
-              {solvedList.includes(standardDailyProblem.slug) && (
+              {solvedList.includes(dailyProblem.slug) && (
                 <span className="text-[10px] text-emerald-400">✓</span>
               )}
             </button>
 
             <span className="text-neutral-700 font-mono text-xs">|</span>
 
-            {superHardDailyProblems.map((hp, idx) => {
+            {superHardList.map((hp, idx) => {
               const isSelected = currentProblem.id === hp.id;
               const isSolved = solvedList.includes(hp.slug);
               return (
@@ -632,23 +677,23 @@ function POTDWorkspace() {
           <select
             value={currentProblem.slug}
             onChange={(e) => {
-              const p = LEETCODE_PROBLEMS.find((prob) => prob.slug === e.target.value);
+              const p = allProblems.find((prob) => prob.slug === e.target.value);
               if (p) setCurrentProblem(p);
             }}
             className="rounded-md border border-neutral-800 bg-neutral-900 px-2 py-1 text-[11px] font-mono text-neutral-300 focus:outline-none focus:border-amber-500 max-w-[150px] sm:max-w-[210px] truncate"
           >
             <optgroup label="Today's POTD Challenges">
-              <option value={standardDailyProblem.slug}>
-                🔥 Daily Standard: {standardDailyProblem.title}
+              <option value={dailyProblem.slug}>
+                🔥 Daily Standard: {dailyProblem.title}
               </option>
-              {superHardDailyProblems.map((hp, idx) => (
+              {superHardList.map((hp, idx) => (
                 <option key={hp.slug} value={hp.slug}>
                   💀 Super Hard #{idx + 1}: {hp.title}
                 </option>
               ))}
             </optgroup>
-            <optgroup label={`All Interview Challenges (${LEETCODE_PROBLEMS.length})`}>
-              {LEETCODE_PROBLEMS.map((p, idx) => (
+            <optgroup label={`All Interview Challenges (${allProblems.length})`}>
+              {allProblems.map((p, idx) => (
                 <option key={p.id} value={p.slug}>
                   #{idx + 1} [{p.difficulty}] {p.title}
                 </option>
@@ -692,7 +737,7 @@ function POTDWorkspace() {
             className="flex items-center gap-1 text-[11px] font-semibold text-neutral-400 hover:text-white px-2 py-1 rounded bg-neutral-900 border border-neutral-800 hover:border-neutral-700 transition-colors"
           >
             <ListOrdered className="h-3.5 w-3.5" />
-            <span className="hidden sm:inline">All ({LEETCODE_PROBLEMS.length})</span>
+            <span className="hidden sm:inline">All ({allProblems.length})</span>
           </Link>
         </div>
       </div>
@@ -865,9 +910,9 @@ function POTDWorkspace() {
                       <p className="text-[11px] text-slate-300">
                         Solve today's challenge or tackle one of the 3 Super Hard challenges for +150 XP.
                       </p>
-                      {superHardDailyProblems[0] && (
+                      {superHardList[0] && (
                         <button
-                          onClick={() => setCurrentProblem(superHardDailyProblems[0])}
+                          onClick={() => setCurrentProblem(superHardList[0])}
                           className="shrink-0 text-[10px] font-mono font-bold bg-rose-950 hover:bg-rose-900 border border-rose-800 text-rose-300 px-2.5 py-1 rounded-lg transition-colors"
                         >
                           Try Super Hard POTD →

@@ -30,6 +30,9 @@ export interface Problem {
   editorial: string;
   badgeName: string;
   companies?: string[];
+  isDailyPotd?: boolean;
+  potdDate?: string;
+  source?: string;
 }
 
 export const LEETCODE_PROBLEMS: Problem[] = [

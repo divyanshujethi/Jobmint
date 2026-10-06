@@ -66,6 +66,7 @@ const DOMAINS: { key: DomainKey; label: string; icon: any; countMatches: (p: Pro
 ];
 
 export default function ProblemsCatalogPage() {
+  const [allProblems, setAllProblems] = useState<Problem[]>(LEETCODE_PROBLEMS);
   const [search, setSearch] = useState("");
   const [selectedDomain, setSelectedDomain] = useState<DomainKey>("all");
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
@@ -82,12 +83,27 @@ export default function ProblemsCatalogPage() {
       const badges = localStorage.getItem("jobmint_unlocked_badges");
       if (badges) setUnlockedBadges(JSON.parse(badges));
     } catch (e) {}
+
+    // Fetch dynamic + crawled problems
+    let isMounted = true;
+    fetch("/api/arena/problems")
+      .then((res) => res.json())
+      .then((data) => {
+        if (isMounted && data.success && Array.isArray(data.problems) && data.problems.length > 0) {
+          setAllProblems(data.problems);
+        }
+      })
+      .catch((e) => console.warn("Failed to fetch dynamic problems:", e));
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   // Compute categories relevant to selected domain
   const availableCategories = Array.from(
     new Set(
-      LEETCODE_PROBLEMS.filter((p) => {
+      allProblems.filter((p) => {
         const domain = DOMAINS.find((d) => d.key === selectedDomain);
         return domain ? domain.countMatches(p) : true;
       }).map((p) => p.category)
@@ -96,7 +112,7 @@ export default function ProblemsCatalogPage() {
 
   const TARGET_COMPANIES = ["All", "Google", "Amazon", "Microsoft", "Swiggy", "Uber"];
 
-  const filteredProblems = LEETCODE_PROBLEMS.filter((p) => {
+  const filteredProblems = allProblems.filter((p) => {
     const matchesSearch =
       p.title.toLowerCase().includes(search.toLowerCase()) ||
       p.category.toLowerCase().includes(search.toLowerCase()) ||
@@ -117,9 +133,9 @@ export default function ProblemsCatalogPage() {
   });
 
   const totalSolved = solvedSlugs.filter((s) =>
-    LEETCODE_PROBLEMS.some((p) => p.slug === s)
+    allProblems.some((p) => p.slug === s)
   ).length;
-  const progressPct = Math.round((totalSolved / LEETCODE_PROBLEMS.length) * 100);
+  const progressPct = Math.round((totalSolved / (allProblems.length || 1)) * 100);
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-neutral-100 flex flex-col font-sans">
@@ -139,7 +155,7 @@ export default function ProblemsCatalogPage() {
                     Problem Set
                   </h1>
                   <span className="inline-block text-[11px] font-semibold text-neutral-400 font-mono">
-                    {LEETCODE_PROBLEMS.length} Curated Interview Challenges &bull; In-Browser V8 Execution
+                    {allProblems.length} Curated Interview Challenges &bull; Live LeetCode Sync &bull; In-Browser Execution
                   </span>
                 </div>
               </div>
@@ -173,7 +189,7 @@ export default function ProblemsCatalogPage() {
               <div className="text-xl font-black text-white flex items-baseline gap-1.5 font-mono">
                 <span>{totalSolved}</span>
                 <span className="text-xs font-normal text-neutral-500">
-                  / {LEETCODE_PROBLEMS.length} Solved
+                  / {allProblems.length} Solved
                 </span>
               </div>
               <div className="w-full bg-neutral-800 h-1.5 rounded-full overflow-hidden mt-1.5">
@@ -262,7 +278,7 @@ export default function ProblemsCatalogPage() {
             {DOMAINS.map((domain) => {
               const Icon = domain.icon;
               const isSelected = selectedDomain === domain.key;
-              const count = LEETCODE_PROBLEMS.filter(domain.countMatches).length;
+              const count = allProblems.filter(domain.countMatches).length;
               return (
                 <button
                   key={domain.key}
@@ -369,8 +385,8 @@ export default function ProblemsCatalogPage() {
           {TARGET_COMPANIES.map((comp) => {
             const count =
               comp === "All"
-                ? LEETCODE_PROBLEMS.length
-                : LEETCODE_PROBLEMS.filter((p) => p.companies?.includes(comp)).length;
+                ? allProblems.length
+                : allProblems.filter((p) => p.companies?.includes(comp)).length;
             return (
               <button
                 key={comp}
