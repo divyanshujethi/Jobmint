@@ -337,7 +337,7 @@ ${argsList}
                   .append("\\"expected\\":\\"${escapeStringLiteral(expectedJsonStr)}\\",")
                   .append("\\"durationMs\\":0.0,")
                   .append("\\"isHidden\\":").append(${tc.isHidden ? "true" : "false"}).append(",")
-                  .append("\\"error\\":\\"").append(e.getMessage() != null ? e.getMessage().replace('"', '\'') : "Exception").append("\\"}");
+                  .append("\\"error\\":\\"").append(e != null ? e.getClass().getSimpleName() : "Exception").append("\\"}");
         }
 `;
       });
