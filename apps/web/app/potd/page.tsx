@@ -38,6 +38,7 @@ import { Button } from "@/components/ui/button";
 import { LEETCODE_PROBLEMS, Problem } from "@/lib/problems-data";
 import { executeCodeInSandbox, ExecutionReport, SupportedLanguage, SUPPORTED_LANGUAGES } from "@/lib/code-runner";
 import { openCashfreeCheckout } from "@/components/cashfree-provider";
+import { CodeEditorFallback } from "@/components/code-editor-fallback";
 
 // Lazy-load Monaco Editor on client side (no SSR, isolated bundle)
 const MonacoEditor = dynamic(() => import("@monaco-editor/react"), {
@@ -140,6 +141,8 @@ function POTDWorkspace() {
   const [userDevScore, setUserDevScore] = useState<number>(0);
   const [collegeBattles, setCollegeBattles] = useState<CollegeLeaderboardItem[]>(DEFAULT_CAMPUS_BATTLES);
   const [mobileTab, setMobileTab] = useState<"PROBLEM" | "CODE">("PROBLEM");
+  const [editorEngine, setEditorEngine] = useState<"monaco" | "lightweight">("lightweight");
+  const [monacoLoaded, setMonacoLoaded] = useState(false);
   const [showProCelebration, setShowProCelebration] = useState(false);
 
   // Sponsored Hackathons / POTD B2B Monetization State
@@ -311,22 +314,37 @@ function POTDWorkspace() {
       <header className="border-b border-slate-800 bg-slate-950 px-4 py-2.5 flex items-center justify-between shrink-0">
         <div className="flex items-center gap-3">
           <Link
-            href="/jobs"
-            className="flex items-center gap-2 group mr-1 text-slate-300 hover:text-white transition-colors"
-            title="Return to Jobs & Career Hub"
+            href="/"
+            className="flex items-center gap-2 group text-white transition-opacity hover:opacity-90"
+            title="RoleNest Home"
           >
-            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-600 text-white font-black text-sm shadow-sm group-hover:scale-105 transition-transform">
+            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-600 text-white font-black text-sm shadow-sm">
               R
             </div>
-            <span className="font-extrabold text-sm tracking-tight hidden md:inline">Role Nest</span>
+            <div className="flex flex-col">
+              <span className="font-extrabold text-sm tracking-tight text-white leading-tight">
+                RoleNest <span className="text-emerald-400 font-bold">Arena</span>
+              </span>
+            </div>
           </Link>
-          <span className="text-slate-700 hidden md:inline">|</span>
+
+          <div className="hidden xl:flex items-center gap-2 text-xs font-medium text-slate-400 border-l border-slate-800 pl-3">
+            <Link href="/jobs" className="hover:text-emerald-400 transition-colors">Jobs</Link>
+            <span>•</span>
+            <Link href="/internships" className="hover:text-emerald-400 transition-colors">Internships</Link>
+            <span>•</span>
+            <Link href="/dev-score" className="hover:text-emerald-400 transition-colors">DevScore</Link>
+            <span>•</span>
+            <Link href="/leaderboard" className="hover:text-emerald-400 transition-colors">Rankings</Link>
+          </div>
+
+          <span className="text-slate-700 hidden sm:inline">|</span>
           <Link
             href="/problems"
             className="flex items-center gap-1.5 text-xs font-semibold text-slate-400 hover:text-white transition-colors"
           >
             <ArrowLeft className="h-4 w-4" />
-            <span className="hidden sm:inline">Problem Catalog</span>
+            <span className="hidden sm:inline">All Problems</span>
           </Link>
           <span className="text-slate-700">|</span>
           <div className="flex items-center gap-2">
@@ -334,10 +352,10 @@ function POTDWorkspace() {
               🔥
             </span>
             <span className="font-bold text-sm text-white">
-              Problem of the Day
+              POTD
             </span>
             <span className="rounded bg-purple-950/80 border border-purple-800 text-purple-300 px-1.5 py-0.5 text-[9px] font-mono font-bold hidden sm:inline">
-              RoleNest Labs (Beta)
+              RoleNest Labs
             </span>
             <span className="rounded bg-emerald-950 border border-emerald-800 px-2 py-0.5 text-[10px] font-mono text-emerald-300 font-bold">
               +50 XP
@@ -829,6 +847,18 @@ function POTDWorkspace() {
             
             <div className="flex items-center gap-2">
               <button
+                onClick={() => setEditorEngine((prev) => (prev === "monaco" ? "lightweight" : "monaco"))}
+                className={`text-xs flex items-center gap-1 font-mono transition-colors px-2.5 py-1 rounded-lg border ${
+                  editorEngine === "lightweight"
+                    ? "bg-emerald-950/70 border-emerald-700 text-emerald-300 font-bold"
+                    : "bg-slate-900 border-slate-700 text-slate-300 hover:text-white"
+                }`}
+                title="Toggle between Zero-Lag Instant Editor and VS Code Monaco"
+              >
+                <Zap className="h-3 w-3 text-amber-400" />
+                <span>{editorEngine === "lightweight" ? "⚡ Fast Editor" : "💻 Monaco IDE"}</span>
+              </button>
+              <button
                 onClick={handleResetCode}
                 className="text-slate-400 hover:text-white text-xs flex items-center gap-1 font-mono transition-colors px-2 py-1 rounded hover:bg-slate-800"
                 title={`Reset ${selectedLanguage} starter code`}
@@ -838,25 +868,34 @@ function POTDWorkspace() {
             </div>
           </div>
 
-          {/* Lazy Monaco Editor Container */}
+          {/* Resilient Code Editor Container */}
           <div className="flex-1 min-h-[380px] lg:min-h-0 relative bg-slate-950 overflow-hidden">
-            <MonacoEditor
-              height="100%"
-              language={SUPPORTED_LANGUAGES.find((l) => l.id === selectedLanguage)?.monacoLang || "javascript"}
-              theme="vs-dark"
-              value={languageCodeMap[selectedLanguage] || ""}
-              onChange={handleCodeChange}
-              options={{
-                minimap: { enabled: false },
-                fontSize: 13,
-                fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
-                lineNumbers: "on",
-                scrollBeyondLastLine: false,
-                automaticLayout: true,
-                padding: { top: 12, bottom: 12 },
-                tabSize: 2,
-              }}
-            />
+            {editorEngine === "lightweight" ? (
+              <CodeEditorFallback
+                value={languageCodeMap[selectedLanguage] || ""}
+                onChange={handleCodeChange}
+                language={selectedLanguage}
+              />
+            ) : (
+              <MonacoEditor
+                height="100%"
+                language={SUPPORTED_LANGUAGES.find((l) => l.id === selectedLanguage)?.monacoLang || "javascript"}
+                theme="vs-dark"
+                value={languageCodeMap[selectedLanguage] || ""}
+                onChange={handleCodeChange}
+                onMount={() => setMonacoLoaded(true)}
+                options={{
+                  minimap: { enabled: false },
+                  fontSize: 13,
+                  fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
+                  lineNumbers: "on",
+                  scrollBeyondLastLine: false,
+                  automaticLayout: true,
+                  padding: { top: 12, bottom: 12 },
+                  tabSize: 2,
+                }}
+              />
+            )}
           </div>
 
           {/* TEST RUNNER HUD */}

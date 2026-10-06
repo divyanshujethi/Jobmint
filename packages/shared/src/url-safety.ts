@@ -118,7 +118,7 @@ export function detectJobPlatform(url: string | null | undefined, companyName?: 
       applyButtonLabel: "Apply on LinkedIn",
       badgeLabel: "LinkedIn Verified",
       badgeClass: "bg-blue-50 text-blue-800 border-blue-200",
-      buttonClass: "bg-[#0A66C2] hover:bg-[#084e96] text-white",
+      buttonClass: "bg-blue-600 hover:bg-blue-700 text-white shadow-xs font-semibold",
       isDirectAts: false,
     };
   }
@@ -131,7 +131,7 @@ export function detectJobPlatform(url: string | null | undefined, companyName?: 
       applyButtonLabel: "Apply on Internshala",
       badgeLabel: "Internshala Verified",
       badgeClass: "bg-sky-50 text-sky-800 border-sky-200",
-      buttonClass: "bg-[#008BDC] hover:bg-[#0074b8] text-white",
+      buttonClass: "bg-sky-600 hover:bg-sky-700 text-white shadow-xs font-semibold",
       isDirectAts: false,
     };
   }
@@ -144,7 +144,7 @@ export function detectJobPlatform(url: string | null | undefined, companyName?: 
       applyButtonLabel: "Apply on Naukri",
       badgeLabel: "Naukri Verified",
       badgeClass: "bg-amber-50 text-amber-900 border-amber-200",
-      buttonClass: "bg-[#275DF5] hover:bg-[#1b46c2] text-white",
+      buttonClass: "bg-indigo-600 hover:bg-indigo-700 text-white shadow-xs font-semibold",
       isDirectAts: false,
     };
   }
@@ -157,7 +157,7 @@ export function detectJobPlatform(url: string | null | undefined, companyName?: 
       applyButtonLabel: "Apply on Foundit",
       badgeLabel: "Foundit Verified",
       badgeClass: "bg-purple-50 text-purple-900 border-purple-200",
-      buttonClass: "bg-[#5D38DE] hover:bg-[#4828b8] text-white",
+      buttonClass: "bg-purple-600 hover:bg-purple-700 text-white shadow-xs font-semibold",
       isDirectAts: false,
     };
   }
@@ -170,7 +170,7 @@ export function detectJobPlatform(url: string | null | undefined, companyName?: 
       applyButtonLabel: "Apply on Indeed",
       badgeLabel: "Indeed Verified",
       badgeClass: "bg-indigo-50 text-indigo-900 border-indigo-200",
-      buttonClass: "bg-[#2164F3] hover:bg-[#144ecc] text-white",
+      buttonClass: "bg-blue-700 hover:bg-blue-800 text-white shadow-xs font-semibold",
       isDirectAts: false,
     };
   }
@@ -183,7 +183,7 @@ export function detectJobPlatform(url: string | null | undefined, companyName?: 
       applyButtonLabel: `Apply on ${companyName || "Official ATS"}`,
       badgeLabel: "Greenhouse Direct",
       badgeClass: "bg-emerald-50 text-emerald-900 border-emerald-200",
-      buttonClass: "bg-[#00B259] hover:bg-[#008f47] text-white",
+      buttonClass: "bg-emerald-600 hover:bg-emerald-700 text-white shadow-xs font-semibold",
       isDirectAts: true,
     };
   }
@@ -196,7 +196,7 @@ export function detectJobPlatform(url: string | null | undefined, companyName?: 
       applyButtonLabel: `Apply on ${companyName || "Official ATS"}`,
       badgeLabel: "Lever Direct",
       badgeClass: "bg-teal-50 text-teal-900 border-teal-200",
-      buttonClass: "bg-[#1E856D] hover:bg-[#166653] text-white",
+      buttonClass: "bg-teal-600 hover:bg-teal-700 text-white shadow-xs font-semibold",
       isDirectAts: true,
     };
   }
@@ -209,7 +209,7 @@ export function detectJobPlatform(url: string | null | undefined, companyName?: 
       applyButtonLabel: `Apply on ${companyName || "Official ATS"}`,
       badgeLabel: "Ashby Direct",
       badgeClass: "bg-orange-50 text-orange-900 border-orange-200",
-      buttonClass: "bg-[#E6533C] hover:bg-[#c23d28] text-white",
+      buttonClass: "bg-rose-600 hover:bg-rose-700 text-white shadow-xs font-semibold",
       isDirectAts: true,
     };
   }
@@ -222,7 +222,7 @@ export function detectJobPlatform(url: string | null | undefined, companyName?: 
       applyButtonLabel: `Apply on ${companyName || "Official ATS"}`,
       badgeLabel: "SmartRecruiters Direct",
       badgeClass: "bg-blue-50 text-blue-900 border-blue-200",
-      buttonClass: "bg-[#0052CC] hover:bg-[#003d99] text-white",
+      buttonClass: "bg-blue-700 hover:bg-blue-800 text-white shadow-xs font-semibold",
       isDirectAts: true,
     };
   }
@@ -235,7 +235,7 @@ export function detectJobPlatform(url: string | null | undefined, companyName?: 
       applyButtonLabel: `Apply on ${companyName || "Official ATS"}`,
       badgeLabel: "Workable Direct",
       badgeClass: "bg-cyan-50 text-cyan-900 border-cyan-200",
-      buttonClass: "bg-[#009688] hover:bg-[#00796B] text-white",
+      buttonClass: "bg-teal-700 hover:bg-teal-800 text-white shadow-xs font-semibold",
       isDirectAts: true,
     };
   }
@@ -247,7 +247,7 @@ export function detectJobPlatform(url: string | null | undefined, companyName?: 
     applyButtonLabel: companyName ? `Apply on ${companyName}` : "Apply on Official Site",
     badgeLabel: "Official Career Link",
     badgeClass: "bg-emerald-50 text-emerald-800 border-emerald-200",
-    buttonClass: "bg-emerald-600 hover:bg-emerald-500 text-white",
+    buttonClass: "bg-emerald-600 hover:bg-emerald-500 text-white shadow-xs font-semibold",
     isDirectAts: true,
   };
 }
