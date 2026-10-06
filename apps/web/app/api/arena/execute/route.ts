@@ -368,7 +368,7 @@ public class Main {
             StringBuilder sb = new StringBuilder("[");
             for (int i = 0; i < a.length; i++) {
                 if (i > 0) sb.append(",");
-                sb.append("\\"").append(a[i]).append("\\"");
+                sb.append('\"').append(a[i]).append('\"');
             }
             return sb.append("]").toString();
         }
@@ -381,8 +381,8 @@ public class Main {
             return sb.append("]").toString();
         }
         if (o instanceof Object[] a) return Arrays.deepToString(a);
-        if (o instanceof String s) return "\\"" + s + "\\"";
-        if (o instanceof Character c) return "\\"" + c + "\\"";
+        if (o instanceof String s) return '\"' + s + '\"';
+        if (o instanceof Character c) return '\"' + String.valueOf(c) + '\"';
         if (o instanceof List<?> l) {
             StringBuilder sb = new StringBuilder("[");
             for (int i=0; i<l.size(); i++) {
