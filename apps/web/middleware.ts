@@ -101,12 +101,52 @@ export function middleware(req: NextRequest) {
 
   // 3. If accessed on code.rolenest.in, arena.rolenest.in or problem.rolenest.in:
   if (isArenaSubdomain) {
+    // Forward x-is-arena header
+    const requestHeaders = new Headers(req.headers);
+    requestHeaders.set("x-is-arena", "1");
+
     if (pathname === "/" || pathname === "/potd") {
-      return NextResponse.rewrite(new URL("/potd", req.url));
+      return NextResponse.rewrite(new URL("/potd", req.url), {
+        request: { headers: requestHeaders },
+      });
     }
+
+    if (pathname.startsWith("/problem/")) {
+      const slug = pathname.replace(/^\/problem\//, "");
+      return NextResponse.rewrite(new URL(`/potd?problem=${slug}`, req.url), {
+        request: { headers: requestHeaders },
+      });
+    }
+
+    if (pathname.startsWith("/problems/") && pathname !== "/problems") {
+      const slug = pathname.replace(/^\/problems\//, "");
+      return NextResponse.rewrite(new URL(`/potd?problem=${slug}`, req.url), {
+        request: { headers: requestHeaders },
+      });
+    }
+
+    // Main site pages (like /jobs, /pricing) should not exist on problem.rolenest.in
+    const MAIN_SITE_PAGES = ["/jobs", "/pricing", "/applications", "/resume", "/internship-bootcamp", "/donate", "/company"];
+    if (MAIN_SITE_PAGES.some((prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`))) {
+      return NextResponse.redirect(new URL("/problems", req.url));
+    }
+
+    return NextResponse.next({
+      request: { headers: requestHeaders },
+    });
   }
 
-  // 3. If accessed on main web (rolenest.in):
+  // 4. If accessed on main web (rolenest.in):
+  if (pathname === "/potd" || pathname.startsWith("/potd/")) {
+    const search = req.nextUrl.search;
+    return NextResponse.redirect(new URL(`https://problem.rolenest.in${pathname}${search}`), 308);
+  }
+
+  if (pathname === "/problems" || pathname.startsWith("/problems/")) {
+    const search = req.nextUrl.search;
+    return NextResponse.redirect(new URL(`https://problem.rolenest.in${pathname}${search}`), 308);
+  }
+
   if (pathname === "/internship-bootcamp" || pathname.startsWith("/internship-bootcamp/")) {
     const subpath = pathname.replace(/^\/internship-bootcamp/, "") || "/";
     return NextResponse.redirect(new URL(`https://internship.rolenest.in${subpath}`), 308);

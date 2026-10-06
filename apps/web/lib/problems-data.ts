@@ -1087,5 +1087,1593 @@ export const LEETCODE_PROBLEMS: Problem[] = [
     ],
     "editorial": "Use binary search `bisect_left(nodes, keyHash)` and return `nodes[idx % len(nodes)]`.",
     "badgeName": "Distributed Systems: Consistent Hashing"
+  },
+  {
+    "id": "product-of-array-except-self",
+    "slug": "product-of-array-except-self",
+    "title": "Product of Array Except Self",
+    "difficulty": "Medium",
+    "category": "Arrays & Hashing",
+    "acceptance": "65.4%",
+    "description": "Given an integer array `nums`, return an array `answer` such that `answer[i]` is equal to the product of all the elements of `nums` except `nums[i]`.\n\nThe algorithm must run in O(n) time without using the division operation.",
+    "realWorldContext": "Critical in portfolio risk analytics and stock volatility recalculation where removing one asset's variance must be calculated without recomputing full matrix products.",
+    "examples": [
+      {
+        "input": "nums = [1, 2, 3, 4]",
+        "output": "[24, 12, 8, 6]"
+      },
+      {
+        "input": "nums = [-1, 1, 0, -3, 3]",
+        "output": "[0, 0, 9, 0]"
+      }
+    ],
+    "constraints": [
+      "2 <= nums.length <= 10^5",
+      "-30 <= nums[i] <= 30",
+      "The product of any prefix or suffix of nums fits in a 32-bit integer."
+    ],
+    "hints": [
+      "Can you calculate the prefix products for each element?",
+      "Can you calculate suffix products from right to left?",
+      "Multiply prefix[i] * suffix[i] to get the answer in O(n) without division."
+    ],
+    "starterCodeJs": "/**\n * @param {number[]} nums\n * @return {number[]}\n */\nfunction productExceptSelf(nums) {\n  // Write your O(n) prefix/suffix solution here\n  \n}",
+    "starterCodeTs": "function productExceptSelf(nums: number[]): number[] {\n  // Write your O(n) prefix/suffix solution here\n  \n}",
+    "starterCodePy": "class Solution:\n    def productExceptSelf(self, nums: list[int]) -> list[int]:\n        pass",
+    "starterCodeCpp": "#include <vector>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> productExceptSelf(vector<int>& nums) {\n        \n    }\n};",
+    "starterCodeJava": "class Solution {\n    public int[] productExceptSelf(int[] nums) {\n        return new int[]{};\n    }\n}",
+    "testCases": [
+      {
+        "name": "Standard 4 Elements",
+        "inputArgs": [
+          [
+            1,
+            2,
+            3,
+            4
+          ]
+        ],
+        "expected": [
+          24,
+          12,
+          8,
+          6
+        ]
+      },
+      {
+        "name": "With Zero Element",
+        "inputArgs": [
+          [
+            -1,
+            1,
+            0,
+            -3,
+            3
+          ]
+        ],
+        "expected": [
+          0,
+          0,
+          9,
+          0
+        ]
+      },
+      {
+        "name": "Two Elements",
+        "inputArgs": [
+          [
+            2,
+            3
+          ]
+        ],
+        "expected": [
+          3,
+          2
+        ]
+      },
+      {
+        "name": "Multiple Negatives",
+        "inputArgs": [
+          [
+            -2,
+            -2,
+            -2
+          ]
+        ],
+        "expected": [
+          4,
+          4,
+          4
+        ],
+        "isHidden": true
+      }
+    ],
+    "editorial": "Compute running prefix products from left-to-right, then traverse right-to-left accumulating suffix products into the output array.",
+    "badgeName": "Product Array Prodigy"
+  },
+  {
+    "id": "top-k-frequent-elements",
+    "slug": "top-k-frequent-elements",
+    "title": "Top K Frequent Elements: Trending Analytics",
+    "difficulty": "Medium",
+    "category": "Arrays & Hashing",
+    "acceptance": "62.8%",
+    "description": "Given an integer array `nums` and an integer `k`, return the `k` most frequent elements in descending order of frequency. If frequencies match, return any valid order.",
+    "realWorldContext": "Powers real-time trending hashtags on Twitter/X, popular product counters on Amazon, and hot cache identification at Cloudflare.",
+    "examples": [
+      {
+        "input": "nums = [1, 1, 1, 2, 2, 3], k = 2",
+        "output": "[1, 2]"
+      },
+      {
+        "input": "nums = [1], k = 1",
+        "output": "[1]"
+      }
+    ],
+    "constraints": [
+      "1 <= nums.length <= 10^5",
+      "-10^4 <= nums[i] <= 10^4",
+      "k is in the range [1, the number of unique elements in the array]."
+    ],
+    "hints": [
+      "Count the frequencies of each element with a Hash Map in O(n).",
+      "Use bucket sort where index represents frequency count for O(n) overall time."
+    ],
+    "starterCodeJs": "/**\n * @param {number[]} nums\n * @param {number} k\n * @return {number[]}\n */\nfunction topKFrequent(nums, k) {\n  // Write your O(n) solution here\n  \n}",
+    "starterCodeTs": "function topKFrequent(nums: number[], k: number): number[] {\n  // Write your O(n) solution here\n  \n}",
+    "starterCodePy": "from collections import Counter\n\nclass Solution:\n    def topKFrequent(self, nums: list[int], k: int) -> list[int]:\n        pass",
+    "starterCodeCpp": "#include <vector>\n#include <unordered_map>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> topKFrequent(vector<int>& nums, int k) {\n        \n    }\n};",
+    "starterCodeJava": "class Solution {\n    public int[] topKFrequent(int[] nums, int k) {\n        return new int[]{};\n    }\n}",
+    "testCases": [
+      {
+        "name": "Two Frequencies",
+        "inputArgs": [
+          [
+            1,
+            1,
+            1,
+            2,
+            2,
+            3
+          ],
+          2
+        ],
+        "expected": [
+          1,
+          2
+        ]
+      },
+      {
+        "name": "Single Element",
+        "inputArgs": [
+          [
+            1
+          ],
+          1
+        ],
+        "expected": [
+          1
+        ]
+      },
+      {
+        "name": "Negative Elements",
+        "inputArgs": [
+          [
+            4,
+            1,
+            -1,
+            2,
+            -1,
+            2,
+            3
+          ],
+          2
+        ],
+        "expected": [
+          -1,
+          2
+        ],
+        "isHidden": true
+      }
+    ],
+    "editorial": "Build a frequency map, then use Bucket Sort with an array of lists indexed by frequency from 0 to N.",
+    "badgeName": "Top-K Trending Architect"
+  },
+  {
+    "id": "longest-consecutive-sequence",
+    "slug": "longest-consecutive-sequence",
+    "title": "Longest Consecutive Sequence: O(n) Streak Tracker",
+    "difficulty": "Medium",
+    "category": "Arrays & Hashing",
+    "acceptance": "47.5%",
+    "description": "Given an unsorted array of integers `nums`, return the length of the longest consecutive elements sequence. The algorithm must run in O(n) time.",
+    "realWorldContext": "Used by gaming servers and Habit Tracker platforms like Duolingo to detect longest uninterrupted daily activity streaks without sorting.",
+    "examples": [
+      {
+        "input": "nums = [100, 4, 200, 1, 3, 2]",
+        "output": "4",
+        "explanation": "The longest consecutive elements sequence is [1, 2, 3, 4]. Therefore its length is 4."
+      },
+      {
+        "input": "nums = [0, 3, 7, 2, 5, 8, 4, 6, 0, 1]",
+        "output": "9"
+      }
+    ],
+    "constraints": [
+      "0 <= nums.length <= 10^5",
+      "-10^9 <= nums[i] <= 10^9"
+    ],
+    "hints": [
+      "Insert all numbers into a HashSet for O(1) membership lookups.",
+      "Only start counting a sequence if (num - 1) is NOT in the set (i.e. num is the start of a streak)."
+    ],
+    "starterCodeJs": "/**\n * @param {number[]} nums\n * @return {number}\n */\nfunction longestConsecutive(nums) {\n  // Write your O(n) HashSet solution here\n  \n}",
+    "starterCodeTs": "function longestConsecutive(nums: number[]): number {\n  // Write your O(n) HashSet solution here\n  \n}",
+    "starterCodePy": "class Solution:\n    def longestConsecutive(self, nums: list[int]) -> int:\n        pass",
+    "starterCodeCpp": "#include <vector>\n#include <unordered_set>\nusing namespace std;\n\nclass Solution {\npublic:\n    int longestConsecutive(vector<int>& nums) {\n        \n    }\n};",
+    "starterCodeJava": "class Solution {\n    public int longestConsecutive(int[] nums) {\n        return 0;\n    }\n}",
+    "testCases": [
+      {
+        "name": "Standard Array",
+        "inputArgs": [
+          [
+            100,
+            4,
+            200,
+            1,
+            3,
+            2
+          ]
+        ],
+        "expected": 4
+      },
+      {
+        "name": "Ten Elements Streak",
+        "inputArgs": [
+          [
+            0,
+            3,
+            7,
+            2,
+            5,
+            8,
+            4,
+            6,
+            0,
+            1
+          ]
+        ],
+        "expected": 9
+      },
+      {
+        "name": "Empty Array",
+        "inputArgs": [
+          []
+        ],
+        "expected": 0
+      }
+    ],
+    "editorial": "Use a HashSet to look up sequence starts in O(1). Only expand from `x` when `x - 1` is absent, guaranteeing each number is visited at most twice.",
+    "badgeName": "Unbroken Sequence Master"
+  },
+  {
+    "id": "valid-palindrome",
+    "slug": "valid-palindrome",
+    "title": "Valid Palindrome: Clean String Symmetry",
+    "difficulty": "Easy",
+    "category": "Two Pointers",
+    "acceptance": "46.3%",
+    "description": "A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward.\n\nReturn `true` if it is a palindrome, or `false` otherwise.",
+    "realWorldContext": "DNA bioinformatics palindrome sequence matching and search query sanitization in Elasticsearch.",
+    "examples": [
+      {
+        "input": "s = \"A man, a plan, a canal: Panama\"",
+        "output": "true"
+      },
+      {
+        "input": "s = \"race a car\"",
+        "output": "false"
+      }
+    ],
+    "constraints": [
+      "1 <= s.length <= 2 * 10^5",
+      "s consists only of printable ASCII characters."
+    ],
+    "hints": [
+      "Use two pointers (left at 0, right at length - 1).",
+      "Skip non-alphanumeric characters on both sides before comparing."
+    ],
+    "starterCodeJs": "/**\n * @param {string} s\n * @return {boolean}\n */\nfunction isPalindrome(s) {\n  // Write your Two Pointer solution here\n  \n}",
+    "starterCodeTs": "function isPalindrome(s: string): boolean {\n  // Write your Two Pointer solution here\n  \n}",
+    "starterCodePy": "class Solution:\n    def isPalindrome(self, s: str) -> bool:\n        pass",
+    "starterCodeCpp": "#include <string>\n#include <cctype>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool isPalindrome(string s) {\n        \n    }\n};",
+    "starterCodeJava": "class Solution {\n    public boolean isPalindrome(String s) {\n        return true;\n    }\n}",
+    "testCases": [
+      {
+        "name": "Classic Panama Palindrome",
+        "inputArgs": [
+          "A man, a plan, a canal: Panama"
+        ],
+        "expected": true
+      },
+      {
+        "name": "Not a Palindrome",
+        "inputArgs": [
+          "race a car"
+        ],
+        "expected": false
+      },
+      {
+        "name": "Empty / Space String",
+        "inputArgs": [
+          "   "
+        ],
+        "expected": true
+      }
+    ],
+    "editorial": "Normalize with alphanumeric regex or two pointers with `isalnum()` checks to achieve O(n) time and O(1) auxiliary space.",
+    "badgeName": "Palindrome Purist"
+  },
+  {
+    "id": "container-with-most-water",
+    "slug": "container-with-most-water",
+    "title": "Container With Most Water: Maximum Area",
+    "difficulty": "Medium",
+    "category": "Two Pointers",
+    "acceptance": "55.3%",
+    "description": "You are given an integer array `height` of length `n`. There are `n` vertical lines drawn such that the two endpoints of the `i`th line are `(i, 0)` and `(i, height[i])`.\n\nFind two lines that together with the x-axis form a container, such that the container contains the most water. Return the maximum amount of water a container can store.",
+    "realWorldContext": "Resource allocation in cloud server auto-scaling bandwidth envelopes and histogram capacity planning.",
+    "examples": [
+      {
+        "input": "height = [1, 8, 6, 2, 5, 4, 8, 3, 7]",
+        "output": "49"
+      },
+      {
+        "input": "height = [1, 1]",
+        "output": "1"
+      }
+    ],
+    "constraints": [
+      "n == height.length",
+      "2 <= n <= 10^5",
+      "0 <= height[i] <= 10^4"
+    ],
+    "hints": [
+      "Start with the widest container: left = 0, right = n - 1.",
+      "The area is limited by the shorter line: min(height[left], height[right]) * (right - left).",
+      "Always move the pointer with the shorter height inward to search for a taller wall."
+    ],
+    "starterCodeJs": "/**\n * @param {number[]} height\n * @return {number}\n */\nfunction maxArea(height) {\n  // Write your Two Pointer solution here\n  \n}",
+    "starterCodeTs": "function maxArea(height: number[]): number {\n  // Write your Two Pointer solution here\n  \n}",
+    "starterCodePy": "class Solution:\n    def maxArea(self, height: list[int]) -> int:\n        pass",
+    "starterCodeCpp": "#include <vector>\n#include <algorithm>\nusing namespace std;\n\nclass Solution {\npublic:\n    int maxArea(vector<int>& height) {\n        \n    }\n};",
+    "starterCodeJava": "class Solution {\n    public int maxArea(int[] height) {\n        return 0;\n    }\n}",
+    "testCases": [
+      {
+        "name": "Standard 9 Heights",
+        "inputArgs": [
+          [
+            1,
+            8,
+            6,
+            2,
+            5,
+            4,
+            8,
+            3,
+            7
+          ]
+        ],
+        "expected": 49
+      },
+      {
+        "name": "Two Unit Walls",
+        "inputArgs": [
+          [
+            1,
+            1
+          ]
+        ],
+        "expected": 1
+      },
+      {
+        "name": "Equal Symmetric Heights",
+        "inputArgs": [
+          [
+            4,
+            3,
+            2,
+            1,
+            4
+          ]
+        ],
+        "expected": 16
+      }
+    ],
+    "editorial": "Initialize left=0 and right=len-1. Calculate current area, then greedily advance whichever pointer points to the shorter bar.",
+    "badgeName": "Reservoir Architect"
+  },
+  {
+    "id": "longest-substring-without-repeating-characters",
+    "slug": "longest-substring-without-repeating-characters",
+    "title": "Longest Substring Without Repeating Characters",
+    "difficulty": "Medium",
+    "category": "Sliding Window",
+    "acceptance": "34.8%",
+    "description": "Given a string `s`, find the length of the longest substring without duplicate characters.",
+    "realWorldContext": "High-throughput token sliding window parsing in streaming network packets and cryptographic nonces.",
+    "examples": [
+      {
+        "input": "s = \"abcabcbb\"",
+        "output": "3",
+        "explanation": "The answer is \"abc\", with the length of 3."
+      },
+      {
+        "input": "s = \"bbbbb\"",
+        "output": "1"
+      },
+      {
+        "input": "s = \"pwwkew\"",
+        "output": "3"
+      }
+    ],
+    "constraints": [
+      "0 <= s.length <= 5 * 10^4",
+      "s consists of English letters, digits, symbols and spaces."
+    ],
+    "hints": [
+      "Use a sliding window with two pointers: left and right.",
+      "Store the last seen index of each character in a Hash Map to jump `left` forward directly."
+    ],
+    "starterCodeJs": "/**\n * @param {string} s\n * @return {number}\n */\nfunction lengthOfLongestSubstring(s) {\n  // Write your sliding window solution here\n  \n}",
+    "starterCodeTs": "function lengthOfLongestSubstring(s: string): number {\n  // Write your sliding window solution here\n  \n}",
+    "starterCodePy": "class Solution:\n    def lengthOfLongestSubstring(self, s: str) -> int:\n        pass",
+    "starterCodeCpp": "#include <string>\n#include <unordered_map>\n#include <algorithm>\nusing namespace std;\n\nclass Solution {\npublic:\n    int lengthOfLongestSubstring(string s) {\n        \n    }\n};",
+    "starterCodeJava": "class Solution {\n    public int lengthOfLongestSubstring(String s) {\n        return 0;\n    }\n}",
+    "testCases": [
+      {
+        "name": "Repeated Chars In Window",
+        "inputArgs": [
+          "abcabcbb"
+        ],
+        "expected": 3
+      },
+      {
+        "name": "All Identical Chars",
+        "inputArgs": [
+          "bbbbb"
+        ],
+        "expected": 1
+      },
+      {
+        "name": "Subsequence Jump",
+        "inputArgs": [
+          "pwwkew"
+        ],
+        "expected": 3
+      },
+      {
+        "name": "Empty String",
+        "inputArgs": [
+          ""
+        ],
+        "expected": 0
+      }
+    ],
+    "editorial": "Track character indices in a map. When a repeated character is encountered, advance `left = max(left, map[char] + 1)` in O(n) time.",
+    "badgeName": "Sliding Window Sage"
+  },
+  {
+    "id": "climbing-stairs",
+    "slug": "climbing-stairs",
+    "title": "Climbing Stairs: Dynamic Step Combinations",
+    "difficulty": "Easy",
+    "category": "Dynamic Programming",
+    "acceptance": "52.8%",
+    "description": "You are climbing a staircase. It takes `n` steps to reach the top. Each time you can either climb 1 or 2 steps.\n\nIn how many distinct ways can you climb to the top?",
+    "realWorldContext": "Fibonacci state transition modeling in CPU instruction pipeline scheduling and branch predictor warm-up cycles.",
+    "examples": [
+      {
+        "input": "n = 2",
+        "output": "2",
+        "explanation": "There are two ways: 1 step + 1 step, or 2 steps."
+      },
+      {
+        "input": "n = 3",
+        "output": "3",
+        "explanation": "1+1+1, 1+2, 2+1."
+      }
+    ],
+    "constraints": [
+      "1 <= n <= 45"
+    ],
+    "hints": [
+      "To reach step n, you can either come from step (n - 1) or step (n - 2).",
+      "dp[n] = dp[n - 1] + dp[n - 2].",
+      "You only need two variables to store previous values in O(1) space."
+    ],
+    "starterCodeJs": "/**\n * @param {number} n\n * @return {number}\n */\nfunction climbStairs(n) {\n  // Write your O(n) DP solution here\n  \n}",
+    "starterCodeTs": "function climbStairs(n: number): number {\n  // Write your O(n) DP solution here\n  \n}",
+    "starterCodePy": "class Solution:\n    def climbStairs(self, n: int) -> int:\n        pass",
+    "starterCodeCpp": "class Solution {\npublic:\n    int climbStairs(int n) {\n        \n    }\n};",
+    "starterCodeJava": "class Solution {\n    public int climbStairs(int n) {\n        return 0;\n    }\n}",
+    "testCases": [
+      {
+        "name": "Two Steps",
+        "inputArgs": [
+          2
+        ],
+        "expected": 2
+      },
+      {
+        "name": "Three Steps",
+        "inputArgs": [
+          3
+        ],
+        "expected": 3
+      },
+      {
+        "name": "Five Steps",
+        "inputArgs": [
+          5
+        ],
+        "expected": 8
+      },
+      {
+        "name": "One Step",
+        "inputArgs": [
+          1
+        ],
+        "expected": 1
+      }
+    ],
+    "editorial": "Classic DP transition `f(n) = f(n-1) + f(n-2)`. Compute bottom-up using two variables `a` and `b` in O(1) space.",
+    "badgeName": "Stairway Strategist"
+  },
+  {
+    "id": "house-robber",
+    "slug": "house-robber",
+    "title": "House Robber: Non-Adjacent Maximization",
+    "difficulty": "Medium",
+    "category": "Dynamic Programming",
+    "acceptance": "50.4%",
+    "description": "You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed. Adjacent houses have security systems connected that will automatically alert the police if two adjacent houses are broken into on the same night.\n\nGiven an integer array `nums` representing the amount of money of each house, return the maximum amount of money you can rob tonight without alerting the police.",
+    "realWorldContext": "Energy harvesting schedules in IoT mesh nodes and CPU cache slot conflict resolution without adjacent bank collisions.",
+    "examples": [
+      {
+        "input": "nums = [1, 2, 3, 1]",
+        "output": "4",
+        "explanation": "Rob house 1 (money = 1) and house 3 (money = 3). Total = 4."
+      },
+      {
+        "input": "nums = [2, 7, 9, 3, 1]",
+        "output": "12",
+        "explanation": "Rob house 1 (2) + house 3 (9) + house 5 (1) = 12."
+      }
+    ],
+    "constraints": [
+      "1 <= nums.length <= 100",
+      "0 <= nums[i] <= 400"
+    ],
+    "hints": [
+      "For each house i, you either rob it (nums[i] + rob(i-2)) or skip it (rob(i-1)).",
+      "current = max(prev1, prev2 + nums[i])."
+    ],
+    "starterCodeJs": "/**\n * @param {number[]} nums\n * @return {number}\n */\nfunction rob(nums) {\n  // Write your O(n) DP solution here\n  \n}",
+    "starterCodeTs": "function rob(nums: number[]): number {\n  // Write your O(n) DP solution here\n  \n}",
+    "starterCodePy": "class Solution:\n    def rob(self, nums: list[int]) -> int:\n        pass",
+    "starterCodeCpp": "#include <vector>\n#include <algorithm>\nusing namespace std;\n\nclass Solution {\npublic:\n    int rob(vector<int>& nums) {\n        \n    }\n};",
+    "starterCodeJava": "class Solution {\n    public int rob(int[] nums) {\n        return 0;\n    }\n}",
+    "testCases": [
+      {
+        "name": "Four Houses",
+        "inputArgs": [
+          [
+            1,
+            2,
+            3,
+            1
+          ]
+        ],
+        "expected": 4
+      },
+      {
+        "name": "Five Houses High Value",
+        "inputArgs": [
+          [
+            2,
+            7,
+            9,
+            3,
+            1
+          ]
+        ],
+        "expected": 12
+      },
+      {
+        "name": "Single House",
+        "inputArgs": [
+          [
+            99
+          ]
+        ],
+        "expected": 99
+      }
+    ],
+    "editorial": "Maintain two running variables `prev1` and `prev2`. At each step, `current = max(prev1, prev2 + nums[i])` in O(n) time and O(1) space.",
+    "badgeName": "Stealth Optimizer"
+  },
+  {
+    "id": "coin-change",
+    "slug": "coin-change",
+    "title": "Coin Change: Minimum Denomination DP",
+    "difficulty": "Medium",
+    "category": "Dynamic Programming",
+    "acceptance": "43.7%",
+    "description": "You are given an integer array `coins` representing coins of different denominations and an integer `amount` representing a total amount of money.\n\nReturn the fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any combination of the coins, return -1.\n\nYou may assume that you have an infinite number of each kind of coin.",
+    "realWorldContext": "Micro-transaction change-making algorithms in Stripe/Cashfree billing gateways and optimal network MTU packet fragmentation.",
+    "examples": [
+      {
+        "input": "coins = [1, 2, 5], amount = 11",
+        "output": "3",
+        "explanation": "11 = 5 + 5 + 1"
+      },
+      {
+        "input": "coins = [2], amount = 3",
+        "output": "-1"
+      },
+      {
+        "input": "coins = [1], amount = 0",
+        "output": "0"
+      }
+    ],
+    "constraints": [
+      "1 <= coins.length <= 12",
+      "1 <= coins[i] <= 2^31 - 1",
+      "0 <= amount <= 10^4"
+    ],
+    "hints": [
+      "Create a DP array of size (amount + 1) initialized to Infinity, with dp[0] = 0.",
+      "For each coin c, dp[i] = min(dp[i], dp[i - c] + 1)."
+    ],
+    "starterCodeJs": "/**\n * @param {number[]} coins\n * @param {number} amount\n * @return {number}\n */\nfunction coinChange(coins, amount) {\n  // Write your bottom-up DP solution here\n  \n}",
+    "starterCodeTs": "function coinChange(coins: number[], amount: number): number {\n  // Write your bottom-up DP solution here\n  \n}",
+    "starterCodePy": "class Solution:\n    def coinChange(self, coins: list[int], amount: int) -> int:\n        pass",
+    "starterCodeCpp": "#include <vector>\n#include <algorithm>\nusing namespace std;\n\nclass Solution {\npublic:\n    int coinChange(vector<int>& coins, int amount) {\n        \n    }\n};",
+    "starterCodeJava": "class Solution {\n    public int coinChange(int[] coins, int amount) {\n        return -1;\n    }\n}",
+    "testCases": [
+      {
+        "name": "Standard Denominations 11",
+        "inputArgs": [
+          [
+            1,
+            2,
+            5
+          ],
+          11
+        ],
+        "expected": 3
+      },
+      {
+        "name": "Impossible Target",
+        "inputArgs": [
+          [
+            2
+          ],
+          3
+        ],
+        "expected": -1
+      },
+      {
+        "name": "Zero Amount",
+        "inputArgs": [
+          [
+            1
+          ],
+          0
+        ],
+        "expected": 0
+      }
+    ],
+    "editorial": "Bottom-up 1D DP where `dp[i]` is the minimum coins needed for amount `i`. Iterate through all amounts from 1 to `amount` updating via `dp[i - coin] + 1`.",
+    "badgeName": "Currency Alchemist"
+  },
+  {
+    "id": "search-a-2d-matrix",
+    "slug": "search-a-2d-matrix",
+    "title": "Search a 2D Matrix: Row-Column Binary Search",
+    "difficulty": "Medium",
+    "category": "Binary Search",
+    "acceptance": "49.6%",
+    "description": "You are given an `m x n` integer matrix `matrix` with the following two properties:\n1. Each row is sorted in non-decreasing order.\n2. The first integer of each row is greater than the last integer of the previous row.\n\nGiven an integer `target`, return `true` if `target` is in `matrix` or `false` otherwise in O(log(m * n)) time.",
+    "realWorldContext": "B-Tree index leaf page traversal in PostgreSQL and SQLite disk storage engines.",
+    "examples": [
+      {
+        "input": "matrix = [[1, 3, 5, 7], [10, 11, 16, 20], [23, 30, 34, 60]], target = 3",
+        "output": "true"
+      },
+      {
+        "input": "matrix = [[1, 3, 5, 7], [10, 11, 16, 20], [23, 30, 34, 60]], target = 13",
+        "output": "false"
+      }
+    ],
+    "constraints": [
+      "m == matrix.length",
+      "n == matrix[i].length",
+      "1 <= m, n <= 100",
+      "-10^4 <= matrix[i][j], target <= 10^4"
+    ],
+    "hints": [
+      "Treat the entire 2D matrix as a virtual 1D array of length m * n.",
+      "Coordinate mapping: row = Math.floor(mid / n), col = mid % n."
+    ],
+    "starterCodeJs": "/**\n * @param {number[][]} matrix\n * @param {number} target\n * @return {boolean}\n */\nfunction searchMatrix(matrix, target) {\n  // Write your O(log(m*n)) binary search here\n  \n}",
+    "starterCodeTs": "function searchMatrix(matrix: number[][], target: number): boolean {\n  // Write your O(log(m*n)) binary search here\n  \n}",
+    "starterCodePy": "class Solution:\n    def searchMatrix(self, matrix: list[list[int]], target: int) -> bool:\n        pass",
+    "starterCodeCpp": "#include <vector>\nusing namespace std;\n\nclass Solution {\npublic:\n    bool searchMatrix(vector<vector<int>>& matrix, int target) {\n        \n    }\n};",
+    "starterCodeJava": "class Solution {\n    public boolean searchMatrix(int[][] matrix, int target) {\n        return false;\n    }\n}",
+    "testCases": [
+      {
+        "name": "Target Exists In First Row",
+        "inputArgs": [
+          [
+            [
+              1,
+              3,
+              5,
+              7
+            ],
+            [
+              10,
+              11,
+              16,
+              20
+            ],
+            [
+              23,
+              30,
+              34,
+              60
+            ]
+          ],
+          3
+        ],
+        "expected": true
+      },
+      {
+        "name": "Target Not In Matrix",
+        "inputArgs": [
+          [
+            [
+              1,
+              3,
+              5,
+              7
+            ],
+            [
+              10,
+              11,
+              16,
+              20
+            ],
+            [
+              23,
+              30,
+              34,
+              60
+            ]
+          ],
+          13
+        ],
+        "expected": false
+      },
+      {
+        "name": "Single Cell True",
+        "inputArgs": [
+          [
+            [
+              5
+            ]
+          ],
+          5
+        ],
+        "expected": true
+      }
+    ],
+    "editorial": "Map indices `low=0` to `high=m*n-1`. At midpoint `mid`, element is at `matrix[Math.floor(mid/n)][mid%n]`. Standard binary search executes in O(log(m*n)).",
+    "badgeName": "Matrix Navigator"
+  },
+  {
+    "id": "find-minimum-in-rotated-sorted-array",
+    "slug": "find-minimum-in-rotated-sorted-array",
+    "title": "Find Minimum in Rotated Sorted Array",
+    "difficulty": "Medium",
+    "category": "Binary Search",
+    "acceptance": "50.1%",
+    "description": "Suppose an array of length `n` sorted in ascending order is rotated between 1 and `n` times.\n\nGiven the sorted rotated array `nums` of unique elements, return the minimum element of this array in O(log n) time.",
+    "realWorldContext": "Locating clock-skew synchronization offsets in distributed consensus nodes (Raft / Paxos) across UTC boundaries.",
+    "examples": [
+      {
+        "input": "nums = [3, 4, 5, 1, 2]",
+        "output": "1"
+      },
+      {
+        "input": "nums = [4, 5, 6, 7, 0, 1, 2]",
+        "output": "0"
+      },
+      {
+        "input": "nums = [11, 13, 15, 17]",
+        "output": "11"
+      }
+    ],
+    "constraints": [
+      "n == nums.length",
+      "1 <= n <= 5000",
+      "-5000 <= nums[i] <= 5000",
+      "All integers of nums are unique."
+    ],
+    "hints": [
+      "Compare nums[mid] with nums[right].",
+      "If nums[mid] > nums[right], the minimum must be in the right half: left = mid + 1.",
+      "Else the minimum is in the left half or at mid: right = mid."
+    ],
+    "starterCodeJs": "/**\n * @param {number[]} nums\n * @return {number}\n */\nfunction findMin(nums) {\n  // Write your O(log n) binary search here\n  \n}",
+    "starterCodeTs": "function findMin(nums: number[]): number {\n  // Write your O(log n) binary search here\n  \n}",
+    "starterCodePy": "class Solution:\n    def findMin(self, nums: list[int]) -> int:\n        pass",
+    "starterCodeCpp": "#include <vector>\nusing namespace std;\n\nclass Solution {\npublic:\n    int findMin(vector<int>& nums) {\n        \n    }\n};",
+    "starterCodeJava": "class Solution {\n    public int findMin(int[] nums) {\n        return 0;\n    }\n}",
+    "testCases": [
+      {
+        "name": "Rotated at Index 3",
+        "inputArgs": [
+          [
+            3,
+            4,
+            5,
+            1,
+            2
+          ]
+        ],
+        "expected": 1
+      },
+      {
+        "name": "Rotated with Zero",
+        "inputArgs": [
+          [
+            4,
+            5,
+            6,
+            7,
+            0,
+            1,
+            2
+          ]
+        ],
+        "expected": 0
+      },
+      {
+        "name": "Unrotated Ascending",
+        "inputArgs": [
+          [
+            11,
+            13,
+            15,
+            17
+          ]
+        ],
+        "expected": 11
+      }
+    ],
+    "editorial": "If `nums[mid] > nums[right]`, the inflection point is to the right (`left = mid + 1`). Otherwise `right = mid`. Stop when `left == right`.",
+    "badgeName": "Rotation Pivot Finder"
+  },
+  {
+    "id": "number-of-islands",
+    "slug": "number-of-islands",
+    "title": "Number of Islands: 2D Grid BFS/DFS",
+    "difficulty": "Medium",
+    "category": "Trees & Graphs",
+    "acceptance": "58.9%",
+    "description": "Given an `m x n` 2D binary grid `grid` which represents a map of \"1\"s (land) and \"0\"s (water), return the number of islands.\n\nAn island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water.",
+    "realWorldContext": "Computer vision connected-component labeling in satellite imaging, autonomous driving road segment detection, and medical tumor segmentation.",
+    "examples": [
+      {
+        "input": "grid = [[\"1\",\"1\",\"1\",\"1\",\"0\"],[\"1\",\"1\",\"0\",\"1\",\"0\"],[\"1\",\"1\",\"0\",\"0\",\"0\"],[\"0\",\"0\",\"0\",\"0\",\"0\"]]",
+        "output": "1"
+      },
+      {
+        "input": "grid = [[\"1\",\"1\",\"0\",\"0\",\"0\"],[\"1\",\"1\",\"0\",\"0\",\"0\"],[\"0\",\"0\",\"1\",\"0\",\"0\"],[\"0\",\"0\",\"0\",\"1\",\"1\"]]",
+        "output": "3"
+      }
+    ],
+    "constraints": [
+      "m == grid.length",
+      "n == grid[i].length",
+      "1 <= m, n <= 300",
+      "grid[i][j] is \"0\" or \"1\"."
+    ],
+    "hints": [
+      "Iterate over every cell. When you find a '1', increment the island count.",
+      "Launch a DFS or BFS to sink the entire island by setting connected '1's to '0'."
+    ],
+    "starterCodeJs": "/**\n * @param {string[][]} grid\n * @return {number}\n */\nfunction numIslands(grid) {\n  // Write your BFS/DFS connected components solution here\n  \n}",
+    "starterCodeTs": "function numIslands(grid: string[][]): number {\n  // Write your BFS/DFS connected components solution here\n  \n}",
+    "starterCodePy": "class Solution:\n    def numIslands(self, grid: list[list[str]]) -> int:\n        pass",
+    "starterCodeCpp": "#include <vector>\nusing namespace std;\n\nclass Solution {\npublic:\n    int numIslands(vector<vector<char>>& grid) {\n        \n    }\n};",
+    "starterCodeJava": "class Solution {\n    public int numIslands(char[][] grid) {\n        return 0;\n    }\n}",
+    "testCases": [
+      {
+        "name": "Single Big Island",
+        "inputArgs": [
+          [
+            [
+              "1",
+              "1",
+              "1",
+              "1",
+              "0"
+            ],
+            [
+              "1",
+              "1",
+              "0",
+              "1",
+              "0"
+            ],
+            [
+              "1",
+              "1",
+              "0",
+              "0",
+              "0"
+            ],
+            [
+              "0",
+              "0",
+              "0",
+              "0",
+              "0"
+            ]
+          ]
+        ],
+        "expected": 1
+      },
+      {
+        "name": "Three Disconnected Islands",
+        "inputArgs": [
+          [
+            [
+              "1",
+              "1",
+              "0",
+              "0",
+              "0"
+            ],
+            [
+              "1",
+              "1",
+              "0",
+              "0",
+              "0"
+            ],
+            [
+              "0",
+              "0",
+              "1",
+              "0",
+              "0"
+            ],
+            [
+              "0",
+              "0",
+              "0",
+              "1",
+              "1"
+            ]
+          ]
+        ],
+        "expected": 3
+      }
+    ],
+    "editorial": "Iterate across the grid. On encountering '1', increment island counter and invoke recursive DFS marking all 4-directional neighbors as '0' to avoid double-counting.",
+    "badgeName": "Archipelago Cartographer"
+  },
+  {
+    "id": "scaled-dot-product-attention",
+    "slug": "scaled-dot-product-attention",
+    "title": "Scaled Dot-Product Attention (Transformer Engine)",
+    "difficulty": "Hard",
+    "category": "AI & Machine Learning",
+    "acceptance": "42.1%",
+    "description": "In Transformer neural networks (GPT-4, Gemini, Claude), given query vector `Q`, key vector `K`, value vector `V`, and dimension `dk`, compute the 1D scaled dot-product attention score `softmax(Q · K / sqrt(dk)) * V`.\n\nFor 1D single-token pairs, return the scalar result rounded to 4 decimal places.",
+    "realWorldContext": "The foundational core equation of modern Generative AI driving language generation, image synthesis, and multimodal reasoning.",
+    "examples": [
+      {
+        "input": "q = [1, 0], k = [1, 0], v = [10], dk = 2",
+        "output": "10"
+      }
+    ],
+    "constraints": [
+      "q.length == k.length",
+      "1 <= dk <= 1024"
+    ],
+    "hints": [
+      "Dot product = sum(q[i] * k[i]).",
+      "Scale by dividing by Math.sqrt(dk)."
+    ],
+    "starterCodeJs": "/**\n * @param {number[]} q\n * @param {number[]} k\n * @param {number[]} v\n * @param {number} dk\n * @return {number}\n */\nfunction scaledDotProductAttention(q, k, v, dk) {\n  // Write your Transformer attention calculation here\n  \n}",
+    "starterCodeTs": "function scaledDotProductAttention(q: number[], k: number[], v: number[], dk: number): number {\n  // Write your Transformer attention calculation here\n  \n}",
+    "starterCodePy": "import math\n\nclass Solution:\n    def scaledDotProductAttention(self, q: list[float], k: list[float], v: list[float], dk: int) -> float:\n        pass",
+    "starterCodeCpp": "#include <vector>\n#include <cmath>\nusing namespace std;\n\nclass Solution {\npublic:\n    double scaledDotProductAttention(vector<double>& q, vector<double>& k, vector<double>& v, int dk) {\n        \n    }\n};",
+    "starterCodeJava": "class Solution {\n    public double scaledDotProductAttention(double[] q, double[] k, double[] v, int dk) {\n        return 0.0;\n    }\n}",
+    "testCases": [
+      {
+        "name": "Identical Q and K",
+        "inputArgs": [
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            10
+          ],
+          2
+        ],
+        "expected": 10
+      },
+      {
+        "name": "Orthogonal Q and K",
+        "inputArgs": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            5
+          ],
+          2
+        ],
+        "expected": 5
+      }
+    ],
+    "editorial": "Compute `dot = sum(q[i]*k[i])`, scale by `1/sqrt(dk)`, and multiply with values array.",
+    "badgeName": "Attention Is All You Need"
+  },
+  {
+    "id": "three-sum",
+    "slug": "three-sum",
+    "title": "3Sum: Triplet Zero Sum Balance",
+    "difficulty": "Medium",
+    "category": "Two Pointers",
+    "acceptance": "34.1%",
+    "description": "Given an integer array `nums`, return all the triplets `[nums[i], nums[j], nums[k]]` such that `i != j`, `i != k`, and `j != k`, and `nums[i] + nums[j] + nums[k] == 0`.\n\nNotice that the solution set must not contain duplicate triplets.",
+    "realWorldContext": "Used in financial accounting ledger reconciliation to discover 3-party zero-balance offset loops, and in computational geometry for 3-point collinearity detection.",
+    "examples": [
+      {
+        "input": "nums = [-1, 0, 1, 2, -1, -4]",
+        "output": "[[-1, -1, 2], [-1, 0, 1]]"
+      },
+      {
+        "input": "nums = [0, 1, 1]",
+        "output": "[]"
+      },
+      {
+        "input": "nums = [0, 0, 0]",
+        "output": "[[0, 0, 0]]"
+      }
+    ],
+    "constraints": [
+      "3 <= nums.length <= 3000",
+      "-10^5 <= nums[i] <= 10^5"
+    ],
+    "hints": [
+      "Sort the array first in O(n log n).",
+      "Fix one number nums[i], then use two pointers (left and right) to find two numbers that sum to -nums[i].",
+      "Skip duplicate adjacent elements to avoid duplicate triplets."
+    ],
+    "starterCodeJs": "/**\n * @param {number[]} nums\n * @return {number[][]}\n */\nfunction threeSum(nums) {\n  // Write your Two Pointer solution here\n  \n}",
+    "starterCodeTs": "function threeSum(nums: number[]): number[][] {\n  // Write your Two Pointer solution here\n  \n}",
+    "starterCodePy": "class Solution:\n    def threeSum(self, nums: list[int]) -> list[list[int]]:\n        pass",
+    "starterCodeCpp": "#include <vector>\n#include <algorithm>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<vector<int>> threeSum(vector<int>& nums) {\n        \n    }\n};",
+    "starterCodeJava": "class Solution {\n    public List<List<Integer>> threeSum(int[] nums) {\n        return new ArrayList<>();\n    }\n}",
+    "testCases": [
+      {
+        "name": "Standard 6 Elements",
+        "inputArgs": [
+          [
+            -1,
+            0,
+            1,
+            2,
+            -1,
+            -4
+          ]
+        ],
+        "expected": [
+          [
+            -1,
+            -1,
+            2
+          ],
+          [
+            -1,
+            0,
+            1
+          ]
+        ]
+      },
+      {
+        "name": "Triple Zeroes",
+        "inputArgs": [
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "expected": [
+          [
+            0,
+            0,
+            0
+          ]
+        ]
+      },
+      {
+        "name": "No Valid Triplet",
+        "inputArgs": [
+          [
+            0,
+            1,
+            1
+          ]
+        ],
+        "expected": []
+      }
+    ],
+    "editorial": "Sort array ascending. For each index `i`, run Two Pointers `left = i + 1` and `right = len - 1`. Skip duplicate adjacent values to maintain uniqueness.",
+    "badgeName": "3-Way Equilibrium"
+  },
+  {
+    "id": "daily-temperatures",
+    "slug": "daily-temperatures",
+    "title": "Daily Temperatures: Monotonic Stack",
+    "difficulty": "Medium",
+    "category": "Stack",
+    "acceptance": "66.2%",
+    "description": "Given an array of integers `temperatures` representing daily temperatures, return an array `answer` such that `answer[i]` is the number of days you have to wait after the `i`th day to get a warmer temperature. If there is no future day for which this is possible, keep `answer[i] == 0`.",
+    "realWorldContext": "Stock ticker breakout prediction and next-higher price signal lookahead in algorithmic trading engines.",
+    "examples": [
+      {
+        "input": "temperatures = [73, 74, 75, 71, 69, 72, 76, 73]",
+        "output": "[1, 1, 4, 2, 1, 1, 0, 0]"
+      },
+      {
+        "input": "temperatures = [30, 40, 50, 60]",
+        "output": "[1, 1, 1, 0]"
+      }
+    ],
+    "constraints": [
+      "1 <= temperatures.length <= 10^5",
+      "30 <= temperatures[i] <= 100"
+    ],
+    "hints": [
+      "Use a Monotonic Decreasing Stack storing indices.",
+      "When encountering a temperature greater than the top of stack, pop and compute the difference in indices."
+    ],
+    "starterCodeJs": "/**\n * @param {number[]} temperatures\n * @return {number[]}\n */\nfunction dailyTemperatures(temperatures) {\n  // Write your monotonic stack solution here\n  \n}",
+    "starterCodeTs": "function dailyTemperatures(temperatures: number[]): number[] {\n  // Write your monotonic stack solution here\n  \n}",
+    "starterCodePy": "class Solution:\n    def dailyTemperatures(self, temperatures: list[int]) -> list[int]:\n        pass",
+    "starterCodeCpp": "#include <vector>\n#include <stack>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> dailyTemperatures(vector<int>& temperatures) {\n        \n    }\n};",
+    "starterCodeJava": "class Solution {\n    public int[] dailyTemperatures(int[] temperatures) {\n        return new int[]{};\n    }\n}",
+    "testCases": [
+      {
+        "name": "Standard Weather Forecast",
+        "inputArgs": [
+          [
+            73,
+            74,
+            75,
+            71,
+            69,
+            72,
+            76,
+            73
+          ]
+        ],
+        "expected": [
+          1,
+          1,
+          4,
+          2,
+          1,
+          1,
+          0,
+          0
+        ]
+      },
+      {
+        "name": "Strictly Increasing",
+        "inputArgs": [
+          [
+            30,
+            40,
+            50,
+            60
+          ]
+        ],
+        "expected": [
+          1,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "name": "Strictly Decreasing",
+        "inputArgs": [
+          [
+            30,
+            60,
+            90
+          ]
+        ],
+        "expected": [
+          1,
+          1,
+          0
+        ]
+      }
+    ],
+    "editorial": "Push index onto stack. While current temp exceeds stack top, pop `prevIndex` and assign `res[prevIndex] = currIndex - prevIndex` in O(n) total time.",
+    "badgeName": "Monotonic Horizon Hunter"
+  },
+  {
+    "id": "generate-parentheses",
+    "slug": "generate-parentheses",
+    "title": "Generate Parentheses: Backtracking Tree",
+    "difficulty": "Medium",
+    "category": "Stack",
+    "acceptance": "74.8%",
+    "description": "Given `n` pairs of parentheses, write a function to generate all combinations of well-formed parentheses.",
+    "realWorldContext": "AST parser generation, mathematical formula validation, and compiler grammar tree construction.",
+    "examples": [
+      {
+        "input": "n = 3",
+        "output": "[\"((()))\",\"(()())\",\"(())()\",\"()(())\",\"()()()\"]"
+      },
+      {
+        "input": "n = 1",
+        "output": "[\"()\"]"
+      }
+    ],
+    "constraints": [
+      "1 <= n <= 8"
+    ],
+    "hints": [
+      "Use backtracking with recursion.",
+      "You can add '(' if openCount < n.",
+      "You can add ')' if closeCount < openCount."
+    ],
+    "starterCodeJs": "/**\n * @param {number} n\n * @return {string[]}\n */\nfunction generateParenthesis(n) {\n  // Write your backtracking solution here\n  \n}",
+    "starterCodeTs": "function generateParenthesis(n: number): string[] {\n  // Write your backtracking solution here\n  \n}",
+    "starterCodePy": "class Solution:\n    def generateParenthesis(self, n: int) -> list[str]:\n        pass",
+    "starterCodeCpp": "#include <vector>\n#include <string>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<string> generateParenthesis(int n) {\n        \n    }\n};",
+    "starterCodeJava": "class Solution {\n    public List<String> generateParenthesis(int n) {\n        return new ArrayList<>();\n    }\n}",
+    "testCases": [
+      {
+        "name": "3 Pairs",
+        "inputArgs": [
+          3
+        ],
+        "expected": [
+          "((()))",
+          "(()())",
+          "(())()",
+          "()(())",
+          "()()()"
+        ]
+      },
+      {
+        "name": "1 Pair",
+        "inputArgs": [
+          1
+        ],
+        "expected": [
+          "()"
+        ]
+      },
+      {
+        "name": "2 Pairs",
+        "inputArgs": [
+          2
+        ],
+        "expected": [
+          "(())",
+          "()()"
+        ],
+        "isHidden": true
+      }
+    ],
+    "editorial": "Backtrack tracking `open` and `close` counts. Append '(' if `open < n`, and ')' if `close < open`. Base case reached when `current.length == 2 * n`.",
+    "badgeName": "Syntax Weaver"
+  },
+  {
+    "id": "insert-interval",
+    "slug": "insert-interval",
+    "title": "Insert Interval: Calendar Merging",
+    "difficulty": "Medium",
+    "category": "Intervals",
+    "acceptance": "41.8%",
+    "description": "You are given an array of non-overlapping intervals `intervals` where `intervals[i] = [start_i, end_i]` sorted in ascending order by `start_i`.\n\nYou are also given an interval `newInterval = [start, end]`. Insert `newInterval` into `intervals` such that `intervals` is still sorted and contains no overlapping intervals (merge if necessary).",
+    "realWorldContext": "Conflict-free meeting room booking in Google Calendar, schedule compaction in airline reservations, and memory chunk defragmentation.",
+    "examples": [
+      {
+        "input": "intervals = [[1, 3], [6, 9]], newInterval = [2, 5]",
+        "output": "[[1, 5], [6, 9]]"
+      },
+      {
+        "input": "intervals = [[1, 2], [3, 5], [6, 7], [8, 10], [12, 16]], newInterval = [4, 8]",
+        "output": "[[1, 2], [3, 10], [12, 16]]"
+      }
+    ],
+    "constraints": [
+      "0 <= intervals.length <= 10^4",
+      "intervals[i].length == 2",
+      "newInterval.length == 2"
+    ],
+    "hints": [
+      "Add all intervals ending before newInterval starts.",
+      "Merge all overlapping intervals with newInterval by updating its start and end.",
+      "Add all remaining intervals starting after newInterval ends."
+    ],
+    "starterCodeJs": "/**\n * @param {number[][]} intervals\n * @param {number[]} newInterval\n * @return {number[][]}\n */\nfunction insert(intervals, newInterval) {\n  // Write your O(n) interval insertion here\n  \n}",
+    "starterCodeTs": "function insert(intervals: number[][], newInterval: number[]): number[][] {\n  // Write your O(n) interval insertion here\n  \n}",
+    "starterCodePy": "class Solution:\n    def insert(self, intervals: list[list[int]], newInterval: list[int]) -> list[list[int]]:\n        pass",
+    "starterCodeCpp": "#include <vector>\n#include <algorithm>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {\n        \n    }\n};",
+    "starterCodeJava": "class Solution {\n    public int[][] insert(int[][] intervals, int[] newInterval) {\n        return new int[][]{};\n    }\n}",
+    "testCases": [
+      {
+        "name": "Standard Merge Overlap",
+        "inputArgs": [
+          [
+            [
+              1,
+              3
+            ],
+            [
+              6,
+              9
+            ]
+          ],
+          [
+            2,
+            5
+          ]
+        ],
+        "expected": [
+          [
+            1,
+            5
+          ],
+          [
+            6,
+            9
+          ]
+        ]
+      },
+      {
+        "name": "Multi-Interval Span Merge",
+        "inputArgs": [
+          [
+            [
+              1,
+              2
+            ],
+            [
+              3,
+              5
+            ],
+            [
+              6,
+              7
+            ],
+            [
+              8,
+              10
+            ],
+            [
+              12,
+              16
+            ]
+          ],
+          [
+            4,
+            8
+          ]
+        ],
+        "expected": [
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            10
+          ],
+          [
+            12,
+            16
+          ]
+        ]
+      },
+      {
+        "name": "Insert into Empty Calendar",
+        "inputArgs": [
+          [],
+          [
+            5,
+            7
+          ]
+        ],
+        "expected": [
+          [
+            5,
+            7
+          ]
+        ]
+      }
+    ],
+    "editorial": "Three linear passes in one traversal: (1) push intervals before overlap, (2) merge all overlapping spans into `[min(start), max(end)]`, (3) push remaining trailing intervals in O(n) time.",
+    "badgeName": "Chronos Scheduler"
+  },
+  {
+    "id": "reverse-array-in-place",
+    "slug": "reverse-array-in-place",
+    "title": "Reverse Array In-Place: O(1) Memory Inversion",
+    "difficulty": "Easy",
+    "category": "Two Pointers",
+    "acceptance": "84.5%",
+    "description": "Given an array `arr`, reverse the elements in-place and return the mutated array without allocating another array of length n.",
+    "realWorldContext": "Undo stack history inversion, GPU vertex winding order reversal, and audio sample time-reversal DSP processing.",
+    "examples": [
+      {
+        "input": "arr = [1, 2, 3, 4, 5]",
+        "output": "[5, 4, 3, 2, 1]"
+      },
+      {
+        "input": "arr = [1, 2]",
+        "output": "[2, 1]"
+      }
+    ],
+    "constraints": [
+      "0 <= arr.length <= 10^5"
+    ],
+    "hints": [
+      "Use two pointers: left = 0, right = arr.length - 1.",
+      "Swap elements and advance pointers until left >= right."
+    ],
+    "starterCodeJs": "/**\n * @param {any[]} arr\n * @return {any[]}\n */\nfunction reverseArray(arr) {\n  // Write your in-place two pointer solution here\n  \n}",
+    "starterCodeTs": "function reverseArray(arr: any[]): any[] {\n  // Write your in-place two pointer solution here\n  \n}",
+    "starterCodePy": "class Solution:\n    def reverseArray(self, arr: list) -> list:\n        pass",
+    "starterCodeCpp": "#include <vector>\n#include <algorithm>\nusing namespace std;\n\nclass Solution {\npublic:\n    vector<int> reverseArray(vector<int>& arr) {\n        \n    }\n};",
+    "starterCodeJava": "class Solution {\n    public int[] reverseArray(int[] arr) {\n        return arr;\n    }\n}",
+    "testCases": [
+      {
+        "name": "Odd Length Array",
+        "inputArgs": [
+          [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        ],
+        "expected": [
+          5,
+          4,
+          3,
+          2,
+          1
+        ]
+      },
+      {
+        "name": "Even Length Array",
+        "inputArgs": [
+          [
+            10,
+            20
+          ]
+        ],
+        "expected": [
+          20,
+          10
+        ]
+      },
+      {
+        "name": "Single Element Array",
+        "inputArgs": [
+          [
+            42
+          ]
+        ],
+        "expected": [
+          42
+        ]
+      }
+    ],
+    "editorial": "Two-pointer symmetric swap from edges inward achieves O(n) time and strict O(1) space complexity.",
+    "badgeName": "Symmetry Inverter"
+  },
+  {
+    "id": "binary-cross-entropy",
+    "slug": "binary-cross-entropy",
+    "title": "Binary Cross-Entropy Loss (ML Classifier)",
+    "difficulty": "Medium",
+    "category": "AI & Machine Learning",
+    "acceptance": "58.4%",
+    "description": "Given true labels `yTrue` (0 or 1) and predicted probabilities `yPred` (between 0 and 1 exclusive), compute the mean Binary Cross-Entropy (BCE) loss across all samples: `-1/N * sum(y * log(p) + (1 - y) * log(1 - p))` rounded to 4 decimal places.",
+    "realWorldContext": "Standard loss objective function for logistic regression, binary classification, and transformer reward models in RLHF (Reinforcement Learning from Human Feedback).",
+    "examples": [
+      {
+        "input": "yTrue = [1, 0], yPred = [0.9, 0.1]",
+        "output": "0.1054"
+      }
+    ],
+    "constraints": [
+      "yTrue.length == yPred.length",
+      "1 <= yTrue.length <= 10^4",
+      "0.0001 <= yPred[i] <= 0.9999"
+    ],
+    "hints": [
+      "Accumulate loss = y * Math.log(p) + (1 - y) * Math.log(1 - p).",
+      "Divide by -N and use Number(loss.toFixed(4))."
+    ],
+    "starterCodeJs": "/**\n * @param {number[]} yTrue\n * @param {number[]} yPred\n * @return {number}\n */\nfunction binaryCrossEntropy(yTrue, yPred) {\n  // Write your BCE Loss computation here\n  \n}",
+    "starterCodeTs": "function binaryCrossEntropy(yTrue: number[], yPred: number[]): number {\n  // Write your BCE Loss computation here\n  \n}",
+    "starterCodePy": "import math\n\nclass Solution:\n    def binaryCrossEntropy(self, yTrue: list[int], yPred: list[float]) -> float:\n        pass",
+    "starterCodeCpp": "#include <vector>\n#include <cmath>\nusing namespace std;\n\nclass Solution {\npublic:\n    double binaryCrossEntropy(vector<int>& yTrue, vector<double>& yPred) {\n        \n    }\n};",
+    "starterCodeJava": "class Solution {\n    public double binaryCrossEntropy(int[] yTrue, double[] yPred) {\n        return 0.0;\n    }\n}",
+    "testCases": [
+      {
+        "name": "Confident Accurate Predictions",
+        "inputArgs": [
+          [
+            1,
+            0
+          ],
+          [
+            0.9,
+            0.1
+          ]
+        ],
+        "expected": 0.1054
+      },
+      {
+        "name": "50-50 Uncertain Predictions",
+        "inputArgs": [
+          [
+            1,
+            0
+          ],
+          [
+            0.5,
+            0.5
+          ]
+        ],
+        "expected": 0.6931
+      }
+    ],
+    "editorial": "Iterate over predictions summing `-y*ln(p) - (1-y)*ln(1-p)`. Return average rounded to 4 decimal places.",
+    "badgeName": "Loss Function Alchemist"
   }
 ];

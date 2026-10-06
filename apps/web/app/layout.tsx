@@ -192,7 +192,7 @@ export default async function RootLayout({
         {!isIsolatedHost && <Footer />}
         {!isIsolatedHost && <MobileNav />}
         {!isIsolatedHost && <PwaInstallPrompt />}
-        <DPDPConsentManager />
+        {!isIsolatedHost && <DPDPConsentManager />}
       </body>
     </html>
   );

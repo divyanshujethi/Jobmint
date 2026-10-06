@@ -14,7 +14,15 @@ export function Footer() {
       (window.location.hostname.includes("donation.") ||
         window.location.hostname.includes("donate.")));
 
-  if (pathname?.startsWith("/potd") || pathname?.startsWith("/canvas") || isDonation) {
+  const isArena =
+    pathname?.startsWith("/potd") ||
+    pathname?.startsWith("/problems") ||
+    (typeof window !== "undefined" &&
+      (window.location.hostname.includes("problem.") ||
+        window.location.hostname.includes("arena.") ||
+        window.location.hostname.includes("code.")));
+
+  if (pathname?.startsWith("/potd") || pathname?.startsWith("/problems") || pathname?.startsWith("/canvas") || isDonation || isArena) {
     return null;
   }
 

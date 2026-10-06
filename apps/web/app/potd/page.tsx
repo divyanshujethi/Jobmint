@@ -279,6 +279,25 @@ function POTDWorkspace() {
 
           setBadgeUnlocked(currentProblem.badgeName);
           setShowProCelebration(true);
+          try {
+            const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
+            if (AudioContextClass) {
+              const audioCtx = new AudioContextClass();
+              const notes = [523.25, 659.25, 783.99, 1046.5];
+              notes.forEach((freq, idx) => {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = "sine";
+                osc.frequency.value = freq;
+                gain.gain.setValueAtTime(0.12, audioCtx.currentTime + idx * 0.08);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + idx * 0.08 + 0.3);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(audioCtx.currentTime + idx * 0.08);
+                osc.stop(audioCtx.currentTime + idx * 0.08 + 0.35);
+              });
+            }
+          } catch {}
           setSubmitMessage(`🎉 All ${execReport.totalTests} test cases passed! +50 XP Awarded & Habit Streak Saved!`);
 
           fetch("/api/streak", {
@@ -749,7 +768,7 @@ function POTDWorkspace() {
                     </Link>
                     <button
                       onClick={() => {
-                        const badgeCode = `[![Role Nest Verified Dev](https://img.shields.io/badge/Role%20Nest%20Dev%20Score-${userDevScore}%2F1000-10b981?style=for-the-badge&logo=github)](https://rolenest.in/dev-score?score=${userDevScore})`;
+                        const badgeCode = `[![ProblemNest Verified Dev](https://img.shields.io/badge/ProblemNest%20Dev%20Score-${userDevScore}%2F1000-10b981?style=for-the-badge&logo=github)](https://problem.rolenest.in/dev-score?score=${userDevScore})`;
                         navigator.clipboard.writeText(badgeCode);
                         alert("GitHub / Resume Dev Score Badge Markdown copied to clipboard!");
                       }}
@@ -1283,20 +1302,24 @@ function POTDWorkspace() {
             </div>
 
             {/* STATS TILES */}
-            <div className="grid grid-cols-3 gap-2 text-center">
-              <div className="rounded-xl bg-slate-800/80 border border-slate-700/60 p-2.5">
-                <span className="text-[10px] uppercase font-bold text-slate-400 block">XP Earned</span>
-                <span className="text-lg font-black text-emerald-400">+50 XP</span>
+            <div className="grid grid-cols-4 gap-2 text-center font-mono">
+              <div className="rounded-xl bg-slate-800/80 border border-slate-700/60 p-2">
+                <span className="text-[9px] uppercase font-bold text-slate-400 block">XP</span>
+                <span className="text-base font-black text-emerald-400">+50</span>
               </div>
-              <div className="rounded-xl bg-slate-800/80 border border-slate-700/60 p-2.5">
-                <span className="text-[10px] uppercase font-bold text-slate-400 block">Daily Streak</span>
-                <span className="text-lg font-black text-amber-400 flex items-center justify-center gap-1">
-                  <Flame className="h-4 w-4 fill-amber-400" /> Saved
+              <div className="rounded-xl bg-slate-800/80 border border-slate-700/60 p-2">
+                <span className="text-[9px] uppercase font-bold text-slate-400 block">Coins</span>
+                <span className="text-base font-black text-amber-400">+10 PC</span>
+              </div>
+              <div className="rounded-xl bg-slate-800/80 border border-slate-700/60 p-2">
+                <span className="text-[9px] uppercase font-bold text-slate-400 block">Streak</span>
+                <span className="text-base font-black text-orange-400 flex items-center justify-center gap-0.5">
+                  <Flame className="h-3.5 w-3.5 fill-orange-400" /> Active
                 </span>
               </div>
-              <div className="rounded-xl bg-slate-800/80 border border-slate-700/60 p-2.5">
-                <span className="text-[10px] uppercase font-bold text-slate-400 block">DevScore</span>
-                <span className="text-lg font-black text-blue-400">{userDevScore || 750}</span>
+              <div className="rounded-xl bg-slate-800/80 border border-slate-700/60 p-2">
+                <span className="text-[9px] uppercase font-bold text-slate-400 block">DevScore</span>
+                <span className="text-base font-black text-blue-400">{userDevScore || 750}</span>
               </div>
             </div>
 
@@ -1309,7 +1332,7 @@ function POTDWorkspace() {
                 <Button
                   onClick={() => {
                     const shareText = encodeURIComponent(
-                      `🔥 Just solved today's coding problem "${currentProblem.title}" on Role Nest! Current DevScore: ${userDevScore || 750}/1000. Try solving it here: https://rolenest.in/potd?problem=${currentProblem.slug}`
+                      `🔥 Just solved coding challenge "${currentProblem.title}" on ProblemNest Arena! Current DevScore: ${userDevScore || 750}/1000. Try solving it: https://problem.rolenest.in/potd?problem=${currentProblem.slug}`
                     );
                     window.open(`https://api.whatsapp.com/send?text=${shareText}`, "_blank", "noopener,noreferrer");
                   }}
@@ -1320,7 +1343,7 @@ function POTDWorkspace() {
                 </Button>
                 <Button
                   onClick={() => {
-                    const postUrl = encodeURIComponent(`https://rolenest.in/potd?problem=${currentProblem.slug}`);
+                    const postUrl = encodeURIComponent(`https://problem.rolenest.in/potd?problem=${currentProblem.slug}`);
                     window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${postUrl}`, "_blank", "noopener,noreferrer");
                   }}
                   className="bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs gap-1.5 py-2.5 h-auto rounded-xl"
@@ -1334,10 +1357,10 @@ function POTDWorkspace() {
             {/* NEXT STEP CTA */}
             <div className="pt-2 flex items-center justify-between gap-2">
               <Link
-                href="/jobs"
-                className="w-full text-center py-2.5 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs transition-colors flex items-center justify-center gap-1.5"
+                href="/problems"
+                className="w-full text-center py-2.5 px-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs transition-colors flex items-center justify-center gap-1.5 shadow-sm"
               >
-                <span>Browse Jobs Hiring This Skill</span>
+                <span>Explore Next Challenge (+50 XP)</span>
                 <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             </div>

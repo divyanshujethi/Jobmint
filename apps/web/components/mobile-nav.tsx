@@ -13,7 +13,15 @@ export function MobileNav() {
       (window.location.hostname.includes("donation.") ||
         window.location.hostname.includes("donate.")));
 
-  if (isDonation) {
+  const isArena =
+    pathname?.startsWith("/potd") ||
+    pathname?.startsWith("/problems") ||
+    (typeof window !== "undefined" &&
+      (window.location.hostname.includes("problem.") ||
+        window.location.hostname.includes("arena.") ||
+        window.location.hostname.includes("code.")));
+
+  if (isDonation || isArena) {
     return null;
   }
 

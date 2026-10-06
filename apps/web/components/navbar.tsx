@@ -129,7 +129,15 @@ export function Navbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  if (pathname?.startsWith("/potd") || isDonation) {
+  const isArena =
+    pathname?.startsWith("/potd") ||
+    pathname?.startsWith("/problems") ||
+    (typeof window !== "undefined" &&
+      (window.location.hostname.includes("problem.") ||
+        window.location.hostname.includes("arena.") ||
+        window.location.hostname.includes("code.")));
+
+  if (isArena || isDonation) {
     return null;
   }
 
