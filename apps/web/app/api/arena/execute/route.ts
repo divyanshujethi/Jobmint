@@ -25,10 +25,18 @@ function serializeToCppLiteral(val: any): string {
   if (typeof val === "number") return Number.isInteger(val) ? `${val}` : `${val}`;
   if (typeof val === "string") return `std::string("${escapeStringLiteral(val)}")`;
   if (Array.isArray(val)) {
-    if (val.length === 0) return "{}";
+    if (val.length === 0) return "std::vector<int>{}";
     if (Array.isArray(val[0])) {
       const rows = val.map((row) => serializeToCppLiteral(row)).join(", ");
-      return `{ ${rows} }`;
+      return `std::vector<std::vector<int>>{ ${rows} }`;
+    }
+    if (typeof val[0] === "string") {
+      const items = val.map((item) => `std::string("${escapeStringLiteral(item)}")`).join(", ");
+      return `std::vector<std::string>{ ${items} }`;
+    }
+    if (typeof val[0] === "number") {
+      const items = val.map((item) => `${item}`).join(", ");
+      return `std::vector<int>{ ${items} }`;
     }
     const items = val.map((item) => serializeToCppLiteral(item)).join(", ");
     return `{ ${items} }`;
