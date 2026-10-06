@@ -134,11 +134,20 @@ function POTDWorkspace() {
   const searchParams = useSearchParams();
   const problemSlug = searchParams.get("problem");
 
-  const defaultDayIndex = Math.floor(Date.now() / 86400000) % LEETCODE_PROBLEMS.length;
+  const dayNumber = Math.floor(Date.now() / 86400000);
+  const defaultDayIndex = dayNumber % LEETCODE_PROBLEMS.length;
+  const standardDailyProblem = LEETCODE_PROBLEMS[defaultDayIndex] || LEETCODE_PROBLEMS[0];
+
+  const hardProblems = LEETCODE_PROBLEMS.filter((p) => p.difficulty === "Hard");
+  const superHardDailyProblems = [
+    hardProblems[dayNumber % hardProblems.length],
+    hardProblems[(dayNumber + 1) % hardProblems.length],
+    hardProblems[(dayNumber + 2) % hardProblems.length],
+  ].filter(Boolean);
+
   const initialProblem =
     (problemSlug && LEETCODE_PROBLEMS.find((p) => p.slug === problemSlug)) ||
-    LEETCODE_PROBLEMS[defaultDayIndex] ||
-    LEETCODE_PROBLEMS[0];
+    standardDailyProblem;
 
   const [currentProblem, setCurrentProblem] = useState<Problem>(initialProblem);
   const [selectedLanguage, setSelectedLanguage] = useState<SupportedLanguage>("javascript");
@@ -570,30 +579,82 @@ function POTDWorkspace() {
           </div>
         </div>
 
-        {/* Quick Problem Switcher */}
+        {/* Daily Challenges Switcher Bar */}
         <div className="flex items-center gap-2">
-          <div className="hidden md:flex items-center gap-1">
-            {LEETCODE_PROBLEMS.map((p, idx) => {
-              const solved = solvedList.includes(p.slug);
+          {/* Daily Track Pills */}
+          <div className="hidden xl:flex items-center gap-1.5">
+            <button
+              onClick={() => setCurrentProblem(standardDailyProblem)}
+              title={`Standard POTD: ${standardDailyProblem.title}`}
+              className={`px-2.5 py-1 rounded-md text-[11px] font-bold transition-all flex items-center gap-1 ${
+                currentProblem.id === standardDailyProblem.id
+                  ? "bg-amber-500 text-slate-950 shadow-xs"
+                  : "bg-neutral-900 text-neutral-400 hover:text-white border border-neutral-800"
+              }`}
+            >
+              <Flame className="h-3 w-3 fill-current text-orange-400" />
+              <span>Standard POTD</span>
+              {solvedList.includes(standardDailyProblem.slug) && (
+                <span className="text-[10px] text-emerald-400">✓</span>
+              )}
+            </button>
+
+            <span className="text-neutral-700 font-mono text-xs">|</span>
+
+            {superHardDailyProblems.map((hp, idx) => {
+              const isSelected = currentProblem.id === hp.id;
+              const isSolved = solvedList.includes(hp.slug);
               return (
                 <button
-                  key={p.id}
-                  onClick={() => setCurrentProblem(p)}
-                  title={p.title}
-                  className={`relative px-2 py-0.5 rounded text-[11px] font-mono font-bold transition-all ${
-                    currentProblem.id === p.id
-                      ? "bg-amber-500 text-slate-950 shadow-xs"
-                      : "bg-neutral-900 text-neutral-400 hover:text-white"
+                  key={hp.id}
+                  onClick={() => setCurrentProblem(hp)}
+                  title={`Super Hard POTD #${idx + 1}: ${hp.title}`}
+                  className={`px-2.5 py-1 rounded-md text-[11px] font-bold transition-all flex items-center gap-1 ${
+                    isSelected
+                      ? "bg-rose-600 text-white shadow-xs ring-1 ring-rose-400"
+                      : "bg-rose-950/40 text-rose-300 hover:bg-rose-900/60 border border-rose-900/60"
                   }`}
                 >
-                  #{idx + 1}
-                  {solved && (
-                    <span className="absolute -top-1 -right-1 h-2 w-2 rounded-full bg-emerald-400 ring-2 ring-neutral-900" />
+                  <Zap className="h-3 w-3 text-rose-400" />
+                  <span>Super Hard #{idx + 1}</span>
+                  <span className="text-[9px] font-mono bg-rose-950 px-1 py-0.2 rounded border border-rose-800 text-rose-300">
+                    +150 XP
+                  </span>
+                  {isSolved && (
+                    <span className="text-[10px] text-emerald-400">✓</span>
                   )}
                 </button>
               );
             })}
           </div>
+
+          {/* Quick Problem Select Dropdown */}
+          <select
+            value={currentProblem.slug}
+            onChange={(e) => {
+              const p = LEETCODE_PROBLEMS.find((prob) => prob.slug === e.target.value);
+              if (p) setCurrentProblem(p);
+            }}
+            className="rounded-md border border-neutral-800 bg-neutral-900 px-2 py-1 text-[11px] font-mono text-neutral-300 focus:outline-none focus:border-amber-500 max-w-[150px] sm:max-w-[210px] truncate"
+          >
+            <optgroup label="Today's POTD Challenges">
+              <option value={standardDailyProblem.slug}>
+                🔥 Daily Standard: {standardDailyProblem.title}
+              </option>
+              {superHardDailyProblems.map((hp, idx) => (
+                <option key={hp.slug} value={hp.slug}>
+                  💀 Super Hard #{idx + 1}: {hp.title}
+                </option>
+              ))}
+            </optgroup>
+            <optgroup label={`All Interview Challenges (${LEETCODE_PROBLEMS.length})`}>
+              {LEETCODE_PROBLEMS.map((p, idx) => (
+                <option key={p.id} value={p.slug}>
+                  #{idx + 1} [{p.difficulty}] {p.title}
+                </option>
+              ))}
+            </optgroup>
+          </select>
 
           {/* Mock OA Assessment Simulator Toggle Button */}
           <button
@@ -773,6 +834,49 @@ function POTDWorkspace() {
           <div className="p-6 space-y-6 flex-1 overflow-y-auto text-slate-300 text-xs sm:text-sm leading-relaxed">
             {activeLeftTab === "DESCRIPTION" && (
               <>
+                {/* Super Hard / POTD Challenge Tier Banner */}
+                {currentProblem.difficulty === "Hard" ? (
+                  <div className="rounded-2xl border border-rose-500/30 bg-gradient-to-r from-rose-950/60 via-slate-900 to-rose-950/40 p-3.5 space-y-1.5">
+                    <div className="flex items-center justify-between">
+                      <span className="inline-flex items-center gap-1.5 rounded-full bg-rose-500/20 px-2.5 py-0.5 text-[10px] font-bold text-rose-300 border border-rose-500/30">
+                        <Zap className="h-3 w-3 text-rose-400" />
+                        SUPER HARD PROBLEM OF THE DAY
+                      </span>
+                      <span className="text-[10px] font-mono text-amber-300 font-bold bg-amber-950/60 border border-amber-800/80 px-2 py-0.5 rounded-md">
+                        +150 XP • FAANG OA TIER
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-slate-300 leading-relaxed">
+                      High-difficulty challenge matching authentic Google, Amazon &amp; Uber L5 online assessment conditions.
+                    </p>
+                  </div>
+                ) : (
+                  <div className="rounded-2xl border border-amber-500/30 bg-gradient-to-r from-amber-950/40 via-slate-900 to-amber-950/30 p-3.5 space-y-1.5">
+                    <div className="flex items-center justify-between">
+                      <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/20 px-2.5 py-0.5 text-[10px] font-bold text-amber-300 border border-amber-500/30">
+                        <Flame className="h-3 w-3 text-amber-400 fill-amber-400" />
+                        DAILY PROBLEM OF THE DAY
+                      </span>
+                      <span className="text-[10px] font-mono text-emerald-400 font-bold bg-emerald-950/60 border border-emerald-800/80 px-2 py-0.5 rounded-md">
+                        +50 XP • Daily Streak
+                      </span>
+                    </div>
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                      <p className="text-[11px] text-slate-300">
+                        Solve today's challenge or tackle one of the 3 Super Hard challenges for +150 XP.
+                      </p>
+                      {superHardDailyProblems[0] && (
+                        <button
+                          onClick={() => setCurrentProblem(superHardDailyProblems[0])}
+                          className="shrink-0 text-[10px] font-mono font-bold bg-rose-950 hover:bg-rose-900 border border-rose-800 text-rose-300 px-2.5 py-1 rounded-lg transition-colors"
+                        >
+                          Try Super Hard POTD →
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                )}
+
                 <div className="space-y-2">
                   <div className="flex flex-wrap items-center gap-2">
                     <span
