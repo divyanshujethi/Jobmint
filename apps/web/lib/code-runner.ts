@@ -432,9 +432,13 @@ export function executeCodeInSandbox(
   // C++ and Java - Secure Server-Side Linux Container Sandbox
   if (language === "cpp" || language === "java") {
     const langName = language === "cpp" ? "C++20 (GCC)" : "Java 21 (OpenJDK)";
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 12000);
+
     return fetch("/api/arena/execute", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
+      signal: controller.signal,
       body: JSON.stringify({
         code,
         language,
@@ -443,6 +447,7 @@ export function executeCodeInSandbox(
       }),
     })
       .then((res) => {
+        clearTimeout(timer);
         if (!res.ok) {
           return res.json().then((errData) => {
             throw new Error(errData?.error || `Server runner returned status ${res.status}`);
@@ -451,24 +456,30 @@ export function executeCodeInSandbox(
         return res.json();
       })
       .then((report: ExecutionReport) => report)
-      .catch((err: any) => ({
-        passed: false,
-        allPassed: false,
-        totalTests: testCases.length,
-        passedTests: 0,
-        results: testCases.map((tc) => ({
-          name: tc.name,
-          inputArgs: tc.inputArgs,
-          expected: tc.expected,
-          actual: null,
+      .catch((err: any) => {
+        clearTimeout(timer);
+        const isTimeout = err?.name === "AbortError" || err?.message?.includes("aborted");
+        return {
           passed: false,
-          error: err?.message || "Execution failed",
-          durationMs: 0,
-        })),
-        logs: [`[SANDBOX ERROR] Failed contacting secure ${langName} execution container.`],
-        compilationError: null,
-        runtimeError: `Sandbox error: ${err?.message || "Could not execute code on secure Linux sandbox."}`,
-      }));
+          allPassed: false,
+          totalTests: testCases.length,
+          passedTests: 0,
+          results: testCases.map((tc) => ({
+            name: tc.name,
+            inputArgs: tc.inputArgs,
+            expected: tc.expected,
+            actual: null,
+            passed: false,
+            error: isTimeout ? "Execution timed out (12s limit)" : err?.message || "Execution failed",
+            durationMs: 0,
+          })),
+          logs: [`[SANDBOX ERROR] Failed contacting secure ${langName} execution container.`],
+          compilationError: null,
+          runtimeError: isTimeout
+            ? `Time Limit Exceeded: ${langName} execution took longer than 12s. Please check for infinite loops or high complexity.`
+            : `Sandbox error: ${err?.message || "Could not execute code on secure Linux sandbox."}`,
+        };
+      });
   }
 
   // Python execution

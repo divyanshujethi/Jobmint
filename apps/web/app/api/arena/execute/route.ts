@@ -23,20 +23,62 @@ function serializeToCppLiteral(val: any): string {
   if (val === null || typeof val === "undefined") return "nullptr";
   if (typeof val === "boolean") return val ? "true" : "false";
   if (typeof val === "number") return Number.isInteger(val) ? `${val}` : `${val}`;
-  if (typeof val === "string") return `std::string("${escapeStringLiteral(val)}")`;
+  if (typeof val === "string") {
+    if (val.length === 1) {
+      return `'${escapeStringLiteral(val)}'`;
+    }
+    return `std::string("${escapeStringLiteral(val)}")`;
+  }
   if (Array.isArray(val)) {
     if (val.length === 0) return "std::vector<int>{}";
+    
+    // Check if 2D array
     if (Array.isArray(val[0])) {
-      const rows = val.map((row) => serializeToCppLiteral(row)).join(", ");
-      return `std::vector<std::vector<int>>{ ${rows} }`;
+      const firstRow = val[0];
+      let innerType = "int";
+      let isChar = false;
+      if (firstRow.length > 0) {
+        if (typeof firstRow[0] === "string") {
+          if (firstRow[0].length === 1) {
+            innerType = "char";
+            isChar = true;
+          } else {
+            innerType = "std::string";
+          }
+        } else if (typeof firstRow[0] === "boolean") {
+          innerType = "bool";
+        } else if (typeof firstRow[0] === "number") {
+          innerType = Number.isInteger(firstRow[0]) ? "int" : "double";
+        }
+      }
+      const rows = val.map((row: any[]) => {
+        const items = row.map((item) => {
+          if (isChar && typeof item === "string") return `'${escapeStringLiteral(item)}'`;
+          return serializeToCppLiteral(item);
+        }).join(", ");
+        return `std::vector<${innerType}>{ ${items} }`;
+      }).join(", ");
+      return `std::vector<std::vector<${innerType}>>{ ${rows} }`;
     }
+
+    // 1D array
     if (typeof val[0] === "string") {
+      if (val.every((item) => typeof item === "string" && item.length === 1)) {
+        const items = val.map((item) => `'${escapeStringLiteral(item)}'`).join(", ");
+        return `std::vector<char>{ ${items} }`;
+      }
       const items = val.map((item) => `std::string("${escapeStringLiteral(item)}")`).join(", ");
       return `std::vector<std::string>{ ${items} }`;
     }
+    if (typeof val[0] === "boolean") {
+      const items = val.map((item) => item ? "true" : "false").join(", ");
+      return `std::vector<bool>{ ${items} }`;
+    }
     if (typeof val[0] === "number") {
+      const isAllInt = val.every((item) => Number.isInteger(item));
+      const typeStr = isAllInt ? "int" : "double";
       const items = val.map((item) => `${item}`).join(", ");
-      return `std::vector<int>{ ${items} }`;
+      return `std::vector<${typeStr}>{ ${items} }`;
     }
     const items = val.map((item) => serializeToCppLiteral(item)).join(", ");
     return `{ ${items} }`;
@@ -48,16 +90,61 @@ function serializeToJavaLiteral(val: any): string {
   if (val === null || typeof val === "undefined") return "null";
   if (typeof val === "boolean") return val ? "true" : "false";
   if (typeof val === "number") return Number.isInteger(val) ? `${val}` : `${val}`;
-  if (typeof val === "string") return `"${escapeStringLiteral(val)}"`;
+  if (typeof val === "string") {
+    if (val.length === 1) return `'${escapeStringLiteral(val)}'`;
+    return `"${escapeStringLiteral(val)}"`;
+  }
   if (Array.isArray(val)) {
     if (val.length === 0) return "new int[]{}";
+
+    // 2D Array
     if (Array.isArray(val[0])) {
-      const rows = val.map((row) => serializeToJavaLiteral(row)).join(", ");
-      return `new int[][]{ ${rows} }`;
+      const firstRow = val[0];
+      let innerType = "int";
+      let isChar = false;
+      if (firstRow.length > 0) {
+        if (typeof firstRow[0] === "string") {
+          if (firstRow[0].length === 1) {
+            innerType = "char";
+            isChar = true;
+          } else {
+            innerType = "String";
+          }
+        } else if (typeof firstRow[0] === "boolean") {
+          innerType = "boolean";
+        } else if (typeof firstRow[0] === "number") {
+          innerType = Number.isInteger(firstRow[0]) ? "int" : "double";
+        }
+      }
+      const rows = val.map((row: any[]) => {
+        const items = row.map((item) => {
+          if (isChar && typeof item === "string") return `'${escapeStringLiteral(item)}'`;
+          if (typeof item === "string") return `"${escapeStringLiteral(item)}"`;
+          return serializeToJavaLiteral(item);
+        }).join(", ");
+        return `{ ${items} }`;
+      }).join(", ");
+      return `new ${innerType}[][]{ ${rows} }`;
     }
+
+    // 1D Array
     if (typeof val[0] === "string") {
+      if (val.every((item) => typeof item === "string" && item.length === 1)) {
+        const items = val.map((item) => `'${escapeStringLiteral(item)}'`).join(", ");
+        return `new char[]{ ${items} }`;
+      }
       const items = val.map((s) => `"${escapeStringLiteral(String(s))}"`).join(", ");
       return `new String[]{ ${items} }`;
+    }
+    if (typeof val[0] === "boolean") {
+      const items = val.map((b) => (b ? "true" : "false")).join(", ");
+      return `new boolean[]{ ${items} }`;
+    }
+    if (typeof val[0] === "number") {
+      const isAllInt = val.every((n) => Number.isInteger(n));
+      const typeStr = isAllInt ? "int" : "double";
+      const items = val.map((n) => `${n}`).join(", ");
+      return `new ${typeStr}[]{ ${items} }`;
     }
     const items = val.map((n) => `${n}`).join(", ");
     return `new int[]{ ${items} }`;
@@ -277,8 +364,25 @@ public class Main {
         if (o instanceof int[] a) return Arrays.toString(a);
         if (o instanceof double[] a) return Arrays.toString(a);
         if (o instanceof boolean[] a) return Arrays.toString(a);
+        if (o instanceof char[] a) {
+            StringBuilder sb = new StringBuilder("[");
+            for (int i = 0; i < a.length; i++) {
+                if (i > 0) sb.append(",");
+                sb.append("\"").append(a[i]).append("\"");
+            }
+            return sb.append("]").toString();
+        }
+        if (o instanceof char[][] a) {
+            StringBuilder sb = new StringBuilder("[");
+            for (int i = 0; i < a.length; i++) {
+                if (i > 0) sb.append(",");
+                sb.append(toJson(a[i]));
+            }
+            return sb.append("]").toString();
+        }
         if (o instanceof Object[] a) return Arrays.deepToString(a);
-        if (o instanceof String s) return "\\"" + s + "\\"";
+        if (o instanceof String s) return "\"" + s + "\"";
+        if (o instanceof Character c) return "\"" + c + "\"";
         if (o instanceof List<?> l) {
             StringBuilder sb = new StringBuilder("[");
             for (int i=0; i<l.size(); i++) {
