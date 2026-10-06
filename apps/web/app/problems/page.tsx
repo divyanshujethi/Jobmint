@@ -23,6 +23,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LEETCODE_PROBLEMS, Problem } from "@/lib/problems-data";
+import { ArenaNavbar } from "@/components/arena-navbar";
 
 type DomainKey = "all" | "dsa" | "aiml" | "web" | "system";
 
@@ -110,44 +111,43 @@ export default function ProblemsCatalogPage() {
   const progressPct = Math.round((totalSolved / LEETCODE_PROBLEMS.length) * 100);
 
   return (
-    <div className="min-h-screen bg-slate-50/70 text-slate-900 flex flex-col font-sans">
+    <div className="min-h-screen bg-[#0a0a0a] text-neutral-100 flex flex-col font-sans">
+      <ArenaNavbar />
+
       {/* HEADER / HERO */}
-      <div className="border-b border-slate-200 bg-white px-4 py-8 sm:px-8">
-        <div className="max-w-6xl mx-auto space-y-6">
+      <div className="border-b border-neutral-800 bg-[#0d0d0d] px-4 py-6 sm:px-8">
+        <div className="max-w-6xl mx-auto space-y-5">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div className="space-y-1.5">
               <div className="flex items-center gap-2.5">
-                <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-600 text-white shadow-sm shadow-emerald-200">
-                  <Code2 className="h-5 w-5" />
+                <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-amber-500 text-slate-950 shadow-xs font-black">
+                  <Code2 className="h-5 w-5 stroke-[2.5]" />
                 </span>
                 <div>
-                  <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-slate-900">
-                    Interview Problem Catalog
+                  <h1 className="text-xl sm:text-2xl font-black tracking-tight text-white font-mono">
+                    Problem Set
                   </h1>
-                  <span className="inline-block text-[11px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200/80 px-2 py-0.5 rounded-full mt-0.5">
-                    15 Curated Practice Problems &bull; 0ms Web Worker Sandbox
+                  <span className="inline-block text-[11px] font-semibold text-neutral-400 font-mono">
+                    {LEETCODE_PROBLEMS.length} Curated Interview Challenges &bull; In-Browser V8 Execution
                   </span>
                 </div>
               </div>
-              <p className="text-xs sm:text-sm text-slate-600 max-w-2xl pt-1">
-                Battle-tested engineering challenges spanning Algorithms, AI Models, System Design, and Modern Frontend. Code in JS, TS, Python, C++, or Java with instant local test evaluation.
-              </p>
             </div>
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2.5">
               <Link href="/potd">
-                <Button className="bg-orange-600 hover:bg-orange-500 text-white font-bold gap-2 text-xs shadow-md shadow-orange-100 transition-all hover:scale-[1.02]">
-                  <Flame className="h-4 w-4 fill-white" />
-                  Solve Problem of the Day (+50 XP)
+                <Button className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold gap-2 text-xs shadow-xs transition-all hover:scale-[1.02]">
+                  <Flame className="h-4 w-4 fill-slate-950" />
+                  Solve Daily POTD (+50 XP)
                 </Button>
               </Link>
               <Link href="/leaderboard">
                 <Button
                   variant="outline"
-                  className="border-slate-300 bg-white text-slate-700 hover:bg-slate-50 text-xs shadow-xs"
+                  className="border-neutral-800 bg-neutral-900 text-neutral-300 hover:text-white hover:bg-neutral-800 text-xs shadow-xs"
                 >
-                  <Trophy className="h-4 w-4 text-amber-500 mr-1.5" />
-                  Leaderboard
+                  <Trophy className="h-3.5 w-3.5 text-amber-400 mr-1.5" />
+                  Rankings
                 </Button>
               </Link>
             </div>
@@ -155,60 +155,60 @@ export default function ProblemsCatalogPage() {
 
           {/* STATS STRIP */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1">
-            <div className="rounded-xl border border-slate-200 bg-slate-50/60 p-4 space-y-1.5 shadow-xs">
-              <div className="text-[11px] font-mono text-slate-500 uppercase tracking-wider font-semibold">
+            <div className="rounded-xl border border-neutral-800 bg-[#121212] p-3.5 space-y-1 shadow-xs">
+              <div className="text-[10px] font-mono text-neutral-400 uppercase tracking-wider font-semibold">
                 Your Progress
               </div>
-              <div className="text-2xl font-black text-slate-900 flex items-baseline gap-1.5">
+              <div className="text-xl font-black text-white flex items-baseline gap-1.5 font-mono">
                 <span>{totalSolved}</span>
-                <span className="text-xs font-normal text-slate-500">
+                <span className="text-xs font-normal text-neutral-500">
                   / {LEETCODE_PROBLEMS.length} Solved
                 </span>
               </div>
-              <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden mt-1.5">
+              <div className="w-full bg-neutral-800 h-1.5 rounded-full overflow-hidden mt-1.5">
                 <div
-                  className="bg-emerald-600 h-full rounded-full transition-all duration-500"
+                  className="bg-amber-500 h-full rounded-full transition-all duration-500"
                   style={{ width: `${progressPct}%` }}
                 />
               </div>
             </div>
 
-            <div className="rounded-xl border border-slate-200 bg-slate-50/60 p-4 space-y-1.5 shadow-xs">
-              <div className="text-[11px] font-mono text-slate-500 uppercase tracking-wider font-semibold">
+            <div className="rounded-xl border border-neutral-800 bg-[#121212] p-3.5 space-y-1 shadow-xs">
+              <div className="text-[10px] font-mono text-neutral-400 uppercase tracking-wider font-semibold">
                 XP Earned
               </div>
-              <div className="text-2xl font-black text-emerald-600">
+              <div className="text-xl font-black text-emerald-400 font-mono">
                 +{totalSolved * 50}{" "}
-                <span className="text-xs text-slate-500 font-normal">XP</span>
+                <span className="text-xs text-neutral-500 font-normal">XP</span>
               </div>
-              <div className="text-[11px] text-slate-500 font-medium">
+              <div className="text-[10px] text-neutral-500 font-medium">
                 50 XP per accepted submission
               </div>
             </div>
 
-            <div className="rounded-xl border border-slate-200 bg-slate-50/60 p-4 space-y-1.5 shadow-xs">
-              <div className="text-[11px] font-mono text-slate-500 uppercase tracking-wider font-semibold">
-                Badges Unlocked
+            <div className="rounded-xl border border-neutral-800 bg-[#121212] p-3.5 space-y-1 shadow-xs">
+              <div className="text-[10px] font-mono text-neutral-400 uppercase tracking-wider font-semibold">
+                Badges Claimed
               </div>
-              <div className="text-2xl font-black text-amber-600 flex items-center gap-1.5">
-                <Award className="h-6 w-6 text-amber-500" />
+              <div className="text-xl font-black text-amber-400 flex items-center gap-1.5 font-mono">
+                <Award className="h-5 w-5 text-amber-400" />
                 <span>{unlockedBadges.length}</span>
               </div>
-              <div className="text-[11px] text-slate-500 font-medium">
-                Mastery badges claimable
+              <div className="text-[10px] text-neutral-500 font-medium">
+                Mastery badges unlocked
               </div>
             </div>
 
-            <div className="rounded-xl border border-slate-200 bg-slate-50/60 p-4 space-y-1.5 shadow-xs">
-              <div className="text-[11px] font-mono text-slate-500 uppercase tracking-wider font-semibold">
-                Sandboxed Engine
+            <div className="rounded-xl border border-neutral-800 bg-[#121212] p-3.5 space-y-1 shadow-xs">
+              <div className="text-[10px] font-mono text-neutral-400 uppercase tracking-wider font-semibold">
+                Sandbox Engine
               </div>
-              <div className="text-sm font-bold text-slate-800 flex items-center gap-1.5 pt-0.5">
-                <Zap className="h-4 w-4 text-emerald-600" />
-                <span>Web Worker Sandbox</span>
+              <div className="text-xs font-bold text-neutral-200 flex items-center gap-1.5 pt-0.5">
+                <Zap className="h-3.5 w-3.5 text-amber-400" />
+                <span>V8 + Pyodide Worker</span>
               </div>
-              <div className="text-[11px] text-emerald-700 font-medium">
-                Zero server lag &bull; TLE protected
+              <div className="text-[10px] text-emerald-400 font-medium font-mono">
+                Zero server lag &bull; 0ms local
               </div>
             </div>
           </div>
@@ -216,7 +216,7 @@ export default function ProblemsCatalogPage() {
       </div>
 
       {/* DOMAIN TRACKS SELECTOR */}
-      <div className="border-b border-slate-200 bg-white/90 sticky top-0 z-20 backdrop-blur-md px-4 py-2 sm:px-8">
+      <div className="border-b border-neutral-800 bg-[#0a0a0a]/95 sticky top-13 z-20 backdrop-blur-md px-4 py-2 sm:px-8">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
           {/* Domain Tabs */}
           <div className="flex items-center gap-1.5 overflow-x-auto py-1 scrollbar-none">
@@ -233,15 +233,15 @@ export default function ProblemsCatalogPage() {
                   }}
                   className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
                     isSelected
-                      ? "bg-emerald-600 text-white shadow-xs"
-                      : "bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900"
+                      ? "bg-amber-500 text-slate-950 font-bold shadow-xs"
+                      : "bg-[#141414] text-neutral-400 hover:bg-[#1e1e1e] hover:text-white border border-neutral-800"
                   }`}
                 >
                   <Icon className="h-3.5 w-3.5" />
                   <span>{domain.label}</span>
                   <span
                     className={`ml-1 text-[10px] font-mono px-1.5 py-0.2 rounded-full ${
-                      isSelected ? "bg-emerald-700 text-emerald-100" : "bg-slate-200/80 text-slate-600"
+                      isSelected ? "bg-slate-950 text-amber-300 font-bold" : "bg-neutral-800 text-neutral-400"
                     }`}
                   >
                     {count}
@@ -254,7 +254,7 @@ export default function ProblemsCatalogPage() {
           {/* Search + Difficulty Filter */}
           <div className="flex items-center gap-2">
             <div className="relative flex-1 md:w-64">
-              <Search className="absolute left-3 top-2.5 h-3.5 w-3.5 text-slate-400" />
+              <Search className="absolute left-3 top-2.5 h-3.5 w-3.5 text-neutral-500" />
               <input
                 id="problem-search-input"
                 name="search"
@@ -262,20 +262,20 @@ export default function ProblemsCatalogPage() {
                 type="text"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                placeholder="Search problems, topics, companies..."
-                className="w-full rounded-lg border border-slate-300 bg-white pl-8 pr-3 py-1.5 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-colors shadow-2xs"
+                placeholder="Search by title, topic..."
+                className="w-full rounded-lg border border-neutral-800 bg-[#141414] pl-8 pr-3 py-1.5 text-xs text-white placeholder-neutral-500 focus:outline-none focus:ring-1 focus:ring-amber-500/50 focus:border-amber-500 transition-colors"
               />
             </div>
 
-            <div className="flex items-center gap-1 bg-slate-100 p-0.5 rounded-lg border border-slate-200">
+            <div className="flex items-center gap-1 bg-[#141414] p-0.5 rounded-lg border border-neutral-800">
               {["All", "Easy", "Medium", "Hard"].map((diff) => (
                 <button
                   key={diff}
                   onClick={() => setSelectedDifficulty(diff)}
                   className={`px-2 py-1 rounded text-[11px] font-mono font-semibold transition-all ${
                     selectedDifficulty === diff
-                      ? "bg-white text-slate-900 shadow-2xs font-bold"
-                      : "text-slate-600 hover:text-slate-900"
+                      ? "bg-neutral-800 text-white font-bold"
+                      : "text-neutral-400 hover:text-white"
                   }`}
                 >
                   {diff}
@@ -286,19 +286,19 @@ export default function ProblemsCatalogPage() {
         </div>
       </div>
 
-      {/* SECONDARY CATEGORY PILLS (if more than 1 category in selected domain) */}
+      {/* SECONDARY CATEGORY PILLS */}
       {availableCategories.length > 1 && (
-        <div className="border-b border-slate-200/60 bg-slate-100/60 px-4 py-2 sm:px-8">
+        <div className="border-b border-neutral-800 bg-[#0d0d0d] px-4 py-2 sm:px-8">
           <div className="max-w-6xl mx-auto flex items-center gap-1.5 overflow-x-auto scrollbar-none text-xs">
-            <span className="text-[11px] font-mono uppercase text-slate-500 font-bold mr-1 shrink-0">
+            <span className="text-[11px] font-mono uppercase text-neutral-500 font-bold mr-1 shrink-0">
               Topic:
             </span>
             <button
               onClick={() => setSelectedCategory("All")}
               className={`px-2.5 py-1 rounded-md text-xs font-medium whitespace-nowrap transition-all ${
                 selectedCategory === "All"
-                  ? "bg-white text-emerald-700 font-bold border border-slate-200 shadow-2xs"
-                  : "text-slate-600 hover:text-slate-900"
+                  ? "bg-amber-500/10 text-amber-400 font-bold border border-amber-500/30"
+                  : "text-neutral-400 hover:text-white"
               }`}
             >
               All Topics
@@ -309,8 +309,8 @@ export default function ProblemsCatalogPage() {
                 onClick={() => setSelectedCategory(cat)}
                 className={`px-2.5 py-1 rounded-md text-xs font-medium whitespace-nowrap transition-all ${
                   selectedCategory === cat
-                    ? "bg-white text-emerald-700 font-bold border border-slate-200 shadow-2xs"
-                    : "text-slate-600 hover:text-slate-900"
+                    ? "bg-amber-500/10 text-amber-400 font-bold border border-amber-500/30"
+                    : "text-neutral-400 hover:text-white"
                 }`}
               >
                 {cat}
@@ -321,13 +321,13 @@ export default function ProblemsCatalogPage() {
       )}
 
       {/* PROBLEMS LIST */}
-      <div className="flex-1 px-4 py-6 sm:px-8">
-        <div className="max-w-6xl mx-auto space-y-3">
+      <div className="flex-1 px-4 py-6 sm:px-8 bg-[#0a0a0a]">
+        <div className="max-w-6xl mx-auto space-y-2.5">
           {filteredProblems.length === 0 ? (
-            <div className="text-center py-16 bg-white rounded-2xl border border-slate-200 shadow-xs space-y-3">
-              <Code2 className="h-10 w-10 text-slate-400 mx-auto" />
-              <div className="text-slate-700 font-bold text-base">No problems match your filter criteria</div>
-              <p className="text-xs text-slate-500 max-w-sm mx-auto">
+            <div className="text-center py-16 bg-[#121212] rounded-2xl border border-neutral-800 space-y-3">
+              <Code2 className="h-10 w-10 text-neutral-600 mx-auto" />
+              <div className="text-white font-bold text-base">No problems match your filter criteria</div>
+              <p className="text-xs text-neutral-400 max-w-sm mx-auto">
                 Try switching domains, changing difficulty, or clearing your search term.
               </p>
               <Button
@@ -339,7 +339,7 @@ export default function ProblemsCatalogPage() {
                   setSelectedCategory("All");
                   setSelectedDifficulty("All");
                 }}
-                className="text-xs text-slate-700 border-slate-300"
+                className="text-xs text-neutral-300 border-neutral-700 bg-neutral-900"
               >
                 Reset All Filters
               </Button>
@@ -350,74 +350,69 @@ export default function ProblemsCatalogPage() {
               return (
                 <div
                   key={problem.id}
-                  className="group rounded-2xl border border-slate-200 bg-white p-4 sm:p-5 shadow-xs hover:border-emerald-300 hover:shadow-md transition-all flex flex-col md:flex-row md:items-center justify-between gap-4"
+                  className="group rounded-xl border border-neutral-800/90 bg-[#121212] p-3.5 sm:p-4 hover:border-neutral-700 hover:bg-[#161616] transition-all flex flex-col md:flex-row md:items-center justify-between gap-3"
                 >
                   {/* Left: Info */}
-                  <div className="space-y-1.5 flex-1">
+                  <div className="space-y-1 flex-1">
                     <div className="flex flex-wrap items-center gap-2">
                       {isSolved ? (
                         <span
-                          className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 border border-emerald-300"
+                          className="flex h-4 w-4 items-center justify-center rounded-full bg-emerald-950 text-emerald-400 border border-emerald-700"
                           title="Solved"
                         >
-                          <Check className="h-3 w-3 stroke-[3]" />
+                          <Check className="h-2.5 w-2.5 stroke-[3]" />
                         </span>
                       ) : (
-                        <Circle className="h-4 w-4 text-slate-300" />
+                        <Circle className="h-3.5 w-3.5 text-neutral-600" />
                       )}
-                      <span className="font-mono text-xs text-slate-400 font-bold">
+                      <span className="font-mono text-xs text-neutral-500 font-semibold">
                         #{idx + 1}
                       </span>
                       <Link
                         href={`/potd?problem=${problem.slug}`}
-                        className="text-base font-bold text-slate-900 group-hover:text-emerald-600 transition-colors"
+                        className="text-sm font-bold text-white group-hover:text-amber-400 transition-colors"
                       >
                         {problem.title}
                       </Link>
                       <span
-                        className={`rounded px-2 py-0.5 text-[10px] font-mono font-bold ${
+                        className={`rounded px-2 py-0.2 text-[10px] font-mono font-bold ${
                           problem.difficulty === "Easy"
-                            ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
+                            ? "bg-emerald-950/60 text-emerald-400 border border-emerald-800"
                             : problem.difficulty === "Medium"
-                            ? "bg-amber-50 text-amber-700 border border-amber-200"
-                            : "bg-rose-50 text-rose-700 border border-rose-200"
+                            ? "bg-amber-950/60 text-amber-400 border border-amber-800"
+                            : "bg-rose-950/60 text-rose-400 border border-rose-800"
                         }`}
                       >
                         {problem.difficulty}
                       </span>
-                      <span className="rounded bg-slate-100 border border-slate-200/80 px-2 py-0.5 text-[10px] font-mono font-semibold text-slate-700">
+                      <span className="rounded bg-neutral-900 border border-neutral-800 px-2 py-0.2 text-[10px] font-mono text-neutral-400">
                         {problem.category}
                       </span>
                     </div>
 
-                    <div className="text-xs text-slate-600 flex items-center gap-1.5 font-sans pl-7">
-                      <Zap className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
+                    <div className="text-[11px] text-neutral-400 flex items-center gap-1.5 font-sans pl-6">
+                      <Zap className="h-3 w-3 text-amber-400 shrink-0" />
                       <span className="line-clamp-1">{problem.realWorldContext}</span>
                     </div>
                   </div>
 
-                  {/* Right: Badge & CTA */}
-                  <div className="flex items-center gap-3 shrink-0 self-end md:self-center pl-7 md:pl-0">
-                    <div className="hidden sm:flex items-center gap-1.5 text-xs font-mono text-slate-700 bg-slate-50 px-2.5 py-1 rounded-lg border border-slate-200">
-                      <Award className="h-3.5 w-3.5 text-amber-500" />
-                      <span>{problem.badgeName}</span>
-                    </div>
-
-                    <span className="text-xs font-mono text-slate-500 font-medium">
+                  {/* Right: Acceptance & CTA */}
+                  <div className="flex items-center gap-3 shrink-0 self-end md:self-center pl-6 md:pl-0 font-mono">
+                    <span className="text-[11px] text-neutral-400">
                       {problem.acceptance}
                     </span>
 
                     <Link href={`/potd?problem=${problem.slug}`}>
                       <Button
                         size="sm"
-                        className={`text-xs font-bold gap-1.5 ${
+                        className={`text-xs font-bold gap-1 h-7 px-3 ${
                           isSolved
-                            ? "bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-300"
-                            : "bg-emerald-600 hover:bg-emerald-700 text-white shadow-xs"
+                            ? "bg-neutral-800 hover:bg-neutral-700 text-neutral-300 border border-neutral-700"
+                            : "bg-amber-500 hover:bg-amber-400 text-slate-950 font-black shadow-xs"
                         }`}
                       >
-                        <span>{isSolved ? "Practice Again" : "Solve Challenge"}</span>
-                        <ArrowRight className="h-3.5 w-3.5" />
+                        <span>{isSolved ? "Practice" : "Solve"}</span>
+                        <ArrowRight className="h-3 w-3" />
                       </Button>
                     </Link>
                   </div>

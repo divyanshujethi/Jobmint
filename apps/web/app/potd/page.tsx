@@ -39,6 +39,7 @@ import { LEETCODE_PROBLEMS, Problem } from "@/lib/problems-data";
 import { executeCodeInSandbox, ExecutionReport, SupportedLanguage, SUPPORTED_LANGUAGES } from "@/lib/code-runner";
 import { openCashfreeCheckout } from "@/components/cashfree-provider";
 import { CodeEditorFallback } from "@/components/code-editor-fallback";
+import { ArenaNavbar } from "@/components/arena-navbar";
 
 // Lazy-load Monaco Editor on client side (no SSR, isolated bundle)
 const MonacoEditor = dynamic(() => import("@monaco-editor/react"), {
@@ -309,62 +310,40 @@ function POTDWorkspace() {
   const isCurrentSolved = solvedList.includes(currentProblem.slug);
 
   return (
-    <div className="min-h-screen bg-slate-900 text-slate-100 flex flex-col font-sans">
-      {/* TOP HEADER */}
-      <header className="border-b border-slate-800 bg-slate-950 px-4 py-2.5 flex items-center justify-between shrink-0">
+    <div className="min-h-screen bg-[#0a0a0a] text-slate-100 flex flex-col font-sans">
+      <ArenaNavbar />
+
+      {/* LEETCODE STYLE PROBLEM CONTROL BAR */}
+      <div className="border-b border-neutral-800 bg-[#0d0d0d] px-4 py-2 flex items-center justify-between shrink-0">
         <div className="flex items-center gap-3">
           <Link
-            href="/"
-            className="flex items-center gap-2 group text-white transition-opacity hover:opacity-90"
-            title="RoleNest Home"
-          >
-            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-600 text-white font-black text-sm shadow-sm">
-              R
-            </div>
-            <div className="flex flex-col">
-              <span className="font-extrabold text-sm tracking-tight text-white leading-tight">
-                RoleNest <span className="text-emerald-400 font-bold">Arena</span>
-              </span>
-            </div>
-          </Link>
-
-          <div className="hidden xl:flex items-center gap-2 text-xs font-medium text-slate-400 border-l border-slate-800 pl-3">
-            <Link href="/jobs" className="hover:text-emerald-400 transition-colors">Jobs</Link>
-            <span>•</span>
-            <Link href="/internships" className="hover:text-emerald-400 transition-colors">Internships</Link>
-            <span>•</span>
-            <Link href="/dev-score" className="hover:text-emerald-400 transition-colors">DevScore</Link>
-            <span>•</span>
-            <Link href="/leaderboard" className="hover:text-emerald-400 transition-colors">Rankings</Link>
-          </div>
-
-          <span className="text-slate-700 hidden sm:inline">|</span>
-          <Link
             href="/problems"
-            className="flex items-center gap-1.5 text-xs font-semibold text-slate-400 hover:text-white transition-colors"
+            className="flex items-center gap-1.5 text-xs font-semibold text-neutral-400 hover:text-white transition-colors"
           >
-            <ArrowLeft className="h-4 w-4" />
-            <span className="hidden sm:inline">All Problems</span>
+            <ArrowLeft className="h-3.5 w-3.5" />
+            <span className="hidden sm:inline">Problem Set</span>
           </Link>
-          <span className="text-slate-700">|</span>
+          <span className="text-neutral-700 hidden sm:inline">|</span>
           <div className="flex items-center gap-2">
-            <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-orange-600 text-xs font-black text-white shadow-sm shadow-orange-950">
+            <span className="flex h-5 w-5 items-center justify-center rounded bg-orange-600/20 text-orange-400 text-xs font-bold border border-orange-500/30">
               🔥
             </span>
-            <span className="font-bold text-sm text-white">
-              POTD
+            <span className="font-bold text-xs sm:text-sm text-white truncate max-w-[200px] sm:max-w-md">
+              {currentProblem.title}
             </span>
-            <span className="rounded bg-purple-950/80 border border-purple-800 text-purple-300 px-1.5 py-0.5 text-[9px] font-mono font-bold hidden sm:inline">
-              RoleNest Labs
-            </span>
-            <span className="rounded bg-emerald-950 border border-emerald-800 px-2 py-0.5 text-[10px] font-mono text-emerald-300 font-bold">
-              +50 XP
-            </span>
-            <span className="rounded bg-slate-800 border border-slate-700 px-2 py-0.5 text-[10px] font-mono text-emerald-400 font-bold">
-              Dev Score: {userDevScore > 0 ? `${userDevScore}/1000` : "0/1000 (Unranked)"}
+            <span
+              className={`rounded px-2 py-0.2 text-[10px] font-mono font-bold ${
+                currentProblem.difficulty === "Easy"
+                  ? "bg-emerald-950/60 text-emerald-400 border border-emerald-800"
+                  : currentProblem.difficulty === "Medium"
+                  ? "bg-amber-950/60 text-amber-400 border border-amber-800"
+                  : "bg-rose-950/60 text-rose-400 border border-rose-800"
+              }`}
+            >
+              {currentProblem.difficulty}
             </span>
             {isCurrentSolved && (
-              <span className="inline-flex items-center gap-1 rounded bg-emerald-900/60 border border-emerald-700 px-2 py-0.5 text-[10px] font-semibold text-emerald-300">
+              <span className="inline-flex items-center gap-1 rounded bg-emerald-950/80 border border-emerald-800 px-2 py-0.2 text-[10px] font-semibold text-emerald-400">
                 <Check className="h-3 w-3" /> Solved
               </span>
             )}
@@ -381,15 +360,15 @@ function POTDWorkspace() {
                   key={p.id}
                   onClick={() => setCurrentProblem(p)}
                   title={p.title}
-                  className={`relative px-2.5 py-1 rounded-lg text-xs font-mono font-bold transition-all ${
+                  className={`relative px-2 py-0.5 rounded text-[11px] font-mono font-bold transition-all ${
                     currentProblem.id === p.id
-                      ? "bg-emerald-600 text-white shadow-sm shadow-emerald-900"
-                      : "bg-slate-800/80 text-slate-400 hover:text-white"
+                      ? "bg-amber-500 text-slate-950 shadow-xs"
+                      : "bg-neutral-900 text-neutral-400 hover:text-white"
                   }`}
                 >
                   #{idx + 1}
                   {solved && (
-                    <span className="absolute -top-1 -right-1 h-2 w-2 rounded-full bg-emerald-400 ring-2 ring-slate-950" />
+                    <span className="absolute -top-1 -right-1 h-2 w-2 rounded-full bg-emerald-400 ring-2 ring-neutral-900" />
                   )}
                 </button>
               );
@@ -398,13 +377,13 @@ function POTDWorkspace() {
 
           <Link
             href="/problems"
-            className="flex items-center gap-1 text-xs font-semibold text-emerald-400 hover:text-emerald-300 px-2.5 py-1 rounded-lg border border-emerald-900 bg-emerald-950/40"
+            className="flex items-center gap-1 text-[11px] font-semibold text-neutral-400 hover:text-white px-2 py-1 rounded bg-neutral-900 border border-neutral-800 hover:border-neutral-700 transition-colors"
           >
             <ListOrdered className="h-3.5 w-3.5" />
-            <span>All Problems ({LEETCODE_PROBLEMS.length})</span>
+            <span className="hidden sm:inline">All ({LEETCODE_PROBLEMS.length})</span>
           </Link>
         </div>
-      </header>
+      </div>
 
       {/* MOBILE SEGMENTED CONTROL (< lg) */}
       <div className="flex lg:hidden items-center justify-between p-1.5 bg-slate-950 border-b border-slate-800 shrink-0 sticky top-0 z-20">
