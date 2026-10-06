@@ -93,6 +93,19 @@ export function middleware(req: NextRequest) {
     return NextResponse.rewrite(new URL(`/donate${pathname}`, req.url));
   }
 
+  const isArenaSubdomain =
+    host.startsWith("code.") ||
+    host.startsWith("arena.") ||
+    host.startsWith("problem.") ||
+    req.headers.get("x-is-arena") === "1";
+
+  // 3. If accessed on code.rolenest.in, arena.rolenest.in or problem.rolenest.in:
+  if (isArenaSubdomain) {
+    if (pathname === "/" || pathname === "/potd") {
+      return NextResponse.rewrite(new URL("/potd", req.url));
+    }
+  }
+
   // 3. If accessed on main web (rolenest.in):
   if (pathname === "/internship-bootcamp" || pathname.startsWith("/internship-bootcamp/")) {
     const subpath = pathname.replace(/^\/internship-bootcamp/, "") || "/";
