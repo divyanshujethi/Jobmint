@@ -29,28 +29,42 @@ import {
   Lock,
   Crown,
   X,
+  Compass,
+  ListVideo,
+  Users2,
+  Cpu,
+  Server,
+  Cloud,
+  Database,
+  GraduationCap,
 } from "lucide-react";
 import {
   InteractiveJobCourse,
   ALL_INTERACTIVE_COURSES,
   synthesizeJobCourse,
-  DailyLesson
+  DailyLesson,
 } from "@/lib/study-courses-data";
+import { CAREER_ROADMAPS } from "@repo/shared";
+import { CURATED_COURSES, CoursePlaylist } from "@/lib/courses-data";
+import { MOCK_STUDY_PODS } from "@/lib/mock-pods";
 import { Button } from "@/components/ui/button";
+import { StudyNavbar } from "@/components/study-navbar";
+import { StudyFooter } from "@/components/study-footer";
+
+type StudyTab = "roadmaps" | "cohorts" | "masterclasses" | "ai-generator" | "pods";
 
 export default function StudyHubPage() {
+  const [activeTab, setActiveTab] = useState<StudyTab>("roadmaps");
   const [courses, setCourses] = useState<InteractiveJobCourse[]>(ALL_INTERACTIVE_COURSES);
   const [selectedCourse, setSelectedCourse] = useState<InteractiveJobCourse>(ALL_INTERACTIVE_COURSES[0]!);
   const [selectedCategory, setSelectedCategory] = useState<string>("ALL");
   const [searchQuery, setSearchQuery] = useState<string>("");
 
-  // Generator inputs
+  // AI Generator inputs
   const [customRole, setCustomRole] = useState<string>("");
   const [customCompany, setCustomCompany] = useState<string>("");
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
   const [generatedSuccess, setGeneratedSuccess] = useState<boolean>(false);
-  const [isPro, setIsPro] = useState<boolean>(false);
-  const [showProModal, setShowProModal] = useState<boolean>(false);
 
   // Daily streak & completed days state (persisted in localStorage)
   const [completedDays, setCompletedDays] = useState<Record<string, number[]>>({});
@@ -58,7 +72,7 @@ export default function StudyHubPage() {
   const [showAnswerDay, setShowAnswerDay] = useState<number | null>(null);
   const [streakCount, setStreakCount] = useState<number>(3);
 
-  // Load progress and pro status
+  // Load progress
   useEffect(() => {
     try {
       const saved = localStorage.getItem("rolenest_study_progress");
@@ -71,12 +85,21 @@ export default function StudyHubPage() {
       }
     } catch {}
 
-    fetch("/api/user/pro-status")
-      .then((res) => res.json())
-      .then((data) => {
-        if (data && data.isPro) setIsPro(true);
-      })
-      .catch(() => {});
+    // Check hash for direct tab navigation
+    if (typeof window !== "undefined" && window.location.hash) {
+      const hash = window.location.hash.replace("#", "");
+      if (hash === "ai-generator" || hash === "ai-syllabus") {
+        setActiveTab("ai-generator");
+      } else if (hash === "cohorts") {
+        setActiveTab("cohorts");
+      } else if (hash === "roadmaps") {
+        setActiveTab("roadmaps");
+      } else if (hash === "masterclasses") {
+        setActiveTab("masterclasses");
+      } else if (hash === "pods") {
+        setActiveTab("pods");
+      }
+    }
   }, []);
 
   // Save progress
@@ -91,7 +114,6 @@ export default function StudyHubPage() {
       const newState = { ...prev, [courseId]: updated };
       try {
         localStorage.setItem("rolenest_study_progress", JSON.stringify(newState));
-        // Bump streak if completing
         if (!isDone) {
           const newStreak = streakCount + 1;
           setStreakCount(newStreak);
@@ -102,15 +124,10 @@ export default function StudyHubPage() {
     });
   };
 
-  // Dynamic Course Generator handler (Exclusively for Pro / Plus accounts)
+  // AI Course Generator
   const handleGenerateCourse = (e: React.FormEvent) => {
     e.preventDefault();
     if (!customRole.trim()) return;
-
-    if (!isPro) {
-      setShowProModal(true);
-      return;
-    }
 
     setIsGenerating(true);
     setTimeout(() => {
@@ -125,6 +142,7 @@ export default function StudyHubPage() {
       setIsGenerating(false);
       setGeneratedSuccess(true);
       setExpandedDay(1);
+      setActiveTab("cohorts");
     }, 600);
   };
 
@@ -146,403 +164,505 @@ export default function StudyHubPage() {
   }, [courses, selectedCategory, searchQuery]);
 
   const courseCompletedList = completedDays[selectedCourse.id] || [];
-  const progressPercent = Math.round((courseCompletedList.length / selectedCourse.days.length) * 100);
+  const progressPercent = Math.round((courseCompletedList.length / (selectedCourse.days.length || 1)) * 100);
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 space-y-8">
-      {/* DAILY STREAK & STUDENT WELCOME STRIP */}
-      <div className="flex flex-wrap items-center justify-between gap-4 rounded-3xl border border-emerald-500/30 bg-gradient-to-r from-emerald-950 via-slate-900 to-teal-950 p-6 text-white shadow-xl">
-        <div className="flex items-center gap-4">
-          <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 text-white shadow-lg">
-            <Flame className="h-8 w-8 animate-pulse" />
-          </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="text-xl font-extrabold text-white">
-                {streakCount}-Day Daily Study Streak!
-              </span>
-              <span className="rounded-full bg-amber-500/20 border border-amber-500/40 px-2.5 py-0.5 text-xs font-bold text-amber-300">
-                🔥 Active Habit
+    <div className="min-h-screen bg-[#070913] text-slate-100 flex flex-col font-sans selection:bg-indigo-500/30">
+      <StudyNavbar />
+
+      <main className="flex-1">
+        {/* HERO SECTION */}
+        <section className="relative overflow-hidden border-b border-indigo-950/60 bg-gradient-to-b from-[#0c102a] via-[#070913] to-[#070913] px-4 py-12 sm:px-6 lg:px-8">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(99,102,241,0.2),rgba(255,255,255,0))]" />
+
+          <div className="relative mx-auto max-w-5xl text-center space-y-4">
+            <div className="inline-flex items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-3.5 py-1 text-xs font-semibold text-indigo-300 backdrop-blur-md">
+              <GraduationCap className="h-4 w-4 text-indigo-400" />
+              <span>RoleNest Study • Open Engineering University</span>
+              <span className="rounded-full bg-emerald-500/20 px-2 py-0.2 text-[10px] font-bold text-emerald-300">
+                100% Free
               </span>
             </div>
-            <p className="text-xs text-slate-300 mt-1">
-              Consistency beats intensity. Complete 1 daily lesson or POTD every 24 hours to keep your streak alive and unlock verified certificates.
-            </p>
-          </div>
-        </div>
 
-        <div className="flex items-center gap-2">
-          <Link
-            href="/potd"
-            className="inline-flex items-center gap-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 px-4 py-2 text-xs font-bold text-slate-950 shadow-md transition-colors"
-          >
-            <Zap className="h-3.5 w-3.5 fill-current" />
-            Today's POTD (+50 XP)
-          </Link>
-          <Link
-            href="/playlists"
-            className="inline-flex items-center gap-1.5 rounded-xl border border-slate-700 bg-slate-800/80 hover:bg-slate-700 px-3.5 py-2 text-xs font-medium text-slate-200 transition-colors"
-          >
-            <BookOpen className="h-3.5 w-3.5 text-slate-400" />
-            Video Playlists
-          </Link>
-        </div>
-      </div>
-
-      {/* HEADER SECTION */}
-      <div className="border-b border-slate-200 pb-6">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div>
-            <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-md mb-2">
-              <Sparkles className="h-3.5 w-3.5 text-emerald-600" /> Interactive Course Engine &amp; Job Prep
-            </div>
-            <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
-              Study Things: Interactive Job-to-Course Studio
+            <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-white font-mono">
+              Zero-BS Tech Roadmaps &amp;{" "}
+              <span className="bg-gradient-to-r from-indigo-400 via-violet-300 to-cyan-400 bg-clip-text text-transparent">
+                Interactive Cohorts
+              </span>
             </h1>
-            <p className="mt-2 text-sm text-slate-600 max-w-3xl">
-              Whatever tech job you want in India, RoleNest automatically synthesizes an interactive 30-day day-by-day learning course with daily coding tasks, core CS concepts, and mock interview questions.
-            </p>
-          </div>
 
-          <div className="flex items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 rounded-xl bg-slate-100 px-3 py-1.5 text-xs font-semibold text-slate-700">
-              <Trophy className="h-4 w-4 text-amber-500" /> 100% Free for Students
-            </span>
-          </div>
-        </div>
-      </div>
-
-      {/* AUTOMATION STUDIO: DYNAMIC JOB-TO-COURSE GENERATOR */}
-      <div className="rounded-3xl border border-slate-200 bg-gradient-to-b from-slate-50 to-white p-6 sm:p-8 shadow-xs">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-5">
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-emerald-600 text-white font-bold text-xs">
-                AI
-              </span>
-              <h2 className="text-lg font-bold text-slate-900">
-                Target Any Job: Instant 30-Day Course Generator
-              </h2>
-            </div>
-            <p className="text-xs text-slate-600 mt-1">
-              Enter any role or dream company (e.g. <em>"Backend Engineer at Razorpay"</em>, <em>"AI Applications Engineer at Sarvam AI"</em>, or <em>"Scientist B at NIC"</em>). Our automation will build a customized 30-day interactive daily curriculum for you.
-            </p>
-          </div>
-
-          {generatedSuccess && (
-            <span className="inline-flex items-center gap-1.5 rounded-xl bg-emerald-50 border border-emerald-300 px-3 py-1.5 text-xs font-bold text-emerald-800">
-              <Check className="h-4 w-4 text-emerald-600" /> Course Generated &amp; Activated!
-            </span>
-          )}
-        </div>
-
-        <form onSubmit={handleGenerateCourse} className="mt-5 grid grid-cols-1 sm:grid-cols-12 gap-3">
-          <div className="sm:col-span-6">
-            <label className="block text-[11px] font-bold text-slate-700 mb-1">
-              Target Job Role or Specialization *
-            </label>
-            <input
-              type="text"
-              placeholder="e.g. Backend Software Engineer, React Developer, AI/LLM Intern..."
-              value={customRole}
-              onChange={(e) => setCustomRole(e.target.value)}
-              className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-emerald-500"
-              required
-            />
-          </div>
-
-          <div className="sm:col-span-4">
-            <label className="block text-[11px] font-bold text-slate-700 mb-1">
-              Target Company (Optional)
-            </label>
-            <input
-              type="text"
-              placeholder="e.g. Razorpay, Swiggy, Sarvam AI, NIC, Google..."
-              value={customCompany}
-              onChange={(e) => setCustomCompany(e.target.value)}
-              className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-emerald-500"
-            />
-          </div>
-
-          <div className="sm:col-span-2 flex items-end">
-            <button
-              type="submit"
-              disabled={isGenerating}
-              className="w-full inline-flex items-center justify-center gap-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 px-4 py-2.5 text-xs font-bold text-white shadow-xs transition-colors cursor-pointer disabled:opacity-50"
-            >
-              {isGenerating ? (
-                <>
-                  <RefreshCw className="h-3.5 w-3.5 animate-spin" />
-                  Building...
-                </>
-              ) : (
-                <>
-                  <Zap className="h-3.5 w-3.5" />
-                  Generate Course
-                </>
-              )}
-            </button>
-          </div>
-        </form>
-
-        {/* POPULAR PRESET SHORTCUTS */}
-        <div className="mt-4 flex flex-wrap items-center gap-1.5 pt-2 border-t border-slate-100">
-          <span className="text-[11px] font-bold text-slate-500 mr-1 flex items-center gap-1">
-            <Target className="h-3 w-3 text-emerald-600" /> Popular Quick Tracks:
-          </span>
-          {[
-            { label: "🚀 SDE-1 / Fresher All-Rounder", role: "SDE-1 / Junior Software Engineer", company: "Top Tech Unicorns" },
-            { label: "🤖 AI & LLM Applications", role: "AI & LLM Software Engineer", company: "Sarvam AI / SigNoz" },
-            { label: "⚛️ Next.js 15 Full Stack", role: "Full Stack Engineer (Next.js)", company: "Postman / Groww" },
-            { label: "🐹 Golang Distributed Systems", role: "Backend Engineer (Go)", company: "Zerodha / CRED" },
-            { label: "🏛️ Govt Scientist 'B' (NIC/ISRO)", role: "Scientist 'B' Computer Science", company: "NIC & ISRO" },
-          ].map((preset) => (
-            <button
-              key={preset.label}
-              type="button"
-              onClick={() => {
-                setCustomRole(preset.role);
-                setCustomCompany(preset.company);
-                const synthesized = synthesizeJobCourse({
-                  jobTitle: preset.role,
-                  companyName: preset.company,
-                });
-                setCourses((prev) => [synthesized, ...prev]);
-                setSelectedCourse(synthesized);
-                setGeneratedSuccess(true);
-              }}
-              className="rounded-full bg-white hover:bg-emerald-50 hover:text-emerald-800 hover:border-emerald-300 border border-slate-200 px-2.5 py-1 text-[11px] font-medium text-slate-700 transition-colors cursor-pointer shadow-2xs"
-            >
-              {preset.label}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* TRACK SELECTOR & SEARCH */}
-      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs">
-        <div className="relative flex-1">
-          <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
-          <input
-            type="text"
-            placeholder="Search study tracks by role, skill (e.g. React, Go, System Design, NIC)..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full rounded-xl border border-slate-200 bg-white py-2 pl-9 pr-4 text-xs placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-emerald-500"
-          />
-        </div>
-
-        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0">
-          {[
-            { label: "All Tracks", value: "ALL" },
-            { label: "Full Stack", value: "FULL_STACK" },
-            { label: "Backend", value: "BACKEND" },
-            { label: "AI & ML", value: "AI_ML" },
-            { label: "Govt Tech", value: "GOVT_TECH" },
-          ].map((cat) => (
-            <button
-              key={cat.value}
-              onClick={() => setSelectedCategory(cat.value)}
-              className={`rounded-xl px-3 py-1.5 text-xs font-semibold transition-colors whitespace-nowrap cursor-pointer ${
-                selectedCategory === cat.value
-                  ? "bg-slate-900 text-white"
-                  : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-              }`}
-            >
-              {cat.label}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* ACTIVE COURSE HEADER & PROGRESS CARD */}
-      <div className="rounded-3xl border border-emerald-200 bg-gradient-to-r from-emerald-50 via-teal-50/50 to-white p-6 sm:p-8 shadow-xs">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-          <div className="space-y-2 flex-1">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="text-2xl">{selectedCourse.iconEmoji}</span>
-              <span className="rounded-md bg-emerald-100/80 px-2.5 py-0.5 text-xs font-bold text-emerald-800">
-                {selectedCourse.targetRole}
-              </span>
-              <span className="text-xs text-slate-500 font-mono">
-                {selectedCourse.days.length} Days Structured
-              </span>
-              <span className="text-xs font-bold text-emerald-700 bg-white px-2 py-0.5 rounded border border-emerald-200">
-                {selectedCourse.expectedSalary}
-              </span>
-            </div>
-
-            <h2 className="text-2xl font-black text-slate-900">
-              {selectedCourse.title}
-            </h2>
-
-            <p className="text-xs text-slate-600 leading-relaxed max-w-3xl">
-              {selectedCourse.overview}
+            <p className="text-sm sm:text-base text-slate-300 max-w-2xl mx-auto leading-relaxed">
+              Bypass ₹50,000 bootcamps. Follow step-by-step curricula, 30-day day-by-day guided exercises, and curated video masterclasses from beginner to FAANG-grade engineer.
             </p>
 
-            <div className="flex flex-wrap gap-1.5 pt-1">
-              {selectedCourse.skillsCovered.map((s) => (
-                <span
-                  key={s}
-                  className="rounded-full bg-white border border-emerald-200/80 px-2.5 py-0.5 text-[10px] font-semibold text-emerald-900 shadow-2xs"
-                >
-                  {s}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          {/* PROGRESS & COMPLETION GAUGE */}
-          <div className="flex flex-col sm:flex-row lg:flex-col items-start sm:items-center lg:items-end gap-3 shrink-0 rounded-2xl bg-white p-5 border border-emerald-200/80 shadow-xs min-w-[240px]">
-            <div className="w-full">
-              <div className="flex items-center justify-between text-xs font-bold text-slate-800 mb-1">
-                <span>Course Progress</span>
-                <span className="text-emerald-700 font-mono">{progressPercent}%</span>
+            {/* STREAK & XP STRIP */}
+            <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
+              <div className="flex items-center gap-1.5 rounded-xl border border-amber-500/30 bg-amber-500/10 px-3 py-1.5 text-xs font-bold text-amber-300 shadow-sm">
+                <Flame className="h-4 w-4 fill-amber-400 text-amber-400 animate-pulse" />
+                <span>{streakCount}-Day Learning Streak</span>
               </div>
-              <div className="h-2.5 w-full rounded-full bg-slate-100 overflow-hidden">
-                <div
-                  className="h-full bg-gradient-to-r from-emerald-500 to-teal-600 rounded-full transition-all duration-300"
-                  style={{ width: `${progressPercent}%` }}
-                />
+              <div className="flex items-center gap-1.5 rounded-xl border border-indigo-500/30 bg-indigo-500/10 px-3 py-1.5 text-xs font-bold text-indigo-300 shadow-sm">
+                <Zap className="h-4 w-4 fill-indigo-400 text-indigo-400" />
+                <span>{courseCompletedList.length} Lessons Finished Today</span>
               </div>
-              <div className="text-[11px] text-slate-500 mt-1 flex justify-between">
-                <span>{courseCompletedList.length} of {selectedCourse.days.length} Days Done</span>
-                <span>{selectedCourse.days.length - courseCompletedList.length} Remaining</span>
-              </div>
-            </div>
-
-            <Link
-              href="/certificates"
-              className={`w-full inline-flex items-center justify-center gap-1.5 rounded-xl px-3.5 py-2 text-xs font-bold transition-colors ${
-                progressPercent >= 100
-                  ? "bg-amber-500 text-slate-950 hover:bg-amber-400 shadow-sm"
-                  : "bg-slate-100 text-slate-500 hover:bg-slate-200"
-              }`}
-            >
-              <Award className="h-3.5 w-3.5" />
-              {progressPercent >= 100 ? "Claim Verified Certificate 🎉" : "Certificate at 100%"}
-            </Link>
-          </div>
-        </div>
-
-        {/* LIVE JOB ALIGNMENT CALLOUT */}
-        <div className="mt-6 pt-4 border-t border-emerald-200/60 flex flex-wrap items-center justify-between gap-3 text-xs text-emerald-950">
-          <div className="flex items-center gap-2">
-            <Briefcase className="h-4 w-4 text-emerald-700" />
-            <span className="font-semibold">
-              Currently hiring for this track: {selectedCourse.targetCompanies.join(", ")}
-            </span>
-          </div>
-          <Link
-            href="/jobs"
-            className="font-bold text-emerald-700 hover:text-emerald-900 underline underline-offset-2 flex items-center gap-1"
-          >
-            Browse 620+ Live Open Positions &rarr;
-          </Link>
-        </div>
-      </div>
-
-      {/* COURSE DAYS ACCORDION (1 to 30) */}
-      <div className="space-y-4">
-        <div className="flex items-center justify-between border-b border-slate-200 pb-2">
-          <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
-            <Calendar className="h-4 w-4 text-emerald-600" />
-            30-Day Interactive Daily Schedule
-          </h3>
-          <span className="text-xs text-slate-500 font-mono">
-            Click any day to expand curriculum &amp; interview questions
-          </span>
-        </div>
-
-        <div className="space-y-3">
-          {selectedCourse.days.map((lesson) => {
-            const isDone = courseCompletedList.includes(lesson.day);
-            const isExpanded = expandedDay === lesson.day;
-            const isAnswerVisible = showAnswerDay === lesson.day;
-
-            return (
-              <div
-                key={lesson.day}
-                className={`rounded-2xl border transition-all ${
-                  isDone
-                    ? "border-emerald-300 bg-emerald-50/20"
-                    : isExpanded
-                      ? "border-slate-300 bg-white shadow-xs"
-                      : "border-slate-200 bg-white hover:border-slate-300"
-                }`}
+              <a
+                href="https://problem.rolenest.in/potd"
+                className="flex items-center gap-1.5 rounded-xl border border-rose-500/30 bg-rose-500/10 px-3 py-1.5 text-xs font-bold text-rose-300 hover:bg-rose-500/20 transition-colors shadow-sm"
               >
-                {/* DAY HEADER BAR */}
-                <div
-                  className="flex items-center justify-between p-4 sm:p-5 cursor-pointer select-none"
-                  onClick={() => setExpandedDay(isExpanded ? null : lesson.day)}
-                >
-                  <div className="flex items-center gap-3 sm:gap-4 flex-1">
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        toggleDayCompletion(selectedCourse.id, lesson.day);
-                      }}
-                      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl border transition-all ${
-                        isDone
-                          ? "bg-emerald-600 text-white border-emerald-600 shadow-2xs"
-                          : "border-slate-300 bg-white text-transparent hover:border-emerald-500"
-                      }`}
-                      title={isDone ? "Completed! Click to unmark." : "Mark as completed today"}
-                    >
-                      <Check className="h-4 w-4 stroke-[3]" />
-                    </button>
+                <Code2 className="h-4 w-4 text-rose-400" />
+                <span>Solve Today&apos;s POTD (+50 XP) →</span>
+              </a>
+            </div>
+          </div>
+        </section>
 
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <span className="rounded bg-slate-100 px-2 py-0.5 text-[10px] font-mono font-bold text-slate-700">
-                          Day {lesson.day}
+        {/* TAB CONTROLS STRIP */}
+        <div className="sticky top-16 z-30 border-b border-indigo-950/60 bg-[#070913]/95 backdrop-blur-md px-4 py-2.5 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl flex items-center justify-between gap-3">
+            <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none py-1">
+              {[
+                { id: "roadmaps", label: "Career Roadmaps", icon: Compass, count: CAREER_ROADMAPS.length },
+                { id: "cohorts", label: "30-Day Cohorts", icon: BookOpen, count: courses.length },
+                { id: "masterclasses", label: "Video Masterclasses", icon: ListVideo, count: CURATED_COURSES.length },
+                { id: "ai-generator", label: "AI Syllabus Builder", icon: Sparkles, count: "AI" },
+                { id: "pods", label: "Peer Study Pods", icon: Users2, count: MOCK_STUDY_PODS.length },
+              ].map((tab) => {
+                const Icon = tab.icon;
+                const isSelected = activeTab === tab.id;
+                return (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveTab(tab.id as StudyTab)}
+                    className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
+                      isSelected
+                        ? "bg-indigo-600 text-white font-bold shadow-md shadow-indigo-600/20"
+                        : "bg-[#0c1022] text-slate-400 hover:text-white border border-indigo-950/60 hover:bg-[#101530]"
+                    }`}
+                  >
+                    <Icon className="h-3.5 w-3.5" />
+                    <span>{tab.label}</span>
+                    <span className="rounded-md bg-indigo-950/80 px-1.5 py-0.2 text-[10px] font-mono text-indigo-300 border border-indigo-900/50">
+                      {tab.count}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="hidden md:flex items-center gap-2 text-xs text-slate-400">
+              <span className="flex h-2 w-2 rounded-full bg-emerald-400 animate-ping" />
+              <span className="text-[11px] font-mono">100% Free &amp; Open Access</span>
+            </div>
+          </div>
+        </div>
+
+        {/* TAB CONTENT CONTAINER */}
+        <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+          {/* TAB 1: CAREER ROADMAPS */}
+          {activeTab === "roadmaps" && (
+            <div className="space-y-6">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-indigo-950/80 pb-4">
+                <div>
+                  <h2 className="text-xl font-bold text-white flex items-center gap-2">
+                    <Compass className="h-5 w-5 text-indigo-400" />
+                    <span>Engineering Career Roadmaps</span>
+                  </h2>
+                  <p className="text-xs text-slate-400 mt-1">
+                    Structured, phase-by-phase paths covering fundamentals, deep systems, deliverables, and capstone projects.
+                  </p>
+                </div>
+                <Link href="/roadmaps">
+                  <Button variant="outline" className="border-indigo-900 bg-[#0d1226] text-indigo-300 hover:bg-indigo-900/40 text-xs font-bold gap-1.5">
+                    <span>Explore All Guides</span>
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </Button>
+                </Link>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {CAREER_ROADMAPS.map((roadmap) => (
+                  <div
+                    key={roadmap.slug}
+                    className="flex flex-col justify-between rounded-2xl border border-indigo-950/80 bg-[#0b0f22] p-6 shadow-xl hover:border-indigo-500/40 hover:shadow-indigo-950/40 transition-all group"
+                  >
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between">
+                        <span className="rounded-md border border-indigo-500/30 bg-indigo-500/10 px-2.5 py-0.5 text-xs font-bold text-indigo-300 font-mono">
+                          {roadmap.category}
                         </span>
-                        <span className="text-[11px] font-semibold text-emerald-700">
-                          {lesson.phase}
-                        </span>
+                        <span className="text-[11px] font-mono text-slate-400">{roadmap.durationWeeks}</span>
                       </div>
-                      <h4 className={`text-sm font-bold mt-0.5 ${isDone ? "line-through text-slate-500" : "text-slate-900"}`}>
-                        {lesson.title}
-                      </h4>
+
+                      <div>
+                        <h3 className="text-lg font-bold text-white group-hover:text-indigo-300 transition-colors">
+                          {roadmap.title}
+                        </h3>
+                        <p className="mt-1.5 text-xs text-slate-400 line-clamp-3 leading-relaxed">
+                          {roadmap.shortDescription}
+                        </p>
+                      </div>
+
+                      <div className="pt-2 border-t border-indigo-950">
+                        <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500 block mb-1.5 font-bold">
+                          Core Stack:
+                        </span>
+                        <div className="flex flex-wrap gap-1.5">
+                          {roadmap.keySkills.slice(0, 4).map((skill) => (
+                            <span
+                              key={skill}
+                              className="rounded-md bg-indigo-950/40 border border-indigo-900/40 px-2 py-0.5 text-[10px] font-mono text-indigo-300"
+                            >
+                              {skill}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="space-y-1.5 text-xs text-slate-300 pt-1">
+                        <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500 block font-bold">
+                          Key Milestone Phases ({roadmap.phases.length}):
+                        </span>
+                        {roadmap.phases.slice(0, 3).map((ph) => (
+                          <div key={ph.phaseNumber} className="flex items-center gap-2">
+                            <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400 shrink-0" />
+                            <span className="truncate text-[11px] text-slate-300">{ph.title}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="mt-6 pt-4 border-t border-indigo-950">
+                      <Link href={`/roadmaps/${roadmap.slug}`}>
+                        <Button className="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold gap-2 text-xs shadow-md shadow-indigo-600/20">
+                          <BookOpen className="h-4 w-4" />
+                          <span>View Full Curriculum</span>
+                          <ArrowRight className="h-3.5 w-3.5" />
+                        </Button>
+                      </Link>
                     </div>
                   </div>
+                ))}
+              </div>
+            </div>
+          )}
 
-                  <div className="flex items-center gap-3">
-                    {lesson.practiceLink && (
-                      <span className="hidden sm:inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-1 rounded-md">
-                        <Code2 className="h-3 w-3" /> Practice Link
-                      </span>
-                    )}
-                    {isExpanded ? (
-                      <ChevronUp className="h-4 w-4 text-slate-400" />
-                    ) : (
-                      <ChevronDown className="h-4 w-4 text-slate-400" />
-                    )}
+          {/* TAB 2: 30-DAY COHORTS */}
+          {activeTab === "cohorts" && (
+            <div className="space-y-8">
+              {/* COURSE TRACK SELECTOR BAR */}
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 rounded-2xl border border-indigo-950/80 bg-[#0b0f22] p-4">
+                <div className="flex items-center gap-3 overflow-x-auto scrollbar-none py-1">
+                  {courses.map((c) => {
+                    const isSelected = selectedCourse.id === c.id;
+                    const doneCount = (completedDays[c.id] || []).length;
+                    return (
+                      <button
+                        key={c.id}
+                        onClick={() => {
+                          setSelectedCourse(c);
+                          setExpandedDay(1);
+                        }}
+                        className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
+                          isSelected
+                            ? "bg-indigo-600 text-white font-bold shadow-md shadow-indigo-600/20"
+                            : "bg-[#0d1226] text-slate-300 hover:text-white border border-indigo-950"
+                        }`}
+                      >
+                        <span className="text-base">{c.iconEmoji}</span>
+                        <span>{c.targetRole}</span>
+                        {doneCount > 0 && (
+                          <span className="rounded-full bg-emerald-500/20 text-emerald-300 px-1.5 py-0.2 text-[10px] font-mono">
+                            {doneCount}/30
+                          </span>
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                <div className="shrink-0 flex items-center gap-2">
+                  <div className="text-right">
+                    <div className="text-[10px] font-mono uppercase tracking-wider text-slate-400">
+                      Cohort Progress
+                    </div>
+                    <div className="text-xs font-bold text-indigo-300 font-mono">
+                      {progressPercent}% Complete
+                    </div>
+                  </div>
+                  <div className="w-20 bg-indigo-950 h-2 rounded-full overflow-hidden">
+                    <div
+                      className="bg-indigo-500 h-full rounded-full transition-all duration-300"
+                      style={{ width: `${progressPercent}%` }}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* SELECTED COURSE OVERVIEW */}
+              <div className="rounded-2xl border border-indigo-950/80 bg-[#090d1f] p-6 space-y-4 shadow-xl">
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <div className="flex items-center gap-2.5">
+                    <span className="text-2xl">{selectedCourse.iconEmoji}</span>
+                    <div>
+                      <h2 className="text-xl font-bold text-white font-mono">{selectedCourse.title}</h2>
+                      <p className="text-xs text-slate-400">{selectedCourse.overview}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2 font-mono text-xs">
+                    <span className="rounded-md bg-emerald-500/10 border border-emerald-500/30 px-2.5 py-1 text-emerald-300 font-bold">
+                      {selectedCourse.expectedSalary}
+                    </span>
+                    <span className="rounded-md bg-indigo-500/10 border border-indigo-500/30 px-2.5 py-1 text-indigo-300">
+                      {selectedCourse.difficulty}
+                    </span>
                   </div>
                 </div>
 
-                {/* EXPANDED CONTENT */}
-                {isExpanded && (
-                  <div className="border-t border-slate-100 p-4 sm:p-6 space-y-4 bg-slate-50/50 rounded-b-2xl text-xs text-slate-700">
-                    <div>
-                      <h5 className="font-bold text-slate-900 text-xs uppercase tracking-wider text-emerald-800">
-                        Concept Summary
-                      </h5>
-                      <p className="mt-1 leading-relaxed text-slate-700">
-                        {lesson.conceptSummary}
-                      </p>
-                    </div>
+                {/* TARGET COMPANIES */}
+                <div className="flex flex-wrap items-center gap-1.5 text-xs pt-2 border-t border-indigo-950/80">
+                  <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 font-bold mr-1">
+                    Target Companies:
+                  </span>
+                  {selectedCourse.targetCompanies.map((tc) => (
+                    <span
+                      key={tc}
+                      className="rounded-md bg-[#0d1226] border border-indigo-950 px-2 py-0.5 text-[11px] text-slate-300"
+                    >
+                      {tc}
+                    </span>
+                  ))}
+                </div>
+              </div>
 
-                    <div>
-                      <h5 className="font-bold text-slate-900 text-xs uppercase tracking-wider text-emerald-800">
-                        Key Topics Covered
-                      </h5>
-                      <div className="mt-1.5 flex flex-wrap gap-1.5">
-                        {lesson.keyTopics.map((t) => (
+              {/* DAY BY DAY LESSON LIST */}
+              <div className="space-y-3">
+                <div className="flex items-center justify-between text-xs text-slate-400 px-1">
+                  <span className="font-mono font-bold uppercase tracking-wider">
+                    Daily Workout Plan (Day 1 - {selectedCourse.days.length})
+                  </span>
+                  <span>Click any day to expand curriculum &amp; challenges</span>
+                </div>
+
+                {selectedCourse.days.map((lesson: DailyLesson) => {
+                  const isCompleted = courseCompletedList.includes(lesson.day);
+                  const isExpanded = expandedDay === lesson.day;
+                  const isAnswerVisible = showAnswerDay === lesson.day;
+
+                  return (
+                    <div
+                      key={lesson.day}
+                      className={`rounded-2xl border transition-all ${
+                        isCompleted
+                          ? "border-emerald-500/40 bg-[#09151c]/90"
+                          : isExpanded
+                          ? "border-indigo-500/50 bg-[#0c1024]"
+                          : "border-indigo-950/80 bg-[#090d1f] hover:border-indigo-900"
+                      }`}
+                    >
+                      {/* LESSON ACCORDION HEADER */}
+                      <div
+                        onClick={() => setExpandedDay(isExpanded ? null : lesson.day)}
+                        className="cursor-pointer p-4 sm:p-5 flex items-center justify-between gap-4"
+                      >
+                        <div className="flex items-center gap-3 sm:gap-4 min-w-0">
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              toggleDayCompletion(selectedCourse.id, lesson.day);
+                            }}
+                            className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border transition-colors ${
+                              isCompleted
+                                ? "bg-emerald-500 border-emerald-400 text-slate-950 font-bold"
+                                : "border-slate-700 bg-slate-900 hover:border-indigo-400 text-transparent"
+                            }`}
+                          >
+                            <Check className="h-4 w-4 stroke-[3]" />
+                          </button>
+
+                          <div className="min-w-0">
+                            <div className="flex flex-wrap items-center gap-2">
+                              <span className="font-mono text-xs font-bold text-indigo-400">
+                                Day {lesson.day}
+                              </span>
+                              <span className="rounded bg-indigo-950/60 border border-indigo-900/50 px-1.5 py-0.2 text-[10px] font-mono text-slate-400">
+                                {lesson.phase}
+                              </span>
+                            </div>
+                            <h3 className="text-sm sm:text-base font-bold text-white truncate mt-0.5">
+                              {lesson.title}
+                            </h3>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center gap-3 shrink-0">
+                          {lesson.practiceLink && (
+                            <span className="hidden sm:inline-flex items-center gap-1 text-[11px] font-mono text-indigo-300">
+                              <Code2 className="h-3.5 w-3.5" />
+                              <span>Code Task</span>
+                            </span>
+                          )}
+                          {isExpanded ? (
+                            <ChevronUp className="h-4 w-4 text-slate-400" />
+                          ) : (
+                            <ChevronDown className="h-4 w-4 text-slate-400" />
+                          )}
+                        </div>
+                      </div>
+
+                      {/* LESSON ACCORDION BODY */}
+                      {isExpanded && (
+                        <div className="px-4 pb-5 pt-1 sm:px-6 sm:pb-6 border-t border-indigo-950/80 space-y-4 text-xs text-slate-300">
+                          {/* CONCEPT SUMMARY */}
+                          <div>
+                            <span className="font-mono text-[10px] uppercase tracking-wider text-slate-400 font-bold block mb-1">
+                              Concept Breakdown:
+                            </span>
+                            <p className="text-slate-200 leading-relaxed bg-[#060914] p-3 rounded-xl border border-indigo-950">
+                              {lesson.conceptSummary}
+                            </p>
+                          </div>
+
+                          {/* KEY TOPICS */}
+                          <div>
+                            <span className="font-mono text-[10px] uppercase tracking-wider text-slate-400 font-bold block mb-1.5">
+                              Key Topics to Master:
+                            </span>
+                            <div className="flex flex-wrap gap-1.5">
+                              {lesson.keyTopics.map((topic) => (
+                                <span
+                                  key={topic}
+                                  className="rounded-md bg-indigo-950/50 border border-indigo-900/40 px-2 py-0.5 text-[10px] font-mono text-indigo-300"
+                                >
+                                  {topic}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+
+                          {/* HANDS-ON TASK */}
+                          <div className="rounded-xl border border-amber-500/20 bg-amber-500/5 p-3.5 space-y-1.5">
+                            <div className="flex items-center gap-1.5 font-bold text-amber-300">
+                              <Target className="h-4 w-4 text-amber-400" />
+                              <span>Today&apos;s Hands-On Engineering Assignment:</span>
+                            </div>
+                            <p className="text-slate-300 leading-relaxed">{lesson.handsOnTask}</p>
+                          </div>
+
+                          {/* INTERVIEW QUESTION & MODEL ANSWER */}
+                          <div className="rounded-xl border border-indigo-500/20 bg-indigo-500/5 p-3.5 space-y-2">
+                            <div className="flex items-center justify-between">
+                              <span className="font-bold text-indigo-300 flex items-center gap-1.5">
+                                <Sparkles className="h-3.5 w-3.5 text-indigo-400" />
+                                <span>Real Technical Interview Question:</span>
+                              </span>
+                              <button
+                                type="button"
+                                onClick={() => setShowAnswerDay(isAnswerVisible ? null : lesson.day)}
+                                className="text-[11px] font-mono font-bold text-indigo-400 hover:text-indigo-300 underline"
+                              >
+                                {isAnswerVisible ? "Hide Model Answer" : "Reveal Model Answer →"}
+                              </button>
+                            </div>
+                            <p className="text-slate-200 font-medium italic">{lesson.interviewQuestion}</p>
+
+                            {isAnswerVisible && (
+                              <div className="mt-2 pt-2 border-t border-indigo-950/80 text-slate-300 leading-relaxed bg-[#060914] p-3 rounded-lg border border-indigo-900/30">
+                                <span className="font-bold text-emerald-400 block mb-1">
+                                  FAANG Principal Evaluator Answer:
+                                </span>
+                                {lesson.modelAnswer}
+                              </div>
+                            )}
+                          </div>
+
+                          {/* BOTTOM ACTIONS */}
+                          <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
+                            {lesson.practiceLink && (
+                              <a
+                                href={lesson.practiceLink.url}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="inline-flex items-center gap-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white px-3.5 py-1.5 font-bold shadow-md shadow-indigo-600/20 transition-colors"
+                              >
+                                <Code2 className="h-3.5 w-3.5" />
+                                <span>Practice: {lesson.practiceLink.title}</span>
+                                <ExternalLink className="h-3 w-3" />
+                              </a>
+                            )}
+
+                            <button
+                              type="button"
+                              onClick={() => toggleDayCompletion(selectedCourse.id, lesson.day)}
+                              className={`ml-auto inline-flex items-center gap-1.5 rounded-xl px-4 py-1.5 font-bold transition-all ${
+                                isCompleted
+                                  ? "bg-emerald-600 text-white"
+                                  : "border border-slate-700 bg-slate-800 hover:bg-slate-700 text-slate-200"
+                              }`}
+                            >
+                              <Check className="h-3.5 w-3.5" />
+                              <span>{isCompleted ? "Completed (+120 XP)" : "Mark Day Complete"}</span>
+                            </button>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* TAB 3: VIDEO MASTERCLASSES */}
+          {activeTab === "masterclasses" && (
+            <div className="space-y-6">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-indigo-950/80 pb-4">
+                <div>
+                  <h2 className="text-xl font-bold text-white flex items-center gap-2">
+                    <ListVideo className="h-5 w-5 text-indigo-400" />
+                    <span>Curated Zero-Waste Video Playlists</span>
+                  </h2>
+                  <p className="text-xs text-slate-400 mt-1">
+                    YouTube masterclasses from top creators (Andrej Karpathy, Harvard CS50, Matt Holiday, Nana) with chapter timestamps and notes.
+                  </p>
+                </div>
+                <Link href="/playlists">
+                  <Button variant="outline" className="border-indigo-900 bg-[#0d1226] text-indigo-300 hover:bg-indigo-900/40 text-xs font-bold gap-1.5">
+                    <span>Full Playlists Player</span>
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </Button>
+                </Link>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {CURATED_COURSES.map((course: CoursePlaylist) => (
+                  <div
+                    key={course.id}
+                    className="flex flex-col justify-between rounded-2xl border border-indigo-950/80 bg-[#0b0f22] p-5 shadow-xl hover:border-indigo-500/40 transition-all group"
+                  >
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between">
+                        <span className="rounded-md border border-indigo-500/30 bg-indigo-500/10 px-2 py-0.5 text-[11px] font-bold text-indigo-300 font-mono">
+                          {course.category}
+                        </span>
+                        <span className="text-[11px] font-mono text-slate-400">{course.duration}</span>
+                      </div>
+
+                      <div>
+                        <h3 className="text-base font-bold text-white group-hover:text-indigo-300 transition-colors line-clamp-1">
+                          {course.title}
+                        </h3>
+                        <p className="text-xs text-indigo-400 font-semibold mt-0.5">by {course.creator}</p>
+                        <p className="mt-1.5 text-xs text-slate-400 line-clamp-2 leading-relaxed">
+                          {course.description}
+                        </p>
+                      </div>
+
+                      <div className="flex flex-wrap gap-1 pt-1">
+                        {course.skillsLearned.slice(0, 3).map((t: string) => (
                           <span
                             key={t}
-                            className="rounded-md bg-white border border-slate-200 px-2 py-1 text-[11px] font-medium text-slate-700 shadow-2xs"
+                            className="rounded bg-indigo-950/40 border border-indigo-900/40 px-1.5 py-0.2 text-[10px] font-mono text-slate-400"
                           >
                             {t}
                           </span>
@@ -550,167 +670,163 @@ export default function StudyHubPage() {
                       </div>
                     </div>
 
-                    <div className="rounded-xl border border-slate-200 bg-white p-3.5 space-y-1">
-                      <div className="font-bold text-slate-900 flex items-center gap-1.5">
-                        <Code2 className="h-3.5 w-3.5 text-blue-600" />
-                        Today's Hands-On Coding Task:
-                      </div>
-                      <p className="text-slate-600">
-                        {lesson.handsOnTask}
-                      </p>
-                    </div>
-
-                    {/* INTERVIEW QUESTION & MODEL ANSWER */}
-                    <div className="rounded-xl border border-amber-200/80 bg-amber-50/40 p-4 space-y-2">
-                      <div className="flex items-center justify-between">
-                        <div className="font-bold text-amber-950 flex items-center gap-1.5">
-                          <Sparkles className="h-3.5 w-3.5 text-amber-600" />
-                          Company Mock Interview Question:
-                        </div>
-                        <button
-                          type="button"
-                          onClick={() => setShowAnswerDay(isAnswerVisible ? null : lesson.day)}
-                          className="text-[11px] font-bold text-amber-900 hover:text-amber-700 underline underline-offset-2 cursor-pointer"
-                        >
-                          {isAnswerVisible ? "Hide Answer" : "Reveal Model Answer"}
-                        </button>
-                      </div>
-
-                      <p className="font-medium text-slate-800 italic">
-                        "{lesson.interviewQuestion}"
-                      </p>
-
-                      {isAnswerVisible && (
-                        <div className="pt-2 border-t border-amber-200/60 mt-2 text-slate-700 leading-relaxed animate-in fade-in duration-150">
-                          <strong className="text-emerald-900">Model Answer: </strong>
-                          {lesson.modelAnswer}
-                        </div>
-                      )}
-                    </div>
-
-                    {/* FOOTER ACTION BUTTONS */}
-                    <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-200">
-                      {lesson.practiceLink ? (
-                        <a
-                          href={lesson.practiceLink.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition-colors"
-                        >
-                          <ExternalLink className="h-3 w-3 text-slate-500" />
-                          {lesson.practiceLink.title}
-                        </a>
-                      ) : <span />}
-
-                      <button
-                        type="button"
-                        onClick={() => toggleDayCompletion(selectedCourse.id, lesson.day)}
-                        className={`inline-flex items-center gap-1.5 rounded-xl px-4 py-1.5 text-xs font-bold transition-colors cursor-pointer ${
-                          isDone
-                            ? "bg-slate-200 text-slate-700 hover:bg-slate-300"
-                            : "bg-emerald-600 text-white hover:bg-emerald-500 shadow-xs"
-                        }`}
-                      >
-                        <Check className="h-3.5 w-3.5" />
-                        {isDone ? "Mark as Incomplete" : "Mark Day Complete (+10 XP)"}
-                      </button>
+                    <div className="mt-5 pt-3 border-t border-indigo-950 flex items-center justify-between">
+                      <span className="text-[10px] font-mono text-slate-500">
+                        {course.curriculumModules.length} Modules
+                      </span>
+                      <Link href="/playlists">
+                        <Button size="sm" className="bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold gap-1 rounded-xl">
+                          <span>Watch Masterclass</span>
+                          <ArrowRight className="h-3 w-3" />
+                        </Button>
+                      </Link>
                     </div>
                   </div>
-                )}
-              </div>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* CAPSTONE PROJECT SHOWCASE */}
-      <div className="rounded-3xl border border-slate-200 bg-white p-6 sm:p-8 shadow-xs">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-4">
-          <div>
-            <span className="rounded-md bg-amber-50 px-2.5 py-0.5 text-xs font-bold text-amber-800 border border-amber-200">
-              Proof-of-Work Required
-            </span>
-            <h3 className="text-xl font-bold text-slate-900 mt-1">
-              Capstone Project: {selectedCourse.capstoneProject.title}
-            </h3>
-          </div>
-          <Link
-            href="/certificates"
-            className="inline-flex items-center gap-1.5 rounded-xl bg-slate-900 text-white px-4 py-2 text-xs font-bold hover:bg-slate-800 transition-colors"
-          >
-            Submit for Verified Certificate &rarr;
-          </Link>
-        </div>
-
-        <p className="mt-3 text-xs text-slate-600 leading-relaxed">
-          {selectedCourse.capstoneProject.description}
-        </p>
-
-        <div className="mt-3 rounded-xl bg-slate-50 p-3 text-xs text-slate-700 border border-slate-200 flex items-start gap-2">
-          <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
-          <div>
-            <strong>Deliverable Benchmark:</strong> {selectedCourse.capstoneProject.deliverable}
-          </div>
-        </div>
-      </div>
-
-      {/* PRO PAYWALL MODAL FOR CUSTOM 30-DAY COURSE GENERATOR */}
-      {showProModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-xs animate-in fade-in duration-200">
-          <div className="relative w-full max-w-lg bg-white border border-slate-200 rounded-3xl shadow-2xl p-6 sm:p-8 space-y-6 text-slate-900">
-            <button
-              onClick={() => setShowProModal(false)}
-              className="absolute top-5 right-5 p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
-            >
-              <X className="h-5 w-5" />
-            </button>
-
-            <div className="flex items-center gap-3">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-100 text-emerald-700 font-bold">
-                <Crown className="h-6 w-6" />
-              </div>
-              <div>
-                <h3 className="text-lg font-black text-slate-900">
-                  Custom AI Syllabi: Pro &amp; Plus Exclusive
-                </h3>
-                <span className="text-[11px] font-mono text-emerald-700 font-bold">
-                  Curated tracks are 100% Free • Custom Generator is Pro
-                </span>
+                ))}
               </div>
             </div>
+          )}
 
-            <div className="space-y-3 text-xs text-slate-600 leading-relaxed bg-slate-50 border border-slate-200 p-4 rounded-2xl">
-              <p>
-                <strong>Free accounts</strong> include unrestricted access to all 4 curated foundational masterclasses:
-              </p>
-              <ul className="list-disc pl-5 space-y-1 text-slate-700">
-                <li>AI &amp; Generative AI Applications Engineer</li>
-                <li>Production Full-Stack Web Architecture</li>
-                <li>Distributed Systems &amp; Low-Latency Backend</li>
-                <li>Cloud Infrastructure &amp; DevOps Engineering</li>
-              </ul>
-              <p className="pt-1 text-slate-800 font-medium">
-                To dynamically synthesize tailored 30-day syllabi from any custom job description or company interview rubric, upgrade to <strong>Role Nest Pro (₹199/mo)</strong>.
-              </p>
-            </div>
+          {/* TAB 4: AI SYLLABUS BUILDER */}
+          {activeTab === "ai-generator" && (
+            <div className="max-w-3xl mx-auto space-y-6">
+              <div className="rounded-3xl border border-indigo-950/80 bg-[#090d20] p-6 sm:p-8 space-y-6 shadow-2xl">
+                <div className="space-y-2 border-b border-indigo-950 pb-5">
+                  <div className="inline-flex items-center gap-2 rounded-lg bg-indigo-500/10 border border-indigo-500/30 px-3 py-1 text-xs font-bold text-indigo-300">
+                    <Sparkles className="h-3.5 w-3.5 text-indigo-400" />
+                    <span>Instant AI Study Plan Generator</span>
+                  </div>
+                  <h2 className="text-2xl font-bold text-white font-mono">
+                    Target Any Job: Custom 30-Day Syllabus
+                  </h2>
+                  <p className="text-xs text-slate-400 leading-relaxed">
+                    Enter any target role and company (e.g. <em>&quot;Backend Engineer at Razorpay&quot;</em>, <em>&quot;AI Systems at Google&quot;</em>, or <em>&quot;Fullstack at Swiggy&quot;</em>). RoleNest AI generates a structured 30-day daily workout with assignments and mock questions.
+                  </p>
+                </div>
 
-            <div className="flex flex-col sm:flex-row items-center gap-3">
-              <Link href="/pricing" className="w-full sm:flex-1">
-                <Button className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs h-11 rounded-xl shadow-md">
-                  Upgrade to Pro — ₹199/month →
-                </Button>
-              </Link>
-              <Button
-                variant="outline"
-                onClick={() => setShowProModal(false)}
-                className="w-full sm:w-auto border-slate-200 text-xs rounded-xl"
-              >
-                Explore Free Tracks
-              </Button>
+                <form onSubmit={handleGenerateCourse} className="space-y-4">
+                  <div>
+                    <label className="block text-xs font-bold text-slate-300 mb-1 font-mono">
+                      Target Job Role or Specialization *
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="e.g. Distributed Systems Engineer, PyTorch AI Specialist, React Fullstack..."
+                      value={customRole}
+                      onChange={(e) => setCustomRole(e.target.value)}
+                      className="w-full rounded-xl border border-indigo-950 bg-[#060914] px-4 py-2.5 text-xs text-white placeholder:text-slate-500 focus:outline-none focus:border-indigo-500"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-slate-300 mb-1 font-mono">
+                      Target Company (Optional)
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="e.g. Google, Razorpay, Amazon, Swiggy, Uber..."
+                      value={customCompany}
+                      onChange={(e) => setCustomCompany(e.target.value)}
+                      className="w-full rounded-xl border border-indigo-950 bg-[#060914] px-4 py-2.5 text-xs text-white placeholder:text-slate-500 focus:outline-none focus:border-indigo-500"
+                    />
+                  </div>
+
+                  <Button
+                    type="submit"
+                    disabled={isGenerating || !customRole.trim()}
+                    className="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2.5 rounded-xl text-xs gap-2 shadow-lg shadow-indigo-600/30"
+                  >
+                    {isGenerating ? (
+                      <>
+                        <RefreshCw className="h-4 w-4 animate-spin" />
+                        <span>Synthesizing 30-Day Daily Curriculum...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Sparkles className="h-4 w-4" />
+                        <span>Generate 30-Day Plan Free</span>
+                        <ArrowRight className="h-3.5 w-3.5" />
+                      </>
+                    )}
+                  </Button>
+                </form>
+              </div>
             </div>
-          </div>
+          )}
+
+          {/* TAB 5: PEER STUDY PODS */}
+          {activeTab === "pods" && (
+            <div className="space-y-6">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-indigo-950/80 pb-4">
+                <div>
+                  <h2 className="text-xl font-bold text-white flex items-center gap-2">
+                    <Users2 className="h-5 w-5 text-indigo-400" />
+                    <span>Peer Study Pods &amp; Mock Interview Rooms</span>
+                  </h2>
+                  <p className="text-xs text-slate-400 mt-1">
+                    Join peer groups studying the same roadmap. Practice real STAR behavioral and technical interviews together.
+                  </p>
+                </div>
+                <Link href="/study-pods">
+                  <Button variant="outline" className="border-indigo-900 bg-[#0d1226] text-indigo-300 hover:bg-indigo-900/40 text-xs font-bold gap-1.5">
+                    <span>View All Pods</span>
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </Button>
+                </Link>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {MOCK_STUDY_PODS.map((pod) => (
+                  <div
+                    key={pod.id}
+                    className="rounded-2xl border border-indigo-950/80 bg-[#0b0f22] p-5 space-y-4 shadow-xl hover:border-indigo-500/40 transition-all"
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="rounded-md border border-indigo-500/30 bg-indigo-500/10 px-2 py-0.5 text-[11px] font-bold text-indigo-300 font-mono">
+                        {pod.category}
+                      </span>
+                      <span className="flex items-center gap-1 text-[11px] font-mono text-emerald-400">
+                        <span className="h-2 w-2 rounded-full bg-emerald-400 animate-ping" />
+                        {pod.memberCount} Members Active
+                      </span>
+                    </div>
+
+                    <div>
+                      <h3 className="text-base font-bold text-white line-clamp-1">{pod.title}</h3>
+                      <p className="text-xs text-slate-400 mt-1 line-clamp-2 leading-relaxed">
+                        {pod.description}
+                      </p>
+                    </div>
+
+                    <div className="pt-2 border-t border-indigo-950 text-xs text-slate-300 space-y-1">
+                      <div className="flex items-center justify-between font-mono text-[11px]">
+                        <span className="text-slate-500">Weekly Meeting:</span>
+                        <span className="text-indigo-300 font-bold">{pod.meetingCadence}</span>
+                      </div>
+                      <div className="flex items-center justify-between font-mono text-[11px]">
+                        <span className="text-slate-500">Focus Skill:</span>
+                        <span className="text-slate-300">{pod.primarySkill}</span>
+                      </div>
+                    </div>
+
+                    <div className="pt-2">
+                      <Link href={`/study-pods/${pod.id}`}>
+                        <Button className="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs rounded-xl shadow-md shadow-indigo-600/20">
+                          <span>Enter Study Room</span>
+                          <ArrowRight className="h-3.5 w-3.5 ml-1" />
+                        </Button>
+                      </Link>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
-      )}
+      </main>
+
+      <StudyFooter />
     </div>
   );
 }

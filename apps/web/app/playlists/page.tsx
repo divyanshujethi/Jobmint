@@ -28,6 +28,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { CURATED_COURSES, CoursePlaylist, getCourseChapters, VideoChapter } from "@/lib/courses-data";
+import { StudyNavbar } from "@/components/study-navbar";
+import { StudyFooter } from "@/components/study-footer";
 
 export default function PlaylistsPage() {
   const [courses, setCourses] = useState<CoursePlaylist[]>(CURATED_COURSES);
@@ -138,341 +140,345 @@ export default function PlaylistsPage() {
   const currentChapters: VideoChapter[] = activeModalCourse ? getCourseChapters(activeModalCourse) : [];
 
   return (
-    <div className="min-h-screen bg-slate-50/50 text-slate-900 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-6xl space-y-8">
-        
-        {/* HEADER */}
-        <div className="text-center space-y-3">
-          <div className="inline-flex items-center gap-2 rounded-full bg-red-50 border border-red-200 px-3.5 py-1 text-xs font-mono font-semibold text-red-700">
-            <Youtube className="h-4 w-4 text-red-600" />
-            Curated Free Developer Video Hub &amp; Certifications
-          </div>
-          <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-slate-900">
-            Top Computer Science &amp; Dev Playlists
-          </h1>
-          <p className="mx-auto max-w-2xl text-sm sm:text-base text-slate-600">
-            High-signal developer masterclasses from elite creators (Striver, Andrej Karpathy, Chai aur Code, ByteByteGo, Hussein Nasser, Kunal Kushwaha). Track progress, bookmark modules, jump across timestamped notes, and claim official certificates.
-          </p>
+    <div className="min-h-screen bg-[#070913] text-slate-100 flex flex-col font-sans selection:bg-indigo-500/30">
+      <StudyNavbar />
 
-          {/* DEDICATED CALLOUT TO INTERACTIVE COURSES & PROBLEMS */}
-          <div className="mx-auto max-w-3xl rounded-2xl bg-gradient-to-r from-emerald-50 via-teal-50/80 to-purple-50/60 border border-emerald-200/80 p-4 text-xs sm:text-sm text-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-sm">
-            <div className="flex items-center gap-2.5 text-left">
-              <Award className="h-6 w-6 text-emerald-600 shrink-0" />
-              <div>
-                <span className="font-bold text-slate-900">Earn Verifiable Credentials On Every Playlist</span>
-                <p className="text-[11px] text-slate-600">
-                  Every video series is mapped to a 30-question benchmark exam and a proof-of-work project to earn a cryptographically verifiable diploma.
-                </p>
+      <main className="flex-1 py-12 px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-6xl space-y-8">
+          
+          {/* HEADER */}
+          <div className="text-center space-y-3">
+            <div className="inline-flex items-center gap-2 rounded-full bg-red-500/10 border border-red-500/30 px-3.5 py-1 text-xs font-mono font-semibold text-red-400">
+              <Youtube className="h-4 w-4 text-red-500" />
+              Curated Free Developer Video Hub &amp; Certifications
+            </div>
+            <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-white">
+              Top Computer Science &amp; Dev Playlists
+            </h1>
+            <p className="mx-auto max-w-2xl text-sm sm:text-base text-slate-400">
+              High-signal developer masterclasses from elite creators (Striver, Andrej Karpathy, Chai aur Code, ByteByteGo, Hussein Nasser, Kunal Kushwaha). Track progress, bookmark modules, jump across timestamped notes, and claim official certificates.
+            </p>
+
+            {/* DEDICATED CALLOUT TO INTERACTIVE COURSES & PROBLEMS */}
+            <div className="mx-auto max-w-3xl rounded-2xl bg-gradient-to-r from-indigo-950/80 via-slate-900 to-indigo-950/80 border border-indigo-900/50 p-4 text-xs sm:text-sm text-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-xl">
+              <div className="flex items-center gap-2.5 text-left">
+                <Award className="h-6 w-6 text-indigo-400 shrink-0" />
+                <div>
+                  <span className="font-bold text-white">Earn Verifiable Credentials On Every Playlist</span>
+                  <p className="text-[11px] text-slate-400">
+                    Every video series is mapped to a 30-question benchmark exam and a proof-of-work project to earn a cryptographically verifiable diploma.
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 shrink-0">
+                <Link href="/courses">
+                  <Button size="sm" className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs rounded-xl shadow-xs">
+                    <Sparkles className="h-3.5 w-3.5 mr-1" />
+                    All Certification Exams →
+                  </Button>
+                </Link>
               </div>
             </div>
-            <div className="flex items-center gap-2 shrink-0">
-              <Link href="/courses">
-                <Button size="sm" className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow-xs">
-                  <Sparkles className="h-3.5 w-3.5 mr-1" />
-                  All Certification Exams →
-                </Button>
-              </Link>
+          </div>
+
+          {/* COLLECTION FILTER TABS (ALL / BOOKMARKED / COMPLETED) */}
+          <div className="flex flex-wrap items-center justify-between gap-3 bg-[#0c1020] p-3 rounded-2xl border border-indigo-950/80 shadow-md">
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setCollectionFilter("ALL")}
+                className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+                  collectionFilter === "ALL"
+                    ? "bg-indigo-600 text-white shadow-xs"
+                    : "bg-slate-900 text-slate-400 hover:text-white hover:bg-slate-800"
+                }`}
+              >
+                <ListVideo className="h-3.5 w-3.5" />
+                <span>All Courses ({courses.length})</span>
+              </button>
+
+              <button
+                onClick={() => setCollectionFilter("BOOKMARKED")}
+                className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+                  collectionFilter === "BOOKMARKED"
+                    ? "bg-amber-600 text-white shadow-xs"
+                    : "bg-slate-900 text-slate-400 hover:text-white hover:bg-slate-800"
+                }`}
+              >
+                <Bookmark className="h-3.5 w-3.5" />
+                <span>Bookmarked ({bookmarkedIds.length})</span>
+              </button>
+
+              <button
+                onClick={() => setCollectionFilter("COMPLETED")}
+                className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+                  collectionFilter === "COMPLETED"
+                    ? "bg-emerald-600 text-white shadow-xs"
+                    : "bg-slate-900 text-slate-400 hover:text-white hover:bg-slate-800"
+                }`}
+              >
+                <CheckCircle2 className="h-3.5 w-3.5" />
+                <span>Completed ({completedIds.length})</span>
+              </button>
+            </div>
+
+            <div className="w-full sm:w-64">
+              <div className="relative">
+                <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-500" />
+                <Input
+                  type="text"
+                  placeholder="Filter tech, creator, or topic..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-9 bg-slate-900 border-indigo-950/80 text-xs text-white placeholder:text-slate-500 h-9 rounded-xl shadow-none focus-visible:ring-indigo-500"
+                />
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* COLLECTION FILTER TABS (ALL / BOOKMARKED / COMPLETED) */}
-        <div className="flex flex-wrap items-center justify-between gap-3 bg-white p-3 rounded-2xl border border-slate-200 shadow-xs">
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => setCollectionFilter("ALL")}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
-                collectionFilter === "ALL"
-                  ? "bg-slate-900 text-white shadow-xs"
-                  : "bg-slate-100 text-slate-600 hover:bg-slate-200/70"
-              }`}
-            >
-              <ListVideo className="h-3.5 w-3.5" />
-              <span>All Courses ({courses.length})</span>
-            </button>
-
-            <button
-              onClick={() => setCollectionFilter("BOOKMARKED")}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
-                collectionFilter === "BOOKMARKED"
-                  ? "bg-amber-600 text-white shadow-xs"
-                  : "bg-slate-100 text-slate-600 hover:bg-slate-200/70"
-              }`}
-            >
-              <Bookmark className="h-3.5 w-3.5" />
-              <span>Bookmarked ({bookmarkedIds.length})</span>
-            </button>
-
-            <button
-              onClick={() => setCollectionFilter("COMPLETED")}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
-                collectionFilter === "COMPLETED"
-                  ? "bg-emerald-600 text-white shadow-xs"
-                  : "bg-slate-100 text-slate-600 hover:bg-slate-200/70"
-              }`}
-            >
-              <CheckCircle2 className="h-3.5 w-3.5" />
-              <span>Completed ({completedIds.length})</span>
-            </button>
+          {/* CATEGORY SWITCHER PILLS */}
+          <div className="flex flex-wrap items-center gap-1.5 pb-2">
+            {categories.map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => setSelectedCategory(cat.id)}
+                className={`rounded-lg px-3 py-1.5 text-xs font-bold transition-all ${
+                  selectedCategory === cat.id
+                    ? `${cat.color} shadow-sm`
+                    : "text-slate-400 hover:text-white bg-slate-900/80 border border-indigo-950/70 hover:bg-slate-800"
+                }`}
+              >
+                {cat.label}
+              </button>
+            ))}
           </div>
 
-          <div className="w-full sm:w-64">
-            <div className="relative">
-              <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
-              <Input
-                type="text"
-                placeholder="Filter tech, creator, or topic..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-9 bg-slate-50 border-slate-200 text-xs text-slate-900 placeholder:text-slate-400 h-9 rounded-xl shadow-none focus-visible:ring-emerald-500"
-              />
+          {/* PLAYLISTS GRID */}
+          {filtered.length === 0 ? (
+            <div className="p-12 text-center bg-[#0c1020] rounded-2xl border border-indigo-950/80 space-y-3">
+              <Bookmark className="h-10 w-10 text-slate-600 mx-auto" />
+              <h3 className="font-bold text-slate-200">No playlists found</h3>
+              <p className="text-xs text-slate-400 max-w-sm mx-auto">
+                {collectionFilter === "BOOKMARKED"
+                  ? "You haven't bookmarked any playlists yet. Click the bookmark icon on any playlist card to save it for later."
+                  : collectionFilter === "COMPLETED"
+                  ? "You haven't marked any playlist as completed yet. Complete courses to build your portfolio."
+                  : "No playlists match your search query."}
+              </p>
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => {
+                  setCollectionFilter("ALL");
+                  setSelectedCategory("ALL");
+                  setSearchQuery("");
+                }}
+                className="rounded-xl text-xs border-indigo-950 text-indigo-300 hover:bg-slate-800"
+              >
+                Reset Filters
+              </Button>
             </div>
-          </div>
-        </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {filtered.map((item) => {
+                const isBookmarked = bookmarkedIds.includes(item.id);
+                const isCompleted = completedIds.includes(item.id);
 
-        {/* CATEGORY SWITCHER PILLS */}
-        <div className="flex flex-wrap items-center gap-1.5 pb-2">
-          {categories.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => setSelectedCategory(cat.id)}
-              className={`rounded-lg px-3 py-1.5 text-xs font-bold transition-all ${
-                selectedCategory === cat.id
-                  ? `${cat.color} shadow-sm`
-                  : "text-slate-600 hover:text-slate-900 bg-white border border-slate-200 hover:bg-slate-100"
-              }`}
-            >
-              {cat.label}
-            </button>
-          ))}
-        </div>
-
-        {/* PLAYLISTS GRID */}
-        {filtered.length === 0 ? (
-          <div className="p-12 text-center bg-white rounded-2xl border border-slate-200 space-y-3">
-            <Bookmark className="h-10 w-10 text-slate-300 mx-auto" />
-            <h3 className="font-bold text-slate-700">No playlists found</h3>
-            <p className="text-xs text-slate-500 max-w-sm mx-auto">
-              {collectionFilter === "BOOKMARKED"
-                ? "You haven't bookmarked any playlists yet. Click the bookmark icon on any playlist card to save it for later."
-                : collectionFilter === "COMPLETED"
-                ? "You haven't marked any playlist as completed yet. Complete courses to build your portfolio."
-                : "No playlists match your search query."}
-            </p>
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={() => {
-                setCollectionFilter("ALL");
-                setSelectedCategory("ALL");
-                setSearchQuery("");
-              }}
-              className="rounded-xl text-xs"
-            >
-              Reset Filters
-            </Button>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {filtered.map((item) => {
-              const isBookmarked = bookmarkedIds.includes(item.id);
-              const isCompleted = completedIds.includes(item.id);
-
-              return (
-                <Card
-                  key={item.id}
-                  className={`border-slate-200 bg-white text-slate-900 flex flex-col justify-between hover:border-slate-300 transition-all hover:shadow-md shadow-sm relative ${
-                    isCompleted ? "border-emerald-300 bg-emerald-50/20" : ""
-                  }`}
-                >
-                  <CardHeader className="pb-3">
-                    <div className="flex items-start justify-between gap-3">
-                      <div>
-                        <div className="flex items-center gap-2 mb-1.5 flex-wrap">
-                          <span className="rounded bg-red-50 text-red-700 border border-red-200 px-2 py-0.5 text-[10px] font-mono font-bold">
-                            {item.subcategory}
-                          </span>
-                          <span className="text-xs text-slate-400">•</span>
-                          <span className="text-xs text-slate-500 font-medium">{item.difficulty}</span>
-
-                          {isCompleted && (
-                            <span className="rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300 px-2 py-0.5 text-[10px] font-bold flex items-center gap-1">
-                              <CheckCircle2 className="h-3 w-3" />
-                              Completed (+50 XP)
+                return (
+                  <Card
+                    key={item.id}
+                    className={`border-indigo-950/70 bg-[#0c1020] text-slate-200 flex flex-col justify-between hover:border-indigo-500/50 transition-all hover:shadow-xl shadow-md relative ${
+                      isCompleted ? "border-emerald-500/50 bg-emerald-950/10" : ""
+                    }`}
+                  >
+                    <CardHeader className="pb-3">
+                      <div className="flex items-start justify-between gap-3">
+                        <div>
+                          <div className="flex items-center gap-2 mb-1.5 flex-wrap">
+                            <span className="rounded bg-red-500/10 text-red-400 border border-red-500/30 px-2 py-0.5 text-[10px] font-mono font-bold">
+                              {item.subcategory}
                             </span>
-                          )}
-                        </div>
+                            <span className="text-xs text-slate-500">•</span>
+                            <span className="text-xs text-slate-400 font-medium">{item.difficulty}</span>
 
-                        <CardTitle className="text-lg font-bold text-slate-900 leading-snug">
-                          {item.title}
-                        </CardTitle>
-                        <div className="flex items-center gap-2 mt-1.5 text-xs text-slate-500">
-                          <span className="font-semibold text-slate-800">{item.creator}</span>
-                          <span>({item.creatorSubscribers} Subscribers)</span>
-                        </div>
-                      </div>
-
-                      {/* CARD QUICK ACTIONS (BOOKMARK, COMPLETE, EXTERNAL) */}
-                      <div className="flex items-center gap-1.5 shrink-0">
-                        <button
-                          onClick={(e) => toggleBookmark(item.id, e)}
-                          title={isBookmarked ? "Remove Bookmark" : "Save Bookmark"}
-                          className={`h-9 w-9 rounded-xl flex items-center justify-center border transition-all ${
-                            isBookmarked
-                              ? "bg-amber-50 text-amber-600 border-amber-300 hover:bg-amber-100"
-                              : "bg-slate-50 text-slate-400 border-slate-200 hover:text-slate-700 hover:bg-slate-100"
-                          }`}
-                        >
-                          {isBookmarked ? <BookmarkCheck className="h-4 w-4" /> : <Bookmark className="h-4 w-4" />}
-                        </button>
-
-                        <button
-                          onClick={(e) => toggleCompleted(item.id, e)}
-                          title={isCompleted ? "Mark Incomplete" : "Mark as Finished"}
-                          className={`h-9 w-9 rounded-xl flex items-center justify-center border transition-all ${
-                            isCompleted
-                              ? "bg-emerald-50 text-emerald-600 border-emerald-300 hover:bg-emerald-100"
-                              : "bg-slate-50 text-slate-400 border-slate-200 hover:text-emerald-600 hover:bg-slate-100"
-                          }`}
-                        >
-                          <CheckCircle2 className="h-4 w-4" />
-                        </button>
-
-                        <a
-                          href={item.youtubeUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="flex h-9 w-9 items-center justify-center rounded-xl bg-red-50 text-red-600 border border-red-200 hover:bg-red-600 hover:text-white transition-all shadow-xs"
-                          title="Open on YouTube"
-                        >
-                          <Youtube className="h-4 w-4" />
-                        </a>
-                      </div>
-                    </div>
-                  </CardHeader>
-
-                  <CardContent className="space-y-4 pt-1">
-                    <p className="text-xs text-slate-600 leading-relaxed">
-                      {item.description}
-                    </p>
-
-                    {/* METRICS */}
-                    <div className="grid grid-cols-2 gap-2 rounded-xl bg-slate-50 border border-slate-200 p-2.5 text-xs text-slate-600">
-                      <div className="flex items-center gap-1.5">
-                        <Clock className="h-3.5 w-3.5 text-emerald-600" />
-                        <span>Duration: <strong className="text-slate-900">{item.duration}</strong></span>
-                      </div>
-                      <div className="flex items-center gap-1.5">
-                        <Play className="h-3.5 w-3.5 text-red-500" />
-                        <span>{item.totalVideos} Full Episodes</span>
-                      </div>
-                    </div>
-
-                    {/* SKILLS */}
-                    <div className="space-y-1.5">
-                      <div className="text-[10px] font-mono uppercase text-slate-500 tracking-wider font-semibold">
-                        Core Concepts Taught
-                      </div>
-                      <div className="flex flex-wrap gap-1">
-                        {item.skillsLearned.map((sk) => (
-                          <span
-                            key={sk}
-                            className="rounded bg-slate-100 border border-slate-200 px-2 py-0.5 text-[11px] font-medium text-slate-700"
-                          >
-                            {sk}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* RECOMMENDED GITHUB REPOS */}
-                    {item.recommendedGithubRepos && item.recommendedGithubRepos.length > 0 && (
-                      <div className="rounded-xl border border-slate-200 bg-slate-50 p-3 space-y-2">
-                        <div className="text-[10px] font-mono uppercase text-slate-600 font-bold tracking-wider flex items-center gap-1.5">
-                          <Github className="h-3.5 w-3.5 text-slate-700" />
-                          Companion GitHub Libraries
-                        </div>
-                        <div className="space-y-2">
-                          {item.recommendedGithubRepos.map((repo) => (
-                            <div
-                              key={repo.name}
-                              className="flex items-start justify-between gap-2 text-xs border-t border-slate-200 pt-1.5 first:border-0 first:pt-0"
-                            >
-                              <div>
-                                <a
-                                  href={repo.repoUrl}
-                                  target="_blank"
-                                  rel="noreferrer"
-                                  className="font-mono font-bold text-emerald-700 hover:underline flex items-center gap-1"
-                                >
-                                  {repo.name}
-                                  <ExternalLink className="h-2.5 w-2.5" />
-                                </a>
-                                <p className="text-[11px] text-slate-500 mt-0.5">
-                                  {repo.description}
-                                </p>
-                              </div>
-                              <span className="font-mono text-[10px] text-amber-600 font-semibold shrink-0">
-                                ★ {repo.stars}
+                            {isCompleted && (
+                              <span className="rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 text-[10px] font-bold flex items-center gap-1">
+                                <CheckCircle2 className="h-3 w-3" />
+                                Completed (+50 XP)
                               </span>
-                            </div>
+                            )}
+                          </div>
+
+                          <CardTitle className="text-lg font-bold text-white leading-snug">
+                            {item.title}
+                          </CardTitle>
+                          <div className="flex items-center gap-2 mt-1.5 text-xs text-slate-400">
+                            <span className="font-semibold text-slate-300">{item.creator}</span>
+                            <span>({item.creatorSubscribers} Subscribers)</span>
+                          </div>
+                        </div>
+
+                        {/* CARD QUICK ACTIONS (BOOKMARK, COMPLETE, EXTERNAL) */}
+                        <div className="flex items-center gap-1.5 shrink-0">
+                          <button
+                            onClick={(e) => toggleBookmark(item.id, e)}
+                            title={isBookmarked ? "Remove Bookmark" : "Save Bookmark"}
+                            className={`h-9 w-9 rounded-xl flex items-center justify-center border transition-all ${
+                              isBookmarked
+                                ? "bg-amber-500/10 text-amber-400 border-amber-500/30 hover:bg-amber-500/20"
+                                : "bg-slate-900 text-slate-400 border-indigo-950/80 hover:text-white hover:bg-slate-800"
+                            }`}
+                          >
+                            {isBookmarked ? <BookmarkCheck className="h-4 w-4" /> : <Bookmark className="h-4 w-4" />}
+                          </button>
+
+                          <button
+                            onClick={(e) => toggleCompleted(item.id, e)}
+                            title={isCompleted ? "Mark Incomplete" : "Mark as Finished"}
+                            className={`h-9 w-9 rounded-xl flex items-center justify-center border transition-all ${
+                              isCompleted
+                                ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30 hover:bg-emerald-500/20"
+                                : "bg-slate-900 text-slate-400 border-indigo-950/80 hover:text-emerald-400 hover:bg-slate-800"
+                            }`}
+                          >
+                            <CheckCircle2 className="h-4 w-4" />
+                          </button>
+
+                          <a
+                            href={item.youtubeUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="flex h-9 w-9 items-center justify-center rounded-xl bg-red-500/10 text-red-400 border border-red-500/30 hover:bg-red-600 hover:text-white transition-all shadow-xs"
+                            title="Open on YouTube"
+                          >
+                            <Youtube className="h-4 w-4" />
+                          </a>
+                        </div>
+                      </div>
+                    </CardHeader>
+
+                    <CardContent className="space-y-4 pt-1">
+                      <p className="text-xs text-slate-400 leading-relaxed">
+                        {item.description}
+                      </p>
+
+                      {/* METRICS */}
+                      <div className="grid grid-cols-2 gap-2 rounded-xl bg-slate-900/60 border border-indigo-950/80 p-2.5 text-xs text-slate-400">
+                        <div className="flex items-center gap-1.5">
+                          <Clock className="h-3.5 w-3.5 text-indigo-400" />
+                          <span>Duration: <strong className="text-slate-200">{item.duration}</strong></span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <Play className="h-3.5 w-3.5 text-red-400" />
+                          <span>{item.totalVideos} Full Episodes</span>
+                        </div>
+                      </div>
+
+                      {/* SKILLS */}
+                      <div className="space-y-1.5">
+                        <div className="text-[10px] font-mono uppercase text-slate-500 tracking-wider font-semibold">
+                          Core Concepts Taught
+                        </div>
+                        <div className="flex flex-wrap gap-1">
+                          {item.skillsLearned.map((sk) => (
+                            <span
+                              key={sk}
+                              className="rounded bg-slate-900 border border-indigo-950 px-2 py-0.5 text-[11px] font-medium text-indigo-300"
+                            >
+                              {sk}
+                            </span>
                           ))}
                         </div>
                       </div>
-                    )}
 
-                    {/* 1-CLICK DEDICATED CERTIFICATE CTA BUTTON */}
-                    <Link href={`/courses/${item.id}/certificate`} className="block">
-                      <div className="group rounded-xl p-2.5 bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 text-white flex items-center justify-between shadow-sm hover:shadow-md transition-all">
-                        <div className="flex items-center gap-2">
-                          <div className="h-7 w-7 rounded-lg bg-white/10 flex items-center justify-center shrink-0">
-                            <Award className="h-4 w-4 text-amber-300" />
+                      {/* RECOMMENDED GITHUB REPOS */}
+                      {item.recommendedGithubRepos && item.recommendedGithubRepos.length > 0 && (
+                        <div className="rounded-xl border border-indigo-950/80 bg-slate-900/40 p-3 space-y-2">
+                          <div className="text-[10px] font-mono uppercase text-slate-400 font-bold tracking-wider flex items-center gap-1.5">
+                            <Github className="h-3.5 w-3.5 text-slate-300" />
+                            Companion GitHub Libraries
                           </div>
-                          <div>
-                            <span className="font-bold text-xs leading-none block">
-                              Test Your Knowledge On This Video &amp; Earn Certificate
-                            </span>
-                            <span className="text-[10px] text-emerald-100 block mt-0.5">
-                              30-Question Assessment &amp; Proof-of-Work Verification
-                            </span>
+                          <div className="space-y-2">
+                            {item.recommendedGithubRepos.map((repo) => (
+                              <div
+                                key={repo.name}
+                                className="flex items-start justify-between gap-2 text-xs border-t border-indigo-950 pt-1.5 first:border-0 first:pt-0"
+                              >
+                                <div>
+                                  <a
+                                    href={repo.repoUrl}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="font-mono font-bold text-indigo-400 hover:underline flex items-center gap-1"
+                                  >
+                                    {repo.name}
+                                    <ExternalLink className="h-2.5 w-2.5" />
+                                  </a>
+                                  <p className="text-[11px] text-slate-400 mt-0.5">
+                                    {repo.description}
+                                  </p>
+                                </div>
+                                <span className="font-mono text-[10px] text-amber-400 font-semibold shrink-0">
+                                  ★ {repo.stars}
+                                </span>
+                              </div>
+                            ))}
                           </div>
                         </div>
-                        <ArrowRight className="h-4 w-4 text-white group-hover:translate-x-0.5 transition-transform" />
-                      </div>
-                    </Link>
-
-                    {/* BOTTOM ACTIONS */}
-                    <div className="pt-2 border-t border-slate-100 flex items-center gap-2">
-                      <Button
-                        size="sm"
-                        onClick={() => handleOpenModal(item)}
-                        className="flex-1 bg-red-600 hover:bg-red-700 text-white font-bold text-xs gap-1.5 rounded-xl shadow-xs"
-                      >
-                        <Play className="h-3.5 w-3.5 fill-current" />
-                        <span>Watch With Timestamp Notes</span>
-                      </Button>
-
-                      {item.relatedProblemCategory && (
-                        <Link href={`/problems?category=${encodeURIComponent(item.relatedProblemCategory)}`} className="shrink-0">
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            className="border-purple-200 text-purple-700 hover:bg-purple-50 text-xs px-2.5 rounded-xl"
-                            title={`Solve ${item.relatedProblemCategory} Problems`}
-                          >
-                            <Code2 className="h-3.5 w-3.5" />
-                          </Button>
-                        </Link>
                       )}
-                    </div>
-                  </CardContent>
-                </Card>
-              );
-            })}
-          </div>
-        )}
 
-      </div>
+                      {/* 1-CLICK DEDICATED CERTIFICATE CTA BUTTON */}
+                      <Link href={`/courses/${item.id}/certificate`} className="block">
+                        <div className="group rounded-xl p-2.5 bg-gradient-to-r from-indigo-600 via-indigo-500 to-violet-600 text-white flex items-center justify-between shadow-md hover:shadow-indigo-500/20 transition-all">
+                          <div className="flex items-center gap-2">
+                            <div className="h-7 w-7 rounded-lg bg-white/10 flex items-center justify-center shrink-0">
+                              <Award className="h-4 w-4 text-amber-300" />
+                            </div>
+                            <div>
+                              <span className="font-bold text-xs leading-none block">
+                                Test Your Knowledge On This Video &amp; Earn Certificate
+                              </span>
+                              <span className="text-[10px] text-indigo-200 block mt-0.5">
+                                30-Question Assessment &amp; Proof-of-Work Verification
+                              </span>
+                            </div>
+                          </div>
+                          <ArrowRight className="h-4 w-4 text-white group-hover:translate-x-0.5 transition-transform" />
+                        </div>
+                      </Link>
+
+                      {/* BOTTOM ACTIONS */}
+                      <div className="pt-2 border-t border-indigo-950/80 flex items-center gap-2">
+                        <Button
+                          size="sm"
+                          onClick={() => handleOpenModal(item)}
+                          className="flex-1 bg-red-600 hover:bg-red-700 text-white font-bold text-xs gap-1.5 rounded-xl shadow-xs"
+                        >
+                          <Play className="h-3.5 w-3.5 fill-current" />
+                          <span>Watch With Timestamp Notes</span>
+                        </Button>
+
+                        {item.relatedProblemCategory && (
+                          <Link href={`/problems?category=${encodeURIComponent(item.relatedProblemCategory)}`} className="shrink-0">
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              className="border-indigo-950 text-indigo-400 hover:bg-slate-800 text-xs px-2.5 rounded-xl"
+                              title={`Solve ${item.relatedProblemCategory} Problems`}
+                            >
+                              <Code2 className="h-3.5 w-3.5" />
+                            </Button>
+                          </Link>
+                        )}
+                      </div>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
+          )}
+
+        </div>
+      </main>
 
       {/* EMBEDDED VIDEO PLAYER MODAL WITH SYNCHRONIZED TIMESTAMP CHAPTERS */}
       {activeModalCourse && (
@@ -672,6 +678,7 @@ export default function PlaylistsPage() {
         </div>
       )}
 
+      <StudyFooter />
     </div>
   );
 }

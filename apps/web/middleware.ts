@@ -136,7 +136,62 @@ export function middleware(req: NextRequest) {
     });
   }
 
-  // 4. If accessed on main web (rolenest.in):
+  const isStudySubdomain =
+    host.startsWith("study.") ||
+    req.headers.get("x-is-study") === "1";
+
+  // 4. If accessed on study.rolenest.in subdomain:
+  if (isStudySubdomain) {
+    const requestHeaders = new Headers(req.headers);
+    requestHeaders.set("x-is-study", "1");
+
+    // Clean URL: redirect /study to /
+    if (pathname === "/study" || pathname === "/study/") {
+      const redirectUrl = req.nextUrl.clone();
+      redirectUrl.pathname = "/";
+      return NextResponse.redirect(redirectUrl, 308);
+    }
+
+    // Rewrite root to /study
+    if (pathname === "/") {
+      return NextResponse.rewrite(new URL("/study", req.url), {
+        request: { headers: requestHeaders },
+      });
+    }
+
+    // Main site pages that don't belong on study subdomain redirect to rolenest.in
+    const MAIN_SITE_PAGES = ["/jobs", "/pricing", "/applications", "/resume", "/internship-bootcamp", "/donate", "/company"];
+    if (MAIN_SITE_PAGES.some((prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`))) {
+      return NextResponse.redirect(new URL(`https://rolenest.in${pathname}`, req.url));
+    }
+
+    return NextResponse.next({
+      request: { headers: requestHeaders },
+    });
+  }
+
+  // 5. If accessed on main web (rolenest.in):
+  if (pathname === "/study" || pathname.startsWith("/study/")) {
+    const subpath = pathname.replace(/^\/study/, "") || "/";
+    const search = req.nextUrl.search;
+    return NextResponse.redirect(new URL(`https://study.rolenest.in${subpath}${search}`), 308);
+  }
+
+  if (pathname === "/roadmaps" || pathname.startsWith("/roadmaps/")) {
+    const search = req.nextUrl.search;
+    return NextResponse.redirect(new URL(`https://study.rolenest.in${pathname}${search}`), 308);
+  }
+
+  if (pathname === "/playlists" || pathname.startsWith("/playlists/")) {
+    const search = req.nextUrl.search;
+    return NextResponse.redirect(new URL(`https://study.rolenest.in${pathname}${search}`), 308);
+  }
+
+  if (pathname === "/study-pods" || pathname.startsWith("/study-pods/")) {
+    const search = req.nextUrl.search;
+    return NextResponse.redirect(new URL(`https://study.rolenest.in${pathname}${search}`), 308);
+  }
+
   if (pathname === "/potd" || pathname.startsWith("/potd/")) {
     const search = req.nextUrl.search;
     return NextResponse.redirect(new URL(`https://problem.rolenest.in${pathname}${search}`), 308);

@@ -17,6 +17,8 @@ import {
 } from "lucide-react";
 import { MOCK_STUDY_PODS } from "@/lib/mock-pods";
 import { Button } from "@/components/ui/button";
+import { StudyNavbar } from "@/components/study-navbar";
+import { StudyFooter } from "@/components/study-footer";
 
 interface PodMessage {
   id: string;
@@ -127,8 +129,10 @@ export default function StudyPodDetailPage() {
   const progressPercent = Math.round((completedCount / pod.mockQuestions.length) * 100);
 
   return (
-    <div className="min-h-screen bg-slate-50/50 text-slate-900 py-10 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-5xl mx-auto space-y-8">
+    <div className="min-h-screen bg-[#070913] text-slate-100 flex flex-col font-sans selection:bg-indigo-500/30">
+      <StudyNavbar />
+      <main className="flex-1 py-10 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto space-y-8">
         {/* Top Header */}
         <div className="space-y-4">
           <Link
@@ -451,6 +455,8 @@ export default function StudyPodDetailPage() {
           </div>
         )}
       </div>
+      </main>
+      <StudyFooter />
     </div>
   );
 }

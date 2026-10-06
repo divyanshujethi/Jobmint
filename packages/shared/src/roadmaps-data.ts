@@ -40,7 +40,7 @@ export interface CareerRoadmap {
   slug: string;
   title: string;
   shortDescription: string;
-  category: "AI & ML" | "Web Development" | "Data Science" | "Mobile";
+  category: "AI & ML" | "Web Development" | "Data Science" | "Mobile" | "Backend & Systems" | "DevOps & Cloud";
   durationWeeks: string;
   level: "Beginner to Pro" | "Intermediate";
   keySkills: string[];
@@ -564,6 +564,140 @@ export const CAREER_ROADMAPS: CareerRoadmap[] = [
           { id: "da-w8-2", task: "Deliver an executive decision memo recommending product line expansions based on profit margin elasticity", deliverable: "executive_strategy_memo.pdf", estimatedHours: 6, xpBonus: 30 },
           { id: "da-w8-3", task: "Publish complete GitHub repository with reproducible Dockerized notebook and live dashboard link", deliverable: "GitHub portfolio repository README", estimatedHours: 6, xpBonus: 30 },
         ],
+      },
+    ],
+  },
+  {
+    slug: "backend-systems",
+    title: "Backend & Distributed Systems Architect",
+    shortDescription:
+      "Design high-throughput distributed microservices, caching topologies, message brokers, and transactional SQL engines with Go, Java, and Redis.",
+    category: "Backend & Systems",
+    durationWeeks: "10–12 Weeks",
+    level: "Beginner to Pro",
+    keySkills: ["Go / Java", "PostgreSQL", "Redis", "Kafka", "Docker", "System Design"],
+    phases: [
+      {
+        phaseNumber: 1,
+        title: "Systems Programming & Concurrent Runtimes",
+        description: "Master goroutines, threads, thread pools, memory synchronization, and network socket programming.",
+        skills: ["go", "java", "concurrency"],
+        resources: [
+          {
+            title: "Go Class by Matt Holiday",
+            provider: "YouTube (Matt Holiday)",
+            url: "https://www.youtube.com/playlist?list=PLoILbXuU65KSPJkkyN_BkWGf_jE1jE2f1",
+            type: "Video Series",
+            estimatedHours: 24,
+            cost: "100% Free",
+            badge: "Deep Systems Focus",
+          },
+        ],
+        projectIdea: {
+          title: "Multi-Threaded TCP Proxy & Load Balancer",
+          description: "Build an L4 reverse proxy with health checking and round-robin connection balancing from scratch.",
+          deliverables: ["Raw socket programming", "Graceful shutdown handling", "Benchmarked against NGINX"],
+        },
+      },
+      {
+        phaseNumber: 2,
+        title: "Relational Storage & Indexing Internals",
+        description: "B-Trees, WAL logs, ACID isolation levels, connection pooling, and query optimization in PostgreSQL.",
+        skills: ["postgresql", "sql-optimization"],
+        resources: [
+          {
+            title: "Use The Index, Luke (SQL Indexing Guide)",
+            provider: "Markus Winand",
+            url: "https://use-the-index-luke.com/",
+            type: "Documentation",
+            estimatedHours: 12,
+            cost: "100% Free",
+            badge: "Industry Gold Standard",
+          },
+        ],
+        projectIdea: {
+          title: "ACID-Compliant Banking Transaction Ledger",
+          description: "Design a high-concurrency ledger service with row-level locks, idempotency keys, and zero phantom reads.",
+          deliverables: ["Pessimistic vs Optimistic locking tests", "Idempotency layer", "Stress tested with vegeta/k6"],
+        },
+      },
+      {
+        phaseNumber: 3,
+        title: "Event-Driven Messaging & Distributed Caching",
+        description: "Kafka partitions, consumer groups, exactly-once semantics, Redis cache-aside, and write-through patterns.",
+        skills: ["kafka", "redis", "distributed-systems"],
+        resources: [
+          {
+            title: "Designing Data-Intensive Applications Study Guide",
+            provider: "Martin Kleppmann",
+            url: "https://dataintensive.net/",
+            type: "Course",
+            estimatedHours: 35,
+            cost: "100% Free",
+            badge: "Top Pick",
+          },
+        ],
+        projectIdea: {
+          title: "Real-Time Flash Sale Order Processing Engine",
+          description: "Build an event-driven inventory countdown system capable of handling 50,000 requests/sec with Redis Lua scripts and Kafka.",
+          deliverables: ["Redis atomic decrement", "Kafka order dispatch", "Distributed tracing with OpenTelemetry"],
+        },
+      },
+    ],
+  },
+  {
+    slug: "devops-cloud",
+    title: "DevOps & Cloud Platform Engineer",
+    shortDescription:
+      "Automate multi-cloud infrastructure as code, container orchestration with Kubernetes, CI/CD pipelines, and observability stacks.",
+    category: "DevOps & Cloud",
+    durationWeeks: "8–10 Weeks",
+    level: "Beginner to Pro",
+    keySkills: ["Docker", "Kubernetes", "Terraform", "GitHub Actions", "Prometheus", "AWS / Linux"],
+    phases: [
+      {
+        phaseNumber: 1,
+        title: "Linux Kernel Fundamentals & Containers",
+        description: "Linux namespaces, cgroups, multi-stage Docker builds, and non-root security contexts.",
+        skills: ["linux", "docker"],
+        resources: [
+          {
+            title: "Docker and Kubernetes: Full Course by TechWorld with Nana",
+            provider: "YouTube (TechWorld with Nana)",
+            url: "https://www.youtube.com/watch?v=X48VuDVv0do",
+            type: "Video Series",
+            estimatedHours: 18,
+            cost: "100% Free",
+            badge: "Beginner Friendly",
+          },
+        ],
+        projectIdea: {
+          title: "Hardened Production Container Base Images",
+          description: "Package a polyglot microservice with distroless images, minimal attack surfaces, and automated Trivy vulnerability scanning.",
+          deliverables: ["Distroless Dockerfile", "Zero CVE scan report", "Sub-50MB image size"],
+        },
+      },
+      {
+        phaseNumber: 2,
+        title: "Kubernetes Cluster Architecture & GitOps",
+        description: "Deployments, Services, Ingress controllers, Helm charts, and GitOps deployments with ArgoCD.",
+        skills: ["kubernetes", "helm", "argocd"],
+        resources: [
+          {
+            title: "Kubernetes the Hard Way",
+            provider: "Kelsey Hightower (GitHub)",
+            url: "https://github.com/kelseyhightower/kubernetes-the-hard-way",
+            type: "Interactive",
+            estimatedHours: 20,
+            cost: "100% Free",
+            badge: "Industry Gold Standard",
+          },
+        ],
+        projectIdea: {
+          title: "Zero-Downtime Blue/Green GitOps Pipeline",
+          description: "Configure automated deployments with ArgoCD, rollback triggers, and Prometheus-based canary analysis.",
+          deliverables: ["Helm chart repository", "ArgoCD Application CRD", "Canary metric gates"],
+        },
       },
     ],
   },

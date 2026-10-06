@@ -175,7 +175,13 @@ export default async function RootLayout({
     forwardedHost.includes("arena.") ||
     forwardedHost.includes("code.");
 
-  const isIsolatedHost = isDonationHost || isInternshipHost || isArenaHost;
+  const isStudyHeader = headersList.get("x-is-study") === "1";
+  const isStudyHost =
+    isStudyHeader ||
+    host.includes("study.") ||
+    forwardedHost.includes("study.");
+
+  const isIsolatedHost = isDonationHost || isInternshipHost || isArenaHost || isStudyHost;
 
   return (
     <html lang="en" className="h-full">
@@ -185,10 +191,10 @@ export default async function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`flex min-h-full flex-col font-sans antialiased ${isArenaHost ? "bg-slate-950 text-slate-100 dark" : "bg-slate-50/50 text-slate-900"}`}>
+      <body className={`flex min-h-full flex-col font-sans antialiased ${isStudyHost ? "bg-[#070913] text-slate-100 dark" : isArenaHost ? "bg-slate-950 text-slate-100 dark" : "bg-slate-50/50 text-slate-900"}`}>
         <CashfreeProvider />
         {!isIsolatedHost && <Navbar />}
-        <main className={isInternshipHost || isArenaHost ? "flex-1 pb-0" : "flex-1 pb-16 md:pb-0"}>{children}</main>
+        <main className={isInternshipHost || isArenaHost || isStudyHost ? "flex-1 pb-0" : "flex-1 pb-16 md:pb-0"}>{children}</main>
         {!isIsolatedHost && <Footer />}
         {!isIsolatedHost && <MobileNav />}
         {!isIsolatedHost && <PwaInstallPrompt />}

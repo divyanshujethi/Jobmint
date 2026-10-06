@@ -19,6 +19,8 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { getLiveJobs } from "@/lib/db-jobs";
 import { InteractiveRoadmapSprints } from "@/components/interactive-roadmap-sprints";
+import { StudyNavbar } from "@/components/study-navbar";
+import { StudyFooter } from "@/components/study-footer";
 
 interface RoadmapPageProps {
   params: Promise<{ slug: string }>;
@@ -39,15 +41,17 @@ export default async function RoadmapDetailPage({ params }: RoadmapPageProps) {
   );
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8 space-y-10">
-      {/* BREADCRUMB */}
-      <div className="flex items-center gap-2 text-xs text-slate-500">
-        <Link href="/roadmaps" className="hover:text-emerald-600">
-          Roadmaps
-        </Link>
-        <span>/</span>
-        <span className="text-slate-900 font-medium">{roadmap.title}</span>
-      </div>
+    <div className="min-h-screen bg-[#070913] text-slate-100 flex flex-col font-sans selection:bg-indigo-500/30">
+      <StudyNavbar />
+      <main className="flex-1 mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8 space-y-10 w-full">
+        {/* BREADCRUMB */}
+        <div className="flex items-center gap-2 text-xs text-slate-400">
+          <Link href="/roadmaps" className="hover:text-indigo-400">
+            Roadmaps
+          </Link>
+          <span>/</span>
+          <span className="text-slate-200 font-medium">{roadmap.title}</span>
+        </div>
 
       {/* HERO BANNER */}
       <div className="rounded-3xl bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 p-8 sm:p-10 text-white shadow-xl border border-slate-800">
@@ -261,6 +265,8 @@ export default async function RoadmapDetailPage({ params }: RoadmapPageProps) {
           ))}
         </div>
       </div>
+      </main>
+      <StudyFooter />
     </div>
   );
 }
