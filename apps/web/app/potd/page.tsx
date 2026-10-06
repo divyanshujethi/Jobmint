@@ -33,6 +33,8 @@ import {
   MessageCircle,
   Linkedin,
   ArrowRight,
+  Briefcase,
+  AlertTriangle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LEETCODE_PROBLEMS, Problem } from "@/lib/problems-data";
@@ -129,7 +131,7 @@ function POTDWorkspace() {
     cpp: initialProblem.starterCodeCpp,
     java: initialProblem.starterCodeJava,
   });
-  const [activeLeftTab, setActiveLeftTab] = useState<"DESCRIPTION" | "HINTS" | "EDITORIAL" | "CAMPUS" | "BADGES">("DESCRIPTION");
+  const [activeLeftTab, setActiveLeftTab] = useState<"DESCRIPTION" | "HINTS" | "EDITORIAL" | "AI_REVIEW" | "CAMPUS" | "BADGES">("DESCRIPTION");
   const [activeBottomTab, setActiveBottomTab] = useState<"TEST_CASES" | "CONSOLE">("TEST_CASES");
   const [activeTestCaseIdx, setActiveTestCaseIdx] = useState<number>(0);
 
@@ -149,6 +151,16 @@ function POTDWorkspace() {
   const [showProCelebration, setShowProCelebration] = useState(false);
   const [showProModal, setShowProModal] = useState(false);
 
+  // Mock OA Assessment Simulator State
+  const [isMockOaActive, setIsMockOaActive] = useState(false);
+  const [mockOaSecondsLeft, setMockOaSecondsLeft] = useState(3600);
+  const [mockOaScore, setMockOaScore] = useState<{ completed: boolean; timeTaken: string; passed: boolean } | null>(null);
+
+  // AI Code Review & Explainer State
+  const [aiReviewLoading, setAiReviewLoading] = useState(false);
+  const [aiReviewData, setAiReviewData] = useState<any>(null);
+  const [aiReviewError, setAiReviewError] = useState<string | null>(null);
+
   // Sponsored Hackathons / POTD B2B Monetization State
   const [showSponsorModal, setShowSponsorModal] = useState(false);
   const [sponsorCompany, setSponsorCompany] = useState("");
@@ -157,6 +169,55 @@ function POTDWorkspace() {
   const [isSubmittingSponsor, setIsSubmittingSponsor] = useState(false);
   const [sponsorSubmitted, setSponsorSubmitted] = useState(false);
   const [user, setUser] = useState<any>(null);
+
+  // Mock OA Simulator 60-min countdown timer
+  useEffect(() => {
+    if (!isMockOaActive) return;
+    const interval = setInterval(() => {
+      setMockOaSecondsLeft((prev) => {
+        if (prev <= 1) {
+          clearInterval(interval);
+          setIsMockOaActive(false);
+          setMockOaScore({
+            completed: true,
+            timeTaken: "60:00 (Time Expired)",
+            passed: false,
+          });
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [isMockOaActive]);
+
+  const handleRunAiReview = async () => {
+    setAiReviewLoading(true);
+    setAiReviewError(null);
+    try {
+      const currentCode = languageCodeMap[selectedLanguage] || "";
+      const res = await fetch("/api/arena/ai-review", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          code: currentCode,
+          language: selectedLanguage,
+          problemTitle: currentProblem.title,
+          problemDescription: currentProblem.description,
+          category: currentProblem.category,
+          difficulty: currentProblem.difficulty,
+        }),
+      });
+      if (!res.ok) throw new Error("Could not generate AI code review");
+      const data = await res.json();
+      setAiReviewData(data);
+      setActiveLeftTab("AI_REVIEW");
+    } catch (err: any) {
+      setAiReviewError(err?.message || "AI review failed. Please try again.");
+    } finally {
+      setAiReviewLoading(false);
+    }
+  };
 
   useEffect(() => {
     fetch("/api/auth/session")
@@ -427,6 +488,37 @@ function POTDWorkspace() {
             })}
           </div>
 
+          {/* Mock OA Assessment Simulator Toggle Button */}
+          <button
+            onClick={() => {
+              if (isMockOaActive) {
+                setIsMockOaActive(false);
+                setMockOaScore({
+                  completed: true,
+                  timeTaken: `${Math.floor((3600 - mockOaSecondsLeft) / 60)}m ${(3600 - mockOaSecondsLeft) % 60}s`,
+                  passed: isCurrentSolved,
+                });
+              } else {
+                setIsMockOaActive(true);
+                setMockOaSecondsLeft(3600);
+                setMockOaScore(null);
+              }
+            }}
+            className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-bold transition-all ${
+              isMockOaActive
+                ? "bg-rose-600 hover:bg-rose-500 text-white animate-pulse"
+                : "bg-purple-950/60 hover:bg-purple-900/60 text-purple-300 border border-purple-700/60"
+            }`}
+            title="Timed 60-min FAANG Online Assessment test conditions"
+          >
+            <Clock className="h-3 w-3" />
+            <span>
+              {isMockOaActive
+                ? `OA: ${Math.floor(mockOaSecondsLeft / 60)}:${String(mockOaSecondsLeft % 60).padStart(2, "0")}`
+                : "Mock OA Simulator"}
+            </span>
+          </button>
+
           <Link
             href="/problems"
             className="flex items-center gap-1 text-[11px] font-semibold text-neutral-400 hover:text-white px-2 py-1 rounded bg-neutral-900 border border-neutral-800 hover:border-neutral-700 transition-colors"
@@ -436,6 +528,38 @@ function POTDWorkspace() {
           </Link>
         </div>
       </div>
+
+      {/* MOCK OA ACTIVE BANNER */}
+      {isMockOaActive && (
+        <div className="bg-purple-950/80 border-b border-purple-700/80 px-4 py-2 flex flex-wrap items-center justify-between gap-3 text-xs text-purple-200">
+          <div className="flex items-center gap-2">
+            <span className="flex h-2.5 w-2.5 rounded-full bg-rose-500 animate-ping" />
+            <span className="font-bold text-white uppercase tracking-wider text-[11px] font-mono">
+              FAANG Mock OA Test Mode (60 Mins)
+            </span>
+            <span className="text-[11px] text-purple-300 hidden sm:inline">• Strict test conditions • O(N) complexity &amp; edge cases required</span>
+          </div>
+          <div className="flex items-center gap-3 font-mono text-xs">
+            <span className="text-amber-300 font-bold flex items-center gap-1">
+              <Clock className="h-3.5 w-3.5" />
+              {Math.floor(mockOaSecondsLeft / 60)}m {mockOaSecondsLeft % 60}s
+            </span>
+            <button
+              onClick={() => {
+                setIsMockOaActive(false);
+                setMockOaScore({
+                  completed: true,
+                  timeTaken: `${Math.floor((3600 - mockOaSecondsLeft) / 60)}m ${(3600 - mockOaSecondsLeft) % 60}s`,
+                  passed: isCurrentSolved,
+                });
+              }}
+              className="px-2 py-0.5 rounded bg-rose-600 hover:bg-rose-500 text-white font-bold text-[10px]"
+            >
+              Submit &amp; Grade OA
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* MOBILE SEGMENTED CONTROL (< lg) */}
       <div className="flex lg:hidden items-center justify-between p-1.5 bg-slate-950 border-b border-slate-800 shrink-0 sticky top-0 z-20">
@@ -504,6 +628,17 @@ function POTDWorkspace() {
               Editorial
             </button>
             <button
+              onClick={() => setActiveLeftTab("AI_REVIEW")}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-colors whitespace-nowrap ${
+                activeLeftTab === "AI_REVIEW"
+                  ? "bg-purple-950/80 text-purple-300 border border-purple-700"
+                  : "text-purple-400 hover:text-white"
+              }`}
+            >
+              <Sparkles className="h-3.5 w-3.5 text-purple-400" />
+              AI Code Review
+            </button>
+            <button
               onClick={() => setActiveLeftTab("CAMPUS")}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-colors whitespace-nowrap ${
                 activeLeftTab === "CAMPUS"
@@ -556,6 +691,25 @@ function POTDWorkspace() {
                   <h2 className="text-xl font-black text-white tracking-tight">
                     {currentProblem.title}
                   </h2>
+
+                  {/* Company Tags */}
+                  {currentProblem.companies && currentProblem.companies.length > 0 && (
+                    <div className="flex flex-wrap items-center gap-1.5 pt-1 pb-1">
+                      <span className="text-[11px] font-mono text-amber-400 font-semibold flex items-center gap-1">
+                        <Building2 className="h-3 w-3" />
+                        Targeted in FAANG &amp; Tech OA:
+                      </span>
+                      {currentProblem.companies.map((company: string) => (
+                        <span
+                          key={company}
+                          className="rounded bg-neutral-900 border border-neutral-800 px-2 py-0.5 text-[10px] font-mono text-neutral-300 flex items-center gap-1 shadow-xs"
+                        >
+                          <Building2 className="h-2.5 w-2.5 text-amber-400" />
+                          {company}
+                        </span>
+                      ))}
+                    </div>
+                  )}
                 </div>
 
                 {/* Real-World Context Callout */}
@@ -607,6 +761,47 @@ function POTDWorkspace() {
                     ))}
                   </ul>
                 </div>
+
+                {/* RECRUITER FAST-TRACK REFERRAL STATUS */}
+                <div className="rounded-2xl border border-blue-500/30 bg-blue-950/20 p-4 space-y-2.5 mt-2">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="p-1.5 rounded-xl bg-blue-500/20 text-blue-400 border border-blue-500/30">
+                        <Briefcase className="h-4 w-4" />
+                      </div>
+                      <div>
+                        <div className="text-xs font-bold text-white flex items-center gap-2">
+                          <span>Recruiter Fast-Track Referral</span>
+                          <span className="rounded-full bg-blue-500/20 text-blue-300 text-[10px] font-mono px-2 py-0.2 border border-blue-500/40">
+                            Verified Candidate
+                          </span>
+                        </div>
+                        <div className="text-[10px] text-blue-300/80">
+                          Direct pipeline to Google, Amazon, Microsoft, Swiggy, &amp; Uber recruiters
+                        </div>
+                      </div>
+                    </div>
+                    <span className="text-[11px] font-mono font-bold px-2.5 py-1 rounded-lg bg-blue-500/20 text-blue-300 border border-blue-500/40">
+                      DevScore: {userDevScore || 750}/1000
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-neutral-300 leading-relaxed font-sans">
+                    Top DevScore profiles bypass resume screening filters. Every verified problem solve writes authentic proof-of-work to your profile and dispatches you directly into employer inboxes on RoleNest.
+                  </p>
+                  <div className="flex items-center justify-between pt-1 text-xs">
+                    <a
+                      href="https://rolenest.in/jobs"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-[11px] font-bold text-blue-400 hover:text-blue-300 underline font-mono"
+                    >
+                      Explore 5,000+ Direct ATS Openings on RoleNest ↗
+                    </a>
+                    <span className="text-[10px] text-emerald-400 font-mono">
+                      ✓ Direct Referral Active
+                    </span>
+                  </div>
+                </div>
               </>
             )}
 
@@ -644,6 +839,155 @@ function POTDWorkspace() {
                 <div className="whitespace-pre-line text-slate-300 text-xs leading-relaxed font-sans rounded-2xl border border-slate-800 bg-slate-900/80 p-5 space-y-3">
                   {currentProblem.editorial}
                 </div>
+              </div>
+            )}
+
+            {activeLeftTab === "AI_REVIEW" && (
+              <div className="space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div>
+                    <h3 className="font-bold text-white text-base flex items-center gap-2">
+                      <Sparkles className="h-4 w-4 text-purple-400" />
+                      AI Code Reviewer &amp; Explainer
+                    </h3>
+                    <p className="text-xs text-slate-400">
+                      Step-by-step editorial breakdowns, edge case debugging, and O(N) complexity proofs.
+                    </p>
+                  </div>
+                  <Button
+                    size="sm"
+                    onClick={handleRunAiReview}
+                    disabled={aiReviewLoading}
+                    className="bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs gap-1.5 shrink-0"
+                  >
+                    <Sparkles className="h-3.5 w-3.5" />
+                    {aiReviewLoading ? "Analyzing..." : "Review My Code"}
+                  </Button>
+                </div>
+
+                {aiReviewError && (
+                  <div className="p-3 rounded-xl bg-rose-950/60 border border-rose-800 text-rose-300 text-xs">
+                    {aiReviewError}
+                  </div>
+                )}
+
+                {aiReviewLoading && (
+                  <div className="p-8 rounded-2xl border border-purple-900/60 bg-purple-950/20 text-center space-y-3 animate-pulse">
+                    <div className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-purple-500/20 text-purple-400 border border-purple-500/30">
+                      <Sparkles className="h-5 w-5" />
+                    </div>
+                    <div className="text-sm font-bold text-white">Analyzing AST &amp; Algorithmic Complexity...</div>
+                    <p className="text-xs text-neutral-400 max-w-sm mx-auto">
+                      Evaluating edge cases, verifying Big-O time and space proofs, and identifying structural optimizations.
+                    </p>
+                  </div>
+                )}
+
+                {!aiReviewLoading && !aiReviewData && (
+                  <div className="p-6 rounded-2xl border border-slate-800 bg-slate-900/60 text-center space-y-3">
+                    <div className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-purple-500/10 text-purple-400 border border-purple-500/20">
+                      <Sparkles className="h-5 w-5" />
+                    </div>
+                    <div className="text-sm font-bold text-white">Ready to Inspect Your Solution</div>
+                    <p className="text-xs text-neutral-400 max-w-sm mx-auto">
+                      Click below to get an automated editorial breakdown, edge-case vulnerability checklist, and mathematical Big-O proof for your current code.
+                    </p>
+                    <Button
+                      onClick={handleRunAiReview}
+                      className="bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs gap-1.5 shadow-md shadow-purple-950"
+                    >
+                      <Sparkles className="h-3.5 w-3.5" />
+                      <span>Analyze Solution with AI</span>
+                    </Button>
+                  </div>
+                )}
+
+                {aiReviewData && (
+                  <div className="space-y-4 animate-in fade-in">
+                    {/* Verdict & Complexity Card */}
+                    <div className="rounded-2xl border border-purple-500/30 bg-purple-950/20 p-4 space-y-3">
+                      <div className="flex flex-wrap items-center justify-between gap-2">
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs font-mono uppercase text-purple-300 font-bold">Review Verdict:</span>
+                          <span className={`px-2.5 py-0.5 rounded-full text-xs font-mono font-bold ${
+                            String(aiReviewData.verdict).toLowerCase().includes("optimal")
+                              ? "bg-emerald-950 text-emerald-300 border border-emerald-800"
+                              : "bg-amber-950 text-amber-300 border border-amber-800"
+                          }`}>
+                            {aiReviewData.verdict || "Optimal"}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-2 font-mono text-xs">
+                          <span className="px-2 py-0.5 rounded bg-slate-900 border border-slate-700 text-amber-300 font-bold">
+                            Time: {aiReviewData.timeComplexity || "O(n)"}
+                          </span>
+                          <span className="px-2 py-0.5 rounded bg-slate-900 border border-slate-700 text-blue-300 font-bold">
+                            Space: {aiReviewData.spaceComplexity || "O(n)"}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="rounded-xl bg-slate-900/80 p-3 border border-slate-800 text-xs text-neutral-300 space-y-1">
+                        <div className="font-bold text-white text-[11px] font-mono flex items-center gap-1.5 text-purple-300">
+                          <Zap className="h-3.5 w-3.5" />
+                          O(N) Complexity Proof:
+                        </div>
+                        <p className="leading-relaxed text-[11px] text-neutral-300">
+                          {aiReviewData.complexityProof}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Step-by-Step Editorial Breakdown */}
+                    {aiReviewData.editorialBreakdown && (
+                      <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-4 space-y-2.5">
+                        <h4 className="font-bold text-white text-xs font-mono uppercase tracking-wider flex items-center gap-1.5">
+                          <BookOpen className="h-3.5 w-3.5 text-indigo-400" />
+                          Step-by-Step Editorial Breakdown
+                        </h4>
+                        <div className="space-y-1.5 text-xs text-slate-300">
+                          {aiReviewData.editorialBreakdown.map((step: string, sIdx: number) => (
+                            <div key={sIdx} className="p-2.5 rounded-lg bg-slate-950/60 border border-slate-800/80 leading-relaxed">
+                              {step}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Edge Case Checklist */}
+                    {aiReviewData.edgeCases && (
+                      <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-4 space-y-2.5">
+                        <h4 className="font-bold text-white text-xs font-mono uppercase tracking-wider flex items-center gap-1.5">
+                          <AlertTriangle className="h-3.5 w-3.5 text-amber-400" />
+                          Edge Case Debugging &amp; Vulnerability Analysis
+                        </h4>
+                        <div className="space-y-1.5 text-xs text-slate-300">
+                          {aiReviewData.edgeCases.map((edge: string, eIdx: number) => (
+                            <div key={eIdx} className="p-2.5 rounded-lg bg-amber-950/20 border border-amber-900/30 leading-relaxed text-amber-200">
+                              {edge}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Clean Code Tips */}
+                    {aiReviewData.cleanCodeTips && (
+                      <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-4 space-y-2.5">
+                        <h4 className="font-bold text-white text-xs font-mono uppercase tracking-wider flex items-center gap-1.5">
+                          <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
+                          Clean Code &amp; Optimization Tips
+                        </h4>
+                        <ul className="list-disc list-inside space-y-1 text-xs text-slate-300">
+                          {aiReviewData.cleanCodeTips.map((tip: string, tIdx: number) => (
+                            <li key={tIdx} className="leading-relaxed">{tip}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
             )}
 
@@ -959,6 +1303,17 @@ function POTDWorkspace() {
 
               {/* Action Buttons */}
               <div className="flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleRunAiReview}
+                  disabled={aiReviewLoading}
+                  className="bg-purple-950/40 border-purple-800 text-purple-300 hover:bg-purple-900/60 text-xs font-bold gap-1.5"
+                  title="Generate step-by-step editorial breakdown and O(N) complexity proof"
+                >
+                  <Sparkles className="h-3.5 w-3.5 text-purple-400" />
+                  <span>{aiReviewLoading ? "Reviewing..." : "AI Review"}</span>
+                </Button>
                 <Button
                   variant="outline"
                   size="sm"
@@ -1424,6 +1779,79 @@ function POTDWorkspace() {
                 <span>Explore Next Challenge (+50 XP)</span>
                 <ArrowRight className="h-3.5 w-3.5" />
               </Link>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* MOCK OA ASSESSMENT SCORECARD MODAL */}
+      {mockOaScore && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-sm p-4 animate-in fade-in">
+          <div className="relative w-full max-w-lg rounded-3xl border border-purple-500/40 bg-[#121212] p-6 sm:p-8 shadow-2xl text-neutral-100 font-sans space-y-6">
+            <button
+              onClick={() => setMockOaScore(null)}
+              className="absolute right-5 top-5 p-1.5 rounded-xl text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors"
+            >
+              <X className="h-5 w-5" />
+            </button>
+
+            <div className="text-center space-y-2">
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-purple-500/20 border border-purple-500/40 px-3.5 py-1 text-xs font-mono font-bold text-purple-300">
+                <Clock className="h-4 w-4 text-purple-400" />
+                <span>FAANG Mock OA Assessment Report</span>
+              </div>
+              <h3 className="text-2xl font-black text-white">
+                {mockOaScore.passed ? "Assessment Passed 🎉" : "Mock OA Completed"}
+              </h3>
+              <p className="text-xs text-neutral-400">
+                Performance benchmarked under authentic timed FAANG test conditions.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              <div className="rounded-2xl border border-neutral-800 bg-[#171717] p-3.5 text-center">
+                <div className="text-[10px] font-mono uppercase text-neutral-400 font-bold">Time Taken</div>
+                <div className="text-xl font-black text-amber-400 mt-1">{mockOaScore.timeTaken}</div>
+                <div className="text-[10px] text-neutral-500">Benchmark: &lt; 45 mins</div>
+              </div>
+
+              <div className="rounded-2xl border border-neutral-800 bg-[#171717] p-3.5 text-center">
+                <div className="text-[10px] font-mono uppercase text-neutral-400 font-bold">Test Matrix</div>
+                <div className="text-xl font-black text-emerald-400 mt-1">{mockOaScore.passed ? "100% Passed" : "In Progress"}</div>
+                <div className="text-[10px] text-neutral-500">Automated Judge</div>
+              </div>
+            </div>
+
+            <div className="rounded-2xl border border-blue-500/30 bg-blue-950/20 p-4 space-y-2">
+              <div className="flex items-center gap-2 text-xs font-bold text-white">
+                <Briefcase className="h-4 w-4 text-blue-400" />
+                <span>Recruiter Referral Status</span>
+              </div>
+              <p className="text-[11px] text-neutral-300 leading-relaxed">
+                {mockOaScore.passed
+                  ? "Your successful timed OA submission qualifies your profile for priority fast-track referral directly to Google, Amazon, and Swiggy recruiters on RoleNest."
+                  : "Keep practicing! Solving problems with passing test cases unlocks recruiter fast-track referral priority."}
+              </p>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <Button
+                onClick={() => {
+                  setMockOaScore(null);
+                  handleRunAiReview();
+                }}
+                className="flex-1 bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs py-2.5 rounded-xl gap-1.5"
+              >
+                <Sparkles className="h-4 w-4" />
+                <span>Review with AI</span>
+              </Button>
+              <Button
+                onClick={() => setMockOaScore(null)}
+                variant="outline"
+                className="border-neutral-700 bg-neutral-900 text-neutral-200 text-xs py-2.5 rounded-xl"
+              >
+                Close
+              </Button>
             </div>
           </div>
         </div>

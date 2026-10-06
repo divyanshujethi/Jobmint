@@ -29,6 +29,7 @@ export interface Problem {
   testCases: TestCase[];
   editorial: string;
   badgeName: string;
+  companies?: string[];
 }
 
 export const LEETCODE_PROBLEMS: Problem[] = [
@@ -139,7 +140,8 @@ export const LEETCODE_PROBLEMS: Problem[] = [
       }
     ],
     "editorial": "### Optimal Approach: Hash Map (One-Pass)\n\nInstead of checking every pair with nested loops in $O(n^2)$, we can trade space for time using a Hash Map.\n\n1. Iterate through `nums` with index `i`.\n2. For each number, compute `diff = target - nums[i]`.\n3. If `diff` exists in our map, we have found our pair: return `[map.get(diff), i]`.\n4. Otherwise, store `map.set(nums[i], i)` and continue.\n\n- **Time Complexity:** $O(n)$\n- **Space Complexity:** $O(n)$",
-    "badgeName": "Arrays Master: Two Sum"
+    "badgeName": "Arrays Master: Two Sum",
+    "companies": ["Google","Amazon","Microsoft","Swiggy","Uber"]
   },
   {
     "id": "valid-parentheses",
@@ -217,7 +219,8 @@ export const LEETCODE_PROBLEMS: Problem[] = [
       }
     ],
     "editorial": "### Optimal Approach: Stack\n\n1. Initialize an empty stack.\n2. Map closing brackets to opening brackets: `')': '(', '}': '{', ']': '['`.\n3. Traverse `s`. If character is an open bracket, push to stack.\n4. If closing bracket, pop from stack and verify match.\n5. Valid if stack is completely empty at the end.\n\n- **Time Complexity:** $O(n)$\n- **Space Complexity:** $O(n)$",
-    "badgeName": "Stack Architect: Parentheses"
+    "badgeName": "Stack Architect: Parentheses",
+    "companies": ["Amazon","Microsoft","Google","Bloomberg"]
   },
   {
     "id": "best-time-to-buy-and-sell-stock",
@@ -307,7 +310,8 @@ export const LEETCODE_PROBLEMS: Problem[] = [
       }
     ],
     "editorial": "### Optimal Approach: Single-Pass Greedy\n\nTrack the lowest price encountered so far (`minPrice`) and check the profit if sold today:\n\n```js\nlet minPrice = Infinity;\nlet maxProfit = 0;\nfor (const p of prices) {\n  if (p < minPrice) minPrice = p;\n  else if (p - minPrice > maxProfit) maxProfit = p - minPrice;\n}\nreturn maxProfit;\n```\n\n- **Time Complexity:** $O(n)$\n- **Space Complexity:** $O(1)$",
-    "badgeName": "HFT Quant: Stock Arbitrage"
+    "badgeName": "HFT Quant: Stock Arbitrage",
+    "companies": ["Amazon","Google","Swiggy","Goldman Sachs"]
   },
   {
     "id": "max-subarray",
@@ -401,7 +405,8 @@ export const LEETCODE_PROBLEMS: Problem[] = [
       }
     ],
     "editorial": "### Optimal Approach: Kadane's Algorithm\n\n```js\nlet maxSum = nums[0];\nlet curr = 0;\nfor (const n of nums) {\n  curr = Math.max(n, curr + n);\n  maxSum = Math.max(maxSum, curr);\n}\nreturn maxSum;\n```\n\n- **Time Complexity:** $O(n)$\n- **Space Complexity:** $O(1)$",
-    "badgeName": "DP Vanguard: Kadane"
+    "badgeName": "DP Vanguard: Kadane",
+    "companies": ["Google","Amazon","Microsoft"]
   },
   {
     "id": "contains-duplicate",
@@ -484,7 +489,8 @@ export const LEETCODE_PROBLEMS: Problem[] = [
       }
     ],
     "editorial": "### Optimal Approach: Hash Set\n\n```js\nreturn new Set(nums).size < nums.length;\n```\n\n- **Time Complexity:** $O(n)$\n- **Space Complexity:** $O(n)$",
-    "badgeName": "Hash Master: Deduplication"
+    "badgeName": "Hash Master: Deduplication",
+    "companies": ["Amazon","Apple","Adobe","Swiggy"]
   },
   {
     "id": "valid-anagram",
@@ -545,7 +551,8 @@ export const LEETCODE_PROBLEMS: Problem[] = [
       }
     ],
     "editorial": "### Optimal Approach: Frequency Array\n\n```js\nif (s.length !== t.length) return false;\nconst count = {};\nfor (const c of s) count[c] = (count[c] || 0) + 1;\nfor (const c of t) {\n  if (!count[c]) return false;\n  count[c]--;\n}\nreturn true;\n```\n\n- **Time Complexity:** $O(n)$\n- **Space Complexity:** $O(1)$",
-    "badgeName": "Frequency Specialist: Anagram"
+    "badgeName": "Frequency Specialist: Anagram",
+    "companies": ["Uber","Google","Amazon"]
   },
   {
     "id": "merge-intervals",
@@ -664,7 +671,8 @@ export const LEETCODE_PROBLEMS: Problem[] = [
       }
     ],
     "editorial": "### Optimal Approach: Sort + Single Scan\n\n```js\nif (intervals.length <= 1) return intervals;\nintervals.sort((a, b) => a[0] - b[0]);\nconst merged = [intervals[0]];\nfor (let i = 1; i < intervals.length; i++) {\n  const prev = merged[merged.length - 1];\n  const curr = intervals[i];\n  if (curr[0] <= prev[1]) {\n    prev[1] = Math.max(prev[1], curr[1]);\n  } else {\n    merged.push(curr);\n  }\n}\nreturn merged;\n```\n\n- **Time Complexity:** $O(n \\log n)$\n- **Space Complexity:** $O(n)$",
-    "badgeName": "Calendar Maven: Intervals"
+    "badgeName": "Calendar Maven: Intervals",
+    "companies": ["Google","Uber","Microsoft","Swiggy"]
   },
   {
     "id": "binary-search",
@@ -757,7 +765,8 @@ export const LEETCODE_PROBLEMS: Problem[] = [
       }
     ],
     "editorial": "### Optimal Approach: Classical Binary Search\n\n```js\nlet left = 0;\nlet right = nums.length - 1;\nwhile (left <= right) {\n  const mid = Math.floor((left + right) / 2);\n  if (nums[mid] === target) return mid;\n  if (nums[mid] < target) left = mid + 1;\n  else right = mid - 1;\n}\nreturn -1;\n```\n\n- **Time Complexity:** $O(\\log n)$\n- **Space Complexity:** $O(1)$",
-    "badgeName": "Algorithmist: Binary Search"
+    "badgeName": "Algorithmist: Binary Search",
+    "companies": ["Microsoft","Google","Amazon","Uber"]
   },
   // ── AI & MACHINE LEARNING ──
   {
@@ -813,7 +822,8 @@ export const LEETCODE_PROBLEMS: Problem[] = [
       }
     ],
     "editorial": "### Vector Math\n\nCompute dot product and norms in a single pass:\n\n```python\ndot = sum(a * b for a, b in zip(vecA, vecB))\nnormA = math.sqrt(sum(a * a for a in vecA))\nnormB = math.sqrt(sum(b * b for b in vecB))\nreturn round(dot / (normA * normB), 4) if normA and normB else 0.0\n```",
-    "badgeName": "AI Architect: Vector Math"
+    "badgeName": "AI Architect: Vector Math",
+    "companies": ["Google","Amazon","Microsoft","Swiggy","Uber"]
   },
   {
     "id": "softmax-layer",
@@ -858,7 +868,8 @@ export const LEETCODE_PROBLEMS: Problem[] = [
       }
     ],
     "editorial": "Subtract `max(logits)` to guard against floating-point overflow during `exp()`.",
-    "badgeName": "GenAI Pioneer: Token Sampling"
+    "badgeName": "GenAI Pioneer: Token Sampling",
+    "companies": ["Google","Amazon","Microsoft","Swiggy"]
   },
   {
     "id": "bpe-tokenizer-freq",
@@ -902,7 +913,8 @@ export const LEETCODE_PROBLEMS: Problem[] = [
       }
     ],
     "editorial": "Iterate tokens and check `tokens[i] == pair[0] and tokens[i+1] == pair[1]`.",
-    "badgeName": "NLP Specialist: Tokenizer Engine"
+    "badgeName": "NLP Specialist: Tokenizer Engine",
+    "companies": ["Google","Amazon","Microsoft"]
   },
   // ── WEB ENGINEERING ──
   {
@@ -945,7 +957,8 @@ export const LEETCODE_PROBLEMS: Problem[] = [
       }
     ],
     "editorial": "Recursively check `Array.isArray()` and push items to the accumulator.",
-    "badgeName": "Frontend Architect: Tree Traversal"
+    "badgeName": "Frontend Architect: Tree Traversal",
+    "companies": ["Google","Amazon","Microsoft","Swiggy","Uber"]
   },
   {
     "id": "deep-clone-object",
@@ -986,7 +999,8 @@ export const LEETCODE_PROBLEMS: Problem[] = [
       }
     ],
     "editorial": "Recursively construct new dictionaries and lists without object references.",
-    "badgeName": "Full-Stack Engineer: Immutability"
+    "badgeName": "Full-Stack Engineer: Immutability",
+    "companies": ["Google","Amazon","Microsoft","Swiggy","Uber"]
   },
   // ── SYSTEM DESIGN & DISTRIBUTED SYSTEMS ──
   {
@@ -1032,7 +1046,8 @@ export const LEETCODE_PROBLEMS: Problem[] = [
       }
     ],
     "editorial": "Lazy refill calculation: `tokens = min(capacity, current_tokens + delta_t * rate)`.",
-    "badgeName": "Gateway Architect: Traffic Control"
+    "badgeName": "Gateway Architect: Traffic Control",
+    "companies": ["Uber","Swiggy","Amazon","Google"]
   },
   {
     "id": "consistent-hashing-lookup",
@@ -1086,7 +1101,8 @@ export const LEETCODE_PROBLEMS: Problem[] = [
       }
     ],
     "editorial": "Use binary search `bisect_left(nodes, keyHash)` and return `nodes[idx % len(nodes)]`.",
-    "badgeName": "Distributed Systems: Consistent Hashing"
+    "badgeName": "Distributed Systems: Consistent Hashing",
+    "companies": ["Google","Amazon","Microsoft","Swiggy"]
   },
   {
     "id": "product-of-array-except-self",
@@ -1189,7 +1205,8 @@ export const LEETCODE_PROBLEMS: Problem[] = [
       }
     ],
     "editorial": "Compute running prefix products from left-to-right, then traverse right-to-left accumulating suffix products into the output array.",
-    "badgeName": "Product Array Prodigy"
+    "badgeName": "Product Array Prodigy",
+    "companies": ["Amazon","Microsoft","Apple","Uber"]
   },
   {
     "id": "top-k-frequent-elements",
@@ -1277,7 +1294,8 @@ export const LEETCODE_PROBLEMS: Problem[] = [
       }
     ],
     "editorial": "Build a frequency map, then use Bucket Sort with an array of lists indexed by frequency from 0 to N.",
-    "badgeName": "Top-K Trending Architect"
+    "badgeName": "Top-K Trending Architect",
+    "companies": ["Google","Amazon","Microsoft","Swiggy","Uber"]
   },
   {
     "id": "longest-consecutive-sequence",
@@ -1354,7 +1372,8 @@ export const LEETCODE_PROBLEMS: Problem[] = [
       }
     ],
     "editorial": "Use a HashSet to look up sequence starts in O(1). Only expand from `x` when `x - 1` is absent, guaranteeing each number is visited at most twice.",
-    "badgeName": "Unbroken Sequence Master"
+    "badgeName": "Unbroken Sequence Master",
+    "companies": ["Google","Amazon","Microsoft","Swiggy"]
   },
   {
     "id": "valid-palindrome",
@@ -1412,7 +1431,8 @@ export const LEETCODE_PROBLEMS: Problem[] = [
       }
     ],
     "editorial": "Normalize with alphanumeric regex or two pointers with `isalnum()` checks to achieve O(n) time and O(1) auxiliary space.",
-    "badgeName": "Palindrome Purist"
+    "badgeName": "Palindrome Purist",
+    "companies": ["Google","Amazon","Microsoft","Swiggy"]
   },
   {
     "id": "container-with-most-water",
@@ -1491,7 +1511,8 @@ export const LEETCODE_PROBLEMS: Problem[] = [
       }
     ],
     "editorial": "Initialize left=0 and right=len-1. Calculate current area, then greedily advance whichever pointer points to the shorter bar.",
-    "badgeName": "Reservoir Architect"
+    "badgeName": "Reservoir Architect",
+    "companies": ["Google","Amazon","Microsoft","Swiggy"]
   },
   {
     "id": "longest-substring-without-repeating-characters",
@@ -1561,7 +1582,8 @@ export const LEETCODE_PROBLEMS: Problem[] = [
       }
     ],
     "editorial": "Track character indices in a map. When a repeated character is encountered, advance `left = max(left, map[char] + 1)` in O(n) time.",
-    "badgeName": "Sliding Window Sage"
+    "badgeName": "Sliding Window Sage",
+    "companies": ["Amazon","Microsoft","Google","Swiggy"]
   },
   {
     "id": "climbing-stairs",
@@ -1628,7 +1650,8 @@ export const LEETCODE_PROBLEMS: Problem[] = [
       }
     ],
     "editorial": "Classic DP transition `f(n) = f(n-1) + f(n-2)`. Compute bottom-up using two variables `a` and `b` in O(1) space.",
-    "badgeName": "Stairway Strategist"
+    "badgeName": "Stairway Strategist",
+    "companies": ["Amazon","Google","Uber"]
   },
   {
     "id": "house-robber",
@@ -1701,7 +1724,8 @@ export const LEETCODE_PROBLEMS: Problem[] = [
       }
     ],
     "editorial": "Maintain two running variables `prev1` and `prev2`. At each step, `current = max(prev1, prev2 + nums[i])` in O(n) time and O(1) space.",
-    "badgeName": "Stealth Optimizer"
+    "badgeName": "Stealth Optimizer",
+    "companies": ["Google","Amazon","Microsoft"]
   },
   {
     "id": "coin-change",
@@ -1776,7 +1800,8 @@ export const LEETCODE_PROBLEMS: Problem[] = [
       }
     ],
     "editorial": "Bottom-up 1D DP where `dp[i]` is the minimum coins needed for amount `i`. Iterate through all amounts from 1 to `amount` updating via `dp[i - coin] + 1`.",
-    "badgeName": "Currency Alchemist"
+    "badgeName": "Currency Alchemist",
+    "companies": ["Amazon","Microsoft","Swiggy","Uber"]
   },
   {
     "id": "search-a-2d-matrix",
@@ -1881,7 +1906,8 @@ export const LEETCODE_PROBLEMS: Problem[] = [
       }
     ],
     "editorial": "Map indices `low=0` to `high=m*n-1`. At midpoint `mid`, element is at `matrix[Math.floor(mid/n)][mid%n]`. Standard binary search executes in O(log(m*n)).",
-    "badgeName": "Matrix Navigator"
+    "badgeName": "Matrix Navigator",
+    "companies": ["Google","Amazon","Microsoft"]
   },
   {
     "id": "find-minimum-in-rotated-sorted-array",
@@ -1965,7 +1991,8 @@ export const LEETCODE_PROBLEMS: Problem[] = [
       }
     ],
     "editorial": "If `nums[mid] > nums[right]`, the inflection point is to the right (`left = mid + 1`). Otherwise `right = mid`. Stop when `left == right`.",
-    "badgeName": "Rotation Pivot Finder"
+    "badgeName": "Rotation Pivot Finder",
+    "companies": ["Google","Amazon","Microsoft"]
   },
   {
     "id": "number-of-islands",
@@ -2076,7 +2103,8 @@ export const LEETCODE_PROBLEMS: Problem[] = [
       }
     ],
     "editorial": "Iterate across the grid. On encountering '1', increment island counter and invoke recursive DFS marking all 4-directional neighbors as '0' to avoid double-counting.",
-    "badgeName": "Archipelago Cartographer"
+    "badgeName": "Archipelago Cartographer",
+    "companies": ["Amazon","Google","Microsoft","Uber"]
   },
   {
     "id": "scaled-dot-product-attention",
@@ -2145,7 +2173,8 @@ export const LEETCODE_PROBLEMS: Problem[] = [
       }
     ],
     "editorial": "Compute `dot = sum(q[i]*k[i])`, scale by `1/sqrt(dk)`, and multiply with values array.",
-    "badgeName": "Attention Is All You Need"
+    "badgeName": "Attention Is All You Need",
+    "companies": ["Google","Amazon","Microsoft","Swiggy"]
   },
   {
     "id": "three-sum",
@@ -2240,7 +2269,8 @@ export const LEETCODE_PROBLEMS: Problem[] = [
       }
     ],
     "editorial": "Sort array ascending. For each index `i`, run Two Pointers `left = i + 1` and `right = len - 1`. Skip duplicate adjacent values to maintain uniqueness.",
-    "badgeName": "3-Way Equilibrium"
+    "badgeName": "3-Way Equilibrium",
+    "companies": ["Google","Amazon","Microsoft"]
   },
   {
     "id": "daily-temperatures",
@@ -2334,7 +2364,8 @@ export const LEETCODE_PROBLEMS: Problem[] = [
       }
     ],
     "editorial": "Push index onto stack. While current temp exceeds stack top, pop `prevIndex` and assign `res[prevIndex] = currIndex - prevIndex` in O(n) total time.",
-    "badgeName": "Monotonic Horizon Hunter"
+    "badgeName": "Monotonic Horizon Hunter",
+    "companies": ["Google","Amazon","Microsoft"]
   },
   {
     "id": "generate-parentheses",
@@ -2404,7 +2435,8 @@ export const LEETCODE_PROBLEMS: Problem[] = [
       }
     ],
     "editorial": "Backtrack tracking `open` and `close` counts. Append '(' if `open < n`, and ')' if `close < open`. Base case reached when `current.length == 2 * n`.",
-    "badgeName": "Syntax Weaver"
+    "badgeName": "Syntax Weaver",
+    "companies": ["Google","Amazon","Microsoft","Swiggy","Uber"]
   },
   {
     "id": "insert-interval",
@@ -2533,7 +2565,8 @@ export const LEETCODE_PROBLEMS: Problem[] = [
       }
     ],
     "editorial": "Three linear passes in one traversal: (1) push intervals before overlap, (2) merge all overlapping spans into `[min(start), max(end)]`, (3) push remaining trailing intervals in O(n) time.",
-    "badgeName": "Chronos Scheduler"
+    "badgeName": "Chronos Scheduler",
+    "companies": ["Google","Amazon","Microsoft"]
   },
   {
     "id": "reverse-array-in-place",
@@ -2612,7 +2645,8 @@ export const LEETCODE_PROBLEMS: Problem[] = [
       }
     ],
     "editorial": "Two-pointer symmetric swap from edges inward achieves O(n) time and strict O(1) space complexity.",
-    "badgeName": "Symmetry Inverter"
+    "badgeName": "Symmetry Inverter",
+    "companies": ["Google","Amazon","Microsoft","Swiggy"]
   },
   {
     "id": "binary-cross-entropy",
@@ -2674,6 +2708,7 @@ export const LEETCODE_PROBLEMS: Problem[] = [
       }
     ],
     "editorial": "Iterate over predictions summing `-y*ln(p) - (1-y)*ln(1-p)`. Return average rounded to 4 decimal places.",
-    "badgeName": "Loss Function Alchemist"
+    "badgeName": "Loss Function Alchemist",
+    "companies": ["Google","Amazon","Microsoft","Swiggy","Uber"]
   }
 ];

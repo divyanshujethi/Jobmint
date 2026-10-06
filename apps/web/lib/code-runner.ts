@@ -40,17 +40,17 @@ export const SUPPORTED_LANGUAGES: LanguageOption[] = [
     id: "cpp",
     name: "C++",
     monacoLang: "cpp",
-    version: "C++20 (GCC 13)",
-    badge: "Syntax Only",
-    isExecutable: false,
+    version: "C++20 (GCC 11 Sandbox)",
+    badge: "Secure Linux Sandbox",
+    isExecutable: true,
   },
   {
     id: "java",
     name: "Java",
     monacoLang: "java",
-    version: "OpenJDK 21",
-    badge: "Syntax Only",
-    isExecutable: false,
+    version: "OpenJDK 21 (Secure Sandbox)",
+    badge: "Secure Linux Sandbox",
+    isExecutable: true,
   },
 ];
 
@@ -429,31 +429,46 @@ export function executeCodeInSandbox(
   language: SupportedLanguage = "javascript",
   timeoutMs = 4000
 ): Promise<ExecutionReport> {
-  // C++ and Java - graceful guidance
+  // C++ and Java - Secure Server-Side Linux Container Sandbox
   if (language === "cpp" || language === "java") {
-    const langName = language === "cpp" ? "C++" : "Java";
-    return Promise.resolve({
-      passed: false,
-      allPassed: false,
-      totalTests: testCases.length,
-      passedTests: 0,
-      results: testCases.map((tc) => ({
-        name: tc.name,
-        inputArgs: tc.inputArgs,
-        expected: tc.expected,
-        actual: "Not executed (Server-side Judge required)",
+    const langName = language === "cpp" ? "C++20 (GCC)" : "Java 21 (OpenJDK)";
+    return fetch("/api/arena/execute", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        code,
+        language,
+        testCases,
+        timeoutMs: Math.max(timeoutMs, 5000),
+      }),
+    })
+      .then((res) => {
+        if (!res.ok) {
+          return res.json().then((errData) => {
+            throw new Error(errData?.error || `Server runner returned status ${res.status}`);
+          });
+        }
+        return res.json();
+      })
+      .then((report: ExecutionReport) => report)
+      .catch((err: any) => ({
         passed: false,
-        error: null,
-        durationMs: 0,
-      })),
-      logs: [
-        `[INFO] ${langName} syntax editing is active with Monaco syntax highlighting and code completion.`,
-        `[SANDBOX] In-browser instant test runner currently supports JavaScript, TypeScript, and Python 3 (WASM).`,
-        `[TIP] Switch the language dropdown to Python 3, JavaScript, or TypeScript to run live test cases!`,
-      ],
-      compilationError: null,
-      runtimeError: `💡 ${langName} code compilation requires server-side isolated Linux execution containers. Select Python 3, JavaScript, or TypeScript for instant live in-browser test evaluation!`,
-    });
+        allPassed: false,
+        totalTests: testCases.length,
+        passedTests: 0,
+        results: testCases.map((tc) => ({
+          name: tc.name,
+          inputArgs: tc.inputArgs,
+          expected: tc.expected,
+          actual: null,
+          passed: false,
+          error: err?.message || "Execution failed",
+          durationMs: 0,
+        })),
+        logs: [`[SANDBOX ERROR] Failed contacting secure ${langName} execution container.`],
+        compilationError: null,
+        runtimeError: `Sandbox error: ${err?.message || "Could not execute code on secure Linux sandbox."}`,
+      }));
   }
 
   // Python execution

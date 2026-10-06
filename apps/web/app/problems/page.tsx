@@ -70,6 +70,7 @@ export default function ProblemsCatalogPage() {
   const [selectedDomain, setSelectedDomain] = useState<DomainKey>("all");
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [selectedDifficulty, setSelectedDifficulty] = useState<string>("All");
+  const [selectedCompany, setSelectedCompany] = useState<string>("All");
   const [solvedSlugs, setSolvedSlugs] = useState<string[]>([]);
   const [unlockedBadges, setUnlockedBadges] = useState<string[]>([]);
   const [showProModal, setShowProModal] = useState(false);
@@ -93,11 +94,14 @@ export default function ProblemsCatalogPage() {
     )
   );
 
+  const TARGET_COMPANIES = ["All", "Google", "Amazon", "Microsoft", "Swiggy", "Uber"];
+
   const filteredProblems = LEETCODE_PROBLEMS.filter((p) => {
     const matchesSearch =
       p.title.toLowerCase().includes(search.toLowerCase()) ||
       p.category.toLowerCase().includes(search.toLowerCase()) ||
-      p.realWorldContext.toLowerCase().includes(search.toLowerCase());
+      p.realWorldContext.toLowerCase().includes(search.toLowerCase()) ||
+      Boolean(p.companies && p.companies.some((c: string) => c.toLowerCase().includes(search.toLowerCase())));
 
     const domainConfig = DOMAINS.find((d) => d.key === selectedDomain);
     const matchesDomain = domainConfig ? domainConfig.countMatches(p) : true;
@@ -106,8 +110,10 @@ export default function ProblemsCatalogPage() {
       selectedCategory === "All" || p.category === selectedCategory;
     const matchesDifficulty =
       selectedDifficulty === "All" || p.difficulty === selectedDifficulty;
+    const matchesCompany =
+      selectedCompany === "All" || (p.companies && p.companies.includes(selectedCompany));
 
-    return matchesSearch && matchesDomain && matchesCategory && matchesDifficulty;
+    return matchesSearch && matchesDomain && matchesCategory && matchesDifficulty && matchesCompany;
   });
 
   const totalSolved = solvedSlugs.filter((s) =>
@@ -353,6 +359,42 @@ export default function ProblemsCatalogPage() {
         </div>
       )}
 
+      {/* COMPANY OA FILTER BAR */}
+      <div className="border-b border-neutral-800 bg-[#0c0c0c] px-4 py-2 sm:px-8">
+        <div className="max-w-6xl mx-auto flex items-center gap-1.5 overflow-x-auto scrollbar-none text-xs">
+          <span className="text-[11px] font-mono uppercase text-amber-400 font-bold mr-1 shrink-0 flex items-center gap-1">
+            <Building2 className="h-3.5 w-3.5 text-amber-400" />
+            Company OA:
+          </span>
+          {TARGET_COMPANIES.map((comp) => {
+            const count =
+              comp === "All"
+                ? LEETCODE_PROBLEMS.length
+                : LEETCODE_PROBLEMS.filter((p) => p.companies?.includes(comp)).length;
+            return (
+              <button
+                key={comp}
+                onClick={() => setSelectedCompany(comp)}
+                className={`px-2.5 py-1 rounded-md text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-1 ${
+                  selectedCompany === comp
+                    ? "bg-amber-500 text-slate-950 font-bold shadow-xs"
+                    : "bg-[#141414] text-neutral-400 hover:text-white border border-neutral-800"
+                }`}
+              >
+                <span>{comp === "All" ? "All Companies" : comp}</span>
+                <span
+                  className={`text-[10px] font-mono px-1 rounded-full ${
+                    selectedCompany === comp ? "bg-slate-950 text-amber-300" : "bg-neutral-800 text-neutral-400"
+                  }`}
+                >
+                  {count}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
       {/* PROBLEMS LIST */}
       <div className="flex-1 px-4 py-6 sm:px-8 bg-[#0a0a0a]">
         <div className="max-w-6xl mx-auto space-y-2.5">
@@ -427,6 +469,21 @@ export default function ProblemsCatalogPage() {
                       <Zap className="h-3 w-3 text-amber-400 shrink-0" />
                       <span className="line-clamp-1">{problem.realWorldContext}</span>
                     </div>
+
+                    {problem.companies && problem.companies.length > 0 && (
+                      <div className="flex flex-wrap items-center gap-1 pl-6 pt-0.5">
+                        <span className="text-[10px] text-neutral-500 font-mono">Asked in:</span>
+                        {problem.companies.slice(0, 4).map((comp: string) => (
+                          <span
+                            key={comp}
+                            className="rounded bg-neutral-900 border border-neutral-800 px-1.5 py-0.2 text-[9px] font-mono text-neutral-300 flex items-center gap-0.5"
+                          >
+                            <Building2 className="h-2.5 w-2.5 text-amber-400" />
+                            {comp}
+                          </span>
+                        ))}
+                      </div>
+                    )}
                   </div>
 
                   {/* Right: Acceptance & CTA */}
