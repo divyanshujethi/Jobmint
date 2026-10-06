@@ -111,3 +111,19 @@ export const candidateProjects = pgTable(
     index("idx_candidate_projects_profile_id").on(table.profileId),
   ]
 );
+
+export const registeredColleges = pgTable(
+  "registered_colleges",
+  {
+    id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
+    name: text("name").notNull().unique(),
+    location: text("location").notNull(),
+    state: text("state"),
+    createdByUserId: text("created_by_user_id").references(() => users.id, { onDelete: "set null" }),
+    createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
+    updatedAt: timestamp("updated_at", { mode: "date" }).defaultNow().notNull(),
+  },
+  (table) => [
+    index("idx_registered_colleges_name").on(table.name),
+  ]
+);

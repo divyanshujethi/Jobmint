@@ -35,6 +35,9 @@ import {
   ArrowRight,
   Briefcase,
   AlertTriangle,
+  MapPin,
+  PlusCircle,
+  Globe,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LEETCODE_PROBLEMS, Problem } from "@/lib/problems-data";
@@ -112,6 +115,21 @@ const DEFAULT_CAMPUS_BATTLES: CollegeLeaderboardItem[] = [
   },
 ];
 
+const POPULAR_COLLEGES = [
+  "Delhi Technological University (DTU)",
+  "IIT Bombay",
+  "IIT Delhi",
+  "BITS Pilani",
+  "NIT Trichy",
+  "NSUT Delhi",
+  "VIT Vellore",
+  "SRM Institute of Science and Technology",
+  "Manipal Institute of Technology",
+  "Pune University (SPPU)",
+  "Anna University Chennai",
+  "Mumbai University (VJTI/SPIT)",
+];
+
 function POTDWorkspace() {
   const searchParams = useSearchParams();
   const problemSlug = searchParams.get("problem");
@@ -145,6 +163,13 @@ function POTDWorkspace() {
   const [selectedCampus, setSelectedCampus] = useState<string>("IIT Delhi");
   const [userDevScore, setUserDevScore] = useState<number>(0);
   const [collegeBattles, setCollegeBattles] = useState<CollegeLeaderboardItem[]>(DEFAULT_CAMPUS_BATTLES);
+  const [registeredCollegesList, setRegisteredCollegesList] = useState<{ id?: string; name: string; location: string; state?: string | null }[]>([]);
+  const [showRegisterCollegeModal, setShowRegisterCollegeModal] = useState(false);
+  const [newCollegeName, setNewCollegeName] = useState("");
+  const [newCollegeLocation, setNewCollegeLocation] = useState("");
+  const [newCollegeState, setNewCollegeState] = useState("");
+  const [registeringCollegeLoading, setRegisteringCollegeLoading] = useState(false);
+  const [campusSavedMsg, setCampusSavedMsg] = useState<string | null>(null);
   const [mobileTab, setMobileTab] = useState<"PROBLEM" | "CODE">("PROBLEM");
   const [editorEngine, setEditorEngine] = useState<"monaco" | "lightweight">("lightweight");
   const [monacoLoaded, setMonacoLoaded] = useState(false);
@@ -219,6 +244,67 @@ function POTDWorkspace() {
     }
   };
 
+  const handleSaveCollege = async (cName: string, loc?: string, st?: string) => {
+    setSelectedCampus(cName);
+    try {
+      localStorage.setItem("rolenest_user_campus", cName);
+    } catch (err) {}
+    try {
+      const res = await fetch("/api/candidate/college", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ collegeName: cName, location: loc, state: st }),
+      });
+      if (res.ok) {
+        setCampusSavedMsg(`🏫 Representing ${cName}!`);
+        // Refresh registered colleges & leaderboard
+        fetch("/api/candidate/college")
+          .then((r) => r.json())
+          .then((colRes) => {
+            if (colRes?.registeredColleges) setRegisteredCollegesList(colRes.registeredColleges);
+          });
+        fetch("/api/leaderboard")
+          .then((r) => r.json())
+          .then((leadRes) => {
+            if (leadRes?.collegeRankings && Array.isArray(leadRes.collegeRankings)) {
+              setCollegeBattles(
+                leadRes.collegeRankings.map((c: any) => ({
+                  collegeName: c.collegeName,
+                  buildersCount: c.buildersCount,
+                  totalStreakDays: c.totalStreakDays,
+                  avgDevScore: c.avgDevScore,
+                  topBuilder: c.topBuilder || { name: "Builder", streak: 0 },
+                }))
+              );
+            }
+          });
+        setTimeout(() => setCampusSavedMsg(null), 3500);
+      }
+    } catch {
+      setCampusSavedMsg("College updated!");
+      setTimeout(() => setCampusSavedMsg(null), 3000);
+    }
+  };
+
+  const handleRegisterNewCollege = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newCollegeName.trim()) return;
+    setRegisteringCollegeLoading(true);
+    try {
+      await handleSaveCollege(
+        newCollegeName.trim(),
+        newCollegeLocation.trim() || "India",
+        newCollegeState.trim() || undefined
+      );
+      setShowRegisterCollegeModal(false);
+      setNewCollegeName("");
+      setNewCollegeLocation("");
+      setNewCollegeState("");
+    } finally {
+      setRegisteringCollegeLoading(false);
+    }
+  };
+
   useEffect(() => {
     fetch("/api/auth/session")
       .then((res) => res.json())
@@ -255,11 +341,32 @@ function POTDWorkspace() {
     fetch("/api/leaderboard")
       .then((res) => res.json())
       .then((data) => {
-        if (data?.collegeBattles && Array.isArray(data.collegeBattles) && data.collegeBattles.length > 0) {
-          setCollegeBattles(data.collegeBattles);
+        if (data?.collegeRankings && Array.isArray(data.collegeRankings) && data.collegeRankings.length > 0) {
+          setCollegeBattles(
+            data.collegeRankings.map((c: any) => ({
+              collegeName: c.collegeName,
+              buildersCount: c.buildersCount,
+              totalStreakDays: c.totalStreakDays,
+              avgDevScore: c.avgDevScore,
+              topBuilder: c.topBuilder || { name: "Builder", streak: 0 },
+            }))
+          );
         }
       })
       .catch((err) => console.warn("Notice loading campus battles:", err));
+
+    // Fetch registered colleges & user college from backend
+    fetch("/api/candidate/college")
+      .then((res) => res.json())
+      .then((colData) => {
+        if (colData?.collegeName) {
+          setSelectedCampus(colData.collegeName);
+        }
+        if (colData?.registeredColleges && Array.isArray(colData.registeredColleges)) {
+          setRegisteredCollegesList(colData.registeredColleges);
+        }
+      })
+      .catch(() => {});
 
     // Fetch user streak for dev score
     fetch("/api/streak")
@@ -1035,34 +1142,83 @@ function POTDWorkspace() {
                 </div>
 
                 {/* College Selector / Affiliation Card */}
-                <div className="rounded-2xl border border-slate-800 bg-slate-900/90 p-4 space-y-2.5">
+                <div className="rounded-2xl border border-slate-800 bg-slate-900/90 p-4 space-y-3">
                   <div className="flex items-center justify-between text-xs">
-                    <label htmlFor="potd-campus-input" className="font-bold text-slate-300 flex items-center gap-1.5 cursor-pointer">
-                      <School className="h-3.5 w-3.5 text-orange-400" /> Your College / Campus:
+                    <label htmlFor="potd-campus-select" className="font-bold text-slate-200 flex items-center gap-1.5 cursor-pointer">
+                      <School className="h-4 w-4 text-orange-400" /> Which College Do You Belong To?
                     </label>
                     <span className="text-emerald-400 font-mono font-bold">
                       Dev Score: {userDevScore > 0 ? `${userDevScore}/1000` : "0/1000 (Unranked)"}
                     </span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <input
-                      id="potd-campus-input"
-                      name="campus"
-                      type="text"
+
+                  <p className="text-[11px] text-slate-400">
+                    Select your college or register your campus below so your daily problem solves and Dev Score push your college up the All-India leaderboard!
+                  </p>
+
+                  <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+                    <select
+                      id="potd-campus-select"
                       value={selectedCampus}
                       onChange={(e) => {
-                        setSelectedCampus(e.target.value);
-                        try {
-                          localStorage.setItem("rolenest_user_campus", e.target.value);
-                        } catch (err) {}
+                        if (e.target.value === "__NEW__") {
+                          setShowRegisterCollegeModal(true);
+                        } else {
+                          handleSaveCollege(e.target.value);
+                        }
                       }}
-                      placeholder="e.g. IIT Delhi, BITS Pilani, DTU, VIT..."
-                      className="flex-1 rounded-xl border border-slate-700 bg-slate-950 px-3 py-1.5 text-xs text-white focus:outline-none focus:border-emerald-500 font-medium"
-                    />
-                    <span className="text-[11px] font-mono font-bold bg-orange-950/60 border border-orange-800/80 text-orange-300 px-2.5 py-1.5 rounded-xl whitespace-nowrap">
-                      🔥 Active Fighter
-                    </span>
+                      className="flex-1 rounded-xl border border-slate-700 bg-slate-950 px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500 font-medium"
+                    >
+                      <option value="">-- Select Your College to Represent --</option>
+                      <option value="__NEW__" className="text-amber-400 font-bold bg-slate-900">
+                        ➕ Don't see your college? Register it now!
+                      </option>
+                      {Array.from(
+                        new Set([
+                          ...POPULAR_COLLEGES,
+                          ...registeredCollegesList.map((rc) => rc.name),
+                          ...collegeBattles.map((c) => c.collegeName),
+                        ])
+                      )
+                        .filter((c) => c && c !== "Independent Builders")
+                        .sort()
+                        .map((c) => {
+                          const matched = registeredCollegesList.find((rc) => rc.name === c);
+                          return (
+                            <option key={c} value={c}>
+                              {c} {matched?.location ? `(${matched.location})` : ""}
+                            </option>
+                          );
+                        })}
+                    </select>
+
+                    <Button
+                      type="button"
+                      onClick={() => setShowRegisterCollegeModal(true)}
+                      className="bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs h-9 px-3 rounded-xl gap-1 shrink-0"
+                    >
+                      <PlusCircle className="h-3.5 w-3.5" />
+                      Register College
+                    </Button>
                   </div>
+
+                  {campusSavedMsg && (
+                    <div className="text-xs font-bold text-emerald-400 animate-in fade-in flex items-center gap-1.5">
+                      <CheckCircle2 className="h-3.5 w-3.5" />
+                      {campusSavedMsg}
+                    </div>
+                  )}
+
+                  {selectedCampus && (
+                    <div className="flex items-center justify-between text-[11px] bg-slate-950/80 border border-slate-800 rounded-xl px-3 py-2">
+                      <span className="text-slate-400">
+                        Currently Fighting For: <strong className="text-white">{selectedCampus}</strong>
+                      </span>
+                      <span className="text-[10px] font-mono font-bold bg-orange-950/60 border border-orange-800/80 text-orange-300 px-2 py-0.5 rounded-lg">
+                        🔥 Active Fighter
+                      </span>
+                    </div>
+                  )}
                 </div>
 
                 {/* National Rankings */}
@@ -1822,6 +1978,106 @@ function POTDWorkspace() {
                 Close
               </Button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* REGISTER YOUR COLLEGE MODAL */}
+      {showRegisterCollegeModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-xs p-4 animate-in fade-in">
+          <div className="relative w-full max-w-lg rounded-3xl border border-orange-500/30 bg-[#141414] p-6 sm:p-8 shadow-2xl text-neutral-100 font-sans space-y-5">
+            <button
+              onClick={() => setShowRegisterCollegeModal(false)}
+              className="absolute right-5 top-5 p-1.5 rounded-xl text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors"
+            >
+              <X className="h-5 w-5" />
+            </button>
+
+            <div className="space-y-1.5">
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-orange-500/20 border border-orange-500/40 px-3 py-0.5 text-xs font-mono font-bold text-orange-400">
+                <School className="h-3.5 w-3.5" />
+                <span>Inter-College Engineering Battles</span>
+              </div>
+              <h3 className="text-xl sm:text-2xl font-black text-white">
+                Register Your College / Campus
+              </h3>
+              <p className="text-xs text-neutral-400 leading-relaxed">
+                Enter your college details to represent your campus, rally your classmates, and push your team up the All-India Leaderboard.
+              </p>
+            </div>
+
+            <form onSubmit={handleRegisterNewCollege} className="space-y-4 pt-1">
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold text-neutral-300 flex items-center gap-1.5">
+                  <School className="h-3.5 w-3.5 text-orange-400" />
+                  College / University Name *
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={newCollegeName}
+                  onChange={(e) => setNewCollegeName(e.target.value)}
+                  placeholder="e.g. National Institute of Technology Warangal"
+                  className="w-full rounded-xl border border-neutral-700 bg-neutral-900 px-3.5 py-2.5 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
+                />
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-neutral-300 flex items-center gap-1.5">
+                    <MapPin className="h-3.5 w-3.5 text-emerald-400" />
+                    City / Campus Location *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={newCollegeLocation}
+                    onChange={(e) => setNewCollegeLocation(e.target.value)}
+                    placeholder="e.g. Warangal, Bengaluru, Pune"
+                    className="w-full rounded-xl border border-neutral-700 bg-neutral-900 px-3.5 py-2.5 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-orange-500"
+                  />
+                </div>
+
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-neutral-300 flex items-center gap-1.5">
+                    <Globe className="h-3.5 w-3.5 text-sky-400" />
+                    State (Optional)
+                  </label>
+                  <input
+                    type="text"
+                    value={newCollegeState}
+                    onChange={(e) => setNewCollegeState(e.target.value)}
+                    placeholder="e.g. Telangana, Karnataka"
+                    className="w-full rounded-xl border border-neutral-700 bg-neutral-900 px-3.5 py-2.5 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-orange-500"
+                  />
+                </div>
+              </div>
+
+              <div className="pt-2 flex items-center justify-end gap-2.5">
+                <Button
+                  type="button"
+                  variant="ghost"
+                  onClick={() => setShowRegisterCollegeModal(false)}
+                  className="text-xs text-neutral-400 hover:text-white"
+                >
+                  Cancel
+                </Button>
+                <Button
+                  type="submit"
+                  disabled={registeringCollegeLoading || !newCollegeName.trim() || !newCollegeLocation.trim()}
+                  className="bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs px-5 h-10 rounded-xl gap-1.5 shadow-md shadow-orange-950"
+                >
+                  {registeringCollegeLoading ? (
+                    "Registering..."
+                  ) : (
+                    <>
+                      <CheckCircle2 className="h-4 w-4" />
+                      Register &amp; Represent College
+                    </>
+                  )}
+                </Button>
+              </div>
+            </form>
           </div>
         </div>
       )}
