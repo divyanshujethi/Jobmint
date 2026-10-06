@@ -98,6 +98,28 @@ export default function JobsPage() {
       })
       .catch(() => {});
 
+    // Initialize filter state from URL search params if present
+    if (typeof window !== "undefined") {
+      const sp = new URLSearchParams(window.location.search);
+      const query = sp.get("q") || sp.get("keyword") || sp.get("search");
+      if (query) setSearchTerm(query);
+
+      const loc = sp.get("location");
+      if (loc) setSelectedLocation(loc);
+
+      const typeParam = sp.get("type");
+      if (typeParam) {
+        if (typeParam.toUpperCase() === "INTERNSHIP") setSelectedType("INTERNSHIP");
+        else if (typeParam.toUpperCase() === "FULL_TIME" || typeParam.toUpperCase() === "FULLTIME") setSelectedType("FULL_TIME");
+      }
+
+      const filterParam = sp.get("filter");
+      if (filterParam === "remote") setSelectedMode("REMOTE");
+      else if (filterParam === "fresher") setSelectedExp("0");
+      else if (filterParam === "ai") setSearchTerm("AI");
+      else if (filterParam === "fullstack") setSearchTerm("React");
+    }
+
     fetch("/api/jobs")
       .then((res) => res.json())
       .then((data) => {

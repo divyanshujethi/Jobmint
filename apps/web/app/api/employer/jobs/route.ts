@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db, jobs, companies, companyMembers, users, jobSkills, skills, eq } from "@repo/database";
 import { auth } from "@/auth";
+import { publishJobSlugToGoogle } from "@/lib/google-indexing";
 
 export const dynamic = "force-dynamic";
 
@@ -181,6 +182,11 @@ export async function POST(req: NextRequest) {
         } catch {}
       }
     }
+
+    // Ping Google Indexing API asynchronously
+    publishJobSlugToGoogle(newJob.slug).catch((err) => {
+      console.warn("[Google Indexing API] Employer job publish ping error:", err?.message || err);
+    });
 
     return NextResponse.json({
       success: true,

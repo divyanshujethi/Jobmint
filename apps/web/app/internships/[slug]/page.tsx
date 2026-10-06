@@ -104,54 +104,81 @@ export default async function InternshipSlugPage({ params }: InternshipPageProps
 
   const structuredData = {
     "@context": "https://schema.org",
-    "@type": "JobPosting",
-    title: job.title,
-    description: htmlDescription,
-    directApply: true,
-    identifier: {
-      "@type": "PropertyValue",
-      name: job.companyName,
-      value: job.id,
-    },
-    datePosted: job.postedAt || new Date().toISOString(),
-    validThrough: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000).toISOString(),
-    employmentType: "INTERN",
-    hiringOrganization: {
-      "@type": "Organization",
-      name: job.companyName,
-      sameAs: `https://rolenest.in/companies/${job.companySlug}`,
-      logo: job.companyLogoUrl || undefined,
-    },
-    jobLocation: {
-      "@type": "Place",
-      address: {
-        "@type": "PostalAddress",
-        addressLocality: job.location || "Remote",
-        addressCountry: "IN",
-      },
-    },
-    jobLocationType: job.workMode === "REMOTE" ? "TELECOMMUTE" : undefined,
-    applicantLocationRequirements:
-      job.workMode === "REMOTE"
-        ? {
-            "@type": "Country",
-            name: "India",
-          }
-        : undefined,
-    skills: job.skills.join(", "),
-    industry: "Information Technology",
-    baseSalary: job.minSalary
-      ? {
-          "@type": "MonetaryAmount",
-          currency: "INR",
-          value: {
-            "@type": "QuantitativeValue",
-            minValue: job.minSalary,
-            maxValue: job.maxSalary || job.minSalary,
-            unitText: "MONTH",
+    "@graph": [
+      {
+        "@type": "JobPosting",
+        title: job.title,
+        description: htmlDescription,
+        directApply: true,
+        identifier: {
+          "@type": "PropertyValue",
+          name: job.companyName,
+          value: job.id,
+        },
+        datePosted: job.postedAt || new Date().toISOString(),
+        validThrough: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000).toISOString(),
+        employmentType: "INTERN",
+        hiringOrganization: {
+          "@type": "Organization",
+          name: job.companyName,
+          sameAs: `https://rolenest.in/companies/${job.companySlug}`,
+          logo: job.companyLogoUrl || undefined,
+        },
+        jobLocation: {
+          "@type": "Place",
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: job.location || "Remote",
+            addressCountry: "IN",
           },
-        }
-      : undefined,
+        },
+        jobLocationType: job.workMode === "REMOTE" ? "TELECOMMUTE" : undefined,
+        applicantLocationRequirements:
+          job.workMode === "REMOTE"
+            ? {
+                "@type": "Country",
+                name: "India",
+              }
+            : undefined,
+        skills: job.skills.join(", "),
+        industry: "Information Technology",
+        baseSalary: job.minSalary
+          ? {
+              "@type": "MonetaryAmount",
+              currency: "INR",
+              value: {
+                "@type": "QuantitativeValue",
+                minValue: job.minSalary,
+                maxValue: job.maxSalary || job.minSalary,
+                unitText: "MONTH",
+              },
+            }
+          : undefined,
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: "https://rolenest.in",
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Internships",
+            item: "https://rolenest.in/internships",
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: job.title,
+            item: `https://rolenest.in/internships/${job.slug}`,
+          },
+        ],
+      },
+    ],
   };
 
   return (

@@ -2,6 +2,7 @@ import { db, jobs, companies, skills, jobSkills, applications, eq, or, and, lt, 
 import { RawCrawledJob, normalizeIndiaLocation } from "@repo/alligators";
 import { JobSource } from "@repo/shared";
 import { invalidateJobsCache } from "./db-jobs";
+import { publishJobSlugToGoogle } from "./google-indexing";
 import crypto from "crypto";
 
 function slugify(text: string): string {
@@ -348,6 +349,28 @@ export async function persistCrawledJobs(crawledJobs: RawCrawledJob[]): Promise<
     await invalidateJobsCache();
   } catch (err: any) {
     console.warn("Failed to invalidate jobs cache:", err.message);
+  }
+
+  // 12. Asynchronously notify Google Indexing API for newly inserted jobs
+  if (result.inserted > 0 && jobsToInsert.length > 0) {
+    const newlyInsertedSlugs = jobsToInsert
+      .map((j) => j.slug)
+      .filter(Boolean) as string[];
+
+    // Send up to 50 new job slugs to Google Indexing per crawl batch
+    const batchToNotify = newlyInsertedSlugs.slice(0, 50);
+    Promise.allSettled(
+      batchToNotify.map((slug) => publishJobSlugToGoogle(slug))
+    ).then((outcomes) => {
+      const notified = outcomes.filter(
+        (o) => o.status === "fulfilled" && (o.value as any).success
+      ).length;
+      console.log(
+        `[Google Indexing API] Successfully dispatched indexing for ${notified}/${batchToNotify.length} newly inserted jobs`
+      );
+    }).catch((err) => {
+      console.warn("[Google Indexing API] Ingestion notification error:", err?.message || err);
+    });
   }
 
   return result;

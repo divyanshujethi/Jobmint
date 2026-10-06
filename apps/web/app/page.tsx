@@ -44,13 +44,27 @@ export default function HomePage() {
               Apply to verified internships and junior tech roles. Track your applications with smart follow-up alerts, transparent match diagnostics, and curated learning roadmaps.
             </p>
 
+            {/* HERO PRIMARY CALL TO ACTIONS (SSR CRAWLABLE) */}
+            <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
+              <Link href="/register">
+                <Button size="lg" className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold gap-2 shadow-sm px-6">
+                  Sign Up Free <ArrowRight className="h-4 w-4" />
+                </Button>
+              </Link>
+              <Link href="/jobs">
+                <Button size="lg" variant="outline" className="border-slate-300 font-semibold text-slate-700 hover:bg-slate-50 px-6">
+                  Explore Opportunities
+                </Button>
+              </Link>
+            </div>
+
             {/* SEARCH BAR */}
-            <div className="mt-8 rounded-2xl border border-slate-200 bg-white p-2 shadow-lg sm:flex sm:items-center sm:gap-2">
+            <form action="/jobs" method="GET" className="mt-6 rounded-2xl border border-slate-200 bg-white p-2 shadow-lg sm:flex sm:items-center sm:gap-2">
               <div className="flex flex-1 items-center gap-2 px-3 py-2 border-b sm:border-b-0 sm:border-r border-slate-100">
                 <Search className="h-5 w-5 text-slate-400 shrink-0" />
                 <input
                   id="home-search-keyword"
-                  name="keyword"
+                  name="q"
                   aria-label="Job title, tech stack or skill"
                   autoComplete="off"
                   type="text"
@@ -72,12 +86,10 @@ export default function HomePage() {
                 />
               </div>
 
-              <Link href="/jobs" className="block sm:inline-block mt-2 sm:mt-0">
-                <Button size="lg" className="w-full sm:w-auto font-semibold gap-2">
-                  Find Jobs <ArrowRight className="h-4 w-4" />
-                </Button>
-              </Link>
-            </div>
+              <Button type="submit" size="lg" className="w-full sm:w-auto font-semibold gap-2 mt-2 sm:mt-0">
+                Find Jobs <ArrowRight className="h-4 w-4" />
+              </Button>
+            </form>
 
             {/* QUICK POPULAR PILLS */}
             <div className="pt-3 flex flex-wrap items-center justify-center gap-2 text-xs text-slate-500">

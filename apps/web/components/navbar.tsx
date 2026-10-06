@@ -724,15 +724,20 @@ export function Navbar() {
               </div>
             </div>
           ) : (
-            <div className="flex items-center gap-2.5">
+            <div className="flex items-center gap-2">
               <Link href="/employer/login">
-                <Button variant="ghost" size="sm" className="font-semibold text-xs text-slate-600 hover:text-emerald-700">
+                <Button variant="ghost" size="sm" className="font-semibold text-xs text-slate-600 hover:text-emerald-700 hidden xl:inline-flex">
                   For Employers
                 </Button>
               </Link>
               <Link href="/login">
-                <Button size="sm" className="font-bold text-xs bg-emerald-600 hover:bg-emerald-500 text-white shadow-xs">
+                <Button variant="outline" size="sm" className="font-semibold text-xs border-slate-300 hover:bg-slate-50 text-slate-700">
                   Sign In
+                </Button>
+              </Link>
+              <Link href="/register">
+                <Button size="sm" className="font-bold text-xs bg-emerald-600 hover:bg-emerald-500 text-white shadow-xs">
+                  Sign Up Free
                 </Button>
               </Link>
             </div>
@@ -1061,15 +1066,20 @@ export function Navbar() {
                   <div className="grid grid-cols-2 gap-2">
                     <Link href="/login" onClick={() => setIsOpen(false)}>
                       <Button variant="outline" className="w-full text-xs font-semibold">
-                        Candidate Login
+                        Sign In
                       </Button>
                     </Link>
-                    <Link href="/employer/login" onClick={() => setIsOpen(false)}>
-                      <Button className="w-full text-xs font-bold bg-slate-900 hover:bg-slate-800 text-white">
-                        Recruiter Portal
+                    <Link href="/register" onClick={() => setIsOpen(false)}>
+                      <Button className="w-full text-xs font-bold bg-emerald-600 hover:bg-emerald-500 text-white">
+                        Sign Up Free
                       </Button>
                     </Link>
                   </div>
+                  <Link href="/employer/login" onClick={() => setIsOpen(false)}>
+                    <Button variant="ghost" className="w-full text-xs text-slate-600 font-medium">
+                      Recruiter &amp; Employer Portal →
+                    </Button>
+                  </Link>
                 </div>
               )}
             </div>
