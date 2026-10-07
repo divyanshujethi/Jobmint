@@ -60,6 +60,7 @@ export function StudyGamificationModal({
 }: StudyGamificationModalProps) {
   const [activeTab, setActiveTab] = useState<"overview" | "quests" | "badges">(initialTab);
   const [claimedQuests, setClaimedQuests] = useState<Set<string>>(new Set());
+  const [completedQuests, setCompletedQuests] = useState<Set<string>>(new Set());
   const [unlockedAchievements, setUnlockedAchievements] = useState<Set<string>>(new Set(["a1"]));
   const [currentXp, setCurrentXp] = useState(xp);
 
@@ -71,16 +72,92 @@ export function StudyGamificationModal({
     setCurrentXp(xp);
   }, [xp]);
 
-  useEffect(() => {
-    if (!isOpen) return;
+  const checkUserQuests = () => {
     try {
-      const savedQuests = localStorage.getItem("studynest_claimed_quests");
-      if (savedQuests) setClaimedQuests(new Set(JSON.parse(savedQuests)));
+      const todayStr = new Date().toISOString().slice(0, 10);
+      const savedDate = localStorage.getItem("studynest_quests_date");
+
+      if (savedDate !== todayStr) {
+        // Daily reset for a new day
+        localStorage.setItem("studynest_quests_date", todayStr);
+        localStorage.setItem("studynest_claimed_quests", JSON.stringify([]));
+        setClaimedQuests(new Set());
+      } else {
+        const savedQuests = localStorage.getItem("studynest_claimed_quests");
+        if (savedQuests) setClaimedQuests(new Set(JSON.parse(savedQuests)));
+      }
+
+      // Check real completion
+      const completed = new Set<string>();
+
+      // q1: Master a Roadmap Milestone
+      const completedNodes = localStorage.getItem("studynest_completed_nodes");
+      if (completedNodes) {
+        const parsed = JSON.parse(completedNodes);
+        if (Array.isArray(parsed) && parsed.length > 0) completed.add("q1");
+      }
+      // Check roadmap progress keys
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key && key.startsWith("studynest_roadmap_progress_")) {
+          const val = localStorage.getItem(key);
+          if (val) {
+            const parsed = JSON.parse(val);
+            if (Array.isArray(parsed) && parsed.length > 0) completed.add("q1");
+          }
+        }
+      }
+
+      // q2: Review 3-Min Code Blueprint
+      if (localStorage.getItem("studynest_blueprint_reviewed") === "true") {
+        completed.add("q2");
+      }
+
+      // q3: Solve an Engineering Interview POTD
+      if (
+        localStorage.getItem("jobmint_potd_solved") === "true" ||
+        localStorage.getItem("studynest_potd_solved") === "true"
+      ) {
+        completed.add("q3");
+      }
+      const solvedProblems = localStorage.getItem("jobmint_solved_problems");
+      if (solvedProblems) {
+        const parsed = JSON.parse(solvedProblems);
+        if (Array.isArray(parsed) && parsed.length > 0) completed.add("q3");
+      }
+
+      // q4: Capture Whiteboard Study Notes
+      const notes = localStorage.getItem("studynest_google_notes");
+      if (notes) {
+        const parsed = JSON.parse(notes);
+        if (Array.isArray(parsed) && parsed.length > 0) completed.add("q4");
+      }
+      const strokes = localStorage.getItem("studynest_whiteboard_drawing");
+      if (strokes) {
+        const parsed = JSON.parse(strokes);
+        if (Array.isArray(parsed) && parsed.length > 0) completed.add("q4");
+      }
+
+      setCompletedQuests(completed);
 
       const savedAchievements = localStorage.getItem("studynest_achievements");
       if (savedAchievements) setUnlockedAchievements(new Set(JSON.parse(savedAchievements)));
     } catch {}
+  };
+
+  useEffect(() => {
+    if (!isOpen) return;
+    checkUserQuests();
   }, [isOpen]);
+
+  const handleResetQuests = () => {
+    try {
+      localStorage.removeItem("studynest_claimed_quests");
+      localStorage.removeItem("studynest_blueprint_reviewed");
+      setClaimedQuests(new Set());
+      checkUserQuests();
+    } catch {}
+  };
 
   const currentRank = useMemo(() => {
     return STUDY_RANKS.find((r) => currentXp >= r.minXp && currentXp < r.maxXp) || STUDY_RANKS[STUDY_RANKS.length - 1];
@@ -291,48 +368,88 @@ export function StudyGamificationModal({
 
         {/* TAB 2: DAILY QUESTS */}
         {activeTab === "quests" && (
-          <div className="space-y-2.5 max-h-[240px] overflow-y-auto pr-1">
-            {STUDY_DAILY_QUESTS.map((q) => {
-              const isClaimed = claimedQuests.has(q.id);
-              return (
-                <div
-                  key={q.id}
-                  className="flex items-center justify-between p-3.5 rounded-2xl bg-[#0c1133] border border-indigo-900/60"
-                >
-                  <div className="flex items-center gap-3">
-                    <span className="text-2xl">{q.icon}</span>
-                    <div>
-                      <div className="text-xs font-bold text-white">{q.title}</div>
-                      <div className="text-[10px] text-slate-400">{q.desc}</div>
+          <div className="space-y-3">
+            <div className="flex items-center justify-between text-xs font-mono px-1">
+              <span className="text-slate-400">
+                Completed: <span className="text-cyan-400 font-bold">{claimedQuests.size}</span> / {STUDY_DAILY_QUESTS.length} Today
+              </span>
+              <button
+                onClick={handleResetQuests}
+                className="text-[10px] text-slate-500 hover:text-amber-400 underline transition-colors"
+                title="Reset daily quests progress"
+              >
+                Reset Quests
+              </button>
+            </div>
+
+            <div className="space-y-2.5 max-h-[260px] overflow-y-auto pr-1">
+              {STUDY_DAILY_QUESTS.map((q) => {
+                const isClaimed = claimedQuests.has(q.id);
+                const isCompleted = completedQuests.has(q.id);
+
+                return (
+                  <div
+                    key={q.id}
+                    className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-2xl bg-[#0c1133] border border-indigo-900/60"
+                  >
+                    <div className="flex items-center gap-3">
+                      <span className="text-2xl">{q.icon}</span>
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs font-bold text-white">{q.title}</span>
+                          {isClaimed ? (
+                            <span className="text-[9px] font-mono px-1.5 py-0.2 rounded bg-emerald-950/60 text-emerald-400 border border-emerald-800/40 font-bold">
+                              Claimed
+                            </span>
+                          ) : isCompleted ? (
+                            <span className="text-[9px] font-mono px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40 animate-pulse font-bold">
+                              Ready!
+                            </span>
+                          ) : (
+                            <span className="text-[9px] font-mono px-1.5 py-0.2 rounded bg-slate-800/80 text-slate-400 border border-slate-700/60">
+                              0/1 Incomplete
+                            </span>
+                          )}
+                        </div>
+                        <div className="text-[10px] text-slate-400 mt-0.5">{q.desc}</div>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-2 self-end sm:self-center">
+                      {isClaimed ? (
+                        <Button
+                          size="sm"
+                          disabled
+                          className="text-xs font-bold rounded-xl h-8 px-3 bg-emerald-950/40 text-emerald-400 border border-emerald-800/40 cursor-default"
+                        >
+                          <CheckCircle2 className="h-3.5 w-3.5 mr-1" />
+                          Claimed
+                        </Button>
+                      ) : isCompleted ? (
+                        <Button
+                          size="sm"
+                          onClick={() => handleClaimQuest(q.id, q.xp)}
+                          className="text-xs font-bold rounded-xl h-8 px-3 bg-gradient-to-r from-amber-500 to-indigo-600 hover:from-amber-400 hover:to-indigo-500 text-white shadow-md shadow-amber-500/20 animate-pulse"
+                        >
+                          Claim +{q.xp} XP
+                        </Button>
+                      ) : (
+                        <Link href={q.href} onClick={onClose}>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="text-xs font-bold rounded-xl h-8 px-3 border-indigo-700/60 text-indigo-300 hover:bg-indigo-950/60 hover:text-white"
+                          >
+                            <span>Start Quest</span>
+                            <ArrowRight className="h-3 w-3 ml-1" />
+                          </Button>
+                        </Link>
+                      )}
                     </div>
                   </div>
-
-                  <div className="flex items-center gap-2">
-                    {q.href && !isClaimed && (
-                      <Link
-                        href={q.href}
-                        onClick={onClose}
-                        className="text-[10px] font-bold text-indigo-400 hover:text-indigo-300 underline"
-                      >
-                        Go &rarr;
-                      </Link>
-                    )}
-                    <Button
-                      size="sm"
-                      disabled={isClaimed}
-                      onClick={() => handleClaimQuest(q.id, q.xp)}
-                      className={`text-xs font-bold rounded-xl h-8 px-3 ${
-                        isClaimed
-                          ? "bg-emerald-950/40 text-emerald-400 border border-emerald-800/40 cursor-default"
-                          : "bg-gradient-to-r from-amber-500 to-indigo-600 hover:from-amber-400 hover:to-indigo-500 text-white shadow-md shadow-amber-500/20"
-                      }`}
-                    >
-                      {isClaimed ? "Claimed" : `+${q.xp} XP`}
-                    </Button>
-                  </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
         )}
 
