@@ -4,7 +4,9 @@ import { StudyNavbar } from "@/components/study-navbar";
 import { StudyFooter } from "@/components/study-footer";
 
 export const metadata: Metadata = {
-  title: "Interactive Course Canvas & Visual Roadmaps | StudyNest Academy",
+  title: {
+    absolute: "Interactive Course Canvas & Visual Roadmaps — StudyNest Academy",
+  },
   description:
     "Zero-cost, node-based interactive visual study roadmap for modern tech roles. Master full-stack, AI/ML engineering, and cloud architecture with interactive nodes and verified project capstones.",
 };
