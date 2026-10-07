@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Engineering Roadmaps — StudyNest Academy",
+  title: {
+    absolute: "Engineering Roadmaps — StudyNest Academy",
+  },
   description:
     "Interactive developer career roadmaps, step-by-step skill trees, and milestones from junior to staff engineer.",
   openGraph: {

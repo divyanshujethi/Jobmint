@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Visual Skill Canvas — StudyNest Academy",
+  title: {
+    absolute: "Visual Skill Canvas — StudyNest Academy",
+  },
   description:
     "Interactive node-based skill canvases. Master backend architecture, AI & LLM systems, fullstack engineering, and cloud DevOps step-by-step.",
   openGraph: {

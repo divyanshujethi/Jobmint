@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Masterclasses & Playlists — StudyNest Academy",
+  title: {
+    absolute: "Masterclasses & Playlists — StudyNest Academy",
+  },
   description:
     "Curated deep-dive masterclasses, verified university lectures, and chapter-by-chapter system walkthroughs.",
   openGraph: {
