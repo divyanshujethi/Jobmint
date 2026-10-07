@@ -96,8 +96,8 @@ export function InteractiveStudyCanvas() {
   const [cloudSynced, setCloudSynced] = useState(false);
 
   // ── Gamification State ──
-  const [userXp, setUserXp] = useState<number>(350);
-  const [streakDays, setStreakDays] = useState<number>(4);
+  const [userXp, setUserXp] = useState<number>(850);
+  const [streakDays, setStreakDays] = useState<number>(3);
   const [claimedQuests, setClaimedQuests] = useState<Set<string>>(new Set());
   const [unlockedAchievements, setUnlockedAchievements] = useState<Set<string>>(new Set(["a1"]));
   const [showQuestsModal, setShowQuestsModal] = useState<boolean>(false);
@@ -138,6 +138,11 @@ export function InteractiveStudyCanvas() {
       const savedXp = localStorage.getItem("studynest_gamification_xp");
       if (savedXp) setUserXp(parseInt(savedXp, 10));
 
+      const savedStreak =
+        localStorage.getItem("studynest_study_streak") ||
+        localStorage.getItem("rolenest_study_streak");
+      if (savedStreak) setStreakDays(parseInt(savedStreak, 10));
+
       const savedQuests = localStorage.getItem("studynest_claimed_quests");
       if (savedQuests) setClaimedQuests(new Set(JSON.parse(savedQuests)));
 
@@ -169,6 +174,7 @@ export function InteractiveStudyCanvas() {
       const next = prev + amount;
       try {
         localStorage.setItem("studynest_gamification_xp", next.toString());
+        window.dispatchEvent(new CustomEvent("studynest-xp-updated", { detail: { xp: next, streak: streakDays } }));
       } catch {}
       return next;
     });

@@ -30,36 +30,38 @@ export function StudyNavbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const checkPro = () => {
+    const syncGamification = () => {
       try {
         const savedPro = localStorage.getItem("studynest_pro_member");
         setIsPro(savedPro === "true");
 
-        const savedStreak = localStorage.getItem("rolenest_study_streak");
+        const savedStreak =
+          localStorage.getItem("studynest_study_streak") ||
+          localStorage.getItem("rolenest_study_streak");
         if (savedStreak) setStreak(parseInt(savedStreak, 10));
 
-        const savedProgress = localStorage.getItem("rolenest_study_progress");
-        if (savedProgress) {
-          const obj = JSON.parse(savedProgress);
-          const totalCompletedDays = Object.values(obj).reduce(
-            (acc: number, curr: any) => acc + (Array.isArray(curr) ? curr.length : 0),
-            0
-          );
-          setXp(500 + totalCompletedDays * 120);
+        const savedXp =
+          localStorage.getItem("studynest_gamification_xp") ||
+          localStorage.getItem("rolenest_study_xp");
+        if (savedXp) {
+          setXp(parseInt(savedXp, 10));
         }
       } catch {}
     };
 
-    checkPro();
-    window.addEventListener("studynest-pro-updated", checkPro);
-    return () => window.removeEventListener("studynest-pro-updated", checkPro);
+    syncGamification();
+    window.addEventListener("studynest-pro-updated", syncGamification);
+    window.addEventListener("studynest-xp-updated", syncGamification);
+    return () => {
+      window.removeEventListener("studynest-pro-updated", syncGamification);
+      window.removeEventListener("studynest-xp-updated", syncGamification);
+    };
   }, []);
 
   const navLinks = [
-    { href: "/roadmaps", label: "Career Roadmaps", icon: Compass },
+    { href: "/roadmaps", label: "Roadmaps & Cohorts", icon: Compass },
     { href: "/canvas", label: "Course Canvas", icon: Layers },
     { href: "/whiteboard", label: "Whiteboard & Notes", icon: PenTool },
-    { href: "/study", label: "30-Day Cohorts", icon: BookOpen },
     { href: "/playlists", label: "Video Masterclasses", icon: ListVideo },
     { href: "/study#ai-generator", label: "AI Syllabus Builder", icon: Sparkles },
     { href: "/study-pods", label: "Peer Study Pods", icon: Users2 },

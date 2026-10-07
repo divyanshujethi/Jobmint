@@ -23,6 +23,8 @@ import {
   ListVideo,
   FileText,
   Share2,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -43,6 +45,12 @@ export default function PlaylistsPage() {
   const [bookmarkedIds, setBookmarkedIds] = useState<string[]>([]);
   const [completedIds, setCompletedIds] = useState<string[]>([]);
   const [collectionFilter, setCollectionFilter] = useState<"ALL" | "BOOKMARKED" | "COMPLETED">("ALL");
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const ITEMS_PER_PAGE = 8;
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [collectionFilter, selectedCategory, searchQuery]);
 
   useEffect(() => {
     async function loadDynamicPlaylists() {
@@ -138,6 +146,12 @@ export default function PlaylistsPage() {
   };
 
   const currentChapters: VideoChapter[] = activeModalCourse ? getCourseChapters(activeModalCourse) : [];
+
+  const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE) || 1;
+  const paginatedCourses = filtered.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  );
 
   return (
     <div className="min-h-screen bg-[#070913] text-slate-100 flex flex-col font-sans selection:bg-indigo-500/30">
@@ -278,8 +292,9 @@ export default function PlaylistsPage() {
               </Button>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {filtered.map((item) => {
+            <div className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {paginatedCourses.map((item) => {
                 const isBookmarked = bookmarkedIds.includes(item.id);
                 const isCompleted = completedIds.includes(item.id);
 
@@ -474,6 +489,84 @@ export default function PlaylistsPage() {
                   </Card>
                 );
               })}
+            </div>
+
+              {/* PAGINATION CONTROLS */}
+              {totalPages > 1 && (
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-indigo-950/80 bg-[#0c1020]/60 p-4 rounded-2xl border border-indigo-950/60">
+                  <div className="text-xs text-slate-400">
+                    Showing <span className="font-bold text-white">{((currentPage - 1) * ITEMS_PER_PAGE) + 1}</span> to{" "}
+                    <span className="font-bold text-white">{Math.min(currentPage * ITEMS_PER_PAGE, filtered.length)}</span> of{" "}
+                    <span className="font-bold text-white">{filtered.length}</span> masterclasses
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => {
+                        setCurrentPage((prev) => Math.max(prev - 1, 1));
+                        window.scrollTo({ top: 350, behavior: "smooth" });
+                      }}
+                      disabled={currentPage === 1}
+                      className="border-indigo-950 bg-slate-900 text-slate-300 hover:text-white hover:bg-slate-800 disabled:opacity-40 text-xs gap-1 rounded-xl"
+                    >
+                      <ChevronLeft className="h-4 w-4" />
+                      <span>Previous</span>
+                    </Button>
+
+                    <div className="flex items-center gap-1">
+                      {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => {
+                        if (
+                          page === 1 ||
+                          page === totalPages ||
+                          (page >= currentPage - 1 && page <= currentPage + 1)
+                        ) {
+                          const isCurrent = page === currentPage;
+                          return (
+                            <button
+                              key={page}
+                              onClick={() => {
+                                setCurrentPage(page);
+                                window.scrollTo({ top: 350, behavior: "smooth" });
+                              }}
+                              className={`w-8 h-8 rounded-xl text-xs font-bold transition-all ${
+                                isCurrent
+                                  ? "bg-indigo-600 text-white shadow-md shadow-indigo-500/25 ring-1 ring-indigo-400"
+                                  : "bg-slate-900/80 text-slate-400 hover:text-white hover:bg-slate-800 border border-indigo-950/60"
+                              }`}
+                            >
+                              {page}
+                            </button>
+                          );
+                        }
+                        if (page === currentPage - 2 || page === currentPage + 2) {
+                          return (
+                            <span key={page} className="px-1 text-slate-500 text-xs font-mono">
+                              ...
+                            </span>
+                          );
+                        }
+                        return null;
+                      })}
+                    </div>
+
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => {
+                        setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+                        window.scrollTo({ top: 350, behavior: "smooth" });
+                      }}
+                      disabled={currentPage === totalPages}
+                      className="border-indigo-950 bg-slate-900 text-slate-300 hover:text-white hover:bg-slate-800 disabled:opacity-40 text-xs gap-1 rounded-xl"
+                    >
+                      <span>Next</span>
+                      <ChevronRight className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+              )}
             </div>
           )}
 

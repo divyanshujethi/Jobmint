@@ -53,7 +53,7 @@ import { StudyNavbar } from "@/components/study-navbar";
 import { StudyFooter } from "@/components/study-footer";
 import { StudyProModal } from "@/components/study-pro-modal";
 
-type StudyTab = "roadmaps" | "canvas" | "cohorts" | "masterclasses" | "ai-generator" | "pods";
+type StudyTab = "roadmaps" | "canvas" | "masterclasses" | "ai-generator" | "pods";
 
 export default function StudyHubPage() {
   const [activeTab, setActiveTab] = useState<StudyTab>("roadmaps");
@@ -82,7 +82,9 @@ export default function StudyHubPage() {
       if (saved) {
         setCompletedDays(JSON.parse(saved));
       }
-      const savedStreak = localStorage.getItem("rolenest_study_streak");
+      const savedStreak =
+        localStorage.getItem("studynest_study_streak") ||
+        localStorage.getItem("rolenest_study_streak");
       if (savedStreak) {
         setStreakCount(parseInt(savedStreak, 10));
       }
@@ -95,9 +97,7 @@ export default function StudyHubPage() {
         setActiveTab("canvas");
       } else if (hash === "ai-generator" || hash === "ai-syllabus") {
         setActiveTab("ai-generator");
-      } else if (hash === "cohorts") {
-        setActiveTab("cohorts");
-      } else if (hash === "roadmaps") {
+      } else if (hash === "cohorts" || hash === "roadmaps") {
         setActiveTab("roadmaps");
       } else if (hash === "masterclasses") {
         setActiveTab("masterclasses");
@@ -124,7 +124,13 @@ export default function StudyHubPage() {
         if (!isDone) {
           const newStreak = streakCount + 1;
           setStreakCount(newStreak);
+          localStorage.setItem("studynest_study_streak", newStreak.toString());
           localStorage.setItem("rolenest_study_streak", newStreak.toString());
+
+          const currentXp = parseInt(localStorage.getItem("studynest_gamification_xp") || "850", 10);
+          const newXp = currentXp + 120;
+          localStorage.setItem("studynest_gamification_xp", newXp.toString());
+          window.dispatchEvent(new CustomEvent("studynest-xp-updated", { detail: { xp: newXp, streak: newStreak } }));
         }
       } catch {}
       return newState;
@@ -149,7 +155,7 @@ export default function StudyHubPage() {
       setIsGenerating(false);
       setGeneratedSuccess(true);
       setExpandedDay(1);
-      setActiveTab("cohorts");
+      setActiveTab("roadmaps");
     }, 600);
   };
 
@@ -228,9 +234,8 @@ export default function StudyHubPage() {
           <div className="mx-auto max-w-7xl flex items-center justify-between gap-3">
             <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none py-1">
               {[
-                { id: "roadmaps", label: "Career Roadmaps", icon: Compass, count: CAREER_ROADMAPS.length },
+                { id: "roadmaps", label: "Roadmaps & Cohorts", icon: Compass, count: CAREER_ROADMAPS.length + courses.length },
                 { id: "canvas", label: "Course Canvas", icon: Layers, count: CANVAS_TRACKS.length },
-                { id: "cohorts", label: "30-Day Cohorts", icon: BookOpen, count: courses.length },
                 { id: "masterclasses", label: "Video Masterclasses", icon: ListVideo, count: CURATED_COURSES.length },
                 { id: "ai-generator", label: "AI Syllabus Builder", icon: Sparkles, count: "AI" },
                 { id: "pods", label: "Peer Study Pods", icon: Users2, count: MOCK_STUDY_PODS.length },
@@ -455,8 +460,8 @@ export default function StudyHubPage() {
             </div>
           )}
 
-          {/* TAB 2: 30-DAY COHORTS */}
-          {activeTab === "cohorts" && (
+          {/* 30-DAY GUIDED COHORT TRACKS (PART OF ROADMAPS & COHORTS) */}
+          {activeTab === "roadmaps" && (
             <div className="space-y-8">
               {/* COURSE TRACK SELECTOR BAR */}
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 rounded-2xl border border-indigo-950/80 bg-[#0b0f22] p-4">
