@@ -40,21 +40,11 @@ import {
   Youtube,
   Layers,
   PenTool,
-  MousePointer,
-  StickyNote,
-  Square,
-  MoveRight,
-  Eraser,
-  Undo2,
-  Trash2,
-  Eye,
-  EyeOff,
   Flame,
   Trophy,
   Award,
   Zap,
   Target,
-  Palette,
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { KnowledgeGraphView } from "./knowledge-graph-view";
@@ -67,24 +57,6 @@ const ROLE_SWITCHERS = [
   { id: "govtech-aspirant", label: "GovTech Aspirant", icon: "🏛️", badge: "India Stack & DPI" },
 ];
 
-// Whiteboard stroke definition
-interface WhiteboardStroke {
-  id: string;
-  type: "pen" | "highlighter" | "arrow" | "rect";
-  color: string;
-  strokeWidth: number;
-  points: { x: number; y: number }[];
-}
-
-// Spatial Sticky Note definition
-interface SpatialSticky {
-  id: string;
-  x: number;
-  y: number;
-  color: "amber" | "cyan" | "emerald" | "rose" | "purple";
-  text: string;
-}
-
 // Gamification Ranks
 const RANKS = [
   { name: "Apprentice Coder", minXp: 0, maxXp: 500, icon: "🌱", color: "text-emerald-400" },
@@ -96,27 +68,18 @@ const RANKS = [
 
 const DAILY_QUESTS = [
   { id: "q1", title: "Master an Architectural Node", xp: 100, desc: "Mark any node as mastered on the canvas", icon: "🎯" },
-  { id: "q2", title: "Sketch a System Diagram", xp: 50, desc: "Draw an architectural flow or add a spatial sticky", icon: "✏️" },
+  { id: "q2", title: "Review 3-Min Code Blueprint", xp: 50, desc: "Inspect and copy a production blueprint", icon: "💻" },
   { id: "q3", title: "Crack an Interview POTD", xp: 50, desc: "Reveal and review the technical solution", icon: "💡" },
   { id: "q4", title: "Explore a Second Track", xp: 50, desc: "Switch and inspect a different engineering path", icon: "🗺️" },
 ];
 
 const ACHIEVEMENTS = [
   { id: "a1", title: "First Commit", desc: "Master your very first roadmap node", xp: 100, icon: "🚀" },
-  { id: "a2", title: "Spatial Architect", desc: "Use whiteboarding tools to annotate a system", xp: 75, icon: "🎨" },
-  { id: "a3", title: "Streak Warrior", desc: "Maintain a consecutive daily learning streak", xp: 150, icon: "🔥" },
-  { id: "a4", title: "Knowledge Pioneer", desc: "Master 5 technical milestones", xp: 250, icon: "💎" },
-  { id: "a5", title: "Polyglot Master", desc: "Inspect 3 specialized engineering tracks", xp: 100, icon: "🌐" },
-  { id: "a6", title: "Grandmaster Aspirant", desc: "Accumulate 1,500+ Engineering XP", xp: 500, icon: "👑" },
-];
-
-const NEON_COLORS = [
-  { id: "#6366f1", label: "Indigo", bg: "bg-indigo-500" },
-  { id: "#06b6d4", label: "Cyan", bg: "bg-cyan-400" },
-  { id: "#10b981", label: "Emerald", bg: "bg-emerald-400" },
-  { id: "#f59e0b", label: "Amber", bg: "bg-amber-400" },
-  { id: "#ec4899", label: "Rose", bg: "bg-pink-500" },
-  { id: "#ffffff", label: "White", bg: "bg-white" },
+  { id: "a2", title: "Streak Warrior", desc: "Maintain a consecutive daily learning streak", xp: 150, icon: "🔥" },
+  { id: "a3", title: "Systems Thinker", desc: "Master 5 technical milestones", xp: 250, icon: "💎" },
+  { id: "a4", title: "Polyglot Master", desc: "Inspect 3 specialized engineering tracks", xp: 100, icon: "🌐" },
+  { id: "a5", title: "Grandmaster Aspirant", desc: "Accumulate 1,500+ Engineering XP", xp: 500, icon: "👑" },
+  { id: "a6", title: "Architect Fellow", desc: "Complete 10 milestones across curricula", xp: 600, icon: "🏛️" },
 ];
 
 export function InteractiveStudyCanvas() {
@@ -131,16 +94,6 @@ export function InteractiveStudyCanvas() {
   const [copiedBadge, setCopiedBadge] = useState(false);
   const [showAnswer, setShowAnswer] = useState(false);
   const [cloudSynced, setCloudSynced] = useState(false);
-
-  // ── Whiteboarding & Spatial Canvas State ──
-  const [wbTool, setWbTool] = useState<"select" | "pen" | "highlighter" | "arrow" | "rect" | "sticky" | "eraser">("select");
-  const [wbColor, setWbColor] = useState<string>("#6366f1");
-  const [wbStrokeWidth, setWbStrokeWidth] = useState<number>(3);
-  const [showWhiteboard, setShowWhiteboard] = useState<boolean>(true);
-  const [strokes, setStrokes] = useState<WhiteboardStroke[]>([]);
-  const [currentStroke, setCurrentStroke] = useState<WhiteboardStroke | null>(null);
-  const [stickies, setStickies] = useState<SpatialSticky[]>([]);
-  const [activeStickyDrag, setActiveStickyDrag] = useState<{ id: string; offsetX: number; offsetY: number } | null>(null);
 
   // ── Gamification State ──
   const [userXp, setUserXp] = useState<number>(350);
@@ -210,34 +163,6 @@ export function InteractiveStudyCanvas() {
       .catch(() => {});
   }, []);
 
-  // Load track-specific whiteboard strokes & stickies
-  useEffect(() => {
-    try {
-      const savedStrokes = localStorage.getItem(`studynest_wb_strokes_${activeTrackId}`);
-      if (savedStrokes) setStrokes(JSON.parse(savedStrokes));
-      else setStrokes([]);
-
-      const savedStickies = localStorage.getItem(`studynest_wb_stickies_${activeTrackId}`);
-      if (savedStickies) setStickies(JSON.parse(savedStickies));
-      else setStickies([]);
-    } catch {}
-  }, [activeTrackId]);
-
-  // Save whiteboard data
-  const saveStrokes = (newStrokes: WhiteboardStroke[]) => {
-    setStrokes(newStrokes);
-    try {
-      localStorage.setItem(`studynest_wb_strokes_${activeTrackId}`, JSON.stringify(newStrokes));
-    } catch {}
-  };
-
-  const saveStickies = (newStickies: SpatialSticky[]) => {
-    setStickies(newStickies);
-    try {
-      localStorage.setItem(`studynest_wb_stickies_${activeTrackId}`, JSON.stringify(newStickies));
-    } catch {}
-  };
-
   // Trigger floating XP & Confetti blast
   const awardXp = useCallback((amount: number, reason: string, coords?: { x: number; y: number }) => {
     setUserXp((prev) => {
@@ -254,7 +179,6 @@ export function InteractiveStudyCanvas() {
     setFloatingXp({ id: Date.now(), text: `+${amount} XP ${reason}`, x, y });
     setTimeout(() => setFloatingXp(null), 2200);
 
-    // Trigger canvas confetti
     triggerConfetti();
   }, []);
 
@@ -305,7 +229,7 @@ export function InteractiveStudyCanvas() {
       particles.forEach((p) => {
         p.x += p.vx;
         p.y += p.vy;
-        p.vy += 0.35; // gravity
+        p.vy += 0.35;
         p.vx *= 0.98;
         p.rot += p.vRot;
         if (frame > 25) p.opacity -= 0.025;
@@ -373,11 +297,10 @@ export function InteractiveStudyCanvas() {
 
     if (isNowCompleted) {
       awardXp(100, "Node Mastered!", clientCoords);
-      // Unlock achievements if criteria met
       setUnlockedAchievements((prev) => {
         const next = new Set(prev);
         next.add("a1");
-        if (completedNodes.size + 1 >= 5) next.add("a4");
+        if (completedNodes.size + 1 >= 5) next.add("a3");
         try {
           localStorage.setItem("studynest_achievements", JSON.stringify(Array.from(next)));
         } catch {}
@@ -462,122 +385,44 @@ export function InteractiveStudyCanvas() {
     img.src = url;
   };
 
-  // ── Convert Screen Coords to World (Canvas) Coords ──
-  const screenToWorld = useCallback((clientX: number, clientY: number) => {
-    const rect = containerRef.current?.getBoundingClientRect();
-    if (!rect) return { x: 0, y: 0 };
-    return {
-      x: (clientX - rect.left - pan.x) / scale,
-      y: (clientY - rect.top - pan.y) / scale,
-    };
-  }, [pan, scale]);
-
-  // ── Mouse & Pan Handlers with Whiteboarding Integration ──
+  // ── Pan Handlers (Smooth Dragging Across Course Roadmap) ──
   const handleMouseDown = (e: React.MouseEvent) => {
     if (
       (e.target as HTMLElement).closest(".canvas-node") ||
       (e.target as HTMLElement).closest(".drawer-content") ||
-      (e.target as HTMLElement).closest(".spatial-sticky") ||
       (e.target as HTMLElement).closest("button") ||
+      (e.target as HTMLElement).closest("a") ||
       (e.target as HTMLElement).closest("input") ||
       (e.target as HTMLElement).closest("textarea")
     ) {
       return;
     }
 
-    if (wbTool === "select") {
-      setIsPanning(true);
-      startPanRef.current = { x: e.clientX - pan.x, y: e.clientY - pan.y };
-    } else if (wbTool === "sticky") {
-      // Drop new sticky note at clicked location
-      const world = screenToWorld(e.clientX, e.clientY);
-      const newSticky: SpatialSticky = {
-        id: `sticky-${Date.now()}`,
-        x: world.x - 90,
-        y: world.y - 40,
-        color: "amber",
-        text: "New architectural note...",
-      };
-      saveStickies([...stickies, newSticky]);
-      awardXp(25, "Note Created!", { x: e.clientX, y: e.clientY });
-      setWbTool("select");
-    } else {
-      // Start drawing stroke
-      const world = screenToWorld(e.clientX, e.clientY);
-      const newStroke: WhiteboardStroke = {
-        id: `stroke-${Date.now()}`,
-        type: wbTool as "pen" | "highlighter" | "arrow" | "rect",
-        color: wbColor,
-        strokeWidth: wbTool === "highlighter" ? 14 : wbStrokeWidth,
-        points: [world],
-      };
-      setCurrentStroke(newStroke);
-    }
+    setIsPanning(true);
+    startPanRef.current = { x: e.clientX - pan.x, y: e.clientY - pan.y };
   };
 
   useEffect(() => {
     const onMouseMove = (e: MouseEvent) => {
-      if (isPanning && wbTool === "select") {
+      if (isPanning) {
         setPan({
           x: e.clientX - startPanRef.current.x,
           y: e.clientY - startPanRef.current.y,
         });
-      } else if (currentStroke) {
-        const world = screenToWorld(e.clientX, e.clientY);
-        setCurrentStroke((prev) => {
-          if (!prev) return null;
-          if (prev.type === "pen" || prev.type === "highlighter") {
-            return { ...prev, points: [...prev.points, world] };
-          } else {
-            // For arrow or rect, just update end point
-            return { ...prev, points: [prev.points[0], world] };
-          }
-        });
-      } else if (activeStickyDrag) {
-        const world = screenToWorld(e.clientX, e.clientY);
-        setStickies((prev) =>
-          prev.map((s) =>
-            s.id === activeStickyDrag.id
-              ? { ...s, x: world.x - activeStickyDrag.offsetX, y: world.y - activeStickyDrag.offsetY }
-              : s
-          )
-        );
       }
     };
 
-    const onMouseUp = (e: MouseEvent) => {
-      if (isPanning) {
-        setIsPanning(false);
-      }
-      if (currentStroke) {
-        saveStrokes([...strokes, currentStroke]);
-        setCurrentStroke(null);
-        awardXp(25, "Architectural Sketch!", { x: e.clientX, y: e.clientY });
-        setUnlockedAchievements((prev) => {
-          const next = new Set(prev);
-          next.add("a2");
-          try {
-            localStorage.setItem("studynest_achievements", JSON.stringify(Array.from(next)));
-          } catch {}
-          return next;
-        });
-      }
-      if (activeStickyDrag) {
-        try {
-          localStorage.setItem(`studynest_wb_stickies_${activeTrackId}`, JSON.stringify(stickies));
-        } catch {}
-        setActiveStickyDrag(null);
-      }
+    const onMouseUp = () => {
+      if (isPanning) setIsPanning(false);
     };
 
     window.addEventListener("mousemove", onMouseMove);
     window.addEventListener("mouseup", onMouseUp);
-
     return () => {
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("mouseup", onMouseUp);
     };
-  }, [isPanning, currentStroke, activeStickyDrag, strokes, stickies, wbTool, screenToWorld, activeTrackId, awardXp]);
+  }, [isPanning]);
 
   // Trackpad / Wheel Zoom & Pan
   useEffect(() => {
@@ -653,21 +498,6 @@ export function InteractiveStudyCanvas() {
     setPan({ x: 60, y: 30 });
   };
 
-  // Whiteboard Undo & Clear
-  const undoStroke = () => {
-    if (strokes.length > 0) {
-      const next = strokes.slice(0, -1);
-      saveStrokes(next);
-    }
-  };
-
-  const clearAllDrawings = () => {
-    if (confirm("Clear all drawings and sticky notes on this canvas?")) {
-      saveStrokes([]);
-      saveStickies([]);
-    }
-  };
-
   // Node coordinate map
   const nodeMap = useMemo(() => {
     const map = new Map<string, CanvasNode>();
@@ -714,93 +544,6 @@ export function InteractiveStudyCanvas() {
   const progressCount = activeTrack.nodes.filter((n) => completedNodes.has(n.id)).length;
   const progressPercentage = Math.round((progressCount / activeTrack.nodes.length) * 100);
 
-  // Helper for rendering strokes
-  const renderStroke = (stroke: WhiteboardStroke) => {
-    if (stroke.points.length === 0) return null;
-
-    if (stroke.type === "pen" || stroke.type === "highlighter") {
-      if (stroke.points.length === 1) {
-        return (
-          <circle
-            key={stroke.id}
-            cx={stroke.points[0].x}
-            cy={stroke.points[0].y}
-            r={stroke.strokeWidth / 2}
-            fill={stroke.color}
-            opacity={stroke.type === "highlighter" ? 0.35 : 1}
-          />
-        );
-      }
-      const d = stroke.points.reduce((acc, pt, i) => {
-        return i === 0 ? `M ${pt.x} ${pt.y}` : `${acc} L ${pt.x} ${pt.y}`;
-      }, "");
-
-      return (
-        <path
-          key={stroke.id}
-          d={d}
-          fill="none"
-          stroke={stroke.color}
-          strokeWidth={stroke.strokeWidth}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          opacity={stroke.type === "highlighter" ? 0.35 : 0.95}
-        />
-      );
-    } else if (stroke.type === "arrow" && stroke.points.length >= 2) {
-      const p1 = stroke.points[0];
-      const p2 = stroke.points[stroke.points.length - 1];
-      const angle = Math.atan2(p2.y - p1.y, p2.x - p1.x);
-      const headLen = 14;
-      const arrowLeftX = p2.x - headLen * Math.cos(angle - Math.PI / 6);
-      const arrowLeftY = p2.y - headLen * Math.sin(angle - Math.PI / 6);
-      const arrowRightX = p2.x - headLen * Math.cos(angle + Math.PI / 6);
-      const arrowRightY = p2.y - headLen * Math.sin(angle + Math.PI / 6);
-
-      return (
-        <g key={stroke.id}>
-          <line
-            x1={p1.x}
-            y1={p1.y}
-            x2={p2.x}
-            y2={p2.y}
-            stroke={stroke.color}
-            strokeWidth={stroke.strokeWidth}
-            strokeLinecap="round"
-          />
-          <polygon
-            points={`${p2.x},${p2.y} ${arrowLeftX},${arrowLeftY} ${arrowRightX},${arrowRightY}`}
-            fill={stroke.color}
-          />
-        </g>
-      );
-    } else if (stroke.type === "rect" && stroke.points.length >= 2) {
-      const p1 = stroke.points[0];
-      const p2 = stroke.points[stroke.points.length - 1];
-      const rx = Math.min(p1.x, p2.x);
-      const ry = Math.min(p1.y, p2.y);
-      const rw = Math.abs(p2.x - p1.x);
-      const rh = Math.abs(p2.y - p1.y);
-
-      return (
-        <rect
-          key={stroke.id}
-          x={rx}
-          y={ry}
-          width={rw}
-          height={rh}
-          rx={8}
-          fill="none"
-          stroke={stroke.color}
-          strokeWidth={stroke.strokeWidth}
-          strokeDasharray="6 4"
-          opacity={0.85}
-        />
-      );
-    }
-    return null;
-  };
-
   return (
     <div className="flex flex-col h-[calc(100vh-4rem)] bg-[#060814] text-slate-100 overflow-hidden select-none font-sans relative">
       <style>{`
@@ -841,7 +584,7 @@ export function InteractiveStudyCanvas() {
         </div>
       )}
 
-      {/* Top Header & Obsidian Controls */}
+      {/* Top Header & Navigation Bar */}
       <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between border-b border-indigo-950/80 bg-[#0c1024]/90 px-6 py-3 backdrop-blur-xl z-20 gap-3 shadow-lg">
         <div className="flex items-center gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-cyan-500 text-white shadow-lg shadow-indigo-500/25">
@@ -849,18 +592,28 @@ export function InteractiveStudyCanvas() {
           </div>
           <div>
             <h1 className="text-base font-extrabold text-white flex items-center gap-2 tracking-tight">
-              Spatial Study &amp; Architecture Canvas
+              Interactive Course Canvas
               <span className="rounded-full bg-indigo-500/20 border border-indigo-400/30 px-2 py-0.5 text-[10px] font-bold text-indigo-300 font-mono">
                 StudyNest Studio
               </span>
             </h1>
             <p className="text-xs text-slate-400">
-              Infinite spatial workspace with full vector whiteboarding, interactive engineering skill trees &amp; verified career mastery.
+              Visual engineering roadmaps, milestone skill trees &amp; verified candidate mastery.
             </p>
           </div>
         </div>
 
         <div className="flex flex-wrap items-center gap-3">
+          {/* LINK TO WHITEBOARD & NOTES */}
+          <Link
+            href="/whiteboard"
+            className="flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-indigo-600 hover:from-amber-400 hover:to-indigo-500 px-3.5 py-1.5 text-xs font-bold text-white shadow-md shadow-amber-500/20 transition-all border border-amber-400/30 hover:scale-[1.02]"
+            title="Open Google Notes Style Notepad and Vector Whiteboard"
+          >
+            <PenTool className="h-3.5 w-3.5" />
+            <span>Open Whiteboard &amp; Notes</span>
+          </Link>
+
           {/* Gamification HUD Pill */}
           <div className="flex items-center gap-2 bg-[#101533] border border-indigo-900/60 rounded-2xl px-3 py-1.5 shadow-inner">
             <div className="flex items-center gap-1.5">
@@ -1022,7 +775,7 @@ export function InteractiveStudyCanvas() {
           <div className="flex items-center gap-2.5">
             <Sparkles className="h-4 w-4 text-cyan-400 shrink-0" />
             <div className="leading-relaxed">
-              <strong className="text-white">Spatial Architect Studio:</strong> Use the bottom Whiteboard dock to sketch system architectures, connect nodes with arrows, drop sticky notes, and gain +100 XP per mastered node!
+              <strong className="text-white">Interactive Course Tree:</strong> Click any milestone node to inspect 3-minute code blueprints, interview questions, and gain +100 XP toward your candidate rank! For taking visual notes or drawing, open the Whiteboard Studio above.
             </div>
           </div>
           <button
@@ -1063,7 +816,7 @@ export function InteractiveStudyCanvas() {
             </div>
           </div>
 
-          {/* Main Spatial Infinite Canvas Area */}
+          {/* Main Course Roadmap Canvas Area */}
           <div
             ref={containerRef}
             onMouseDown={handleMouseDown}
@@ -1071,10 +824,10 @@ export function InteractiveStudyCanvas() {
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
             className={`relative flex-1 overflow-hidden bg-[#060814] bg-[radial-gradient(#1e293b_1.5px,transparent_1.5px)] [background-size:24px_24px] ${
-              wbTool === "select" ? (isPanning ? "cursor-grabbing" : "cursor-grab") : "cursor-crosshair"
+              isPanning ? "cursor-grabbing" : "cursor-grab"
             }`}
           >
-            {/* Infinite World Coordinates Container */}
+            {/* World Coordinates Container */}
             <div
               style={{
                 transform: `translate(${pan.x}px, ${pan.y}px) scale(${scale})`,
@@ -1083,7 +836,7 @@ export function InteractiveStudyCanvas() {
               }}
               className="absolute inset-0 w-[3000px] h-[1200px] pointer-events-auto"
             >
-              {/* SVG Vector Layer (Connections + Whiteboard Strokes) */}
+              {/* SVG Vector Connections Layer */}
               <svg className="absolute inset-0 w-full h-full pointer-events-none">
                 <defs>
                   <linearGradient id="neonGradient" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -1117,76 +870,9 @@ export function InteractiveStudyCanvas() {
                     )}
                   </g>
                 ))}
-
-                {/* Whiteboard Vector Strokes */}
-                {showWhiteboard && strokes.map(renderStroke)}
-                {showWhiteboard && currentStroke && renderStroke(currentStroke)}
               </svg>
 
-              {/* Spatial Sticky Notes */}
-              {showWhiteboard &&
-                stickies.map((sticky) => {
-                  const colorStyles = {
-                    amber: "bg-amber-400 text-amber-950 shadow-amber-500/20 border-amber-300",
-                    cyan: "bg-cyan-400 text-cyan-950 shadow-cyan-500/20 border-cyan-300",
-                    emerald: "bg-emerald-400 text-emerald-950 shadow-emerald-500/20 border-emerald-300",
-                    rose: "bg-pink-400 text-pink-950 shadow-pink-500/20 border-pink-300",
-                    purple: "bg-purple-400 text-purple-950 shadow-purple-500/20 border-purple-300",
-                  }[sticky.color];
-
-                  return (
-                    <div
-                      key={sticky.id}
-                      style={{
-                        left: `${sticky.x}px`,
-                        top: `${sticky.y}px`,
-                        width: "190px",
-                      }}
-                      className={`spatial-sticky absolute rounded-2xl border p-3 shadow-2xl transition-shadow ${colorStyles} z-25 group`}
-                    >
-                      <div
-                        onMouseDown={(e) => {
-                          e.stopPropagation();
-                          const world = screenToWorld(e.clientX, e.clientY);
-                          setActiveStickyDrag({
-                            id: sticky.id,
-                            offsetX: world.x - sticky.x,
-                            offsetY: world.y - sticky.y,
-                          });
-                        }}
-                        className="flex items-center justify-between pb-1.5 cursor-grab active:cursor-grabbing border-b border-black/10 mb-2"
-                      >
-                        <span className="text-[10px] font-black uppercase tracking-wider font-mono opacity-70">
-                          Architecture Note
-                        </span>
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            saveStickies(stickies.filter((s) => s.id !== sticky.id));
-                          }}
-                          className="opacity-40 hover:opacity-100 p-0.5 rounded transition-opacity"
-                          title="Delete note"
-                        >
-                          <X className="h-3.5 w-3.5" />
-                        </button>
-                      </div>
-                      <textarea
-                        value={sticky.text}
-                        onChange={(e) => {
-                          const updated = stickies.map((s) =>
-                            s.id === sticky.id ? { ...s, text: e.target.value } : s
-                          );
-                          saveStickies(updated);
-                        }}
-                        rows={3}
-                        className="w-full bg-transparent text-xs font-medium focus:outline-none resize-none leading-relaxed"
-                        placeholder="Write note here..."
-                      />
-                    </div>
-                  );
-                })}
-
-              {/* Obsidian Canvas Nodes */}
+              {/* Obsidian Canvas Course Nodes */}
               {activeTrack.nodes.map((node) => {
                 const isCompleted = completedNodes.has(node.id);
                 const isSelected = selectedNode?.id === node.id;
@@ -1285,116 +971,10 @@ export function InteractiveStudyCanvas() {
               })}
             </div>
 
-            {/* FLOATING WHITEBOARD STUDIO DOCK (Bottom Center) */}
-            <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex items-center gap-2 bg-[#0c1024]/95 border border-indigo-900/80 px-4 py-2 rounded-2xl shadow-2xl backdrop-blur-xl z-30">
-              <div className="flex items-center gap-1 border-r border-indigo-900/60 pr-2">
-                <button
-                  onClick={() => setWbTool("select")}
-                  title="Select & Pan Canvas"
-                  className={`p-2 rounded-xl transition-all ${
-                    wbTool === "select"
-                      ? "bg-gradient-to-r from-indigo-600 to-cyan-600 text-white shadow-md shadow-indigo-500/20"
-                      : "text-slate-400 hover:text-white hover:bg-indigo-950/60"
-                  }`}
-                >
-                  <MousePointer className="h-4 w-4" />
-                </button>
-                <button
-                  onClick={() => setWbTool("pen")}
-                  title="Vector Freehand Pen (+25 XP)"
-                  className={`p-2 rounded-xl transition-all ${
-                    wbTool === "pen"
-                      ? "bg-gradient-to-r from-indigo-600 to-cyan-600 text-white shadow-md shadow-indigo-500/20"
-                      : "text-slate-400 hover:text-white hover:bg-indigo-950/60"
-                  }`}
-                >
-                  <PenTool className="h-4 w-4" />
-                </button>
-                <button
-                  onClick={() => setWbTool("highlighter")}
-                  title="Neon Glow Highlighter"
-                  className={`p-2 rounded-xl transition-all ${
-                    wbTool === "highlighter"
-                      ? "bg-gradient-to-r from-indigo-600 to-cyan-600 text-white shadow-md shadow-indigo-500/20"
-                      : "text-slate-400 hover:text-white hover:bg-indigo-950/60"
-                  }`}
-                >
-                  <Layers className="h-4 w-4" />
-                </button>
-                <button
-                  onClick={() => setWbTool("arrow")}
-                  title="Vector Arrow Connector"
-                  className={`p-2 rounded-xl transition-all ${
-                    wbTool === "arrow"
-                      ? "bg-gradient-to-r from-indigo-600 to-cyan-600 text-white shadow-md shadow-indigo-500/20"
-                      : "text-slate-400 hover:text-white hover:bg-indigo-950/60"
-                  }`}
-                >
-                  <MoveRight className="h-4 w-4" />
-                </button>
-                <button
-                  onClick={() => setWbTool("rect")}
-                  title="System Boundary Box"
-                  className={`p-2 rounded-xl transition-all ${
-                    wbTool === "rect"
-                      ? "bg-gradient-to-r from-indigo-600 to-cyan-600 text-white shadow-md shadow-indigo-500/20"
-                      : "text-slate-400 hover:text-white hover:bg-indigo-950/60"
-                  }`}
-                >
-                  <Square className="h-4 w-4" />
-                </button>
-                <button
-                  onClick={() => setWbTool("sticky")}
-                  title="Drop Spatial Sticky Note (+25 XP)"
-                  className={`p-2 rounded-xl transition-all ${
-                    wbTool === "sticky"
-                      ? "bg-gradient-to-r from-indigo-600 to-cyan-600 text-white shadow-md shadow-indigo-500/20"
-                      : "text-slate-400 hover:text-white hover:bg-indigo-950/60"
-                  }`}
-                >
-                  <StickyNote className="h-4 w-4" />
-                </button>
-              </div>
-
-              {/* Color Palette */}
-              <div className="flex items-center gap-1.5 border-r border-indigo-900/60 pr-2">
-                {NEON_COLORS.map((c) => (
-                  <button
-                    key={c.id}
-                    onClick={() => setWbColor(c.id)}
-                    className={`h-5 w-5 rounded-full transition-transform ${c.bg} ${
-                      wbColor === c.id ? "ring-2 ring-white scale-110" : "opacity-80 hover:opacity-100"
-                    }`}
-                    title={c.label}
-                  />
-                ))}
-              </div>
-
-              {/* Actions: Undo, Clear, Visibility */}
-              <div className="flex items-center gap-1">
-                <button
-                  onClick={undoStroke}
-                  title="Undo Last Stroke"
-                  disabled={strokes.length === 0}
-                  className="p-1.5 rounded-lg text-slate-400 hover:text-white disabled:opacity-30 transition-colors"
-                >
-                  <Undo2 className="h-4 w-4" />
-                </button>
-                <button
-                  onClick={clearAllDrawings}
-                  title="Clear All Canvas Sketches"
-                  className="p-1.5 rounded-lg text-rose-400 hover:text-rose-300 hover:bg-rose-950/40 transition-colors"
-                >
-                  <Trash2 className="h-4 w-4" />
-                </button>
-                <button
-                  onClick={() => setShowWhiteboard(!showWhiteboard)}
-                  title={showWhiteboard ? "Hide Whiteboard Layer" : "Show Whiteboard Layer"}
-                  className="p-1.5 rounded-lg text-slate-400 hover:text-white transition-colors"
-                >
-                  {showWhiteboard ? <Eye className="h-4 w-4" /> : <EyeOff className="h-4 w-4 text-slate-600" />}
-                </button>
-              </div>
+            {/* Bottom Left Hint Pill */}
+            <div className="absolute bottom-6 left-6 hidden sm:flex items-center gap-2 rounded-2xl border border-indigo-900/80 bg-[#0c1024]/95 px-3.5 py-2 text-xs text-slate-300 shadow-xl backdrop-blur-xl z-20">
+              <Sparkles className="h-3.5 w-3.5 text-cyan-400" />
+              <span>Click any node to inspect code blueprints, POTD interview prep &amp; earn +100 XP</span>
             </div>
 
             {/* Floating Zoom & Pan Controls (Bottom Right) */}

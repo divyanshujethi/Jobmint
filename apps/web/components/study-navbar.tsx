@@ -16,6 +16,7 @@ import {
   Crown,
   Menu,
   X,
+  PenTool,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { StudyProModal } from "./study-pro-modal";
@@ -56,7 +57,8 @@ export function StudyNavbar() {
 
   const navLinks = [
     { href: "/roadmaps", label: "Career Roadmaps", icon: Compass },
-    { href: "/canvas", label: "Visual Canvas", icon: Layers },
+    { href: "/canvas", label: "Course Canvas", icon: Layers },
+    { href: "/whiteboard", label: "Whiteboard & Notes", icon: PenTool },
     { href: "/study", label: "30-Day Cohorts", icon: BookOpen },
     { href: "/playlists", label: "Video Masterclasses", icon: ListVideo },
     { href: "/study#ai-generator", label: "AI Syllabus Builder", icon: Sparkles },
