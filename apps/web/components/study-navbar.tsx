@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { StudyProModal } from "./study-pro-modal";
+import { StudyGamificationModal } from "./study-gamification-modal";
 
 export function StudyNavbar() {
   const pathname = usePathname();
@@ -27,6 +28,8 @@ export function StudyNavbar() {
   const [xp, setXp] = useState(850);
   const [isPro, setIsPro] = useState(false);
   const [proModalOpen, setProModalOpen] = useState(false);
+  const [gamificationModalOpen, setGamificationModalOpen] = useState(false);
+  const [gamificationTab, setGamificationTab] = useState<"overview" | "quests" | "badges">("overview");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -119,23 +122,33 @@ export function StudyNavbar() {
 
           {/* RIGHT ACTION CONTROLS */}
           <div className="flex items-center gap-2.5">
-            {/* USER STREAK & XP BADGES */}
+            {/* USER STREAK & XP BADGES (CLICKABLE GAMIFICATION HUB) */}
             <div className="hidden sm:flex items-center gap-2">
-              <div
-                title="Daily Learning Streak"
-                className="flex items-center gap-1 rounded-lg border border-amber-500/30 bg-amber-500/10 px-2.5 py-1 text-xs font-bold text-amber-300"
+              <button
+                type="button"
+                onClick={() => {
+                  setGamificationTab("overview");
+                  setGamificationModalOpen(true);
+                }}
+                title="View Learning Streak & Levels (Click to inspect)"
+                className="flex items-center gap-1 rounded-lg border border-amber-500/30 bg-amber-500/10 hover:bg-amber-500/20 px-2.5 py-1 text-xs font-bold text-amber-300 transition-all cursor-pointer hover:scale-105 active:scale-95 shadow-xs"
               >
                 <Flame className="h-3.5 w-3.5 fill-amber-400 text-amber-400 animate-pulse" />
                 <span>{streak}d</span>
-              </div>
+              </button>
 
-              <div
-                title="Study XP Points"
-                className="flex items-center gap-1 rounded-lg border border-indigo-500/30 bg-indigo-500/10 px-2.5 py-1 text-xs font-bold text-indigo-300"
+              <button
+                type="button"
+                onClick={() => {
+                  setGamificationTab("overview");
+                  setGamificationModalOpen(true);
+                }}
+                title="View Study XP, Rank & Level-up Progress (Click to inspect)"
+                className="flex items-center gap-1 rounded-lg border border-indigo-500/30 bg-indigo-500/10 hover:bg-indigo-500/20 px-2.5 py-1 text-xs font-bold text-indigo-300 transition-all cursor-pointer hover:scale-105 active:scale-95 shadow-xs"
               >
                 <Zap className="h-3.5 w-3.5 fill-indigo-400 text-indigo-400" />
-                <span>{xp} XP</span>
-              </div>
+                <span>{xp.toLocaleString()} XP</span>
+              </button>
             </div>
 
             {/* MONETIZATION: PRO UPGRADE BUTTON */}
@@ -185,14 +198,30 @@ export function StudyNavbar() {
             })}
 
             <div className="pt-3 border-t border-indigo-950 flex items-center justify-between text-xs px-2">
-              <div className="flex items-center gap-1.5 text-amber-300 font-bold">
+              <button
+                type="button"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  setGamificationTab("overview");
+                  setGamificationModalOpen(true);
+                }}
+                className="flex items-center gap-1.5 text-amber-300 font-bold hover:opacity-80"
+              >
                 <Flame className="h-4 w-4 fill-amber-400 text-amber-400" />
-                <span>{streak} Day Streak</span>
-              </div>
-              <div className="flex items-center gap-1.5 text-indigo-300 font-bold">
+                <span>{streak}d Streak</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  setGamificationTab("overview");
+                  setGamificationModalOpen(true);
+                }}
+                className="flex items-center gap-1.5 text-indigo-300 font-bold hover:opacity-80"
+              >
                 <Zap className="h-4 w-4 fill-indigo-400 text-indigo-400" />
-                <span>{xp} Total XP</span>
-              </div>
+                <span>{xp.toLocaleString()} XP</span>
+              </button>
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);
@@ -207,6 +236,15 @@ export function StudyNavbar() {
           </div>
         )}
       </header>
+
+      {/* Gamification Hub Modal (Streak, XP, Ranks, Daily Quests & Trophies) */}
+      <StudyGamificationModal
+        isOpen={gamificationModalOpen}
+        onClose={() => setGamificationModalOpen(false)}
+        streak={streak}
+        xp={xp}
+        initialTab={gamificationTab}
+      />
 
       {/* Pro Membership Modal */}
       <StudyProModal

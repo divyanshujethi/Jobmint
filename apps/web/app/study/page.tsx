@@ -50,9 +50,13 @@ import { Button } from "@/components/ui/button";
 import { StudyNavbar } from "@/components/study-navbar";
 import { StudyFooter } from "@/components/study-footer";
 import { StudyProModal } from "@/components/study-pro-modal";
+import { StudyGamificationModal } from "@/components/study-gamification-modal";
 
 export default function StudyHubPage() {
   const [proModalOpen, setProModalOpen] = useState(false);
+  const [gamificationModalOpen, setGamificationModalOpen] = useState(false);
+  const [gamificationTab, setGamificationTab] = useState<"overview" | "quests" | "badges">("overview");
+  const [studyXp, setStudyXp] = useState<number>(850);
   const [courses, setCourses] = useState<InteractiveJobCourse[]>(ALL_INTERACTIVE_COURSES);
   const [selectedCourse, setSelectedCourse] = useState<InteractiveJobCourse>(ALL_INTERACTIVE_COURSES[0]!);
   const [selectedCategory, setSelectedCategory] = useState<string>("ALL");
@@ -83,7 +87,25 @@ export default function StudyHubPage() {
       if (savedStreak) {
         setStreakCount(parseInt(savedStreak, 10));
       }
+
+      const savedXp =
+        localStorage.getItem("studynest_gamification_xp") ||
+        localStorage.getItem("rolenest_study_xp");
+      if (savedXp) {
+        setStudyXp(parseInt(savedXp, 10));
+      }
     } catch {}
+
+    const handleXpUpdate = () => {
+      try {
+        const x = localStorage.getItem("studynest_gamification_xp");
+        if (x) setStudyXp(parseInt(x, 10));
+        const s = localStorage.getItem("studynest_study_streak");
+        if (s) setStreakCount(parseInt(s, 10));
+      } catch {}
+    };
+
+    window.addEventListener("studynest-xp-updated", handleXpUpdate);
 
     // Check hash for direct section scrolling or modal
     if (typeof window !== "undefined" && window.location.hash) {
@@ -96,6 +118,10 @@ export default function StudyHubPage() {
         setProModalOpen(true);
       }
     }
+
+    return () => {
+      window.removeEventListener("studynest-xp-updated", handleXpUpdate);
+    };
   }, []);
 
   // Save progress
@@ -198,14 +224,32 @@ export default function StudyHubPage() {
 
             {/* STREAK & XP STRIP */}
             <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
-              <div className="flex items-center gap-1.5 rounded-xl border border-amber-500/30 bg-amber-500/10 px-3 py-1.5 text-xs font-bold text-amber-300 shadow-sm">
+              <button
+                type="button"
+                onClick={() => {
+                  setGamificationTab("overview");
+                  setGamificationModalOpen(true);
+                }}
+                className="flex items-center gap-1.5 rounded-xl border border-amber-500/30 bg-amber-500/10 hover:bg-amber-500/20 px-3 py-1.5 text-xs font-bold text-amber-300 shadow-sm cursor-pointer hover:scale-105 active:scale-95 transition-all"
+                title="Inspect Learning Streak & Daily Goals (Click to view)"
+              >
                 <Flame className="h-4 w-4 fill-amber-400 text-amber-400 animate-pulse" />
                 <span>{streakCount}-Day Learning Streak</span>
-              </div>
-              <div className="flex items-center gap-1.5 rounded-xl border border-indigo-500/30 bg-indigo-500/10 px-3 py-1.5 text-xs font-bold text-indigo-300 shadow-sm">
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setGamificationTab("overview");
+                  setGamificationModalOpen(true);
+                }}
+                className="flex items-center gap-1.5 rounded-xl border border-indigo-500/30 bg-indigo-500/10 hover:bg-indigo-500/20 px-3 py-1.5 text-xs font-bold text-indigo-300 shadow-sm cursor-pointer hover:scale-105 active:scale-95 transition-all"
+                title="Inspect Total Study XP & Rank Level Progress (Click to view)"
+              >
                 <Zap className="h-4 w-4 fill-indigo-400 text-indigo-400" />
-                <span>{courseCompletedList.length} Lessons Finished Today</span>
-              </div>
+                <span>{studyXp.toLocaleString()} XP Points &bull; Lvl Progress</span>
+              </button>
+
               <button
                 onClick={() => setProModalOpen(true)}
                 className="flex items-center gap-1.5 rounded-xl border border-amber-500/30 bg-amber-500/10 px-3 py-1.5 text-xs font-bold text-amber-300 hover:bg-amber-500/20 transition-colors shadow-sm"
@@ -778,6 +822,15 @@ export default function StudyHubPage() {
       </main>
 
       <StudyFooter />
+
+      {/* Gamification Modal */}
+      <StudyGamificationModal
+        isOpen={gamificationModalOpen}
+        onClose={() => setGamificationModalOpen(false)}
+        streak={streakCount}
+        xp={studyXp}
+        initialTab={gamificationTab}
+      />
 
       {/* Pro Modal */}
       <StudyProModal

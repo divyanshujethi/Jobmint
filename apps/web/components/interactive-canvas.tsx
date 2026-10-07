@@ -620,16 +620,21 @@ export function InteractiveStudyCanvas() {
             <span>Open Whiteboard &amp; Notes</span>
           </Link>
 
-          {/* Gamification HUD Pill */}
+          {/* Gamification HUD Pill (Clickable) */}
           <div className="flex items-center gap-2 bg-[#101533] border border-indigo-900/60 rounded-2xl px-3 py-1.5 shadow-inner">
-            <div className="flex items-center gap-1.5">
+            <button
+              type="button"
+              onClick={() => setShowAchievementsModal(true)}
+              className="flex items-center gap-1.5 text-left hover:opacity-90 transition-opacity cursor-pointer"
+              title="Click to view all Career Ranks & Trophies"
+            >
               <span className="text-base">{currentRank.icon}</span>
               <div>
                 <div className="text-[10px] font-mono uppercase tracking-wider text-slate-400">
                   {currentRank.name}
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-xs font-black text-amber-400 font-mono">{userXp} XP</span>
+                  <span className="text-xs font-black text-amber-400 font-mono">{userXp.toLocaleString()} XP</span>
                   <div className="w-16 bg-slate-800 rounded-full h-1.5 overflow-hidden">
                     <div
                       className="bg-gradient-to-r from-indigo-500 to-cyan-400 h-full transition-all duration-500"
@@ -638,7 +643,7 @@ export function InteractiveStudyCanvas() {
                   </div>
                 </div>
               </div>
-            </div>
+            </button>
 
             <div className="h-6 w-px bg-indigo-900/50 mx-1" />
 
