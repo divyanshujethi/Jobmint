@@ -197,6 +197,16 @@ export function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL(`https://study.rolenest.in${pathname}${search}`), 308);
   }
 
+  if (pathname === "/courses" || pathname.startsWith("/courses/")) {
+    const search = req.nextUrl.search;
+    return NextResponse.redirect(new URL(`https://study.rolenest.in${pathname}${search}`), 308);
+  }
+
+  if (pathname === "/certificates" || pathname.startsWith("/certificates/")) {
+    const search = req.nextUrl.search;
+    return NextResponse.redirect(new URL(`https://study.rolenest.in${pathname}${search}`), 308);
+  }
+
   if (pathname === "/potd" || pathname.startsWith("/potd/")) {
     const search = req.nextUrl.search;
     return NextResponse.redirect(new URL(`https://problem.rolenest.in${pathname}${search}`), 308);

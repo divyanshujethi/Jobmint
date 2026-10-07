@@ -26,6 +26,18 @@ interface RoadmapPageProps {
   params: Promise<{ slug: string }>;
 }
 
+export async function generateMetadata({ params }: RoadmapPageProps) {
+  const { slug } = await params;
+  const roadmap = CAREER_ROADMAPS.find((r) => r.slug === slug);
+  if (!roadmap) {
+    return { title: "Roadmap Not Found — StudyNest Academy" };
+  }
+  return {
+    title: `${roadmap.title} Roadmap — StudyNest Academy`,
+    description: roadmap.shortDescription,
+  };
+}
+
 export default async function RoadmapDetailPage({ params }: RoadmapPageProps) {
   const { slug } = await params;
   const roadmap = CAREER_ROADMAPS.find((r) => r.slug === slug);
@@ -199,11 +211,11 @@ export default async function RoadmapDetailPage({ params }: RoadmapPageProps) {
               Live Roles Requiring {roadmap.title} Skills
             </h2>
             <p className="text-xs text-slate-500">
-              Verified hiring employers on Role Nest actively sourcing candidates who complete these milestones.
+              Industry hiring requirements matching these curriculum milestones. Master these nodes to pass screening.
             </p>
           </div>
-          <Link href="/jobs" className="text-xs font-bold text-emerald-600 hover:text-emerald-700 flex items-center gap-1 shrink-0">
-            <span>Explore All Vacancies</span>
+          <Link href="/canvas" className="text-xs font-bold text-indigo-600 hover:text-indigo-700 flex items-center gap-1 shrink-0">
+            <span>Explore Visual Skill Canvas</span>
             <ArrowRight className="h-3.5 w-3.5" />
           </Link>
         </div>
@@ -212,22 +224,22 @@ export default async function RoadmapDetailPage({ params }: RoadmapPageProps) {
           {(relatedJobs.length > 0 ? relatedJobs.slice(0, 4) : allJobs.slice(0, 4)).map((j) => (
             <div
               key={j.id}
-              className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm hover:border-emerald-300 hover:shadow-md transition-all flex flex-col justify-between space-y-4"
+              className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm hover:border-indigo-300 hover:shadow-md transition-all flex flex-col justify-between space-y-4"
             >
               <div>
                 <div className="flex items-center justify-between gap-2">
                   <span className="text-xs font-bold text-slate-500 truncate">
                     {j.companyName}
                   </span>
-                  <span className="rounded-full bg-emerald-50 text-emerald-800 px-2 py-0.5 text-[10px] font-bold font-mono border border-emerald-200 shrink-0">
-                    Verified Employer
+                  <span className="rounded-full bg-indigo-50 text-indigo-800 px-2 py-0.5 text-[10px] font-bold font-mono border border-indigo-200 shrink-0">
+                    Target Role Profile
                   </span>
                 </div>
                 <h4 className="font-bold text-slate-900 text-base mt-1 line-clamp-1">
                   {j.title}
                 </h4>
                 <div className="mt-2 flex flex-wrap items-center gap-2 text-xs">
-                  <span className="font-bold text-emerald-700 bg-emerald-50/80 px-2 py-0.5 rounded border border-emerald-100">
+                  <span className="font-bold text-indigo-700 bg-indigo-50/80 px-2 py-0.5 rounded border border-indigo-100">
                     {j.salaryOrStipend}
                   </span>
                   <span className="text-slate-500 bg-slate-100 px-2 py-0.5 rounded">
@@ -252,11 +264,11 @@ export default async function RoadmapDetailPage({ params }: RoadmapPageProps) {
 
               <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
                 <span className="text-[11px] text-slate-400 font-mono">
-                  Role Nest Verified
+                  StudyNest Skill Match
                 </span>
-                <Link href={`/jobs/${j.slug}`}>
-                  <Button size="sm" className="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded-xl shadow-xs gap-1">
-                    <span>Apply With Profile</span>
+                <Link href="/canvas">
+                  <Button size="sm" className="bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-xl shadow-xs gap-1">
+                    <span>Train on Canvas</span>
                     <ArrowRight className="h-3 w-3" />
                   </Button>
                 </Link>

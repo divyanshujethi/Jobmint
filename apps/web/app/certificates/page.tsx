@@ -27,6 +27,8 @@ import {
   VirtualInternshipProgram,
   VERIFIED_VIRTUAL_INTERNSHIPS,
 } from "@/lib/virtual-internships-data";
+import { StudyNavbar } from "@/components/study-navbar";
+import { StudyFooter } from "@/components/study-footer";
 
 export default function CertificationsHubPage() {
   const [activeTab, setActiveTab] = useState<"ROLENEST" | "GLOBAL">("ROLENEST");
@@ -78,68 +80,70 @@ export default function CertificationsHubPage() {
   });
 
   return (
-    <div className="min-h-screen bg-slate-50/50 text-slate-900 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-6xl space-y-10">
-        
-        {/* HERO SECTION */}
-        <div className="text-center space-y-3">
-          <div className="inline-flex items-center gap-2 rounded-full bg-emerald-50 border border-emerald-200 px-3.5 py-1 text-xs font-mono font-semibold text-emerald-800">
-            <Award className="h-4 w-4 text-emerald-600" />
-            Verified Technical Certifications &amp; Proof-of-Work Hub
-          </div>
-          <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-slate-900">
-            Earn &amp; Verify Free Certificates
-          </h1>
-          <p className="mx-auto max-w-2xl text-sm sm:text-base text-slate-600">
-            Earn official Role Nest Course Completion Diplomas with cryptographic verification, or discover free company-backed virtual work experience simulations (Walmart, JPMorgan, Google Cloud, Cisco).
-          </p>
+    <div className="min-h-screen bg-[#070913] text-slate-100 flex flex-col font-sans selection:bg-indigo-500/30">
+      <StudyNavbar />
+      <main className="flex-1 py-12 px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-6xl space-y-10">
+          
+          {/* HERO SECTION */}
+          <div className="text-center space-y-3">
+            <div className="inline-flex items-center gap-2 rounded-full bg-indigo-500/10 border border-indigo-500/30 px-3.5 py-1 text-xs font-mono font-semibold text-indigo-300">
+              <Award className="h-4 w-4 text-indigo-400" />
+              Verified Technical Certifications &amp; Proof-of-Work Hub
+            </div>
+            <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-white font-mono">
+              Earn &amp; Verify Free Certificates
+            </h1>
+            <p className="mx-auto max-w-2xl text-sm sm:text-base text-slate-400">
+              Earn official StudyNest Academy Course Completion Diplomas with cryptographic verification, or discover free company-backed virtual work experience simulations (Walmart, JPMorgan, Google Cloud, Cisco).
+            </p>
 
-          {/* MAIN TABS */}
-          <div className="flex items-center justify-center pt-4">
-            <div className="inline-flex rounded-2xl bg-slate-100 p-1.5 border border-slate-200 shadow-sm">
-              <button
-                onClick={() => setActiveTab("ROLENEST")}
-                className={`flex items-center gap-2 rounded-xl px-5 py-2.5 text-xs sm:text-sm font-bold transition-all ${
-                  activeTab === "ROLENEST"
-                    ? "bg-emerald-600 text-white shadow-sm"
-                    : "text-slate-600 hover:text-slate-900"
-                }`}
-              >
-                <GraduationCap className="h-4 w-4" />
-                <span>Role Nest Course Completion Diplomas ({CURATED_COURSES.length})</span>
-              </button>
+            {/* MAIN TABS */}
+            <div className="flex items-center justify-center pt-4">
+              <div className="inline-flex rounded-2xl bg-[#0e1322] p-1.5 border border-indigo-950 shadow-sm">
+                <button
+                  onClick={() => setActiveTab("ROLENEST")}
+                  className={`flex items-center gap-2 rounded-xl px-5 py-2.5 text-xs sm:text-sm font-bold transition-all ${
+                    activeTab === "ROLENEST"
+                      ? "bg-indigo-600 text-white shadow-sm"
+                      : "text-slate-400 hover:text-white"
+                  }`}
+                >
+                  <GraduationCap className="h-4 w-4" />
+                  <span>StudyNest Course Diplomas ({CURATED_COURSES.length})</span>
+                </button>
 
-              <button
-                onClick={() => setActiveTab("GLOBAL")}
-                className={`flex items-center gap-2 rounded-xl px-5 py-2.5 text-xs sm:text-sm font-bold transition-all ${
-                  activeTab === "GLOBAL"
-                    ? "bg-blue-600 text-white shadow-sm"
-                    : "text-slate-600 hover:text-slate-900"
-                }`}
-              >
-                <Building2 className="h-4 w-4" />
-                <span>Global Simulations &amp; Badges ({programs.length})</span>
-              </button>
+                <button
+                  onClick={() => setActiveTab("GLOBAL")}
+                  className={`flex items-center gap-2 rounded-xl px-5 py-2.5 text-xs sm:text-sm font-bold transition-all ${
+                    activeTab === "GLOBAL"
+                      ? "bg-blue-600 text-white shadow-sm"
+                      : "text-slate-400 hover:text-white"
+                  }`}
+                >
+                  <Building2 className="h-4 w-4" />
+                  <span>Global Simulations &amp; Badges ({programs.length})</span>
+                </button>
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* SEARCH & FILTERS */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-slate-200 pb-5">
-          <div className="w-full sm:w-80">
-            <div className="relative">
-              <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-400" />
-              <Input
-                type="text"
-                placeholder={
-                  activeTab === "ROLENEST"
-                    ? "Search Role Nest courses or skills..."
-                    : "Search simulations, companies, skills..."
-                }
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-9 bg-white border-slate-200 text-xs text-slate-900 placeholder:text-slate-400 h-9 rounded-xl shadow-none focus-visible:ring-emerald-500"
-              />
+          {/* SEARCH & FILTERS */}
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-indigo-950 pb-5">
+            <div className="w-full sm:w-80">
+              <div className="relative">
+                <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-500" />
+                <Input
+                  type="text"
+                  placeholder={
+                    activeTab === "ROLENEST"
+                      ? "Search StudyNest courses or skills..."
+                      : "Search simulations, companies, skills..."
+                  }
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-9 bg-[#0e1322] border-indigo-950 text-xs text-white placeholder:text-slate-500 h-9 rounded-xl shadow-none focus-visible:ring-indigo-500"
+                />
             </div>
           </div>
 
@@ -189,9 +193,9 @@ export default function CertificationsHubPage() {
                   <CardHeader className="pb-3">
                     <div className="flex items-start justify-between gap-3">
                       <div>
-                        <div className="inline-flex items-center gap-1.5 rounded bg-emerald-50 text-emerald-800 border border-emerald-200 px-2 py-0.5 text-[10px] font-mono font-bold mb-2">
-                          <Award className="h-3 w-3 text-emerald-600" />
-                          Official Role Nest Credential
+                        <div className="inline-flex items-center gap-1.5 rounded bg-indigo-50 text-indigo-800 border border-indigo-200 px-2 py-0.5 text-[10px] font-mono font-bold mb-2">
+                          <Award className="h-3 w-3 text-indigo-600" />
+                          Official StudyNest Credential
                         </div>
                         <CardTitle className="text-lg font-bold text-slate-900 leading-snug">
                           {course.certificateTitle}
@@ -363,8 +367,9 @@ export default function CertificationsHubPage() {
             </div>
           </div>
         )}
-
-      </div>
+        </div>
+      </main>
+      <StudyFooter />
     </div>
   );
 }

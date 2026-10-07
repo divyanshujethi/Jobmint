@@ -21,6 +21,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { CURATED_COURSES } from "@/lib/courses-data";
+import { StudyNavbar } from "@/components/study-navbar";
+import { StudyFooter } from "@/components/study-footer";
 
 export default function CoursesPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>("ALL");
@@ -43,21 +45,23 @@ export default function CoursesPage() {
   });
 
   return (
-    <div className="min-h-screen bg-slate-50/50 text-slate-900 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-6xl space-y-10">
-        
-        {/* HEADER */}
-        <div className="text-center space-y-3">
-          <div className="inline-flex items-center gap-2 rounded-full bg-emerald-50 border border-emerald-200 px-3.5 py-1 text-xs font-mono font-semibold text-emerald-800">
-            <Award className="h-4 w-4 text-emerald-600" />
-            Proof-of-Work Interactive Certifications
-          </div>
-          <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-slate-900">
-            Interactive Developer Courses &amp; Certifications
-          </h1>
-          <p className="mx-auto max-w-2xl text-sm sm:text-base text-slate-600">
-            Structured hands-on curricula with required Proof-of-Work project benchmarks, code implementations, and verified cryptographic Role Nest completion certificates.
-          </p>
+    <div className="min-h-screen bg-[#070913] text-slate-100 flex flex-col font-sans selection:bg-indigo-500/30">
+      <StudyNavbar />
+      <main className="flex-1 py-12 px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-6xl space-y-10">
+          
+          {/* HEADER */}
+          <div className="text-center space-y-3">
+            <div className="inline-flex items-center gap-2 rounded-full bg-indigo-500/10 border border-indigo-500/30 px-3.5 py-1 text-xs font-mono font-semibold text-indigo-300">
+              <Award className="h-4 w-4 text-indigo-400" />
+              Proof-of-Work Interactive Certifications
+            </div>
+            <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-white font-mono">
+              Interactive Developer Courses &amp; Certifications
+            </h1>
+            <p className="mx-auto max-w-2xl text-sm sm:text-base text-slate-400">
+              Structured hands-on curricula with required Proof-of-Work project benchmarks, code implementations, and verified cryptographic StudyNest Academy completion certificates.
+            </p>
 
           {/* JOB-SPECIFIC 30-DAY COURSE GENERATOR CALLOUT */}
           <div className="mx-auto max-w-3xl rounded-2xl bg-gradient-to-r from-emerald-950 via-slate-900 to-teal-950 border border-emerald-500/40 p-4 text-xs sm:text-sm text-white flex flex-col sm:flex-row items-center justify-between gap-3 shadow-lg">
@@ -309,8 +313,9 @@ export default function CoursesPage() {
             </Card>
           ))}
         </div>
-
-      </div>
+        </div>
+      </main>
+      <StudyFooter />
     </div>
   );
 }
