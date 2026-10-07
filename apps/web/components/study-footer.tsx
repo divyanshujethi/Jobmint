@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { GraduationCap, Github, MessageSquare, Sparkles, ExternalLink, ShieldCheck, Heart } from "lucide-react";
+import { GraduationCap, Github, MessageSquare, Sparkles, ShieldCheck, Layers, Crown, Award } from "lucide-react";
 
 export function StudyFooter() {
   return (
@@ -13,31 +13,27 @@ export function StudyFooter() {
                 <GraduationCap className="h-5 w-5 stroke-[2.2]" />
               </div>
               <span className="font-extrabold text-lg tracking-tight text-white font-mono">
-                RoleNest <span className="text-indigo-400">Study</span>
+                StudyNest <span className="text-indigo-400">Academy</span>
               </span>
             </div>
             <p className="text-xs text-slate-400 leading-relaxed max-w-sm">
-              The zero-fluff, open-access engineering university. Master computer science, modern cloud systems, and AI architectures through guided 30-day cohorts and community study pods.
+              The zero-fluff, open-access engineering university. Master computer science, modern cloud systems, and AI architectures through guided 30-day cohorts, interactive course canvases, and peer study pods.
             </p>
             <div className="flex items-center gap-3 pt-2 text-slate-400">
-              <a
-                href="https://discord.gg/rolenest"
-                target="_blank"
-                rel="noreferrer"
+              <Link
+                href="/canvas"
                 className="flex items-center gap-1.5 rounded-lg border border-indigo-950 bg-indigo-950/30 px-3 py-1.5 text-slate-300 hover:text-white hover:border-indigo-800 transition-colors"
               >
-                <MessageSquare className="h-3.5 w-3.5 text-indigo-400" />
-                <span>Discord Study Pods</span>
-              </a>
-              <a
-                href="https://github.com/divyanshujethi"
-                target="_blank"
-                rel="noreferrer"
-                className="flex items-center gap-1.5 rounded-lg border border-slate-800 bg-slate-900/50 px-3 py-1.5 text-slate-300 hover:text-white hover:border-slate-700 transition-colors"
+                <Layers className="h-3.5 w-3.5 text-indigo-400" />
+                <span>Visual Course Canvas</span>
+              </Link>
+              <Link
+                href="/study#pro"
+                className="flex items-center gap-1.5 rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-1.5 text-amber-300 hover:text-amber-200 hover:border-amber-500/50 transition-colors"
               >
-                <Github className="h-3.5 w-3.5" />
-                <span>Open Syllabus</span>
-              </a>
+                <Crown className="h-3.5 w-3.5 text-amber-400" />
+                <span>Study Pro Pass</span>
+              </Link>
             </div>
           </div>
 
@@ -75,10 +71,45 @@ export function StudyFooter() {
             </ul>
           </div>
 
-          {/* LEARNING TRACKS COLUMN */}
+          {/* CANVAS COURSES COLUMN */}
+          <div className="space-y-3">
+            <h4 className="font-mono text-[11px] font-bold uppercase tracking-wider text-slate-200 flex items-center gap-1.5">
+              <Layers className="h-3.5 w-3.5 text-emerald-400" />
+              <span>Canvas Tracks</span>
+            </h4>
+            <ul className="space-y-2 text-xs">
+              <li>
+                <Link href="/canvas" className="hover:text-indigo-300 transition-colors">
+                  Python AI &amp; Agentic Systems
+                </Link>
+              </li>
+              <li>
+                <Link href="/canvas" className="hover:text-indigo-300 transition-colors">
+                  Full-Stack React 19 Canvas
+                </Link>
+              </li>
+              <li>
+                <Link href="/canvas" className="hover:text-indigo-300 transition-colors">
+                  Backend Go &amp; Distributed Systems
+                </Link>
+              </li>
+              <li>
+                <Link href="/canvas" className="hover:text-indigo-300 transition-colors">
+                  DevOps, SRE &amp; Kubernetes
+                </Link>
+              </li>
+              <li>
+                <Link href="/canvas" className="hover:text-indigo-300 transition-colors">
+                  Digital Public Infrastructure (DPI)
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* ACADEMY PRO & STUDY HUB */}
           <div className="space-y-3">
             <h4 className="font-mono text-[11px] font-bold uppercase tracking-wider text-slate-200">
-              Study Hub
+              Academy &amp; Cohorts
             </h4>
             <ul className="space-y-2 text-xs">
               <li>
@@ -88,7 +119,7 @@ export function StudyFooter() {
               </li>
               <li>
                 <Link href="/playlists" className="hover:text-indigo-300 transition-colors">
-                  Zero-Fluff Video Masterclasses
+                  Video Masterclasses Hub
                 </Link>
               </li>
               <li>
@@ -98,53 +129,14 @@ export function StudyFooter() {
               </li>
               <li>
                 <Link href="/study-pods" className="hover:text-indigo-300 transition-colors">
-                  Virtual Peer Study Pods
+                  Peer Mock Interview Pods
                 </Link>
               </li>
-            </ul>
-          </div>
-
-          {/* ECOSYSTEM COLUMN */}
-          <div className="space-y-3">
-            <h4 className="font-mono text-[11px] font-bold uppercase tracking-wider text-slate-200">
-              RoleNest Ecosystem
-            </h4>
-            <ul className="space-y-2 text-xs">
               <li>
-                <a
-                  href="https://problem.rolenest.in/potd"
-                  className="hover:text-amber-300 transition-colors flex items-center gap-1"
-                >
-                  <span>Code Arena (POTD)</span>
-                  <ExternalLink className="h-3 w-3 text-slate-500" />
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://rolenest.in/jobs"
-                  className="hover:text-emerald-300 transition-colors flex items-center gap-1"
-                >
-                  <span>Verified Job Board</span>
-                  <ExternalLink className="h-3 w-3 text-slate-500" />
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://internship.rolenest.in"
-                  className="hover:text-cyan-300 transition-colors flex items-center gap-1"
-                >
-                  <span>Internship Bootcamp</span>
-                  <ExternalLink className="h-3 w-3 text-slate-500" />
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://donation.rolenest.in"
-                  className="hover:text-rose-300 transition-colors flex items-center gap-1"
-                >
-                  <span>Donate to Education</span>
-                  <ExternalLink className="h-3 w-3 text-slate-500" />
-                </a>
+                <Link href="/courses" className="hover:text-indigo-300 transition-colors flex items-center gap-1">
+                  <Award className="h-3.5 w-3.5 text-amber-400" />
+                  <span>Verifiable Diplomas</span>
+                </Link>
               </li>
             </ul>
           </div>
@@ -153,18 +145,18 @@ export function StudyFooter() {
         {/* BOTTOM STRIP */}
         <div className="mt-10 pt-6 border-t border-indigo-950/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500">
           <div>
-            &copy; {new Date().getFullYear()} RoleNest Study. 100% Free Open Educational Resource.
+            &copy; {new Date().getFullYear()} StudyNest Academy. Open Educational Resource &bull; Zero Paywalls on Core Curricula.
           </div>
           <div className="flex items-center gap-4">
             <Link href="/privacy" className="hover:text-slate-400">
               Privacy Policy
             </Link>
             <Link href="/terms" className="hover:text-slate-400">
-              Terms of Service
+              Honor Code &amp; Terms
             </Link>
             <span className="flex items-center gap-1 text-indigo-400/80">
               <ShieldCheck className="h-3.5 w-3.5 text-indigo-400" />
-              Verified Curricula
+              Verifiable Open Curricula
             </span>
           </div>
         </div>

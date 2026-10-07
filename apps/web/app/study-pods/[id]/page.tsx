@@ -424,13 +424,13 @@ export default function StudyPodDetailPage() {
                 </div>
                 <div className="overflow-hidden">
                   <div className="flex items-center gap-2">
-                    <h4 className="text-sm font-bold text-slate-900 truncate">Role Nest Cohort Bot</h4>
+                    <h4 className="text-sm font-bold text-slate-900 truncate">StudyNest Cohort Bot</h4>
                     <span className="rounded bg-emerald-100 border border-emerald-300 px-1.5 py-0.2 text-[9px] text-emerald-800 font-mono font-bold">
                       Verified AI
                     </span>
                   </div>
                   <p className="text-xs text-emerald-700 font-mono truncate font-semibold">Automated Study Coordinator</p>
-                  <p className="text-[11px] text-slate-500 truncate">Role Nest Academy</p>
+                  <p className="text-[11px] text-slate-500 truncate">StudyNest Academy</p>
                 </div>
               </div>
 

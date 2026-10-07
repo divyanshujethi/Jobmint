@@ -163,19 +163,34 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/study-pods" className="hover:text-emerald-600 font-medium text-indigo-700 flex items-center gap-1.5">
+                <a
+                  href="https://study.rolenest.in/study-pods"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-emerald-600 font-medium text-indigo-700 flex items-center gap-1.5"
+                >
                   👥 Peer Study Pods &amp; Mocks
-                </Link>
+                </a>
               </li>
               <li>
-                <Link href="/canvas" className="hover:text-emerald-600 font-medium text-emerald-700 flex items-center gap-1.5">
+                <a
+                  href="https://study.rolenest.in/canvas"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-emerald-600 font-medium text-emerald-700 flex items-center gap-1.5"
+                >
                   🗺️ Visual Skill Canvas (Nodes)
-                </Link>
+                </a>
               </li>
               <li>
-                <Link href="/roadmaps" className="hover:text-emerald-600 font-medium text-blue-700 flex items-center gap-1.5">
+                <a
+                  href="https://study.rolenest.in/roadmaps"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-emerald-600 font-medium text-blue-700 flex items-center gap-1.5"
+                >
                   🧭 Open Career Roadmaps
-                </Link>
+                </a>
               </li>
               <li>
                 <Link href="/salaries" className="hover:text-emerald-600 font-medium text-emerald-700 flex items-center gap-1.5">

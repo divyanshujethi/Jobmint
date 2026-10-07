@@ -329,8 +329,10 @@ export function Navbar() {
                         <span>Learning &amp; Roadmaps</span>
                       </div>
                       <div className="space-y-1">
-                        <Link
-                          href="/roadmaps"
+                        <a
+                          href="https://study.rolenest.in/roadmaps"
+                          target="_blank"
+                          rel="noopener noreferrer"
                           onClick={() => setToolsOpen(false)}
                           className="flex items-start gap-2.5 rounded-xl p-2 hover:bg-slate-50 transition-colors group"
                         >
@@ -342,10 +344,12 @@ export function Navbar() {
                             </div>
                             <div className="text-[11px] text-slate-500">AI, Full-Stack &amp; Cloud paths</div>
                           </div>
-                        </Link>
+                        </a>
 
-                        <Link
-                          href="/canvas"
+                        <a
+                          href="https://study.rolenest.in/canvas"
+                          target="_blank"
+                          rel="noopener noreferrer"
                           onClick={() => setToolsOpen(false)}
                           className="flex items-start gap-2.5 rounded-xl p-2 hover:bg-slate-50 transition-colors group"
                         >
@@ -357,10 +361,12 @@ export function Navbar() {
                             </div>
                             <div className="text-[11px] text-slate-500">Node-graph knowledge trees</div>
                           </div>
-                        </Link>
+                        </a>
 
-                        <Link
-                          href="/playlists"
+                        <a
+                          href="https://study.rolenest.in/playlists"
+                          target="_blank"
+                          rel="noopener noreferrer"
                           onClick={() => setToolsOpen(false)}
                           className="flex items-start gap-2.5 rounded-xl p-2 hover:bg-slate-50 transition-colors group"
                         >
@@ -372,10 +378,12 @@ export function Navbar() {
                             </div>
                             <div className="text-[11px] text-slate-500">Striver, Karpathy, Chai aur Code</div>
                           </div>
-                        </Link>
+                        </a>
 
-                        <Link
-                          href="/courses"
+                        <a
+                          href="https://study.rolenest.in/courses"
+                          target="_blank"
+                          rel="noopener noreferrer"
                           onClick={() => setToolsOpen(false)}
                           className="flex items-start gap-2.5 rounded-xl p-2 hover:bg-slate-50 transition-colors group"
                         >
@@ -387,7 +395,7 @@ export function Navbar() {
                             </div>
                             <div className="text-[11px] text-slate-500">Verified course diplomas</div>
                           </div>
-                        </Link>
+                        </a>
                       </div>
                     </div>
 
@@ -428,8 +436,10 @@ export function Navbar() {
                           </div>
                         </Link>
 
-                        <Link
-                          href="/study-pods"
+                        <a
+                          href="https://study.rolenest.in/study-pods"
+                          target="_blank"
+                          rel="noopener noreferrer"
                           onClick={() => setToolsOpen(false)}
                           className="flex items-start gap-2.5 rounded-xl p-2 hover:bg-slate-50 transition-colors group"
                         >
@@ -438,7 +448,7 @@ export function Navbar() {
                             <div className="text-xs font-bold text-slate-900 group-hover:text-emerald-600 transition-colors">Peer Study Pods</div>
                             <div className="text-[11px] text-slate-500">Virtual cohorts &amp; live chat</div>
                           </div>
-                        </Link>
+                        </a>
 
                         <Link
                           href="/placement-portal"
@@ -912,8 +922,10 @@ export function Navbar() {
                     <span className="text-[9px] font-mono text-amber-700">Arena</span>
                   </Link>
 
-                  <Link
-                    href="/study-pods"
+                  <a
+                    href="https://study.rolenest.in/study-pods"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="flex items-center justify-between py-1 px-2.5 rounded-lg text-xs font-medium text-slate-700 hover:bg-white transition-colors"
                     onClick={() => setIsOpen(false)}
                   >
@@ -922,10 +934,12 @@ export function Navbar() {
                       Peer Study Pods
                     </span>
                     <span className="text-[9px] font-mono text-indigo-700">Cohorts</span>
-                  </Link>
+                  </a>
 
-                  <Link
-                    href="/canvas"
+                  <a
+                    href="https://study.rolenest.in/canvas"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="flex items-center justify-between py-1 px-2.5 rounded-lg text-xs font-medium text-slate-700 hover:bg-white transition-colors"
                     onClick={() => setIsOpen(false)}
                   >
@@ -934,10 +948,12 @@ export function Navbar() {
                       Visual Skill Canvas
                     </span>
                     <span className="text-[9px] font-mono text-emerald-700">Nodes</span>
-                  </Link>
+                  </a>
 
-                  <Link
-                    href="/roadmaps"
+                  <a
+                    href="https://study.rolenest.in/roadmaps"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="flex items-center justify-between py-1 px-2.5 rounded-lg text-xs font-medium text-slate-700 hover:bg-white transition-colors"
                     onClick={() => setIsOpen(false)}
                   >
@@ -946,7 +962,7 @@ export function Navbar() {
                       Career Roadmaps
                     </span>
                     <span className="text-[9px] font-mono text-blue-700">Free</span>
-                  </Link>
+                  </a>
 
                   <Link
                     href="/salaries"

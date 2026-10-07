@@ -164,7 +164,7 @@ export function InteractiveStudyCanvas() {
   };
 
   const copyBadgeMarkdown = () => {
-    const mdBadge = `[![Role Nest Verified Skill Tree](https://img.shields.io/badge/Role%20Nest-Skills%20Verified-059669?style=for-the-badge&logo=codeforces&logoColor=white)](https://rolenest.in/canvas)`;
+    const mdBadge = `[![StudyNest Verified Skill Tree](https://img.shields.io/badge/StudyNest-Skills%20Verified-4f46e5?style=for-the-badge&logo=codeforces&logoColor=white)](https://study.rolenest.in/canvas)`;
     navigator.clipboard.writeText(mdBadge);
     setCopiedBadge(true);
     setTimeout(() => setCopiedBadge(false), 2500);
@@ -180,7 +180,7 @@ export function InteractiveStudyCanvas() {
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = `rolenest-${activeTrack.id}-skill-tree.svg`;
+    link.download = `studynest-${activeTrack.id}-skill-tree.svg`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -211,15 +211,15 @@ export function InteractiveStudyCanvas() {
       // Watermark branding
       ctx.fillStyle = "#0f172a";
       ctx.font = "bold 20px sans-serif";
-      ctx.fillText(`Role Nest Verified Skill Tree • ${activeTrack.title}`, 40, 40);
-      ctx.fillStyle = "#059669";
+      ctx.fillText(`StudyNest Verified Skill Tree • ${activeTrack.title}`, 40, 40);
+      ctx.fillStyle = "#4f46e5";
       ctx.font = "14px monospace";
-      ctx.fillText(`Mastered: ${progressCount}/${activeTrack.nodes.length} Nodes • rolenest.in/canvas`, 40, 70);
+      ctx.fillText(`Mastered: ${progressCount}/${activeTrack.nodes.length} Nodes • study.rolenest.in/canvas`, 40, 70);
 
       const pngUrl = canvas.toDataURL("image/png");
       const link = document.createElement("a");
       link.href = pngUrl;
-      link.download = `rolenest-${activeTrack.id}-skill-tree.png`;
+      link.download = `studynest-${activeTrack.id}-skill-tree.png`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -413,8 +413,8 @@ export function InteractiveStudyCanvas() {
           <div>
             <h1 className="text-base font-extrabold text-slate-900 flex items-center gap-2">
               Interactive Study &amp; Developer Skill Canvas
-              <span className="rounded-full bg-purple-50 border border-purple-200 px-2 py-0.5 text-[10px] font-bold text-purple-700 font-mono">
-                RoleNest Labs (Beta)
+              <span className="rounded-full bg-indigo-50 border border-indigo-200 px-2 py-0.5 text-[10px] font-bold text-indigo-700 font-mono">
+                StudyNest Academy
               </span>
             </h1>
             <p className="text-xs text-slate-600">
@@ -950,7 +950,7 @@ export function InteractiveStudyCanvas() {
                   {selectedNode.linkedPlaylist?.title || `${selectedNode.title} Deep Dive & Architecture`}
                 </div>
                 <p className="text-[11px] text-slate-600">
-                  Curated by {selectedNode.linkedPlaylist?.creator || "Role Nest Technical Curators"} • Integrated video chapters and notes
+                  Curated by {selectedNode.linkedPlaylist?.creator || "StudyNest Technical Curators"} • Integrated video chapters and notes
                 </p>
 
                 <div className="pt-1">
@@ -1103,7 +1103,7 @@ export function InteractiveStudyCanvas() {
                   </button>
                 </div>
                 <pre className="rounded-xl bg-slate-900 text-slate-200 p-2.5 text-[11px] font-mono overflow-x-auto select-all">
-                  <code>{`[![Role Nest Verified Skill Tree](https://img.shields.io/badge/Role%20Nest-Skills%20Verified-059669?style=for-the-badge&logo=codeforces&logoColor=white)](https://rolenest.in/canvas)`}</code>
+                  <code>{`[![StudyNest Verified Skill Tree](https://img.shields.io/badge/StudyNest-Skills%20Verified-4f46e5?style=for-the-badge&logo=codeforces&logoColor=white)](https://study.rolenest.in/canvas)`}</code>
                 </pre>
               </div>
             </div>

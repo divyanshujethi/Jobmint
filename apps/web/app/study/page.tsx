@@ -47,14 +47,17 @@ import {
 import { CAREER_ROADMAPS } from "@repo/shared";
 import { CURATED_COURSES, CoursePlaylist } from "@/lib/courses-data";
 import { MOCK_STUDY_PODS } from "@/lib/mock-pods";
+import { CANVAS_TRACKS } from "@/lib/canvas-data";
 import { Button } from "@/components/ui/button";
 import { StudyNavbar } from "@/components/study-navbar";
 import { StudyFooter } from "@/components/study-footer";
+import { StudyProModal } from "@/components/study-pro-modal";
 
-type StudyTab = "roadmaps" | "cohorts" | "masterclasses" | "ai-generator" | "pods";
+type StudyTab = "roadmaps" | "canvas" | "cohorts" | "masterclasses" | "ai-generator" | "pods";
 
 export default function StudyHubPage() {
   const [activeTab, setActiveTab] = useState<StudyTab>("roadmaps");
+  const [proModalOpen, setProModalOpen] = useState(false);
   const [courses, setCourses] = useState<InteractiveJobCourse[]>(ALL_INTERACTIVE_COURSES);
   const [selectedCourse, setSelectedCourse] = useState<InteractiveJobCourse>(ALL_INTERACTIVE_COURSES[0]!);
   const [selectedCategory, setSelectedCategory] = useState<string>("ALL");
@@ -88,7 +91,9 @@ export default function StudyHubPage() {
     // Check hash for direct tab navigation
     if (typeof window !== "undefined" && window.location.hash) {
       const hash = window.location.hash.replace("#", "");
-      if (hash === "ai-generator" || hash === "ai-syllabus") {
+      if (hash === "canvas" || hash === "course-canvas") {
+        setActiveTab("canvas");
+      } else if (hash === "ai-generator" || hash === "ai-syllabus") {
         setActiveTab("ai-generator");
       } else if (hash === "cohorts") {
         setActiveTab("cohorts");
@@ -98,6 +103,8 @@ export default function StudyHubPage() {
         setActiveTab("masterclasses");
       } else if (hash === "pods") {
         setActiveTab("pods");
+      } else if (hash === "pro") {
+        setProModalOpen(true);
       }
     }
   }, []);
@@ -178,9 +185,9 @@ export default function StudyHubPage() {
           <div className="relative mx-auto max-w-5xl text-center space-y-4">
             <div className="inline-flex items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-3.5 py-1 text-xs font-semibold text-indigo-300 backdrop-blur-md">
               <GraduationCap className="h-4 w-4 text-indigo-400" />
-              <span>RoleNest Study • Open Engineering University</span>
+              <span>StudyNest Academy • Open Engineering University</span>
               <span className="rounded-full bg-emerald-500/20 px-2 py-0.2 text-[10px] font-bold text-emerald-300">
-                100% Free
+                100% Free Core
               </span>
             </div>
 
@@ -192,7 +199,7 @@ export default function StudyHubPage() {
             </h1>
 
             <p className="text-sm sm:text-base text-slate-300 max-w-2xl mx-auto leading-relaxed">
-              Bypass ₹50,000 bootcamps. Follow step-by-step curricula, 30-day day-by-day guided exercises, and curated video masterclasses from beginner to FAANG-grade engineer.
+              Bypass ₹50,000 bootcamps. Follow step-by-step curricula, visual course canvases, 30-day day-by-day guided exercises, and curated video masterclasses from beginner to FAANG-grade engineer.
             </p>
 
             {/* STREAK & XP STRIP */}
@@ -205,13 +212,13 @@ export default function StudyHubPage() {
                 <Zap className="h-4 w-4 fill-indigo-400 text-indigo-400" />
                 <span>{courseCompletedList.length} Lessons Finished Today</span>
               </div>
-              <a
-                href="https://problem.rolenest.in/potd"
-                className="flex items-center gap-1.5 rounded-xl border border-rose-500/30 bg-rose-500/10 px-3 py-1.5 text-xs font-bold text-rose-300 hover:bg-rose-500/20 transition-colors shadow-sm"
+              <button
+                onClick={() => setProModalOpen(true)}
+                className="flex items-center gap-1.5 rounded-xl border border-amber-500/30 bg-amber-500/10 px-3 py-1.5 text-xs font-bold text-amber-300 hover:bg-amber-500/20 transition-colors shadow-sm"
               >
-                <Code2 className="h-4 w-4 text-rose-400" />
-                <span>Solve Today&apos;s POTD (+50 XP) →</span>
-              </a>
+                <Crown className="h-4 w-4 text-amber-400 fill-amber-400" />
+                <span>Get Pro Scholar Pass &bull; Diplomas &amp; AI &rarr;</span>
+              </button>
             </div>
           </div>
         </section>
@@ -222,6 +229,7 @@ export default function StudyHubPage() {
             <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none py-1">
               {[
                 { id: "roadmaps", label: "Career Roadmaps", icon: Compass, count: CAREER_ROADMAPS.length },
+                { id: "canvas", label: "Course Canvas", icon: Layers, count: CANVAS_TRACKS.length },
                 { id: "cohorts", label: "30-Day Cohorts", icon: BookOpen, count: courses.length },
                 { id: "masterclasses", label: "Video Masterclasses", icon: ListVideo, count: CURATED_COURSES.length },
                 { id: "ai-generator", label: "AI Syllabus Builder", icon: Sparkles, count: "AI" },
@@ -337,6 +345,107 @@ export default function StudyHubPage() {
                           <BookOpen className="h-4 w-4" />
                           <span>View Full Curriculum</span>
                           <ArrowRight className="h-3.5 w-3.5" />
+                        </Button>
+                      </Link>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* TAB: INTERACTIVE CANVAS COURSES */}
+          {activeTab === "canvas" && (
+            <div className="space-y-6">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-indigo-950/80 pb-4">
+                <div>
+                  <h2 className="text-xl font-bold text-white flex items-center gap-2">
+                    <Layers className="h-5 w-5 text-emerald-400" />
+                    <span>Interactive Course Canvas &amp; Visual Roadmaps</span>
+                  </h2>
+                  <p className="text-xs text-slate-400 mt-1">
+                    Visual node-based dependency trees with interactive milestones, code exercises, and linked video masterclasses.
+                  </p>
+                </div>
+                <Link href="/canvas">
+                  <Button className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold gap-2 text-xs rounded-xl shadow-lg shadow-emerald-600/20">
+                    <Layers className="h-4 w-4" />
+                    <span>Open Fullscreen Canvas View</span>
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </Button>
+                </Link>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {CANVAS_TRACKS.map((track) => (
+                  <div
+                    key={track.id}
+                    className="flex flex-col justify-between rounded-2xl border border-indigo-950/80 bg-[#0c1020] p-6 shadow-xl hover:border-emerald-500/40 transition-all group"
+                  >
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="rounded-md border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-0.5 text-[10px] font-bold text-emerald-300 font-mono">
+                          {track.badge}
+                        </span>
+                        <span className="text-[11px] font-mono text-slate-400">
+                          {track.nodes.length} Nodes &bull; {track.nodes.reduce((acc, n) => acc + (n.estimatedHours || 10), 0)} hrs
+                        </span>
+                      </div>
+
+                      <div>
+                        <h3 className="text-lg font-bold text-white group-hover:text-emerald-300 transition-colors">
+                          {track.title}
+                        </h3>
+                        <p className="mt-1.5 text-xs text-slate-400 leading-relaxed">
+                          {track.description}
+                        </p>
+                      </div>
+
+                      <div className="space-y-1.5">
+                        <div className="text-[10px] font-mono uppercase text-slate-500 font-bold tracking-wider">
+                          Target Career Roles
+                        </div>
+                        <div className="flex flex-wrap gap-1.5">
+                          {track.targetRoles.map((role) => (
+                            <span
+                              key={role}
+                              className="rounded-lg bg-indigo-950/40 border border-indigo-900/40 px-2 py-0.5 text-[11px] text-indigo-300 font-medium"
+                            >
+                              {role}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Preview of Key Milestone Nodes */}
+                      <div className="rounded-xl border border-indigo-950/70 bg-slate-900/50 p-3 space-y-2">
+                        <div className="text-[10px] font-mono uppercase text-slate-400 font-bold tracking-wider flex items-center justify-between">
+                          <span>Milestone Preview</span>
+                          <span className="text-emerald-400 font-normal">{track.nodes.length} Milestones</span>
+                        </div>
+                        <div className="flex flex-wrap gap-1">
+                          {track.nodes.slice(0, 4).map((node, i) => (
+                            <span
+                              key={node.id}
+                              className="rounded bg-slate-900 border border-indigo-950 px-2 py-0.5 text-[10px] font-mono text-slate-300 flex items-center gap-1"
+                            >
+                              <span className="text-emerald-400 font-bold">{i + 1}.</span> {node.title}
+                            </span>
+                          ))}
+                          {track.nodes.length > 4 && (
+                            <span className="rounded bg-slate-900 border border-indigo-950 px-2 py-0.5 text-[10px] font-mono text-slate-400">
+                              +{track.nodes.length - 4} more
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="mt-6 pt-4 border-t border-indigo-950/80 flex items-center gap-3">
+                      <Link href="/canvas" className="flex-1">
+                        <Button className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs gap-1.5 rounded-xl shadow-md">
+                          <Layers className="h-3.5 w-3.5" />
+                          <span>Interactive Node Canvas &rarr;</span>
                         </Button>
                       </Link>
                     </div>
@@ -700,7 +809,7 @@ export default function StudyHubPage() {
                     Target Any Job: Custom 30-Day Syllabus
                   </h2>
                   <p className="text-xs text-slate-400 leading-relaxed">
-                    Enter any target role and company (e.g. <em>&quot;Backend Engineer at Razorpay&quot;</em>, <em>&quot;AI Systems at Google&quot;</em>, or <em>&quot;Fullstack at Swiggy&quot;</em>). RoleNest AI generates a structured 30-day daily workout with assignments and mock questions.
+                    Enter any target role and company (e.g. <em>&quot;Backend Engineer at Razorpay&quot;</em>, <em>&quot;AI Systems at Google&quot;</em>, or <em>&quot;Fullstack at Swiggy&quot;</em>). StudyNest AI generates a structured 30-day daily workout with assignments and mock questions.
                   </p>
                 </div>
 
@@ -823,10 +932,44 @@ export default function StudyHubPage() {
               </div>
             </div>
           )}
+
+          {/* STUDY PRO SCHOLAR MONETIZATION CARD */}
+          <div className="mt-12 rounded-3xl border border-amber-500/40 bg-gradient-to-r from-amber-950/40 via-indigo-950/60 to-purple-950/40 p-6 sm:p-8 shadow-2xl relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+              <div className="space-y-2 max-w-xl">
+                <div className="inline-flex items-center gap-2 rounded-full bg-amber-500/20 border border-amber-500/40 px-3 py-1 text-xs font-mono font-bold text-amber-300">
+                  <Crown className="h-3.5 w-3.5 fill-amber-300 text-amber-300" />
+                  StudyNest Pro Scholar Pass
+                </div>
+                <h3 className="text-2xl font-black text-white">
+                  Get Cryptographically Verified Diplomas &amp; AI Copilot
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                  Unlock official course graduation certificates for your LinkedIn &amp; resume, unlimited AI syllabus generators, downloadable systems architecture kits, and 1-on-1 mock STAR interviews.
+                </p>
+              </div>
+              <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0 w-full md:w-auto">
+                <Button
+                  onClick={() => setProModalOpen(true)}
+                  className="w-full sm:w-auto bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-xs px-6 py-3.5 rounded-xl shadow-lg shadow-amber-500/20 gap-2 h-auto"
+                >
+                  <Crown className="h-4 w-4 fill-slate-950" />
+                  <span>Activate Pro Pass &bull; From ₹199/mo &rarr;</span>
+                </Button>
+              </div>
+            </div>
+          </div>
         </div>
       </main>
 
       <StudyFooter />
+
+      {/* Pro Modal */}
+      <StudyProModal
+        isOpen={proModalOpen}
+        onClose={() => setProModalOpen(false)}
+      />
     </div>
   );
 }
