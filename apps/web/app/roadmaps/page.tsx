@@ -59,9 +59,15 @@ export default function RoadmapsIndexPage() {
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(99,102,241,0.15),rgba(255,255,255,0))]" />
           
           <div className="relative mx-auto max-w-4xl text-center space-y-4">
-            <div className="inline-flex items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-3.5 py-1 text-xs font-semibold text-indigo-300 backdrop-blur-md">
-              <Sparkles className="h-3.5 w-3.5 text-indigo-400" />
-              <span>100% Free Open Engineering Curricula</span>
+            <div className="flex flex-wrap items-center justify-center gap-2">
+              <div className="inline-flex items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-3.5 py-1 text-xs font-semibold text-indigo-300 backdrop-blur-md">
+                <Sparkles className="h-3.5 w-3.5 text-indigo-400" />
+                <span>100% Free Open Engineering Curricula</span>
+              </div>
+              <div className="inline-flex items-center gap-1.5 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-3 py-1 text-xs font-mono font-bold text-cyan-300 backdrop-blur-md">
+                <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+                <span>Auto-Updated Every 7–15 Days</span>
+              </div>
             </div>
 
             <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-white font-mono">

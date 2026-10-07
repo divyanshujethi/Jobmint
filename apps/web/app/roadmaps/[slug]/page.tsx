@@ -19,6 +19,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { getLiveJobs } from "@/lib/db-jobs";
+import { getEnrichedCareerRoadmaps } from "@/lib/roadmaps-store";
 import { InteractiveRoadmapSprints } from "@/components/interactive-roadmap-sprints";
 import { StudyNavbar } from "@/components/study-navbar";
 import { StudyFooter } from "@/components/study-footer";
@@ -41,7 +42,8 @@ export async function generateMetadata({ params }: RoadmapPageProps) {
 
 export default async function RoadmapDetailPage({ params }: RoadmapPageProps) {
   const { slug } = await params;
-  const roadmap = CAREER_ROADMAPS.find((r) => r.slug === slug);
+  const enrichedRoadmaps = await getEnrichedCareerRoadmaps();
+  const roadmap = enrichedRoadmaps.find((r) => r.slug === slug);
 
   if (!roadmap) {
     notFound();

@@ -86,40 +86,7 @@ const STROKE_COLORS = [
   { id: "#ffffff", label: "White", bg: "bg-white" },
 ];
 
-const DEFAULT_NOTES: GoogleNote[] = [
-  {
-    id: "n1",
-    title: "Distributed Cache Eviction (LRU vs LFU)",
-    content: "Redis uses approximated LRU with a configurable sample key count (default 5). For read-heavy systems with cold keys, LFU preserves hot frequently queried items better.",
-    color: "cyan",
-    pinned: true,
-    category: "System Design",
-    updatedAt: "Today, 10:45 AM",
-  },
-  {
-    id: "n2",
-    title: "Two-Pointer DSA Patterns",
-    content: "1. Opposite-ends: Sorted array, two-sum, palindrome verification.\n2. Fast-and-Slow: Cycle detection in linked list (Floyd's algorithm).\n3. Sliding Window: Longest substring without duplicate chars.",
-    color: "amber",
-    pinned: true,
-    category: "DSA & Algorithms",
-    updatedAt: "Yesterday",
-  },
-  {
-    id: "n3",
-    title: "React 19 Server Components Checklist",
-    content: "Actions replace useEffect for data mutations. Use useOptimistic for immediate UI responsiveness.",
-    color: "emerald",
-    pinned: false,
-    category: "Frontend Architecture",
-    checklist: [
-      { id: "c1", text: "Move data fetching to async server components", done: true },
-      { id: "c2", text: "Add Server Actions for form handling", done: true },
-      { id: "c3", text: "Optimize bundle with dynamic imports", done: false },
-    ],
-    updatedAt: "2 days ago",
-  },
-];
+const DEFAULT_NOTES: GoogleNote[] = [];
 
 export function StudyWhiteboard() {
   const [activeTab, setActiveTab] = useState<"notes" | "whiteboard" | "split">("notes");
@@ -156,7 +123,10 @@ export function StudyWhiteboard() {
     try {
       const savedNotes = localStorage.getItem("studynest_google_notes");
       if (savedNotes) {
-        setNotes(JSON.parse(savedNotes));
+        const parsed: GoogleNote[] = JSON.parse(savedNotes);
+        // Filter out legacy placeholder dummy notes if user had them previously cached
+        const filtered = parsed.filter((n) => !["n1", "n2", "n3"].includes(n.id));
+        setNotes(filtered);
       }
       const savedStrokes = localStorage.getItem("studynest_whiteboard_drawing");
       if (savedStrokes) {

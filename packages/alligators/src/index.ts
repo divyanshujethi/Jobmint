@@ -52,6 +52,7 @@ export * from './job-alligator/ai-career-scraper';
 export * from './study-alligator/curated-sources';
 export * from './study-alligator/canvas-binder';
 export * from './study-alligator/youtube-study-crawler';
+export * from './study-alligator/roadmap-crawler';
 
 /**
  * Master Runner for Job Alligator:
