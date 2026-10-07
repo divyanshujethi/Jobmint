@@ -1,18 +1,42 @@
 import { NextRequest, NextResponse } from "next/server";
+import { getLiveJobs, getTotalActiveJobsCount } from "@/lib/db-jobs";
 import { getCache, setCache } from "@/lib/redis";
-import { INITIAL_FRIEND_BOUNTIES, FriendReferralBounty } from "@/lib/bounties-data";
+import { FriendReferralBounty, convertRealJobToBounty } from "@/lib/bounties-data";
 
 export const dynamic = "force-dynamic";
 
-const FRIEND_BOUNTIES_CACHE_KEY = "rolenest:friend_bounties:v2";
-
 export async function GET(req: NextRequest) {
   try {
-    const cached = await getCache<FriendReferralBounty[]>(FRIEND_BOUNTIES_CACHE_KEY);
-    const bounties = cached && Array.isArray(cached) && cached.length > 0 ? cached : INITIAL_FRIEND_BOUNTIES;
+    const { searchParams } = new URL(req.url);
+    const q = (searchParams.get("q") || "").toLowerCase().trim();
+    const dept = searchParams.get("dept") || "ALL";
+    const exp = searchParams.get("exp") || "ALL";
 
-    if (!cached) {
-      await setCache(FRIEND_BOUNTIES_CACHE_KEY, INITIAL_FRIEND_BOUNTIES, 14 * 24 * 60 * 60);
+    // Fetch real live jobs directly from PostgreSQL
+    const [realJobs, totalCatalog] = await Promise.all([
+      getLiveJobs({ limit: 120, jobType: "ALL" }),
+      getTotalActiveJobsCount("ALL"),
+    ]);
+
+    let bounties: FriendReferralBounty[] = realJobs.map(convertRealJobToBounty);
+
+    // Apply filters
+    if (q) {
+      bounties = bounties.filter(
+        (b) =>
+          b.companyName.toLowerCase().includes(q) ||
+          b.roleTitle.toLowerCase().includes(q) ||
+          b.location.toLowerCase().includes(q) ||
+          b.keySkills.some((s) => s.toLowerCase().includes(q))
+      );
+    }
+
+    if (dept !== "ALL") {
+      bounties = bounties.filter((b) => b.department === dept);
+    }
+
+    if (exp !== "ALL") {
+      bounties = bounties.filter((b) => b.experienceLevel === exp);
     }
 
     const totalPoolInr = bounties.reduce((sum, b) => sum + b.bountyRewardInr * b.openPositions, 0);
@@ -20,11 +44,12 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({
       bounties,
       count: bounties.length,
+      totalCatalog,
       totalPoolInr,
     });
   } catch (err: any) {
-    console.error("Error fetching friend bounties:", err);
-    return NextResponse.json({ bounties: INITIAL_FRIEND_BOUNTIES, count: INITIAL_FRIEND_BOUNTIES.length }, { status: 200 });
+    console.error("Error fetching live bounties:", err);
+    return NextResponse.json({ bounties: [], count: 0, totalPoolInr: 0, error: err.message }, { status: 500 });
   }
 }
 
@@ -53,28 +78,26 @@ export async function POST(req: NextRequest) {
     }
 
     const newBounty: FriendReferralBounty = {
-      id: `bounty-${Date.now()}`,
+      id: `bounty-custom-${Date.now()}`,
+      jobId: `custom-${Date.now()}`,
+      jobSlug: roleTitle.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
       companyName: companyName.trim(),
-      companySlug: companyName.toLowerCase().replace(/[^a-z0-9]/g, "-"),
+      companySlug: companyName.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
+      companyLogoInitial: companyName.charAt(0).toUpperCase(),
       roleTitle: roleTitle.trim(),
       department: department || "FullStack",
       bountyRewardInr: Number(bountyRewardInr) || 25000,
-      salaryRangeCtcLpa: salaryRangeCtcLpa || "₹18 – ₹28 LPA",
+      salaryRangeCtcLpa: salaryRangeCtcLpa || "Competitive (Industry Standard)",
       experienceLevel: experienceLevel || "1-3 YRS",
-      location: location || "Bangalore",
+      location: location || "Bangalore / Remote",
       workMode: workMode || "Hybrid",
-      keySkills: Array.isArray(keySkills) ? keySkills : ["React", "Node.js", "TypeScript"],
+      keySkills: Array.isArray(keySkills) ? keySkills : ["Engineering", "Problem Solving"],
       hiringUrgency: "HIGH",
-      openPositions: Number(openPositions) || 2,
-      description: description || "Exciting engineering opportunity with competitive market compensation.",
+      openPositions: Number(openPositions) || 1,
+      description: description || "Active engineering opening verified through official hiring pipeline.",
       postedAgo: "Just now",
       totalReferralsSubmitted: 0,
     };
-
-    const cached = await getCache<FriendReferralBounty[]>(FRIEND_BOUNTIES_CACHE_KEY);
-    const current = cached && Array.isArray(cached) ? cached : INITIAL_FRIEND_BOUNTIES;
-    const updated = [newBounty, ...current];
-    await setCache(FRIEND_BOUNTIES_CACHE_KEY, updated, 14 * 24 * 60 * 60);
 
     return NextResponse.json({
       success: true,

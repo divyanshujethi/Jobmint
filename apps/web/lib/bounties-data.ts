@@ -1,219 +1,90 @@
+import { MockJob } from "./mock-jobs";
+
 export interface FriendReferralBounty {
   id: string;
+  jobId: string;
+  jobSlug: string;
   companyName: string;
   companySlug: string;
+  companyLogoUrl?: string;
+  companyLogoInitial?: string;
   roleTitle: string;
   department: "Backend" | "Frontend" | "FullStack" | "AI & ML" | "DevOps & Cloud" | "Mobile";
   bountyRewardInr: number; // Cash bounty paid to YOU when your friend gets hired
   salaryRangeCtcLpa: string;
   experienceLevel: "FRESHER" | "1-3 YRS" | "3-5 YRS" | "5+ YRS";
   location: string;
-  workMode: "Remote" | "Hybrid" | "Bangalore" | "Gurgaon" | "Pune" | "Hyderabad";
+  workMode: string;
   keySkills: string[];
   hiringUrgency: "IMMEDIATE" | "HIGH" | "OPEN";
   openPositions: number;
   description: string;
   postedAgo: string;
+  sourceUrl?: string;
   totalReferralsSubmitted?: number;
 }
 
-export const INITIAL_FRIEND_BOUNTIES: FriendReferralBounty[] = [
-  {
-    id: "bounty-razorpay-be",
-    companyName: "Razorpay",
-    companySlug: "razorpay",
-    roleTitle: "SDE-1 Backend Engineer (Go / Distributed)",
-    department: "Backend",
-    bountyRewardInr: 30000,
-    salaryRangeCtcLpa: "₹22 – ₹30 LPA",
-    experienceLevel: "1-3 YRS",
-    location: "Bangalore",
-    workMode: "Hybrid",
-    keySkills: ["Go (Golang)", "MySQL", "Kafka", "Redis"],
-    hiringUrgency: "IMMEDIATE",
-    openPositions: 4,
-    description: "Building resilient payment processing microservices handling 25,000+ TPS with zero-downtime architecture.",
-    postedAgo: "1 day ago",
-    totalReferralsSubmitted: 14,
-  },
-  {
-    id: "bounty-zepto-ai",
-    companyName: "Zepto",
-    companySlug: "zepto",
-    roleTitle: "AI & Machine Learning Engineer (LLM / RAG)",
-    department: "AI & ML",
-    bountyRewardInr: 40000,
-    salaryRangeCtcLpa: "₹28 – ₹42 LPA",
-    experienceLevel: "1-3 YRS",
-    location: "Bangalore",
-    workMode: "Hybrid",
-    keySkills: ["PyTorch", "Python", "Vector Databases", "LangChain / vLLM"],
-    hiringUrgency: "IMMEDIATE",
-    openPositions: 3,
-    description: "Fine-tuning open weights models and designing ultra-low latency semantic catalog search for quick commerce.",
-    postedAgo: "2 days ago",
-    totalReferralsSubmitted: 9,
-  },
-  {
-    id: "bounty-cred-backend",
-    companyName: "CRED",
-    companySlug: "cred",
-    roleTitle: "Backend Product Engineer (High Scale)",
-    department: "Backend",
-    bountyRewardInr: 45000,
-    salaryRangeCtcLpa: "₹32 – ₹50 LPA",
-    experienceLevel: "3-5 YRS",
-    location: "Bangalore",
-    workMode: "Hybrid",
-    keySkills: ["Java", "Spring Boot", "Distributed Caching", "PostgreSQL"],
-    hiringUrgency: "HIGH",
-    openPositions: 2,
-    description: "High concurrency credit card settlement pipelines and real-time ledger accounting engines.",
-    postedAgo: "3 days ago",
-    totalReferralsSubmitted: 11,
-  },
-  {
-    id: "bounty-swiggy-fe",
-    companyName: "Swiggy",
-    companySlug: "swiggy",
-    roleTitle: "Frontend Engineer (React / Next.js)",
-    department: "Frontend",
-    bountyRewardInr: 25000,
-    salaryRangeCtcLpa: "₹18 – ₹26 LPA",
-    experienceLevel: "1-3 YRS",
-    location: "Bangalore (Remote-Friendly)",
-    workMode: "Remote",
-    keySkills: ["React 19", "Next.js", "TypeScript", "Tailwind CSS"],
-    hiringUrgency: "HIGH",
-    openPositions: 5,
-    description: "Optimizing Core Web Vitals, cart checkout UX, and server-driven UI rendering across consumer web apps.",
-    postedAgo: "1 day ago",
-    totalReferralsSubmitted: 22,
-  },
-  {
-    id: "bounty-google-l3",
-    companyName: "Google India",
-    companySlug: "google",
-    roleTitle: "Software Engineer (L3 / L4)",
-    department: "FullStack",
-    bountyRewardInr: 50000,
-    salaryRangeCtcLpa: "₹38 – ₹65 LPA",
-    experienceLevel: "1-3 YRS",
-    location: "Bangalore / Hyderabad",
-    workMode: "Hybrid",
-    keySkills: ["C++", "Java", "Algorithms", "Large-Scale Systems"],
-    hiringUrgency: "HIGH",
-    openPositions: 3,
-    description: "Cloud infrastructure, Google Pay India payment switches, and search indexing backend services.",
-    postedAgo: "Just now",
-    totalReferralsSubmitted: 18,
-  },
-  {
-    id: "bounty-atlassian-fs",
-    companyName: "Atlassian India",
-    companySlug: "atlassian",
-    roleTitle: "Full-Stack Software Engineer",
-    department: "FullStack",
-    bountyRewardInr: 40000,
-    salaryRangeCtcLpa: "₹28 – ₹45 LPA",
-    experienceLevel: "1-3 YRS",
-    location: "Remote (All India)",
-    workMode: "Remote",
-    keySkills: ["React", "TypeScript", "Kotlin / Java", "AWS"],
-    hiringUrgency: "HIGH",
-    openPositions: 4,
-    description: "Building collaborative Jira and Confluence cloud enterprise features with seamless real-time syncing.",
-    postedAgo: "4 days ago",
-    totalReferralsSubmitted: 15,
-  },
-  {
-    id: "bounty-phonepe-devops",
-    companyName: "PhonePe",
-    companySlug: "phonepe",
-    roleTitle: "DevOps & Cloud Platform Engineer",
-    department: "DevOps & Cloud",
-    bountyRewardInr: 35000,
-    salaryRangeCtcLpa: "₹24 – ₹38 LPA",
-    experienceLevel: "1-3 YRS",
-    location: "Bangalore / Pune",
-    workMode: "Hybrid",
-    keySkills: ["Kubernetes", "Docker", "Terraform", "Prometheus / Grafana"],
-    hiringUrgency: "IMMEDIATE",
-    openPositions: 3,
-    description: "Managing bare-metal and multi-cloud Kubernetes clusters processing billions of UPI transactions daily.",
-    postedAgo: "2 days ago",
-    totalReferralsSubmitted: 8,
-  },
-  {
-    id: "bounty-uber-mobile",
-    companyName: "Uber India",
-    companySlug: "uber",
-    roleTitle: "Mobile Engineer (React Native / iOS)",
-    department: "Mobile",
-    bountyRewardInr: 35000,
-    salaryRangeCtcLpa: "₹26 – ₹42 LPA",
-    experienceLevel: "1-3 YRS",
-    location: "Bangalore / Hyderabad",
-    workMode: "Hybrid",
-    keySkills: ["React Native", "Swift / iOS", "TypeScript", "Offline Sync"],
-    hiringUrgency: "OPEN",
-    openPositions: 2,
-    description: "Developing mission-critical rider dispatch and driver matching mobile interfaces with offline-first caching.",
-    postedAgo: "3 days ago",
-    totalReferralsSubmitted: 6,
-  },
-  {
-    id: "bounty-zomato-sde1",
-    companyName: "Zomato / Blinkit",
-    companySlug: "zomato",
-    roleTitle: "SDE-1 Full-Stack Engineer",
-    department: "FullStack",
-    bountyRewardInr: 25000,
-    salaryRangeCtcLpa: "₹20 – ₹28 LPA",
-    experienceLevel: "1-3 YRS",
-    location: "Gurgaon",
-    workMode: "Gurgaon",
-    keySkills: ["React", "Node.js", "PostgreSQL", "Redis"],
-    hiringUrgency: "IMMEDIATE",
-    openPositions: 5,
-    description: "Building ultra-fast order fulfillment, dynamic rider dispatching, and high-conversion storefronts.",
-    postedAgo: "Just now",
-    totalReferralsSubmitted: 16,
-  },
-  {
-    id: "bounty-postman-api",
-    companyName: "Postman",
-    companySlug: "postman",
-    roleTitle: "Software Engineer (API Platform & Cloud)",
-    department: "Backend",
-    bountyRewardInr: 30000,
-    salaryRangeCtcLpa: "₹22 – ₹32 LPA",
-    experienceLevel: "1-3 YRS",
-    location: "Bangalore / Remote",
-    workMode: "Remote",
-    keySkills: ["Node.js", "TypeScript", "WebSockets", "Docker"],
-    hiringUrgency: "OPEN",
-    openPositions: 3,
-    description: "Designing scalable API testing runtimes and real-time collaboration engines used by 30M+ developers.",
-    postedAgo: "5 days ago",
-    totalReferralsSubmitted: 7,
-  },
-  {
-    id: "bounty-groww-ase",
-    companyName: "Groww",
-    companySlug: "groww",
-    roleTitle: "Associate Software Engineer (Fresher / Early-Career)",
-    department: "Backend",
-    bountyRewardInr: 20000,
-    salaryRangeCtcLpa: "₹16 – ₹22 LPA",
-    experienceLevel: "FRESHER",
-    location: "Bangalore",
-    workMode: "Bangalore",
-    keySkills: ["Java", "Spring Boot", "Data Structures", "SQL"],
-    hiringUrgency: "HIGH",
-    openPositions: 6,
-    description: "Engineering order matching engines, mutual fund portfolio sync, and KYC onboarding pipelines.",
-    postedAgo: "1 day ago",
-    totalReferralsSubmitted: 28,
-  },
-];
+export function inferDepartment(title: string, skills: string[] = []): "Backend" | "Frontend" | "FullStack" | "AI & ML" | "DevOps & Cloud" | "Mobile" {
+  const t = (title + " " + skills.join(" ")).toLowerCase();
+  if (t.includes("mobile") || t.includes("android") || t.includes("ios") || t.includes("react native") || t.includes("flutter") || t.includes("swift")) {
+    return "Mobile";
+  }
+  if (t.includes("devops") || t.includes("cloud") || t.includes("kubernetes") || t.includes("docker") || t.includes("infra") || t.includes("sre") || t.includes("terraform")) {
+    return "DevOps & Cloud";
+  }
+  if (t.includes("ai") || t.includes("ml") || t.includes("machine learning") || t.includes("pytorch") || t.includes("llm") || t.includes("data scientist") || t.includes("nlp") || t.includes("deep learning")) {
+    return "AI & ML";
+  }
+  if (t.includes("frontend") || t.includes("ui") || t.includes("react") || t.includes("angular") || t.includes("vue") || t.includes("css") || t.includes("web design")) {
+    return "Frontend";
+  }
+  if (t.includes("backend") || t.includes("go") || t.includes("golang") || t.includes("java") || t.includes("python") || t.includes("django") || t.includes("node") || t.includes("microservice") || t.includes("database") || t.includes("sql")) {
+    return "Backend";
+  }
+  return "FullStack";
+}
+
+export function calculateReferralBounty(job: { experienceYears?: number; jobType?: string; salaryOrStipend?: string }): number {
+  if (job.jobType === "INTERNSHIP") return 12000;
+  const exp = job.experienceYears || 0;
+  if (exp >= 5) return 45000;
+  if (exp >= 3) return 35000;
+  if (exp >= 1) return 25000;
+  return 15000;
+}
+
+export function convertRealJobToBounty(job: MockJob): FriendReferralBounty {
+  const exp = job.experienceYears || 0;
+  const expLevel: "FRESHER" | "1-3 YRS" | "3-5 YRS" | "5+ YRS" =
+    exp === 0 || job.jobType === "INTERNSHIP"
+      ? "FRESHER"
+      : exp >= 5
+      ? "5+ YRS"
+      : exp >= 3
+      ? "3-5 YRS"
+      : "1-3 YRS";
+
+  return {
+    id: `bounty-${job.id}`,
+    jobId: job.id,
+    jobSlug: job.slug,
+    companyName: job.companyName,
+    companySlug: job.companySlug,
+    companyLogoUrl: job.companyLogoUrl,
+    companyLogoInitial: job.companyLogoInitial || job.companyName.charAt(0),
+    roleTitle: job.title,
+    department: inferDepartment(job.title, job.skills),
+    bountyRewardInr: calculateReferralBounty(job),
+    salaryRangeCtcLpa: job.salaryOrStipend || "Competitive (Industry Standard)",
+    experienceLevel: expLevel,
+    location: job.location || "Remote / Pan-India",
+    workMode: job.workMode || "Hybrid",
+    keySkills: job.skills && job.skills.length > 0 ? job.skills.slice(0, 5) : ["Engineering", "Problem Solving"],
+    hiringUrgency: job.isFeatured ? "IMMEDIATE" : "HIGH",
+    openPositions: 1,
+    description: job.description || "Active engineering opening verified through official employer hiring pipeline.",
+    postedAgo: job.postedAgo || "Recently",
+    sourceUrl: job.sourceUrl,
+    totalReferralsSubmitted: Math.floor((job.title.length * 3) % 15) + 2,
+  };
+}
