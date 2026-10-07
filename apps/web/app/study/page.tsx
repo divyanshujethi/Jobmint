@@ -37,6 +37,7 @@ import {
   Cloud,
   Database,
   GraduationCap,
+  PenTool,
 } from "lucide-react";
 import {
   InteractiveJobCourse,
@@ -45,18 +46,12 @@ import {
   DailyLesson,
 } from "@/lib/study-courses-data";
 import { CAREER_ROADMAPS } from "@repo/shared";
-import { CURATED_COURSES, CoursePlaylist } from "@/lib/courses-data";
-import { MOCK_STUDY_PODS } from "@/lib/mock-pods";
-import { CANVAS_TRACKS } from "@/lib/canvas-data";
 import { Button } from "@/components/ui/button";
 import { StudyNavbar } from "@/components/study-navbar";
 import { StudyFooter } from "@/components/study-footer";
 import { StudyProModal } from "@/components/study-pro-modal";
 
-type StudyTab = "roadmaps" | "canvas" | "masterclasses" | "ai-generator" | "pods";
-
 export default function StudyHubPage() {
-  const [activeTab, setActiveTab] = useState<StudyTab>("roadmaps");
   const [proModalOpen, setProModalOpen] = useState(false);
   const [courses, setCourses] = useState<InteractiveJobCourse[]>(ALL_INTERACTIVE_COURSES);
   const [selectedCourse, setSelectedCourse] = useState<InteractiveJobCourse>(ALL_INTERACTIVE_COURSES[0]!);
@@ -90,19 +85,13 @@ export default function StudyHubPage() {
       }
     } catch {}
 
-    // Check hash for direct tab navigation
+    // Check hash for direct section scrolling or modal
     if (typeof window !== "undefined" && window.location.hash) {
       const hash = window.location.hash.replace("#", "");
-      if (hash === "canvas" || hash === "course-canvas") {
-        setActiveTab("canvas");
-      } else if (hash === "ai-generator" || hash === "ai-syllabus") {
-        setActiveTab("ai-generator");
-      } else if (hash === "cohorts" || hash === "roadmaps") {
-        setActiveTab("roadmaps");
-      } else if (hash === "masterclasses") {
-        setActiveTab("masterclasses");
-      } else if (hash === "pods") {
-        setActiveTab("pods");
+      if (hash === "ai-generator" || hash === "ai-syllabus") {
+        setTimeout(() => {
+          document.getElementById("ai-generator")?.scrollIntoView({ behavior: "smooth" });
+        }, 150);
       } else if (hash === "pro") {
         setProModalOpen(true);
       }
@@ -155,7 +144,6 @@ export default function StudyHubPage() {
       setIsGenerating(false);
       setGeneratedSuccess(true);
       setExpandedDay(1);
-      setActiveTab("roadmaps");
     }, 600);
   };
 
@@ -229,51 +217,121 @@ export default function StudyHubPage() {
           </div>
         </section>
 
-        {/* TAB CONTROLS STRIP */}
-        <div className="sticky top-16 z-30 border-b border-indigo-950/60 bg-[#070913]/95 backdrop-blur-md px-4 py-2.5 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-7xl flex items-center justify-between gap-3">
-            <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none py-1">
-              {[
-                { id: "roadmaps", label: "Roadmaps & Cohorts", icon: Compass, count: CAREER_ROADMAPS.length + courses.length },
-                { id: "canvas", label: "Course Canvas", icon: Layers, count: CANVAS_TRACKS.length },
-                { id: "masterclasses", label: "Video Masterclasses", icon: ListVideo, count: CURATED_COURSES.length },
-                { id: "ai-generator", label: "AI Syllabus Builder", icon: Sparkles, count: "AI" },
-                { id: "pods", label: "Peer Study Pods", icon: Users2, count: MOCK_STUDY_PODS.length },
-              ].map((tab) => {
-                const Icon = tab.icon;
-                const isSelected = activeTab === tab.id;
-                return (
-                  <button
-                    key={tab.id}
-                    onClick={() => setActiveTab(tab.id as StudyTab)}
-                    className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
-                      isSelected
-                        ? "bg-indigo-600 text-white font-bold shadow-md shadow-indigo-600/20"
-                        : "bg-[#0c1022] text-slate-400 hover:text-white border border-indigo-950/60 hover:bg-[#101530]"
-                    }`}
-                  >
-                    <Icon className="h-3.5 w-3.5" />
-                    <span>{tab.label}</span>
-                    <span className="rounded-md bg-indigo-950/80 px-1.5 py-0.2 text-[10px] font-mono text-indigo-300 border border-indigo-900/50">
-                      {tab.count}
+        {/* ACADEMY QUICK GATEWAY CARDS */}
+        <section className="border-b border-indigo-950/60 bg-[#060814] px-4 py-6 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+              <Link
+                href="/canvas"
+                className="group p-4 rounded-2xl bg-[#0c1024] border border-indigo-950/80 hover:border-emerald-500/50 hover:bg-[#101533] transition-all shadow-md flex flex-col justify-between"
+              >
+                <div className="space-y-1.5">
+                  <div className="flex items-center justify-between">
+                    <div className="h-8 w-8 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
+                      <Layers className="h-4 w-4" />
+                    </div>
+                    <span className="text-[10px] font-mono text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
+                      9 Tracks
                     </span>
-                  </button>
-                );
-              })}
-            </div>
+                  </div>
+                  <h3 className="font-bold text-xs sm:text-sm text-white group-hover:text-emerald-300 transition-colors">
+                    Course Canvas
+                  </h3>
+                  <p className="text-[11px] text-slate-400 line-clamp-1">
+                    Visual dependency trees
+                  </p>
+                </div>
+                <div className="mt-3 flex items-center gap-1 text-[11px] font-mono text-emerald-400 font-semibold">
+                  <span>Open Canvas</span>
+                  <ArrowRight className="h-3 w-3 group-hover:translate-x-1 transition-transform" />
+                </div>
+              </Link>
 
-            <div className="hidden md:flex items-center gap-2 text-xs text-slate-400">
-              <span className="flex h-2 w-2 rounded-full bg-emerald-400 animate-ping" />
-              <span className="text-[11px] font-mono">100% Free &amp; Open Access</span>
+              <Link
+                href="/playlists"
+                className="group p-4 rounded-2xl bg-[#0c1024] border border-indigo-950/80 hover:border-red-500/50 hover:bg-[#101533] transition-all shadow-md flex flex-col justify-between"
+              >
+                <div className="space-y-1.5">
+                  <div className="flex items-center justify-between">
+                    <div className="h-8 w-8 rounded-xl bg-red-500/10 border border-red-500/30 flex items-center justify-center text-red-400 group-hover:scale-110 transition-transform">
+                      <ListVideo className="h-4 w-4" />
+                    </div>
+                    <span className="text-[10px] font-mono text-red-400 font-bold bg-red-500/10 px-2 py-0.5 rounded-full border border-red-500/20">
+                      75+ Courses
+                    </span>
+                  </div>
+                  <h3 className="font-bold text-xs sm:text-sm text-white group-hover:text-red-300 transition-colors">
+                    Video Masterclasses
+                  </h3>
+                  <p className="text-[11px] text-slate-400 line-clamp-1">
+                    Full video courses &amp; notes
+                  </p>
+                </div>
+                <div className="mt-3 flex items-center gap-1 text-[11px] font-mono text-red-400 font-semibold">
+                  <span>Browse Library</span>
+                  <ArrowRight className="h-3 w-3 group-hover:translate-x-1 transition-transform" />
+                </div>
+              </Link>
+
+              <Link
+                href="/whiteboard"
+                className="group p-4 rounded-2xl bg-[#0c1024] border border-indigo-950/80 hover:border-cyan-500/50 hover:bg-[#101533] transition-all shadow-md flex flex-col justify-between"
+              >
+                <div className="space-y-1.5">
+                  <div className="flex items-center justify-between">
+                    <div className="h-8 w-8 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 group-hover:scale-110 transition-transform">
+                      <PenTool className="h-4 w-4" />
+                    </div>
+                    <span className="text-[10px] font-mono text-cyan-400 font-bold bg-cyan-500/10 px-2 py-0.5 rounded-full border border-cyan-500/20">
+                      Infinite
+                    </span>
+                  </div>
+                  <h3 className="font-bold text-xs sm:text-sm text-white group-hover:text-cyan-300 transition-colors">
+                    Vector Whiteboard
+                  </h3>
+                  <p className="text-[11px] text-slate-400 line-clamp-1">
+                    Freehand notes &amp; diagrams
+                  </p>
+                </div>
+                <div className="mt-3 flex items-center gap-1 text-[11px] font-mono text-cyan-400 font-semibold">
+                  <span>Launch Canvas</span>
+                  <ArrowRight className="h-3 w-3 group-hover:translate-x-1 transition-transform" />
+                </div>
+              </Link>
+
+              <Link
+                href="/study-pods"
+                className="group p-4 rounded-2xl bg-[#0c1024] border border-indigo-950/80 hover:border-violet-500/50 hover:bg-[#101533] transition-all shadow-md flex flex-col justify-between"
+              >
+                <div className="space-y-1.5">
+                  <div className="flex items-center justify-between">
+                    <div className="h-8 w-8 rounded-xl bg-violet-500/10 border border-violet-500/30 flex items-center justify-center text-violet-400 group-hover:scale-110 transition-transform">
+                      <Users2 className="h-4 w-4" />
+                    </div>
+                    <span className="text-[10px] font-mono text-violet-400 font-bold bg-violet-500/10 px-2 py-0.5 rounded-full border border-violet-500/20">
+                      Peer Meets
+                    </span>
+                  </div>
+                  <h3 className="font-bold text-xs sm:text-sm text-white group-hover:text-violet-300 transition-colors">
+                    Peer Study Pods
+                  </h3>
+                  <p className="text-[11px] text-slate-400 line-clamp-1">
+                    STAR technical mock interviews
+                  </p>
+                </div>
+                <div className="mt-3 flex items-center gap-1 text-[11px] font-mono text-violet-400 font-semibold">
+                  <span>Join Study Pods</span>
+                  <ArrowRight className="h-3 w-3 group-hover:translate-x-1 transition-transform" />
+                </div>
+              </Link>
             </div>
           </div>
-        </div>
+        </section>
 
-        {/* TAB CONTENT CONTAINER */}
-        <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-          {/* TAB 1: CAREER ROADMAPS */}
-          {activeTab === "roadmaps" && (
-            <div className="space-y-6">
+        {/* CORE CURRICULUM & COHORTS CONTAINER */}
+        <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 space-y-12">
+          {/* 1. CAREER ROADMAP GUIDES */}
+          <div className="space-y-6">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-indigo-950/80 pb-4">
                 <div>
                   <h2 className="text-xl font-bold text-white flex items-center gap-2">
@@ -357,112 +415,9 @@ export default function StudyHubPage() {
                 ))}
               </div>
             </div>
-          )}
 
-          {/* TAB: INTERACTIVE CANVAS COURSES */}
-          {activeTab === "canvas" && (
-            <div className="space-y-6">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-indigo-950/80 pb-4">
-                <div>
-                  <h2 className="text-xl font-bold text-white flex items-center gap-2">
-                    <Layers className="h-5 w-5 text-emerald-400" />
-                    <span>Interactive Course Canvas &amp; Visual Roadmaps</span>
-                  </h2>
-                  <p className="text-xs text-slate-400 mt-1">
-                    Visual node-based dependency trees with interactive milestones, code exercises, and linked video masterclasses.
-                  </p>
-                </div>
-                <Link href="/canvas">
-                  <Button className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold gap-2 text-xs rounded-xl shadow-lg shadow-emerald-600/20">
-                    <Layers className="h-4 w-4" />
-                    <span>Open Fullscreen Canvas View</span>
-                    <ArrowRight className="h-3.5 w-3.5" />
-                  </Button>
-                </Link>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {CANVAS_TRACKS.map((track) => (
-                  <div
-                    key={track.id}
-                    className="flex flex-col justify-between rounded-2xl border border-indigo-950/80 bg-[#0c1020] p-6 shadow-xl hover:border-emerald-500/40 transition-all group"
-                  >
-                    <div className="space-y-4">
-                      <div className="flex items-center justify-between gap-2">
-                        <span className="rounded-md border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-0.5 text-[10px] font-bold text-emerald-300 font-mono">
-                          {track.badge}
-                        </span>
-                        <span className="text-[11px] font-mono text-slate-400">
-                          {track.nodes.length} Nodes &bull; {track.nodes.reduce((acc, n) => acc + (n.estimatedHours || 10), 0)} hrs
-                        </span>
-                      </div>
-
-                      <div>
-                        <h3 className="text-lg font-bold text-white group-hover:text-emerald-300 transition-colors">
-                          {track.title}
-                        </h3>
-                        <p className="mt-1.5 text-xs text-slate-400 leading-relaxed">
-                          {track.description}
-                        </p>
-                      </div>
-
-                      <div className="space-y-1.5">
-                        <div className="text-[10px] font-mono uppercase text-slate-500 font-bold tracking-wider">
-                          Target Career Roles
-                        </div>
-                        <div className="flex flex-wrap gap-1.5">
-                          {track.targetRoles.map((role) => (
-                            <span
-                              key={role}
-                              className="rounded-lg bg-indigo-950/40 border border-indigo-900/40 px-2 py-0.5 text-[11px] text-indigo-300 font-medium"
-                            >
-                              {role}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Preview of Key Milestone Nodes */}
-                      <div className="rounded-xl border border-indigo-950/70 bg-slate-900/50 p-3 space-y-2">
-                        <div className="text-[10px] font-mono uppercase text-slate-400 font-bold tracking-wider flex items-center justify-between">
-                          <span>Milestone Preview</span>
-                          <span className="text-emerald-400 font-normal">{track.nodes.length} Milestones</span>
-                        </div>
-                        <div className="flex flex-wrap gap-1">
-                          {track.nodes.slice(0, 4).map((node, i) => (
-                            <span
-                              key={node.id}
-                              className="rounded bg-slate-900 border border-indigo-950 px-2 py-0.5 text-[10px] font-mono text-slate-300 flex items-center gap-1"
-                            >
-                              <span className="text-emerald-400 font-bold">{i + 1}.</span> {node.title}
-                            </span>
-                          ))}
-                          {track.nodes.length > 4 && (
-                            <span className="rounded bg-slate-900 border border-indigo-950 px-2 py-0.5 text-[10px] font-mono text-slate-400">
-                              +{track.nodes.length - 4} more
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="mt-6 pt-4 border-t border-indigo-950/80 flex items-center gap-3">
-                      <Link href="/canvas" className="flex-1">
-                        <Button className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs gap-1.5 rounded-xl shadow-md">
-                          <Layers className="h-3.5 w-3.5" />
-                          <span>Interactive Node Canvas &rarr;</span>
-                        </Button>
-                      </Link>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* 30-DAY GUIDED COHORT TRACKS (PART OF ROADMAPS & COHORTS) */}
-          {activeTab === "roadmaps" && (
-            <div className="space-y-8">
+            {/* 2. 30-DAY GUIDED COHORT TRACKS */}
+            <div className="space-y-8 pt-4">
               {/* COURSE TRACK SELECTOR BAR */}
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 rounded-2xl border border-indigo-950/80 bg-[#0b0f22] p-4">
                 <div className="flex items-center gap-3 overflow-x-auto scrollbar-none py-1">
@@ -725,218 +680,72 @@ export default function StudyHubPage() {
                 })}
               </div>
             </div>
-          )}
 
-          {/* TAB 3: VIDEO MASTERCLASSES */}
-          {activeTab === "masterclasses" && (
-            <div className="space-y-6">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-indigo-950/80 pb-4">
+          {/* 3. TARGET ANY JOB: AI SYLLABUS BUILDER */}
+          <section id="ai-generator" className="max-w-3xl mx-auto space-y-6 pt-4">
+            <div className="rounded-3xl border border-indigo-950/80 bg-[#090d20] p-6 sm:p-8 space-y-6 shadow-2xl">
+              <div className="space-y-2 border-b border-indigo-950 pb-5">
+                <div className="inline-flex items-center gap-2 rounded-lg bg-indigo-500/10 border border-indigo-500/30 px-3 py-1 text-xs font-bold text-indigo-300">
+                  <Sparkles className="h-3.5 w-3.5 text-indigo-400" />
+                  <span>Instant AI Study Plan Generator</span>
+                </div>
+                <h2 className="text-2xl font-bold text-white font-mono">
+                  Target Any Job: Custom 30-Day Syllabus
+                </h2>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  Enter any target role and company (e.g. <em>&quot;Backend Engineer at Razorpay&quot;</em>, <em>&quot;AI Systems at Google&quot;</em>, or <em>&quot;Fullstack at Swiggy&quot;</em>). StudyNest AI generates a structured 30-day daily workout with assignments and mock questions.
+                </p>
+              </div>
+
+              <form onSubmit={handleGenerateCourse} className="space-y-4">
                 <div>
-                  <h2 className="text-xl font-bold text-white flex items-center gap-2">
-                    <ListVideo className="h-5 w-5 text-indigo-400" />
-                    <span>Curated Zero-Waste Video Playlists</span>
-                  </h2>
-                  <p className="text-xs text-slate-400 mt-1">
-                    YouTube masterclasses from top creators (Andrej Karpathy, Harvard CS50, Matt Holiday, Nana) with chapter timestamps and notes.
-                  </p>
-                </div>
-                <Link href="/playlists">
-                  <Button variant="outline" className="border-indigo-900 bg-[#0d1226] text-indigo-300 hover:bg-indigo-900/40 text-xs font-bold gap-1.5">
-                    <span>Full Playlists Player</span>
-                    <ArrowRight className="h-3.5 w-3.5" />
-                  </Button>
-                </Link>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {CURATED_COURSES.map((course: CoursePlaylist) => (
-                  <div
-                    key={course.id}
-                    className="flex flex-col justify-between rounded-2xl border border-indigo-950/80 bg-[#0b0f22] p-5 shadow-xl hover:border-indigo-500/40 transition-all group"
-                  >
-                    <div className="space-y-3">
-                      <div className="flex items-center justify-between">
-                        <span className="rounded-md border border-indigo-500/30 bg-indigo-500/10 px-2 py-0.5 text-[11px] font-bold text-indigo-300 font-mono">
-                          {course.category}
-                        </span>
-                        <span className="text-[11px] font-mono text-slate-400">{course.duration}</span>
-                      </div>
-
-                      <div>
-                        <h3 className="text-base font-bold text-white group-hover:text-indigo-300 transition-colors line-clamp-1">
-                          {course.title}
-                        </h3>
-                        <p className="text-xs text-indigo-400 font-semibold mt-0.5">by {course.creator}</p>
-                        <p className="mt-1.5 text-xs text-slate-400 line-clamp-2 leading-relaxed">
-                          {course.description}
-                        </p>
-                      </div>
-
-                      <div className="flex flex-wrap gap-1 pt-1">
-                        {course.skillsLearned.slice(0, 3).map((t: string) => (
-                          <span
-                            key={t}
-                            className="rounded bg-indigo-950/40 border border-indigo-900/40 px-1.5 py-0.2 text-[10px] font-mono text-slate-400"
-                          >
-                            {t}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="mt-5 pt-3 border-t border-indigo-950 flex items-center justify-between">
-                      <span className="text-[10px] font-mono text-slate-500">
-                        {course.curriculumModules.length} Modules
-                      </span>
-                      <Link href="/playlists">
-                        <Button size="sm" className="bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold gap-1 rounded-xl">
-                          <span>Watch Masterclass</span>
-                          <ArrowRight className="h-3 w-3" />
-                        </Button>
-                      </Link>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* TAB 4: AI SYLLABUS BUILDER */}
-          {activeTab === "ai-generator" && (
-            <div className="max-w-3xl mx-auto space-y-6">
-              <div className="rounded-3xl border border-indigo-950/80 bg-[#090d20] p-6 sm:p-8 space-y-6 shadow-2xl">
-                <div className="space-y-2 border-b border-indigo-950 pb-5">
-                  <div className="inline-flex items-center gap-2 rounded-lg bg-indigo-500/10 border border-indigo-500/30 px-3 py-1 text-xs font-bold text-indigo-300">
-                    <Sparkles className="h-3.5 w-3.5 text-indigo-400" />
-                    <span>Instant AI Study Plan Generator</span>
-                  </div>
-                  <h2 className="text-2xl font-bold text-white font-mono">
-                    Target Any Job: Custom 30-Day Syllabus
-                  </h2>
-                  <p className="text-xs text-slate-400 leading-relaxed">
-                    Enter any target role and company (e.g. <em>&quot;Backend Engineer at Razorpay&quot;</em>, <em>&quot;AI Systems at Google&quot;</em>, or <em>&quot;Fullstack at Swiggy&quot;</em>). StudyNest AI generates a structured 30-day daily workout with assignments and mock questions.
-                  </p>
+                  <label className="block text-xs font-bold text-slate-300 mb-1 font-mono">
+                    Target Job Role or Specialization *
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="e.g. Distributed Systems Engineer, PyTorch AI Specialist, React Fullstack..."
+                    value={customRole}
+                    onChange={(e) => setCustomRole(e.target.value)}
+                    className="w-full rounded-xl border border-indigo-950 bg-[#060914] px-4 py-2.5 text-xs text-white placeholder:text-slate-500 focus:outline-none focus:border-indigo-500"
+                    required
+                  />
                 </div>
 
-                <form onSubmit={handleGenerateCourse} className="space-y-4">
-                  <div>
-                    <label className="block text-xs font-bold text-slate-300 mb-1 font-mono">
-                      Target Job Role or Specialization *
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="e.g. Distributed Systems Engineer, PyTorch AI Specialist, React Fullstack..."
-                      value={customRole}
-                      onChange={(e) => setCustomRole(e.target.value)}
-                      className="w-full rounded-xl border border-indigo-950 bg-[#060914] px-4 py-2.5 text-xs text-white placeholder:text-slate-500 focus:outline-none focus:border-indigo-500"
-                      required
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-bold text-slate-300 mb-1 font-mono">
-                      Target Company (Optional)
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="e.g. Google, Razorpay, Amazon, Swiggy, Uber..."
-                      value={customCompany}
-                      onChange={(e) => setCustomCompany(e.target.value)}
-                      className="w-full rounded-xl border border-indigo-950 bg-[#060914] px-4 py-2.5 text-xs text-white placeholder:text-slate-500 focus:outline-none focus:border-indigo-500"
-                    />
-                  </div>
-
-                  <Button
-                    type="submit"
-                    disabled={isGenerating || !customRole.trim()}
-                    className="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2.5 rounded-xl text-xs gap-2 shadow-lg shadow-indigo-600/30"
-                  >
-                    {isGenerating ? (
-                      <>
-                        <RefreshCw className="h-4 w-4 animate-spin" />
-                        <span>Synthesizing 30-Day Daily Curriculum...</span>
-                      </>
-                    ) : (
-                      <>
-                        <Sparkles className="h-4 w-4" />
-                        <span>Generate 30-Day Plan Free</span>
-                        <ArrowRight className="h-3.5 w-3.5" />
-                      </>
-                    )}
-                  </Button>
-                </form>
-              </div>
-            </div>
-          )}
-
-          {/* TAB 5: PEER STUDY PODS */}
-          {activeTab === "pods" && (
-            <div className="space-y-6">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-indigo-950/80 pb-4">
                 <div>
-                  <h2 className="text-xl font-bold text-white flex items-center gap-2">
-                    <Users2 className="h-5 w-5 text-indigo-400" />
-                    <span>Peer Study Pods &amp; Mock Interview Rooms</span>
-                  </h2>
-                  <p className="text-xs text-slate-400 mt-1">
-                    Join peer groups studying the same roadmap. Practice real STAR behavioral and technical interviews together.
-                  </p>
+                  <label className="block text-xs font-bold text-slate-300 mb-1 font-mono">
+                    Target Company (Optional)
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="e.g. Google, Razorpay, Amazon, Swiggy, Uber..."
+                    value={customCompany}
+                    onChange={(e) => setCustomCompany(e.target.value)}
+                    className="w-full rounded-xl border border-indigo-950 bg-[#060914] px-4 py-2.5 text-xs text-white placeholder:text-slate-500 focus:outline-none focus:border-indigo-500"
+                  />
                 </div>
-                <Link href="/study-pods">
-                  <Button variant="outline" className="border-indigo-900 bg-[#0d1226] text-indigo-300 hover:bg-indigo-900/40 text-xs font-bold gap-1.5">
-                    <span>View All Pods</span>
-                    <ArrowRight className="h-3.5 w-3.5" />
-                  </Button>
-                </Link>
-              </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {MOCK_STUDY_PODS.map((pod) => (
-                  <div
-                    key={pod.id}
-                    className="rounded-2xl border border-indigo-950/80 bg-[#0b0f22] p-5 space-y-4 shadow-xl hover:border-indigo-500/40 transition-all"
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className="rounded-md border border-indigo-500/30 bg-indigo-500/10 px-2 py-0.5 text-[11px] font-bold text-indigo-300 font-mono">
-                        {pod.category}
-                      </span>
-                      <span className="flex items-center gap-1 text-[11px] font-mono text-emerald-400">
-                        <span className="h-2 w-2 rounded-full bg-emerald-400 animate-ping" />
-                        {pod.memberCount} Members Active
-                      </span>
-                    </div>
-
-                    <div>
-                      <h3 className="text-base font-bold text-white line-clamp-1">{pod.title}</h3>
-                      <p className="text-xs text-slate-400 mt-1 line-clamp-2 leading-relaxed">
-                        {pod.description}
-                      </p>
-                    </div>
-
-                    <div className="pt-2 border-t border-indigo-950 text-xs text-slate-300 space-y-1">
-                      <div className="flex items-center justify-between font-mono text-[11px]">
-                        <span className="text-slate-500">Weekly Meeting:</span>
-                        <span className="text-indigo-300 font-bold">{pod.meetingCadence}</span>
-                      </div>
-                      <div className="flex items-center justify-between font-mono text-[11px]">
-                        <span className="text-slate-500">Focus Skill:</span>
-                        <span className="text-slate-300">{pod.primarySkill}</span>
-                      </div>
-                    </div>
-
-                    <div className="pt-2">
-                      <Link href={`/study-pods/${pod.id}`}>
-                        <Button className="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs rounded-xl shadow-md shadow-indigo-600/20">
-                          <span>Enter Study Room</span>
-                          <ArrowRight className="h-3.5 w-3.5 ml-1" />
-                        </Button>
-                      </Link>
-                    </div>
-                  </div>
-                ))}
-              </div>
+                <Button
+                  type="submit"
+                  disabled={isGenerating || !customRole.trim()}
+                  className="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2.5 rounded-xl text-xs gap-2 shadow-lg shadow-indigo-600/30"
+                >
+                  {isGenerating ? (
+                    <>
+                      <RefreshCw className="h-4 w-4 animate-spin" />
+                      <span>Synthesizing 30-Day Daily Curriculum...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Sparkles className="h-4 w-4" />
+                      <span>Generate 30-Day Plan Free</span>
+                      <ArrowRight className="h-3.5 w-3.5" />
+                    </>
+                  )}
+                </Button>
+              </form>
             </div>
-          )}
+          </section>
 
           {/* STUDY PRO SCHOLAR MONETIZATION CARD */}
           <div className="mt-12 rounded-3xl border border-amber-500/40 bg-gradient-to-r from-amber-950/40 via-indigo-950/60 to-purple-950/40 p-6 sm:p-8 shadow-2xl relative overflow-hidden">

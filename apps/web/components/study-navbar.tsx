@@ -63,7 +63,6 @@ export function StudyNavbar() {
     { href: "/canvas", label: "Course Canvas", icon: Layers },
     { href: "/whiteboard", label: "Whiteboard & Notes", icon: PenTool },
     { href: "/playlists", label: "Video Masterclasses", icon: ListVideo },
-    { href: "/study#ai-generator", label: "AI Syllabus Builder", icon: Sparkles },
     { href: "/study-pods", label: "Peer Study Pods", icon: Users2 },
   ];
 
