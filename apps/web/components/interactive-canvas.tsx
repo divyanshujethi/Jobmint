@@ -14,7 +14,6 @@ import {
   CheckCircle2,
   Circle,
   Clock,
-  Briefcase,
   ExternalLink,
   Code2,
   Sparkles,
@@ -28,7 +27,6 @@ import {
   GraduationCap,
   Play,
   Lightbulb,
-  Info,
   HelpCircle,
   Network,
   GitFork,
@@ -41,6 +39,22 @@ import {
   Terminal,
   Youtube,
   Layers,
+  PenTool,
+  MousePointer,
+  StickyNote,
+  Square,
+  MoveRight,
+  Eraser,
+  Undo2,
+  Trash2,
+  Eye,
+  EyeOff,
+  Flame,
+  Trophy,
+  Award,
+  Zap,
+  Target,
+  Palette,
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { KnowledgeGraphView } from "./knowledge-graph-view";
@@ -51,6 +65,58 @@ const ROLE_SWITCHERS = [
   { id: "ai-engineer-2026", label: "Python AI/ML Agent Engineer", icon: "🤖", badge: "PyTorch & RAG" },
   { id: "cloud-devops", label: "DevOps/SRE", icon: "☁️", badge: "K8s & Cloud" },
   { id: "govtech-aspirant", label: "GovTech Aspirant", icon: "🏛️", badge: "India Stack & DPI" },
+];
+
+// Whiteboard stroke definition
+interface WhiteboardStroke {
+  id: string;
+  type: "pen" | "highlighter" | "arrow" | "rect";
+  color: string;
+  strokeWidth: number;
+  points: { x: number; y: number }[];
+}
+
+// Spatial Sticky Note definition
+interface SpatialSticky {
+  id: string;
+  x: number;
+  y: number;
+  color: "amber" | "cyan" | "emerald" | "rose" | "purple";
+  text: string;
+}
+
+// Gamification Ranks
+const RANKS = [
+  { name: "Apprentice Coder", minXp: 0, maxXp: 500, icon: "🌱", color: "text-emerald-400" },
+  { name: "Algorithm Builder", minXp: 500, maxXp: 1500, icon: "⚡", color: "text-cyan-400" },
+  { name: "Systems Architect", minXp: 1500, maxXp: 3000, icon: "🛡️", color: "text-indigo-400" },
+  { name: "Staff Specialist", minXp: 3000, maxXp: 5000, icon: "👑", color: "text-purple-400" },
+  { name: "Grandmaster Fellow", minXp: 5000, maxXp: 10000, icon: "🔥", color: "text-amber-400" },
+];
+
+const DAILY_QUESTS = [
+  { id: "q1", title: "Master an Architectural Node", xp: 100, desc: "Mark any node as mastered on the canvas", icon: "🎯" },
+  { id: "q2", title: "Sketch a System Diagram", xp: 50, desc: "Draw an architectural flow or add a spatial sticky", icon: "✏️" },
+  { id: "q3", title: "Crack an Interview POTD", xp: 50, desc: "Reveal and review the technical solution", icon: "💡" },
+  { id: "q4", title: "Explore a Second Track", xp: 50, desc: "Switch and inspect a different engineering path", icon: "🗺️" },
+];
+
+const ACHIEVEMENTS = [
+  { id: "a1", title: "First Commit", desc: "Master your very first roadmap node", xp: 100, icon: "🚀" },
+  { id: "a2", title: "Spatial Architect", desc: "Use whiteboarding tools to annotate a system", xp: 75, icon: "🎨" },
+  { id: "a3", title: "Streak Warrior", desc: "Maintain a consecutive daily learning streak", xp: 150, icon: "🔥" },
+  { id: "a4", title: "Knowledge Pioneer", desc: "Master 5 technical milestones", xp: 250, icon: "💎" },
+  { id: "a5", title: "Polyglot Master", desc: "Inspect 3 specialized engineering tracks", xp: 100, icon: "🌐" },
+  { id: "a6", title: "Grandmaster Aspirant", desc: "Accumulate 1,500+ Engineering XP", xp: 500, icon: "👑" },
+];
+
+const NEON_COLORS = [
+  { id: "#6366f1", label: "Indigo", bg: "bg-indigo-500" },
+  { id: "#06b6d4", label: "Cyan", bg: "bg-cyan-400" },
+  { id: "#10b981", label: "Emerald", bg: "bg-emerald-400" },
+  { id: "#f59e0b", label: "Amber", bg: "bg-amber-400" },
+  { id: "#ec4899", label: "Rose", bg: "bg-pink-500" },
+  { id: "#ffffff", label: "White", bg: "bg-white" },
 ];
 
 export function InteractiveStudyCanvas() {
@@ -66,6 +132,26 @@ export function InteractiveStudyCanvas() {
   const [showAnswer, setShowAnswer] = useState(false);
   const [cloudSynced, setCloudSynced] = useState(false);
 
+  // ── Whiteboarding & Spatial Canvas State ──
+  const [wbTool, setWbTool] = useState<"select" | "pen" | "highlighter" | "arrow" | "rect" | "sticky" | "eraser">("select");
+  const [wbColor, setWbColor] = useState<string>("#6366f1");
+  const [wbStrokeWidth, setWbStrokeWidth] = useState<number>(3);
+  const [showWhiteboard, setShowWhiteboard] = useState<boolean>(true);
+  const [strokes, setStrokes] = useState<WhiteboardStroke[]>([]);
+  const [currentStroke, setCurrentStroke] = useState<WhiteboardStroke | null>(null);
+  const [stickies, setStickies] = useState<SpatialSticky[]>([]);
+  const [activeStickyDrag, setActiveStickyDrag] = useState<{ id: string; offsetX: number; offsetY: number } | null>(null);
+
+  // ── Gamification State ──
+  const [userXp, setUserXp] = useState<number>(350);
+  const [streakDays, setStreakDays] = useState<number>(4);
+  const [claimedQuests, setClaimedQuests] = useState<Set<string>>(new Set());
+  const [unlockedAchievements, setUnlockedAchievements] = useState<Set<string>>(new Set(["a1"]));
+  const [showQuestsModal, setShowQuestsModal] = useState<boolean>(false);
+  const [showAchievementsModal, setShowAchievementsModal] = useState<boolean>(false);
+  const [floatingXp, setFloatingXp] = useState<{ id: number; text: string; x: number; y: number } | null>(null);
+  const [confettiActive, setConfettiActive] = useState<boolean>(false);
+
   // Canvas Pan & Zoom State
   const [scale, setScale] = useState(1);
   const [pan, setPan] = useState({ x: 60, y: 30 });
@@ -73,18 +159,37 @@ export function InteractiveStudyCanvas() {
   const startPanRef = useRef({ x: 0, y: 0 });
   const touchStartRef = useRef<{ x: number; y: number; dist?: number }>({ x: 0, y: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
+  const confettiCanvasRef = useRef<HTMLCanvasElement>(null);
 
   const activeTrack = useMemo(() => {
     return CANVAS_TRACKS.find((t) => t.id === activeTrackId) || CANVAS_TRACKS[0];
   }, [activeTrackId]);
 
-  // Load completed nodes from localStorage AND PostgreSQL cloud sync
+  // Current Rank Calculation
+  const currentRank = useMemo(() => {
+    return RANKS.find((r) => userXp >= r.minXp && userXp < r.maxXp) || RANKS[RANKS.length - 1];
+  }, [userXp]);
+
+  const rankProgress = useMemo(() => {
+    const range = currentRank.maxXp - currentRank.minXp;
+    const currentInRank = userXp - currentRank.minXp;
+    return Math.min(100, Math.max(0, Math.round((currentInRank / range) * 100)));
+  }, [userXp, currentRank]);
+
+  // Load state from localStorage on mount
   useEffect(() => {
     try {
-      const saved = localStorage.getItem("jobmint_completed_nodes");
-      if (saved) {
-        setCompletedNodes(new Set(JSON.parse(saved)));
-      }
+      const savedNodes = localStorage.getItem("studynest_completed_nodes");
+      if (savedNodes) setCompletedNodes(new Set(JSON.parse(savedNodes)));
+
+      const savedXp = localStorage.getItem("studynest_gamification_xp");
+      if (savedXp) setUserXp(parseInt(savedXp, 10));
+
+      const savedQuests = localStorage.getItem("studynest_claimed_quests");
+      if (savedQuests) setClaimedQuests(new Set(JSON.parse(savedQuests)));
+
+      const savedAchievements = localStorage.getItem("studynest_achievements");
+      if (savedAchievements) setUnlockedAchievements(new Set(JSON.parse(savedAchievements)));
     } catch {}
 
     // Cloud sync check with PostgreSQL
@@ -95,7 +200,7 @@ export function InteractiveStudyCanvas() {
           setCompletedNodes((prev) => {
             const merged = new Set([...Array.from(prev), ...data.completedNodes]);
             try {
-              localStorage.setItem("jobmint_completed_nodes", JSON.stringify(Array.from(merged)));
+              localStorage.setItem("studynest_completed_nodes", JSON.stringify(Array.from(merged)));
             } catch {}
             return merged;
           });
@@ -105,10 +210,132 @@ export function InteractiveStudyCanvas() {
       .catch(() => {});
   }, []);
 
+  // Load track-specific whiteboard strokes & stickies
+  useEffect(() => {
+    try {
+      const savedStrokes = localStorage.getItem(`studynest_wb_strokes_${activeTrackId}`);
+      if (savedStrokes) setStrokes(JSON.parse(savedStrokes));
+      else setStrokes([]);
+
+      const savedStickies = localStorage.getItem(`studynest_wb_stickies_${activeTrackId}`);
+      if (savedStickies) setStickies(JSON.parse(savedStickies));
+      else setStickies([]);
+    } catch {}
+  }, [activeTrackId]);
+
+  // Save whiteboard data
+  const saveStrokes = (newStrokes: WhiteboardStroke[]) => {
+    setStrokes(newStrokes);
+    try {
+      localStorage.setItem(`studynest_wb_strokes_${activeTrackId}`, JSON.stringify(newStrokes));
+    } catch {}
+  };
+
+  const saveStickies = (newStickies: SpatialSticky[]) => {
+    setStickies(newStickies);
+    try {
+      localStorage.setItem(`studynest_wb_stickies_${activeTrackId}`, JSON.stringify(newStickies));
+    } catch {}
+  };
+
+  // Trigger floating XP & Confetti blast
+  const awardXp = useCallback((amount: number, reason: string, coords?: { x: number; y: number }) => {
+    setUserXp((prev) => {
+      const next = prev + amount;
+      try {
+        localStorage.setItem("studynest_gamification_xp", next.toString());
+      } catch {}
+      return next;
+    });
+
+    const x = coords?.x ?? (window.innerWidth / 2);
+    const y = coords?.y ?? (window.innerHeight / 2 - 40);
+
+    setFloatingXp({ id: Date.now(), text: `+${amount} XP ${reason}`, x, y });
+    setTimeout(() => setFloatingXp(null), 2200);
+
+    // Trigger canvas confetti
+    triggerConfetti();
+  }, []);
+
+  // Pure canvas particle confetti engine
+  const triggerConfetti = () => {
+    setConfettiActive(true);
+    const canvas = confettiCanvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const particles: Array<{
+      x: number;
+      y: number;
+      vx: number;
+      vy: number;
+      color: string;
+      size: number;
+      rot: number;
+      vRot: number;
+      opacity: number;
+    }> = [];
+
+    const colors = ["#6366f1", "#06b6d4", "#10b981", "#f59e0b", "#ec4899", "#8b5cf6"];
+    for (let i = 0; i < 70; i++) {
+      particles.push({
+        x: canvas.width / 2 + (Math.random() - 0.5) * 300,
+        y: canvas.height * 0.45 + (Math.random() - 0.5) * 100,
+        vx: (Math.random() - 0.5) * 14,
+        vy: -Math.random() * 12 - 4,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        size: Math.random() * 7 + 4,
+        rot: Math.random() * 360,
+        vRot: (Math.random() - 0.5) * 12,
+        opacity: 1,
+      });
+    }
+
+    let frame = 0;
+    const animate = () => {
+      frame++;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      let alive = 0;
+      particles.forEach((p) => {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.35; // gravity
+        p.vx *= 0.98;
+        p.rot += p.vRot;
+        if (frame > 25) p.opacity -= 0.025;
+
+        if (p.opacity > 0) {
+          alive++;
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate((p.rot * Math.PI) / 180);
+          ctx.fillStyle = p.color;
+          ctx.globalAlpha = Math.max(0, p.opacity);
+          ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
+          ctx.restore();
+        }
+      });
+
+      if (alive > 0 && frame < 90) {
+        requestAnimationFrame(animate);
+      } else {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        setConfettiActive(false);
+      }
+    };
+    requestAnimationFrame(animate);
+  };
+
   // Sync node note
   useEffect(() => {
     if (selectedNode) {
-      const savedNote = localStorage.getItem(`jobmint_canvas_note_${selectedNode.id}`) || "";
+      const savedNote = localStorage.getItem(`studynest_canvas_note_${selectedNode.id}`) || "";
       setNodeNote(savedNote);
       setCopiedCode(false);
       setShowAnswer(false);
@@ -119,9 +346,8 @@ export function InteractiveStudyCanvas() {
     setNodeNote(text);
     if (selectedNode) {
       try {
-        localStorage.setItem(`jobmint_canvas_note_${selectedNode.id}`, text);
+        localStorage.setItem(`studynest_canvas_note_${selectedNode.id}`, text);
       } catch {}
-      // Sync note to cloud
       fetch("/api/user/canvas-progress", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -130,7 +356,7 @@ export function InteractiveStudyCanvas() {
     }
   };
 
-  const toggleNodeCompletion = (nodeId: string) => {
+  const toggleNodeCompletion = (nodeId: string, clientCoords?: { x: number; y: number }) => {
     const isNowCompleted = !completedNodes.has(nodeId);
     setCompletedNodes((prev) => {
       const next = new Set(prev);
@@ -140,12 +366,25 @@ export function InteractiveStudyCanvas() {
         next.add(nodeId);
       }
       try {
-        localStorage.setItem("jobmint_completed_nodes", JSON.stringify(Array.from(next)));
+        localStorage.setItem("studynest_completed_nodes", JSON.stringify(Array.from(next)));
       } catch {}
       return next;
     });
 
-    // Cloud sync with PostgreSQL
+    if (isNowCompleted) {
+      awardXp(100, "Node Mastered!", clientCoords);
+      // Unlock achievements if criteria met
+      setUnlockedAchievements((prev) => {
+        const next = new Set(prev);
+        next.add("a1");
+        if (completedNodes.size + 1 >= 5) next.add("a4");
+        try {
+          localStorage.setItem("studynest_achievements", JSON.stringify(Array.from(next)));
+        } catch {}
+        return next;
+      });
+    }
+
     fetch("/api/user/canvas-progress", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -173,8 +412,6 @@ export function InteractiveStudyCanvas() {
   const downloadSkillTreeSvg = () => {
     const svgEl = containerRef.current?.querySelector("svg");
     if (!svgEl) return;
-
-    // Create a standalone SVG document
     const svgData = new XMLSerializer().serializeToString(svgEl);
     const blob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
     const url = URL.createObjectURL(blob);
@@ -190,7 +427,6 @@ export function InteractiveStudyCanvas() {
   const downloadSkillTreePng = () => {
     const svgEl = containerRef.current?.querySelector("svg");
     if (!svgEl) return;
-
     const svgData = new XMLSerializer().serializeToString(svgEl);
     const canvas = document.createElement("canvas");
     canvas.width = 1800;
@@ -203,18 +439,16 @@ export function InteractiveStudyCanvas() {
     const url = URL.createObjectURL(svgBlob);
 
     img.onload = () => {
-      // Draw background
-      ctx.fillStyle = "#f8fafc";
+      ctx.fillStyle = "#060814";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       ctx.drawImage(img, 0, 0);
 
-      // Watermark branding
-      ctx.fillStyle = "#0f172a";
-      ctx.font = "bold 20px sans-serif";
-      ctx.fillText(`StudyNest Verified Skill Tree • ${activeTrack.title}`, 40, 40);
-      ctx.fillStyle = "#4f46e5";
+      ctx.fillStyle = "#ffffff";
+      ctx.font = "bold 22px sans-serif";
+      ctx.fillText(`StudyNest Verified Skill Tree • ${activeTrack.title}`, 40, 45);
+      ctx.fillStyle = "#6366f1";
       ctx.font = "14px monospace";
-      ctx.fillText(`Mastered: ${progressCount}/${activeTrack.nodes.length} Nodes • study.rolenest.in/canvas`, 40, 70);
+      ctx.fillText(`Mastered: ${progressCount}/${activeTrack.nodes.length} Nodes • Rank: ${currentRank.name} (${userXp} XP)`, 40, 75);
 
       const pngUrl = canvas.toDataURL("image/png");
       const link = document.createElement("a");
@@ -228,32 +462,112 @@ export function InteractiveStudyCanvas() {
     img.src = url;
   };
 
-  // ── Robust Window-Level Pan Handlers (Prevents Stuck Dragging) ──
+  // ── Convert Screen Coords to World (Canvas) Coords ──
+  const screenToWorld = useCallback((clientX: number, clientY: number) => {
+    const rect = containerRef.current?.getBoundingClientRect();
+    if (!rect) return { x: 0, y: 0 };
+    return {
+      x: (clientX - rect.left - pan.x) / scale,
+      y: (clientY - rect.top - pan.y) / scale,
+    };
+  }, [pan, scale]);
+
+  // ── Mouse & Pan Handlers with Whiteboarding Integration ──
   const handleMouseDown = (e: React.MouseEvent) => {
     if (
       (e.target as HTMLElement).closest(".canvas-node") ||
       (e.target as HTMLElement).closest(".drawer-content") ||
+      (e.target as HTMLElement).closest(".spatial-sticky") ||
       (e.target as HTMLElement).closest("button") ||
-      (e.target as HTMLElement).closest("a")
+      (e.target as HTMLElement).closest("input") ||
+      (e.target as HTMLElement).closest("textarea")
     ) {
       return;
     }
-    setIsPanning(true);
-    startPanRef.current = { x: e.clientX - pan.x, y: e.clientY - pan.y };
+
+    if (wbTool === "select") {
+      setIsPanning(true);
+      startPanRef.current = { x: e.clientX - pan.x, y: e.clientY - pan.y };
+    } else if (wbTool === "sticky") {
+      // Drop new sticky note at clicked location
+      const world = screenToWorld(e.clientX, e.clientY);
+      const newSticky: SpatialSticky = {
+        id: `sticky-${Date.now()}`,
+        x: world.x - 90,
+        y: world.y - 40,
+        color: "amber",
+        text: "New architectural note...",
+      };
+      saveStickies([...stickies, newSticky]);
+      awardXp(25, "Note Created!", { x: e.clientX, y: e.clientY });
+      setWbTool("select");
+    } else {
+      // Start drawing stroke
+      const world = screenToWorld(e.clientX, e.clientY);
+      const newStroke: WhiteboardStroke = {
+        id: `stroke-${Date.now()}`,
+        type: wbTool as "pen" | "highlighter" | "arrow" | "rect",
+        color: wbColor,
+        strokeWidth: wbTool === "highlighter" ? 14 : wbStrokeWidth,
+        points: [world],
+      };
+      setCurrentStroke(newStroke);
+    }
   };
 
   useEffect(() => {
-    if (!isPanning) return;
-
     const onMouseMove = (e: MouseEvent) => {
-      setPan({
-        x: e.clientX - startPanRef.current.x,
-        y: e.clientY - startPanRef.current.y,
-      });
+      if (isPanning && wbTool === "select") {
+        setPan({
+          x: e.clientX - startPanRef.current.x,
+          y: e.clientY - startPanRef.current.y,
+        });
+      } else if (currentStroke) {
+        const world = screenToWorld(e.clientX, e.clientY);
+        setCurrentStroke((prev) => {
+          if (!prev) return null;
+          if (prev.type === "pen" || prev.type === "highlighter") {
+            return { ...prev, points: [...prev.points, world] };
+          } else {
+            // For arrow or rect, just update end point
+            return { ...prev, points: [prev.points[0], world] };
+          }
+        });
+      } else if (activeStickyDrag) {
+        const world = screenToWorld(e.clientX, e.clientY);
+        setStickies((prev) =>
+          prev.map((s) =>
+            s.id === activeStickyDrag.id
+              ? { ...s, x: world.x - activeStickyDrag.offsetX, y: world.y - activeStickyDrag.offsetY }
+              : s
+          )
+        );
+      }
     };
 
-    const onMouseUp = () => {
-      setIsPanning(false);
+    const onMouseUp = (e: MouseEvent) => {
+      if (isPanning) {
+        setIsPanning(false);
+      }
+      if (currentStroke) {
+        saveStrokes([...strokes, currentStroke]);
+        setCurrentStroke(null);
+        awardXp(25, "Architectural Sketch!", { x: e.clientX, y: e.clientY });
+        setUnlockedAchievements((prev) => {
+          const next = new Set(prev);
+          next.add("a2");
+          try {
+            localStorage.setItem("studynest_achievements", JSON.stringify(Array.from(next)));
+          } catch {}
+          return next;
+        });
+      }
+      if (activeStickyDrag) {
+        try {
+          localStorage.setItem(`studynest_wb_stickies_${activeTrackId}`, JSON.stringify(stickies));
+        } catch {}
+        setActiveStickyDrag(null);
+      }
     };
 
     window.addEventListener("mousemove", onMouseMove);
@@ -263,25 +577,21 @@ export function InteractiveStudyCanvas() {
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("mouseup", onMouseUp);
     };
-  }, [isPanning]);
+  }, [isPanning, currentStroke, activeStickyDrag, strokes, stickies, wbTool, screenToWorld, activeTrackId, awardXp]);
 
-  // ── Trackpad / Mouse Wheel Zoom & Pan with explicit passive: false ──
+  // Trackpad / Wheel Zoom & Pan
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
 
     const onWheel = (e: WheelEvent) => {
-      if ((e.target as HTMLElement)?.closest(".drawer-content")) {
-        return; // allow drawer to scroll naturally
-      }
+      if ((e.target as HTMLElement)?.closest(".drawer-content")) return;
       e.preventDefault();
 
       if (e.ctrlKey || Math.abs(e.deltaY) > 80) {
-        // Zoom
         const zoomFactor = e.deltaY < 0 ? 0.08 : -0.08;
         setScale((prev) => Math.min(1.8, Math.max(0.4, prev + zoomFactor)));
       } else {
-        // 2-finger pan on trackpad
         setPan((prev) => ({
           x: prev.x - e.deltaX * 0.8,
           y: prev.y - e.deltaY * 0.8,
@@ -290,12 +600,10 @@ export function InteractiveStudyCanvas() {
     };
 
     el.addEventListener("wheel", onWheel, { passive: false });
-    return () => {
-      el.removeEventListener("wheel", onWheel);
-    };
+    return () => el.removeEventListener("wheel", onWheel);
   }, []);
 
-  // ── Mobile Touch Pan & Pinch Zoom ──
+  // Touch Handlers
   const handleTouchStart = (e: React.TouchEvent) => {
     if ((e.target as HTMLElement).closest(".drawer-content")) return;
 
@@ -345,6 +653,21 @@ export function InteractiveStudyCanvas() {
     setPan({ x: 60, y: 30 });
   };
 
+  // Whiteboard Undo & Clear
+  const undoStroke = () => {
+    if (strokes.length > 0) {
+      const next = strokes.slice(0, -1);
+      saveStrokes(next);
+    }
+  };
+
+  const clearAllDrawings = () => {
+    if (confirm("Clear all drawings and sticky notes on this canvas?")) {
+      saveStrokes([]);
+      saveStickies([]);
+    }
+  };
+
   // Node coordinate map
   const nodeMap = useMemo(() => {
     const map = new Map<string, CanvasNode>();
@@ -391,99 +714,263 @@ export function InteractiveStudyCanvas() {
   const progressCount = activeTrack.nodes.filter((n) => completedNodes.has(n.id)).length;
   const progressPercentage = Math.round((progressCount / activeTrack.nodes.length) * 100);
 
+  // Helper for rendering strokes
+  const renderStroke = (stroke: WhiteboardStroke) => {
+    if (stroke.points.length === 0) return null;
+
+    if (stroke.type === "pen" || stroke.type === "highlighter") {
+      if (stroke.points.length === 1) {
+        return (
+          <circle
+            key={stroke.id}
+            cx={stroke.points[0].x}
+            cy={stroke.points[0].y}
+            r={stroke.strokeWidth / 2}
+            fill={stroke.color}
+            opacity={stroke.type === "highlighter" ? 0.35 : 1}
+          />
+        );
+      }
+      const d = stroke.points.reduce((acc, pt, i) => {
+        return i === 0 ? `M ${pt.x} ${pt.y}` : `${acc} L ${pt.x} ${pt.y}`;
+      }, "");
+
+      return (
+        <path
+          key={stroke.id}
+          d={d}
+          fill="none"
+          stroke={stroke.color}
+          strokeWidth={stroke.strokeWidth}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          opacity={stroke.type === "highlighter" ? 0.35 : 0.95}
+        />
+      );
+    } else if (stroke.type === "arrow" && stroke.points.length >= 2) {
+      const p1 = stroke.points[0];
+      const p2 = stroke.points[stroke.points.length - 1];
+      const angle = Math.atan2(p2.y - p1.y, p2.x - p1.x);
+      const headLen = 14;
+      const arrowLeftX = p2.x - headLen * Math.cos(angle - Math.PI / 6);
+      const arrowLeftY = p2.y - headLen * Math.sin(angle - Math.PI / 6);
+      const arrowRightX = p2.x - headLen * Math.cos(angle + Math.PI / 6);
+      const arrowRightY = p2.y - headLen * Math.sin(angle + Math.PI / 6);
+
+      return (
+        <g key={stroke.id}>
+          <line
+            x1={p1.x}
+            y1={p1.y}
+            x2={p2.x}
+            y2={p2.y}
+            stroke={stroke.color}
+            strokeWidth={stroke.strokeWidth}
+            strokeLinecap="round"
+          />
+          <polygon
+            points={`${p2.x},${p2.y} ${arrowLeftX},${arrowLeftY} ${arrowRightX},${arrowRightY}`}
+            fill={stroke.color}
+          />
+        </g>
+      );
+    } else if (stroke.type === "rect" && stroke.points.length >= 2) {
+      const p1 = stroke.points[0];
+      const p2 = stroke.points[stroke.points.length - 1];
+      const rx = Math.min(p1.x, p2.x);
+      const ry = Math.min(p1.y, p2.y);
+      const rw = Math.abs(p2.x - p1.x);
+      const rh = Math.abs(p2.y - p1.y);
+
+      return (
+        <rect
+          key={stroke.id}
+          x={rx}
+          y={ry}
+          width={rw}
+          height={rh}
+          rx={8}
+          fill="none"
+          stroke={stroke.color}
+          strokeWidth={stroke.strokeWidth}
+          strokeDasharray="6 4"
+          opacity={0.85}
+        />
+      );
+    }
+    return null;
+  };
+
   return (
-    <div className="flex flex-col h-[calc(100vh-4rem)] bg-slate-50 text-slate-900 overflow-hidden select-none">
+    <div className="flex flex-col h-[calc(100vh-4rem)] bg-[#060814] text-slate-100 overflow-hidden select-none font-sans relative">
       <style>{`
-        @keyframes flowPulse {
-          0% { stroke-dashoffset: 36; }
-          100% { stroke-dashoffset: 0; }
+        @keyframes neonPulse {
+          0% { stroke-dashoffset: 40; filter: drop-shadow(0 0 2px #6366f1); }
+          50% { filter: drop-shadow(0 0 8px #06b6d4); }
+          100% { stroke-dashoffset: 0; filter: drop-shadow(0 0 2px #6366f1); }
         }
-        .canvas-line-flow {
+        .canvas-neon-flow {
           stroke-dasharray: 8 6;
-          animation: flowPulse 1.4s linear infinite;
+          animation: neonPulse 1.6s linear infinite;
+        }
+        @keyframes floatUpFade {
+          0% { transform: translateY(0) scale(0.9); opacity: 0; }
+          20% { transform: translateY(-12px) scale(1.1); opacity: 1; }
+          80% { transform: translateY(-35px) scale(1); opacity: 1; }
+          100% { transform: translateY(-50px) scale(0.95); opacity: 0; }
+        }
+        .animate-float-xp {
+          animation: floatUpFade 2.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
       `}</style>
 
-      {/* Top Header & Mode / Track Selector */}
-      <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between border-b border-slate-200 bg-white/95 px-6 py-3 backdrop-blur-md z-20 gap-3 shadow-2xs">
+      {/* Confetti Canvas Overlay */}
+      <canvas
+        ref={confettiCanvasRef}
+        className={`pointer-events-none fixed inset-0 z-50 ${confettiActive ? "block" : "hidden"}`}
+      />
+
+      {/* Floating XP Reward Notification */}
+      {floatingXp && (
+        <div
+          style={{ left: `${floatingXp.x}px`, top: `${floatingXp.y}px` }}
+          className="fixed pointer-events-none z-50 transform -translate-x-1/2 -translate-y-1/2 flex items-center gap-2 rounded-2xl bg-gradient-to-r from-amber-500 via-indigo-600 to-cyan-400 px-4 py-2 font-black text-white text-sm shadow-2xl shadow-indigo-500/50 animate-float-xp border border-white/30 backdrop-blur-md"
+        >
+          <Sparkles className="h-4 w-4 text-amber-200 animate-spin" />
+          <span>{floatingXp.text}</span>
+        </div>
+      )}
+
+      {/* Top Header & Obsidian Controls */}
+      <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between border-b border-indigo-950/80 bg-[#0c1024]/90 px-6 py-3 backdrop-blur-xl z-20 gap-3 shadow-lg">
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100 text-emerald-700 shadow-2xs">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-cyan-500 text-white shadow-lg shadow-indigo-500/25">
             <Compass className="h-5 w-5" />
           </div>
           <div>
-            <h1 className="text-base font-extrabold text-slate-900 flex items-center gap-2">
-              Interactive Study &amp; Developer Skill Canvas
-              <span className="rounded-full bg-indigo-50 border border-indigo-200 px-2 py-0.5 text-[10px] font-bold text-indigo-700 font-mono">
-                StudyNest Academy
+            <h1 className="text-base font-extrabold text-white flex items-center gap-2 tracking-tight">
+              Spatial Study &amp; Architecture Canvas
+              <span className="rounded-full bg-indigo-500/20 border border-indigo-400/30 px-2 py-0.5 text-[10px] font-bold text-indigo-300 font-mono">
+                StudyNest Studio
               </span>
             </h1>
-            <p className="text-xs text-slate-600">
-              Interactive visual learning: Explore linear career tracks or deep-dive into the interconnected knowledge network graph.
+            <p className="text-xs text-slate-400">
+              Infinite spatial workspace with full vector whiteboarding, interactive engineering skill trees &amp; verified career mastery.
             </p>
           </div>
         </div>
 
         <div className="flex flex-wrap items-center gap-3">
+          {/* Gamification HUD Pill */}
+          <div className="flex items-center gap-2 bg-[#101533] border border-indigo-900/60 rounded-2xl px-3 py-1.5 shadow-inner">
+            <div className="flex items-center gap-1.5">
+              <span className="text-base">{currentRank.icon}</span>
+              <div>
+                <div className="text-[10px] font-mono uppercase tracking-wider text-slate-400">
+                  {currentRank.name}
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-black text-amber-400 font-mono">{userXp} XP</span>
+                  <div className="w-16 bg-slate-800 rounded-full h-1.5 overflow-hidden">
+                    <div
+                      className="bg-gradient-to-r from-indigo-500 to-cyan-400 h-full transition-all duration-500"
+                      style={{ width: `${rankProgress}%` }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="h-6 w-px bg-indigo-900/50 mx-1" />
+
+            {/* Streak Counter */}
+            <div className="flex items-center gap-1 text-xs font-black text-amber-400 px-2 py-1 rounded-xl bg-amber-500/10 border border-amber-500/20" title="4-day learning streak">
+              <Flame className="h-3.5 w-3.5 text-amber-400 fill-amber-400 animate-pulse" />
+              <span>{streakDays}d</span>
+            </div>
+
+            {/* Quests Button */}
+            <button
+              onClick={() => setShowQuestsModal(true)}
+              className="relative p-1.5 rounded-xl text-slate-300 hover:text-white hover:bg-indigo-950/60 transition-colors"
+              title="Daily Quests"
+            >
+              <Target className="h-4 w-4 text-cyan-400" />
+              {claimedQuests.size < DAILY_QUESTS.length && (
+                <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-rose-500 ring-2 ring-[#101533]" />
+              )}
+            </button>
+
+            {/* Achievements Button */}
+            <button
+              onClick={() => setShowAchievementsModal(true)}
+              className="p-1.5 rounded-xl text-slate-300 hover:text-white hover:bg-indigo-950/60 transition-colors"
+              title="Career Achievements"
+            >
+              <Trophy className="h-4 w-4 text-amber-400" />
+            </button>
+          </div>
+
           {/* View Mode Switcher */}
-          <div className="flex items-center rounded-xl bg-slate-100 p-1 border border-slate-200 shadow-2xs">
+          <div className="flex items-center rounded-xl bg-[#101533] p-1 border border-indigo-900/50 shadow-inner">
             <button
               onClick={() => setViewMode("roadmap")}
               className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-bold transition-all ${
                 viewMode === "roadmap"
-                  ? "bg-white text-slate-900 shadow-xs"
-                  : "text-slate-600 hover:text-slate-900"
+                  ? "bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-md shadow-indigo-500/20"
+                  : "text-slate-400 hover:text-white"
               }`}
             >
-              <GitFork className="h-3.5 w-3.5 text-emerald-600" />
+              <GitFork className="h-3.5 w-3.5 text-cyan-400" />
               <span>Roadmap Tree</span>
             </button>
             <button
               onClick={() => setViewMode("graph")}
               className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-bold transition-all ${
                 viewMode === "graph"
-                  ? "bg-white text-slate-900 shadow-xs"
-                  : "text-slate-600 hover:text-slate-900"
+                  ? "bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-md shadow-indigo-500/20"
+                  : "text-slate-400 hover:text-white"
               }`}
             >
-              <Network className="h-3.5 w-3.5 text-emerald-600" />
-              <span>Knowledge Graph (Network)</span>
+              <Network className="h-3.5 w-3.5 text-cyan-400" />
+              <span>Knowledge Graph</span>
             </button>
           </div>
 
-          {/* Export Skill Tree Artifact Button */}
+          {/* Export Artifact Button */}
           <Button
             size="sm"
             onClick={() => setShowExportModal(true)}
-            className="bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs gap-1.5 rounded-xl shadow-xs"
+            className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs gap-1.5 rounded-xl shadow-lg shadow-indigo-600/20 border border-indigo-500/30"
           >
-            <Download className="h-3.5 w-3.5 text-emerald-400" />
-            <span>Export Skill Tree Artifact</span>
+            <Download className="h-3.5 w-3.5 text-cyan-300" />
+            <span>Export Skill Artifact</span>
           </Button>
 
           {cloudSynced && (
-            <span className="hidden sm:inline-flex items-center gap-1 rounded-full bg-emerald-50 border border-emerald-200 px-2.5 py-1 text-[10px] font-mono font-bold text-emerald-700">
-              <Cloud className="h-3.5 w-3.5 text-emerald-600" />
-              Synced to PostgreSQL
+            <span className="hidden sm:inline-flex items-center gap-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 px-2.5 py-1 text-[10px] font-mono font-bold text-emerald-400">
+              <Cloud className="h-3.5 w-3.5 text-emerald-400" />
+              Synced
             </span>
           )}
 
           <button
             onClick={() => setShowHelpBanner(!showHelpBanner)}
-            title="What is this Canvas for?"
-            className="p-1.5 rounded-lg text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors"
+            title="Canvas Guide"
+            className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-indigo-950/60 transition-colors"
           >
             <HelpCircle className="h-4 w-4" />
           </button>
         </div>
       </div>
 
-      {/* ROLE-BASED QUICK SWITCHERS (Prominent 5 Core Disciplines) */}
+      {/* Role Tracks Selector Pills */}
       {viewMode === "roadmap" && (
-        <div className="bg-slate-100/90 border-b border-slate-200 px-6 py-2 flex items-center justify-between gap-3 overflow-x-auto z-15">
+        <div className="bg-[#090d22]/90 border-b border-indigo-950/60 px-6 py-2.5 flex items-center justify-between gap-3 overflow-x-auto z-15 backdrop-blur-md">
           <div className="flex items-center gap-2 shrink-0">
-            <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 flex items-center gap-1">
-              <Sparkles className="h-3.5 w-3.5 text-emerald-600" />
-              Role Tracks:
+            <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-400 flex items-center gap-1 font-mono">
+              <Sparkles className="h-3.5 w-3.5 text-cyan-400" />
+              Engineering Disciplines:
             </span>
             <div className="flex items-center gap-1.5">
               {ROLE_SWITCHERS.map((role) => (
@@ -495,8 +982,8 @@ export function InteractiveStudyCanvas() {
                   }}
                   className={`flex items-center gap-1.5 rounded-xl px-3 py-1.5 text-xs font-bold transition-all shrink-0 ${
                     activeTrackId === role.id
-                      ? "bg-emerald-600 text-white shadow-sm ring-2 ring-emerald-500/20"
-                      : "bg-white text-slate-700 hover:bg-slate-200 hover:text-slate-900 border border-slate-200/80 shadow-2xs"
+                      ? "bg-gradient-to-r from-indigo-600 to-cyan-600 text-white shadow-lg shadow-indigo-600/30 border border-indigo-400/40"
+                      : "bg-[#101533]/80 text-slate-300 hover:bg-[#161d47] hover:text-white border border-indigo-900/40"
                   }`}
                 >
                   <span>{role.icon}</span>
@@ -506,7 +993,7 @@ export function InteractiveStudyCanvas() {
             </div>
           </div>
 
-          {/* More Tracks Selector */}
+          {/* More Tracks Dropdown */}
           <div className="flex items-center gap-1 shrink-0">
             <select
               value={ROLE_SWITCHERS.some((r) => r.id === activeTrackId) ? "" : activeTrackId}
@@ -516,11 +1003,11 @@ export function InteractiveStudyCanvas() {
                   setSelectedNode(null);
                 }
               }}
-              className="bg-white border border-slate-200 text-slate-700 text-xs font-bold rounded-xl px-2.5 py-1.5 focus:outline-none focus:border-emerald-500 shadow-2xs"
+              className="bg-[#101533] border border-indigo-900/60 text-slate-200 text-xs font-bold rounded-xl px-2.5 py-1.5 focus:outline-none focus:border-indigo-500 shadow-inner"
             >
-              <option value="" disabled>More Specialized Tracks...</option>
+              <option value="" disabled className="bg-[#090d22] text-slate-400">More Specialized Tracks...</option>
               {CANVAS_TRACKS.filter((t) => !ROLE_SWITCHERS.some((r) => r.id === t.id)).map((t) => (
-                <option key={t.id} value={t.id}>
+                <option key={t.id} value={t.id} className="bg-[#090d22] text-white">
                   {t.title}
                 </option>
               ))}
@@ -529,18 +1016,18 @@ export function InteractiveStudyCanvas() {
         </div>
       )}
 
-      {/* Explanatory Guide Banner (What is this for?) */}
+      {/* Explanatory Help Notice */}
       {showHelpBanner && (
-        <div className="bg-emerald-50/90 border-b border-emerald-200 px-6 py-2 text-xs text-emerald-900 flex items-center justify-between gap-4 z-15 animate-in fade-in duration-150">
+        <div className="bg-indigo-950/40 border-b border-indigo-900/50 px-6 py-2 text-xs text-indigo-200 flex items-center justify-between gap-4 z-15 backdrop-blur-md">
           <div className="flex items-center gap-2.5">
-            <Sparkles className="h-4 w-4 text-emerald-600 shrink-0" />
+            <Sparkles className="h-4 w-4 text-cyan-400 shrink-0" />
             <div className="leading-relaxed">
-              <strong>Personalized Skill Tree:</strong> Progress is permanently saved to your verified candidate account in PostgreSQL. Click any node to inspect 3-minute code blueprints, interview questions, and linked video clips.
+              <strong className="text-white">Spatial Architect Studio:</strong> Use the bottom Whiteboard dock to sketch system architectures, connect nodes with arrows, drop sticky notes, and gain +100 XP per mastered node!
             </div>
           </div>
           <button
             onClick={() => setShowHelpBanner(false)}
-            className="text-emerald-700 hover:text-emerald-950 p-1 rounded hover:bg-emerald-100 transition-colors shrink-0"
+            className="text-indigo-400 hover:text-white p-1 rounded hover:bg-indigo-900/40 transition-colors shrink-0"
             title="Dismiss notice"
           >
             <X className="h-3.5 w-3.5" />
@@ -553,517 +1040,851 @@ export function InteractiveStudyCanvas() {
         <KnowledgeGraphView />
       ) : (
         <>
-          {/* Subheader: Track Details & Progress Bar */}
-          <div className="flex items-center justify-between border-b border-slate-200 bg-white/70 px-6 py-2 text-xs text-slate-600 z-10">
+          {/* Track Details & Progress Subheader */}
+          <div className="flex items-center justify-between border-b border-indigo-950/60 bg-[#090d22]/70 px-6 py-2 text-xs text-slate-400 z-10 backdrop-blur-md">
             <div className="flex items-center gap-2">
-              <span className="font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+              <span className="font-bold text-cyan-300 bg-cyan-950/60 px-2 py-0.5 rounded-lg border border-cyan-800/40 font-mono">
                 {activeTrack.badge}
               </span>
-              <span className="text-slate-300">•</span>
-              <span className="text-slate-600 hidden md:inline">{activeTrack.description}</span>
+              <span className="text-slate-600">•</span>
+              <span className="text-slate-300 hidden md:inline">{activeTrack.description}</span>
             </div>
 
             <div className="flex items-center gap-3 shrink-0">
-              <span className="font-mono text-[11px] text-slate-600">
-                Skills Mastered: <strong className="text-emerald-700 font-bold">{progressCount}/{activeTrack.nodes.length}</strong> ({progressPercentage}%)
+              <span className="font-mono text-[11px] text-slate-300">
+                Mastered: <strong className="text-emerald-400 font-bold">{progressCount}/{activeTrack.nodes.length}</strong> ({progressPercentage}%)
               </span>
-              <div className="w-28 bg-slate-200 rounded-full h-2 overflow-hidden">
+              <div className="w-28 bg-[#101533] rounded-full h-2 overflow-hidden border border-indigo-900/40">
                 <div
-                  className="bg-emerald-600 h-full transition-all duration-300"
+                  className="bg-gradient-to-r from-emerald-500 to-cyan-400 h-full transition-all duration-300"
                   style={{ width: `${progressPercentage}%` }}
                 />
               </div>
             </div>
           </div>
 
-          {/* Main Canvas Area */}
+          {/* Main Spatial Infinite Canvas Area */}
           <div
             ref={containerRef}
             onMouseDown={handleMouseDown}
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
-            className="relative flex-1 cursor-grab active:cursor-grabbing overflow-hidden bg-slate-50 bg-[radial-gradient(#cbd5e1_1.5px,transparent_1.5px)] [background-size:24px_24px]"
+            className={`relative flex-1 overflow-hidden bg-[#060814] bg-[radial-gradient(#1e293b_1.5px,transparent_1.5px)] [background-size:24px_24px] ${
+              wbTool === "select" ? (isPanning ? "cursor-grabbing" : "cursor-grab") : "cursor-crosshair"
+            }`}
           >
-            {/* Transform Container */}
+            {/* Infinite World Coordinates Container */}
             <div
               style={{
                 transform: `translate(${pan.x}px, ${pan.y}px) scale(${scale})`,
                 transformOrigin: "0 0",
                 transition: isPanning ? "none" : "transform 0.05s ease-out",
               }}
-              className="absolute inset-0 w-[2700px] h-[950px] pointer-events-auto"
+              className="absolute inset-0 w-[3000px] h-[1200px] pointer-events-auto"
             >
-              {/* SVG Connection Lines */}
+              {/* SVG Vector Layer (Connections + Whiteboard Strokes) */}
               <svg className="absolute inset-0 w-full h-full pointer-events-none">
                 <defs>
-                  <linearGradient id="activeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#059669" />
-                    <stop offset="100%" stopColor="#0d9488" />
+                  <linearGradient id="neonGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="#6366f1" />
+                    <stop offset="50%" stopColor="#06b6d4" />
+                    <stop offset="100%" stopColor="#10b981" />
                   </linearGradient>
                 </defs>
 
+                {/* Node Connection Lines */}
                 {connections.map((conn) => (
                   <g key={conn.id}>
                     {conn.isCompleted ? (
                       <path
                         d={conn.d}
                         fill="none"
-                        stroke="url(#activeGradient)"
-                        strokeWidth="3"
+                        stroke="url(#neonGradient)"
+                        strokeWidth="3.5"
                         strokeLinecap="round"
-                        className="canvas-line-flow"
+                        className="canvas-neon-flow"
                       />
                     ) : (
                       <path
                         d={conn.d}
                         fill="none"
-                        stroke="#cbd5e1"
+                        stroke="#1e293b"
                         strokeWidth="2"
-                        strokeDasharray="5 5"
+                        strokeDasharray="6 6"
                         strokeLinecap="round"
                       />
                     )}
                   </g>
                 ))}
+
+                {/* Whiteboard Vector Strokes */}
+                {showWhiteboard && strokes.map(renderStroke)}
+                {showWhiteboard && currentStroke && renderStroke(currentStroke)}
               </svg>
 
-              {/* Canvas Nodes */}
+              {/* Spatial Sticky Notes */}
+              {showWhiteboard &&
+                stickies.map((sticky) => {
+                  const colorStyles = {
+                    amber: "bg-amber-400 text-amber-950 shadow-amber-500/20 border-amber-300",
+                    cyan: "bg-cyan-400 text-cyan-950 shadow-cyan-500/20 border-cyan-300",
+                    emerald: "bg-emerald-400 text-emerald-950 shadow-emerald-500/20 border-emerald-300",
+                    rose: "bg-pink-400 text-pink-950 shadow-pink-500/20 border-pink-300",
+                    purple: "bg-purple-400 text-purple-950 shadow-purple-500/20 border-purple-300",
+                  }[sticky.color];
+
+                  return (
+                    <div
+                      key={sticky.id}
+                      style={{
+                        left: `${sticky.x}px`,
+                        top: `${sticky.y}px`,
+                        width: "190px",
+                      }}
+                      className={`spatial-sticky absolute rounded-2xl border p-3 shadow-2xl transition-shadow ${colorStyles} z-25 group`}
+                    >
+                      <div
+                        onMouseDown={(e) => {
+                          e.stopPropagation();
+                          const world = screenToWorld(e.clientX, e.clientY);
+                          setActiveStickyDrag({
+                            id: sticky.id,
+                            offsetX: world.x - sticky.x,
+                            offsetY: world.y - sticky.y,
+                          });
+                        }}
+                        className="flex items-center justify-between pb-1.5 cursor-grab active:cursor-grabbing border-b border-black/10 mb-2"
+                      >
+                        <span className="text-[10px] font-black uppercase tracking-wider font-mono opacity-70">
+                          Architecture Note
+                        </span>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            saveStickies(stickies.filter((s) => s.id !== sticky.id));
+                          }}
+                          className="opacity-40 hover:opacity-100 p-0.5 rounded transition-opacity"
+                          title="Delete note"
+                        >
+                          <X className="h-3.5 w-3.5" />
+                        </button>
+                      </div>
+                      <textarea
+                        value={sticky.text}
+                        onChange={(e) => {
+                          const updated = stickies.map((s) =>
+                            s.id === sticky.id ? { ...s, text: e.target.value } : s
+                          );
+                          saveStickies(updated);
+                        }}
+                        rows={3}
+                        className="w-full bg-transparent text-xs font-medium focus:outline-none resize-none leading-relaxed"
+                        placeholder="Write note here..."
+                      />
+                    </div>
+                  );
+                })}
+
+              {/* Obsidian Canvas Nodes */}
               {activeTrack.nodes.map((node) => {
-            const isCompleted = completedNodes.has(node.id);
-            const isSelected = selectedNode?.id === node.id;
+                const isCompleted = completedNodes.has(node.id);
+                const isSelected = selectedNode?.id === node.id;
 
-            return (
-              <div
-                key={node.id}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setSelectedNode(node);
-                }}
-                style={{
-                  left: `${node.x}px`,
-                  top: `${node.y}px`,
-                  width: "230px",
-                }}
-                className={`canvas-node absolute rounded-2xl border-2 p-4 shadow-sm transition-all cursor-pointer ${
-                  isSelected
-                    ? "border-emerald-600 bg-white ring-4 ring-emerald-500/20 scale-105 z-30 shadow-lg"
-                    : isCompleted
-                    ? "border-emerald-500 bg-emerald-50/70 hover:border-emerald-600 hover:shadow-md"
-                    : "border-slate-200 bg-white hover:border-emerald-400 hover:shadow-md"
-                }`}
-              >
-                {/* Node Level Badge & Toggle */}
-                <div className="flex items-center justify-between mb-2">
-                  <span
-                    className={`rounded-full px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider font-mono ${
-                      node.level === "Capstone"
-                        ? "bg-amber-100 text-amber-900 border border-amber-300"
-                        : node.level === "Advanced"
-                        ? "bg-purple-100 text-purple-900 border border-purple-300"
-                        : node.level === "Intermediate"
-                        ? "bg-blue-100 text-blue-900 border border-blue-300"
-                        : "bg-emerald-100 text-emerald-900 border border-emerald-300"
-                    }`}
-                  >
-                    {node.level}
-                  </span>
-
-                  <button
+                return (
+                  <div
+                    key={node.id}
                     onClick={(e) => {
                       e.stopPropagation();
-                      toggleNodeCompletion(node.id);
+                      setSelectedNode(node);
                     }}
-                    title={isCompleted ? "Mark Incomplete" : "Mark Mastered"}
-                    className="text-slate-400 hover:text-emerald-600 transition-colors p-0.5"
+                    style={{
+                      left: `${node.x}px`,
+                      top: `${node.y}px`,
+                      width: "235px",
+                    }}
+                    className={`canvas-node absolute rounded-2xl border p-4 shadow-xl transition-all cursor-pointer ${
+                      isSelected
+                        ? "border-cyan-400 bg-[#0d1433] ring-4 ring-cyan-500/30 scale-105 z-30 shadow-2xl shadow-cyan-500/20"
+                        : isCompleted
+                        ? "border-emerald-500/60 bg-[#07191d]/90 hover:border-emerald-400 hover:shadow-emerald-500/10"
+                        : "border-indigo-950/90 bg-[#0a0f29]/95 hover:border-indigo-600/70 hover:shadow-indigo-500/10 hover:bg-[#0c1333]"
+                    }`}
                   >
-                    {isCompleted ? (
-                      <CheckCircle2 className="h-4 w-4 text-emerald-600 fill-emerald-100" />
-                    ) : (
-                      <Circle className="h-4 w-4 text-slate-300 hover:text-slate-500" />
-                    )}
-                  </button>
-                </div>
+                    {/* Node Level Badge & Completion Toggle */}
+                    <div className="flex items-center justify-between mb-2.5">
+                      <span
+                        className={`rounded-full px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider font-mono ${
+                          node.level === "Capstone"
+                            ? "bg-amber-500/20 text-amber-300 border border-amber-500/30"
+                            : node.level === "Advanced"
+                            ? "bg-purple-500/20 text-purple-300 border border-purple-500/30"
+                            : node.level === "Intermediate"
+                            ? "bg-blue-500/20 text-blue-300 border border-blue-500/30"
+                            : "bg-emerald-500/20 text-emerald-300 border border-emerald-500/30"
+                        }`}
+                      >
+                        {node.level}
+                      </span>
 
-                {/* Title & Subtitle */}
-                <h3 className="text-sm font-bold text-slate-900 leading-tight">
-                  {node.title}
-                </h3>
-                <p className="text-[11px] text-slate-500 mt-1 line-clamp-1">
-                  {node.subtitle}
-                </p>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          toggleNodeCompletion(node.id, { x: e.clientX, y: e.clientY });
+                        }}
+                        title={isCompleted ? "Mark Incomplete" : "Mark Mastered (+100 XP)"}
+                        className="text-slate-400 hover:text-emerald-400 transition-colors p-0.5"
+                      >
+                        {isCompleted ? (
+                          <CheckCircle2 className="h-4 w-4 text-emerald-400 fill-emerald-400/20" />
+                        ) : (
+                          <Circle className="h-4 w-4 text-slate-600 hover:text-cyan-400" />
+                        )}
+                      </button>
+                    </div>
 
-                {/* Key Skills Preview */}
-                <div className="mt-2.5 flex flex-wrap gap-1">
-                  {node.skills.slice(0, 2).map((s, i) => (
-                    <span
-                      key={i}
-                      className="rounded bg-slate-100 px-1.5 py-0.5 text-[9px] font-mono text-slate-700 border border-slate-200"
-                    >
-                      {s}
-                    </span>
-                  ))}
-                  {node.skills.length > 2 && (
-                    <span className="text-[9px] text-slate-400 self-center">
-                      +{node.skills.length - 2} more
-                    </span>
-                  )}
-                </div>
+                    {/* Title & Subtitle */}
+                    <h3 className="text-sm font-extrabold text-white leading-tight">
+                      {node.title}
+                    </h3>
+                    <p className="text-[11px] text-slate-400 mt-1 line-clamp-1">
+                      {node.subtitle}
+                    </p>
 
-                {/* Footer Badges */}
-                <div className="mt-3 flex items-center justify-between border-t border-slate-100 pt-2 text-[10px] text-slate-500">
-                  <span className="flex items-center gap-1 font-mono">
-                    <Clock className="h-3 w-3 text-slate-400" />
-                    {node.estimatedHours}h
-                  </span>
+                    {/* Key Technical Skills */}
+                    <div className="mt-2.5 flex flex-wrap gap-1">
+                      {node.skills.slice(0, 2).map((s, i) => (
+                        <span
+                          key={i}
+                          className="rounded-lg bg-indigo-950/70 px-2 py-0.5 text-[9px] font-mono text-indigo-300 border border-indigo-800/40"
+                        >
+                          {s}
+                        </span>
+                      ))}
+                      {node.skills.length > 2 && (
+                        <span className="text-[9px] text-slate-500 self-center">
+                          +{node.skills.length - 2}
+                        </span>
+                      )}
+                    </div>
 
-                  <span className="flex items-center gap-1 font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-100">
-                    <Briefcase className="h-3 w-3" />
-                    {node.matchedJobsCount} Jobs
-                  </span>
-                </div>
-              </div>
-            );
-          })}
-        </div>
+                    {/* Footer Info */}
+                    <div className="mt-3 flex items-center justify-between border-t border-indigo-950/60 pt-2 text-[10px] text-slate-400">
+                      <span className="flex items-center gap-1 font-mono">
+                        <Clock className="h-3 w-3 text-slate-500" />
+                        {node.estimatedHours}h
+                      </span>
 
-        {/* Floating Zoom & Pan Controls */}
-        <div className="absolute bottom-6 right-6 flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white/95 p-1.5 shadow-lg backdrop-blur-md z-20">
-          <button
-            onClick={() => handleZoom(0.15)}
-            title="Zoom In"
-            className="rounded-lg p-2 text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors"
-          >
-            <ZoomIn className="h-4 w-4" />
-          </button>
-          <button
-            onClick={() => handleZoom(-0.15)}
-            title="Zoom Out"
-            className="rounded-lg p-2 text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors"
-          >
-            <ZoomOut className="h-4 w-4" />
-          </button>
-          <button
-            onClick={resetView}
-            title="Reset Canvas Position"
-            className="rounded-lg p-2 text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors"
-          >
-            <Maximize2 className="h-4 w-4" />
-          </button>
-        </div>
+                      <span className="flex items-center gap-1 font-bold text-amber-300 bg-amber-500/10 px-2 py-0.5 rounded-lg border border-amber-500/20 font-mono">
+                        <Zap className="h-3 w-3 text-amber-400" />
+                        +100 XP
+                      </span>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
 
-        {/* Canvas Hint Badge */}
-        <div className="absolute bottom-6 left-6 hidden sm:flex items-center gap-2 rounded-xl border border-slate-200 bg-white/95 px-3 py-1.5 text-xs text-slate-600 shadow-sm backdrop-blur-md">
-          <Sparkles className="h-3.5 w-3.5 text-emerald-600" />
-          <span>Click any node to inspect free docs, code blueprints, and matching vacancies</span>
-        </div>
-
-        {/* Node Side Drawer */}
-        {selectedNode && (
-          <div className="drawer-content absolute top-0 right-0 h-full w-full sm:w-[480px] border-l border-slate-200 bg-white p-6 shadow-2xl z-40 overflow-y-auto flex flex-col justify-between animate-in slide-in-from-right duration-200">
-            <div className="space-y-6">
-              {/* Drawer Header */}
-              <div className="flex items-start justify-between">
-                <div>
-                  <span className="rounded-full bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 text-[10px] font-bold text-emerald-700 uppercase tracking-wider font-mono">
-                    {selectedNode.level} Milestone
-                  </span>
-                  <h2 className="text-xl font-extrabold text-slate-900 mt-2">
-                    {selectedNode.title}
-                  </h2>
-                  <p className="text-xs text-slate-500 mt-1">
-                    {selectedNode.subtitle}
-                  </p>
-                </div>
-
+            {/* FLOATING WHITEBOARD STUDIO DOCK (Bottom Center) */}
+            <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex items-center gap-2 bg-[#0c1024]/95 border border-indigo-900/80 px-4 py-2 rounded-2xl shadow-2xl backdrop-blur-xl z-30">
+              <div className="flex items-center gap-1 border-r border-indigo-900/60 pr-2">
                 <button
-                  onClick={() => setSelectedNode(null)}
-                  className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-100 hover:text-slate-700 transition-colors"
+                  onClick={() => setWbTool("select")}
+                  title="Select & Pan Canvas"
+                  className={`p-2 rounded-xl transition-all ${
+                    wbTool === "select"
+                      ? "bg-gradient-to-r from-indigo-600 to-cyan-600 text-white shadow-md shadow-indigo-500/20"
+                      : "text-slate-400 hover:text-white hover:bg-indigo-950/60"
+                  }`}
                 >
-                  <X className="h-5 w-5" />
+                  <MousePointer className="h-4 w-4" />
+                </button>
+                <button
+                  onClick={() => setWbTool("pen")}
+                  title="Vector Freehand Pen (+25 XP)"
+                  className={`p-2 rounded-xl transition-all ${
+                    wbTool === "pen"
+                      ? "bg-gradient-to-r from-indigo-600 to-cyan-600 text-white shadow-md shadow-indigo-500/20"
+                      : "text-slate-400 hover:text-white hover:bg-indigo-950/60"
+                  }`}
+                >
+                  <PenTool className="h-4 w-4" />
+                </button>
+                <button
+                  onClick={() => setWbTool("highlighter")}
+                  title="Neon Glow Highlighter"
+                  className={`p-2 rounded-xl transition-all ${
+                    wbTool === "highlighter"
+                      ? "bg-gradient-to-r from-indigo-600 to-cyan-600 text-white shadow-md shadow-indigo-500/20"
+                      : "text-slate-400 hover:text-white hover:bg-indigo-950/60"
+                  }`}
+                >
+                  <Layers className="h-4 w-4" />
+                </button>
+                <button
+                  onClick={() => setWbTool("arrow")}
+                  title="Vector Arrow Connector"
+                  className={`p-2 rounded-xl transition-all ${
+                    wbTool === "arrow"
+                      ? "bg-gradient-to-r from-indigo-600 to-cyan-600 text-white shadow-md shadow-indigo-500/20"
+                      : "text-slate-400 hover:text-white hover:bg-indigo-950/60"
+                  }`}
+                >
+                  <MoveRight className="h-4 w-4" />
+                </button>
+                <button
+                  onClick={() => setWbTool("rect")}
+                  title="System Boundary Box"
+                  className={`p-2 rounded-xl transition-all ${
+                    wbTool === "rect"
+                      ? "bg-gradient-to-r from-indigo-600 to-cyan-600 text-white shadow-md shadow-indigo-500/20"
+                      : "text-slate-400 hover:text-white hover:bg-indigo-950/60"
+                  }`}
+                >
+                  <Square className="h-4 w-4" />
+                </button>
+                <button
+                  onClick={() => setWbTool("sticky")}
+                  title="Drop Spatial Sticky Note (+25 XP)"
+                  className={`p-2 rounded-xl transition-all ${
+                    wbTool === "sticky"
+                      ? "bg-gradient-to-r from-indigo-600 to-cyan-600 text-white shadow-md shadow-indigo-500/20"
+                      : "text-slate-400 hover:text-white hover:bg-indigo-950/60"
+                  }`}
+                >
+                  <StickyNote className="h-4 w-4" />
                 </button>
               </div>
 
-              {/* Mastered Toggle Button */}
-              <div className="flex items-center justify-between rounded-xl bg-slate-50 border border-slate-200 p-3">
-                <div className="flex items-center gap-2">
-                  {completedNodes.has(selectedNode.id) ? (
-                    <CheckCircle2 className="h-5 w-5 text-emerald-600 fill-emerald-100" />
-                  ) : (
-                    <Circle className="h-5 w-5 text-slate-400" />
-                  )}
-                  <div>
-                    <div className="text-xs font-bold text-slate-900">
-                      {completedNodes.has(selectedNode.id) ? "Marked as Mastered" : "Not Yet Mastered"}
-                    </div>
-                    <div className="text-[11px] text-slate-500">
-                      Counts toward your candidate Dev Score
-                    </div>
-                  </div>
-                </div>
-
-                <Button
-                  size="sm"
-                  variant={completedNodes.has(selectedNode.id) ? "outline" : "default"}
-                  onClick={() => toggleNodeCompletion(selectedNode.id)}
-                  className={`text-xs font-bold ${
-                    completedNodes.has(selectedNode.id)
-                      ? "border-slate-300 text-slate-700 hover:bg-slate-100"
-                      : "bg-emerald-600 hover:bg-emerald-500 text-white shadow-xs"
-                  }`}
-                >
-                  {completedNodes.has(selectedNode.id) ? "Mark Incomplete" : "Mark Mastered"}
-                </Button>
-              </div>
-
-              {/* Core Mental Model Description */}
-              <div className="space-y-2">
-                <div className="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
-                  <Lightbulb className="h-3.5 w-3.5 text-amber-500" />
-                  <span>Core Architecture &amp; Mental Models</span>
-                </div>
-                <p className="text-xs text-slate-600 leading-relaxed bg-slate-50 p-3.5 rounded-xl border border-slate-200">
-                  {selectedNode.description}
-                </p>
-              </div>
-
-              {/* Skills Tags */}
-              <div className="space-y-2">
-                <div className="text-xs font-bold uppercase tracking-wider text-slate-700">
-                  Target Technical Skills
-                </div>
-                <div className="flex flex-wrap gap-1.5">
-                  {selectedNode.skills.map((s, i) => (
-                    <span
-                      key={i}
-                      className="rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 px-2.5 py-1 text-xs font-bold font-mono"
-                    >
-                      {s}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Verified Capstone Challenge */}
-              {selectedNode.projectTask && (
-                <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
-                      <GraduationCap className="h-4 w-4 text-emerald-600" />
-                      <span>Hands-on Project Challenge</span>
-                    </span>
-                    <span className="rounded bg-emerald-100 text-emerald-800 px-1.5 py-0.5 text-[9px] font-bold font-mono">
-                      Portfolio
-                    </span>
-                  </div>
-                  <p className="text-xs text-slate-700 leading-relaxed font-medium">
-                    {selectedNode.projectTask}
-                  </p>
-                </div>
-              )}
-
-              {/* Interactive Code Blueprint */}
-              {selectedNode.mentalModelSnippet && (
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-slate-700">
-                    <span className="flex items-center gap-1.5">
-                      <Code2 className="h-3.5 w-3.5 text-blue-600" />
-                      <span>3-Minute Code Blueprint</span>
-                    </span>
-                    <button
-                      onClick={() => copySnippet(selectedNode.mentalModelSnippet!)}
-                      className="flex items-center gap-1 text-[11px] text-slate-500 hover:text-emerald-600 transition-colors lowercase font-mono"
-                    >
-                      {copiedCode ? <Check className="h-3.5 w-3.5 text-emerald-600" /> : <Copy className="h-3.5 w-3.5" />}
-                      <span>{copiedCode ? "copied" : "copy snippet"}</span>
-                    </button>
-                  </div>
-                  <pre className="rounded-xl bg-slate-900 text-slate-100 p-3.5 text-xs font-mono overflow-x-auto leading-relaxed border border-slate-800 shadow-inner">
-                    <code>{selectedNode.mentalModelSnippet}</code>
-                  </pre>
-                </div>
-              )}
-
-              {/* ASSOCIATED POTD INTERVIEW QUESTION */}
-              <div className="rounded-xl border border-purple-200 bg-purple-50/50 p-4 space-y-2.5">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-wider text-purple-900">
-                    <Terminal className="h-3.5 w-3.5 text-purple-600" />
-                    <span>Associated Interview Question (POTD)</span>
-                  </div>
-                  <span className="rounded bg-purple-100 text-purple-800 px-1.5 py-0.5 text-[9px] font-bold font-mono">
-                    Coding Prep
-                  </span>
-                </div>
-
-                <p className="text-xs font-bold text-slate-900 leading-snug">
-                  {selectedNode.interviewQuestion?.question ||
-                    `In production systems, what are the primary trade-offs and common failure modes when scaling ${selectedNode.title}?`}
-                </p>
-
-                {showAnswer ? (
-                  <div className="mt-2 text-xs text-slate-700 bg-white p-3 rounded-lg border border-purple-200 leading-relaxed animate-in fade-in duration-150">
-                    <div className="font-bold text-[11px] text-purple-900 mb-1">Architectural Solution:</div>
-                    <p>
-                      {selectedNode.interviewQuestion?.answer ||
-                        `To scale ${selectedNode.title} reliably, isolate bottlenecks using non-blocking asynchronous patterns, enforce strict schema validation, and ensure idempotency across distributed state mutations.`}
-                    </p>
-                    <button
-                      onClick={() => setShowAnswer(false)}
-                      className="mt-2 text-[11px] font-bold text-purple-700 hover:underline flex items-center gap-1"
-                    >
-                      <ChevronUp className="h-3 w-3" /> Hide Solution
-                    </button>
-                  </div>
-                ) : (
+              {/* Color Palette */}
+              <div className="flex items-center gap-1.5 border-r border-indigo-900/60 pr-2">
+                {NEON_COLORS.map((c) => (
                   <button
-                    onClick={() => setShowAnswer(true)}
-                    className="text-[11px] font-bold text-purple-700 hover:text-purple-900 flex items-center gap-1 transition-colors"
-                  >
-                    <ChevronDown className="h-3 w-3" /> Reveal Verified Interview Answer
-                  </button>
-                )}
-
-                <div className="pt-1">
-                  <Link
-                    href={selectedNode.interviewQuestion?.potdLink || "/problems"}
-                    className="inline-flex items-center gap-1 text-[11px] font-bold text-purple-800 hover:text-purple-950 underline"
-                  >
-                    <span>Practice Problem in Online Code Editor →</span>
-                  </Link>
-                </div>
+                    key={c.id}
+                    onClick={() => setWbColor(c.id)}
+                    className={`h-5 w-5 rounded-full transition-transform ${c.bg} ${
+                      wbColor === c.id ? "ring-2 ring-white scale-110" : "opacity-80 hover:opacity-100"
+                    }`}
+                    title={c.label}
+                  />
+                ))}
               </div>
 
-              {/* LINKED VIDEO LESSON FROM /PLAYLISTS */}
-              <div className="rounded-xl border border-red-200 bg-red-50/40 p-4 space-y-2">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-wider text-red-900">
-                    <Youtube className="h-3.5 w-3.5 text-red-600" />
-                    <span>Linked Video Masterclass</span>
-                  </div>
-                  <span className="rounded bg-red-100 text-red-800 px-1.5 py-0.5 text-[9px] font-bold font-mono">
-                    Free /playlists
-                  </span>
-                </div>
-
-                <div className="text-xs font-bold text-slate-900">
-                  {selectedNode.linkedPlaylist?.title || `${selectedNode.title} Deep Dive & Architecture`}
-                </div>
-                <p className="text-[11px] text-slate-600">
-                  Curated by {selectedNode.linkedPlaylist?.creator || "StudyNest Technical Curators"} • Integrated video chapters and notes
-                </p>
-
-                <div className="pt-1">
-                  <Link
-                    href="/playlists"
-                    className="inline-flex items-center gap-1.5 rounded-lg bg-red-600 hover:bg-red-500 text-white font-bold px-3 py-1.5 text-[11px] transition-colors shadow-2xs"
-                  >
-                    <Play className="h-3 w-3 fill-current" />
-                    <span>Watch in In-App Video Player</span>
-                  </Link>
-                </div>
-              </div>
-
-              {/* Free Curated Study Links */}
-              <div className="space-y-2">
-                <div className="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
-                  <BookOpen className="h-3.5 w-3.5 text-emerald-600" />
-                  <span>Curated Documentation &amp; Labs</span>
-                </div>
-                <div className="space-y-1.5">
-                  {selectedNode.resources.map((res, i) => (
-                    <a
-                      key={i}
-                      href={res.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center justify-between rounded-xl bg-slate-50 border border-slate-200 p-2.5 text-xs text-slate-800 hover:border-emerald-500 hover:text-emerald-700 transition-all group"
-                    >
-                      <span className="flex items-center gap-2 truncate pr-2 font-medium">
-                        <span className="rounded bg-slate-200 text-slate-700 px-1.5 py-0.5 text-[9px] font-bold font-mono">
-                          {res.type}
-                        </span>
-                        <span className="truncate">{res.title}</span>
-                      </span>
-                      <ExternalLink className="h-3.5 w-3.5 text-slate-400 group-hover:text-emerald-600 shrink-0" />
-                    </a>
-                  ))}
-                </div>
-              </div>
-
-              {/* Study Notes (Synced to Cloud) */}
-              <div className="space-y-2">
-                <div className="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center justify-between">
-                  <span>Your Learning Notes</span>
-                  <span className="text-[10px] text-emerald-600 font-mono">Auto-synced to cloud</span>
-                </div>
-                <textarea
-                  value={nodeNote}
-                  onChange={(e) => handleNoteChange(e.target.value)}
-                  placeholder="Record your breakthroughs, key algorithms, or questions here..."
-                  rows={3}
-                  className="w-full rounded-xl bg-slate-50 border border-slate-200 p-3 text-xs text-slate-800 focus:outline-none focus:border-emerald-600 focus:bg-white resize-none"
-                />
+              {/* Actions: Undo, Clear, Visibility */}
+              <div className="flex items-center gap-1">
+                <button
+                  onClick={undoStroke}
+                  title="Undo Last Stroke"
+                  disabled={strokes.length === 0}
+                  className="p-1.5 rounded-lg text-slate-400 hover:text-white disabled:opacity-30 transition-colors"
+                >
+                  <Undo2 className="h-4 w-4" />
+                </button>
+                <button
+                  onClick={clearAllDrawings}
+                  title="Clear All Canvas Sketches"
+                  className="p-1.5 rounded-lg text-rose-400 hover:text-rose-300 hover:bg-rose-950/40 transition-colors"
+                >
+                  <Trash2 className="h-4 w-4" />
+                </button>
+                <button
+                  onClick={() => setShowWhiteboard(!showWhiteboard)}
+                  title={showWhiteboard ? "Hide Whiteboard Layer" : "Show Whiteboard Layer"}
+                  className="p-1.5 rounded-lg text-slate-400 hover:text-white transition-colors"
+                >
+                  {showWhiteboard ? <Eye className="h-4 w-4" /> : <EyeOff className="h-4 w-4 text-slate-600" />}
+                </button>
               </div>
             </div>
 
-            {/* Drawer Bottom Actions */}
-            <div className="pt-6 border-t border-slate-200 mt-6 flex items-center gap-3">
-              <Link
-                href="/jobs"
-                className="flex-1 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 px-4 text-xs text-center flex items-center justify-center gap-1.5 transition-all shadow-xs"
+            {/* Floating Zoom & Pan Controls (Bottom Right) */}
+            <div className="absolute bottom-6 right-6 flex items-center gap-1.5 rounded-2xl border border-indigo-900/80 bg-[#0c1024]/95 p-1.5 shadow-2xl backdrop-blur-xl z-20">
+              <button
+                onClick={() => handleZoom(0.15)}
+                title="Zoom In"
+                className="rounded-xl p-2 text-slate-400 hover:bg-indigo-950/60 hover:text-white transition-colors"
               >
-                <Briefcase className="h-3.5 w-3.5" />
-                <span>View {selectedNode.matchedJobsCount} Matching Roles</span>
-                <ArrowRight className="h-3.5 w-3.5" />
-              </Link>
+                <ZoomIn className="h-4 w-4" />
+              </button>
+              <button
+                onClick={() => handleZoom(-0.15)}
+                title="Zoom Out"
+                className="rounded-xl p-2 text-slate-400 hover:bg-indigo-950/60 hover:text-white transition-colors"
+              >
+                <ZoomOut className="h-4 w-4" />
+              </button>
+              <button
+                onClick={resetView}
+                title="Reset View"
+                className="rounded-xl p-2 text-slate-400 hover:bg-indigo-950/60 hover:text-white transition-colors"
+              >
+                <Maximize2 className="h-4 w-4" />
+              </button>
             </div>
+
+            {/* Slide-out Curriculum Node Drawer (Obsidian Dark Theme) */}
+            {selectedNode && (
+              <div className="drawer-content absolute top-0 right-0 h-full w-full sm:w-[500px] border-l border-indigo-950/90 bg-[#080c22] p-6 shadow-2xl z-40 overflow-y-auto flex flex-col justify-between animate-in slide-in-from-right duration-200">
+                <div className="space-y-6">
+                  {/* Drawer Header */}
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <span className="rounded-full bg-cyan-500/20 border border-cyan-400/30 px-2.5 py-0.5 text-[10px] font-bold text-cyan-300 uppercase tracking-wider font-mono">
+                        {selectedNode.level} Milestone
+                      </span>
+                      <h2 className="text-xl font-black text-white mt-2">
+                        {selectedNode.title}
+                      </h2>
+                      <p className="text-xs text-slate-400 mt-1">
+                        {selectedNode.subtitle}
+                      </p>
+                    </div>
+
+                    <button
+                      onClick={() => setSelectedNode(null)}
+                      className="rounded-xl p-1.5 text-slate-400 hover:bg-indigo-950/60 hover:text-white transition-colors"
+                    >
+                      <X className="h-5 w-5" />
+                    </button>
+                  </div>
+
+                  {/* Mastered Toggle Action Card */}
+                  <div className="flex items-center justify-between rounded-2xl bg-[#0e1438] border border-indigo-900/60 p-3.5 shadow-inner">
+                    <div className="flex items-center gap-3">
+                      {completedNodes.has(selectedNode.id) ? (
+                        <CheckCircle2 className="h-5 w-5 text-emerald-400 fill-emerald-400/20" />
+                      ) : (
+                        <Circle className="h-5 w-5 text-slate-500" />
+                      )}
+                      <div>
+                        <div className="text-xs font-bold text-white flex items-center gap-1.5">
+                          <span>{completedNodes.has(selectedNode.id) ? "Marked as Mastered" : "Ready to Master"}</span>
+                          <span className="text-amber-400 font-mono text-[11px] font-bold">+100 XP</span>
+                        </div>
+                        <div className="text-[11px] text-slate-400">
+                          Adds verified architectural proof to your candidate ledger
+                        </div>
+                      </div>
+                    </div>
+
+                    <Button
+                      size="sm"
+                      onClick={(e) => toggleNodeCompletion(selectedNode.id, { x: e.clientX, y: e.clientY })}
+                      className={`text-xs font-bold rounded-xl transition-all ${
+                        completedNodes.has(selectedNode.id)
+                          ? "border border-indigo-900/80 bg-transparent text-slate-300 hover:bg-indigo-950/60"
+                          : "bg-gradient-to-r from-emerald-600 to-cyan-600 hover:from-emerald-500 hover:to-cyan-500 text-white shadow-lg shadow-emerald-600/20"
+                      }`}
+                    >
+                      {completedNodes.has(selectedNode.id) ? "Undo Mastery" : "Mark Mastered"}
+                    </Button>
+                  </div>
+
+                  {/* Core Mental Model Description */}
+                  <div className="space-y-2">
+                    <div className="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center gap-1.5">
+                      <Lightbulb className="h-3.5 w-3.5 text-amber-400" />
+                      <span>Architecture &amp; Mental Models</span>
+                    </div>
+                    <p className="text-xs text-slate-300 leading-relaxed bg-[#0c1130] p-4 rounded-2xl border border-indigo-950/80 shadow-inner">
+                      {selectedNode.description}
+                    </p>
+                  </div>
+
+                  {/* Target Skills Pills */}
+                  <div className="space-y-2">
+                    <div className="text-xs font-bold uppercase tracking-wider text-slate-300">
+                      Target Technical Competencies
+                    </div>
+                    <div className="flex flex-wrap gap-1.5">
+                      {selectedNode.skills.map((s, i) => (
+                        <span
+                          key={i}
+                          className="rounded-xl bg-indigo-950/80 text-cyan-300 border border-indigo-800/60 px-2.5 py-1 text-xs font-bold font-mono"
+                        >
+                          {s}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Hands-on Project Challenge */}
+                  {selectedNode.projectTask && (
+                    <div className="rounded-2xl border border-indigo-900/60 bg-[#0d1338] p-4 space-y-2 shadow-inner">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[11px] font-bold uppercase tracking-wider text-slate-300 flex items-center gap-1.5">
+                          <GraduationCap className="h-4 w-4 text-cyan-400" />
+                          <span>Hands-on Architecture Challenge</span>
+                        </span>
+                        <span className="rounded-lg bg-indigo-500/20 text-cyan-300 px-2 py-0.5 text-[9px] font-bold font-mono border border-indigo-500/30">
+                          +50 XP Challenge
+                        </span>
+                      </div>
+                      <p className="text-xs text-slate-200 leading-relaxed">
+                        {selectedNode.projectTask}
+                      </p>
+                    </div>
+                  )}
+
+                  {/* Interactive Code Blueprint */}
+                  {selectedNode.mentalModelSnippet && (
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-slate-300">
+                        <span className="flex items-center gap-1.5">
+                          <Code2 className="h-3.5 w-3.5 text-cyan-400" />
+                          <span>3-Minute Production Blueprint</span>
+                        </span>
+                        <button
+                          onClick={() => copySnippet(selectedNode.mentalModelSnippet!)}
+                          className="flex items-center gap-1 text-[11px] text-slate-400 hover:text-cyan-300 transition-colors lowercase font-mono"
+                        >
+                          {copiedCode ? <Check className="h-3.5 w-3.5 text-emerald-400" /> : <Copy className="h-3.5 w-3.5" />}
+                          <span>{copiedCode ? "copied" : "copy snippet"}</span>
+                        </button>
+                      </div>
+                      <pre className="rounded-2xl bg-[#030611] text-cyan-300 p-4 text-xs font-mono overflow-x-auto leading-relaxed border border-indigo-950/80 shadow-inner">
+                        <code>{selectedNode.mentalModelSnippet}</code>
+                      </pre>
+                    </div>
+                  )}
+
+                  {/* Associated POTD Interview Question */}
+                  <div className="rounded-2xl border border-purple-900/60 bg-[#120f2e] p-4 space-y-2.5 shadow-inner">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-wider text-purple-300">
+                        <Terminal className="h-3.5 w-3.5 text-purple-400" />
+                        <span>Associated Interview Question (POTD)</span>
+                      </div>
+                      <span className="rounded-lg bg-purple-500/20 text-purple-300 px-2 py-0.5 text-[9px] font-bold font-mono border border-purple-500/30">
+                        +50 XP Prep
+                      </span>
+                    </div>
+
+                    <p className="text-xs font-bold text-white leading-snug">
+                      {selectedNode.interviewQuestion?.question ||
+                        `In production systems, what are the primary trade-offs and common failure modes when scaling ${selectedNode.title}?`}
+                    </p>
+
+                    {showAnswer ? (
+                      <div className="mt-2 text-xs text-slate-200 bg-[#09071c] p-3.5 rounded-xl border border-purple-900/50 leading-relaxed animate-in fade-in duration-150">
+                        <div className="font-bold text-[11px] text-purple-300 mb-1">Architectural Solution:</div>
+                        <p>
+                          {selectedNode.interviewQuestion?.answer ||
+                            `To scale ${selectedNode.title} reliably, isolate bottlenecks using non-blocking asynchronous patterns, enforce strict schema validation, and ensure idempotency across distributed state mutations.`}
+                        </p>
+                        <button
+                          onClick={() => setShowAnswer(false)}
+                          className="mt-2 text-[11px] font-bold text-purple-400 hover:underline flex items-center gap-1"
+                        >
+                          <ChevronUp className="h-3 w-3" /> Hide Solution
+                        </button>
+                      </div>
+                    ) : (
+                      <button
+                        onClick={() => {
+                          setShowAnswer(true);
+                          awardXp(50, "Interview Prep Complete!");
+                        }}
+                        className="text-[11px] font-bold text-purple-400 hover:text-purple-300 flex items-center gap-1 transition-colors"
+                      >
+                        <ChevronDown className="h-3 w-3" /> Reveal Verified Architectural Answer (+50 XP)
+                      </button>
+                    )}
+
+                    <div className="pt-1">
+                      <Link
+                        href={selectedNode.interviewQuestion?.potdLink || "/problems"}
+                        className="inline-flex items-center gap-1 text-[11px] font-bold text-purple-300 hover:text-purple-200 underline"
+                      >
+                        <span>Open in Cloud Code Editor →</span>
+                      </Link>
+                    </div>
+                  </div>
+
+                  {/* Linked Video Lesson from /playlists */}
+                  <div className="rounded-2xl border border-rose-950/60 bg-[#1e0d16]/70 p-4 space-y-2 shadow-inner">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-wider text-rose-300">
+                        <Youtube className="h-3.5 w-3.5 text-rose-400" />
+                        <span>Curated Video Masterclass</span>
+                      </div>
+                      <span className="rounded-lg bg-rose-500/20 text-rose-300 px-2 py-0.5 text-[9px] font-bold font-mono border border-rose-500/30">
+                        Free Masterclass
+                      </span>
+                    </div>
+
+                    <div className="text-xs font-bold text-white">
+                      {selectedNode.linkedPlaylist?.title || `${selectedNode.title} Deep Dive & Architecture`}
+                    </div>
+                    <p className="text-[11px] text-slate-400">
+                      Curated by {selectedNode.linkedPlaylist?.creator || "StudyNest Technical Curators"}
+                    </p>
+
+                    <div className="pt-1">
+                      <Link
+                        href="/playlists"
+                        className="inline-flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-500 hover:to-pink-500 text-white font-bold px-3 py-1.5 text-[11px] transition-all shadow-md shadow-rose-600/20"
+                      >
+                        <Play className="h-3 w-3 fill-current" />
+                        <span>Watch in Academy Player</span>
+                      </Link>
+                    </div>
+                  </div>
+
+                  {/* Curated Documentation Links */}
+                  <div className="space-y-2">
+                    <div className="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center gap-1.5">
+                      <BookOpen className="h-3.5 w-3.5 text-cyan-400" />
+                      <span>Curated Documentation &amp; RFCs</span>
+                    </div>
+                    <div className="space-y-1.5">
+                      {selectedNode.resources.map((res, i) => (
+                        <a
+                          key={i}
+                          href={res.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center justify-between rounded-xl bg-[#0d1338] border border-indigo-950/80 p-2.5 text-xs text-slate-200 hover:border-cyan-500/60 hover:text-white transition-all group"
+                        >
+                          <span className="flex items-center gap-2 truncate pr-2 font-medium">
+                            <span className="rounded-lg bg-indigo-950 px-1.5 py-0.5 text-[9px] font-bold font-mono text-cyan-300 border border-indigo-800/40">
+                              {res.type}
+                            </span>
+                            <span className="truncate">{res.title}</span>
+                          </span>
+                          <ExternalLink className="h-3.5 w-3.5 text-slate-500 group-hover:text-cyan-400 shrink-0" />
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Learning Notes Area */}
+                  <div className="space-y-2">
+                    <div className="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center justify-between">
+                      <span>Architectural Scratchpad</span>
+                      <span className="text-[10px] text-emerald-400 font-mono">Synced to cloud</span>
+                    </div>
+                    <textarea
+                      value={nodeNote}
+                      onChange={(e) => handleNoteChange(e.target.value)}
+                      placeholder="Record your breakthroughs, key algorithms, or questions here..."
+                      rows={3}
+                      className="w-full rounded-2xl bg-[#030611] border border-indigo-950/80 p-3 text-xs text-slate-200 focus:outline-none focus:border-cyan-500 resize-none font-mono"
+                    />
+                  </div>
+                </div>
+
+                {/* Drawer Bottom Actions */}
+                <div className="pt-6 border-t border-indigo-950/80 mt-6 flex items-center gap-3">
+                  <Link
+                    href="/problems"
+                    className="flex-1 rounded-2xl bg-gradient-to-r from-indigo-600 to-cyan-600 hover:from-indigo-500 hover:to-cyan-500 text-white font-bold py-2.5 px-4 text-xs text-center flex items-center justify-center gap-1.5 transition-all shadow-lg shadow-indigo-600/25"
+                  >
+                    <Terminal className="h-3.5 w-3.5" />
+                    <span>Practice Associated Problems</span>
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </Link>
+                </div>
+              </div>
+            )}
           </div>
-        )}
-      </div>
-      </>
+        </>
       )}
 
-      {/* EXPORTABLE VISUAL RESUME ARTIFACT MODAL */}
-      {showExportModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm animate-in fade-in duration-150">
-          <div className="relative w-full max-w-lg bg-white rounded-3xl border border-slate-200 shadow-2xl p-6 sm:p-8 space-y-6">
+      {/* DAILY QUESTS MODAL */}
+      {showQuestsModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-150">
+          <div className="relative w-full max-w-md bg-[#0a0f29] rounded-3xl border border-indigo-900/80 shadow-2xl p-6 space-y-6">
             <div className="flex items-start justify-between">
               <div>
-                <span className="rounded-full bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 text-[10px] font-mono font-bold text-emerald-800 uppercase tracking-wider">
+                <span className="rounded-full bg-cyan-500/20 border border-cyan-400/30 px-2.5 py-0.5 text-[10px] font-mono font-bold text-cyan-300 uppercase tracking-wider">
+                  Daily Engineering Quests
+                </span>
+                <h3 className="text-xl font-black text-white mt-1.5 flex items-center gap-2">
+                  <span>Earn Engineering XP</span>
+                  <Sparkles className="h-4 w-4 text-amber-400" />
+                </h3>
+                <p className="text-xs text-slate-400 mt-1">
+                  Complete daily habits to accelerate your path to Grandmaster Fellow.
+                </p>
+              </div>
+              <button
+                onClick={() => setShowQuestsModal(false)}
+                className="rounded-xl p-1.5 text-slate-400 hover:bg-indigo-950/60 hover:text-white transition-colors"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            <div className="space-y-3">
+              {DAILY_QUESTS.map((q) => {
+                const isClaimed = claimedQuests.has(q.id);
+                return (
+                  <div
+                    key={q.id}
+                    className="flex items-center justify-between p-3.5 rounded-2xl bg-[#0f163b] border border-indigo-900/60 shadow-inner"
+                  >
+                    <div className="flex items-center gap-3">
+                      <span className="text-2xl">{q.icon}</span>
+                      <div>
+                        <div className="text-xs font-bold text-white">{q.title}</div>
+                        <div className="text-[11px] text-slate-400">{q.desc}</div>
+                      </div>
+                    </div>
+
+                    <Button
+                      size="sm"
+                      disabled={isClaimed}
+                      onClick={() => {
+                        setClaimedQuests((prev) => {
+                          const next = new Set(prev);
+                          next.add(q.id);
+                          try {
+                            localStorage.setItem("studynest_claimed_quests", JSON.stringify(Array.from(next)));
+                          } catch {}
+                          return next;
+                        });
+                        awardXp(q.xp, `Quest Completed!`);
+                      }}
+                      className={`text-xs font-bold rounded-xl ${
+                        isClaimed
+                          ? "bg-emerald-950/40 text-emerald-400 border border-emerald-800/40"
+                          : "bg-gradient-to-r from-amber-500 to-indigo-600 hover:from-amber-400 hover:to-indigo-500 text-white shadow-md shadow-amber-500/20"
+                      }`}
+                    >
+                      {isClaimed ? "Claimed" : `+${q.xp} XP`}
+                    </Button>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="flex justify-end pt-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setShowQuestsModal(false)}
+                className="border-indigo-900 text-slate-300 hover:bg-indigo-950 text-xs font-bold rounded-xl"
+              >
+                Close
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ACHIEVEMENTS MODAL */}
+      {showAchievementsModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-150">
+          <div className="relative w-full max-w-lg bg-[#0a0f29] rounded-3xl border border-indigo-900/80 shadow-2xl p-6 space-y-6">
+            <div className="flex items-start justify-between">
+              <div>
+                <span className="rounded-full bg-amber-500/20 border border-amber-400/30 px-2.5 py-0.5 text-[10px] font-mono font-bold text-amber-300 uppercase tracking-wider">
+                  Career Milestones
+                </span>
+                <h3 className="text-xl font-black text-white mt-1.5 flex items-center gap-2">
+                  <Trophy className="h-5 w-5 text-amber-400" />
+                  <span>Engineering Trophies</span>
+                </h3>
+                <p className="text-xs text-slate-400 mt-1">
+                  Permanent milestones unlocked on your verified candidate ledger.
+                </p>
+              </div>
+              <button
+                onClick={() => setShowAchievementsModal(false)}
+                className="rounded-xl p-1.5 text-slate-400 hover:bg-indigo-950/60 hover:text-white transition-colors"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[60vh] overflow-y-auto pr-1">
+              {ACHIEVEMENTS.map((a) => {
+                const isUnlocked = unlockedAchievements.has(a.id);
+                return (
+                  <div
+                    key={a.id}
+                    className={`p-3.5 rounded-2xl border transition-all ${
+                      isUnlocked
+                        ? "bg-[#111842] border-indigo-700/80 shadow-lg shadow-indigo-500/10"
+                        : "bg-[#0c1028]/60 border-indigo-950/50 opacity-50"
+                    }`}
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <span className="text-2xl">{a.icon}</span>
+                      <div>
+                        <div className="text-xs font-bold text-white flex items-center gap-1.5">
+                          <span>{a.title}</span>
+                          {isUnlocked && <CheckCircle2 className="h-3 w-3 text-emerald-400" />}
+                        </div>
+                        <div className="text-[10px] text-slate-400 mt-0.5">{a.desc}</div>
+                      </div>
+                    </div>
+                    <div className="mt-2.5 pt-2 border-t border-indigo-900/40 flex items-center justify-between text-[10px] font-mono">
+                      <span className={isUnlocked ? "text-emerald-400 font-bold" : "text-slate-500"}>
+                        {isUnlocked ? "Unlocked" : "Locked"}
+                      </span>
+                      <span className="text-amber-400 font-bold">+{a.xp} XP</span>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="flex justify-end pt-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setShowAchievementsModal(false)}
+                className="border-indigo-900 text-slate-300 hover:bg-indigo-950 text-xs font-bold rounded-xl"
+              >
+                Close
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* EXPORT SKILL TREE ARTIFACT MODAL (Obsidian Dark Theme) */}
+      {showExportModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-150">
+          <div className="relative w-full max-w-lg bg-[#0a0f29] rounded-3xl border border-indigo-900/80 shadow-2xl p-6 sm:p-8 space-y-6">
+            <div className="flex items-start justify-between">
+              <div>
+                <span className="rounded-full bg-cyan-500/20 border border-cyan-400/30 px-2.5 py-0.5 text-[10px] font-mono font-bold text-cyan-300 uppercase tracking-wider">
                   Visual Resume Artifact
                 </span>
-                <h3 className="text-xl font-black text-slate-900 mt-1.5">
+                <h3 className="text-xl font-black text-white mt-1.5">
                   Export Your Skill Tree
                 </h3>
-                <p className="text-xs text-slate-600 mt-1">
-                  Embed your verified technical milestones directly into your GitHub profile <code className="bg-slate-100 px-1 py-0.5 rounded text-[11px]">README.md</code> or portfolio.
+                <p className="text-xs text-slate-400 mt-1">
+                  Embed your verified technical milestones directly into your GitHub profile <code className="bg-indigo-950 px-1 py-0.5 rounded text-[11px] text-cyan-300">README.md</code> or portfolio.
                 </p>
               </div>
               <button
                 onClick={() => setShowExportModal(false)}
-                className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-100 hover:text-slate-700 transition-colors"
+                className="rounded-xl p-1.5 text-slate-400 hover:bg-indigo-950/60 hover:text-white transition-colors"
               >
                 <X className="h-5 w-5" />
               </button>
             </div>
 
             {/* Active Track Progress Card */}
-            <div className="rounded-2xl border border-emerald-200 bg-emerald-50/50 p-4 space-y-2">
+            <div className="rounded-2xl border border-indigo-900/60 bg-[#0e1438] p-4 space-y-2">
               <div className="flex items-center justify-between text-xs">
-                <span className="font-bold text-slate-900">{activeTrack.title}</span>
-                <span className="font-mono font-bold text-emerald-800">
+                <span className="font-bold text-white">{activeTrack.title}</span>
+                <span className="font-mono font-bold text-cyan-300">
                   {progressCount}/{activeTrack.nodes.length} Nodes Mastered
                 </span>
               </div>
-              <div className="w-full bg-emerald-200/60 rounded-full h-2 overflow-hidden">
+              <div className="w-full bg-[#101533] rounded-full h-2 overflow-hidden border border-indigo-900/40">
                 <div
-                  className="bg-emerald-600 h-full transition-all duration-300"
+                  className="bg-gradient-to-r from-emerald-500 to-cyan-400 h-full transition-all duration-300"
                   style={{ width: `${progressPercentage}%` }}
                 />
               </div>
-              <p className="text-[11px] text-slate-600">
-                PostgreSQL Cloud Ledger: Your node completions are registered under your account.
+              <p className="text-[11px] text-slate-400">
+                Candidate Rank: <span className="text-amber-400 font-bold">{currentRank.name} ({userXp} XP)</span> • Synced to PostgreSQL.
               </p>
             </div>
 
@@ -1072,7 +1893,7 @@ export function InteractiveStudyCanvas() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                 <Button
                   onClick={downloadSkillTreeSvg}
-                  className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow-xs gap-1.5 h-10"
+                  className="bg-gradient-to-r from-indigo-600 to-cyan-600 hover:from-indigo-500 hover:to-cyan-500 text-white font-bold text-xs rounded-xl shadow-lg shadow-indigo-600/20 gap-1.5 h-10 border border-indigo-400/30"
                 >
                   <Download className="h-4 w-4" />
                   <span>Download SVG Tree</span>
@@ -1080,29 +1901,29 @@ export function InteractiveStudyCanvas() {
                 <Button
                   onClick={downloadSkillTreePng}
                   variant="outline"
-                  className="border-slate-300 text-slate-800 hover:bg-slate-100 font-bold text-xs rounded-xl gap-1.5 h-10"
+                  className="border-indigo-900/80 bg-[#101533] text-slate-200 hover:bg-[#161d47] font-bold text-xs rounded-xl gap-1.5 h-10"
                 >
-                  <Download className="h-4 w-4 text-emerald-600" />
+                  <Download className="h-4 w-4 text-cyan-400" />
                   <span>Download PNG (2x Res)</span>
                 </Button>
               </div>
 
               {/* GitHub README Badge Snippet */}
-              <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 space-y-2">
+              <div className="rounded-2xl border border-indigo-900/60 bg-[#0e1438] p-4 space-y-2">
                 <div className="flex items-center justify-between text-xs">
-                  <span className="font-bold text-slate-800 flex items-center gap-1.5">
-                    <FileCode className="h-3.5 w-3.5 text-slate-600" />
+                  <span className="font-bold text-slate-200 flex items-center gap-1.5">
+                    <FileCode className="h-3.5 w-3.5 text-cyan-400" />
                     <span>GitHub README Markdown Badge</span>
                   </span>
                   <button
                     onClick={copyBadgeMarkdown}
-                    className="text-xs font-bold text-emerald-700 hover:text-emerald-900 flex items-center gap-1 transition-colors"
+                    className="text-xs font-bold text-cyan-400 hover:text-cyan-300 flex items-center gap-1 transition-colors"
                   >
-                    {copiedBadge ? <Check className="h-3.5 w-3.5 text-emerald-600" /> : <Copy className="h-3.5 w-3.5" />}
+                    {copiedBadge ? <Check className="h-3.5 w-3.5 text-emerald-400" /> : <Copy className="h-3.5 w-3.5" />}
                     <span>{copiedBadge ? "Copied!" : "Copy Markdown"}</span>
                   </button>
                 </div>
-                <pre className="rounded-xl bg-slate-900 text-slate-200 p-2.5 text-[11px] font-mono overflow-x-auto select-all">
+                <pre className="rounded-xl bg-[#030611] text-cyan-300 p-2.5 text-[11px] font-mono overflow-x-auto select-all border border-indigo-950">
                   <code>{`[![StudyNest Verified Skill Tree](https://img.shields.io/badge/StudyNest-Skills%20Verified-4f46e5?style=for-the-badge&logo=codeforces&logoColor=white)](https://study.rolenest.in/canvas)`}</code>
                 </pre>
               </div>
@@ -1113,7 +1934,7 @@ export function InteractiveStudyCanvas() {
                 variant="outline"
                 size="sm"
                 onClick={() => setShowExportModal(false)}
-                className="text-xs font-bold rounded-xl"
+                className="border-indigo-900 text-slate-300 hover:bg-indigo-950 text-xs font-bold rounded-xl"
               >
                 Close
               </Button>

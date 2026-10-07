@@ -24,7 +24,7 @@ interface StudyProModalProps {
 }
 
 export function StudyProModal({ isOpen, onClose, onActivated }: COURSES_MODAL_PROPS = {} as any) {
-  const [selectedPlan, setSelectedPlan] = useState<"monthly" | "annual" | "lifetime">("annual");
+  const [selectedPlan, setSelectedPlan] = useState<"monthly" | "annual">("annual");
   const [loading, setLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isPro, setIsPro] = useState(false);
@@ -144,7 +144,7 @@ export function StudyProModal({ isOpen, onClose, onActivated }: COURSES_MODAL_PR
             </div>
 
             {/* Plan Picker Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* Monthly */}
               <div
                 onClick={() => setSelectedPlan("monthly")}
@@ -181,39 +181,17 @@ export function StudyProModal({ isOpen, onClose, onActivated }: COURSES_MODAL_PR
                 </div>
                 <div>
                   <div className="text-xs font-bold text-amber-300 flex items-center gap-1">
-                    <span>Annual Pro</span>
+                    <span>Annual Pro Fellow</span>
                     <Sparkles className="h-3 w-3 fill-amber-300 text-amber-300" />
                   </div>
                   <div className="mt-2 text-2xl font-black text-white">
                     ₹999<span className="text-xs text-slate-400 font-normal">/yr</span>
                   </div>
-                  <p className="text-[11px] text-slate-300 mt-1">Only ₹83/month. Perfect for complete campus prep.</p>
+                  <p className="text-[11px] text-slate-300 mt-1">Only ₹83/month. Full access to verifiable diplomas &amp; all tracks.</p>
                 </div>
                 <div className="mt-4 flex items-center gap-1.5 text-[11px] text-amber-300 font-bold">
                   {selectedPlan === "annual" && <Check className="h-3.5 w-3.5" />}
                   <span>Save ₹1,389/yr</span>
-                </div>
-              </div>
-
-              {/* Lifetime */}
-              <div
-                onClick={() => setSelectedPlan("lifetime")}
-                className={`relative rounded-2xl p-4 border transition-all cursor-pointer flex flex-col justify-between ${
-                  selectedPlan === "lifetime"
-                    ? "border-violet-400 bg-violet-950/40 ring-1 ring-violet-400 shadow-lg"
-                    : "border-indigo-950/70 bg-[#0c1020] hover:border-indigo-800"
-                }`}
-              >
-                <div>
-                  <div className="text-xs font-bold text-violet-300">Lifetime Pass</div>
-                  <div className="mt-2 text-2xl font-black text-white">
-                    ₹1,999<span className="text-xs text-slate-400 font-normal"> one-time</span>
-                  </div>
-                  <p className="text-[11px] text-slate-400 mt-1">Pay once, keep lifetime access to all future curricula.</p>
-                </div>
-                <div className="mt-4 flex items-center gap-1.5 text-[11px] text-violet-300 font-semibold">
-                  {selectedPlan === "lifetime" && <Check className="h-3.5 w-3.5" />}
-                  <span>Zero renewals</span>
                 </div>
               </div>
             </div>
@@ -264,7 +242,7 @@ export function StudyProModal({ isOpen, onClose, onActivated }: COURSES_MODAL_PR
                   <>
                     <Crown className="h-4 w-4 fill-current" />
                     <span>
-                      Activate Pro Pass &mdash; {selectedPlan === "monthly" ? "₹199" : selectedPlan === "annual" ? "₹999" : "₹1,999"}
+                      Activate Pro Pass &mdash; {selectedPlan === "monthly" ? "₹199 / mo" : "₹999 / yr"}
                     </span>
                     <ArrowRight className="h-4 w-4 ml-1" />
                   </>

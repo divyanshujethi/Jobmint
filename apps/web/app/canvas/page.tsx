@@ -17,12 +17,11 @@ export const viewport: Viewport = {
 
 export default function CanvasPage() {
   return (
-    <div className="min-h-screen bg-[#070913] text-slate-100 flex flex-col font-sans selection:bg-indigo-500/30">
+    <div className="h-screen bg-[#060814] text-slate-100 flex flex-col font-sans selection:bg-indigo-500/30 overflow-hidden">
       <StudyNavbar />
-      <main className="flex-1 flex flex-col">
+      <main className="flex-1 flex flex-col overflow-hidden relative">
         <InteractiveStudyCanvas />
       </main>
-      <StudyFooter />
     </div>
   );
 }

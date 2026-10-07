@@ -31,10 +31,10 @@ import {
 import { Button } from "./ui/button";
 
 const CATEGORY_COLORS: Record<string, { bg: string; border: string; text: string; ring: string }> = {
-  "AI & ML": { bg: "bg-purple-50", border: "border-purple-300", text: "text-purple-800", ring: "ring-purple-400" },
-  Frontend: { bg: "bg-emerald-50", border: "border-emerald-300", text: "text-emerald-800", ring: "ring-emerald-400" },
-  Databases: { bg: "bg-blue-50", border: "border-blue-300", text: "text-blue-800", ring: "ring-blue-400" },
-  "Systems & Cloud": { bg: "bg-amber-50", border: "border-amber-300", text: "text-amber-800", ring: "ring-amber-400" },
+  "AI & ML": { bg: "bg-purple-950/60", border: "border-purple-500/40", text: "text-purple-300", ring: "ring-purple-400/30" },
+  Frontend: { bg: "bg-emerald-950/60", border: "border-emerald-500/40", text: "text-emerald-300", ring: "ring-emerald-400/30" },
+  Databases: { bg: "bg-blue-950/60", border: "border-blue-500/40", text: "text-blue-300", ring: "ring-blue-400/30" },
+  "Systems & Cloud": { bg: "bg-amber-950/60", border: "border-amber-500/40", text: "text-amber-300", ring: "ring-amber-400/30" },
 };
 
 export function KnowledgeGraphView() {
@@ -240,12 +240,12 @@ export function KnowledgeGraphView() {
   const totalXP = masteredNodeIds.size * 25;
 
   return (
-    <div className="relative flex-1 flex flex-col overflow-hidden bg-slate-50 select-none">
+    <div className="relative flex-1 flex flex-col overflow-hidden bg-[#060814] text-slate-100 select-none">
       {/* Top Filter and Stats Bar */}
-      <div className="flex flex-wrap items-center justify-between border-b border-slate-200 bg-white/90 px-6 py-2.5 backdrop-blur-md z-10 gap-3">
+      <div className="flex flex-wrap items-center justify-between border-b border-indigo-950 bg-[#0a0e22]/95 px-6 py-2.5 backdrop-blur-md z-10 gap-3">
         <div className="flex items-center gap-2 overflow-x-auto py-0.5">
-          <span className="text-xs font-bold text-slate-500 flex items-center gap-1 shrink-0">
-            <Filter className="h-3.5 w-3.5" /> Cluster:
+          <span className="text-xs font-bold text-slate-400 flex items-center gap-1 shrink-0 font-mono">
+            <Filter className="h-3.5 w-3.5 text-indigo-400" /> Cluster:
           </span>
           {categories.map((cat) => (
             <button
@@ -253,8 +253,8 @@ export function KnowledgeGraphView() {
               onClick={() => setSelectedCategory(cat)}
               className={`rounded-xl px-3 py-1 text-xs font-bold transition-all shrink-0 ${
                 selectedCategory === cat
-                  ? "bg-emerald-600 text-white shadow-xs"
-                  : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                  ? "bg-indigo-600 text-white shadow-xs"
+                  : "bg-[#0f142c] text-slate-400 hover:text-white border border-indigo-950"
               }`}
             >
               {cat}
@@ -262,14 +262,14 @@ export function KnowledgeGraphView() {
           ))}
         </div>
 
-        <div className="flex items-center gap-4 text-xs font-semibold text-slate-700">
-          <div className="flex items-center gap-1.5 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full text-emerald-800">
-            <Award className="h-3.5 w-3.5 text-emerald-600" />
+        <div className="flex items-center gap-4 text-xs font-semibold text-slate-300">
+          <div className="flex items-center gap-1.5 bg-emerald-500/10 border border-emerald-500/30 px-3 py-1 rounded-full text-emerald-300 font-mono">
+            <Award className="h-3.5 w-3.5 text-emerald-400" />
             <span>Mastery XP: <strong>{totalXP} XP</strong></span>
           </div>
-          <span className="text-slate-400">•</span>
-          <span className="text-slate-500">
-            Mastered: <strong className="text-slate-900">{masteredNodeIds.size} / {KNOWLEDGE_GRAPH_NODES.length}</strong> Concepts
+          <span className="text-slate-600">•</span>
+          <span className="text-slate-400 font-mono">
+            Mastered: <strong className="text-white">{masteredNodeIds.size} / {KNOWLEDGE_GRAPH_NODES.length}</strong> Concepts
           </span>
         </div>
       </div>
@@ -281,7 +281,7 @@ export function KnowledgeGraphView() {
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={() => (touchStartRef.current = { x: 0, y: 0 })}
-        className="relative flex-1 cursor-grab active:cursor-grabbing overflow-hidden bg-slate-50 bg-[radial-gradient(#cbd5e1_1.5px,transparent_1.5px)] [background-size:24px_24px]"
+        className="relative flex-1 cursor-grab active:cursor-grabbing overflow-hidden bg-[#060814] bg-[radial-gradient(#1e2746_1.5px,transparent_1.5px)] [background-size:28px_28px]"
       >
         <div
           style={{
@@ -350,12 +350,12 @@ export function KnowledgeGraphView() {
                   left: `${node.x - (node.importance === 3 ? 88 : 80)}px`,
                   top: `${node.y - 35}px`,
                 }}
-                className={`graph-node absolute rounded-2xl border-2 bg-white shadow-sm transition-all duration-200 cursor-pointer ${nodeRadius} ${
+                className={`graph-node absolute rounded-2xl border-2 bg-[#0c1024]/95 shadow-xl transition-all duration-200 cursor-pointer ${nodeRadius} ${
                   isSelected
-                    ? "border-emerald-600 ring-4 ring-emerald-500/20 shadow-lg scale-105 z-30"
+                    ? "border-indigo-400 ring-4 ring-indigo-500/20 shadow-2xl scale-105 z-30"
                     : isHovered
-                    ? "border-emerald-400 shadow-md scale-102 z-20"
-                    : "border-slate-200 hover:border-emerald-300 hover:shadow-xs"
+                    ? "border-indigo-500/80 shadow-indigo-500/20 scale-102 z-20"
+                    : "border-indigo-950/80 hover:border-indigo-700 hover:shadow-md"
                 }`}
               >
                 <div className="flex items-center justify-between mb-1.5">
@@ -365,15 +365,15 @@ export function KnowledgeGraphView() {
                     {node.category}
                   </span>
                   {isMastered && (
-                    <CheckCircle2 className="h-4 w-4 text-emerald-600 fill-emerald-100" />
+                    <CheckCircle2 className="h-4 w-4 text-emerald-400 fill-emerald-950" />
                   )}
                 </div>
 
-                <h4 className="text-xs font-black text-slate-900 leading-tight">
+                <h4 className="text-xs font-black text-white leading-tight">
                   {node.label}
                 </h4>
 
-                <p className="text-[10px] text-slate-500 mt-1 line-clamp-2 leading-relaxed">
+                <p className="text-[10px] text-slate-400 mt-1 line-clamp-2 leading-relaxed">
                   {node.summary}
                 </p>
               </div>
@@ -382,28 +382,28 @@ export function KnowledgeGraphView() {
         </div>
 
         {/* Viewport Floating Controls */}
-        <div className="absolute bottom-6 right-6 flex items-center gap-1.5 rounded-2xl border border-slate-200 bg-white/90 p-1.5 shadow-lg backdrop-blur-md z-20">
+        <div className="absolute bottom-6 right-6 flex items-center gap-1.5 rounded-2xl border border-indigo-950 bg-[#0a0e22]/90 p-1.5 shadow-xl backdrop-blur-md z-20">
           <button
             onClick={() => setScale((s) => Math.min(1.8, s + 0.15))}
-            className="rounded-xl p-2 text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors"
+            className="rounded-xl p-2 text-slate-400 hover:bg-slate-800 hover:text-white transition-colors"
             title="Zoom In"
           >
             <ZoomIn className="h-4 w-4" />
           </button>
           <button
             onClick={() => setScale((s) => Math.max(0.4, s - 0.15))}
-            className="rounded-xl p-2 text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors"
+            className="rounded-xl p-2 text-slate-400 hover:bg-slate-800 hover:text-white transition-colors"
             title="Zoom Out"
           >
             <ZoomOut className="h-4 w-4" />
           </button>
-          <div className="h-4 w-px bg-slate-200 mx-0.5" />
+          <div className="h-4 w-px bg-indigo-950 mx-0.5" />
           <button
             onClick={() => {
               setScale(0.9);
               setPan({ x: 80, y: 40 });
             }}
-            className="rounded-xl p-2 text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors"
+            className="rounded-xl p-2 text-slate-400 hover:bg-slate-800 hover:text-white transition-colors"
             title="Reset Graph Center"
           >
             <Maximize2 className="h-4 w-4" />
@@ -413,27 +413,27 @@ export function KnowledgeGraphView() {
 
       {/* Interactive Concept Deep-Dive Drawer */}
       {selectedNode && (
-        <div className="drawer-content absolute right-0 top-0 bottom-0 w-full sm:w-[480px] bg-white border-l border-slate-200 shadow-2xl z-40 overflow-y-auto flex flex-col animate-in slide-in-from-right duration-200">
+        <div className="drawer-content absolute right-0 top-0 bottom-0 w-full sm:w-[480px] bg-[#090d20] border-l border-indigo-950 shadow-2xl z-40 overflow-y-auto flex flex-col animate-in slide-in-from-right duration-200 text-slate-100">
           {/* Drawer Header */}
-          <div className="p-6 border-b border-slate-200 bg-slate-50/50 sticky top-0 backdrop-blur-md z-10 flex items-start justify-between gap-4">
+          <div className="p-6 border-b border-indigo-950 bg-[#0c1024]/80 sticky top-0 backdrop-blur-md z-10 flex items-start justify-between gap-4">
             <div>
               <div className="flex items-center gap-2 mb-1.5">
-                <span className="rounded-full bg-emerald-100 text-emerald-800 px-2.5 py-0.5 text-[10px] font-bold font-mono">
+                <span className="rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 px-2.5 py-0.5 text-[10px] font-bold font-mono">
                   {selectedNode.category}
                 </span>
                 {masteredNodeIds.has(selectedNode.id) && (
-                  <span className="rounded-full bg-emerald-600 text-white px-2 py-0.5 text-[9px] font-bold flex items-center gap-1">
+                  <span className="rounded-full bg-emerald-600 text-white px-2 py-0.5 text-[9px] font-bold flex items-center gap-1 font-mono">
                     <CheckCircle2 className="h-3 w-3" /> Mastered (+25 XP)
                   </span>
                 )}
               </div>
-              <h2 className="text-xl font-black text-slate-900 leading-tight">
+              <h2 className="text-xl font-black text-white leading-tight">
                 {selectedNode.label}
               </h2>
             </div>
             <button
               onClick={() => setSelectedNode(null)}
-              className="rounded-xl p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-200 transition-colors"
+              className="rounded-xl p-1.5 text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
             >
               <X className="h-5 w-5" />
             </button>
@@ -441,39 +441,39 @@ export function KnowledgeGraphView() {
 
           <div className="p-6 space-y-6 flex-1">
             {/* 60-Second Mental Model */}
-            <div className="rounded-2xl border border-emerald-200 bg-emerald-50/60 p-4 space-y-2">
-              <div className="flex items-center gap-2 text-xs font-bold text-emerald-900 uppercase tracking-wider font-mono">
-                <Sparkles className="h-4 w-4 text-emerald-600" />
+            <div className="rounded-2xl border border-indigo-900/60 bg-indigo-950/30 p-4 space-y-2">
+              <div className="flex items-center gap-2 text-xs font-bold text-indigo-300 uppercase tracking-wider font-mono">
+                <Sparkles className="h-4 w-4 text-indigo-400" />
                 <span>60-Second Intuitive Mental Model</span>
               </div>
-              <p className="text-xs text-emerald-950 font-medium leading-relaxed">
+              <p className="text-xs text-slate-200 font-medium leading-relaxed">
                 {selectedNode.mentalModel}
               </p>
             </div>
 
             {/* Technical Summary */}
             <div className="space-y-1.5">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 font-mono">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 font-mono">
                 Engineering Specification
               </h3>
-              <p className="text-xs text-slate-700 leading-relaxed font-normal">
+              <p className="text-xs text-slate-300 leading-relaxed font-normal">
                 {selectedNode.summary}
               </p>
             </div>
 
             {/* Interactive Knowledge Check (Quiz) */}
-            <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm space-y-3.5">
+            <div className="rounded-2xl border border-indigo-950 bg-[#0c1024]/90 p-4 shadow-sm space-y-3.5">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5 font-mono">
-                  <BookOpen className="h-4 w-4 text-emerald-600" />
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-200 flex items-center gap-1.5 font-mono">
+                  <BookOpen className="h-4 w-4 text-indigo-400" />
                   <span>Interactive Knowledge Check</span>
                 </span>
-                <span className="rounded bg-slate-100 text-slate-600 px-2 py-0.5 text-[10px] font-bold font-mono">
+                <span className="rounded bg-indigo-950/60 text-indigo-300 border border-indigo-900/50 px-2 py-0.5 text-[10px] font-bold font-mono">
                   +25 XP
                 </span>
               </div>
 
-              <p className="text-xs font-bold text-slate-900 leading-snug">
+              <p className="text-xs font-bold text-white leading-snug">
                 {selectedNode.interactiveQuiz.question}
               </p>
 
@@ -482,14 +482,14 @@ export function KnowledgeGraphView() {
                   const isCorrect = idx === selectedNode.interactiveQuiz.correctIndex;
                   const isSelected = quizAnswer === idx;
 
-                  let optionStyle = "border-slate-200 hover:border-slate-300 hover:bg-slate-50 text-slate-700";
+                  let optionStyle = "border-indigo-950/80 hover:border-indigo-700 hover:bg-[#0f142c] text-slate-300";
                   if (hasSubmittedQuiz) {
                     if (isCorrect) {
-                      optionStyle = "border-emerald-500 bg-emerald-50 text-emerald-950 font-bold";
+                      optionStyle = "border-emerald-500 bg-emerald-950/40 text-emerald-200 font-bold";
                     } else if (isSelected && !isCorrect) {
-                      optionStyle = "border-red-400 bg-red-50 text-red-950 font-medium";
+                      optionStyle = "border-red-500 bg-red-950/40 text-red-200 font-medium";
                     } else {
-                      optionStyle = "border-slate-200 opacity-50 text-slate-500";
+                      optionStyle = "border-indigo-950/40 opacity-40 text-slate-500";
                     }
                   }
 
@@ -500,15 +500,15 @@ export function KnowledgeGraphView() {
                       disabled={hasSubmittedQuiz}
                       className={`w-full text-left rounded-xl border p-2.5 text-xs transition-all flex items-start gap-2.5 ${optionStyle}`}
                     >
-                      <span className="font-mono text-[11px] font-bold shrink-0 mt-0.5">
+                      <span className="font-mono text-[11px] font-bold shrink-0 mt-0.5 text-indigo-400">
                         {String.fromCharCode(65 + idx)}.
                       </span>
                       <span className="leading-relaxed flex-1">{opt}</span>
                       {hasSubmittedQuiz && isCorrect && (
-                        <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
+                        <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0" />
                       )}
                       {hasSubmittedQuiz && isSelected && !isCorrect && (
-                        <XCircle className="h-4 w-4 text-red-500 shrink-0" />
+                        <XCircle className="h-4 w-4 text-red-400 shrink-0" />
                       )}
                     </button>
                   );
@@ -516,9 +516,9 @@ export function KnowledgeGraphView() {
               </div>
 
               {hasSubmittedQuiz && (
-                <div className="rounded-xl bg-slate-50 p-3 border border-slate-200 text-xs space-y-1">
-                  <span className="font-bold text-slate-900 block">Explanation:</span>
-                  <p className="text-slate-600 leading-relaxed text-[11px]">
+                <div className="rounded-xl bg-[#090d1f] p-3 border border-indigo-950 text-xs space-y-1">
+                  <span className="font-bold text-indigo-300 block font-mono">Explanation:</span>
+                  <p className="text-slate-300 leading-relaxed text-[11px]">
                     {selectedNode.interactiveQuiz.explanation}
                   </p>
                 </div>
@@ -528,50 +528,51 @@ export function KnowledgeGraphView() {
             {/* Code Blueprint Pattern */}
             {selectedNode.codeSnippet && (
               <div className="space-y-2">
-                <div className="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-slate-700 font-mono">
+                <div className="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-slate-300 font-mono">
                   <span className="flex items-center gap-1.5">
-                    <Code2 className="h-4 w-4 text-emerald-600" />
+                    <Code2 className="h-4 w-4 text-indigo-400" />
                     <span>Production Code Pattern</span>
                   </span>
                   <button
                     onClick={() => copySnippet(selectedNode.codeSnippet!)}
-                    className="flex items-center gap-1 text-[11px] text-slate-500 hover:text-emerald-600 transition-colors lowercase font-mono"
+                    className="flex items-center gap-1 text-[11px] text-slate-400 hover:text-white transition-colors lowercase font-mono"
                   >
-                    {copiedCode ? <Check className="h-3.5 w-3.5 text-emerald-600" /> : <Copy className="h-3.5 w-3.5" />}
+                    {copiedCode ? <Check className="h-3.5 w-3.5 text-emerald-400" /> : <Copy className="h-3.5 w-3.5" />}
                     <span>{copiedCode ? "copied!" : "copy"}</span>
                   </button>
                 </div>
-                <pre className="rounded-xl bg-slate-900 text-slate-100 p-3.5 text-xs font-mono overflow-x-auto leading-relaxed border border-slate-800 shadow-inner">
+                <pre className="rounded-xl bg-[#060814] text-slate-100 p-3.5 text-xs font-mono overflow-x-auto leading-relaxed border border-indigo-950 shadow-inner">
                   <code>{selectedNode.codeSnippet}</code>
                 </pre>
               </div>
             )}
 
-            {/* Live Job Demand Matching */}
-            <div className="rounded-2xl border border-slate-200 bg-white p-4 space-y-3">
+            {/* Industry Screening Competency Matching */}
+            <div className="rounded-2xl border border-indigo-950 bg-[#0c1024]/90 p-4 space-y-3">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-slate-900 flex items-center gap-2">
-                  <Briefcase className="h-4 w-4 text-emerald-600" />
-                  <span>Live Job Matching</span>
+                <span className="text-xs font-bold text-white flex items-center gap-2">
+                  <Briefcase className="h-4 w-4 text-indigo-400" />
+                  <span>Curriculum Milestone</span>
                 </span>
-                <span className="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
-                  Hiring Now
+                <span className="text-[11px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/30 font-mono">
+                  High Demand
                 </span>
               </div>
-              <p className="text-xs text-slate-600">
-                Explore real verified companies hiring for <strong>{selectedNode.matchingSkill}</strong> on Role Nest.
+              <p className="text-xs text-slate-300">
+                Master <strong>{selectedNode.matchingSkill}</strong> on StudyNest Academy to prepare for senior engineering interviews.
               </p>
-              <Link href={`/jobs?q=${encodeURIComponent(selectedNode.matchingSkill)}`}>
-                <Button className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs h-9">
-                  View Matching Jobs for {selectedNode.matchingSkill}
-                  <ArrowRight className="h-3.5 w-3.5 ml-1.5" />
-                </Button>
-              </Link>
+              <button
+                onClick={() => setSelectedNode(null)}
+                className="w-full rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs h-9 flex items-center justify-center gap-1.5 shadow-md shadow-indigo-600/20"
+              >
+                <span>Continue Spatial Exploration</span>
+                <ArrowRight className="h-3.5 w-3.5" />
+              </button>
             </div>
 
             {/* Personal Study Notes */}
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-slate-700 block font-mono uppercase tracking-wider">
+              <label className="text-xs font-bold text-slate-400 block font-mono uppercase tracking-wider">
                 Personal Study Notes (Auto-saved)
               </label>
               <textarea
@@ -579,7 +580,7 @@ export function KnowledgeGraphView() {
                 onChange={(e) => handleNoteChange(e.target.value)}
                 placeholder="Jot down personal interview takeaways, mental mnemonics..."
                 rows={3}
-                className="w-full rounded-xl border border-slate-200 p-3 text-xs text-slate-800 placeholder:text-slate-400 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+                className="w-full rounded-xl border border-indigo-950 bg-[#070914] p-3 text-xs text-slate-200 placeholder:text-slate-500 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
               />
             </div>
           </div>
