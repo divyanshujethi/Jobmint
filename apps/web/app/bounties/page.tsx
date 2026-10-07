@@ -28,78 +28,112 @@ import {
   MapPin,
   Flame,
   Wallet,
+  Percent,
+  BadgeCheck,
+  Lock,
+  Mail,
+  UserCheck,
+  HelpCircle,
+  Info,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { FriendReferralBounty } from "@/lib/bounties-data";
+import { EmployeeHostedBounty, VERIFIED_EMPLOYEE_BOUNTIES } from "@/lib/bounties-data";
 
 export default function BountyNestPage() {
-  const [bounties, setBounties] = useState<FriendReferralBounty[]>([]);
-  const [totalCatalog, setTotalCatalog] = useState<number>(115001);
+  const [bounties, setBounties] = useState<EmployeeHostedBounty[]>(VERIFIED_EMPLOYEE_BOUNTIES);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedDept, setSelectedDept] = useState<string>("ALL");
   const [selectedExp, setSelectedExp] = useState<string>("ALL");
-  const [activeReferBounty, setActiveReferBounty] = useState<FriendReferralBounty | null>(null);
-  const [referSubmitted, setReferSubmitted] = useState(false);
-  const [copiedLinkBountyId, setCopiedLinkBountyId] = useState<string | null>(null);
 
-  // Custom Job Referral Modal / Form State
-  const [showCustomReferModal, setShowCustomReferModal] = useState(false);
-  const [customJobTitle, setCustomJobTitle] = useState("");
-  const [customCompanyName, setCustomCompanyName] = useState("");
-  const [customJobUrl, setCustomJobUrl] = useState("");
+  // Referral Invite (Refer a Friend for 1 Week Free Pro)
+  const [myReferralCode, setMyReferralCode] = useState<string>("PRO7DAY");
+  const [copiedInvite, setCopiedInvite] = useState(false);
+  const [invitedFriendsCount, setInvitedFriendsCount] = useState(2);
 
-  // Form states for Refer a Friend
-  const [referrerName, setReferrerName] = useState("");
-  const [referrerEmail, setReferrerEmail] = useState("");
-  const [referrerUpi, setReferrerUpi] = useState("");
-  const [referrerPhone, setReferrerPhone] = useState("");
-  const [friendName, setFriendName] = useState("");
-  const [friendEmail, setFriendEmail] = useState("");
-  const [friendPhone, setFriendPhone] = useState("");
-  const [friendGithubUrl, setFriendGithubUrl] = useState("");
-  const [friendResumeUrl, setFriendResumeUrl] = useState("");
-  const [recommendationNote, setRecommendationNote] = useState("");
-  const [isSubmittingReferral, setIsSubmittingReferral] = useState(false);
-  const [referralError, setReferralError] = useState<string | null>(null);
+  // Candidate Apply / Request Referral Modal
+  const [activeReferBounty, setActiveReferBounty] = useState<EmployeeHostedBounty | null>(null);
+  const [candidateName, setCandidateName] = useState("");
+  const [candidateEmail, setCandidateEmail] = useState("");
+  const [candidatePhone, setCandidatePhone] = useState("");
+  const [candidateGithubUrl, setCandidateGithubUrl] = useState("");
+  const [candidateResumeUrl, setCandidateResumeUrl] = useState("");
+  const [devScore, setDevScore] = useState("840");
+  const [pitchNote, setPitchNote] = useState("");
+  const [isSubmittingRequest, setIsSubmittingRequest] = useState(false);
+  const [requestSuccess, setRequestSuccess] = useState(false);
+  const [requestError, setRequestError] = useState<string | null>(null);
 
-  // Track My Referrals state
+  // Employee "Host a Referral Slot" Modal
+  const [showHostModal, setShowHostModal] = useState(false);
+  const [hostCompanyName, setHostCompanyName] = useState("");
+  const [hostWorkEmail, setHostWorkEmail] = useState("");
+  const [hostTitle, setHostTitle] = useState("");
+  const [hostRoleTitle, setHostRoleTitle] = useState("");
+  const [hostDepartment, setHostDepartment] = useState<any>("Backend");
+  const [hostCompanyBonusInr, setHostCompanyBonusInr] = useState("60000");
+  const [hostCandidateShareInr, setHostCandidateShareInr] = useState("25000");
+  const [hostExperience, setHostExperience] = useState<any>("1-3 YRS");
+  const [hostLocation, setHostLocation] = useState("Bangalore • Hybrid");
+  const [hostSkills, setHostSkills] = useState("Go, Microservices, Kafka, Redis");
+  const [hostDescription, setHostDescription] = useState("");
+  const [isSubmittingHost, setIsSubmittingHost] = useState(false);
+  const [hostSuccess, setHostSuccess] = useState(false);
+  const [hostError, setHostError] = useState<string | null>(null);
+
+  // Track My Referral Requests Modal
   const [showTrackerModal, setShowTrackerModal] = useState(false);
   const [trackerEmail, setTrackerEmail] = useState("");
-  const [myReferrals, setMyReferrals] = useState<any[]>([]);
-  const [isSearchingReferrals, setIsSearchingReferrals] = useState(false);
-  const [hasSearchedReferrals, setHasSearchedReferrals] = useState(false);
+  const [myApplications, setMyApplications] = useState<any[]>([]);
+  const [isSearchingApps, setIsSearchingApps] = useState(false);
+  const [hasSearchedApps, setHasSearchedApps] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
     fetch("/api/bounties")
       .then((res) => res.json())
       .then((data) => {
-        if (data?.bounties && Array.isArray(data.bounties)) {
+        if (data?.bounties && Array.isArray(data.bounties) && data.bounties.length > 0) {
           setBounties(data.bounties);
         }
-        if (typeof data?.totalCatalog === "number" && data.totalCatalog > 0) {
-          setTotalCatalog(data.totalCatalog);
-        }
       })
-      .catch((err) => console.error("Notice loading live bounties from API:", err))
+      .catch((err) => console.error("Error loading employee bounties:", err))
       .finally(() => setIsLoading(false));
 
     try {
-      const savedEmail = localStorage.getItem("rolenest_referrer_email");
-      if (savedEmail) setReferrerEmail(savedEmail);
-      const savedName = localStorage.getItem("rolenest_referrer_name");
-      if (savedName) setReferrerName(savedName);
-      const savedUpi = localStorage.getItem("rolenest_referrer_upi");
-      if (savedUpi) setReferrerUpi(savedUpi);
+      const savedEmail = localStorage.getItem("rolenest_user_email");
+      if (savedEmail) {
+        setCandidateEmail(savedEmail);
+        setMyReferralCode(savedEmail.split("@")[0].toUpperCase().slice(0, 8));
+      } else {
+        const randomCode = "NEST" + Math.floor(1000 + Math.random() * 9000);
+        setMyReferralCode(randomCode);
+      }
+      const savedName = localStorage.getItem("rolenest_user_name");
+      if (savedName) setCandidateName(savedName);
     } catch {}
   }, []);
 
-  const handleReferSubmit = async (e: React.FormEvent) => {
+  const handleCopyInviteLink = () => {
+    const inviteUrl = `https://rolenest.in/register?ref=${myReferralCode}`;
+    navigator.clipboard.writeText(inviteUrl);
+    setCopiedInvite(true);
+    setTimeout(() => setCopiedInvite(false), 2500);
+  };
+
+  const handleShareWhatsApp = () => {
+    const inviteUrl = `https://rolenest.in/register?ref=${myReferralCode}`;
+    const text = encodeURIComponent(
+      `Hey! Sign up on RoleNest using my invite code ${myReferralCode} to get 1 Week Free Pro Subscription (unlimited AI mock roadmaps & verified jobs): ${inviteUrl}`
+    );
+    window.open(`https://api.whatsapp.com/send?text=${text}`, "_blank");
+  };
+
+  const handleCandidateRequestSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!activeReferBounty) return;
-    setIsSubmittingReferral(true);
-    setReferralError(null);
+    setIsSubmittingRequest(true);
+    setRequestError(null);
 
     try {
       const res = await fetch("/api/bounties/request", {
@@ -109,109 +143,83 @@ export default function BountyNestPage() {
           bountyId: activeReferBounty.id,
           companyName: activeReferBounty.companyName,
           roleTitle: activeReferBounty.roleTitle,
-          bountyRewardInr: activeReferBounty.bountyRewardInr,
-          referrerName,
-          referrerEmail,
-          referrerPhone,
-          referrerUpi,
-          friendName,
-          friendEmail,
-          friendPhone,
-          friendGithubUrl,
-          friendResumeUrl,
-          recommendationNote,
+          candidateName,
+          candidateEmail,
+          candidatePhone,
+          candidateGithubUrl,
+          candidateResumeUrl,
+          devScore: Number(devScore) || 800,
+          pitchNote,
         }),
       });
       const data = await res.json();
       if (!res.ok) {
-        throw new Error(data.error || "Failed to submit friend referral");
+        throw new Error(data.error || "Failed to submit referral application");
       }
-
       try {
-        localStorage.setItem("rolenest_referrer_email", referrerEmail);
-        localStorage.setItem("rolenest_referrer_name", referrerName);
-        localStorage.setItem("rolenest_referrer_upi", referrerUpi);
+        localStorage.setItem("rolenest_user_email", candidateEmail);
+        localStorage.setItem("rolenest_user_name", candidateName);
       } catch {}
-
-      setReferSubmitted(true);
+      setRequestSuccess(true);
     } catch (err: any) {
-      setReferralError(err.message || "Failed to submit referral");
+      setRequestError(err.message || "Failed to submit referral application");
     } finally {
-      setIsSubmittingReferral(false);
+      setIsSubmittingRequest(false);
     }
   };
 
-  const handleCustomReferSubmit = async (e: React.FormEvent) => {
+  const handleHostBountySubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!customJobTitle.trim() || !friendName.trim() || !friendEmail.trim() || !referrerEmail.trim() || !referrerUpi.trim()) {
-      return;
-    }
-
-    setIsSubmittingReferral(true);
-    setReferralError(null);
+    setIsSubmittingHost(true);
+    setHostError(null);
 
     try {
-      const res = await fetch("/api/bounties/request", {
+      const res = await fetch("/api/bounties", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          bountyId: `custom-job-${Date.now()}`,
-          companyName: customCompanyName.trim() || "RoleNest Partner",
-          roleTitle: customJobTitle.trim(),
-          bountyRewardInr: 25000,
-          referrerName,
-          referrerEmail,
-          referrerPhone,
-          referrerUpi,
-          friendName,
-          friendEmail,
-          friendPhone,
-          friendGithubUrl,
-          friendResumeUrl: customJobUrl ? `${customJobUrl} | ${friendResumeUrl}` : friendResumeUrl,
-          recommendationNote,
+          companyName: hostCompanyName,
+          companyEmail: hostWorkEmail,
+          hostTitle,
+          roleTitle: hostRoleTitle,
+          department: hostDepartment,
+          companyBonusInr: hostCompanyBonusInr,
+          candidateShareInr: hostCandidateShareInr,
+          experienceLevel: hostExperience,
+          location: hostLocation,
+          keySkills: hostSkills.split(",").map((s) => s.trim()).filter(Boolean),
+          description: hostDescription,
         }),
       });
       const data = await res.json();
       if (!res.ok) {
-        throw new Error(data.error || "Failed to submit custom referral");
+        throw new Error(data.error || "Failed to host referral slot");
       }
-
-      try {
-        localStorage.setItem("rolenest_referrer_email", referrerEmail);
-        localStorage.setItem("rolenest_referrer_name", referrerName);
-        localStorage.setItem("rolenest_referrer_upi", referrerUpi);
-      } catch {}
-
-      setReferSubmitted(true);
+      setHostSuccess(true);
+      if (data.bounty) {
+        setBounties((prev) => [data.bounty, ...prev]);
+      }
     } catch (err: any) {
-      setReferralError(err.message || "Failed to submit custom referral");
+      setHostError(err.message || "Failed to host referral slot");
     } finally {
-      setIsSubmittingReferral(false);
+      setIsSubmittingHost(false);
     }
   };
 
-  const copyReferralLink = (bounty: FriendReferralBounty) => {
-    const userRef = referrerEmail ? encodeURIComponent(referrerEmail.split("@")[0]) : "community";
-    const shareUrl = `https://rolenest.in/jobs/${bounty.jobSlug}?ref=${userRef}`;
-    navigator.clipboard.writeText(shareUrl);
-    setCopiedLinkBountyId(bounty.id);
-    setTimeout(() => setCopiedLinkBountyId(null), 2500);
-  };
-
-  const handleTrackReferrals = async (e: React.FormEvent) => {
+  const handleTrackApps = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!trackerEmail.trim()) return;
-    setIsSearchingReferrals(true);
+    setIsSearchingApps(true);
     try {
       const res = await fetch(`/api/bounties/request?email=${encodeURIComponent(trackerEmail.trim())}`);
       const data = await res.json();
-      setMyReferrals(data.referrals || []);
-      setHasSearchedReferrals(true);
+      setMyApplications(data.applications || []);
+      setHasSearchedApps(true);
     } catch {
-      setMyReferrals([]);
-      setHasSearchedReferrals(true);
+      setMyApplications([]);
+      setHasSearchedApps(true);
     } finally {
-      setIsSearchingReferrals(false);
+      setIsSearchingApps(false);
     }
   };
 
@@ -235,813 +243,768 @@ export default function BountyNestPage() {
     });
   }, [bounties, searchTerm, selectedDept, selectedExp]);
 
-  const totalPoolInr = useMemo(() => {
-    return bounties.reduce((sum, b) => sum + b.bountyRewardInr * (b.openPositions || 1), 0);
+  const totalBonusPool = useMemo(() => {
+    return bounties.reduce((sum, b) => sum + b.employeeBonusInr * b.openSlots, 0);
   }, [bounties]);
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 font-sans">
-      {/* HERO HEADER */}
+      {/* SECTION 1: REFER A FRIEND TO ROLENEST -> GET 1 WEEK FREE PRO SUBSCRIPTION */}
+      <div className="rounded-3xl border border-indigo-200 bg-gradient-to-br from-indigo-900 via-indigo-950 to-slate-900 p-6 sm:p-8 text-white shadow-xl relative overflow-hidden mb-12">
+        <div className="absolute top-0 right-0 -mt-10 -mr-10 h-64 w-64 rounded-full bg-indigo-500/10 blur-3xl pointer-events-none" />
+        
+        <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-8">
+          <div className="space-y-3 max-w-2xl">
+            <div className="inline-flex items-center gap-2 rounded-full bg-amber-400/20 px-3.5 py-1 text-xs font-bold text-amber-300 border border-amber-400/30">
+              <Gift className="h-4 w-4 text-amber-300" />
+              REFER A FRIEND VIRAL PROGRAM
+            </div>
+
+            <h1 className="text-3xl sm:text-4xl font-black text-white tracking-tight">
+              Refer RoleNest to a Friend &amp; Get 1 Week Free Pro!
+            </h1>
+
+            <p className="text-sm sm:text-base text-indigo-100/90 leading-relaxed font-medium">
+              Share your invite link with college friends or developer peers. When they sign up on RoleNest, <strong className="text-amber-300 font-bold">both of you instantly unlock 7 Days of Free Pro Subscription</strong> — including full roadmap source code, AI system reviews, and prioritized job feeds!
+            </p>
+
+            <div className="flex flex-wrap items-center gap-4 pt-2">
+              <div className="flex items-center gap-2 bg-indigo-950/80 border border-indigo-700/60 rounded-xl px-3.5 py-2">
+                <Users className="h-4 w-4 text-indigo-400" />
+                <span className="text-xs text-indigo-200">Your Referred Friends: <strong className="text-white font-bold">{invitedFriendsCount} Friends</strong></span>
+              </div>
+              <div className="flex items-center gap-2 bg-emerald-950/80 border border-emerald-700/60 rounded-xl px-3.5 py-2">
+                <Award className="h-4 w-4 text-emerald-400" />
+                <span className="text-xs text-emerald-200">Pro Days Earned: <strong className="text-emerald-300 font-bold">14 Days Free</strong></span>
+              </div>
+            </div>
+          </div>
+
+          {/* SHARE CARD */}
+          <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-5 sm:p-6 w-full lg:w-96 shrink-0 shadow-lg space-y-4">
+            <div className="text-xs font-bold uppercase tracking-wider text-indigo-200 flex items-center justify-between">
+              <span>Your Personal Invite Link</span>
+              <span className="font-mono text-amber-300">CODE: {myReferralCode}</span>
+            </div>
+
+            <div className="flex items-center gap-2 bg-slate-900/80 border border-indigo-500/40 rounded-xl p-2.5">
+              <input
+                type="text"
+                readOnly
+                value={`https://rolenest.in/register?ref=${myReferralCode}`}
+                className="bg-transparent text-xs text-white font-mono flex-1 outline-none select-all"
+              />
+              <button
+                onClick={handleCopyInviteLink}
+                className="flex items-center gap-1 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg px-2.5 py-1 text-xs font-bold transition-colors"
+              >
+                {copiedInvite ? (
+                  <>
+                    <Check className="h-3.5 w-3.5 text-emerald-300" />
+                    Copied
+                  </>
+                ) : (
+                  <>
+                    <Copy className="h-3.5 w-3.5" />
+                    Copy
+                  </>
+                )}
+              </button>
+            </div>
+
+            <div className="grid grid-cols-2 gap-2.5 pt-1">
+              <Button
+                onClick={handleShareWhatsApp}
+                className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs gap-1.5 w-full h-10 shadow-sm"
+              >
+                <MessageCircle className="h-4 w-4" />
+                WhatsApp Share
+              </Button>
+              <Button
+                onClick={handleCopyInviteLink}
+                variant="outline"
+                className="border-white/30 text-white hover:bg-white/10 bg-transparent font-bold text-xs gap-1.5 w-full h-10"
+              >
+                <Share2 className="h-4 w-4" />
+                Share Link
+              </Button>
+            </div>
+
+            <p className="text-[11px] text-indigo-200/80 text-center leading-tight">
+              🎁 Give 7 Days Pro to your friend, get 7 Days Pro credited instantly to your account.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* SECTION 2: EMPLOYEE-HOSTED REFERRAL BOUNTIES MARKETPLACE */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-slate-200 pb-8">
         <div>
           <div className="flex items-center gap-2">
-            <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-amber-100 text-amber-800">
-              <Gift className="h-5 w-5" />
+            <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-purple-100 text-purple-800">
+              <Briefcase className="h-5 w-5" />
             </span>
-            <span className="rounded-full bg-amber-50 border border-amber-300 px-3 py-0.5 text-xs font-bold text-amber-900 font-mono">
-              Live Verified Database • Community Referral Program
+            <span className="rounded-full bg-purple-50 border border-purple-300 px-3 py-0.5 text-xs font-bold text-purple-900 font-mono">
+              Corporate Insider Marketplace • Direct ATS Referrals
             </span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 mt-2">
-            Refer a Friend to Any Role &amp; Earn Cash Bounties
-          </h1>
-          <p className="mt-2 text-sm text-slate-700 max-w-2xl leading-relaxed font-medium">
-            Know a great engineer, developer, or classmate? Refer your friend to active openings from our live database of {totalCatalog.toLocaleString("en-IN")}+ tech jobs. When they get hired and complete 30 days, we pay the referral bounty directly to your UPI!
+          <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 mt-2">
+            Employee-Hosted Referral Bounties
+          </h2>
+          <p className="mt-2 text-sm text-slate-700 max-w-3xl leading-relaxed font-medium">
+            Tech employees at top companies receive internal referral bonuses (up to ₹1,20,000) when a referred candidate joins.
+            Verified employees host internal referral slots here to find high-performing candidates with vetted DevScores.
+            <strong className="text-indigo-900 font-bold"> RoleNest manages verification &amp; takes a 15% platform facilitation fee upon successful hiring.</strong>
           </p>
         </div>
 
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
           <Button
             onClick={() => {
-              setActiveReferBounty(null);
-              setShowCustomReferModal(true);
-              setReferSubmitted(false);
-              setReferralError(null);
+              setShowHostModal(true);
+              setHostSuccess(false);
+              setHostError(null);
             }}
-            className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs gap-1.5 shadow-sm min-h-[44px]"
+            className="bg-purple-700 hover:bg-purple-600 text-white font-bold text-xs gap-1.5 shadow-sm min-h-[44px]"
           >
             <Plus className="h-4 w-4" />
-            Refer Friend to ANY Role
+            Host a Referral Slot (For Employees)
           </Button>
 
           <Button
             onClick={() => {
-              if (referrerEmail) setTrackerEmail(referrerEmail);
+              if (candidateEmail) setTrackerEmail(candidateEmail);
               setShowTrackerModal(true);
             }}
             variant="outline"
             className="border-slate-300 bg-white hover:bg-slate-50 text-slate-900 font-bold text-xs gap-1.5 shadow-xs min-h-[44px]"
           >
-            <Wallet className="h-4 w-4 text-emerald-600" />
-            Track My Referrals &amp; Payouts
+            <UserCheck className="h-4 w-4 text-purple-700" />
+            Track My Referral Applications
           </Button>
         </div>
       </div>
 
-      {/* HOW IT WORKS BANNER: 100% WCAG HIGH CONTRAST */}
-      <div className="mt-6 rounded-3xl border border-slate-200 bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 p-6 sm:p-7 text-white shadow-xl">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-          <div className="space-y-2 max-w-xl">
-            <div className="inline-flex items-center gap-1.5 rounded-full bg-amber-400/20 px-3 py-1 text-xs font-bold text-amber-300 border border-amber-400/30">
-              <Sparkles className="h-3.5 w-3.5 text-amber-300" />
-              PEER REFERRALS • NO CORPORATE WORK EMAIL NEEDED
+      {/* HOW EMPLOYEE BOUNTIES WORK BANNER */}
+      <div className="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-5 sm:p-6 shadow-sm">
+        <h3 className="text-xs font-bold uppercase tracking-wider text-slate-600 mb-3 flex items-center gap-1.5">
+          <Info className="h-4 w-4 text-purple-600" />
+          Who gives this bounty &amp; how does the cut work?
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="bg-white border border-slate-200 rounded-xl p-4 space-y-1.5">
+            <div className="flex items-center gap-2 text-xs font-bold text-slate-900">
+              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-purple-100 text-purple-700 text-xs font-mono">1</span>
+              Company Pays Employee Bonus
             </div>
-            <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight">
-              Earn ₹15,000 to ₹50,000 Per Successful Hire
-            </h2>
-            <p className="text-xs text-slate-200 leading-relaxed font-medium">
-              You don&apos;t need to be an employee of the hiring company. Simply connect your talented friends to real open jobs in our verified database.
+            <p className="text-xs text-slate-600 leading-relaxed">
+              When Google, Twilio, or Razorpay hires a referred candidate, the company pays the referring employee an internal referral bonus (e.g. ₹60k–₹1.2L).
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 flex-1 lg:max-w-xl">
-            <div className="rounded-2xl bg-white/10 p-3.5 border border-white/10 space-y-1">
-              <span className="text-[10px] uppercase font-mono font-black text-amber-300">Step 1</span>
-              <h4 className="text-xs font-bold text-white">Choose a Live Job</h4>
-              <p className="text-[11px] text-slate-300 leading-snug">Browse live openings below or paste any RoleNest job URL.</p>
+          <div className="bg-white border border-slate-200 rounded-xl p-4 space-y-1.5">
+            <div className="flex items-center gap-2 text-xs font-bold text-slate-900">
+              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-purple-100 text-purple-700 text-xs font-mono">2</span>
+              Verified Employee Hosts Slot
             </div>
+            <p className="text-xs text-slate-600 leading-relaxed">
+              Verified corporate tech employees host their internal openings here, reviewing pre-vetted candidate DevScores and submitting them directly to company ATS.
+            </p>
+          </div>
 
-            <div className="rounded-2xl bg-white/10 p-3.5 border border-white/10 space-y-1">
-              <span className="text-[10px] uppercase font-mono font-black text-amber-300">Step 2</span>
-              <h4 className="text-xs font-bold text-white">Enter Friend &amp; UPI</h4>
-              <p className="text-[11px] text-slate-300 leading-snug">Share their resume/GitHub and your UPI ID for the payout.</p>
+          <div className="bg-white border border-slate-200 rounded-xl p-4 space-y-1.5">
+            <div className="flex items-center gap-2 text-xs font-bold text-slate-900">
+              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-purple-100 text-purple-700 text-xs font-mono">3</span>
+              RoleNest Facilitation Cut (15%)
             </div>
-
-            <div className="rounded-2xl bg-white/10 p-3.5 border border-white/10 space-y-1">
-              <span className="text-[10px] uppercase font-mono font-black text-amber-300">Step 3</span>
-              <h4 className="text-xs font-bold text-white">Direct Cash Transfer</h4>
-              <p className="text-[11px] text-slate-300 leading-snug">When your friend joins and passes 30 days, money hits your UPI.</p>
-            </div>
+            <p className="text-xs text-slate-600 leading-relaxed">
+              Upon successful candidate joining and probationary completion, RoleNest deducts a 15% platform escrow cut, and the rest is distributed to the host &amp; candidate!
+            </p>
           </div>
         </div>
       </div>
 
-      {/* STATS TILES */}
-      <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
+      {/* STATS OVERVIEW */}
+      <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4">
         <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-xs">
-          <span className="text-xs font-bold text-slate-600 uppercase tracking-wider font-mono">
-            Live Database Tech Openings
-          </span>
-          <div className="mt-1 flex items-baseline gap-2">
-            <span className="text-2xl font-black text-slate-900">{totalCatalog.toLocaleString("en-IN")}+ Jobs</span>
-            <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-              Verified Real
-            </span>
+          <div className="text-xs font-bold uppercase tracking-wider text-slate-500">Verified Employee Slots</div>
+          <div className="mt-1 text-2xl font-black text-slate-900">{bounties.length} Roles</div>
+          <div className="mt-1 text-xs text-emerald-700 font-semibold flex items-center gap-1">
+            <BadgeCheck className="h-3.5 w-3.5" /> Corporate Email Verified
           </div>
-          <p className="text-[11px] text-slate-600 mt-1">Directly crawled from company career portals and ATS feeds.</p>
         </div>
 
         <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-xs">
-          <span className="text-xs font-bold text-slate-600 uppercase tracking-wider font-mono">
-            Active Community Bounty Pool
-          </span>
-          <div className="mt-1 flex items-baseline gap-2">
-            <span className="text-2xl font-black text-amber-700">₹{(totalPoolInr / 100000).toFixed(1)} Lakhs</span>
-            <span className="text-xs font-bold text-slate-700">Across Filtered Feed</span>
-          </div>
-          <p className="text-[11px] text-slate-600 mt-1">Up to ₹50,000 cash per successful engineering hire.</p>
+          <div className="text-xs font-bold uppercase tracking-wider text-slate-500">Total Bonus Pool</div>
+          <div className="mt-1 text-2xl font-black text-purple-700">₹{(totalBonusPool / 100000).toFixed(1)} Lakhs</div>
+          <div className="mt-1 text-xs text-slate-600">Company referral budgets</div>
         </div>
 
         <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-xs">
-          <span className="text-xs font-bold text-slate-600 uppercase tracking-wider font-mono">
-            Priority Referral Review
-          </span>
-          <div className="mt-1 flex items-baseline gap-2">
-            <span className="text-2xl font-black text-indigo-700">&lt; 48 Hours</span>
-            <span className="text-xs font-bold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded border border-indigo-200">
-              Fast Track
-            </span>
-          </div>
-          <p className="text-[11px] text-slate-600 mt-1">Referred candidates skip public queues and get prioritized screening.</p>
+          <div className="text-xs font-bold uppercase tracking-wider text-slate-500">Platform Facilitation</div>
+          <div className="mt-1 text-2xl font-black text-indigo-700">15% Escrow Cut</div>
+          <div className="mt-1 text-xs text-slate-600">Secure vetting &amp; escrow</div>
+        </div>
+
+        <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-xs">
+          <div className="text-xs font-bold uppercase tracking-wider text-slate-500">Candidate Viral Perk</div>
+          <div className="mt-1 text-2xl font-black text-amber-600">7 Days Free Pro</div>
+          <div className="mt-1 text-xs text-emerald-700 font-semibold">Per friend invited</div>
         </div>
       </div>
 
-      {/* SEARCH & FILTERS */}
-      <div className="mt-8 space-y-3">
-        <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
-          <div className="relative flex-1 max-w-md">
-            <Search className="absolute left-3.5 top-3.5 h-4 w-4 text-slate-500" />
-            <input
-              type="text"
-              placeholder="Search live jobs by company, role, or skill (e.g. Coinbase, React, Go)..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full rounded-2xl border border-slate-300 bg-white pl-10 pr-4 py-2.5 text-xs text-slate-900 placeholder:text-slate-500 shadow-xs focus:border-emerald-600 focus:outline-none"
-            />
-          </div>
-
-          <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0">
-            <span className="text-xs font-mono font-bold text-slate-600 mr-1 hidden sm:inline">Exp:</span>
-            {["ALL", "FRESHER", "1-3 YRS", "3-5 YRS"].map((exp) => (
-              <button
-                key={exp}
-                onClick={() => setSelectedExp(exp)}
-                className={`rounded-xl px-3 py-1.5 text-xs font-bold transition-all whitespace-nowrap ${
-                  selectedExp === exp
-                    ? "bg-slate-900 text-white shadow-xs"
-                    : "bg-slate-100 text-slate-700 hover:bg-slate-200"
-                }`}
-              >
-                {exp === "ALL" ? "All Experience" : exp}
-              </button>
-            ))}
-          </div>
+      {/* SEARCH AND FILTERS */}
+      <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
+        <div className="relative flex-1">
+          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+          <input
+            type="text"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            placeholder="Search by company (Google, Twilio, Zepto...), title, or skill..."
+            className="w-full rounded-xl border border-slate-300 bg-white pl-10 pr-4 py-2.5 text-xs text-slate-900 placeholder-slate-400 focus:border-purple-600 focus:outline-none focus:ring-1 focus:ring-purple-600 shadow-xs"
+          />
         </div>
 
-        {/* Department Track Filters */}
-        <div className="flex items-center gap-1.5 overflow-x-auto py-1 border-t border-slate-100">
-          <span className="text-xs font-mono font-bold text-slate-600 mr-1">Track:</span>
-          {["ALL", "Backend", "Frontend", "FullStack", "AI & ML", "DevOps & Cloud", "Mobile"].map((d) => (
+        <div className="flex flex-wrap items-center gap-2">
+          {["ALL", "Backend", "Frontend", "FullStack", "AI & ML", "DevOps & Cloud", "Mobile", "Product & Mgmt"].map((dept) => (
             <button
-              key={d}
-              onClick={() => setSelectedDept(d)}
-              className={`rounded-lg px-2.5 py-1 text-xs font-medium transition-colors whitespace-nowrap ${
-                selectedDept === d
-                  ? "bg-emerald-600 text-white font-bold"
+              key={dept}
+              onClick={() => setSelectedDept(dept)}
+              className={`rounded-lg px-3 py-1.5 text-xs font-bold transition-colors ${
+                selectedDept === dept
+                  ? "bg-purple-700 text-white"
                   : "bg-slate-100 text-slate-700 hover:bg-slate-200"
               }`}
             >
-              {d === "ALL" ? "All Tracks" : d}
+              {dept}
             </button>
           ))}
         </div>
       </div>
 
-      {/* BOUNTY CARDS LIST: REAL JOBS FROM DATABASE */}
-      {isLoading ? (
-        <div className="py-20 text-center space-y-3">
-          <Loader2 className="h-8 w-8 animate-spin text-emerald-600 mx-auto" />
-          <p className="text-xs text-slate-600 font-medium">Loading live engineering roles from verified hiring pipelines...</p>
-        </div>
-      ) : (
-        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredBounties.map((b) => (
-            <div
-              key={b.id}
-              className="rounded-3xl border border-slate-200 bg-white p-5 shadow-xs hover:shadow-md transition-all flex flex-col justify-between"
-            >
-              <div className="space-y-3.5">
-                {/* Header: Real Company & Location */}
-                <div className="flex items-start justify-between gap-3">
-                  <div className="flex items-center gap-3">
-                    {b.companyLogoUrl ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        src={b.companyLogoUrl}
-                        alt={b.companyName}
-                        className="h-11 w-11 rounded-2xl object-contain bg-slate-50 border border-slate-200 p-1 shrink-0"
-                      />
-                    ) : (
-                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-slate-900 font-bold text-white text-base shadow-sm">
-                        {b.companyLogoInitial || b.companyName.charAt(0)}
-                      </div>
-                    )}
-                    <div className="overflow-hidden">
-                      <h3 className="font-bold text-base text-slate-900 leading-tight truncate" title={b.companyName}>
-                        {b.companyName}
-                      </h3>
-                      <span className="text-xs text-slate-600 font-medium truncate block">
-                        {b.location} • {b.workMode}
-                      </span>
+      {/* BOUNTIES CARDS GRID */}
+      <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {filteredBounties.map((bounty) => (
+          <div
+            key={bounty.id}
+            className="flex flex-col justify-between rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden"
+          >
+            {/* CARD TOP */}
+            <div>
+              <div className="flex items-start justify-between gap-3">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-purple-50 text-purple-700 border border-purple-200 font-bold text-lg">
+                    {bounty.companyLogoInitial}
+                  </div>
+                  <div>
+                    <h3 className="font-extrabold text-slate-900 text-base leading-snug flex items-center gap-1.5">
+                      {bounty.companyName}
+                      {bounty.verifiedBadge && (
+                        <span title={`Verified Corporate Employee (${bounty.hostEmployeeDomain})`}>
+                          <BadgeCheck className="h-4 w-4 text-purple-600 fill-purple-100 shrink-0" />
+                        </span>
+                      )}
+                    </h3>
+                    <div className="text-xs text-slate-500 font-medium flex items-center gap-1 mt-0.5">
+                      <MapPin className="h-3 w-3 text-slate-400" />
+                      {bounty.location}
                     </div>
                   </div>
+                </div>
 
-                  <span className="rounded-full bg-slate-100 border border-slate-200 px-2.5 py-0.5 text-[10px] font-bold text-slate-800 shrink-0">
-                    {b.experienceLevel}
+                <span className="rounded-full bg-slate-100 border border-slate-200 px-2.5 py-0.5 text-[11px] font-bold text-slate-700">
+                  {bounty.experienceLevel}
+                </span>
+              </div>
+
+              {/* ROLE TITLE */}
+              <div className="mt-4">
+                <h4 className="font-bold text-slate-900 text-sm leading-tight">{bounty.roleTitle}</h4>
+                <div className="mt-1 text-xs text-purple-700 font-semibold flex items-center gap-1">
+                  <UserCheck className="h-3.5 w-3.5 text-purple-600" />
+                  Hosted by: {bounty.hostEmployeeTitle} ({bounty.hostEmployeeDomain})
+                </div>
+              </div>
+
+              {/* BOUNTY & CTC FINANCIAL BOX */}
+              <div className="mt-4 rounded-xl border border-purple-200 bg-purple-50/60 p-3.5 space-y-2">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="text-slate-600 font-medium">Internal Company Bonus:</span>
+                  <span className="font-extrabold text-purple-900 text-sm">
+                    ₹{bounty.employeeBonusInr.toLocaleString("en-IN")}
                   </span>
                 </div>
-
-                {/* Role Title & Expected Salary */}
-                <div>
-                  <h4 className="font-bold text-sm text-slate-900 line-clamp-2 min-h-[2.5rem] leading-snug" title={b.roleTitle}>
-                    {b.roleTitle}
-                  </h4>
-                  <div className="mt-1 flex items-center gap-2 text-xs text-slate-700">
-                    <span className="font-medium text-slate-500">Compensation:</span>
-                    <span className="font-bold text-slate-900">{b.salaryRangeCtcLpa}</span>
-                  </div>
+                <div className="flex items-center justify-between text-xs border-t border-purple-200/60 pt-1.5">
+                  <span className="text-slate-600 font-medium">Candidate Reward / Share:</span>
+                  <span className="font-extrabold text-emerald-700 text-sm">
+                    ₹{bounty.candidateRewardInr.toLocaleString("en-IN")}
+                  </span>
                 </div>
-
-                {/* REFERRAL CASH BOUNTY CALLOUT BOX */}
-                <div className="rounded-2xl bg-amber-50/90 border border-amber-300 p-3.5 space-y-1">
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="font-bold text-amber-950 flex items-center gap-1">
-                      <Gift className="h-4 w-4 text-amber-700" />
-                      Your Referral Bounty:
-                    </span>
-                    <span className="font-black text-amber-900 text-base">
-                      ₹{b.bountyRewardInr.toLocaleString("en-IN")}
-                    </span>
-                  </div>
-                  <p className="text-[11px] text-amber-900 font-medium">
-                    Paid directly to your UPI when your referred friend joins.
-                  </p>
+                <div className="flex items-center justify-between text-[11px] text-slate-500 border-t border-purple-200/40 pt-1">
+                  <span>RoleNest Platform Escrow Cut:</span>
+                  <span className="font-bold text-slate-700">15% on hire</span>
                 </div>
-
-                {/* Skills required */}
-                <div className="flex flex-wrap gap-1.5 pt-1">
-                  {b.keySkills.map((sk) => (
-                    <span
-                      key={sk}
-                      className="rounded-lg bg-slate-100 text-slate-800 border border-slate-200 px-2 py-0.5 text-[11px] font-medium"
-                    >
-                      {sk}
-                    </span>
-                  ))}
+                <div className="flex items-center justify-between text-[11px] text-slate-600 pt-0.5">
+                  <span>Candidate CTC:</span>
+                  <span className="font-bold text-slate-800">{bounty.salaryRangeCtcLpa}</span>
                 </div>
+              </div>
 
-                {/* Verified role link */}
-                <div className="flex items-center justify-between text-xs text-slate-600 pt-1 border-t border-slate-100">
-                  <Link
-                    href={`/jobs/${b.jobSlug}`}
-                    target="_blank"
-                    className="text-[11px] text-indigo-700 hover:text-indigo-900 font-bold flex items-center gap-1"
+              {/* SKILLS */}
+              <div className="mt-4 flex flex-wrap gap-1.5">
+                {bounty.keySkills.slice(0, 4).map((skill, idx) => (
+                  <span
+                    key={idx}
+                    className="rounded-md bg-slate-100 px-2 py-0.5 text-[11px] font-medium text-slate-700"
                   >
-                    <span>View Role Spec</span>
-                    <ExternalLink className="h-3 w-3" />
-                  </Link>
-
-                  <span className="font-mono text-[11px] text-slate-500">
-                    {b.postedAgo}
+                    {skill}
                   </span>
-                </div>
+                ))}
               </div>
 
-              {/* ACTION BUTTONS: REFER A FRIEND & COPY LINK */}
-              <div className="mt-5 pt-3 border-t border-slate-100 flex items-center gap-2">
-                <Button
-                  onClick={() => {
-                    setActiveReferBounty(b);
-                    setReferSubmitted(false);
-                    setReferralError(null);
-                  }}
-                  className="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs py-2 rounded-xl min-h-[42px] gap-1.5 shadow-sm"
-                >
-                  <Plus className="h-4 w-4" />
-                  Refer a Friend
-                </Button>
-
-                <button
-                  onClick={() => copyReferralLink(b)}
-                  title="Copy shareable link"
-                  className="h-[42px] px-3 rounded-xl border border-slate-300 bg-slate-50 hover:bg-slate-100 text-slate-700 text-xs font-bold flex items-center justify-center transition-colors"
-                >
-                  {copiedLinkBountyId === b.id ? (
-                    <span className="flex items-center gap-1 text-emerald-700 font-bold">
-                      <Check className="h-3.5 w-3.5" /> Copied!
-                    </span>
-                  ) : (
-                    <Copy className="h-4 w-4 text-slate-600" />
-                  )}
-                </button>
-              </div>
+              <p className="mt-3 text-xs text-slate-600 line-clamp-2 leading-relaxed">
+                {bounty.description}
+              </p>
             </div>
-          ))}
 
-          {filteredBounties.length === 0 && (
-            <div className="col-span-full py-14 text-center bg-white rounded-3xl border border-slate-200 p-8 space-y-4 shadow-xs">
-              <div className="h-14 w-14 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center justify-center mx-auto">
-                <Users className="h-7 w-7" />
+            {/* CARD BOTTOM / ACTION */}
+            <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between gap-3">
+              <div className="text-[11px] text-slate-500 font-medium">
+                ⚡ <strong className="text-slate-800">{bounty.openSlots} Slots</strong> open
               </div>
-              <div className="max-w-md mx-auto space-y-1">
-                <h3 className="text-base font-bold text-slate-900">No roles matching your filter criteria</h3>
-                <p className="text-xs text-slate-600 leading-relaxed">
-                  You can still refer your friend to ANY tech role across India or remote by submitting a custom referral request!
-                </p>
-              </div>
+
               <Button
                 onClick={() => {
-                  setShowCustomReferModal(true);
-                  setReferSubmitted(false);
-                  setReferralError(null);
+                  setActiveReferBounty(bounty);
+                  setRequestSuccess(false);
+                  setRequestError(null);
                 }}
-                className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs"
+                className="bg-purple-700 hover:bg-purple-600 text-white font-bold text-xs gap-1 h-9 px-3.5 shadow-xs"
               >
-                <Plus className="h-4 w-4 mr-1.5" /> Refer Friend to Any Company
+                Request Referral
+                <ArrowRight className="h-3.5 w-3.5" />
               </Button>
             </div>
-          )}
-        </div>
-      )}
+          </div>
+        ))}
+      </div>
 
-      {/* REFER A FRIEND FOR SPECIFIC BOUNTY MODAL */}
+      {/* MODAL 1: CANDIDATE REQUEST REFERRAL MODAL */}
       {activeReferBounty && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/70 backdrop-blur-xs p-4 animate-in fade-in">
-          <div className="relative w-full max-w-lg rounded-3xl border border-slate-200 bg-white p-6 sm:p-7 shadow-2xl text-slate-900 space-y-4 max-h-[92vh] overflow-y-auto">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4 overflow-y-auto">
+          <div className="relative w-full max-w-lg rounded-2xl bg-white p-6 shadow-2xl border border-slate-200">
             <button
               onClick={() => setActiveReferBounty(null)}
-              className="absolute right-5 top-5 p-1 rounded-lg text-slate-400 hover:text-slate-700"
+              className="absolute right-4 top-4 text-slate-400 hover:text-slate-600 text-xl font-bold"
             >
               ✕
             </button>
 
-            {!referSubmitted ? (
-              <form onSubmit={handleReferSubmit} className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <div className="h-10 w-10 rounded-xl bg-slate-900 text-white flex items-center justify-center font-bold text-lg">
-                    {activeReferBounty.companyLogoInitial || activeReferBounty.companyName.charAt(0)}
-                  </div>
-                  <div>
-                    <h3 className="text-base font-bold text-slate-900">
-                      Refer a Friend for {activeReferBounty.companyName}
-                    </h3>
-                    <p className="text-xs text-slate-600 font-medium">{activeReferBounty.roleTitle}</p>
-                  </div>
+            {requestSuccess ? (
+              <div className="text-center py-6 space-y-3">
+                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
+                  <CheckCircle2 className="h-7 w-7" />
                 </div>
-
-                <div className="rounded-2xl bg-amber-50 border border-amber-300 p-3.5 text-xs text-amber-950 space-y-1">
-                  <div className="flex items-center justify-between">
-                    <strong className="text-amber-900">Your Referral Bounty:</strong>
-                    <span className="font-black text-amber-900 text-sm">
-                      ₹{activeReferBounty.bountyRewardInr.toLocaleString("en-IN")} Cash
-                    </span>
-                  </div>
-                  <p className="text-[11px] text-amber-800 leading-snug">
-                    When your referred friend joins and passes 30 days of onboarding, ₹{activeReferBounty.bountyRewardInr.toLocaleString("en-IN")} is credited directly to your UPI ID below.
+                <h3 className="text-xl font-extrabold text-slate-900">Referral Request Submitted!</h3>
+                <p className="text-sm text-slate-600 max-w-md mx-auto">
+                  Your profile and DevScore have been submitted to <strong>{activeReferBounty.hostEmployeeTitle}</strong>. When accepted, you will receive an official ATS referral confirmation email from {activeReferBounty.companyName}.
+                </p>
+                <div className="pt-4">
+                  <Button
+                    onClick={() => setActiveReferBounty(null)}
+                    className="bg-purple-700 hover:bg-purple-600 text-white font-bold text-xs w-full"
+                  >
+                    Done
+                  </Button>
+                </div>
+              </div>
+            ) : (
+              <form onSubmit={handleCandidateRequestSubmit} className="space-y-4">
+                <div>
+                  <span className="rounded-full bg-purple-50 border border-purple-200 px-2.5 py-0.5 text-[11px] font-bold text-purple-800">
+                    Direct Employee Referral
+                  </span>
+                  <h3 className="text-xl font-black text-slate-900 mt-1">
+                    Request Referral for {activeReferBounty.roleTitle}
+                  </h3>
+                  <p className="text-xs text-slate-600 mt-0.5">
+                    Target Company: <strong>{activeReferBounty.companyName}</strong> • Insider: {activeReferBounty.hostEmployeeTitle}
                   </p>
                 </div>
 
-                {referralError && (
-                  <div className="rounded-xl bg-rose-50 border border-rose-200 p-2.5 text-xs text-rose-700">
-                    {referralError}
+                {requestError && (
+                  <div className="rounded-xl bg-red-50 border border-red-200 p-3 text-xs text-red-700 font-medium">
+                    {requestError}
                   </div>
                 )}
 
-                {/* Section A: Your Payout Info */}
-                <div className="space-y-2.5 border-t border-slate-100 pt-2 text-xs">
-                  <h4 className="font-bold text-slate-900 text-xs font-mono uppercase tracking-wider text-emerald-700">
-                    1. Your Information (For Bounty Payout)
-                  </h4>
-                  <div className="grid grid-cols-2 gap-3">
-                    <div>
-                      <label className="font-bold text-slate-700 block mb-1">Your Full Name</label>
-                      <input
-                        type="text"
-                        required
-                        value={referrerName}
-                        onChange={(e) => setReferrerName(e.target.value)}
-                        placeholder="e.g. Divyanshu"
-                        className="w-full rounded-xl border border-slate-300 p-2.5 text-xs text-slate-900 focus:outline-none focus:border-emerald-600"
-                      />
-                    </div>
-                    <div>
-                      <label className="font-bold text-slate-700 block mb-1">Your Email</label>
-                      <input
-                        type="email"
-                        required
-                        value={referrerEmail}
-                        onChange={(e) => setReferrerEmail(e.target.value)}
-                        placeholder="you@email.com"
-                        className="w-full rounded-xl border border-slate-300 p-2.5 text-xs text-slate-900 focus:outline-none focus:border-emerald-600"
-                      />
-                    </div>
-                  </div>
-
+                <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="font-bold text-slate-700 block mb-1">
-                      Your UPI ID (For ₹{activeReferBounty.bountyRewardInr.toLocaleString("en-IN")} Payout)
-                    </label>
+                    <label className="block text-xs font-bold text-slate-700 mb-1">Your Full Name *</label>
                     <input
                       type="text"
                       required
-                      value={referrerUpi}
-                      onChange={(e) => setReferrerUpi(e.target.value)}
-                      placeholder="e.g. username@okhdfcbank or phone@upi"
-                      className="w-full rounded-xl border border-slate-300 p-2.5 text-xs text-slate-900 focus:outline-none focus:border-emerald-600 font-mono"
+                      value={candidateName}
+                      onChange={(e) => setCandidateName(e.target.value)}
+                      placeholder="e.g. Rahul Sharma"
+                      className="w-full rounded-xl border border-slate-300 p-2 text-xs text-slate-900 focus:border-purple-600 focus:outline-none"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 mb-1">Your Email *</label>
+                    <input
+                      type="email"
+                      required
+                      value={candidateEmail}
+                      onChange={(e) => setCandidateEmail(e.target.value)}
+                      placeholder="e.g. rahul@gmail.com"
+                      className="w-full rounded-xl border border-slate-300 p-2 text-xs text-slate-900 focus:border-purple-600 focus:outline-none"
                     />
                   </div>
                 </div>
 
-                {/* Section B: Friend Info */}
-                <div className="space-y-2.5 border-t border-slate-100 pt-2 text-xs">
-                  <h4 className="font-bold text-slate-900 text-xs font-mono uppercase tracking-wider text-indigo-700">
-                    2. Your Friend&apos;s Details (Candidate)
-                  </h4>
-                  <div className="grid grid-cols-2 gap-3">
-                    <div>
-                      <label className="font-bold text-slate-700 block mb-1">Friend&apos;s Full Name</label>
-                      <input
-                        type="text"
-                        required
-                        value={friendName}
-                        onChange={(e) => setFriendName(e.target.value)}
-                        placeholder="e.g. Rahul Sharma"
-                        className="w-full rounded-xl border border-slate-300 p-2.5 text-xs text-slate-900 focus:outline-none focus:border-emerald-600"
-                      />
-                    </div>
-                    <div>
-                      <label className="font-bold text-slate-700 block mb-1">Friend&apos;s Email</label>
-                      <input
-                        type="email"
-                        required
-                        value={friendEmail}
-                        onChange={(e) => setFriendEmail(e.target.value)}
-                        placeholder="rahul@domain.com"
-                        className="w-full rounded-xl border border-slate-300 p-2.5 text-xs text-slate-900 focus:outline-none focus:border-emerald-600"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-3">
-                    <div>
-                      <label className="font-bold text-slate-700 block mb-1">Friend&apos;s Phone (+91)</label>
-                      <input
-                        type="tel"
-                        value={friendPhone}
-                        onChange={(e) => setFriendPhone(e.target.value)}
-                        placeholder="+91 9876543210"
-                        className="w-full rounded-xl border border-slate-300 p-2.5 text-xs text-slate-900 focus:outline-none focus:border-emerald-600"
-                      />
-                    </div>
-                    <div>
-                      <label className="font-bold text-slate-700 block mb-1">GitHub / Portfolio URL</label>
-                      <input
-                        type="url"
-                        value={friendGithubUrl}
-                        onChange={(e) => setFriendGithubUrl(e.target.value)}
-                        placeholder="https://github.com/rahul"
-                        className="w-full rounded-xl border border-slate-300 p-2.5 text-xs text-slate-900 focus:outline-none focus:border-emerald-600"
-                      />
-                    </div>
-                  </div>
-
+                <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="font-bold text-slate-700 block mb-1">Friend&apos;s Resume Link (Google Drive / Notion / LinkedIn)</label>
+                    <label className="block text-xs font-bold text-slate-700 mb-1">Phone / WhatsApp</label>
+                    <input
+                      type="text"
+                      value={candidatePhone}
+                      onChange={(e) => setCandidatePhone(e.target.value)}
+                      placeholder="+91 98765 43210"
+                      className="w-full rounded-xl border border-slate-300 p-2 text-xs text-slate-900 focus:border-purple-600 focus:outline-none"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 mb-1">DevScore (Estimated)</label>
+                    <input
+                      type="number"
+                      value={devScore}
+                      onChange={(e) => setDevScore(e.target.value)}
+                      placeholder="e.g. 820"
+                      className="w-full rounded-xl border border-slate-300 p-2 text-xs text-slate-900 focus:border-purple-600 focus:outline-none"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 mb-1">GitHub / Portfolio URL</label>
                     <input
                       type="url"
-                      value={friendResumeUrl}
-                      onChange={(e) => setFriendResumeUrl(e.target.value)}
-                      placeholder="https://drive.google.com/... or LinkedIn"
-                      className="w-full rounded-xl border border-slate-300 p-2.5 text-xs text-slate-900 focus:outline-none focus:border-emerald-600"
+                      value={candidateGithubUrl}
+                      onChange={(e) => setCandidateGithubUrl(e.target.value)}
+                      placeholder="https://github.com/..."
+                      className="w-full rounded-xl border border-slate-300 p-2 text-xs text-slate-900 focus:border-purple-600 focus:outline-none"
                     />
                   </div>
-
                   <div>
-                    <label className="font-bold text-slate-700 block mb-1">Why do you recommend your friend? (Optional)</label>
-                    <textarea
-                      rows={2}
-                      value={recommendationNote}
-                      onChange={(e) => setRecommendationNote(e.target.value)}
-                      placeholder="e.g. Strong problem-solving background, shipped high-throughput distributed services..."
-                      className="w-full rounded-xl border border-slate-300 p-2.5 text-xs text-slate-900 focus:outline-none focus:border-emerald-600 resize-none"
+                    <label className="block text-xs font-bold text-slate-700 mb-1">Resume Link (Drive/Dropbox)</label>
+                    <input
+                      type="url"
+                      value={candidateResumeUrl}
+                      onChange={(e) => setCandidateResumeUrl(e.target.value)}
+                      placeholder="https://drive.google.com/..."
+                      className="w-full rounded-xl border border-slate-300 p-2 text-xs text-slate-900 focus:border-purple-600 focus:outline-none"
                     />
                   </div>
                 </div>
 
-                <Button
-                  type="submit"
-                  disabled={isSubmittingReferral}
-                  className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 rounded-xl min-h-[44px]"
-                >
-                  {isSubmittingReferral ? (
-                    <span className="flex items-center gap-2">
-                      <Loader2 className="h-4 w-4 animate-spin" /> Submitting Referral...
-                    </span>
-                  ) : (
-                    `Submit Referral & Lock In ₹${activeReferBounty.bountyRewardInr.toLocaleString("en-IN")} Bounty`
-                  )}
-                </Button>
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">Pitch Note to Employee</label>
+                  <textarea
+                    rows={3}
+                    value={pitchNote}
+                    onChange={(e) => setPitchNote(e.target.value)}
+                    placeholder="Briefly highlight your key projects, production stack, and why you are a strong fit for this team..."
+                    className="w-full rounded-xl border border-slate-300 p-2 text-xs text-slate-900 focus:border-purple-600 focus:outline-none"
+                  />
+                </div>
+
+                <div className="rounded-xl bg-purple-50 border border-purple-200 p-3 text-[11px] text-purple-900 leading-snug">
+                  🛡️ <strong>Escrow &amp; Referral Guarantee:</strong> Your profile is sent exclusively to the verified employee. If selected and hired, RoleNest facilitates the reward distribution with a transparent 15% platform cut.
+                </div>
+
+                <div className="pt-2 flex items-center justify-end gap-2">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => setActiveReferBounty(null)}
+                    className="text-xs"
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    type="submit"
+                    disabled={isSubmittingRequest}
+                    className="bg-purple-700 hover:bg-purple-600 text-white font-bold text-xs"
+                  >
+                    {isSubmittingRequest ? (
+                      <>
+                        <Loader2 className="h-4 w-4 animate-spin mr-1.5" />
+                        Submitting...
+                      </>
+                    ) : (
+                      "Submit Referral Request"
+                    )}
+                  </Button>
+                </div>
               </form>
-            ) : (
-              <div className="text-center py-6 space-y-4">
-                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-100 text-emerald-600">
-                  <CheckCircle2 className="h-8 w-8" />
-                </div>
-
-                <h3 className="text-lg font-bold text-slate-900">
-                  Referral Successfully Dispatched!
-                </h3>
-
-                <p className="text-xs text-slate-600 max-w-sm mx-auto leading-relaxed">
-                  Your friend <strong>{friendName}</strong> has been fast-tracked for <strong>{activeReferBounty.roleTitle}</strong> at <strong>{activeReferBounty.companyName}</strong>.
-                </p>
-
-                <div className="rounded-2xl bg-slate-50 border border-slate-200 p-3.5 text-xs text-slate-700 max-w-sm mx-auto">
-                  <div className="font-bold text-emerald-700">Payout Locked: ₹{activeReferBounty.bountyRewardInr.toLocaleString("en-IN")}</div>
-                  <div className="text-[11px] text-slate-500 mt-0.5">Will be credited to: <span className="font-mono text-slate-900">{referrerUpi}</span> upon hire.</div>
-                </div>
-
-                <Button
-                  onClick={() => setActiveReferBounty(null)}
-                  className="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs py-2.5 rounded-xl min-h-[44px]"
-                >
-                  Done
-                </Button>
-              </div>
             )}
           </div>
         </div>
       )}
 
-      {/* REFER FRIEND TO ANY ROLE MODAL */}
-      {showCustomReferModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/70 backdrop-blur-xs p-4 animate-in fade-in">
-          <div className="relative w-full max-w-lg rounded-3xl border border-slate-200 bg-white p-6 sm:p-7 shadow-2xl text-slate-900 space-y-4 max-h-[92vh] overflow-y-auto">
+      {/* MODAL 2: HOST A REFERRAL SLOT (FOR EMPLOYEES) */}
+      {showHostModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4 overflow-y-auto">
+          <div className="relative w-full max-w-lg rounded-2xl bg-white p-6 shadow-2xl border border-slate-200">
             <button
-              onClick={() => setShowCustomReferModal(false)}
-              className="absolute right-5 top-5 p-1 rounded-lg text-slate-400 hover:text-slate-700"
+              onClick={() => setShowHostModal(false)}
+              className="absolute right-4 top-4 text-slate-400 hover:text-slate-600 text-xl font-bold"
             >
               ✕
             </button>
 
-            {!referSubmitted ? (
-              <form onSubmit={handleCustomReferSubmit} className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-100 text-emerald-700 font-bold">
-                    <Sparkles className="h-5 w-5" />
+            {hostSuccess ? (
+              <div className="text-center py-6 space-y-3">
+                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
+                  <CheckCircle2 className="h-7 w-7" />
+                </div>
+                <h3 className="text-xl font-extrabold text-slate-900">Referral Slot Hosted!</h3>
+                <p className="text-sm text-slate-600 max-w-md mx-auto">
+                  Your internal referral opening has been published. RoleNest will pre-screen candidate DevScores and notify your work email when a top match applies. RoleNest deducts a 15% cut upon successful hire.
+                </p>
+                <div className="pt-4">
+                  <Button
+                    onClick={() => setShowHostModal(false)}
+                    className="bg-purple-700 hover:bg-purple-600 text-white font-bold text-xs w-full"
+                  >
+                    Close
+                  </Button>
+                </div>
+              </div>
+            ) : (
+              <form onSubmit={handleHostBountySubmit} className="space-y-4">
+                <div>
+                  <span className="rounded-full bg-purple-50 border border-purple-200 px-2.5 py-0.5 text-[11px] font-bold text-purple-800">
+                    For Tech Employees
                   </span>
-                  <div>
-                    <h3 className="text-base font-bold text-slate-900">
-                      Refer a Friend to Any Role on RoleNest
-                    </h3>
-                    <p className="text-xs text-slate-600 font-medium">Earn up to ₹25,000 cash bounty when your friend joins</p>
-                  </div>
+                  <h3 className="text-xl font-black text-slate-900 mt-1">
+                    Host an Internal Referral Opening
+                  </h3>
+                  <p className="text-xs text-slate-600 mt-0.5">
+                    Monetize your company referral bonus and hire top pre-vetted engineers. RoleNest takes a 15% facilitation fee.
+                  </p>
                 </div>
 
-                <div className="rounded-2xl bg-slate-50 border border-slate-200 p-3.5 space-y-2 text-xs">
-                  <div>
-                    <label className="font-bold text-slate-700 block mb-1">Target Role Title *</label>
-                    <input
-                      type="text"
-                      required
-                      value={customJobTitle}
-                      onChange={(e) => setCustomJobTitle(e.target.value)}
-                      placeholder="e.g. Senior Backend Engineer (Go) or SDE-1 Frontend"
-                      className="w-full rounded-xl border border-slate-300 p-2.5 text-xs text-slate-900 focus:outline-none focus:border-emerald-600"
-                    />
-                  </div>
-                  <div className="grid grid-cols-2 gap-3">
-                    <div>
-                      <label className="font-bold text-slate-700 block mb-1">Company Name</label>
-                      <input
-                        type="text"
-                        value={customCompanyName}
-                        onChange={(e) => setCustomCompanyName(e.target.value)}
-                        placeholder="e.g. Coinbase, Bosch, Google"
-                        className="w-full rounded-xl border border-slate-300 p-2.5 text-xs text-slate-900 focus:outline-none focus:border-emerald-600"
-                      />
-                    </div>
-                    <div>
-                      <label className="font-bold text-slate-700 block mb-1">Job Link / RoleNest URL</label>
-                      <input
-                        type="url"
-                        value={customJobUrl}
-                        onChange={(e) => setCustomJobUrl(e.target.value)}
-                        placeholder="https://rolenest.in/jobs/..."
-                        className="w-full rounded-xl border border-slate-300 p-2.5 text-xs text-slate-900 focus:outline-none focus:border-emerald-600"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                {referralError && (
-                  <div className="rounded-xl bg-rose-50 border border-rose-200 p-2.5 text-xs text-rose-700">
-                    {referralError}
+                {hostError && (
+                  <div className="rounded-xl bg-red-50 border border-red-200 p-3 text-xs text-red-700 font-medium">
+                    {hostError}
                   </div>
                 )}
 
-                {/* Section A: Payout */}
-                <div className="space-y-2.5 border-t border-slate-100 pt-2 text-xs">
-                  <h4 className="font-bold text-slate-900 text-xs font-mono uppercase tracking-wider text-emerald-700">
-                    1. Your Information (For ₹25,000 Bounty Payout)
-                  </h4>
-                  <div className="grid grid-cols-2 gap-3">
-                    <div>
-                      <label className="font-bold text-slate-700 block mb-1">Your Name</label>
-                      <input
-                        type="text"
-                        required
-                        value={referrerName}
-                        onChange={(e) => setReferrerName(e.target.value)}
-                        placeholder="Your full name"
-                        className="w-full rounded-xl border border-slate-300 p-2.5 text-xs text-slate-900 focus:outline-none focus:border-emerald-600"
-                      />
-                    </div>
-                    <div>
-                      <label className="font-bold text-slate-700 block mb-1">Your Email</label>
-                      <input
-                        type="email"
-                        required
-                        value={referrerEmail}
-                        onChange={(e) => setReferrerEmail(e.target.value)}
-                        placeholder="you@email.com"
-                        className="w-full rounded-xl border border-slate-300 p-2.5 text-xs text-slate-900 focus:outline-none focus:border-emerald-600"
-                      />
-                    </div>
-                  </div>
+                <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="font-bold text-slate-700 block mb-1">Your UPI ID (For Payout)</label>
+                    <label className="block text-xs font-bold text-slate-700 mb-1">Company Name *</label>
                     <input
                       type="text"
                       required
-                      value={referrerUpi}
-                      onChange={(e) => setReferrerUpi(e.target.value)}
-                      placeholder="e.g. username@upi"
-                      className="w-full rounded-xl border border-slate-300 p-2.5 text-xs text-slate-900 focus:outline-none focus:border-emerald-600 font-mono"
+                      value={hostCompanyName}
+                      onChange={(e) => setHostCompanyName(e.target.value)}
+                      placeholder="e.g. Google, Twilio, Zepto"
+                      className="w-full rounded-xl border border-slate-300 p-2 text-xs text-slate-900 focus:border-purple-600 focus:outline-none"
                     />
-                  </div>
-                </div>
-
-                {/* Section B: Friend */}
-                <div className="space-y-2.5 border-t border-slate-100 pt-2 text-xs">
-                  <h4 className="font-bold text-slate-900 text-xs font-mono uppercase tracking-wider text-indigo-700">
-                    2. Friend&apos;s Information
-                  </h4>
-                  <div className="grid grid-cols-2 gap-3">
-                    <div>
-                      <label className="font-bold text-slate-700 block mb-1">Friend&apos;s Name</label>
-                      <input
-                        type="text"
-                        required
-                        value={friendName}
-                        onChange={(e) => setFriendName(e.target.value)}
-                        placeholder="Friend's full name"
-                        className="w-full rounded-xl border border-slate-300 p-2.5 text-xs text-slate-900 focus:outline-none focus:border-emerald-600"
-                      />
-                    </div>
-                    <div>
-                      <label className="font-bold text-slate-700 block mb-1">Friend&apos;s Email</label>
-                      <input
-                        type="email"
-                        required
-                        value={friendEmail}
-                        onChange={(e) => setFriendEmail(e.target.value)}
-                        placeholder="friend@email.com"
-                        className="w-full rounded-xl border border-slate-300 p-2.5 text-xs text-slate-900 focus:outline-none focus:border-emerald-600"
-                      />
-                    </div>
                   </div>
                   <div>
-                    <label className="font-bold text-slate-700 block mb-1">Friend&apos;s Resume / Portfolio Link</label>
+                    <label className="block text-xs font-bold text-slate-700 mb-1">Official Work Email *</label>
                     <input
-                      type="url"
-                      value={friendResumeUrl}
-                      onChange={(e) => setFriendResumeUrl(e.target.value)}
-                      placeholder="https://drive.google.com/... or GitHub"
-                      className="w-full rounded-xl border border-slate-300 p-2.5 text-xs text-slate-900 focus:outline-none focus:border-emerald-600"
+                      type="email"
+                      required
+                      value={hostWorkEmail}
+                      onChange={(e) => setHostWorkEmail(e.target.value)}
+                      placeholder="e.g. alex@twilio.com"
+                      className="w-full rounded-xl border border-slate-300 p-2 text-xs text-slate-900 focus:border-purple-600 focus:outline-none"
                     />
                   </div>
                 </div>
 
-                <Button
-                  type="submit"
-                  disabled={isSubmittingReferral}
-                  className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 rounded-xl min-h-[44px]"
-                >
-                  {isSubmittingReferral ? (
-                    <span className="flex items-center gap-2">
-                      <Loader2 className="h-4 w-4 animate-spin" /> Submitting...
-                    </span>
-                  ) : (
-                    "Submit Referral & Lock In ₹25,000 Bounty"
-                  )}
-                </Button>
-              </form>
-            ) : (
-              <div className="text-center py-6 space-y-4">
-                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-100 text-emerald-600">
-                  <CheckCircle2 className="h-8 w-8" />
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 mb-1">Your Title at Company</label>
+                    <input
+                      type="text"
+                      value={hostTitle}
+                      onChange={(e) => setHostTitle(e.target.value)}
+                      placeholder="e.g. Senior Backend Lead"
+                      className="w-full rounded-xl border border-slate-300 p-2 text-xs text-slate-900 focus:border-purple-600 focus:outline-none"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 mb-1">Opening Role Title *</label>
+                    <input
+                      type="text"
+                      required
+                      value={hostRoleTitle}
+                      onChange={(e) => setHostRoleTitle(e.target.value)}
+                      placeholder="e.g. SDE-2 Backend (Go)"
+                      className="w-full rounded-xl border border-slate-300 p-2 text-xs text-slate-900 focus:border-purple-600 focus:outline-none"
+                    />
+                  </div>
                 </div>
-                <h3 className="text-lg font-bold text-slate-900">Custom Referral Dispatched!</h3>
-                <p className="text-xs text-slate-600 max-w-sm mx-auto leading-relaxed">
-                  Your friend <strong>{friendName}</strong> has been submitted for <strong>{customJobTitle}</strong>. We will notify you once their resume is reviewed.
-                </p>
-                <Button
-                  onClick={() => setShowCustomReferModal(false)}
-                  className="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs py-2.5 rounded-xl min-h-[44px]"
-                >
-                  Done
-                </Button>
-              </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 mb-1">Company Referral Bonus (INR) *</label>
+                    <input
+                      type="number"
+                      required
+                      value={hostCompanyBonusInr}
+                      onChange={(e) => setHostCompanyBonusInr(e.target.value)}
+                      placeholder="e.g. 60000"
+                      className="w-full rounded-xl border border-slate-300 p-2 text-xs text-slate-900 focus:border-purple-600 focus:outline-none"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 mb-1">Candidate Share (INR)</label>
+                    <input
+                      type="number"
+                      value={hostCandidateShareInr}
+                      onChange={(e) => setHostCandidateShareInr(e.target.value)}
+                      placeholder="e.g. 25000"
+                      className="w-full rounded-xl border border-slate-300 p-2 text-xs text-slate-900 focus:border-purple-600 focus:outline-none"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 mb-1">Department</label>
+                    <select
+                      value={hostDepartment}
+                      onChange={(e) => setHostDepartment(e.target.value)}
+                      className="w-full rounded-xl border border-slate-300 p-2 text-xs text-slate-900 focus:border-purple-600 focus:outline-none"
+                    >
+                      <option value="Backend">Backend</option>
+                      <option value="Frontend">Frontend</option>
+                      <option value="FullStack">FullStack</option>
+                      <option value="AI & ML">AI & ML</option>
+                      <option value="DevOps & Cloud">DevOps & Cloud</option>
+                      <option value="Mobile">Mobile</option>
+                      <option value="Product & Mgmt">Product & Mgmt</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 mb-1">Experience Level</label>
+                    <select
+                      value={hostExperience}
+                      onChange={(e) => setHostExperience(e.target.value)}
+                      className="w-full rounded-xl border border-slate-300 p-2 text-xs text-slate-900 focus:border-purple-600 focus:outline-none"
+                    >
+                      <option value="FRESHER">FRESHER</option>
+                      <option value="1-3 YRS">1-3 YRS</option>
+                      <option value="3-5 YRS">3-5 YRS</option>
+                      <option value="5+ YRS">5+ YRS</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">Key Tech Stack / Requirements</label>
+                  <input
+                    type="text"
+                    value={hostSkills}
+                    onChange={(e) => setHostSkills(e.target.value)}
+                    placeholder="Go, Kafka, Redis, Microservices"
+                    className="w-full rounded-xl border border-slate-300 p-2 text-xs text-slate-900 focus:border-purple-600 focus:outline-none"
+                  />
+                </div>
+
+                <div className="rounded-xl bg-purple-50 border border-purple-200 p-3 text-[11px] text-purple-900 leading-snug">
+                  💡 <strong>Cut Breakdown:</strong> If company bonus is ₹60,000, RoleNest takes 15% (₹9,000), candidate gets ₹25,000, and you retain ₹26,000 completely hands-free while helping a peer join your company!
+                </div>
+
+                <div className="pt-2 flex items-center justify-end gap-2">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => setShowHostModal(false)}
+                    className="text-xs"
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    type="submit"
+                    disabled={isSubmittingHost}
+                    className="bg-purple-700 hover:bg-purple-600 text-white font-bold text-xs"
+                  >
+                    {isSubmittingHost ? (
+                      <>
+                        <Loader2 className="h-4 w-4 animate-spin mr-1.5" />
+                        Verifying &amp; Hosting...
+                      </>
+                    ) : (
+                      "Publish Referral Slot"
+                    )}
+                  </Button>
+                </div>
+              </form>
             )}
           </div>
         </div>
       )}
 
-      {/* TRACK MY REFERRALS MODAL */}
+      {/* MODAL 3: TRACK MY REFERRAL APPLICATIONS */}
       {showTrackerModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/70 backdrop-blur-xs p-4 animate-in fade-in">
-          <div className="relative w-full max-w-lg rounded-3xl border border-slate-200 bg-white p-6 sm:p-7 shadow-2xl text-slate-900 space-y-4 max-h-[85vh] overflow-y-auto">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4 overflow-y-auto">
+          <div className="relative w-full max-w-lg rounded-2xl bg-white p-6 shadow-2xl border border-slate-200">
             <button
               onClick={() => setShowTrackerModal(false)}
-              className="absolute right-5 top-5 p-1 rounded-lg text-slate-400 hover:text-slate-700"
+              className="absolute right-4 top-4 text-slate-400 hover:text-slate-600 text-xl font-bold"
             >
               ✕
             </button>
 
-            <div className="flex items-center gap-2.5">
-              <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-emerald-100 text-emerald-700">
-                <Wallet className="h-4 w-4" />
-              </span>
-              <div>
-                <h3 className="text-base font-bold text-slate-900">
-                  My Referrals &amp; Payout Status
-                </h3>
-                <p className="text-xs text-slate-500">
-                  Track all friends you referred and check their hiring status.
-                </p>
-              </div>
-            </div>
+            <h3 className="text-xl font-black text-slate-900">Track Referral Requests</h3>
+            <p className="text-xs text-slate-600 mt-1">
+              Enter your email to view your submitted referral requests and their current status in internal ATS pipelines.
+            </p>
 
-            <form onSubmit={handleTrackReferrals} className="flex gap-2">
+            <form onSubmit={handleTrackApps} className="mt-4 flex gap-2">
               <input
                 type="email"
                 required
-                placeholder="Enter your email to lookup referrals..."
                 value={trackerEmail}
                 onChange={(e) => setTrackerEmail(e.target.value)}
-                className="flex-1 rounded-xl border border-slate-300 p-2.5 text-xs text-slate-900 focus:outline-none focus:border-emerald-600"
+                placeholder="Enter your candidate email..."
+                className="flex-1 rounded-xl border border-slate-300 p-2.5 text-xs text-slate-900 focus:border-purple-600 focus:outline-none"
               />
-              <Button
-                type="submit"
-                disabled={isSearchingReferrals}
-                className="bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs px-4"
-              >
-                {isSearchingReferrals ? "Checking..." : "Lookup"}
+              <Button type="submit" disabled={isSearchingApps} className="bg-purple-700 hover:bg-purple-600 text-white text-xs font-bold">
+                {isSearchingApps ? <Loader2 className="h-4 w-4 animate-spin" /> : "Track"}
               </Button>
             </form>
 
-            {hasSearchedReferrals && (
-              <div className="space-y-3 pt-2">
-                {myReferrals.length === 0 ? (
-                  <div className="py-8 text-center bg-slate-50 rounded-2xl border border-slate-200 p-4 space-y-1">
-                    <p className="text-xs font-bold text-slate-700">No referrals found for {trackerEmail}</p>
-                    <p className="text-[11px] text-slate-500">
-                      Pick any role on the board and click &quot;Refer a Friend&quot; to get started!
-                    </p>
+            <div className="mt-5 space-y-3 max-h-72 overflow-y-auto">
+              {hasSearchedApps && myApplications.length === 0 && (
+                <div className="text-center py-6 text-xs text-slate-500">
+                  No referral requests found for this email address.
+                </div>
+              )}
+
+              {myApplications.map((app) => (
+                <div key={app.id} className="rounded-xl border border-slate-200 bg-slate-50 p-3 text-xs space-y-1">
+                  <div className="flex items-center justify-between">
+                    <span className="font-bold text-slate-900">{app.companyName}</span>
+                    <span className="rounded-full bg-purple-100 text-purple-800 font-mono text-[10px] px-2 py-0.5 font-bold">
+                      {app.status}
+                    </span>
                   </div>
-                ) : (
-                  <div className="space-y-2.5">
-                    {myReferrals.map((r, i) => (
-                      <div key={r.id || i} className="p-3.5 rounded-2xl border border-slate-200 bg-slate-50 space-y-1.5 text-xs">
-                        <div className="flex items-center justify-between">
-                          <span className="font-bold text-slate-900">{r.friendName}</span>
-                          <span className="font-bold text-emerald-700">₹{r.bountyRewardInr?.toLocaleString("en-IN")} Bounty</span>
-                        </div>
-                        <div className="text-slate-600 text-[11px]">
-                          {r.roleTitle} @ {r.companyName}
-                        </div>
-                        <div className="flex items-center justify-between pt-1 border-t border-slate-200 text-[10px] text-slate-500">
-                          <span>Status: <strong className="text-emerald-700">{r.status || "UNDER REVIEW"}</strong></span>
-                          <span>UPI: {r.referrerUpi}</span>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            )}
+                  <div className="text-slate-600 font-medium">{app.roleTitle}</div>
+                  <div className="text-[11px] text-slate-500">DevScore: {app.devScore} • Submitted {new Date(app.createdAt).toLocaleDateString()}</div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       )}

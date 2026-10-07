@@ -3,25 +3,19 @@ import { getCache, setCache } from "@/lib/redis";
 
 export const dynamic = "force-dynamic";
 
-export interface FriendReferralSubmission {
+export interface ReferralApplication {
   id: string;
   bountyId: string;
   companyName: string;
   roleTitle: string;
-  bountyRewardInr: number;
-  // Referrer info (the person getting paid the bounty)
-  referrerName: string;
-  referrerEmail: string;
-  referrerPhone?: string;
-  referrerUpi: string;
-  // Friend info (the candidate being referred)
-  friendName: string;
-  friendEmail: string;
-  friendPhone?: string;
-  friendGithubUrl?: string;
-  friendResumeUrl?: string;
-  recommendationNote: string;
-  status: "SUBMITTED" | "REVIEWING" | "INTERVIEWING" | "OFFER_EXTENDED" | "BOUNTY_PAID";
+  candidateName: string;
+  candidateEmail: string;
+  candidatePhone?: string;
+  candidateGithubUrl?: string;
+  candidateResumeUrl?: string;
+  devScore?: number;
+  pitchNote: string;
+  status: "PENDING_REVIEW" | "SUBMITTED_TO_ATS" | "INTERVIEWING" | "HIRED";
   createdAt: string;
 }
 
@@ -32,68 +26,52 @@ export async function POST(req: NextRequest) {
       bountyId,
       companyName,
       roleTitle,
-      bountyRewardInr,
-      referrerName,
-      referrerEmail,
-      referrerPhone,
-      referrerUpi,
-      friendName,
-      friendEmail,
-      friendPhone,
-      friendGithubUrl,
-      friendResumeUrl,
-      recommendationNote,
+      candidateName,
+      candidateEmail,
+      candidatePhone,
+      candidateGithubUrl,
+      candidateResumeUrl,
+      devScore,
+      pitchNote,
     } = body;
 
-    if (!bountyId || !friendName || !friendEmail || !referrerEmail || !referrerUpi) {
+    if (!bountyId || !candidateName || !candidateEmail) {
       return NextResponse.json(
-        { error: "Friend's name & email, and your email & UPI ID (for payout) are required." },
+        { error: "Candidate name and email are required to request an internal referral." },
         { status: 400 }
       );
     }
 
-    const referralId = `ref-${Date.now()}`;
-    const referralData: FriendReferralSubmission = {
-      id: referralId,
+    const application: ReferralApplication = {
+      id: `app-${Date.now()}`,
       bountyId,
-      companyName: companyName || "Partner Company",
+      companyName: companyName || "Target Company",
       roleTitle: roleTitle || "Software Engineer",
-      bountyRewardInr: Number(bountyRewardInr) || 25000,
-      referrerName: (referrerName || "Community Member").trim(),
-      referrerEmail: referrerEmail.trim().toLowerCase(),
-      referrerPhone: referrerPhone || "",
-      referrerUpi: referrerUpi.trim(),
-      friendName: friendName.trim(),
-      friendEmail: friendEmail.trim().toLowerCase(),
-      friendPhone: friendPhone || "",
-      friendGithubUrl: friendGithubUrl || "",
-      friendResumeUrl: friendResumeUrl || "",
-      recommendationNote: (recommendationNote || "").trim(),
-      status: "SUBMITTED",
+      candidateName: candidateName.trim(),
+      candidateEmail: candidateEmail.trim().toLowerCase(),
+      candidatePhone: candidatePhone || "",
+      candidateGithubUrl: candidateGithubUrl || "",
+      candidateResumeUrl: candidateResumeUrl || "",
+      devScore: Number(devScore) || 780,
+      pitchNote: (pitchNote || "").trim(),
+      status: "PENDING_REVIEW",
       createdAt: new Date().toISOString(),
     };
 
-    // Store in Redis user referrals list
-    const userListKey = `rolenest:user_referrals:${referrerEmail.trim().toLowerCase()}`;
-    const existing = (await getCache<FriendReferralSubmission[]>(userListKey)) || [];
-    existing.unshift(referralData);
-    await setCache(userListKey, existing, 90 * 24 * 60 * 60);
-
-    // Global referrals log
-    const globalListKey = "rolenest:all_friend_referrals";
-    const allRefs = (await getCache<FriendReferralSubmission[]>(globalListKey)) || [];
-    allRefs.unshift(referralData);
-    await setCache(globalListKey, allRefs.slice(0, 500), 90 * 24 * 60 * 60);
+    // Store in Redis candidate applications
+    const userKey = `rolenest:referral_apps:${candidateEmail.trim().toLowerCase()}`;
+    const existing = (await getCache<ReferralApplication[]>(userKey)) || [];
+    existing.unshift(application);
+    await setCache(userKey, existing, 90 * 24 * 60 * 60);
 
     return NextResponse.json({
       success: true,
-      referralId,
-      message: `Referral submitted! Your friend ${friendName} has been prioritized for ${roleTitle} at ${companyName}. When they join, ₹${Number(bountyRewardInr).toLocaleString("en-IN")} will be sent directly to ${referrerUpi}!`,
-      referral: referralData,
+      message: `Your referral request for ${roleTitle} at ${companyName} has been submitted! The employee host will review your DevScore and submit your profile directly into their company ATS.`,
+      application,
     });
   } catch (err: any) {
-    console.error("Error submitting friend referral:", err);
-    return NextResponse.json({ error: err.message || "Failed to submit referral" }, { status: 500 });
+    console.error("Error submitting referral application:", err);
+    return NextResponse.json({ error: err.message || "Failed to submit referral application" }, { status: 500 });
   }
 }
 
@@ -103,14 +81,14 @@ export async function GET(req: NextRequest) {
     const email = searchParams.get("email");
 
     if (!email) {
-      return NextResponse.json({ referrals: [] });
+      return NextResponse.json({ applications: [] });
     }
 
-    const userListKey = `rolenest:user_referrals:${email.trim().toLowerCase()}`;
-    const referrals = (await getCache<FriendReferralSubmission[]>(userListKey)) || [];
-    return NextResponse.json({ referrals, count: referrals.length });
+    const userKey = `rolenest:referral_apps:${email.trim().toLowerCase()}`;
+    const applications = (await getCache<ReferralApplication[]>(userKey)) || [];
+    return NextResponse.json({ applications, count: applications.length });
   } catch (err: any) {
-    console.error("Error getting referrals:", err);
-    return NextResponse.json({ referrals: [] });
+    console.error("Error fetching applications:", err);
+    return NextResponse.json({ applications: [] });
   }
 }

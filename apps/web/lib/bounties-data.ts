@@ -1,90 +1,211 @@
-import { MockJob } from "./mock-jobs";
-
-export interface FriendReferralBounty {
+export interface EmployeeHostedBounty {
   id: string;
-  jobId: string;
-  jobSlug: string;
   companyName: string;
   companySlug: string;
   companyLogoUrl?: string;
-  companyLogoInitial?: string;
+  companyLogoInitial: string;
   roleTitle: string;
-  department: "Backend" | "Frontend" | "FullStack" | "AI & ML" | "DevOps & Cloud" | "Mobile";
-  bountyRewardInr: number; // Cash bounty paid to YOU when your friend gets hired
-  salaryRangeCtcLpa: string;
+  department: "Backend" | "Frontend" | "FullStack" | "AI & ML" | "DevOps & Cloud" | "Mobile" | "Product & Mgmt";
+  employeeBonusInr: number; // The official bonus the company gives the employee
+  candidateRewardInr: number; // What the candidate receives or what the employee shares
+  platformFeeCutPercent: number; // Default 15% platform fee cut for escrow & verification
+  hostEmployeeTitle: string; // e.g. "Staff SDE-3 at Google", "Senior PM at Twilio"
+  hostEmployeeDomain: string; // e.g. "@google.com", "@twilio.com" (verified corporate email)
   experienceLevel: "FRESHER" | "1-3 YRS" | "3-5 YRS" | "5+ YRS";
+  salaryRangeCtcLpa: string;
   location: string;
-  workMode: string;
+  workMode: "Remote" | "Hybrid" | "Onsite";
   keySkills: string[];
-  hiringUrgency: "IMMEDIATE" | "HIGH" | "OPEN";
-  openPositions: number;
-  description: string;
+  openSlots: number;
+  referralType: "INTERNAL_ATS_SUBMISSION" | "HIRING_MANAGER_DIRECT";
   postedAgo: string;
-  sourceUrl?: string;
-  totalReferralsSubmitted?: number;
+  verifiedBadge: boolean;
+  description: string;
 }
 
-export function inferDepartment(title: string, skills: string[] = []): "Backend" | "Frontend" | "FullStack" | "AI & ML" | "DevOps & Cloud" | "Mobile" {
-  const t = (title + " " + skills.join(" ")).toLowerCase();
-  if (t.includes("mobile") || t.includes("android") || t.includes("ios") || t.includes("react native") || t.includes("flutter") || t.includes("swift")) {
-    return "Mobile";
-  }
-  if (t.includes("devops") || t.includes("cloud") || t.includes("kubernetes") || t.includes("docker") || t.includes("infra") || t.includes("sre") || t.includes("terraform")) {
-    return "DevOps & Cloud";
-  }
-  if (t.includes("ai") || t.includes("ml") || t.includes("machine learning") || t.includes("pytorch") || t.includes("llm") || t.includes("data scientist") || t.includes("nlp") || t.includes("deep learning")) {
-    return "AI & ML";
-  }
-  if (t.includes("frontend") || t.includes("ui") || t.includes("react") || t.includes("angular") || t.includes("vue") || t.includes("css") || t.includes("web design")) {
-    return "Frontend";
-  }
-  if (t.includes("backend") || t.includes("go") || t.includes("golang") || t.includes("java") || t.includes("python") || t.includes("django") || t.includes("node") || t.includes("microservice") || t.includes("database") || t.includes("sql")) {
-    return "Backend";
-  }
-  return "FullStack";
-}
-
-export function calculateReferralBounty(job: { experienceYears?: number; jobType?: string; salaryOrStipend?: string }): number {
-  if (job.jobType === "INTERNSHIP") return 12000;
-  const exp = job.experienceYears || 0;
-  if (exp >= 5) return 45000;
-  if (exp >= 3) return 35000;
-  if (exp >= 1) return 25000;
-  return 15000;
-}
-
-export function convertRealJobToBounty(job: MockJob): FriendReferralBounty {
-  const exp = job.experienceYears || 0;
-  const expLevel: "FRESHER" | "1-3 YRS" | "3-5 YRS" | "5+ YRS" =
-    exp === 0 || job.jobType === "INTERNSHIP"
-      ? "FRESHER"
-      : exp >= 5
-      ? "5+ YRS"
-      : exp >= 3
-      ? "3-5 YRS"
-      : "1-3 YRS";
-
-  return {
-    id: `bounty-${job.id}`,
-    jobId: job.id,
-    jobSlug: job.slug,
-    companyName: job.companyName,
-    companySlug: job.companySlug,
-    companyLogoUrl: job.companyLogoUrl,
-    companyLogoInitial: job.companyLogoInitial || job.companyName.charAt(0),
-    roleTitle: job.title,
-    department: inferDepartment(job.title, job.skills),
-    bountyRewardInr: calculateReferralBounty(job),
-    salaryRangeCtcLpa: job.salaryOrStipend || "Competitive (Industry Standard)",
-    experienceLevel: expLevel,
-    location: job.location || "Remote / Pan-India",
-    workMode: job.workMode || "Hybrid",
-    keySkills: job.skills && job.skills.length > 0 ? job.skills.slice(0, 5) : ["Engineering", "Problem Solving"],
-    hiringUrgency: job.isFeatured ? "IMMEDIATE" : "HIGH",
-    openPositions: 1,
-    description: job.description || "Active engineering opening verified through official employer hiring pipeline.",
-    postedAgo: job.postedAgo || "Recently",
-    sourceUrl: job.sourceUrl,
-    totalReferralsSubmitted: Math.floor((job.title.length * 3) % 15) + 2,
-  };
-}
+export const VERIFIED_EMPLOYEE_BOUNTIES: EmployeeHostedBounty[] = [
+  {
+    id: "emp-twilio-pm",
+    companyName: "Twilio",
+    companySlug: "twilio",
+    companyLogoInitial: "T",
+    roleTitle: "Sr. Program Manager, Talent & Operations",
+    department: "Product & Mgmt",
+    employeeBonusInr: 75000,
+    candidateRewardInr: 35000,
+    platformFeeCutPercent: 15,
+    hostEmployeeTitle: "Principal Operations Lead at Twilio India",
+    hostEmployeeDomain: "@twilio.com",
+    experienceLevel: "5+ YRS",
+    salaryRangeCtcLpa: "₹38 – ₹52 LPA",
+    location: "Bangalore • Hybrid",
+    workMode: "Hybrid",
+    keySkills: ["Program Management", "Talent Development", "Agile", "Cross-functional Leadership"],
+    openSlots: 2,
+    referralType: "INTERNAL_ATS_SUBMISSION",
+    postedAgo: "2 days ago",
+    verifiedBadge: true,
+    description: "Verified employee referral for Twilio's Talent Operations team. Candidate will be submitted directly through internal Workday ATS with priority flag.",
+  },
+  {
+    id: "emp-google-l4",
+    companyName: "Google India",
+    companySlug: "google",
+    companyLogoInitial: "G",
+    roleTitle: "Software Engineer III (L4 Backend / Distributed Systems)",
+    department: "Backend",
+    employeeBonusInr: 120000,
+    candidateRewardInr: 50000,
+    platformFeeCutPercent: 15,
+    hostEmployeeTitle: "Staff Software Engineer (L6) at Google",
+    hostEmployeeDomain: "@google.com",
+    experienceLevel: "3-5 YRS",
+    salaryRangeCtcLpa: "₹48 – ₹75 LPA",
+    location: "Bangalore / Hyderabad",
+    workMode: "Hybrid",
+    keySkills: ["Distributed Systems", "C++", "Go", "Algorithms", "Concurrency"],
+    openSlots: 3,
+    referralType: "INTERNAL_ATS_SUBMISSION",
+    postedAgo: "1 day ago",
+    verifiedBadge: true,
+    description: "Internal referral submission to Google Core Systems team. I review the candidate's DevScore and GitHub before submitting to our internal referral portal.",
+  },
+  {
+    id: "emp-razorpay-sde2",
+    companyName: "Razorpay",
+    companySlug: "razorpay",
+    companyLogoInitial: "R",
+    roleTitle: "SDE-2 Backend Engineer (Payments Infrastructure)",
+    department: "Backend",
+    employeeBonusInr: 60000,
+    candidateRewardInr: 30000,
+    platformFeeCutPercent: 15,
+    hostEmployeeTitle: "Senior Engineering Lead at Razorpay",
+    hostEmployeeDomain: "@razorpay.com",
+    experienceLevel: "1-3 YRS",
+    salaryRangeCtcLpa: "₹26 – ₹36 LPA",
+    location: "Bangalore • Hybrid",
+    workMode: "Hybrid",
+    keySkills: ["Go (Golang)", "Kafka", "MySQL", "Distributed Caching", "High Throughput"],
+    openSlots: 4,
+    referralType: "HIRING_MANAGER_DIRECT",
+    postedAgo: "Just now",
+    verifiedBadge: true,
+    description: "Fast-tracked internal referral for Razorpay's high-speed checkout engine. Direct introduction to hiring engineering manager.",
+  },
+  {
+    id: "emp-zepto-ai",
+    companyName: "Zepto",
+    companySlug: "zepto",
+    companyLogoInitial: "Z",
+    roleTitle: "AI & ML Engineer (LLM Routing & Search Ranking)",
+    department: "AI & ML",
+    employeeBonusInr: 80000,
+    candidateRewardInr: 40000,
+    platformFeeCutPercent: 15,
+    hostEmployeeTitle: "Lead AI Engineer at Zepto Quick Commerce",
+    hostEmployeeDomain: "@zeptonow.com",
+    experienceLevel: "1-3 YRS",
+    salaryRangeCtcLpa: "₹28 – ₹45 LPA",
+    location: "Bangalore • Hybrid",
+    workMode: "Hybrid",
+    keySkills: ["Python", "PyTorch", "Vector Search", "vLLM", "Transformers"],
+    openSlots: 2,
+    referralType: "INTERNAL_ATS_SUBMISSION",
+    postedAgo: "3 days ago",
+    verifiedBadge: true,
+    description: "Direct referral to Zepto's AI engineering pods. Looking for engineers who have strong open-source or production LLM experience.",
+  },
+  {
+    id: "emp-swiggy-fe",
+    companyName: "Swiggy",
+    companySlug: "swiggy",
+    companyLogoInitial: "S",
+    roleTitle: "Frontend Engineer (React 19, Next.js & Performance)",
+    department: "Frontend",
+    employeeBonusInr: 50000,
+    candidateRewardInr: 25000,
+    platformFeeCutPercent: 15,
+    hostEmployeeTitle: "Frontend Tech Lead at Swiggy",
+    hostEmployeeDomain: "@swiggy.in",
+    experienceLevel: "1-3 YRS",
+    salaryRangeCtcLpa: "₹20 – ₹30 LPA",
+    location: "Bangalore • Remote-Friendly",
+    workMode: "Remote",
+    keySkills: ["React 19", "Next.js", "TypeScript", "Core Web Vitals", "State Management"],
+    openSlots: 3,
+    referralType: "INTERNAL_ATS_SUBMISSION",
+    postedAgo: "1 day ago",
+    verifiedBadge: true,
+    description: "Referral for Swiggy web and consumer checkout team. Candidates with verified DevScore on React/TS get immediate review.",
+  },
+  {
+    id: "emp-uber-mobile",
+    companyName: "Uber India",
+    companySlug: "uber",
+    companyLogoInitial: "U",
+    roleTitle: "Mobile Engineer (React Native & iOS Architecture)",
+    department: "Mobile",
+    employeeBonusInr: 90000,
+    candidateRewardInr: 35000,
+    platformFeeCutPercent: 15,
+    hostEmployeeTitle: "Senior Mobile Architect at Uber",
+    hostEmployeeDomain: "@uber.com",
+    experienceLevel: "3-5 YRS",
+    salaryRangeCtcLpa: "₹35 – ₹55 LPA",
+    location: "Hyderabad / Bangalore",
+    workMode: "Hybrid",
+    keySkills: ["React Native", "iOS / Swift", "Offline First", "High Scale UI"],
+    openSlots: 2,
+    referralType: "INTERNAL_ATS_SUBMISSION",
+    postedAgo: "4 days ago",
+    verifiedBadge: true,
+    description: "Direct referral to Uber Rider / Driver apps team. We ensure your resume reaches the technical hiring committee without getting lost in ATS filters.",
+  },
+  {
+    id: "emp-atlassian-fs",
+    companyName: "Atlassian",
+    companySlug: "atlassian",
+    companyLogoInitial: "A",
+    roleTitle: "Full-Stack Software Engineer (Jira Cloud Platform)",
+    department: "FullStack",
+    employeeBonusInr: 100000,
+    candidateRewardInr: 45000,
+    platformFeeCutPercent: 15,
+    hostEmployeeTitle: "Senior Full-Stack Engineer at Atlassian",
+    hostEmployeeDomain: "@atlassian.com",
+    experienceLevel: "1-3 YRS",
+    salaryRangeCtcLpa: "₹30 – ₹48 LPA",
+    location: "Remote (All India)",
+    workMode: "Remote",
+    keySkills: ["React", "TypeScript", "Kotlin / Java", "AWS", "GraphQL"],
+    openSlots: 3,
+    referralType: "INTERNAL_ATS_SUBMISSION",
+    postedAgo: "2 days ago",
+    verifiedBadge: true,
+    description: "WorkAnywhere remote opportunity. Internal employee referral directly to Jira Cloud platform group.",
+  },
+  {
+    id: "emp-phonepe-devops",
+    companyName: "PhonePe",
+    companySlug: "phonepe",
+    companyLogoInitial: "P",
+    roleTitle: "DevOps & Cloud Platform Engineer (Kubernetes, Bare-Metal)",
+    department: "DevOps & Cloud",
+    employeeBonusInr: 65000,
+    candidateRewardInr: 30000,
+    platformFeeCutPercent: 15,
+    hostEmployeeTitle: "Principal Infrastructure Engineer at PhonePe",
+    hostEmployeeDomain: "@phonepe.com",
+    experienceLevel: "1-3 YRS",
+    salaryRangeCtcLpa: "₹24 – ₹38 LPA",
+    location: "Bangalore / Pune",
+    workMode: "Hybrid",
+    keySkills: ["Kubernetes", "Docker", "Terraform", "Prometheus", "Linux Kernel"],
+    openSlots: 2,
+    referralType: "HIRING_MANAGER_DIRECT",
+    postedAgo: "3 days ago",
+    verifiedBadge: true,
+    description: "Internal referral for PhonePe core payments cluster. We manage multi-gigawatt transaction volumes. Direct submission to Infra lead.",
+  },
+];
