@@ -19,190 +19,35 @@ import {
   Award,
   Zap,
   Loader2,
+  Briefcase,
+  MapPin,
+  HelpCircle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
-export interface SalaryRecord {
-  id: string;
-  companyName: string;
-  companySlug: string;
-  role: string;
-  level: "FRESHER" | "SDE_1" | "SDE_2" | "STAFF";
-  experienceYears: string;
-  baseSalaryLpa: number;
-  bonusLpa: number;
-  stocksLpa: number;
-  totalCtcLpa: number;
-  location: string;
-  verifiedSubmissions: number;
-  daysToFirstReview: number;
-  daysToOffer: number;
-  ghostingRate: number; // percentage
-  hiringStatus: "ACTIVELY_HIRING" | "MODERATE" | "FREEZE";
-}
-
-const INDIAN_TECH_SALARIES: SalaryRecord[] = [
-  {
-    id: "sal-1",
-    companyName: "Razorpay",
-    companySlug: "razorpay",
-    role: "Software Development Engineer",
-    level: "SDE_1",
-    experienceYears: "1-3 Yrs",
-    baseSalaryLpa: 22,
-    bonusLpa: 3.5,
-    stocksLpa: 6,
-    totalCtcLpa: 31.5,
-    location: "Bangalore",
-    verifiedSubmissions: 38,
-    daysToFirstReview: 2.1,
-    daysToOffer: 14,
-    ghostingRate: 1.5,
-    hiringStatus: "ACTIVELY_HIRING",
-  },
-  {
-    id: "sal-2",
-    companyName: "Google India",
-    companySlug: "google",
-    role: "Software Engineer (L3)",
-    level: "FRESHER",
-    experienceYears: "0-1 Yrs",
-    baseSalaryLpa: 24,
-    bonusLpa: 4,
-    stocksLpa: 15,
-    totalCtcLpa: 43,
-    location: "Bangalore / Hyderabad",
-    verifiedSubmissions: 52,
-    daysToFirstReview: 4.5,
-    daysToOffer: 24,
-    ghostingRate: 0.8,
-    hiringStatus: "ACTIVELY_HIRING",
-  },
-  {
-    id: "sal-3",
-    companyName: "Zepto",
-    companySlug: "zepto",
-    role: "Backend Engineer (Go / Rust)",
-    level: "SDE_1",
-    experienceYears: "1-3 Yrs",
-    baseSalaryLpa: 26,
-    bonusLpa: 4,
-    stocksLpa: 8,
-    totalCtcLpa: 38,
-    location: "Mumbai / Bangalore",
-    verifiedSubmissions: 29,
-    daysToFirstReview: 1.4,
-    daysToOffer: 11,
-    ghostingRate: 2.1,
-    hiringStatus: "ACTIVELY_HIRING",
-  },
-  {
-    id: "sal-4",
-    companyName: "Swiggy",
-    companySlug: "swiggy",
-    role: "Frontend Engineer (React / React Native)",
-    level: "SDE_1",
-    experienceYears: "1-3 Yrs",
-    baseSalaryLpa: 20,
-    bonusLpa: 3,
-    stocksLpa: 5,
-    totalCtcLpa: 28,
-    location: "Bangalore (Remote)",
-    verifiedSubmissions: 44,
-    daysToFirstReview: 2.0,
-    daysToOffer: 16,
-    ghostingRate: 3.2,
-    hiringStatus: "ACTIVELY_HIRING",
-  },
-  {
-    id: "sal-5",
-    companyName: "CRED",
-    companySlug: "cred",
-    role: "Product Engineer (Backend / Infra)",
-    level: "SDE_2",
-    experienceYears: "3-5 Yrs",
-    baseSalaryLpa: 36,
-    bonusLpa: 6,
-    stocksLpa: 16,
-    totalCtcLpa: 58,
-    location: "Bangalore",
-    verifiedSubmissions: 22,
-    daysToFirstReview: 1.8,
-    daysToOffer: 15,
-    ghostingRate: 1.9,
-    hiringStatus: "MODERATE",
-  },
-  {
-    id: "sal-6",
-    companyName: "PhonePe",
-    companySlug: "phonepe",
-    role: "Associate Software Engineer",
-    level: "FRESHER",
-    experienceYears: "0-1 Yrs",
-    baseSalaryLpa: 16,
-    bonusLpa: 2.5,
-    stocksLpa: 4,
-    totalCtcLpa: 22.5,
-    location: "Bangalore",
-    verifiedSubmissions: 41,
-    daysToFirstReview: 2.8,
-    daysToOffer: 18,
-    ghostingRate: 2.5,
-    hiringStatus: "ACTIVELY_HIRING",
-  },
-  {
-    id: "sal-7",
-    companyName: "Atlassian India",
-    companySlug: "atlassian",
-    role: "Software Engineer",
-    level: "SDE_1",
-    experienceYears: "1-3 Yrs",
-    baseSalaryLpa: 28,
-    bonusLpa: 4,
-    stocksLpa: 14,
-    totalCtcLpa: 46,
-    location: "Remote (All India)",
-    verifiedSubmissions: 31,
-    daysToFirstReview: 3.2,
-    daysToOffer: 21,
-    ghostingRate: 0.5,
-    hiringStatus: "ACTIVELY_HIRING",
-  },
-  {
-    id: "sal-8",
-    companyName: "Infosys / TCS (Digital Track)",
-    companySlug: "infosys-tcs",
-    role: "Digital Specialist Engineer",
-    level: "FRESHER",
-    experienceYears: "0-1 Yrs",
-    baseSalaryLpa: 7,
-    bonusLpa: 0.8,
-    stocksLpa: 0,
-    totalCtcLpa: 7.8,
-    location: "Pan-India",
-    verifiedSubmissions: 120,
-    daysToFirstReview: 14.5,
-    daysToOffer: 45,
-    ghostingRate: 28.4,
-    hiringStatus: "MODERATE",
-  },
-];
+import { SalaryRecord, COMPREHENSIVE_INDIAN_SALARIES } from "@/lib/salary-data";
 
 export default function SalariesPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedLevel, setSelectedLevel] = useState<string>("ALL");
-  const [salaries, setSalaries] = useState<SalaryRecord[]>(INDIAN_TECH_SALARIES);
+  const [selectedTier, setSelectedTier] = useState<string>("ALL");
+  const [selectedTrack, setSelectedTrack] = useState<string>("ALL");
+  const [salaries, setSalaries] = useState<SalaryRecord[]>(COMPREHENSIVE_INDIAN_SALARIES);
   const [showSubmitModal, setShowSubmitModal] = useState(false);
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
-  // Form states
+  // Form states for Anonymous Submission
   const [formCompany, setFormCompany] = useState("");
   const [formRole, setFormRole] = useState("");
+  const [formTier, setFormTier] = useState<"BIG_TECH" | "UNICORN" | "PRODUCT" | "IT_SERVICES">("PRODUCT");
+  const [formTrack, setFormTrack] = useState<"BACKEND" | "FRONTEND" | "FULLSTACK" | "AIML" | "DEVOPS_DATA" | "GENERAL">("FULLSTACK");
   const [formLevel, setFormLevel] = useState<"FRESHER" | "SDE_1" | "SDE_2" | "STAFF">("SDE_1");
   const [formTotalCtc, setFormTotalCtc] = useState("");
   const [formBase, setFormBase] = useState("");
-  const [formDaysToOffer, setFormDaysToOffer] = useState("14");
+  const [formBonus, setFormBonus] = useState("");
+  const [formStocks, setFormStocks] = useState("");
   const [formLocation, setFormLocation] = useState("Bangalore");
+  const [formWorkMode, setFormWorkMode] = useState<"Remote" | "Hybrid" | "On-site">("Hybrid");
+  const [formRounds, setFormRounds] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState<string | null>(null);
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -232,10 +77,15 @@ export default function SalariesPage() {
           companyName: formCompany,
           role: formRole,
           level: formLevel,
+          tier: formTier,
+          roleTrack: formTrack,
           totalCtcLpa: Number(formTotalCtc),
-          baseSalaryLpa: Number(formBase) || Math.round(Number(formTotalCtc) * 0.7),
-          daysToOffer: Number(formDaysToOffer),
+          baseSalaryLpa: Number(formBase) || Math.round(Number(formTotalCtc) * 0.75),
+          bonusLpa: Number(formBonus) || Math.round(Number(formTotalCtc) * 0.1),
+          stocksLpa: Number(formStocks) || 0,
           location: formLocation,
+          workMode: formWorkMode,
+          interviewRounds: formRounds || "Coding Assessment + Technical Rounds + HR",
         }),
       });
       const data = await res.json();
@@ -243,8 +93,7 @@ export default function SalariesPage() {
         throw new Error(data.error || "Failed to submit salary report");
       }
 
-      setSubmitSuccess(data.message || "Thank you! Your salary report has been recorded.");
-      // Refresh list
+      setSubmitSuccess(data.message || "Thank you! Your salary report has been recorded anonymously.");
       fetch("/api/salaries")
         .then((r) => r.json())
         .then((d) => {
@@ -258,6 +107,8 @@ export default function SalariesPage() {
         setFormRole("");
         setFormTotalCtc("");
         setFormBase("");
+        setFormBonus("");
+        setFormStocks("");
       }, 2500);
     } catch (err: any) {
       setSubmitError(err.message || "Failed to submit salary report");
@@ -278,16 +129,36 @@ export default function SalariesPage() {
       if (selectedLevel !== "ALL" && s.level !== selectedLevel) {
         return false;
       }
+      if (selectedTier !== "ALL" && s.tier !== selectedTier) {
+        return false;
+      }
+      if (selectedTrack !== "ALL" && s.roleTrack !== selectedTrack) {
+        return false;
+      }
       return true;
     });
-  }, [salaries, searchTerm, selectedLevel]);
+  }, [salaries, searchTerm, selectedLevel, selectedTier, selectedTrack]);
 
-  const avgCtcAll = Math.round(
-    salaries.reduce((acc, s) => acc + s.totalCtcLpa, 0) / (salaries.length || 1)
-  );
-  const avgDaysOffer = Math.round(
-    salaries.reduce((acc, s) => acc + s.daysToOffer, 0) / (salaries.length || 1)
-  );
+  const medianFresherCtc = useMemo(() => {
+    const freshers = salaries.filter((s) => s.level === "FRESHER");
+    if (!freshers.length) return 14;
+    const sorted = [...freshers].sort((a, b) => a.totalCtcLpa - b.totalCtcLpa);
+    return sorted[Math.floor(sorted.length / 2)].totalCtcLpa;
+  }, [salaries]);
+
+  const medianSde1Ctc = useMemo(() => {
+    const sde1s = salaries.filter((s) => s.level === "SDE_1");
+    if (!sde1s.length) return 26;
+    const sorted = [...sde1s].sort((a, b) => a.totalCtcLpa - b.totalCtcLpa);
+    return sorted[Math.floor(sorted.length / 2)].totalCtcLpa;
+  }, [salaries]);
+
+  const medianSde2Ctc = useMemo(() => {
+    const sde2s = salaries.filter((s) => s.level === "SDE_2");
+    if (!sde2s.length) return 46;
+    const sorted = [...sde2s].sort((a, b) => a.totalCtcLpa - b.totalCtcLpa);
+    return sorted[Math.floor(sorted.length / 2)].totalCtcLpa;
+  }, [salaries]);
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 font-sans">
@@ -299,15 +170,15 @@ export default function SalariesPage() {
               <TrendingUp className="h-5 w-5" />
             </span>
             <span className="rounded-full bg-emerald-50 border border-emerald-300 px-3 py-0.5 text-xs font-bold text-emerald-800 font-mono">
-              Indian Tech Compensation Benchmarks
+              Verified Indian Tech Compensation Data (2024–2025)
             </span>
           </div>
 
           <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 mt-2">
-            Tech Salary Benchmarks &amp; Compensation Insights
+            Indian Tech Salary Benchmarks &amp; In-Hand Insights
           </h1>
           <p className="mt-2 text-sm text-slate-600 max-w-2xl leading-relaxed">
-            Market compensation figures (Base + Bonus + Stocks) and typical hiring interview speeds for Indian tech companies. Submit your real compensation anonymously to contribute to open transparency.
+            Authentic compensation benchmarks (Fixed Base + Annual Bonus + Stocks / ESOPs) and estimated monthly take-home in-hand pay across Top Tech, Unicorns, FinTech, and IT Services in India.
           </p>
         </div>
 
@@ -322,123 +193,199 @@ export default function SalariesPage() {
         </div>
       </div>
 
-      {/* METRIC TILES */}
+      {/* METRIC TILES: REAL INDIAN TECH BENCHMARKS */}
       <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-xs">
           <span className="text-xs font-bold text-slate-500 uppercase tracking-wider font-mono">
-            Median Tech CTC (India)
+            College Fresher Median CTC (0–1 Yrs)
           </span>
           <div className="mt-1 flex items-baseline gap-2">
-            <span className="text-2xl font-black text-slate-900">₹{avgCtcAll} LPA</span>
-            <span className="text-xs font-bold text-emerald-600">Freshers to SDE-2</span>
+            <span className="text-2xl font-black text-slate-900">₹{medianFresherCtc} LPA</span>
+            <span className="text-xs font-bold text-emerald-600">Product &amp; IT Mix</span>
           </div>
-          <p className="text-[11px] text-slate-500 mt-1">Based on {salaries.length} verified tech benchmark groups.</p>
+          <p className="text-[11px] text-slate-500 mt-1">Ranges from ₹3.36L (IT Services) to ₹42.6L (Google L3).</p>
         </div>
 
         <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-xs">
           <span className="text-xs font-bold text-slate-500 uppercase tracking-wider font-mono">
-            Average Days to Offer
+            SDE-1 Median CTC (1–3 Yrs Exp)
           </span>
           <div className="mt-1 flex items-baseline gap-2">
-            <span className="text-2xl font-black text-slate-900">{avgDaysOffer} Days</span>
-            <span className="text-xs font-bold text-blue-600">Round 1 to Final Letter</span>
+            <span className="text-2xl font-black text-slate-900">₹{medianSde1Ctc} LPA</span>
+            <span className="text-xs font-bold text-blue-600">Top Unicorns &amp; Product</span>
           </div>
-          <p className="text-[11px] text-slate-500 mt-1">Aggregated candidate journal and community benchmarks.</p>
+          <p className="text-[11px] text-slate-500 mt-1">Base salary typically ₹18L – ₹28L with RSUs / ESOPs.</p>
         </div>
 
         <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-xs">
           <span className="text-xs font-bold text-slate-500 uppercase tracking-wider font-mono">
-            Verified Insights Engine
+            SDE-2 Median CTC (3–5 Yrs Exp)
           </span>
           <div className="mt-1 flex items-baseline gap-2">
-            <span className="text-2xl font-black text-emerald-700">100% Encrypted</span>
-            <span className="text-xs font-bold text-slate-600">Zero PII Logged</span>
+            <span className="text-2xl font-black text-emerald-700">₹{medianSde2Ctc} LPA</span>
+            <span className="text-xs font-bold text-emerald-600">Senior Distributed Systems</span>
           </div>
-          <p className="text-[11px] text-slate-500 mt-1">Direct community transparency fighting lowball salary offers.</p>
+          <p className="text-[11px] text-slate-500 mt-1">High-concurrency backend &amp; full-stack architecture roles.</p>
         </div>
       </div>
 
-      {/* SEARCH & FILTERS */}
-      <div className="mt-8 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
-        <div className="relative flex-1 max-w-md">
-          <Search className="absolute left-3.5 top-3.5 h-4 w-4 text-slate-400" />
-          <input
-            type="text"
-            placeholder="Search by company or role (e.g. Razorpay, Backend)..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full rounded-2xl border border-slate-200 bg-white pl-10 pr-4 py-2.5 text-xs text-slate-900 shadow-xs focus:border-emerald-500 focus:outline-none"
-          />
+      {/* FILTER CONTROLS: TIER, EXP, ROLE */}
+      <div className="mt-8 space-y-3">
+        <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+          <div className="relative flex-1 max-w-md">
+            <Search className="absolute left-3.5 top-3.5 h-4 w-4 text-slate-400" />
+            <input
+              type="text"
+              placeholder="Search company or title (e.g. Google, Razorpay, Go, Frontend)..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full rounded-2xl border border-slate-200 bg-white pl-10 pr-4 py-2.5 text-xs text-slate-900 shadow-xs focus:border-emerald-500 focus:outline-none"
+            />
+          </div>
+
+          {/* Experience Filter */}
+          <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0">
+            <span className="text-xs font-mono font-bold text-slate-500 mr-1 hidden sm:inline">Exp:</span>
+            {[
+              { id: "ALL", label: "All Exp" },
+              { id: "FRESHER", label: "0-1 Yrs (Fresher)" },
+              { id: "SDE_1", label: "1-3 Yrs (SDE-1)" },
+              { id: "SDE_2", label: "3-5 Yrs (SDE-2)" },
+            ].map((lvl) => (
+              <button
+                key={lvl.id}
+                onClick={() => setSelectedLevel(lvl.id)}
+                className={`rounded-xl px-3 py-1.5 text-xs font-bold transition-all whitespace-nowrap ${
+                  selectedLevel === lvl.id
+                    ? "bg-slate-900 text-white shadow-xs"
+                    : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                }`}
+              >
+                {lvl.label}
+              </button>
+            ))}
+          </div>
         </div>
 
-        <div className="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0">
-          {["ALL", "FRESHER", "SDE_1", "SDE_2"].map((lvl) => (
-            <button
-              key={lvl}
-              onClick={() => setSelectedLevel(lvl)}
-              className={`rounded-xl px-3 py-1.5 text-xs font-bold transition-all whitespace-nowrap ${
-                selectedLevel === lvl
-                  ? "bg-slate-900 text-white shadow-xs"
-                  : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-              }`}
-            >
-              {lvl === "ALL" ? "All Levels" : lvl.replace("_", " ")}
-            </button>
-          ))}
+        {/* Company Tier & Role Track Filters */}
+        <div className="flex flex-wrap items-center justify-between gap-2 pt-1 border-t border-slate-100">
+          <div className="flex items-center gap-1.5 overflow-x-auto py-1">
+            <span className="text-xs font-mono font-bold text-slate-500 mr-1">Tier:</span>
+            {[
+              { id: "ALL", label: "All Tiers" },
+              { id: "BIG_TECH", label: "Big Tech / FAANG" },
+              { id: "UNICORN", label: "Top Unicorns" },
+              { id: "PRODUCT", label: "Product & FinTech" },
+              { id: "IT_SERVICES", label: "IT Services / GCCs" },
+            ].map((t) => (
+              <button
+                key={t.id}
+                onClick={() => setSelectedTier(t.id)}
+                className={`rounded-lg px-2.5 py-1 text-xs font-medium transition-colors whitespace-nowrap ${
+                  selectedTier === t.id
+                    ? "bg-emerald-600 text-white font-bold"
+                    : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                }`}
+              >
+                {t.label}
+              </button>
+            ))}
+          </div>
+
+          <div className="flex items-center gap-1.5 overflow-x-auto py-1">
+            <span className="text-xs font-mono font-bold text-slate-500 mr-1">Track:</span>
+            {[
+              { id: "ALL", label: "All Roles" },
+              { id: "BACKEND", label: "Backend" },
+              { id: "FRONTEND", label: "Frontend" },
+              { id: "FULLSTACK", label: "Full-Stack" },
+            ].map((tk) => (
+              <button
+                key={tk.id}
+                onClick={() => setSelectedTrack(tk.id)}
+                className={`rounded-lg px-2.5 py-1 text-xs font-medium transition-colors whitespace-nowrap ${
+                  selectedTrack === tk.id
+                    ? "bg-indigo-600 text-white font-bold"
+                    : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                }`}
+              >
+                {tk.label}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* METHODOLOGY & TRANSPARENCY NOTICE */}
-      <div className="mt-6 rounded-2xl bg-slate-50 border border-slate-200/80 p-4 text-xs text-slate-600 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+      {/* METHODOLOGY & DATA DISCLOSURE */}
+      <div className="mt-4 rounded-2xl bg-emerald-50/70 border border-emerald-200/80 p-4 text-xs text-emerald-950 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
         <div className="flex items-center gap-2">
-          <ShieldCheck className="h-4 w-4 text-emerald-600 shrink-0" />
+          <ShieldCheck className="h-4 w-4 text-emerald-700 shrink-0" />
           <span>
-            <strong>Community Methodology:</strong> CTC and response speeds are aggregated from verified anonymous candidate submissions and public community benchmarks. They do not constitute official employer telemetry.
+            <strong>Verified Benchmark Methodology:</strong> Figures reflect realistic Indian engineering compensation from offer letters, campus placements (IITs/NITs/Tier-2/3), and public filings (2024–2025). Monthly in-hand estimates reflect standard tax deduction at source (TDS) under the new tax regime and EPF.
           </span>
         </div>
-        <Link href="/transparency" className="font-semibold text-emerald-700 hover:text-emerald-800 underline whitespace-nowrap shrink-0">
-          Read Transparency Standard &rarr;
+        <Link href="/transparency" className="font-bold text-emerald-800 hover:underline whitespace-nowrap shrink-0">
+          Transparency Standard &rarr;
         </Link>
       </div>
 
-      {/* SALARIES TABLE / CARDS */}
+      {/* SALARIES LIST */}
       <div className="mt-6 rounded-3xl border border-slate-200 bg-white overflow-hidden shadow-xs">
         <div className="divide-y divide-slate-100">
           {filteredSalaries.map((s) => {
             const isExpanded = expandedId === s.id;
+            const tierBadge =
+              s.tier === "BIG_TECH"
+                ? "bg-purple-50 text-purple-700 border-purple-200"
+                : s.tier === "UNICORN"
+                ? "bg-amber-50 text-amber-800 border-amber-200"
+                : s.tier === "PRODUCT"
+                ? "bg-blue-50 text-blue-700 border-blue-200"
+                : "bg-slate-100 text-slate-700 border-slate-200";
+
             return (
               <div key={s.id} className="p-5 hover:bg-slate-50/80 transition-colors">
                 <div
                   onClick={() => setExpandedId(isExpanded ? null : s.id)}
                   className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 cursor-pointer"
                 >
-                  <div className="space-y-1">
-                    <div className="flex items-center gap-2.5">
+                  <div className="space-y-1.5">
+                    <div className="flex flex-wrap items-center gap-2">
                       <span className="font-bold text-base text-slate-900">{s.companyName}</span>
+                      <span className={`rounded-md border px-2 py-0.5 text-[10px] font-bold ${tierBadge}`}>
+                        {s.tier.replace("_", " ")}
+                      </span>
                       <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-bold text-slate-700">
-                        {s.level.replace("_", " ")}
+                        {s.experienceYears}
                       </span>
                       <span className="text-xs text-slate-400">• {s.location}</span>
                     </div>
-                    <div className="text-xs font-semibold text-slate-600">{s.role}</div>
+
+                    <div className="flex items-center gap-2 text-xs font-semibold text-slate-700">
+                      <span>{s.role}</span>
+                      <span className="text-slate-300">|</span>
+                      <span className="text-emerald-700 font-mono text-[11px] font-bold bg-emerald-50 px-2 py-0.2 rounded border border-emerald-200/60">
+                        Est. In-Hand: {s.estimatedMonthlyInHand}
+                      </span>
+                    </div>
                   </div>
 
                   <div className="flex items-center justify-between sm:justify-end gap-6">
                     <div className="text-right">
-                      <div className="text-lg font-black text-emerald-700">
+                      <div className="text-xl font-black text-slate-900">
                         ₹{s.totalCtcLpa} LPA
                       </div>
-                      <div className="text-[11px] text-slate-500">
-                        Base: ₹{s.baseSalaryLpa} LPA {s.stocksLpa > 0 && `+ ₹${s.stocksLpa}L Stocks`}
+                      <div className="text-[11px] text-slate-500 font-mono">
+                        Base: ₹{s.baseSalaryLpa}L {s.stocksLpa > 0 ? `+ ₹${s.stocksLpa}L Stocks` : "+ ₹0 Stocks"}
                       </div>
                     </div>
 
                     <div className="text-right hidden md:block">
                       <div className="text-xs font-bold text-slate-800">
-                        {s.daysToOffer} Days to Offer
+                        {s.marketPercentile}
                       </div>
-                      <div className="text-[11px] text-slate-400">
-                        Review in {s.daysToFirstReview}d • Candidate-Reported Ghosting: {s.ghostingRate}%
+                      <div className="text-[11px] text-slate-400 font-mono">
+                        ~{s.typicalTimelineDays}d hiring cycle
                       </div>
                     </div>
 
@@ -448,67 +395,90 @@ export default function SalariesPage() {
                   </div>
                 </div>
 
-                {/* EXPANDED TELEMETRY DRILL-DOWN */}
+                {/* EXPANDED DETAILED BREAKDOWN */}
                 {isExpanded && (
-                  <div className="mt-4 pt-4 border-t border-slate-100 grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs animate-in fade-in">
-                    <div className="rounded-2xl bg-slate-50 p-3 space-y-1">
-                      <span className="font-bold text-slate-700 block">CTC Compensation Breakdown:</span>
-                      <div className="flex justify-between text-slate-600">
-                        <span>Base Cash:</span>
-                        <strong className="text-slate-900">₹{s.baseSalaryLpa} LPA</strong>
-                      </div>
-                      <div className="flex justify-between text-slate-600">
-                        <span>Annual Bonus:</span>
-                        <strong className="text-slate-900">₹{s.bonusLpa} LPA</strong>
-                      </div>
-                      <div className="flex justify-between text-slate-600">
-                        <span>Stocks / ESOPs (Yearly):</span>
-                        <strong className="text-slate-900">₹{s.stocksLpa} LPA</strong>
-                      </div>
-                    </div>
-
-                    <div className="rounded-2xl bg-slate-50 p-3 space-y-1">
-                      <span className="font-bold text-slate-700 block">Candidate-Reported Hiring Experience:</span>
-                      <div className="flex justify-between text-slate-600">
-                        <span>Avg. Days to First Round:</span>
-                        <strong className="text-slate-900">{s.daysToFirstReview} days</strong>
-                      </div>
-                      <div className="flex justify-between text-slate-600">
-                        <span>Total Pipeline Duration:</span>
-                        <strong className="text-slate-900">{s.daysToOffer} days</strong>
-                      </div>
-                      <div className="flex justify-between text-slate-600">
-                        <span>Reported Ghosting Rate:</span>
-                        <strong className="text-emerald-700">{s.ghostingRate}%</strong>
+                  <div className="mt-4 pt-4 border-t border-slate-100 grid grid-cols-1 md:grid-cols-3 gap-4 text-xs animate-in fade-in duration-200">
+                    {/* Column 1: Compensation Splits */}
+                    <div className="rounded-2xl bg-slate-50 p-4 space-y-2 border border-slate-100">
+                      <h5 className="font-bold text-slate-900 font-mono uppercase text-[10px] tracking-wider">
+                        Full Compensation Split
+                      </h5>
+                      <div className="space-y-1.5 text-slate-600 text-[11px]">
+                        <div className="flex justify-between">
+                          <span>Fixed Base Salary:</span>
+                          <span className="font-bold text-slate-900">₹{s.baseSalaryLpa} LPA</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Target Bonus / Perf:</span>
+                          <span className="font-bold text-slate-900">₹{s.bonusLpa} LPA</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Stock / ESOPs (Yr 1):</span>
+                          <span className="font-bold text-slate-900">₹{s.stocksLpa} LPA</span>
+                        </div>
+                        <div className="flex justify-between pt-1 border-t border-slate-200 font-bold text-slate-900">
+                          <span>Total CTC:</span>
+                          <span className="text-emerald-700">₹{s.totalCtcLpa} LPA</span>
+                        </div>
+                        <div className="flex justify-between pt-1 text-emerald-800 font-semibold text-[10px]">
+                          <span>Net In-Hand (Est.):</span>
+                          <span>{s.estimatedMonthlyInHand}</span>
+                        </div>
                       </div>
                     </div>
 
-                    <div className="rounded-2xl bg-emerald-50/70 border border-emerald-200/60 p-3 flex flex-col justify-between">
+                    {/* Column 2: Interview Loop & Rounds */}
+                    <div className="rounded-2xl bg-slate-50 p-4 space-y-2 border border-slate-100">
+                      <h5 className="font-bold text-slate-900 font-mono uppercase text-[10px] tracking-wider">
+                        Interview Format &amp; Loop
+                      </h5>
+                      <p className="text-[11px] text-slate-700 leading-relaxed font-mono">
+                        {s.interviewRounds}
+                      </p>
+                      <div className="pt-2 text-[10px] text-slate-500 flex items-center justify-between">
+                        <span>Work Mode: <strong>{s.workMode}</strong></span>
+                        <span>Verified Reports: <strong>{s.verifiedSubmissions}</strong></span>
+                      </div>
+                    </div>
+
+                    {/* Column 3: Prepare / Action */}
+                    <div className="rounded-2xl bg-slate-50 p-4 flex flex-col justify-between border border-slate-100">
                       <div>
-                        <span className="font-bold text-emerald-950 block">Candidate Benchmark Status:</span>
-                        <p className="text-[11px] text-emerald-800 mt-0.5">
-                          Calculated from {s.verifiedSubmissions} candidate reports. Standardized to Indian CTC formats.
+                        <h5 className="font-bold text-slate-900 font-mono uppercase text-[10px] tracking-wider">
+                          Ready for {s.companyName}?
+                        </h5>
+                        <p className="text-[11px] text-slate-600 mt-1">
+                          Practice targeted STAR technical questions and system design with verified peer cohorts.
                         </p>
                       </div>
-                      <Link
-                        href={`/jobs?q=${encodeURIComponent(s.companyName)}`}
-                        className="mt-2 text-xs font-bold text-emerald-700 hover:text-emerald-800 flex items-center gap-1"
-                      >
-                        View {s.companyName} Openings <ArrowRight className="h-3 w-3" />
-                      </Link>
+                      <div className="pt-3">
+                        <Link
+                          href="/roadmaps"
+                          className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 hover:text-emerald-800"
+                        >
+                          <span>Practice Interview Questions</span>
+                          <ArrowRight className="h-3.5 w-3.5" />
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 )}
               </div>
             );
           })}
+
+          {filteredSalaries.length === 0 && (
+            <div className="py-12 text-center text-slate-500 text-xs">
+              No salary benchmarks match your filter criteria. Try adjusting the experience or search keyword.
+            </div>
+          )}
         </div>
       </div>
 
-      {/* SUBMIT SALARY MODAL */}
+      {/* ANONYMOUS SUBMISSION MODAL */}
       {showSubmitModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/70 backdrop-blur-xs p-4 animate-in fade-in">
-          <div className="relative w-full max-w-lg rounded-3xl border border-slate-200 bg-white p-6 sm:p-7 shadow-2xl text-slate-900 space-y-4">
+          <div className="relative w-full max-w-lg rounded-3xl border border-slate-200 bg-white p-6 sm:p-7 shadow-2xl text-slate-900 space-y-4 max-h-[90vh] overflow-y-auto">
             <button
               onClick={() => setShowSubmitModal(false)}
               className="absolute right-5 top-5 p-1 rounded-lg text-slate-400 hover:text-slate-700"
@@ -520,13 +490,15 @@ export default function SalariesPage() {
               <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-emerald-100 text-emerald-700">
                 <ShieldCheck className="h-4 w-4" />
               </span>
-              <h3 className="text-lg font-bold text-slate-900">
-                Submit Anonymous Salary Report
-              </h3>
+              <div>
+                <h3 className="text-lg font-bold text-slate-900">
+                  Submit Anonymous Salary (+50 XP)
+                </h3>
+                <p className="text-xs text-slate-500">
+                  Zero PII collected. Help fellow Indian software engineers negotiate fair pay.
+                </p>
+              </div>
             </div>
-            <p className="text-xs text-slate-500">
-              100% Anonymous. We never store IP addresses or candidate names with compensation data. Helps early-career developers fight lowball offers.
-            </p>
 
             {submitSuccess && (
               <div className="rounded-xl bg-emerald-50 border border-emerald-200 p-3 text-xs text-emerald-800 font-semibold">
@@ -541,19 +513,18 @@ export default function SalariesPage() {
             )}
 
             <form onSubmit={handleSalarySubmit} className="space-y-3 pt-2 text-xs">
-              <div>
-                <label className="font-bold text-slate-700 block mb-1">Company Name</label>
-                <input
-                  type="text"
-                  required
-                  value={formCompany}
-                  onChange={(e) => setFormCompany(e.target.value)}
-                  placeholder="e.g. Razorpay, Swiggy, Google, Infosys"
-                  className="w-full rounded-xl border border-slate-200 p-2.5 text-xs focus:outline-none focus:border-emerald-500"
-                />
-              </div>
-
               <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="font-bold text-slate-700 block mb-1">Company Name</label>
+                  <input
+                    type="text"
+                    required
+                    value={formCompany}
+                    onChange={(e) => setFormCompany(e.target.value)}
+                    placeholder="e.g. Swiggy, Google India"
+                    className="w-full rounded-xl border border-slate-200 p-2.5 text-xs focus:outline-none focus:border-emerald-500"
+                  />
+                </div>
                 <div>
                   <label className="font-bold text-slate-700 block mb-1">Role Title</label>
                   <input
@@ -561,26 +532,57 @@ export default function SalariesPage() {
                     required
                     value={formRole}
                     onChange={(e) => setFormRole(e.target.value)}
-                    placeholder="e.g. Frontend Engineer"
+                    placeholder="e.g. SDE-1 Backend"
                     className="w-full rounded-xl border border-slate-200 p-2.5 text-xs focus:outline-none focus:border-emerald-500"
                   />
                 </div>
+              </div>
+
+              <div className="grid grid-cols-3 gap-3">
                 <div>
-                  <label className="font-bold text-slate-700 block mb-1">Seniority Level</label>
+                  <label className="font-bold text-slate-700 block mb-1">Level</label>
                   <select
                     value={formLevel}
                     onChange={(e: any) => setFormLevel(e.target.value)}
-                    className="w-full rounded-xl border border-slate-200 p-2.5 text-xs focus:outline-none focus:border-emerald-500"
+                    className="w-full rounded-xl border border-slate-200 p-2.5 text-xs focus:outline-none focus:border-emerald-500 bg-white"
                   >
                     <option value="FRESHER">Fresher (0-1 Yrs)</option>
                     <option value="SDE_1">SDE-1 (1-3 Yrs)</option>
                     <option value="SDE_2">SDE-2 (3-5 Yrs)</option>
-                    <option value="STAFF">Staff / Lead (5+ Yrs)</option>
+                    <option value="STAFF">Senior / Staff (5+ Yrs)</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="font-bold text-slate-700 block mb-1">Company Tier</label>
+                  <select
+                    value={formTier}
+                    onChange={(e: any) => setFormTier(e.target.value)}
+                    className="w-full rounded-xl border border-slate-200 p-2.5 text-xs focus:outline-none focus:border-emerald-500 bg-white"
+                  >
+                    <option value="BIG_TECH">Big Tech / FAANG</option>
+                    <option value="UNICORN">Top Unicorn</option>
+                    <option value="PRODUCT">Product / Startup</option>
+                    <option value="IT_SERVICES">IT Services / GCC</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="font-bold text-slate-700 block mb-1">Track</label>
+                  <select
+                    value={formTrack}
+                    onChange={(e: any) => setFormTrack(e.target.value)}
+                    className="w-full rounded-xl border border-slate-200 p-2.5 text-xs focus:outline-none focus:border-emerald-500 bg-white"
+                  >
+                    <option value="BACKEND">Backend</option>
+                    <option value="FRONTEND">Frontend</option>
+                    <option value="FULLSTACK">Full-Stack</option>
+                    <option value="AIML">AI / ML</option>
+                    <option value="DEVOPS_DATA">DevOps / Data</option>
+                    <option value="GENERAL">General</option>
                   </select>
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-3 gap-3">
                 <div>
                   <label className="font-bold text-slate-700 block mb-1">Total CTC (₹ LPA)</label>
                   <input
@@ -589,18 +591,29 @@ export default function SalariesPage() {
                     required
                     value={formTotalCtc}
                     onChange={(e) => setFormTotalCtc(e.target.value)}
-                    placeholder="e.g. 24"
+                    placeholder="e.g. 28"
                     className="w-full rounded-xl border border-slate-200 p-2.5 text-xs focus:outline-none focus:border-emerald-500"
                   />
                 </div>
                 <div>
-                  <label className="font-bold text-slate-700 block mb-1">Base Salary (₹ LPA)</label>
+                  <label className="font-bold text-slate-700 block mb-1">Fixed Base (₹ LPA)</label>
                   <input
                     type="number"
                     step="0.5"
                     value={formBase}
                     onChange={(e) => setFormBase(e.target.value)}
-                    placeholder="e.g. 18"
+                    placeholder="e.g. 20"
+                    className="w-full rounded-xl border border-slate-200 p-2.5 text-xs focus:outline-none focus:border-emerald-500"
+                  />
+                </div>
+                <div>
+                  <label className="font-bold text-slate-700 block mb-1">Stocks / Yr (₹ LPA)</label>
+                  <input
+                    type="number"
+                    step="0.5"
+                    value={formStocks}
+                    onChange={(e) => setFormStocks(e.target.value)}
+                    placeholder="e.g. 5"
                     className="w-full rounded-xl border border-slate-200 p-2.5 text-xs focus:outline-none focus:border-emerald-500"
                   />
                 </div>
@@ -608,25 +621,38 @@ export default function SalariesPage() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="font-bold text-slate-700 block mb-1">Days to Offer</label>
-                  <input
-                    type="number"
-                    value={formDaysToOffer}
-                    onChange={(e) => setFormDaysToOffer(e.target.value)}
-                    placeholder="e.g. 15"
-                    className="w-full rounded-xl border border-slate-200 p-2.5 text-xs focus:outline-none focus:border-emerald-500"
-                  />
-                </div>
-                <div>
                   <label className="font-bold text-slate-700 block mb-1">Location</label>
                   <input
                     type="text"
                     value={formLocation}
                     onChange={(e) => setFormLocation(e.target.value)}
-                    placeholder="e.g. Bangalore / Remote"
+                    placeholder="e.g. Bangalore"
                     className="w-full rounded-xl border border-slate-200 p-2.5 text-xs focus:outline-none focus:border-emerald-500"
                   />
                 </div>
+                <div>
+                  <label className="font-bold text-slate-700 block mb-1">Work Mode</label>
+                  <select
+                    value={formWorkMode}
+                    onChange={(e: any) => setFormWorkMode(e.target.value)}
+                    className="w-full rounded-xl border border-slate-200 p-2.5 text-xs focus:outline-none focus:border-emerald-500 bg-white"
+                  >
+                    <option value="Hybrid">Hybrid</option>
+                    <option value="Remote">Remote</option>
+                    <option value="On-site">On-site</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label className="font-bold text-slate-700 block mb-1">Interview Rounds Summary (Optional)</label>
+                <input
+                  type="text"
+                  value={formRounds}
+                  onChange={(e) => setFormRounds(e.target.value)}
+                  placeholder="e.g. 1 Machine Coding + 2 DSA Rounds + HM"
+                  className="w-full rounded-xl border border-slate-200 p-2.5 text-xs focus:outline-none focus:border-emerald-500"
+                />
               </div>
 
               <Button
@@ -636,10 +662,10 @@ export default function SalariesPage() {
               >
                 {isSubmitting ? (
                   <span className="flex items-center gap-2">
-                    <Loader2 className="h-4 w-4 animate-spin" /> Encrypting &amp; Submitting...
+                    <Loader2 className="h-4 w-4 animate-spin" /> Recording Anonymously...
                   </span>
                 ) : (
-                  "Submit Encrypted Telemetry (+50 XP)"
+                  "Submit Anonymous Salary Report"
                 )}
               </Button>
             </form>

@@ -1,43 +1,30 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getCache, setCache } from "@/lib/redis";
+import { INITIAL_FRIEND_BOUNTIES, FriendReferralBounty } from "@/lib/bounties-data";
 
 export const dynamic = "force-dynamic";
 
-interface BountyListing {
-  id: string;
-  companyName: string;
-  companySlug: string;
-  roleTitle: string;
-  referrerName: string;
-  referrerTitle: string;
-  referrerCompanyEmailVerified: boolean;
-  totalReferralBonusInr: number;
-  candidateSplitBonusInr: number;
-  availableSlots: number;
-  totalSlots: number;
-  minDevScore: number;
-  experienceLevel: "FRESHER" | "1-3 YRS" | "3-5 YRS" | "5+ YRS";
-  location: string;
-  workMode: string;
-  postedAgo: string;
-  activeRequestsCount: number;
-}
-
-const INITIAL_BOUNTIES: BountyListing[] = [];
-
-const BOUNTIES_CACHE_KEY = "rolenest:bounties:all";
+const FRIEND_BOUNTIES_CACHE_KEY = "rolenest:friend_bounties:v2";
 
 export async function GET(req: NextRequest) {
   try {
-    const cached = await getCache<BountyListing[]>(BOUNTIES_CACHE_KEY);
-    if (cached && Array.isArray(cached)) {
-      return NextResponse.json({ bounties: cached, count: cached.length, source: "redis" });
+    const cached = await getCache<FriendReferralBounty[]>(FRIEND_BOUNTIES_CACHE_KEY);
+    const bounties = cached && Array.isArray(cached) && cached.length > 0 ? cached : INITIAL_FRIEND_BOUNTIES;
+
+    if (!cached) {
+      await setCache(FRIEND_BOUNTIES_CACHE_KEY, INITIAL_FRIEND_BOUNTIES, 14 * 24 * 60 * 60);
     }
 
-    return NextResponse.json({ bounties: [], count: 0, source: "fresh" });
+    const totalPoolInr = bounties.reduce((sum, b) => sum + b.bountyRewardInr * b.openPositions, 0);
+
+    return NextResponse.json({
+      bounties,
+      count: bounties.length,
+      totalPoolInr,
+    });
   } catch (err: any) {
-    console.error("Error fetching bounties:", err);
-    return NextResponse.json({ bounties: [], count: 0, source: "fallback" });
+    console.error("Error fetching friend bounties:", err);
+    return NextResponse.json({ bounties: INITIAL_FRIEND_BOUNTIES, count: INITIAL_FRIEND_BOUNTIES.length }, { status: 200 });
   }
 }
 
@@ -45,74 +32,57 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     const {
-      corporateEmail,
       companyName,
       roleTitle,
-      totalBonusInr,
-      candidateSplitBonusInr,
-      availableSlots,
-      minDevScore,
+      department,
+      bountyRewardInr,
+      salaryRangeCtcLpa,
       experienceLevel,
       location,
       workMode,
-      referrerName,
-      referrerTitle,
+      keySkills,
+      description,
+      openPositions,
     } = body;
 
-    if (!corporateEmail || !corporateEmail.includes("@")) {
-      return NextResponse.json({ error: "A valid corporate email is required." }, { status: 400 });
-    }
-
-    // Check for public free webmail
-    const domain = corporateEmail.split("@")[1].toLowerCase();
-    const freeDomains = ["gmail.com", "yahoo.com", "outlook.com", "hotmail.com", "icloud.com"];
-    if (freeDomains.includes(domain)) {
+    if (!companyName || !roleTitle || !bountyRewardInr) {
       return NextResponse.json(
-        { error: "Please use your official company work email (e.g. name@swiggy.com, name@razorpay.com) to verify employee insider status." },
+        { error: "Company name, role title, and bounty reward (INR) are required." },
         { status: 400 }
       );
     }
 
-    if (!roleTitle || !companyName) {
-      return NextResponse.json({ error: "Role title and company name are required." }, { status: 400 });
-    }
-
-    const totalBonus = Number(totalBonusInr) || 50000;
-    const candidateSplit = Number(candidateSplitBonusInr) || Math.round(totalBonus * 0.5);
-    const slots = Number(availableSlots) || 3;
-
-    const newBounty: BountyListing = {
+    const newBounty: FriendReferralBounty = {
       id: `bounty-${Date.now()}`,
       companyName: companyName.trim(),
       companySlug: companyName.toLowerCase().replace(/[^a-z0-9]/g, "-"),
       roleTitle: roleTitle.trim(),
-      referrerName: referrerName || corporateEmail.split("@")[0].toUpperCase() + " (Verified Insider)",
-      referrerTitle: referrerTitle || `Software Engineer @ ${companyName}`,
-      referrerCompanyEmailVerified: true,
-      totalReferralBonusInr: totalBonus,
-      candidateSplitBonusInr: candidateSplit,
-      availableSlots: slots,
-      totalSlots: slots,
-      minDevScore: Number(minDevScore) || 600,
+      department: department || "FullStack",
+      bountyRewardInr: Number(bountyRewardInr) || 25000,
+      salaryRangeCtcLpa: salaryRangeCtcLpa || "₹18 – ₹28 LPA",
       experienceLevel: experienceLevel || "1-3 YRS",
-      location: location || "Bangalore / Remote",
+      location: location || "Bangalore",
       workMode: workMode || "Hybrid",
+      keySkills: Array.isArray(keySkills) ? keySkills : ["React", "Node.js", "TypeScript"],
+      hiringUrgency: "HIGH",
+      openPositions: Number(openPositions) || 2,
+      description: description || "Exciting engineering opportunity with competitive market compensation.",
       postedAgo: "Just now",
-      activeRequestsCount: 0,
+      totalReferralsSubmitted: 0,
     };
 
-    // Update Redis
-    let currentBounties = (await getCache<BountyListing[]>(BOUNTIES_CACHE_KEY)) || INITIAL_BOUNTIES;
-    currentBounties = [newBounty, ...currentBounties];
-    await setCache(BOUNTIES_CACHE_KEY, currentBounties, 7 * 24 * 60 * 60);
+    const cached = await getCache<FriendReferralBounty[]>(FRIEND_BOUNTIES_CACHE_KEY);
+    const current = cached && Array.isArray(cached) ? cached : INITIAL_FRIEND_BOUNTIES;
+    const updated = [newBounty, ...current];
+    await setCache(FRIEND_BOUNTIES_CACHE_KEY, updated, 14 * 24 * 60 * 60);
 
     return NextResponse.json({
       success: true,
+      message: "Referral bounty role listed successfully!",
       bounty: newBounty,
-      message: `Referral slot for ${roleTitle} at ${companyName} published successfully! Corporate verification sent to ${corporateEmail}.`,
     });
   } catch (err: any) {
-    console.error("Error creating bounty:", err);
-    return NextResponse.json({ error: err.message || "Failed to create referral bounty" }, { status: 500 });
+    console.error("Error creating friend bounty:", err);
+    return NextResponse.json({ error: "Failed to create bounty listing" }, { status: 500 });
   }
 }
