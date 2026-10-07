@@ -197,6 +197,11 @@ export function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL(`https://study.rolenest.in${pathname}${search}`), 308);
   }
 
+  if (pathname === "/whiteboard" || pathname.startsWith("/whiteboard/")) {
+    const search = req.nextUrl.search;
+    return NextResponse.redirect(new URL(`https://study.rolenest.in${pathname}${search}`), 308);
+  }
+
   if (pathname === "/courses" || pathname.startsWith("/courses/")) {
     const search = req.nextUrl.search;
     return NextResponse.redirect(new URL(`https://study.rolenest.in${pathname}${search}`), 308);

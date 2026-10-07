@@ -18,7 +18,7 @@ export interface StudyPod {
   slug: string;
   title: string;
   description: string;
-  category: "AI & ML" | "Web Development" | "Data Science" | "Mobile";
+  category: "AI & ML" | "Web Development" | "Data Science" | "Mobile" | "Backend & Systems" | "DevOps & Cloud" | "Cybersecurity";
   roadmapSlug: string;
   primarySkill: string;
   memberCount: number;
@@ -28,6 +28,8 @@ export interface StudyPod {
   phaseTitle: string;
   activeMembers: PodMember[];
   mockQuestions: PodInterviewQuestion[];
+  dailyTopic?: string;
+  dailyChallenge?: string;
 }
 
 export const BOT_COORDINATOR: PodMember = {
@@ -48,12 +50,20 @@ export const MOCK_STUDY_PODS: StudyPod[] = [
     category: "AI & ML",
     roadmapSlug: "ai-engineer",
     primarySkill: "PyTorch",
-    memberCount: 1,
-    maxMembers: 8,
+    memberCount: 6,
+    maxMembers: 10,
     meetingCadence: "Tuesdays & Saturdays at 7:30 PM IST",
     currentPhaseNumber: 3,
     phaseTitle: "Transformers & Attention Mechanism Deep Dive",
-    activeMembers: [BOT_COORDINATOR],
+    dailyTopic: "KV Caching implementation and multi-query attention memory savings",
+    dailyChallenge: "Benchmark FP16 vs INT4 quantized matrix multiplication inference latency on GPU",
+    activeMembers: [
+      BOT_COORDINATOR,
+      { id: "m1", name: "Aarav Sharma", avatarInitial: "A", college: "IIT Delhi", roleInterest: "ML Research" },
+      { id: "m2", name: "Priya Nair", avatarInitial: "P", college: "BITS Pilani", roleInterest: "GenAI Architect" },
+      { id: "m3", name: "Rohan V.", avatarInitial: "R", college: "NIT Trichy", roleInterest: "Computer Vision" },
+      { id: "m4", name: "Elena Rostova", avatarInitial: "E", college: "Univ. of Waterloo", roleInterest: "LLM Fine-tuning" },
+    ],
     mockQuestions: [
       {
         question: "Explain the architectural difference between self-attention and cross-attention in Transformer models.",
@@ -88,14 +98,21 @@ export const MOCK_STUDY_PODS: StudyPod[] = [
     title: "Full-Stack TypeScript & Next.js Pod",
     description: "Building production web apps with Next.js 15, PostgreSQL, and Drizzle ORM. Focus on clean architecture and zero-egress deployments.",
     category: "Web Development",
-    roadmapSlug: "full-stack",
+    roadmapSlug: "fullstack-developer",
     primarySkill: "Next.js",
-    memberCount: 1,
-    maxMembers: 8,
+    memberCount: 7,
+    maxMembers: 10,
     meetingCadence: "Mondays & Thursdays at 8:00 PM IST",
     currentPhaseNumber: 2,
     phaseTitle: "Relational Schemas, ACID Transactions & Drizzle ORM",
-    activeMembers: [BOT_COORDINATOR],
+    dailyTopic: "Server Actions optimistic UI rollback strategies with useOptimistic",
+    dailyChallenge: "Build a debounced auto-saving markdown editor with LocalStorage and Postgres sync",
+    activeMembers: [
+      BOT_COORDINATOR,
+      { id: "m5", name: "Devansh Mehta", avatarInitial: "D", college: "IIIT Hyderabad", roleInterest: "Full-Stack Web" },
+      { id: "m6", name: "Ananya Iyer", avatarInitial: "A", college: "VIT Vellore", roleInterest: "Frontend Lead" },
+      { id: "m7", name: "Marcus Chen", avatarInitial: "M", college: "UC Berkeley", roleInterest: "Next.js Platform" },
+    ],
     mockQuestions: [
       {
         question: "How do Next.js Server Components differ from Client Components in terms of bundle delivery and data fetching?",
@@ -130,14 +147,20 @@ export const MOCK_STUDY_PODS: StudyPod[] = [
     title: "Data Science & Applied Analytics Pod",
     description: "Deep dive into statistical inference, SQL window functions, exploratory data analysis with Pandas, and scikit-learn models.",
     category: "Data Science",
-    roadmapSlug: "data-science",
+    roadmapSlug: "data-analyst",
     primarySkill: "SQL",
-    memberCount: 1,
-    maxMembers: 6,
+    memberCount: 5,
+    maxMembers: 8,
     meetingCadence: "Wednesdays & Sundays at 6:30 PM IST",
     currentPhaseNumber: 2,
     phaseTitle: "Advanced SQL: CTEs, Window Functions & Joins",
-    activeMembers: [BOT_COORDINATOR],
+    dailyTopic: "Customer Cohort Retention matrix computation in pure PostgreSQL",
+    dailyChallenge: "Write a query computing 30-day rolling average churn rate with zero subquery overhead",
+    activeMembers: [
+      BOT_COORDINATOR,
+      { id: "m8", name: "Kavya Patel", avatarInitial: "K", college: "IIM Bangalore", roleInterest: "Data Scientist" },
+      { id: "m9", name: "Siddharth Roy", avatarInitial: "S", college: "SRM University", roleInterest: "BI Engineer" },
+    ],
     mockQuestions: [
       {
         question: "What is the difference between RANK(), DENSE_RANK(), and ROW_NUMBER() in SQL window functions?",
@@ -169,17 +192,23 @@ export const MOCK_STUDY_PODS: StudyPod[] = [
   {
     id: "pod-4",
     slug: "mobile-react-native-pod",
-    title: "Mobile App Developers (React Native & Expo) Pod",
+    title: "Mobile App Developers (React Native & Flutter) Pod",
     description: "Cross-platform mobile development with Expo SDK 52, offline-first SQLite synchronization, and native device APIs.",
     category: "Mobile",
-    roadmapSlug: "mobile",
+    roadmapSlug: "mobile-engineer",
     primarySkill: "React Native",
-    memberCount: 1,
+    memberCount: 5,
     maxMembers: 8,
     meetingCadence: "Wednesdays & Fridays at 7:00 PM IST",
     currentPhaseNumber: 2,
     phaseTitle: "Navigation Hierarchies, Gesture Handlers & Device Storage",
-    activeMembers: [BOT_COORDINATOR],
+    dailyTopic: "Offline SQLite sync queue reconciliation algorithms",
+    dailyChallenge: "Implement 60fps swipe-to-dismiss gesture using Reanimated 3 with spring physics",
+    activeMembers: [
+      BOT_COORDINATOR,
+      { id: "m10", name: "Tanmay Ghosh", avatarInitial: "T", college: "Jadavpur Univ", roleInterest: "Mobile Tech Lead" },
+      { id: "m11", name: "Rachel Adams", avatarInitial: "R", college: "Georgia Tech", roleInterest: "iOS / React Native" },
+    ],
     mockQuestions: [
       {
         question: "How does the React Native New Architecture (Fabric & TurboModules) improve communication over the legacy JS bridge?",
@@ -196,15 +225,158 @@ export const MOCK_STUDY_PODS: StudyPod[] = [
         focusArea: "Mobile Rendering Performance",
         starTip: "Mention FlashList, recycling views, getItemLayout to bypass measurements, memoizing renderItem, and resizing images.",
       },
+    ],
+  },
+  {
+    id: "pod-5",
+    slug: "backend-systems-pod",
+    title: "Backend & Distributed Systems Architects Pod",
+    description: "Mastering Go, Kafka partitions, Redis caching topologies, B-Tree storage engines, and high-concurrency microservices.",
+    category: "Backend & Systems",
+    roadmapSlug: "backend-systems",
+    primarySkill: "Go & Kafka",
+    memberCount: 7,
+    maxMembers: 10,
+    meetingCadence: "Tuesdays & Fridays at 8:30 PM IST",
+    currentPhaseNumber: 3,
+    phaseTitle: "Event-Driven Kafka Architecture & Redis Distributed Caching",
+    dailyTopic: "Mitigating Kafka consumer lag and designing dead-letter queues",
+    dailyChallenge: "Build an atomic sliding window rate limiter in Go using Redis Lua scripts",
+    activeMembers: [
+      BOT_COORDINATOR,
+      { id: "m12", name: "Nikhil Verma", avatarInitial: "N", college: "IIT Bombay", roleInterest: "Distributed Systems" },
+      { id: "m13", name: "Aditi Rao", avatarInitial: "A", college: "DTU Delhi", roleInterest: "Backend Engineer" },
+      { id: "m14", name: "Stefan Meyer", avatarInitial: "S", college: "TU Munich", roleInterest: "Go Core Dev" },
+    ],
+    mockQuestions: [
       {
-        question: "What are the key differences in permission handling between Android 13+ (Runtime) and iOS?",
-        focusArea: "Native Platform Invariants",
-        starTip: "Explain explicit runtime permission prompts, graceful degradation when users deny permissions, and OS privacy policies.",
+        question: "Explain the difference between optimistic and pessimistic locking in high-throughput PostgreSQL databases.",
+        focusArea: "Database Concurrency",
+        starTip: "Discuss version columns / CAS operations vs SELECT FOR UPDATE, comparing contention overhead under high concurrency.",
       },
       {
-        question: "Why does cross-platform React Native fit early-career startups better than separate Swift and Kotlin codebases?",
-        focusArea: "Engineering Tradeoffs",
-        starTip: "Highlight unified team velocity, shared TypeScript business logic with web, and single bug-fix deployment via OTA updates.",
+        question: "How do you prevent cache stampedes (dog-piling) when popular cached keys expire?",
+        focusArea: "Distributed Caching",
+        starTip: "Explain singleflight request coalescing, probabilistic early expiration (XFetch algorithm), and mutex locking.",
+      },
+      {
+        question: "How does the Raft consensus algorithm guarantee leader election safety and log consistency?",
+        focusArea: "Distributed Consensus",
+        starTip: "Cover election timers, randomized heartbeats, quorum votes (N/2 + 1), and log term comparisons.",
+      },
+    ],
+  },
+  {
+    id: "pod-6",
+    slug: "devops-cloud-pod",
+    title: "DevOps & Cloud Platform SRE Pod",
+    description: "Hands-on multi-AZ Terraform IaC, Kubernetes GitOps deployments with ArgoCD, distroless Docker containers, and Prometheus observability.",
+    category: "DevOps & Cloud",
+    roadmapSlug: "devops-cloud",
+    primarySkill: "Kubernetes & Terraform",
+    memberCount: 6,
+    maxMembers: 10,
+    meetingCadence: "Mondays & Thursdays at 7:00 PM IST",
+    currentPhaseNumber: 2,
+    phaseTitle: "Kubernetes Cluster Architecture & GitOps with ArgoCD",
+    dailyTopic: "Argo Rollouts canary deployment strategies with automated metrics rollback",
+    dailyChallenge: "Write a multi-stage distroless Dockerfile under 40MB passing zero CVE Trivy scans",
+    activeMembers: [
+      BOT_COORDINATOR,
+      { id: "m15", name: "Varun Kapoor", avatarInitial: "V", college: "BITS Goa", roleInterest: "Cloud Platform SRE" },
+      { id: "m16", name: "Sarah Jenkins", avatarInitial: "S", college: "Imperial College", roleInterest: "DevOps Engineer" },
+    ],
+    mockQuestions: [
+      {
+        question: "What is the difference between a Kubernetes Deployment and a StatefulSet regarding pod identity and storage?",
+        focusArea: "Kubernetes Orchestration",
+        starTip: "Explain sticky ordinal pod identities (pod-0, pod-1) and dedicated PersistentVolumeClaim volume templates in StatefulSets.",
+      },
+      {
+        question: "How do you manage remote state locking and secret isolation in production Terraform pipelines?",
+        focusArea: "Infrastructure as Code",
+        starTip: "Cover S3 backend with DynamoDB locking, least-privilege IAM policies, and injecting secrets via HashiCorp Vault.",
+      },
+      {
+        question: "Walk through setting up an SLO alert in Prometheus based on 99.9% HTTP success rate over a 30-day rolling window.",
+        focusArea: "Site Reliability Engineering",
+        starTip: "Mention error budgets, burn rate alerting, rate(http_requests_total[5m]), and multi-window multi-burn-rate alerts.",
+      },
+    ],
+  },
+  {
+    id: "pod-7",
+    slug: "cybersecurity-soc-pod",
+    title: "Cybersecurity & Cloud Security Engineers Pod",
+    description: "Offensive web penetration testing (OWASP Top 10), Wireshark packet analysis, AWS IAM hardening, and Wazuh SIEM threat hunting.",
+    category: "Cybersecurity",
+    roadmapSlug: "cybersecurity",
+    primarySkill: "OWASP & AWS IAM",
+    memberCount: 6,
+    maxMembers: 8,
+    meetingCadence: "Wednesdays & Saturdays at 8:00 PM IST",
+    currentPhaseNumber: 2,
+    phaseTitle: "Web Application Security & OWASP Top 10 Exploitation",
+    dailyTopic: "Server-Side Request Forgery (SSRF) bypasses targeting AWS IMDSv2 metadata",
+    dailyChallenge: "Audit public S3 buckets and wildcard IAM permissions using Python Boto3",
+    activeMembers: [
+      BOT_COORDINATOR,
+      { id: "m17", name: "Kunal Singhal", avatarInitial: "K", college: "IIIT Allahabad", roleInterest: "Security Analyst" },
+      { id: "m18", name: "Alexandre Moreau", avatarInitial: "A", college: "EPFL Switzerland", roleInterest: "Penetration Tester" },
+    ],
+    mockQuestions: [
+      {
+        question: "How does IMDSv2 in AWS protect EC2 instances against SSRF exploitation compared to legacy IMDSv1?",
+        focusArea: "Cloud Security",
+        starTip: "Detail session-oriented token requirement via HTTP PUT with X-aws-ec2-metadata-token header, blocking simple SSRF proxies.",
+      },
+      {
+        question: "Explain the mechanics of a Blind SQL Injection attack and how automated tools extract data bit-by-bit.",
+        focusArea: "Offensive Security",
+        starTip: "Cover Boolean-based (true/false responses) and Time-based (sleep delays) payload conditions with binary search logic.",
+      },
+      {
+        question: "How do you write a Sigma rule detecting suspicious PowerShell encoded commands across endpoint logs?",
+        focusArea: "SIEM & SOC Operations",
+        starTip: "Explain matching on CommandLine contains '-enc' or '-EncodedCommand' and correlating with parent process IDs.",
+      },
+    ],
+  },
+  {
+    id: "pod-8",
+    slug: "data-engineering-lakehouse-pod",
+    title: "Data Engineering & Real-Time Lakehouse Pod",
+    description: "Petabyte data pipelines with Apache Spark DataFrames, Kafka event streams, dbt data models, and Delta Lake ACID transactions.",
+    category: "Data Science",
+    roadmapSlug: "data-engineer",
+    primarySkill: "Apache Spark & dbt",
+    memberCount: 7,
+    maxMembers: 10,
+    meetingCadence: "Mondays & Fridays at 7:30 PM IST",
+    currentPhaseNumber: 2,
+    phaseTitle: "Distributed Batch Processing with Apache Spark & Catalyst Optimizer",
+    dailyTopic: "Resolving data skew and out-of-memory shuffles with salt keys in PySpark",
+    dailyChallenge: "Build an incremental dbt model with unique constraints and automated freshness tests",
+    activeMembers: [
+      BOT_COORDINATOR,
+      { id: "m19", name: "Harshwardhan J.", avatarInitial: "H", college: "IIT Roorkee", roleInterest: "Data Platform Architect" },
+      { id: "m20", name: "Chloe Dupont", avatarInitial: "C", college: "Polytechnique Paris", roleInterest: "Big Data Engineer" },
+    ],
+    mockQuestions: [
+      {
+        question: "How does Spark's Catalyst Optimizer optimize physical execution plans through predicate pushdown and projection pruning?",
+        focusArea: "Distributed Query Optimization",
+        starTip: "Explain pushing WHERE clauses directly down to columnar Parquet file readers before pulling data into memory.",
+      },
+      {
+        question: "What are the core advantages of Delta Lake ACID logs over raw Parquet files in Cloud Object Storage?",
+        focusArea: "Lakehouse Architecture",
+        starTip: "Cover transaction logs (_delta_log), ACID guarantees, schema enforcement, time-travel queries, and OPTIMIZE compaction.",
+      },
+      {
+        question: "How do you handle late-arriving event data using watermarking in Spark Structured Streaming?",
+        focusArea: "Streaming Systems",
+        starTip: "Discuss withWatermark() threshold, tumbling event-time windows, and dropping records older than maximum expected delay.",
       },
     ],
   },

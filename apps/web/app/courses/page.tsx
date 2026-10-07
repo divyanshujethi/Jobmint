@@ -64,39 +64,39 @@ export default function CoursesPage() {
             </p>
 
           {/* JOB-SPECIFIC 30-DAY COURSE GENERATOR CALLOUT */}
-          <div className="mx-auto max-w-3xl rounded-2xl bg-gradient-to-r from-emerald-950 via-slate-900 to-teal-950 border border-emerald-500/40 p-4 text-xs sm:text-sm text-white flex flex-col sm:flex-row items-center justify-between gap-3 shadow-lg">
-            <div className="flex items-center gap-2.5 text-left">
+          <div className="mx-auto max-w-4xl rounded-2xl bg-gradient-to-r from-emerald-950/60 via-[#0c1024] to-indigo-950/60 border border-emerald-500/40 p-4 sm:p-5 text-xs sm:text-sm text-white flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl">
+            <div className="flex items-center gap-3 text-left">
               <Sparkles className="h-6 w-6 text-emerald-400 shrink-0" />
               <div>
-                <span className="font-bold text-white flex items-center gap-1.5">
+                <span className="font-bold text-white flex items-center gap-2">
                   Target Any Job: Interactive 30-Day Course Studio
-                  <span className="bg-emerald-400 text-slate-950 font-extrabold text-[10px] px-1.5 py-0.2 rounded-full">NEW</span>
+                  <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-mono font-bold text-[10px] px-2 py-0.2 rounded-full">NEW</span>
                 </span>
-                <p className="text-[11px] text-slate-300">
-                  Enter any job or company to automatically generate a tailored 30-day interactive daily curriculum with coding tasks, streak tracking, and interview questions.
+                <p className="text-xs text-slate-400 mt-0.5">
+                  Enter any job or company to automatically generate a tailored 30-day interactive daily curriculum with coding tasks and streak tracking.
                 </p>
               </div>
             </div>
             <Link href="/study" className="shrink-0">
-              <Button size="sm" className="bg-emerald-500 text-slate-950 hover:bg-emerald-400 font-bold text-xs rounded-xl shadow-sm">
+              <Button size="sm" className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow-md shadow-emerald-600/20">
                 Open Course Studio →
               </Button>
             </Link>
           </div>
 
           {/* DEDICATED SEPARATION CALLOUT TO YOUTUBE PLAYLISTS */}
-          <div className="mx-auto max-w-3xl rounded-2xl bg-gradient-to-r from-red-50 via-white to-amber-50/60 border border-red-200/80 p-4 text-xs sm:text-sm text-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-sm">
-            <div className="flex items-center gap-2.5 text-left">
-              <Youtube className="h-6 w-6 text-red-600 shrink-0" />
+          <div className="mx-auto max-w-4xl rounded-2xl bg-[#0c1024] border border-indigo-950/80 p-4 sm:p-5 text-xs sm:text-sm text-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl">
+            <div className="flex items-center gap-3 text-left">
+              <Youtube className="h-6 w-6 text-rose-500 shrink-0" />
               <div>
-                <span className="font-bold text-slate-900">Looking for Free YouTube Video Playlists?</span>
-                <p className="text-[11px] text-slate-600">
-                  Browse our separated, dedicated YouTube Playlists Hub featuring Striver, Chai aur Code, Karpathy, and 3Blue1Brown with GitHub companion repos.
+                <span className="font-bold text-white">Looking for Free YouTube Video Playlists?</span>
+                <p className="text-xs text-slate-400 mt-0.5">
+                  Browse our dedicated YouTube Playlists Hub featuring Striver, Chai aur Code, Karpathy, and 3Blue1Brown with GitHub companion repos.
                 </p>
               </div>
             </div>
             <Link href="/playlists" className="shrink-0">
-              <Button size="sm" variant="outline" className="border-red-300 bg-white text-red-700 hover:bg-red-50 text-xs rounded-xl shadow-sm">
+              <Button size="sm" variant="outline" className="border-indigo-800/60 bg-[#101533] text-rose-400 hover:bg-indigo-950 hover:text-white text-xs rounded-xl shadow-sm">
                 View YouTube Playlists →
               </Button>
             </Link>
@@ -104,12 +104,12 @@ export default function CoursesPage() {
         </div>
 
         {/* TABS & SEARCH BAR */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-slate-200 pb-5">
-          <div className="flex flex-wrap items-center gap-2 rounded-xl bg-slate-100 p-1 border border-slate-200">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-indigo-950/70 pb-5">
+          <div className="flex flex-wrap items-center gap-2 rounded-xl bg-[#0c1024] p-1.5 border border-indigo-950/80">
             <button
               onClick={() => setSelectedCategory("ALL")}
               className={`rounded-lg px-3.5 py-1.5 text-xs font-bold transition-all ${
-                selectedCategory === "ALL" ? "bg-white text-slate-900 shadow-sm" : "text-slate-600 hover:text-slate-900"
+                selectedCategory === "ALL" ? "bg-indigo-600 text-white shadow-md shadow-indigo-600/30" : "text-slate-400 hover:text-white"
               }`}
             >
               All Interactive Tracks ({CURATED_COURSES.length})
@@ -118,7 +118,7 @@ export default function CoursesPage() {
             <button
               onClick={() => setSelectedCategory("AI_ML")}
               className={`rounded-lg px-3.5 py-1.5 text-xs font-bold transition-all ${
-                selectedCategory === "AI_ML" ? "bg-emerald-600 text-white shadow-sm" : "text-slate-600 hover:text-slate-900"
+                selectedCategory === "AI_ML" ? "bg-emerald-600 text-white shadow-md shadow-emerald-600/30" : "text-slate-400 hover:text-white"
               }`}
             >
               🤖 AI &amp; GenAI
@@ -127,7 +127,7 @@ export default function CoursesPage() {
             <button
               onClick={() => setSelectedCategory("WEB_DEV")}
               className={`rounded-lg px-3.5 py-1.5 text-xs font-bold transition-all ${
-                selectedCategory === "WEB_DEV" ? "bg-teal-600 text-white shadow-sm" : "text-slate-600 hover:text-slate-900"
+                selectedCategory === "WEB_DEV" ? "bg-teal-600 text-white shadow-md shadow-teal-600/30" : "text-slate-400 hover:text-white"
               }`}
             >
               💻 Full-Stack Web
@@ -136,7 +136,7 @@ export default function CoursesPage() {
             <button
               onClick={() => setSelectedCategory("DSA")}
               className={`rounded-lg px-3.5 py-1.5 text-xs font-bold transition-all ${
-                selectedCategory === "DSA" ? "bg-purple-600 text-white shadow-sm" : "text-slate-600 hover:text-slate-900"
+                selectedCategory === "DSA" ? "bg-purple-600 text-white shadow-md shadow-purple-600/30" : "text-slate-400 hover:text-white"
               }`}
             >
               ⚡ DSA &amp; Algorithms
@@ -145,7 +145,7 @@ export default function CoursesPage() {
             <button
               onClick={() => setSelectedCategory("DEVOPS_CLOUD")}
               className={`rounded-lg px-3.5 py-1.5 text-xs font-bold transition-all ${
-                selectedCategory === "DEVOPS_CLOUD" ? "bg-cyan-600 text-white shadow-sm" : "text-slate-600 hover:text-slate-900"
+                selectedCategory === "DEVOPS_CLOUD" ? "bg-cyan-600 text-white shadow-md shadow-cyan-600/30" : "text-slate-400 hover:text-white"
               }`}
             >
               ☁️ Cloud &amp; DevOps
@@ -154,7 +154,7 @@ export default function CoursesPage() {
             <button
               onClick={() => setSelectedCategory("FREE_TEST")}
               className={`rounded-lg px-3.5 py-1.5 text-xs font-bold transition-all ${
-                selectedCategory === "FREE_TEST" ? "bg-emerald-600 text-white shadow-sm" : "text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200"
+                selectedCategory === "FREE_TEST" ? "bg-emerald-600 text-white shadow-md shadow-emerald-600/30" : "text-emerald-400 bg-emerald-950/40 border border-emerald-800/40 hover:text-white"
               }`}
             >
               🚀 Free Test Course
@@ -163,7 +163,7 @@ export default function CoursesPage() {
             <button
               onClick={() => setSelectedCategory("PYTHON_DATA")}
               className={`rounded-lg px-3.5 py-1.5 text-xs font-bold transition-all ${
-                selectedCategory === "PYTHON_DATA" ? "bg-amber-600 text-white shadow-sm" : "text-slate-600 hover:text-slate-900"
+                selectedCategory === "PYTHON_DATA" ? "bg-amber-600 text-white shadow-md shadow-amber-600/30" : "text-slate-400 hover:text-white"
               }`}
             >
               🐍 Python &amp; Data
@@ -178,7 +178,7 @@ export default function CoursesPage() {
                 placeholder="Search course or topic..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-9 bg-white border-slate-200 text-xs text-slate-900 placeholder:text-slate-400 h-9 rounded-xl shadow-none focus-visible:ring-emerald-500"
+                className="pl-9 bg-[#0c1024] border-indigo-950 text-xs text-white placeholder:text-slate-500 h-9 rounded-xl shadow-none focus-visible:ring-indigo-500"
               />
             </div>
           </div>
@@ -189,7 +189,7 @@ export default function CoursesPage() {
           {filtered.map((course) => (
             <Card
               key={course.id}
-              className="border-slate-200 bg-white text-slate-900 flex flex-col justify-between hover:border-emerald-300 transition-all hover:shadow-md shadow-sm"
+              className="border-indigo-950/80 bg-[#0b0f24] text-white flex flex-col justify-between hover:border-indigo-500/50 transition-all hover:shadow-xl hover:shadow-indigo-950/30 shadow-md"
             >
               <CardHeader className="pb-3">
                 <div className="flex items-start justify-between gap-3">
@@ -200,53 +200,53 @@ export default function CoursesPage() {
                           100% Free Test Course
                         </span>
                       )}
-                      <span className="rounded bg-emerald-50 text-emerald-800 border border-emerald-200 px-2 py-0.5 text-[10px] font-mono font-bold">
+                      <span className="rounded bg-indigo-500/10 text-indigo-300 border border-indigo-500/30 px-2 py-0.5 text-[10px] font-mono font-bold">
                         {course.subcategory}
                       </span>
-                      <span className="text-xs text-slate-400">•</span>
-                      <span className="text-xs text-slate-500">{course.difficulty}</span>
+                      <span className="text-xs text-slate-600">•</span>
+                      <span className="text-xs text-slate-400">{course.difficulty}</span>
                     </div>
 
-                    <CardTitle className="text-lg font-bold text-slate-900 leading-snug">
+                    <CardTitle className="text-lg font-bold text-white leading-snug">
                       {course.title}
                     </CardTitle>
-                    <div className="flex items-center gap-2 mt-1.5 text-xs text-slate-500 font-medium">
-                      <span>Curriculum Lead: <strong className="text-slate-800">{course.creator}</strong></span>
+                    <div className="flex items-center gap-2 mt-1.5 text-xs text-slate-400 font-medium">
+                      <span>Curriculum Lead: <strong className="text-cyan-300">{course.creator}</strong></span>
                     </div>
                   </div>
 
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-50 text-amber-600 border border-amber-200 shadow-sm" title="Includes Verified Certificate">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/30 shadow-sm" title="Includes Verified Certificate">
                     <Award className="h-5 w-5" />
                   </div>
                 </div>
               </CardHeader>
 
               <CardContent className="space-y-4 pt-1">
-                <p className="text-xs text-slate-600 leading-relaxed">
+                <p className="text-xs text-slate-400 leading-relaxed">
                   {course.description}
                 </p>
 
                 {/* DURATION & MODULES */}
-                <div className="grid grid-cols-2 gap-2 rounded-xl bg-slate-50 border border-slate-200 p-2.5 text-xs text-slate-600">
+                <div className="grid grid-cols-2 gap-2 rounded-xl bg-[#101533] border border-indigo-900/60 p-2.5 text-xs text-slate-300">
                   <div className="flex items-center gap-1.5">
-                    <Clock className="h-3.5 w-3.5 text-emerald-600" />
-                    <span>Estimated: <strong className="text-slate-900">{course.duration}</strong></span>
+                    <Clock className="h-3.5 w-3.5 text-emerald-400" />
+                    <span>Estimated: <strong className="text-white">{course.duration}</strong></span>
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" />
+                    <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
                     <span>{course.curriculumModules.length} Core Modules</span>
                   </div>
                 </div>
 
                 {/* CURRICULUM MODULES BREAKDOWN */}
-                <div className="rounded-xl border border-slate-200 bg-slate-50 p-3 space-y-1.5">
-                  <div className="text-[10px] font-mono uppercase text-slate-600 font-bold tracking-wider">
+                <div className="rounded-xl border border-indigo-900/60 bg-[#101533]/60 p-3 space-y-1.5">
+                  <div className="text-[10px] font-mono uppercase text-slate-400 font-bold tracking-wider">
                     Syllabus &amp; Learning Modules
                   </div>
                   <ul className="space-y-1">
                     {course.curriculumModules.map((mod, i) => (
-                      <li key={i} className="flex items-start gap-1.5 text-xs text-slate-700">
-                        <Check className="h-3.5 w-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                      <li key={i} className="flex items-start gap-1.5 text-xs text-slate-300">
+                        <Check className="h-3.5 w-3.5 text-emerald-400 shrink-0 mt-0.5" />
                         <span className="line-clamp-1">{mod}</span>
                       </li>
                     ))}
@@ -254,38 +254,38 @@ export default function CoursesPage() {
                 </div>
 
                 {/* PROOF-OF-WORK BENCHMARK */}
-                <div className="rounded-xl border border-indigo-200 bg-indigo-50/60 p-3 space-y-1.5">
-                  <div className="text-[10px] font-mono uppercase text-indigo-700 font-bold tracking-wider flex items-center gap-1">
-                    <Code2 className="h-3.5 w-3.5 text-indigo-600" />
+                <div className="rounded-xl border border-indigo-900/60 bg-indigo-950/30 p-3 space-y-1.5">
+                  <div className="text-[10px] font-mono uppercase text-indigo-300 font-bold tracking-wider flex items-center gap-1">
+                    <Code2 className="h-3.5 w-3.5 text-indigo-400" />
                     Capstone Proof-of-Work Requirement
                   </div>
-                  <p className="text-xs text-slate-700 leading-relaxed">
+                  <p className="text-xs text-slate-300 leading-relaxed">
                     {course.projectBenchmark}
                   </p>
                 </div>
 
                 {/* CERTIFICATE CLAIM PREVIEW */}
-                <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-2.5 flex items-center justify-between gap-2 text-xs">
+                <div className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-2.5 flex items-center justify-between gap-2 text-xs">
                   <div className="flex items-center gap-2">
-                    <Award className="h-4 w-4 text-amber-500 shrink-0" />
-                    <span className="text-[11px] text-slate-700">
-                      Earn: <strong className="text-amber-900 font-semibold">{course.certificateTitle}</strong>
+                    <Award className="h-4 w-4 text-amber-400 shrink-0" />
+                    <span className="text-[11px] text-slate-300">
+                      Earn: <strong className="text-amber-300 font-semibold">{course.certificateTitle}</strong>
                     </span>
                   </div>
-                  <span className="text-[10px] font-mono text-emerald-700 font-bold shrink-0">
+                  <span className="text-[10px] font-mono text-emerald-400 font-bold shrink-0">
                     Free Certificate
                   </span>
                 </div>
 
                 {/* ACTIONS */}
-                <div className="pt-3 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-2">
+                <div className="pt-3 border-t border-indigo-900/60 flex flex-col sm:flex-row items-center justify-between gap-2">
                   <Link
                     href={`/courses/${course.id}/certificate`}
                     className="w-full sm:w-auto"
                   >
                     <Button
                       size="sm"
-                      className="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs gap-1.5 rounded-xl shadow-sm"
+                      className="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs gap-1.5 rounded-xl shadow-md shadow-emerald-600/20"
                     >
                       <Award className="h-3.5 w-3.5 text-white" />
                       <span>🎓 Claim Completion Certificate</span>
@@ -301,9 +301,9 @@ export default function CoursesPage() {
                     <Button
                       size="sm"
                       variant="outline"
-                      className="w-full sm:w-auto border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs gap-1.5 rounded-xl shadow-sm"
+                      className="w-full sm:w-auto border-indigo-900/60 bg-[#101533] hover:bg-indigo-950 text-slate-300 hover:text-white text-xs gap-1.5 rounded-xl shadow-sm"
                     >
-                      <Play className="h-3 w-3 fill-current text-red-500" />
+                      <Play className="h-3 w-3 fill-current text-rose-500" />
                       <span>Watch Lessons</span>
                       <ExternalLink className="h-3 w-3" />
                     </Button>

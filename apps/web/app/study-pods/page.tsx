@@ -44,7 +44,16 @@ export default function StudyPodsPage() {
     } catch {}
   }, []);
 
-  const categories = ["ALL", "AI & ML", "Web Development", "Data Science", "Mobile"];
+  const categories = [
+    "ALL",
+    "AI & ML",
+    "Web Development",
+    "Backend & Systems",
+    "DevOps & Cloud",
+    "Data Science",
+    "Cybersecurity",
+    "Mobile",
+  ];
 
   const filteredPods = MOCK_STUDY_PODS.filter((pod) => {
     if (selectedCategory !== "ALL" && pod.category !== selectedCategory) return false;
@@ -175,14 +184,15 @@ export default function StudyPodsPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {filteredPods.map((pod) => {
               const isJoined = !!joinedPods[pod.id];
-              const displayMemberCount = (isJoined ? 1 : 0) + 1; // You (if joined) + AI Cohort Bot
+              const memberList = pod.activeMembers || [];
+              const displayMemberCount = memberList.length + (isJoined ? 1 : 0);
 
               return (
                 <div
                   key={pod.id}
-                  className="bg-[#0c1020] border border-indigo-950/80 rounded-2xl p-6 space-y-4 flex flex-col justify-between hover:border-indigo-500/40 hover:shadow-xl transition-all shadow-md"
+                  className="bg-[#0c1020] border border-indigo-950/80 rounded-2xl p-6 space-y-4 flex flex-col justify-between hover:border-indigo-500/40 hover:shadow-xl transition-all shadow-md group"
                 >
-                  <div className="space-y-3">
+                  <div className="space-y-3.5">
                     <div className="flex items-start justify-between gap-3">
                       <div className="space-y-1">
                         <div className="flex items-center gap-2">
@@ -190,18 +200,20 @@ export default function StudyPodsPage() {
                             {pod.category}
                           </span>
                           <span className="text-xs text-slate-400 font-mono">
-                            Stack: {pod.primarySkill}
+                            Stack: <span className="text-slate-200 font-semibold">{pod.primarySkill}</span>
                           </span>
                         </div>
-                        <h3 className="text-lg font-bold text-white mt-1">{pod.title}</h3>
+                        <h3 className="text-lg font-bold text-white mt-1 group-hover:text-indigo-300 transition-colors">
+                          {pod.title}
+                        </h3>
                       </div>
 
                       <div className="text-right font-mono shrink-0">
                         <div className="text-xs font-semibold text-slate-400">
                           {displayMemberCount} / {pod.maxMembers}
                         </div>
-                        <span className="text-[10px] text-indigo-400 font-bold">
-                          {pod.maxMembers - displayMemberCount} seats open
+                        <span className="text-[10px] text-emerald-400 font-bold">
+                          {Math.max(0, pod.maxMembers - displayMemberCount)} seats open
                         </span>
                       </div>
                     </div>
@@ -209,6 +221,22 @@ export default function StudyPodsPage() {
                     <p className="text-xs text-slate-400 leading-relaxed">
                       {pod.description}
                     </p>
+
+                    {/* Today's Focus & Daily Challenge */}
+                    {pod.dailyTopic && (
+                      <div className="bg-[#101533]/80 p-3 rounded-xl border border-indigo-950/80 space-y-2">
+                        <div className="flex items-start gap-2 text-xs">
+                          <span className="text-amber-400 font-bold shrink-0">🎯 Today&apos;s Focus:</span>
+                          <span className="text-slate-200 text-[11px] font-mono leading-snug">{pod.dailyTopic}</span>
+                        </div>
+                        {pod.dailyChallenge && (
+                          <div className="flex items-start gap-2 text-xs pt-1.5 border-t border-indigo-950/60">
+                            <span className="text-emerald-400 font-bold shrink-0">⚡ Challenge:</span>
+                            <span className="text-slate-300 text-[11px] leading-snug">{pod.dailyChallenge}</span>
+                          </div>
+                        )}
+                      </div>
+                    )}
 
                     {/* Current Phase Milestone */}
                     <div className="bg-slate-900/60 p-3 rounded-xl border border-indigo-950/80 space-y-1">
@@ -219,25 +247,48 @@ export default function StudyPodsPage() {
                       <p className="text-xs text-slate-200 font-semibold">{pod.phaseTitle}</p>
                     </div>
 
-                    {/* Meeting Cadence */}
-                    <div className="flex items-center gap-2 text-xs text-slate-400 font-mono">
-                      <Calendar className="w-3.5 h-3.5 text-amber-400" />
-                      <span>{pod.meetingCadence}</span>
+                    {/* Meeting Cadence & Question Count */}
+                    <div className="flex items-center justify-between text-xs text-slate-400 font-mono">
+                      <div className="flex items-center gap-1.5">
+                        <Calendar className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                        <span className="truncate">{pod.meetingCadence}</span>
+                      </div>
+                      <span className="text-indigo-400 font-bold text-[11px] shrink-0">
+                        {pod.mockQuestions?.length || 5} STAR Questions
+                      </span>
                     </div>
 
-                    {/* Cohort Status */}
-                    <div className="flex items-center justify-between pt-2 border-t border-indigo-950/80 text-xs">
+                    {/* Peer Members Avatars */}
+                    <div className="flex items-center justify-between pt-2.5 border-t border-indigo-950/80 text-xs">
                       <div className="flex items-center gap-2">
-                        <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-indigo-500/10 text-indigo-300 border border-indigo-500/30 text-xs font-bold font-mono">
-                          🤖
+                        <div className="flex -space-x-1.5 overflow-hidden">
+                          {memberList.slice(0, 4).map((m, i) => (
+                            <div
+                              key={m.id || i}
+                              title={`${m.name} (${m.college})`}
+                              className={`inline-block h-6 w-6 rounded-full ring-2 ring-[#0c1020] text-[10px] font-bold font-mono flex items-center justify-center ${
+                                m.isBot
+                                  ? "bg-indigo-600/30 text-indigo-300 border border-indigo-500/50"
+                                  : "bg-slate-800 text-slate-200 border border-slate-700"
+                              }`}
+                            >
+                              {m.avatarInitial}
+                            </div>
+                          ))}
+                          {memberList.length > 4 && (
+                            <div className="inline-block h-6 w-6 rounded-full ring-2 ring-[#0c1020] bg-slate-800 text-slate-400 text-[9px] font-bold flex items-center justify-center font-mono">
+                              +{memberList.length - 4}
+                            </div>
+                          )}
                         </div>
-                        <div className="text-[11px] font-mono text-slate-400">
-                          StudyNest Cohort Bot <span className="text-indigo-400 font-semibold">(Active)</span>
-                        </div>
+                        <span className="text-[11px] text-slate-400 font-mono">
+                          {memberList.length} Cohort Peers
+                        </span>
                       </div>
+
                       {isJoined && (
                         <span className="text-[10px] font-mono text-emerald-400 font-bold bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 rounded">
-                          You are enrolled
+                          Enrolled
                         </span>
                       )}
                     </div>
