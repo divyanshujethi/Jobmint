@@ -1,4 +1,4 @@
-# Role Nest 🪺
+# RoleNest 🪺
 
 > **Find opportunities without being left guessing.**
 
@@ -11,7 +11,7 @@
 [![DPDP Act 2023](https://img.shields.io/badge/DPDP_Act_2023-Compliant-emerald?style=flat-square)](https://rolenest.in/privacy)
 [![Cashfree Payments](https://img.shields.io/badge/Cashfree-Verified_Partner-10b981?style=flat-square)](https://cashfree.com)
 
-**Role Nest** ([rolenest.in](https://rolenest.in)) is an open, transparent, candidate-first tech careers platform built specifically for Indian students, freshers, and early-career software developers. Engineered and maintained by **RitualDev Lab** ([ritualdev.in](https://ritualdev.in)).
+**RoleNest** ([rolenest.in](https://rolenest.in)) is an open, transparent, candidate-first tech careers platform built specifically for Indian students, freshers, and early-career software developers. Engineered and maintained by **RitualDev Lab** ([ritualdev.in](https://ritualdev.in)).
 
 ---
 
@@ -23,7 +23,7 @@ Every year, millions of Indian engineering students face an opaque hiring market
 3. **Black Box Tracking**: Candidates submit dozens of applications across disparate job boards and are left completely in the dark.
 4. **Scam Gatekeeping**: Portals charging candidates upfront fees simply to reveal application links.
 
-**Role Nest dismantles this broken cycle.** We offer direct ATS links, enforce mandatory stipend floors on tech internships, provide zero-paywall application links, and empower candidates with a private application journal and standard ATS resume tools.
+**RoleNest dismantles this broken cycle.** We offer direct ATS links, enforce mandatory stipend floors on tech internships, provide zero-paywall application links, and empower candidates with a private application journal and standard ATS resume tools.
 
 ---
 
@@ -31,7 +31,7 @@ Every year, millions of Indian engineering students face an opaque hiring market
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
-│                           ROLE NEST CORE                                │
+│                           ROLENEST CORE                                 │
 ├───────────────────────┬─────────────────────────┬───────────────────────┤
 │       PILLAR 1        │        PILLAR 2         │       PILLAR 3        │
 │  Verified Tech Jobs   │   Application Tracker   │   ATS Resume Builder  │
@@ -62,9 +62,9 @@ Every year, millions of Indian engineering students face an opaque hiring market
 
 ---
 
-## 🧪 Role Nest Labs (Beta & Community Features)
+## 🧪 RoleNest Labs (Beta & Community Features)
 
-To maintain focus on the core hiring journey, secondary community tools reside in **Role Nest Labs**:
+To maintain focus on the core hiring journey, secondary community tools reside in **RoleNest Labs**:
 - **Problem of the Day (POTD)**: Daily coding challenges with automated test-case runner and XP.
 - **Daily Streaks & Leaderboard**: Gamified engineering consistency tracker.
 - **Peer Study Pods**: Collaborative virtual study rooms with live video/chat for interview prep.
@@ -90,8 +90,8 @@ jobapp/
 ├── packages/
 │   ├── database/               # PostgreSQL schema & Drizzle ORM client
 │   ├── shared/                 # Shared TypeScript types, config, constants
-│   ├── ai/                     # LLM providers (Gemini 2.5 Flash, Groq)
-│   ├── alligators/             # Autonomous ATS crawlers & truth filters
+│   ├── ai/                     # Multi-key Groq pool & self-hosted Ollama (Zero Google AI)
+│   ├── alligators/             # Autonomous ATS crawlers & soft-404 truth verifier
 │   ├── storage/                # Encrypted S3/Cloudflare R2 driver with signed URLs
 │   ├── email/                  # Transactional email templates & transporter
 │   └── matching/               # Real-time explainable candidate matching
@@ -103,7 +103,7 @@ jobapp/
 
 ## 🔒 Security, Hygiene & DPDP Act 2023 Compliance
 
-Role Nest adheres to the **Digital Personal Data Protection (DPDP) Act, 2023** and strict security standards:
+RoleNest adheres to the **Digital Personal Data Protection (DPDP) Act, 2023** and strict security standards:
 
 - **RBI-Compliant Payment Security**: Cashfree webhook verification uses server-side HMAC-SHA256 signature verification (`x-webhook-signature`).
 - **IDOR Protection on Resumes**: All file access streams enforce authenticated session checks and cryptographic permission validation.
@@ -142,7 +142,8 @@ NEXTAUTH_URL="http://localhost:3000"
 NEXTAUTH_SECRET="your-secure-random-secret"
 DATABASE_URL="postgresql://postgres:postgres@localhost:5432/rolenest"
 REDIS_URL="redis://localhost:6379"
-GEMINI_API_KEY="your-google-gemini-key"
+GROQ_API_KEYS="gsk_key1,gsk_key2,gsk_key3,gsk_key4,gsk_key5"
+OLLAMA_BASE_URL="http://127.0.0.1:11434"
 CASHFREE_APP_ID="your-cashfree-app-id"
 CASHFREE_SECRET_KEY="your-cashfree-secret-key"
 ```
@@ -177,7 +178,7 @@ Read our complete policy at [rolenest.in/transparency](https://rolenest.in/trans
 
 ## 👥 Authors & Maintainers
 
-- **Role Nest** is designed and operated by **RitualDev Lab** ([ritualdev.in](https://ritualdev.in)).
+- **RoleNest** is designed and operated by **RitualDev Lab** ([ritualdev.in](https://ritualdev.in)).
 - **Founder & Lead Maintainer**: Divyanshu Jethi ([@divyanshujethi](https://github.com/divyanshujethi))
 - **Support & Inquiries**: [support@rolenest.in](mailto:support@rolenest.in)
 

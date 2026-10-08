@@ -190,3 +190,54 @@ export function passwordResetTemplate(
     `,
   };
 }
+
+export function dailyMatchesDigestTemplate(
+  candidateName: string,
+  matches: Array<{ title: string; companyName: string; location: string; salaryOrStipend: string; slug: string }>
+): { subject: string; html: string } {
+  const jobItems = matches
+    .map(
+      (j) => `
+      <div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px; margin-bottom: 12px; background: #ffffff;">
+        <div style="font-weight: 700; font-size: 15px; color: #0f172a;">
+          <a href="https://rolenest.in/jobs/${j.slug}" style="color: #059669; text-decoration: none;">${j.title}</a>
+        </div>
+        <div style="font-size: 13px; color: #334155; margin-top: 4px;">
+          ${j.companyName} • ${j.location}
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px; font-size: 12px;">
+          <span style="color: #0f172a; font-weight: 600;">💰 ${j.salaryOrStipend}</span>
+          <a href="https://rolenest.in/jobs/${j.slug}" style="color: #059669; font-weight: 600; text-decoration: underline;">View & Apply →</a>
+        </div>
+      </div>
+    `
+    )
+    .join("");
+
+  return {
+    subject: `⚡ ${matches.length} New Verified Matches for You Today — ${APP_CONFIG.name}`,
+    html: `
+      <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 580px; margin: 0 auto; padding: 24px; color: #1e293b; background: #f8fafc; border-radius: 12px;">
+        <div style="margin-bottom: 20px;">
+          <strong style="color: #059669; font-size: 20px;">${APP_CONFIG.name}</strong>
+          <span style="font-size: 12px; color: #64748b; margin-left: 8px;">Daily Verified Digest</span>
+        </div>
+        <h2 style="font-size: 18px; color: #0f172a; margin-bottom: 8px;">Good morning, ${candidateName}!</h2>
+        <p style="font-size: 14px; line-height: 1.6; color: #334155; margin-bottom: 16px;">
+          Here are today's fresh verified engineering openings in India that match your profile:
+        </p>
+        <div style="margin-bottom: 20px;">
+          ${jobItems}
+        </div>
+        <div style="text-align: center; margin: 24px 0;">
+          <a href="https://rolenest.in/jobs" style="display: inline-block; background-color: #059669; color: #ffffff; font-weight: 600; font-size: 13px; padding: 12px 24px; border-radius: 8px; text-decoration: none;">
+            Browse All Verified Jobs →
+          </a>
+        </div>
+        <p style="font-size: 11px; color: #94a3b8; text-align: center; margin-top: 24px;">
+          ${APP_CONFIG.tagline} • All links lead directly to official company ATS boards with zero paywalls.
+        </p>
+      </div>
+    `,
+  };
+}
