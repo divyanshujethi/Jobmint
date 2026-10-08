@@ -4,7 +4,7 @@ import { COMPREHENSIVE_INDIAN_SALARIES, SalaryRecord } from "@/lib/salary-data";
 
 export const dynamic = "force-dynamic";
 
-const SALARIES_CACHE_KEY = "rolenest:salaries:v3:all";
+const SALARIES_CACHE_KEY = "rolenest:salaries:v4:all";
 
 export async function GET(req: NextRequest) {
   try {
