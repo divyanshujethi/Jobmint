@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description:
     "Explore transparent Role Nest plans for students and developers. 100% free core job portal and application tracker with transparent AI career tools.",
   alternates: {
-    canonical: "/pricing",
+    canonical: "https://rolenest.in/pricing",
   },
   openGraph: {
     title: "Pricing & Plans — Role Nest",

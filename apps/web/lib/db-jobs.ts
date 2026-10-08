@@ -43,10 +43,10 @@ export async function getTotalActiveJobsCount(jobType?: string): Promise<number>
       await setCache(cacheKey, totalCount, JOBS_CACHE_TTL_SECONDS);
       return totalCount;
     }
-    return 102911;
+    return 115091;
   } catch (err) {
     console.error("getTotalActiveJobsCount error:", err);
-    return 102911;
+    return 115091;
   }
 }
 

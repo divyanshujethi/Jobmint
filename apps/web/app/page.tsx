@@ -171,8 +171,8 @@ export default function HomePage() {
                 <div className="flex items-start gap-2.5 text-slate-200">
                   <CheckCircle className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
                   <div>
-                    <strong className="text-white block font-semibold">Zero Watermarks or Paywalls</strong>
-                    <span className="text-slate-300">No premium tier, no subscription traps</span>
+                    <strong className="text-white block font-semibold">Zero Watermarks or Traps</strong>
+                    <span className="text-slate-300">Free LaTeX/PDF export forever. Optional AI tailoring on Pro</span>
                   </div>
                 </div>
               </div>

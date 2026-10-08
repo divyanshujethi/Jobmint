@@ -160,14 +160,14 @@ Every number below reflects live inventory indexed in the platform database and 
 
 #### 17. Interactive Roadmaps (`/roadmaps` & `/roadmaps/[slug]`)
 - **8 Comprehensive Career Roadmaps**:
-  1. Frontend Developer Roadmap (HTML/CSS, JS, React, Next.js, Performance, Testing)
-  2. Backend Developer Roadmap (OS, Go/Node, Databases, Caching, Message Queues, Docker)
-  3. AI & Machine Learning Roadmap (Math, PyTorch, LLMs, RAG, Fine-Tuning, vLLM)
-  4. DevOps & Cloud Roadmap (Linux, Kubernetes, Terraform, CI/CD, Prometheus)
-  5. Data Engineering Roadmap (SQL, Python, Spark, Kafka, Airflow, Warehouses)
-  6. Cybersecurity Roadmap (Networks, Cryptography, Web Security, PenTesting, SOC)
-  7. Full-Stack Web3 / Crypto Roadmap (Smart Contracts, Solidity, EVM, DeFi)
-  8. Indian Govt Tech Scientist 'B' Roadmap (GATE CS Syllabus, Computer Networks, DBMS)
+  1. AI & Machine Learning Engineer (`/roadmaps/ai-engineer`)
+  2. Full-Stack Web Developer (`/roadmaps/fullstack-developer`)
+  3. Data Analyst & Scientist (`/roadmaps/data-analyst`)
+  4. Backend & Distributed Systems Architect (`/roadmaps/backend-systems`)
+  5. DevOps & Cloud Platform Engineer (`/roadmaps/devops-cloud`)
+  6. Data Engineering & Real-Time Lakehouse Architect (`/roadmaps/data-engineer`)
+  7. Cybersecurity & Cloud Security Engineer (`/roadmaps/cybersecurity`)
+  8. Cross-Platform Mobile Engineer (React Native & Flutter) (`/roadmaps/mobile-engineer`)
 
 #### 18. Curated Video Masterclasses (`/playlists` & `/courses`)
 - **76 Curated Certification Courses**: Complete video curricula with synchronized chapter notes, recommended GitHub repositories, and project benchmarks.

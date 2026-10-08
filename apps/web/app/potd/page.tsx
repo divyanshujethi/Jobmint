@@ -1051,7 +1051,7 @@ function POTDWorkspace() {
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1 text-[11px] font-bold text-blue-400 hover:text-blue-300 underline font-mono"
                     >
-                      Explore 5,000+ Direct ATS Openings on RoleNest ↗
+                      Explore 115,000+ Direct ATS Openings on RoleNest ↗
                     </a>
                     <span className="text-[10px] text-emerald-400 font-mono">
                       ✓ Direct Referral Active

@@ -53,7 +53,7 @@ export default function JobsPage() {
   const [onlyDirectAts, setOnlyDirectAts] = useState(false);
   const [freshnessFilter, setFreshnessFilter] = useState<string>("ALL");
   const [jobs, setJobs] = useState<MockJob[]>([]);
-  const [totalServerJobs, setTotalServerJobs] = useState<number>(102911);
+  const [totalServerJobs, setTotalServerJobs] = useState<number>(115091);
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const PAGE_SIZE = 15;

@@ -75,7 +75,7 @@ const PLAN_DETAILS: Record<
       "75 AI ATS Resume Tailorings & Keyword Gap Analyses / mo",
       "Custom Cover Letter & Google XYZ STAR Bullet Writer",
       "Interview Prep Question Generator customized to any JD",
-      "Unlimited Tracked Applications with automated 7-day follow-up alerts",
+      "Track up to 50 Active Applications with automated 7-day follow-up alerts",
       "DevScore GitHub Analytics & proof-of-work code audits",
       "Verified Pro Candidate Badge in recruiter search feeds",
     ],
@@ -105,7 +105,7 @@ const PLAN_DETAILS: Record<
     features: [
       "Full 1-Year Continuous Pro Access (365 Days)",
       "300 AI ATS Tailorings, STAR Bullets & Cover Letters",
-      "Unlimited Tracked Applications with 7-Day Ghosting Shield",
+      "Track up to 150 Active Applications with 7-Day Ghosting Shield",
       "Priority Telegram / WhatsApp Instant Job Alert Pings",
       "Continuous DevScore Audits & GitHub Code Tracking",
     ],
@@ -412,11 +412,11 @@ export default function PricingPage() {
                   <div className="space-y-5">
                     <div className="flex items-center justify-between">
                       <div>
-                        <h3 className="text-lg font-bold text-slate-900">Free Forever</h3>
-                        <p className="text-xs text-slate-500 mt-0.5">Core job discovery &amp; direct ATS applications.</p>
+                        <h3 className="text-lg font-bold text-slate-900">Free Starter</h3>
+                        <p className="text-xs text-slate-500 mt-0.5">Core job search, standard resume builder &amp; POTD arena.</p>
                       </div>
                       <span className="rounded-full bg-slate-100 text-slate-700 px-2.5 py-0.5 text-[10px] font-bold font-mono">
-                        ₹0 Forever
+                        ₹0 / mo
                       </span>
                     </div>
                     <div>
@@ -434,7 +434,7 @@ export default function PricingPage() {
                       <ul className="space-y-2 text-xs text-slate-600">
                         <li className="flex items-start gap-2">
                           <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
-                          <span>Full access to all 590+ verified tech jobs &amp; internships</span>
+                          <span>Full access to 115,000+ verified tech jobs &amp; internships</span>
                         </li>
                         <li className="flex items-start gap-2">
                           <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
@@ -587,7 +587,7 @@ export default function PricingPage() {
                         </li>
                         <li className="flex items-start gap-2">
                           <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
-                          <span><strong>Unlimited Tracked Applications</strong> with automated 7-day follow-up alerts</span>
+                          <span><strong>Track up to 50 Active Applications</strong> with automated 7-day follow-up alerts</span>
                         </li>
                         <li className="flex items-start gap-2">
                           <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
@@ -823,7 +823,7 @@ export default function PricingPage() {
                       </td>
                     </tr>
                     <tr>
-                      <td className="p-4 font-medium">590+ Live Verified Tech Jobs &amp; Internships</td>
+                      <td className="p-4 font-medium">115,000+ Live Verified Tech Jobs &amp; Internships</td>
                       <td className="p-4 text-center text-emerald-600 font-bold">✓ Included</td>
                       <td className="p-4 text-center text-emerald-600 font-bold bg-indigo-50/30">✓ Included</td>
                       <td className="p-4 text-center text-emerald-600 font-bold bg-emerald-50/30">✓ Included</td>
@@ -860,27 +860,27 @@ export default function PricingPage() {
                     </tr>
                     <tr>
                       <td className="p-4 font-medium">AI ATS Resume Matcher &amp; Keyword Gap Analysis</td>
-                      <td className="p-4 text-center text-slate-500">3 scans trial limit</td>
-                      <td className="p-4 text-center text-indigo-700 font-bold bg-indigo-50/30">Unlimited</td>
-                      <td className="p-4 text-center text-emerald-600 font-bold bg-emerald-50/30">Unlimited</td>
+                      <td className="p-4 text-center text-slate-500">5 scans starter quota</td>
+                      <td className="p-4 text-center text-indigo-700 font-bold bg-indigo-50/30">25 / month</td>
+                      <td className="p-4 text-center text-emerald-600 font-bold bg-emerald-50/30">75 / month</td>
                     </tr>
                     <tr>
                       <td className="p-4 font-medium">STAR Accomplishment Bullet Improver</td>
                       <td className="p-4 text-center text-slate-400">—</td>
-                      <td className="p-4 text-center text-indigo-700 font-bold bg-indigo-50/30">Unlimited</td>
-                      <td className="p-4 text-center text-emerald-600 font-bold bg-emerald-50/30">Unlimited</td>
+                      <td className="p-4 text-center text-indigo-700 font-bold bg-indigo-50/30">25 / month</td>
+                      <td className="p-4 text-center text-emerald-600 font-bold bg-emerald-50/30">75 / month</td>
                     </tr>
                     <tr>
                       <td className="p-4 font-medium">Interview Prep Question Generator</td>
                       <td className="p-4 text-center text-slate-500">3 questions</td>
-                      <td className="p-4 text-center text-indigo-700 font-bold bg-indigo-50/30">Full Suite</td>
-                      <td className="p-4 text-center text-emerald-600 font-bold bg-emerald-50/30">Full Suite</td>
+                      <td className="p-4 text-center text-indigo-700 font-bold bg-indigo-50/30">10 / job</td>
+                      <td className="p-4 text-center text-emerald-600 font-bold bg-emerald-50/30">25 / job</td>
                     </tr>
                     <tr>
                       <td className="p-4 font-medium">Custom Cover Letter Writer</td>
                       <td className="p-4 text-center text-slate-400">—</td>
                       <td className="p-4 text-center text-slate-400 bg-indigo-50/30">—</td>
-                      <td className="p-4 text-center text-emerald-600 font-bold bg-emerald-50/30">Unlimited</td>
+                      <td className="p-4 text-center text-emerald-600 font-bold bg-emerald-50/30">75 / month</td>
                     </tr>
 
                     <tr className="bg-slate-50/50">
@@ -892,7 +892,7 @@ export default function PricingPage() {
                       <td className="p-4 font-medium">Simultaneously Tracked Applications Limit</td>
                       <td className="p-4 text-center text-slate-500">Max 5 jobs</td>
                       <td className="p-4 text-center text-indigo-700 font-bold bg-indigo-50/30">Max 15 jobs</td>
-                      <td className="p-4 text-center text-emerald-600 font-bold bg-emerald-50/30">Unlimited</td>
+                      <td className="p-4 text-center text-emerald-600 font-bold bg-emerald-50/30">Max 50 jobs</td>
                     </tr>
                     <tr>
                       <td className="p-4 font-medium">7-Day Follow-Up &amp; Recruiter Inactivity Reminders</td>
@@ -947,7 +947,7 @@ export default function PricingPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5 text-xs text-slate-600">
                 <div className="space-y-1.5 p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs">
                   <h4 className="font-bold text-slate-900">What is the difference between Free, Campus Pass (₹99), and Pro?</h4>
-                  <p>Job searching, application links, standard resume building, and POTD challenges are 100% Free Forever with 5 complimentary AI scans. Campus Pass (₹99/mo for students) unlocks 25 AI resume tailorings/mo, STAR bullet rewrites, and 15 active application slots. Pro (₹199/mo or ₹1,499/yr) unlocks the complete suite including 75 tailorings/mo, custom cover letters, instant Telegram/WhatsApp match alerts, unlimited application tracking, and DevScore audits.</p>
+                  <p>Job searching, application links, standard resume building, and POTD challenges are 100% Free Forever with 5 complimentary AI scans. Campus Pass (₹99/mo for students) unlocks 25 AI resume tailorings/mo, STAR bullet rewrites, and 15 active application slots. Pro (₹199/mo or ₹1,499/yr) unlocks the complete suite including 75 tailorings/mo, custom cover letters, instant Telegram/WhatsApp match alerts, 50 active application slots, and DevScore audits.</p>
                 </div>
                 <div className="space-y-1.5 p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs">
                   <h4 className="font-bold text-slate-900">How do I verify for the ₹99 Campus Student Pass?</h4>
