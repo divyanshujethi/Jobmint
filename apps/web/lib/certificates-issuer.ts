@@ -42,24 +42,24 @@ export function generateCertificateId(courseId: string): string {
     "angela-python": "PY-AUTO",
   };
 
-  const prefix = prefixMap[courseId] || "JM-DEV";
-  const randomHex = crypto.randomBytes(3).toString("hex").toUpperCase();
-  return `JM-${prefix}-${randomHex}`;
+  const prefix = prefixMap[courseId] || "RN-DEV";
+  const randomHex = crypto.randomBytes(8).toString("hex").toUpperCase();
+  return `RN-${prefix}-${randomHex}`;
 }
 
 // Built-in verified ledger of showcase graduate certificates for public verification demo
 export const SHOWCASE_CERTIFICATES: CourseCertificate[] = [
   {
-    id: "JM-AI-GPT-7B29A1",
+    id: "RN-AI-GPT-7B29A1E4C89D3F12",
     courseId: "karpathy-nn",
     courseTitle: "Neural Networks: Zero to Hero",
     certificateTitle: "Certified Deep Learning & GPT Architecture Practitioner",
-    recipientName: "Divyanshu Jethi",
+    recipientName: "Alex Vance",
     issuedAt: "2026-09-15T10:30:00.000Z",
     skills: ["Backpropagation", "Micrograd", "Makemore", "GPT from Scratch", "Tokenizer", "PyTorch"],
     creatorAttribution: "Curriculum authored by Andrej Karpathy • Verified by StudyNest Academy Technical Education",
     githubProofUrl: "https://github.com/karpathy/nanoGPT",
-    verificationHash: computeVerificationHash("JM-AI-GPT-7B29A1", "Divyanshu Jethi", "karpathy-nn", "2026-09-15T10:30:00.000Z"),
+    verificationHash: computeVerificationHash("RN-AI-GPT-7B29A1E4C89D3F12", "Alex Vance", "karpathy-nn", "2026-09-15T10:30:00.000Z"),
     verified: true,
     status: "HONOR_ROLL",
   },
@@ -121,37 +121,11 @@ export function issueCourseCertificate(
 }
 
 export function lookupCertificate(id: string): CourseCertificate | null {
-  // Check showcase certificates
+  // Check verified showcase certificates
   const found = SHOWCASE_CERTIFICATES.find((c) => c.id.toUpperCase() === id.toUpperCase());
   if (found) return found;
 
-  // If ID matches format JM-XXX-XXXXXX, reconstruct course and verifiable badge
-  // This allows dynamic links shared by users to verify automatically
-  const parts = id.toUpperCase().split("-");
-  if (parts.length >= 3 && (parts[0] === "JM" || parts[0] === "RN")) {
-    // Try to match course by prefix
-    const prefix = `${parts[1]}-${parts[2]}`;
-    const course =
-      CURATED_COURSES.find((c) => {
-        const testId = generateCertificateId(c.id).toUpperCase();
-        return testId.includes(parts[1]);
-      }) || CURATED_COURSES[0];
-
-    return {
-      id: id.toUpperCase(),
-      courseId: course.id,
-      courseTitle: course.title,
-      certificateTitle: course.certificateTitle,
-      recipientName: "Verified Graduate",
-      issuedAt: new Date().toISOString(),
-      skills: course.skillsLearned,
-      creatorAttribution: `Curriculum curated by ${course.creator} • Verified by StudyNest Academy Technical Education`,
-      verificationHash: computeVerificationHash(id, "Verified Graduate", course.id, new Date().toISOString()),
-      verified: true,
-      status: "VERIFIED",
-    };
-  }
-
+  // Unregistered or arbitrary IDs must return null rather than generating synthetic credentials
   return null;
 }
 

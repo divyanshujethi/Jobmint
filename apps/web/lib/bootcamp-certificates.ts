@@ -45,7 +45,7 @@ export function computeInternshipVerificationHash(
 
 export function generateInternshipCertificateId(track: BootcampTrack): string {
   const prefix = track.certificateSpec.prefix || "TECH";
-  const randomHex = crypto.randomBytes(3).toString("hex").toUpperCase();
+  const randomHex = crypto.randomBytes(8).toString("hex").toUpperCase();
   return `RN-INT-2026-${prefix}-${randomHex}`;
 }
 

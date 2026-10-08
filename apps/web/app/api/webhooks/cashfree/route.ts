@@ -18,12 +18,11 @@ export async function POST(req: NextRequest) {
 
       if (!isValid) {
         console.error("[Cashfree Webhook Rejected]: Invalid HMAC signature or timestamp drift.");
-        if (process.env.NODE_ENV === "production") {
-          return NextResponse.json({ error: "Invalid webhook signature" }, { status: 401 });
-        }
+        return NextResponse.json({ error: "Invalid webhook signature" }, { status: 401 });
       }
     } else if (process.env.NODE_ENV === "production") {
-      console.warn("[Cashfree Webhook Warning]: Missing webhook signature or timestamp headers in production.");
+      console.error("[Cashfree Webhook Rejected]: Missing webhook signature or timestamp headers in production.");
+      return NextResponse.json({ error: "Missing required signature headers" }, { status: 401 });
     }
 
     let rawBody: any = {};
@@ -42,6 +41,27 @@ export async function POST(req: NextRequest) {
 
     if (!orderId) {
       return NextResponse.json({ received: true, note: "No order_id detected" }, { status: 200 });
+    }
+
+    // Initialize processed_orders idempotency ledger
+    await db.execute(sql`
+      CREATE TABLE IF NOT EXISTS processed_orders (
+        order_id VARCHAR(128) PRIMARY KEY,
+        amount NUMERIC(10, 2),
+        customer_email VARCHAR(255),
+        plan VARCHAR(64),
+        processed_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+      );
+    `);
+
+    // Check if this order was already processed
+    const alreadyProcessed: any = await db.execute(sql`
+      SELECT order_id FROM processed_orders WHERE order_id = ${orderId} LIMIT 1;
+    `);
+
+    if (alreadyProcessed && alreadyProcessed.length > 0) {
+      console.log(`[Cashfree Webhook Idempotency]: Order ${orderId} has already been fulfilled. Skipping duplicate.`);
+      return NextResponse.json({ received: true, duplicate: true, orderId }, { status: 200 });
     }
 
     // Direct server-to-server verification with Cashfree
@@ -137,6 +157,17 @@ export async function POST(req: NextRequest) {
 
           console.log(`[Cashfree Webhook] Pro membership extended/activated until ${expiresAt.toISOString()} for order ${orderId}`);
         }
+      }
+
+      // Record successful order in idempotency ledger
+      try {
+        await db.execute(sql`
+          INSERT INTO processed_orders (order_id, amount, customer_email, plan)
+          VALUES (${order.order_id}, ${order.order_amount}, ${customerEmail || ''}, ${orderId.includes("pro_annual") ? 'pro_annual' : orderId.includes("student") ? 'student' : 'pro'})
+          ON CONFLICT (order_id) DO NOTHING;
+        `);
+      } catch (idempErr) {
+        console.error("[Cashfree Idempotency Insert Error]:", idempErr);
       }
     }
 

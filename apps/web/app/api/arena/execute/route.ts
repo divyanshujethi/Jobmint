@@ -6,7 +6,23 @@ import path from "path";
 import os from "os";
 import crypto from "crypto";
 
+import { checkRateLimit } from "@/lib/rate-limit";
+
 const execAsync = promisify(exec);
+
+// Security sandbox blocklist patterns (static AST-lite token inspection)
+const BLOCKED_TOKENS_CPP = [
+  "system(", "popen(", "fork(", "execve(", "execl(", "execvp(",
+  "socket(", "connect(", "bind(", "listen(", "accept(",
+  "<sys/socket.h>", "<netinet/in.h>", "<arpa/inet.h>", "<unistd.h>",
+  "<fstream>", "fopen(", "remove(", "rename("
+];
+
+const BLOCKED_TOKENS_JAVA = [
+  "Runtime.getRuntime()", "ProcessBuilder", "java.net.",
+  "java.nio.file.", "java.io.File", "java.io.FileInputStream",
+  "java.io.FileOutputStream", "System.exit", "Socket", "ServerSocket"
+];
 
 interface TestCaseInput {
   name: string;
@@ -172,6 +188,61 @@ export async function POST(req: NextRequest) {
         { error: "This secure server sandbox currently executes C++ and Java." },
         { status: 400 }
       );
+    }
+
+    // Rate limiting: 20 executions per 60 seconds per IP
+    const rateLimit = await checkRateLimit(req, {
+      maxRequests: 20,
+      windowSeconds: 60,
+      prefix: "rl:arena:execute",
+    });
+
+    if (!rateLimit.allowed) {
+      return NextResponse.json(
+        {
+          error: `Execution rate limit reached. Please wait ${rateLimit.resetInSeconds}s before running code again.`,
+        },
+        { status: 429 }
+      );
+    }
+
+    // Security Static Token Inspection
+    if (language === "cpp") {
+      for (const token of BLOCKED_TOKENS_CPP) {
+        if (code.includes(token)) {
+          return NextResponse.json(
+            {
+              passed: false,
+              allPassed: false,
+              totalTests: testCases.length,
+              passedTests: 0,
+              results: [],
+              logs: ["Security Exception: Restricted system, process, or network API detected."],
+              compilationError: `Sandbox Security Violation: Call to restricted token '${token}' is not permitted in competitive coding arena.`,
+              runtimeError: null,
+            },
+            { status: 400 }
+          );
+        }
+      }
+    } else if (language === "java") {
+      for (const token of BLOCKED_TOKENS_JAVA) {
+        if (code.includes(token)) {
+          return NextResponse.json(
+            {
+              passed: false,
+              allPassed: false,
+              totalTests: testCases.length,
+              passedTests: 0,
+              results: [],
+              logs: ["Security Exception: Restricted runtime, reflection, or network API detected."],
+              compilationError: `Sandbox Security Violation: Call to restricted token '${token}' is not permitted in competitive coding arena.`,
+              runtimeError: null,
+            },
+            { status: 400 }
+          );
+        }
+      }
     }
 
     await fs.mkdir(tmpDir, { recursive: true });

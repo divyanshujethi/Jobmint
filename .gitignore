@@ -70,3 +70,4 @@ hunter/*.pem
 hunter/*.key*
 *.sql.gz
 *.dump
+jobdatas/

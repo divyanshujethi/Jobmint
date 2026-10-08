@@ -98,6 +98,24 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
       return session;
     },
+    async redirect({ url, baseUrl }) {
+      // Allow relative paths
+      if (url.startsWith("/")) return `${baseUrl}${url}`;
+      // Allow rolenest.in and *.rolenest.in
+      try {
+        const parsed = new URL(url);
+        if (
+          parsed.hostname === "rolenest.in" ||
+          parsed.hostname.endsWith(".rolenest.in") ||
+          parsed.hostname === "localhost" ||
+          parsed.hostname === "127.0.0.1"
+        ) {
+          return url;
+        }
+      } catch {}
+      // Default to baseUrl for untrusted third-party URLs
+      return baseUrl;
+    },
   },
   cookies: {
     sessionToken: {

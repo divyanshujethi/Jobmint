@@ -523,7 +523,7 @@ export default function PricingPage() {
                     </div>
 
                     <div className="p-2.5 rounded-xl bg-indigo-50/70 border border-indigo-100 text-[11px] text-indigo-900 leading-tight">
-                      <strong>Verification Note:</strong> Open to any student with a valid college ID card or university email address.
+                      <strong>Verification Note:</strong> Open to any student with a valid university email address (.edu, .ac.in) or verified college enrollment. All student verification records are stored privately under the DPDP Act 2023.
                     </div>
                   </div>
                   <div className="pt-6">
@@ -951,7 +951,7 @@ export default function PricingPage() {
                 </div>
                 <div className="space-y-1.5 p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs">
                   <h4 className="font-bold text-slate-900">How do I verify for the ₹99 Campus Student Pass?</h4>
-                  <p>You can sign up with an active university/college email address (e.g., .edu, .ac.in) or upload a photo of your valid college student ID card. Once verified, your account receives the ₹99/mo student rate and Verified Student badge.</p>
+                  <p>Sign up with an active university or college email address (e.g., .edu, .ac.in). If your institution does not issue student emails, you may submit proof of enrollment. All student verification records are stored privately with zero third-party sharing in accordance with the Digital Personal Data Protection (DPDP) Act 2023.</p>
                 </div>
                 <div className="space-y-1.5 p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs">
                   <h4 className="font-bold text-slate-900">How do RoleNest, ProblemNest, and StudyNest passes work?</h4>
