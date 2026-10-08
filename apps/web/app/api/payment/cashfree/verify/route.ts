@@ -62,10 +62,7 @@ export async function GET(req: NextRequest) {
       let isFeaturedJob = false;
       let planName = "pro";
 
-      if (orderId.includes("lifetime")) {
-        durationMs = 100 * 365 * 24 * 60 * 60 * 1000;
-        planName = "lifetime";
-      } else if (orderId.includes("pro_annual")) {
+      if (orderId.includes("pro_annual")) {
         durationMs = 365 * 24 * 60 * 60 * 1000;
         planName = "pro_annual";
       } else if (orderId.includes("pro_quarterly") || orderId.includes("pro_plus")) {

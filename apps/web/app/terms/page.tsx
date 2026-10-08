@@ -175,10 +175,10 @@ export default function TermsPage() {
 
             <section className="space-y-2">
               <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-                10. Definition of Service Lifetime &amp; AI Compute Fair Use
+                10. Subscription Periods &amp; AI Compute Fair Use
               </h2>
               <p>
-                Any promotional &ldquo;Lifetime&rdquo; access license refers strictly to the operational lifecycle of the Role Nest software platform and its automated digital tooling. It does not constitute an equity grant, perpetual service SLA, or recurring manual human advisory service. AI-assisted generation tools (ATS scoring, bullet generation, mock interviews) remain subject to generous fair-use token allowances to safeguard infrastructure stability against bot depletion.
+                Subscription passes (Campus Pass, Role Nest Pro, and All-Access Super Pass) provide active digital features for the term selected (monthly or annual). AI-assisted generation tools (ATS scoring, STAR bullet generation, interview prep) remain subject to clearly defined per-tier generation quotas to safeguard infrastructure stability and prevent automated abuse.
               </p>
             </section>
 

@@ -83,15 +83,6 @@ export const PLAN_LIMITS: Record<string, PlanLimits> = {
     priorityPlacement: true,
     githubDeepAudit: true,
   },
-  lifetime: {
-    maxAiGenerations: 500,
-    maxTrackedApplications: 250,
-    maxMockQuestionsPerJob: 100,
-    allowCustomCourses: true,
-    badge: "pro",
-    priorityPlacement: true,
-    githubDeepAudit: true,
-  },
 };
 
 let hasEnsuredColumns = false;
