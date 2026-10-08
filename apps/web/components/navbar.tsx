@@ -183,6 +183,20 @@ export function Navbar() {
               <span>Internships</span>
             </Link>
 
+            {/* GOVT TECH JOBS (CENTRAL, PSUs & BANKING) */}
+            <Link
+              href="/gov-tech"
+              className={`flex items-center gap-1.5 transition-colors shrink-0 ${
+                pathname === "/gov-tech" ? "text-emerald-600 font-bold" : "text-slate-600 hover:text-emerald-600"
+              }`}
+            >
+              <Building2 className="h-4 w-4 text-emerald-600" />
+              <span>Govt Tech</span>
+              <span className="rounded-full bg-emerald-100 text-emerald-800 px-1.5 py-0.2 text-[9px] font-mono font-bold">
+                24+ Orgs
+              </span>
+            </Link>
+
             {/* PILLAR 2: APPLICATION TRACKER */}
             <Link
               href="/applications"
@@ -815,6 +829,18 @@ export function Navbar() {
                     Paid Tech Internships
                   </span>
                   <span className="rounded bg-amber-50 text-amber-800 px-1.5 py-0.5 text-[9px] font-mono">₹ Stipends</span>
+                </Link>
+
+                <Link
+                  href="/gov-tech"
+                  className="flex items-center justify-between py-2 px-3 rounded-xl text-xs font-bold text-slate-800 hover:bg-emerald-50 hover:text-emerald-900 transition-colors"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <span className="flex items-center gap-2">
+                    <Building2 className="h-4 w-4 text-emerald-600" />
+                    Govt & PSU Tech Jobs
+                  </span>
+                  <span className="rounded bg-emerald-100 text-emerald-800 px-1.5 py-0.5 text-[9px] font-mono font-bold">24+ Orgs</span>
                 </Link>
 
                 {/* Pillar 2 */}

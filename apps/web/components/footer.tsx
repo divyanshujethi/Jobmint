@@ -104,6 +104,11 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/gov-tech" className="hover:text-emerald-600 font-bold text-emerald-800 flex items-center gap-1.5">
+                  🏛️ Indian Govt &amp; PSU Tech (24+)
+                </Link>
+              </li>
+              <li>
                 <Link href="/applications" className="hover:text-emerald-600 font-bold text-emerald-800 flex items-center gap-1.5">
                   ⏱️ Application Tracker &amp; Nudges
                 </Link>

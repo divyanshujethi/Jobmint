@@ -94,6 +94,9 @@ export default function HomePage() {
             {/* QUICK POPULAR PILLS */}
             <div className="pt-3 flex flex-wrap items-center justify-center gap-2 text-xs text-slate-500">
               <span className="font-semibold text-slate-700">Popular:</span>
+              <Link href="/gov-tech" className="rounded-full bg-emerald-100 hover:bg-emerald-200 px-3 py-1 font-bold text-emerald-900 border border-emerald-300 flex items-center gap-1">
+                🏛️ Govt & PSU Tech (24+)
+              </Link>
               <Link href="/jobs?filter=remote" className="rounded-full bg-slate-100 hover:bg-slate-200 px-3 py-1 font-medium text-slate-700">
                 Remote Internships
               </Link>
