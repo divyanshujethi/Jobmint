@@ -35,6 +35,7 @@ import {
   Heart,
   Clock,
   FlaskConical,
+  Lightbulb,
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { NotificationBell } from "./notification-bell";
@@ -331,6 +332,21 @@ export function Navbar() {
                           <div>
                             <div className="text-xs font-bold text-slate-900 group-hover:text-blue-600 transition-colors">AI Bullet Improver</div>
                             <div className="text-[11px] text-slate-500">STAR rewrites &amp; power verbs</div>
+                          </div>
+                        </Link>
+
+                        <Link
+                          href="/interview-prep"
+                          onClick={() => setToolsOpen(false)}
+                          className="flex items-start gap-2.5 rounded-xl p-2 hover:bg-slate-50 transition-colors group"
+                        >
+                          <Lightbulb className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
+                          <div>
+                            <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5 group-hover:text-purple-600 transition-colors">
+                              Interview Prep AI
+                              <span className="rounded bg-purple-50 text-purple-700 px-1 py-0.2 text-[9px] font-mono">Live</span>
+                            </div>
+                            <div className="text-[11px] text-slate-500">Targeted JD questions &amp; answers</div>
                           </div>
                         </Link>
                       </div>
@@ -879,6 +895,18 @@ export function Navbar() {
                     AI Bullet Improver
                   </span>
                   <span className="rounded bg-purple-50 text-purple-700 px-1.5 py-0.5 text-[9px] font-mono">STAR AI</span>
+                </Link>
+
+                <Link
+                  href="/interview-prep"
+                  className="flex items-center justify-between py-2 px-3 rounded-xl text-xs font-semibold text-slate-700 hover:bg-purple-50 hover:text-purple-900 transition-colors"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <span className="flex items-center gap-2">
+                    <Lightbulb className="h-4 w-4 text-amber-500" />
+                    Interview Prep AI
+                  </span>
+                  <span className="rounded bg-purple-100 text-purple-800 px-1.5 py-0.5 text-[9px] font-mono font-bold">New</span>
                 </Link>
               </div>
             </div>

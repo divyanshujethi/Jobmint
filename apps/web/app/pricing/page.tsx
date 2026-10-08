@@ -28,6 +28,8 @@ import {
   FileCheck,
   FileText,
   Video,
+  Layers,
+  Code2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -53,13 +55,13 @@ const PLAN_DETAILS: Record<
     period: "30 Days Student Access (or ₹249 for 6 Mos)",
     badge: "Student Special",
     badgeColor: "bg-indigo-600 text-white",
-    description: "Budget-friendly pass for college students & freshers with college ID",
+    description: "Budget-friendly pass for college students & freshers with verified college ID",
     features: [
-      "15 AI ATS Resume Scans & Google XYZ Rewrites",
-      "Track up to 10 Active Applications in Kanban pipeline",
-      "POTD Monaco Editor Complete Solutions & Hints",
-      "Verified Student Developer Badge on profile",
-      "Inter-college campus battles & hackathon priority",
+      "25 AI ATS Resume Tailorings & Google XYZ STAR Rewrites / mo",
+      "Interview Prep Question Generator customized to any JD",
+      "Track up to 15 Active Applications in Kanban pipeline with 7-day nudges",
+      "Verified Student Developer Badge on profile & leaderboard",
+      "Full POTD Monaco Editor Solutions & Testcase Hints",
     ],
   },
   pro: {
@@ -68,44 +70,44 @@ const PLAN_DETAILS: Record<
     period: "30 Days Active Access",
     badge: "Flagship Monthly",
     badgeColor: "bg-emerald-600 text-white",
-    description: "Unlimited AI ATS Resume Matcher, Custom Course Engine & Ghosting Tracker",
+    description: "Generous AI ATS Resume Matcher, Cover Letter Generator & Ghosting Shield",
     features: [
-      "Unlimited AI ATS Resume Matcher & gap analysis",
-      "AI Accomplishment Bullet Rewriter (Google XYZ format)",
-      "Custom 30-Day Job-to-Course AI Generator tailored to any JD",
-      "Track up to 25 Active Applications in Kanban pipeline",
-      "7-Day Recruiter Inactivity & Ghosting warnings",
-      "Verified Pro Badge in public candidate showcase",
+      "75 AI ATS Resume Tailorings & Keyword Gap Analyses / mo",
+      "Custom Cover Letter & Google XYZ STAR Bullet Writer",
+      "Interview Prep Question Generator customized to any JD",
+      "Unlimited Tracked Applications with automated 7-day follow-up alerts",
+      "DevScore GitHub Analytics & proof-of-work code audits",
+      "Verified Pro Candidate Badge in recruiter search feeds",
     ],
   },
-  mentorship_session: {
-    name: "1-on-1 Senior Engineer Review",
-    price: 799,
-    period: "45-Minute Live Video Session",
-    badge: "1-on-1 Mentorship",
+  all_access_bundle: {
+    name: "RoleNest All-Access Super Pass",
+    price: 299,
+    period: "30 Days Ecosystem Access (or ₹1,999 / year)",
+    badge: "Ultimate 3-in-1 Pass",
     badgeColor: "bg-purple-600 text-white font-bold",
-    description: "Line-by-line ATS resume review, project architecture critique, and live technical mock interview",
+    description: "Complete access across RoleNest + ProblemNest + StudyNest in one single pass",
     features: [
-      "45-Minute 1-on-1 Live Video Session with Senior Engineer",
-      "Line-by-line single-column ATS resume audit & STAR rewrites",
-      "GitHub portfolio code & system architecture review",
-      "Live fresher technical interview simulation & scorecard",
-      "Personalized 7-day interview action plan report",
+      "RoleNest Pro: 75 AI Resume Tailorings, Cover Letters & Ghosting Shield",
+      "Interview Prep Question Generator for any tech job opening",
+      "ProblemNest CodePass: Complete POTD Editorial Solutions & Testcase Hints",
+      "StudyNest Scholar: All 30-Day Job-to-Course Curricula & Verified Certificates",
+      "Priority Telegram / WhatsApp Instant Job Match Pings",
     ],
   },
   pro_annual: {
     name: "Role Nest Annual Career Pass",
     price: 1499,
-    period: "365 Days Access (Save 37%)",
+    period: "365 Days Access (Save 37% • ₹125/mo)",
     badge: "Best Long-Term Value",
     badgeColor: "bg-amber-600 text-white",
-    description: "Full year continuous access with all Pro features (₹125/month)",
+    description: "Full year continuous access with all RoleNest Pro features",
     features: [
       "Full 1-Year Continuous Pro Access (365 Days)",
-      "Continuous DevScore Audits & GitHub Tracking",
-      "Priority Placement across all Recruiter search feeds",
-      "Unlimited AI ATS Scans, Tailoring & Cover Letters",
-      "Priority Telegram / WhatsApp Job Alert Pings",
+      "300 AI ATS Tailorings, STAR Bullets & Cover Letters",
+      "Unlimited Tracked Applications with 7-Day Ghosting Shield",
+      "Priority Telegram / WhatsApp Instant Job Alert Pings",
+      "Continuous DevScore Audits & GitHub Code Tracking",
     ],
   },
   featured_job: {
@@ -263,8 +265,8 @@ export default function PricingPage() {
     initiatePlanCheckout("pro_annual");
   };
 
-  const handleMentorshipCheckout = () => {
-    initiatePlanCheckout("mentorship_session");
+  const handleAllAccessCheckout = () => {
+    initiatePlanCheckout("all_access_bundle");
   };
 
   const handleFeaturedCheckout = () => {
@@ -448,7 +450,7 @@ export default function PricingPage() {
                         </li>
                         <li className="flex items-start gap-2">
                           <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
-                          <span>3 AI ATS resume scans &amp; match analyses total</span>
+                          <span>5 AI ATS resume scans &amp; match analyses (2x free trial quota)</span>
                         </li>
                         <li className="flex items-start gap-2">
                           <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
@@ -499,11 +501,11 @@ export default function PricingPage() {
                       <ul className="space-y-2 text-xs text-slate-700">
                         <li className="flex items-start gap-2">
                           <Check className="h-4 w-4 text-indigo-600 shrink-0 mt-0.5" />
-                          <span><strong>Unlimited AI Resume Tailoring</strong> &amp; Google XYZ STAR bullet improver</span>
+                          <span><strong>25 AI Resume Tailorings</strong> &amp; Google XYZ STAR bullet improver / mo</span>
                         </li>
                         <li className="flex items-start gap-2">
                           <Check className="h-4 w-4 text-indigo-600 shrink-0 mt-0.5" />
-                          <span><strong>Interview Prep Question Generator</strong> customized to any job description</span>
+                          <span><strong>Interview Prep Question Generator</strong> (<Link href="/interview-prep" className="text-indigo-700 underline font-semibold">/interview-prep</Link>)</span>
                         </li>
                         <li className="flex items-start gap-2">
                           <Check className="h-4 w-4 text-indigo-600 shrink-0 mt-0.5" />
@@ -516,10 +518,6 @@ export default function PricingPage() {
                         <li className="flex items-start gap-2">
                           <Check className="h-4 w-4 text-indigo-600 shrink-0 mt-0.5" />
                           <span><strong>Monaco POTD Complete Solutions</strong>, edge cases &amp; test-case hints</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <Check className="h-4 w-4 text-indigo-600 shrink-0 mt-0.5" />
-                          <span><strong>Campus Battles &amp; Hackathon Priority</strong> placement</span>
                         </li>
                       </ul>
                     </div>
@@ -573,11 +571,15 @@ export default function PricingPage() {
                       <ul className="space-y-2 text-xs text-slate-700">
                         <li className="flex items-start gap-2">
                           <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
-                          <span><strong>Unlimited AI Resume Tailoring</strong> &amp; job gap analysis</span>
+                          <span><strong>75 AI Resume Tailorings</strong> &amp; job gap analyses / month</span>
                         </li>
                         <li className="flex items-start gap-2">
                           <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
                           <span><strong>Custom Cover Letter &amp; STAR Bullet Writer</strong></span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
+                          <span><strong>Interview Prep Question Generator</strong> (<Link href="/interview-prep" className="text-emerald-700 underline font-semibold">/interview-prep</Link>)</span>
                         </li>
                         <li className="flex items-start gap-2">
                           <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
@@ -594,10 +596,6 @@ export default function PricingPage() {
                         <li className="flex items-start gap-2">
                           <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
                           <span><strong>Verified Pro Candidate Badge</strong> in recruiter search feeds</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
-                          <span><strong>Custom 30-Day Job-to-Course AI Generator</strong> tailored to any JD</span>
                         </li>
                       </ul>
                     </div>
@@ -623,57 +621,179 @@ export default function PricingPage() {
                 </div>
               </div>
 
-              {/* SPECIALIZED SERVICES: 1-ON-1 HUMAN MENTORSHIP */}
-              <div className="max-w-2xl mx-auto pt-2">
-                {/* STANDALONE 1-ON-1 HUMAN MENTORSHIP */}
-                <div className="rounded-3xl border border-purple-200 bg-linear-to-br from-purple-50/40 via-white to-white p-6 shadow-sm flex flex-col justify-between hover:border-purple-300 transition-all">
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-purple-100 text-purple-700 font-bold shrink-0">
-                          <Video className="h-5 w-5" />
+              {/* SECTION: ECOSYSTEM STANDALONE PASSES & ALL-ACCESS MASTER BUNDLE */}
+              <div className="pt-8 space-y-6">
+                <div className="text-center space-y-1">
+                  <div className="inline-flex items-center gap-1.5 rounded-full bg-purple-50 border border-purple-200 px-3 py-1 text-[11px] font-bold text-purple-900">
+                    <Layers className="h-3.5 w-3.5 text-purple-600" /> Specialized Products &amp; Ecosystem Passes
+                  </div>
+                  <h3 className="text-2xl font-black text-slate-900">Choose Only What You Need Or Bundle Everything</h3>
+                  <p className="text-xs text-slate-500 max-w-2xl mx-auto">
+                    RoleNest, ProblemNest, and StudyNest are distinct, focused platforms. Purchase individual passes standalone, or unlock the entire ecosystem with the 3-in-1 Super Pass.
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {/* APP 1: PROBLEM NEST CODEPASS */}
+                  <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm flex flex-col justify-between hover:border-orange-300 transition-all">
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2.5">
+                          <div className="h-9 w-9 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center font-bold">
+                            <Code2 className="h-5 w-5" />
+                          </div>
+                          <div>
+                            <h4 className="text-base font-bold text-slate-900">ProblemNest CodePass</h4>
+                            <span className="text-[10px] text-slate-400 font-mono">problem.rolenest.in</span>
+                          </div>
                         </div>
-                        <div>
-                          <h4 className="text-base font-bold text-slate-900">1-on-1 Senior Engineer Review</h4>
-                          <span className="rounded bg-purple-100 text-purple-800 px-2 py-0.5 text-[10px] font-extrabold uppercase font-mono">
-                            Human Mentorship • 45-Min Session
-                          </span>
-                        </div>
+                        <span className="rounded-full bg-orange-50 text-orange-700 px-2.5 py-0.5 text-[10px] font-bold font-mono">
+                          ₹99 / mo
+                        </span>
                       </div>
-                      <div className="text-right">
-                        <span className="text-2xl font-black text-slate-900">₹799</span>
-                        <span className="text-xs text-slate-500 font-semibold block">per session</span>
-                      </div>
+
+                      <p className="text-xs text-slate-600 leading-relaxed">
+                        Dedicated algorithmic DSA coding arena pass. Complete test-case hints, full editorial breakdowns, and in-browser Monaco runner.
+                      </p>
+
+                      <ul className="space-y-1.5 text-xs text-slate-700 pt-2 border-t border-slate-100">
+                        <li className="flex items-center gap-2">
+                          <Check className="h-3.5 w-3.5 text-orange-600 shrink-0" />
+                          <span>Full POTD Editorial Solutions &amp; Big-O proofs</span>
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <Check className="h-3.5 w-3.5 text-orange-600 shrink-0" />
+                          <span>Multi-language code runner (Python, C++, Java, JS)</span>
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <Check className="h-3.5 w-3.5 text-orange-600 shrink-0" />
+                          <span>50+ DSA problems catalog with difficulty filters</span>
+                        </li>
+                      </ul>
                     </div>
 
-                    <p className="text-xs text-slate-600 leading-relaxed">
-                      Need personal human feedback? Book a focused 45-minute live video session with an experienced Senior Software Engineer. We do not bury human labor in subscriptions—mentorship is offered cleanly on-demand.
-                    </p>
-
-                    <div className="space-y-1.5 text-xs text-slate-700 pt-2 border-t border-slate-100">
-                      <div className="flex items-center gap-2">
-                        <Check className="h-3.5 w-3.5 text-purple-600 shrink-0" />
-                        <span>Line-by-line single-column ATS resume review &amp; STAR bullet overhaul</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Check className="h-3.5 w-3.5 text-purple-600 shrink-0" />
-                        <span>GitHub project architecture critique &amp; clean-code recommendations</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Check className="h-3.5 w-3.5 text-purple-600 shrink-0" />
-                        <span>Live fresher technical interview simulation with scorecard &amp; 7-day action plan</span>
-                      </div>
+                    <div className="pt-6">
+                      <a
+                        href="https://problem.rolenest.in/potd"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block w-full"
+                      >
+                        <Button variant="outline" className="w-full border-orange-300 text-orange-900 hover:bg-orange-50 font-bold text-xs h-10">
+                          Visit ProblemNest Arena →
+                        </Button>
+                      </a>
                     </div>
                   </div>
 
-                  <div className="pt-5">
-                    <Button
-                      onClick={handleMentorshipCheckout}
-                      className="w-full bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs h-10 shadow-sm flex items-center justify-center gap-1.5"
-                    >
-                      <Video className="h-3.5 w-3.5" />
-                      Book 1-on-1 Review Session — ₹799
-                    </Button>
+                  {/* APP 2: STUDY NEST SCHOLAR PASS */}
+                  <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm flex flex-col justify-between hover:border-indigo-300 transition-all">
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2.5">
+                          <div className="h-9 w-9 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold">
+                            <GraduationCap className="h-5 w-5" />
+                          </div>
+                          <div>
+                            <h4 className="text-base font-bold text-slate-900">StudyNest Scholar Pass</h4>
+                            <span className="text-[10px] text-slate-400 font-mono">study.rolenest.in</span>
+                          </div>
+                        </div>
+                        <span className="rounded-full bg-indigo-50 text-indigo-700 px-2.5 py-0.5 text-[10px] font-bold font-mono">
+                          ₹99 / mo
+                        </span>
+                      </div>
+
+                      <p className="text-xs text-slate-600 leading-relaxed">
+                        Complete open engineering curricula pass. Access 30-day interactive curricula, verified graduation diplomas, and production capstone kits.
+                      </p>
+
+                      <ul className="space-y-1.5 text-xs text-slate-700 pt-2 border-t border-slate-100">
+                        <li className="flex items-center gap-2">
+                          <Check className="h-3.5 w-3.5 text-indigo-600 shrink-0" />
+                          <span>Verified Course Certificates &amp; digital IDs</span>
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <Check className="h-3.5 w-3.5 text-indigo-600 shrink-0" />
+                          <span>Personalized 30-Day Job-to-Course AI synthesis</span>
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <Check className="h-3.5 w-3.5 text-indigo-600 shrink-0" />
+                          <span>Node-based interactive skill tree canvas</span>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div className="pt-6">
+                      <a
+                        href="https://study.rolenest.in/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block w-full"
+                      >
+                        <Button variant="outline" className="w-full border-indigo-300 text-indigo-900 hover:bg-indigo-50 font-bold text-xs h-10">
+                          Visit StudyNest Academy →
+                        </Button>
+                      </a>
+                    </div>
+                  </div>
+
+                  {/* MASTER BUNDLE: ALL-ACCESS SUPER PASS */}
+                  <div className="relative rounded-3xl border-2 border-purple-500 bg-linear-to-b from-purple-50/60 via-white to-white p-6 shadow-xl flex flex-col justify-between ring-1 ring-purple-500/20">
+                    <div className="absolute -top-3 right-5 rounded-full bg-linear-to-r from-purple-600 to-indigo-600 px-3 py-0.5 text-[10px] font-black uppercase tracking-wider text-white shadow-sm flex items-center gap-1">
+                      <Sparkles className="h-3 w-3" /> 3-in-1 Master Bundle
+                    </div>
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <h4 className="text-base font-bold text-slate-900 flex items-center gap-2">
+                            All-Access Super Pass
+                          </h4>
+                          <p className="text-[11px] text-purple-700 font-semibold mt-0.5">RoleNest + ProblemNest + StudyNest</p>
+                        </div>
+                      </div>
+
+                      <div className="space-y-1">
+                        <div className="flex items-baseline gap-1">
+                          <span className="text-3xl font-black text-slate-900">₹299</span>
+                          <span className="text-xs text-slate-500 font-semibold">/ month</span>
+                          <span className="text-slate-300 mx-1.5">•</span>
+                          <span className="text-xs font-bold text-purple-800 bg-purple-100 border border-purple-200 px-2 py-0.5 rounded-full">
+                            or ₹1,999 / year
+                          </span>
+                        </div>
+                        <p className="text-[11px] text-slate-500">Saves 44% compared to separate subscriptions</p>
+                      </div>
+
+                      <ul className="space-y-1.5 text-xs text-slate-700 pt-2 border-t border-purple-100">
+                        <li className="flex items-center gap-2">
+                          <Check className="h-3.5 w-3.5 text-purple-600 shrink-0" />
+                          <span><strong>RoleNest Pro:</strong> 75 AI ATS tailorings &amp; Ghosting Shield</span>
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <Check className="h-3.5 w-3.5 text-purple-600 shrink-0" />
+                          <span><strong>ProblemNest CodePass:</strong> Full POTD solutions &amp; hints</span>
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <Check className="h-3.5 w-3.5 text-purple-600 shrink-0" />
+                          <span><strong>StudyNest Scholar:</strong> All 30-day curricula &amp; certificates</span>
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <Check className="h-3.5 w-3.5 text-purple-600 shrink-0" />
+                          <span>Single unified billing &amp; priority WhatsApp support</span>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div className="pt-6">
+                      <Button
+                        onClick={handleAllAccessCheckout}
+                        className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs h-10 shadow-md gap-1.5"
+                      >
+                        <Crown className="h-3.5 w-3.5" />
+                        Get All-Access Super Pass — ₹299
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -827,15 +947,15 @@ export default function PricingPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5 text-xs text-slate-600">
                 <div className="space-y-1.5 p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs">
                   <h4 className="font-bold text-slate-900">What is the difference between Free, Campus Pass (₹99), and Pro?</h4>
-                  <p>Job searching, application links, standard resume building, and POTD challenges are 100% Free Forever. Campus Pass (₹99/mo for students) unlocks unlimited AI resume tailoring, STAR bullet rewrites, and 15 active application slots. Pro (₹199/mo or ₹1,499/yr) unlocks the complete suite including custom cover letters, instant Telegram/WhatsApp match alerts, unlimited application tracking, and DevScore audits.</p>
+                  <p>Job searching, application links, standard resume building, and POTD challenges are 100% Free Forever with 5 complimentary AI scans. Campus Pass (₹99/mo for students) unlocks 25 AI resume tailorings/mo, STAR bullet rewrites, and 15 active application slots. Pro (₹199/mo or ₹1,499/yr) unlocks the complete suite including 75 tailorings/mo, custom cover letters, instant Telegram/WhatsApp match alerts, unlimited application tracking, and DevScore audits.</p>
                 </div>
                 <div className="space-y-1.5 p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs">
                   <h4 className="font-bold text-slate-900">How do I verify for the ₹99 Campus Student Pass?</h4>
                   <p>You can sign up with an active university/college email address (e.g., .edu, .ac.in) or upload a photo of your valid college student ID card. Once verified, your account receives the ₹99/mo student rate and Verified Student badge.</p>
                 </div>
                 <div className="space-y-1.5 p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs">
-                  <h4 className="font-bold text-slate-900">Can I book a 1-on-1 human resume &amp; mock interview review?</h4>
-                  <p>Yes! We offer an on-demand 45-minute live video session with an experienced Senior Software Engineer for ₹799. This includes a line-by-line single-column ATS resume audit, project architecture critique, and a live technical mock interview with an actionable scorecard.</p>
+                  <h4 className="font-bold text-slate-900">How do RoleNest, ProblemNest, and StudyNest passes work?</h4>
+                  <p>Each platform has its own dedicated pass: RoleNest Pro for job hunting &amp; ATS tailoring, ProblemNest CodePass (₹99/mo) for DSA solutions &amp; coding arena, and StudyNest Scholar Pass (₹99/mo) for interactive roadmaps &amp; certifications. You can also choose the All-Access Super Pass (₹299/mo or ₹1,999/yr) to unlock all three platforms simultaneously.</p>
                 </div>
                 <div className="space-y-1.5 p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs">
                   <h4 className="font-bold text-slate-900">What payment methods are supported in India?</h4>

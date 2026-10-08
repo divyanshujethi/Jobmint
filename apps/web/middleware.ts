@@ -42,26 +42,32 @@ export function middleware(req: NextRequest) {
 
   // 1. If accessed on internship.rolenest.in subdomain:
   if (isInternshipSubdomain) {
-    // If someone types /internship-bootcamp/..., redirect to clean URL /...
-    if (pathname.startsWith("/internship-bootcamp")) {
-      const cleanPath = pathname.replace(/^\/internship-bootcamp/, "") || "/";
-      const redirectUrl = req.nextUrl.clone();
-      redirectUrl.pathname = cleanPath;
-      return NextResponse.redirect(redirectUrl, 308);
-    }
-
-    // Rewrite root to /internship-bootcamp
-    if (pathname === "/") {
-      return NextResponse.rewrite(new URL("/internship-bootcamp", req.url));
-    }
+    const requestHeaders = new Headers(req.headers);
+    requestHeaders.set("x-is-internship", "1");
 
     // Allow payment verification page on internship subdomain
     if (pathname === "/payment/verify") {
-      return NextResponse.next();
+      return NextResponse.next({
+        request: { headers: requestHeaders },
+      });
+    }
+
+    if (pathname === "/" || pathname === "/internship-bootcamp") {
+      return NextResponse.rewrite(new URL("/internship-bootcamp", req.url), {
+        request: { headers: requestHeaders },
+      });
     }
 
     // Rewrite /:slug (e.g. /ai-ml, /portal, /verify/...) to /internship-bootcamp/:slug
-    return NextResponse.rewrite(new URL(`/internship-bootcamp${pathname}`, req.url));
+    if (!pathname.startsWith("/internship-bootcamp")) {
+      return NextResponse.rewrite(new URL(`/internship-bootcamp${pathname}`, req.url), {
+        request: { headers: requestHeaders },
+      });
+    }
+
+    return NextResponse.next({
+      request: { headers: requestHeaders },
+    });
   }
 
   const isDonationSubdomain =
@@ -71,26 +77,26 @@ export function middleware(req: NextRequest) {
 
   // 2. If accessed on donation.rolenest.in or donate.rolenest.in subdomain:
   if (isDonationSubdomain) {
-    // If someone types /donate/..., redirect to clean URL /...
-    if (pathname === "/donate" || pathname === "/donate/") {
-      const redirectUrl = req.nextUrl.clone();
-      redirectUrl.pathname = "/";
-      return NextResponse.redirect(redirectUrl, 308);
-    }
+    const requestHeaders = new Headers(req.headers);
+    requestHeaders.set("x-is-donation", "1");
 
-    // Rewrite root to /donate
-    if (pathname === "/") {
-      return NextResponse.rewrite(new URL("/donate", req.url));
+    if (pathname === "/" || pathname === "/donate") {
+      return NextResponse.rewrite(new URL("/donate", req.url), {
+        request: { headers: requestHeaders },
+      });
     }
 
     // Allow payment verification page on donation subdomain
     if (pathname === "/payment/verify") {
-      return NextResponse.next();
+      return NextResponse.next({
+        request: { headers: requestHeaders },
+      });
     }
 
     // Non-donation pages (like /jobs, /pricing) should NOT work on donation subdomain!
-    // Rewriting to /donate${pathname} triggers 404 (e.g. /donate/jobs does not exist)
-    return NextResponse.rewrite(new URL(`/donate${pathname}`, req.url));
+    return NextResponse.rewrite(new URL(`/donate${pathname}`, req.url), {
+      request: { headers: requestHeaders },
+    });
   }
 
   const isArenaSubdomain =
@@ -145,15 +151,8 @@ export function middleware(req: NextRequest) {
     const requestHeaders = new Headers(req.headers);
     requestHeaders.set("x-is-study", "1");
 
-    // Clean URL: redirect /study to /
-    if (pathname === "/study" || pathname === "/study/") {
-      const redirectUrl = req.nextUrl.clone();
-      redirectUrl.pathname = "/";
-      return NextResponse.redirect(redirectUrl, 308);
-    }
-
-    // Rewrite root to /study
-    if (pathname === "/") {
+    // Rewrite root and /study cleanly to /study
+    if (pathname === "/" || pathname === "/study") {
       return NextResponse.rewrite(new URL("/study", req.url), {
         request: { headers: requestHeaders },
       });

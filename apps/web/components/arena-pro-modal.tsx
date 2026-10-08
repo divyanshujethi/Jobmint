@@ -13,6 +13,9 @@ import {
   Briefcase,
   Cpu,
   ArrowRight,
+  Code2,
+  Layers,
+  Flame,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { openCashfreeCheckout } from "@/components/cashfree-provider";
@@ -77,48 +80,48 @@ export function ArenaProModal({ isOpen, onClose }: ArenaProModalProps) {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
           <div className="flex items-start gap-3 rounded-2xl border border-neutral-800 bg-[#171717] p-3.5">
             <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-amber-500/10 text-amber-400">
-              <Building2 className="h-5 w-5" />
+              <Sparkles className="h-5 w-5" />
             </div>
             <div>
-              <div className="text-xs font-bold text-white">Company-Tagged Questions</div>
+              <div className="text-xs font-bold text-white">Full Editorial Solutions &amp; Hints</div>
               <div className="text-[11px] text-neutral-400 leading-snug">
-                Target Google, Amazon, Microsoft, Swiggy, &amp; Uber frequently asked OA challenges.
+                Step-by-step editorial breakdowns, edge case debugging, and optimal Big-O complexity proofs.
               </div>
             </div>
           </div>
 
           <div className="flex items-start gap-3 rounded-2xl border border-neutral-800 bg-[#171717] p-3.5">
             <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-400">
-              <Sparkles className="h-5 w-5" />
+              <Code2 className="h-5 w-5" />
             </div>
             <div>
-              <div className="text-xs font-bold text-white">AI Code Reviewer &amp; Explainer</div>
+              <div className="text-xs font-bold text-white">Multi-Language Monaco Runner</div>
               <div className="text-[11px] text-neutral-400 leading-snug">
-                Step-by-step editorial breakdowns, edge case debugging, and O(N) complexity proofs.
+                Write, test, and run solutions with zero setup across Python, C++, Java &amp; JavaScript.
               </div>
             </div>
           </div>
 
           <div className="flex items-start gap-3 rounded-2xl border border-neutral-800 bg-[#171717] p-3.5">
             <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-blue-500/10 text-blue-400">
-              <Briefcase className="h-5 w-5" />
+              <Layers className="h-5 w-5" />
             </div>
             <div>
-              <div className="text-xs font-bold text-white">Recruiter Fast-Track Referral</div>
+              <div className="text-xs font-bold text-white">Curated DSA Problem Catalog</div>
               <div className="text-[11px] text-neutral-400 leading-snug">
-                Top DevScore profiles bypass resume filters and land directly in employer inboxes.
+                Categorized algorithmic challenges across Arrays, Two Pointers, Trees, Graphs, and DP.
               </div>
             </div>
           </div>
 
           <div className="flex items-start gap-3 rounded-2xl border border-neutral-800 bg-[#171717] p-3.5">
             <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-purple-500/10 text-purple-400">
-              <Clock className="h-5 w-5" />
+              <Flame className="h-5 w-5" />
             </div>
             <div>
-              <div className="text-xs font-bold text-white">Mock OA Assessment Simulator</div>
+              <div className="text-xs font-bold text-white">Streak Shields &amp; XP Multiplier</div>
               <div className="text-[11px] text-neutral-400 leading-snug">
-                Timed 60-min test runs matching authentic FAANG online assessment test conditions.
+                Earn +50 daily XP, unlock streak freeze shields, and climb the campus engineering leaderboard.
               </div>
             </div>
           </div>
@@ -135,12 +138,12 @@ export function ArenaProModal({ isOpen, onClose }: ArenaProModalProps) {
                 : "border-neutral-800 bg-[#161616] text-neutral-400 hover:border-neutral-700"
             }`}
           >
-            <div className="text-xs font-bold font-mono uppercase text-neutral-400">Monthly Pass</div>
+            <div className="text-xs font-bold font-mono uppercase text-neutral-400">Monthly CodePass</div>
             <div className="mt-1 flex items-baseline gap-1">
-              <span className="text-2xl font-black text-white">₹299</span>
+              <span className="text-2xl font-black text-white">₹99</span>
               <span className="text-[11px] text-neutral-500">/ month</span>
             </div>
-            <div className="mt-2 text-[11px] text-neutral-400">Billed monthly. Cancel anytime.</div>
+            <div className="mt-2 text-[11px] text-neutral-400">Standalone DSA Pass. Cancel anytime.</div>
           </div>
 
           {/* Annual Option (Best Value) */}
@@ -153,14 +156,14 @@ export function ArenaProModal({ isOpen, onClose }: ArenaProModalProps) {
             }`}
           >
             <div className="absolute -top-2.5 right-3 rounded-full bg-linear-to-r from-amber-500 to-orange-600 px-2 py-0.5 text-[9px] font-black uppercase text-slate-950">
-              Save 58%
+              Save 50%
             </div>
-            <div className="text-xs font-bold font-mono uppercase text-amber-400">Annual Pass</div>
+            <div className="text-xs font-bold font-mono uppercase text-amber-400">Annual CodePass</div>
             <div className="mt-1 flex items-baseline gap-1">
-              <span className="text-2xl font-black text-white">₹1,499</span>
+              <span className="text-2xl font-black text-white">₹599</span>
               <span className="text-[11px] text-neutral-500">/ year</span>
             </div>
-            <div className="mt-2 text-[11px] text-amber-300 font-semibold">Only ₹125/month &bull; 1 Year Access</div>
+            <div className="mt-2 text-[11px] text-amber-300 font-semibold">Only ₹50/month &bull; 1 Year Access</div>
           </div>
         </div>
 

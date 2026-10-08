@@ -14,6 +14,7 @@ import {
   ArrowRight,
   Flame,
   Check,
+  Layers,
 } from "lucide-react";
 import { Button } from "./ui/button";
 
@@ -139,7 +140,7 @@ export function StudyProModal({ isOpen, onClose, onActivated }: COURSES_MODAL_PR
                 Accelerate Your Tech Career With Pro Pass
               </h2>
               <p className="text-xs sm:text-sm text-slate-400 max-w-lg mx-auto">
-                Unlock verifiable graduation diplomas, unlimited AI personalized course synthesis, and 1-on-1 technical mock interview matching.
+                Unlock verifiable course completion credentials, personalized 30-day AI course synthesis, and full production capstone kits.
               </p>
             </div>
 
@@ -157,7 +158,7 @@ export function StudyProModal({ isOpen, onClose, onActivated }: COURSES_MODAL_PR
                 <div>
                   <div className="text-xs font-bold text-slate-300">Monthly Scholar</div>
                   <div className="mt-2 text-2xl font-black text-white">
-                    ₹199<span className="text-xs text-slate-400 font-normal">/mo</span>
+                    ₹99<span className="text-xs text-slate-400 font-normal">/mo</span>
                   </div>
                   <p className="text-[11px] text-slate-400 mt-1">Flexible month-to-month learning access.</p>
                 </div>
@@ -177,7 +178,7 @@ export function StudyProModal({ isOpen, onClose, onActivated }: COURSES_MODAL_PR
                 }`}
               >
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-gradient-to-r from-amber-400 to-amber-500 px-2.5 py-0.5 text-[9px] font-black uppercase tracking-wider text-slate-950 shadow-sm">
-                  Most Popular • Save 60%
+                  Most Popular • Save 50%
                 </div>
                 <div>
                   <div className="text-xs font-bold text-amber-300 flex items-center gap-1">
@@ -185,13 +186,13 @@ export function StudyProModal({ isOpen, onClose, onActivated }: COURSES_MODAL_PR
                     <Sparkles className="h-3 w-3 fill-amber-300 text-amber-300" />
                   </div>
                   <div className="mt-2 text-2xl font-black text-white">
-                    ₹999<span className="text-xs text-slate-400 font-normal">/yr</span>
+                    ₹599<span className="text-xs text-slate-400 font-normal">/yr</span>
                   </div>
-                  <p className="text-[11px] text-slate-300 mt-1">Only ₹83/month. Full access to verifiable diplomas &amp; all tracks.</p>
+                  <p className="text-[11px] text-slate-300 mt-1">Only ₹50/month. Full access to verifiable certificates &amp; all tracks.</p>
                 </div>
                 <div className="mt-4 flex items-center gap-1.5 text-[11px] text-amber-300 font-bold">
                   {selectedPlan === "annual" && <Check className="h-3.5 w-3.5" />}
-                  <span>Save ₹1,389/yr</span>
+                  <span>Save ₹589/yr</span>
                 </div>
               </div>
             </div>
@@ -204,19 +205,19 @@ export function StudyProModal({ isOpen, onClose, onActivated }: COURSES_MODAL_PR
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-slate-200">
                 <div className="flex items-center gap-2">
                   <Award className="h-4 w-4 text-amber-400 shrink-0" />
-                  <span>Verified Diplomas &amp; Cryptographic Badges</span>
+                  <span>Verified Course Certificates &amp; Completion IDs</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Zap className="h-4 w-4 text-indigo-400 shrink-0" />
-                  <span>Unlimited AI Syllabus &amp; Quiz Solutions</span>
+                  <span>Personalized 30-Day Job-to-Course AI Synthesis</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Users2 className="h-4 w-4 text-emerald-400 shrink-0" />
-                  <span>1-on-1 Mock STAR Technical Interviews</span>
+                  <Layers className="h-4 w-4 text-emerald-400 shrink-0" />
+                  <span>Interactive Node-Based Roadmaps &amp; Canvas</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <FileCode2 className="h-4 w-4 text-cyan-400 shrink-0" />
-                  <span>Full Distributed Systems Architecture Kits</span>
+                  <span>Production Capstone Blueprints &amp; Code Starters</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Flame className="h-4 w-4 text-rose-400 shrink-0" />
