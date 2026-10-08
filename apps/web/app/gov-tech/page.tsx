@@ -28,12 +28,14 @@ import {
 interface GovJob {
   id: string;
   orgName: string;
-  orgCategory: "Research" | "Ministry" | "PSU" | "Banking" | "State";
+  orgCategory: "Research" | "Ministry" | "PSU" | "Banking" | "State" | "Apprenticeship" | "ThirdPartyAgency";
   title: string;
+  employmentType?: "Permanent / Gazetted" | "Short-Term Contract / Apprenticeship" | "Third-Party Agency Vendor";
+  contractDuration?: string;
   payLevel: string;
   approxMonthlySalary: string;
   qualification: string;
-  selectionProcess: "GATE Score + Interview" | "Written Exam (CBT) + Interview" | "Prelims + Mains + Interview" | "Direct Interview / Project Assessment";
+  selectionProcess: "GATE Score + Interview" | "Written Exam (CBT) + Interview" | "Prelims + Mains + Interview" | "Direct Interview / Project Assessment" | "Merit-based (B.Tech % / NATS Portal)" | "Technical Assessment + Vendor Interview";
   officialPortalUrl: string;
   notificationUrl: string;
   applicationDeadline: string;
@@ -485,6 +487,101 @@ const GOV_TECH_JOBS: GovJob[] = [
     status: "Active / Ongoing",
     description: "Develop state e-Governance public portals, land record digitisation engines (Bhoomi/Bhulekh), and state cloud data center operations.",
     vacancies: "110+ Posts"
+  },
+  {
+    id: "nats-mhrd-graduate-apprentice",
+    orgName: "National Apprenticeship Training Scheme (NATS / MoE India)",
+    orgCategory: "Apprenticeship",
+    employmentType: "Short-Term Contract / Apprenticeship",
+    contractDuration: "1 Year Non-Renewable Apprenticeship",
+    title: "Graduate Apprentice (Computer Science & Information Technology)",
+    payLevel: "Government Stipend Norms (₹9,000 – ₹15,000 / month)",
+    approxMonthlySalary: "₹12,000 / month (Govt Direct Benefit Transfer / DBT)",
+    qualification: "B.E. / B.Tech in CS/IT (Graduated within last 3 years)",
+    selectionProcess: "Merit-based (B.Tech % / NATS Portal)",
+    officialPortalUrl: "https://nats.education.gov.in",
+    notificationUrl: "https://nats.education.gov.in",
+    applicationDeadline: "Continuous / Rolling NATS Portal Enrolment",
+    tags: ["Short-Term Contract", "Apprenticeship", "Ministry of Education", "NATS DBT", "Fresher"],
+    status: "Active / Ongoing",
+    description: "⚠️ SHORT-TERM CONTRACT: 12-month structured industrial engineering training across central/state government departments and laboratories. Hands-on public infrastructure maintenance with zero commitment for regular absorption.",
+    vacancies: "5,000+ Nationwide Vacancies"
+  },
+  {
+    id: "state-dit-contract-developer",
+    orgName: "State Department of IT & Electronics (HARTRON / UPDESCO / KELTRON)",
+    orgCategory: "Apprenticeship",
+    employmentType: "Short-Term Contract / Apprenticeship",
+    contractDuration: "1 Year Contract (Extendable based on Project Budget)",
+    title: "Contractual Software Developer / District IT Associate",
+    payLevel: "Consolidated Fixed Honorarium (₹25,000 – ₹40,000 / month)",
+    approxMonthlySalary: "₹32,000 / month (No DA / No HRA / No Pension)",
+    qualification: "B.Tech (CS/IT) / BCA / MCA with minimum 55% marks",
+    selectionProcess: "Written Exam (CBT) + Interview",
+    officialPortalUrl: "https://hartron.org.in",
+    notificationUrl: "https://hartron.org.in",
+    applicationDeadline: "District-wise Rolling Notifications",
+    tags: ["Short-Term Contract", "State e-Gov", "District IT", "Non-Permanent", "Contractual"],
+    status: "Active / Ongoing",
+    description: "⚠️ SHORT-TERM CONTRACT: Temporary project assignment maintaining district portal dashboards, citizen service CSC centers, and state beneficiary databases. Strictly temporary contractual honorarium with no government permanent status.",
+    vacancies: "300+ State District Posts"
+  },
+  {
+    id: "isro-drdo-jrf-contract",
+    orgName: "ISRO / DRDO Sponsored Research Laboratories (SAC / DRDL / CAIR)",
+    orgCategory: "Apprenticeship",
+    employmentType: "Short-Term Contract / Apprenticeship",
+    contractDuration: "2 Years JRF + 1 Year SRF (Project Tenure)",
+    title: "Junior Research Fellow (JRF) - Computer Vision & Edge AI",
+    payLevel: "DST Fellowship Norms: ₹37,000/mo + HRA (JRF) / ₹42,000/mo (SRF)",
+    approxMonthlySalary: "₹45,000 / month (Fellowship + HRA)",
+    qualification: "B.E. / B.Tech in CS/IT with valid GATE Score OR M.E. / M.Tech",
+    selectionProcess: "GATE Score + Interview",
+    officialPortalUrl: "https://www.isro.gov.in/Careers.html",
+    notificationUrl: "https://rac.gov.in",
+    applicationDeadline: "Lab-Specific Project Drives",
+    tags: ["Short-Term Contract", "Research Fellowship", "JRF / SRF", "DST Norms", "AI/ML"],
+    status: "Active / Ongoing",
+    description: "⚠️ SHORT-TERM CONTRACT: Fixed 2 to 3-year term research fellowship on specific mission defense or space computing tasks. Ideal stepping stone to PhDs; does NOT carry regular Scientist appointment rights.",
+    vacancies: "45+ Fellowships"
+  },
+  {
+    id: "nicsi-tcs-vendor-contractor",
+    orgName: "NICSI Empanelled Vendor - TCS / Wipro (National Portal Deployments)",
+    orgCategory: "ThirdPartyAgency",
+    employmentType: "Third-Party Agency Vendor",
+    contractDuration: "Private Agency Employment (Deputed to Govt Sites)",
+    title: "Third-Party Vendor Software Engineer (Deputed to NIC / Govt Ministries)",
+    payLevel: "Private Agency CTC (₹4.0 LPA – ₹8.5 LPA)",
+    approxMonthlySalary: "₹35,000 – ₹65,000 / month (Paid by Vendor)",
+    qualification: "B.E. / B.Tech in CS/IT / MCA (Hired through Vendor Placement)",
+    selectionProcess: "Technical Assessment + Vendor Interview",
+    officialPortalUrl: "https://nicsi.com",
+    notificationUrl: "https://nicsi.com/tenders",
+    applicationDeadline: "Corporate Agency Lateral Hiring",
+    tags: ["Third-Party Vendor", "Agency Staffing", "NICSI Empanelled", "Private Contract", "Onsite Deputation"],
+    status: "Active / Ongoing",
+    description: "⚠️ THIRD-PARTY VENDOR: You are legally employed by a private agency / SI (such as TCS, Wipro, or NICSI manpower vendors) and deputed on-site to build government ministry applications (e.g., Passport Seva, Income Tax 2.0). Governed entirely by private corporate contracts, not government payroll.",
+    vacancies: "800+ Agency Deputations"
+  },
+  {
+    id: "gem-manpower-agency-engineer",
+    orgName: "GeM Government e-Marketplace Agency Staffing (Third-Party SIs)",
+    orgCategory: "ThirdPartyAgency",
+    employmentType: "Third-Party Agency Vendor",
+    contractDuration: "Outsourced Agency Contract (Client Project Basis)",
+    title: "Third-Party Cloud & Network Support Engineer (GeM Agency Outsource)",
+    payLevel: "Agency Market Rate (₹22,000 – ₹45,000 / month)",
+    approxMonthlySalary: "₹28,000 – ₹42,000 / month",
+    qualification: "Diploma / B.Tech in CS/IT/ECE or BCA with networking certs",
+    selectionProcess: "Technical Assessment + Vendor Interview",
+    officialPortalUrl: "https://gem.gov.in",
+    notificationUrl: "https://gem.gov.in",
+    applicationDeadline: "Third-Party Staffing Pools",
+    tags: ["Third-Party Vendor", "GeM Outsource", "Cloud Support", "Manpower Agency", "Private Payroll"],
+    status: "Active / Ongoing",
+    description: "⚠️ THIRD-PARTY VENDOR: Outsourced tech staff procured via the Government e-Marketplace (GeM) by ministries for IT helpdesk, data center rack maintenance, and LAN/WAN cabling. Hired and paid directly by third-party staffing agencies with zero civil service perks.",
+    vacancies: "650+ Vendor Openings"
   }
 ];
 
@@ -624,12 +721,14 @@ export default function GovTechPage() {
 
             <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0">
               {[
-                { label: "All Sectors (24+)", value: "ALL" },
-                { label: "Research Labs (ISRO/DRDO/BARC)", value: "Research" },
-                { label: "Ministries (NIC/MeitY/BIS)", value: "Ministry" },
-                { label: "Maharatna & Navratna PSUs", value: "PSU" },
-                { label: "Public Sector Banking (RBI/SBI/IBPS)", value: "Banking" },
+                { label: "All Sectors (29+)", value: "ALL" },
+                { label: "Research Labs (ISRO/DRDO)", value: "Research" },
+                { label: "Ministries (NIC/MeitY)", value: "Ministry" },
+                { label: "Maharatna PSUs", value: "PSU" },
+                { label: "Banking (RBI/SBI)", value: "Banking" },
                 { label: "State Govt & DISCOMs", value: "State" },
+                { label: "⚡ Short-Term Contract / Apprenticeship", value: "Apprenticeship" },
+                { label: "🏢 Third-Party Agency Vendor", value: "ThirdPartyAgency" },
               ].map((c) => (
                 <button
                   key={c.value}
@@ -659,6 +758,16 @@ export default function GovTechPage() {
                       <span className="rounded-md bg-emerald-50 px-2.5 py-0.5 text-xs font-bold text-emerald-800 border border-emerald-200/60">
                         {job.orgName}
                       </span>
+                      {job.employmentType === "Short-Term Contract / Apprenticeship" && (
+                        <span className="rounded-md bg-amber-500/10 px-2.5 py-0.5 text-[11px] font-extrabold text-amber-700 border border-amber-300 flex items-center gap-1">
+                          ⚠️ Short-Term Contract / Apprenticeship
+                        </span>
+                      )}
+                      {job.employmentType === "Third-Party Agency Vendor" && (
+                        <span className="rounded-md bg-purple-500/10 px-2.5 py-0.5 text-[11px] font-extrabold text-purple-700 border border-purple-300 flex items-center gap-1">
+                          🏢 Third-Party Agency Vendor (Deputation)
+                        </span>
+                      )}
                       <span className={`rounded-md px-2 py-0.5 text-[11px] font-semibold ${
                         job.status === "Active / Ongoing"
                           ? "bg-teal-50 text-teal-700 border border-teal-200"
@@ -692,6 +801,12 @@ export default function GovTechPage() {
                         <Layers className="h-3.5 w-3.5 text-indigo-600 shrink-0" />
                         <span><strong>Selection:</strong> {job.selectionProcess}</span>
                       </div>
+                      {job.contractDuration && (
+                        <div className="flex items-center gap-1.5 sm:col-span-2 lg:col-span-3 text-amber-800 bg-amber-50/80 px-2.5 py-1 rounded-lg border border-amber-200/60 font-medium">
+                          <Clock className="h-3.5 w-3.5 text-amber-600 shrink-0" />
+                          <span><strong>Tenure / Duration:</strong> {job.contractDuration}</span>
+                        </div>
+                      )}
                     </div>
 
                     <div className="flex flex-wrap gap-1.5 pt-2">
@@ -1106,7 +1221,16 @@ export default function GovTechPage() {
                 <div className="bg-white/80 rounded-lg p-3.5 border border-emerald-200/60">
                   <p className="font-bold text-slate-900">Q: Does this cover all government and public sector tech jobs in India?</p>
                   <p className="mt-1 leading-relaxed text-slate-600">
-                    A: <strong>Yes!</strong> RoleNest now indexes across all 5 major public tech sectors in India: (1) <strong>Research & Defence Labs</strong> (ISRO, DRDO, BARC), (2) <strong>Central Ministries & Standards</strong> (NIC/MeitY, CERT-In, BIS), (3) <strong>Maharatna & Navratna PSUs</strong> (IOCL, NTPC, ONGC, BHEL, GAIL, Coal India, PowerGrid, HAL, BEL, ECIL, C-DAC, CRIS, NPCI), (4) <strong>Public Sector Banking & Financial Regulators</strong> (RBI Grade B IT, SEBI Grade A IT, SBI SCO, IBPS SO, NABARD), and (5) <strong>State Gazetted & DISCOM Infrastructure</strong> (UPPCL, MSEDCL, BESCOM, State PSC Programmers).
+                    A: <strong>Yes!</strong> RoleNest now indexes across all 7 categories: (1) <strong>Research & Defence Labs</strong> (ISRO, DRDO, BARC), (2) <strong>Central Ministries & Standards</strong> (NIC/MeitY, CERT-In, BIS), (3) <strong>Maharatna & Navratna PSUs</strong> (IOCL, NTPC, ONGC, BHEL, GAIL, Coal India, PowerGrid, HAL, BEL, ECIL, C-DAC, CRIS, NPCI), (4) <strong>Public Sector Banking & Financial Regulators</strong> (RBI, SEBI, SBI, IBPS, NABARD), (5) <strong>State Gazetted & DISCOM Infrastructure</strong> (UPPCL, MSEDCL, BESCOM, State PSC Programmers), (6) <strong>Short-Term Contractual Apprenticeships</strong> (NATS, HARTRON/State DIT, ISRO/DRDO JRF), and (7) <strong>Third-Party Agency Vendors</strong> (TCS/Wipro NICSI deputation, GeM manpower contractors).
+                  </p>
+                </div>
+
+                <div className="bg-white/80 rounded-lg p-3.5 border border-amber-200/80 bg-amber-50/40">
+                  <p className="font-bold text-amber-950">Q: What is the difference between Permanent Gov Jobs, Short-Term Contracts, and Third-Party Agency Vendors?</p>
+                  <p className="mt-1 leading-relaxed text-slate-700">
+                    • <strong>Permanent / Gazetted (ISRO, DRDO, NIC, PSUs):</strong> Regular central/state civil service or public enterprise cadre with 7th CPC pay scale, DA/HRA allowances, National Pension System (NPS), CGHS medical, and statutory tenure.<br />
+                    • <strong>Short-Term Contract / Apprenticeship (NATS, HARTRON, JRF):</strong> Fixed-term tenure (typically 1 to 3 years) with a consolidated stipend/honorarium. These do <em>not</em> carry regular civil service status or absorption guarantees upon project completion.<br />
+                    • <strong>Third-Party Agency Vendor (NICSI SIs, GeM Manpower):</strong> Legally employed and paid by a private contractor/vendor (e.g. TCS, Wipro, private staffing agencies) and deputed on-site to government offices. Governed entirely by private corporate contracts.
                   </p>
                 </div>
 
