@@ -1,5 +1,5 @@
 import { db, jobs, companies, skills, jobSkills, applications, eq, or, and, lt, sql, inArray } from "@repo/database";
-import { RawCrawledJob, normalizeIndiaLocation } from "@repo/alligators";
+import { RawCrawledJob, normalizeIndiaLocation, verifyJobUrlLiveness } from "@repo/alligators";
 import { JobSource } from "@repo/shared";
 import { invalidateJobsCache } from "./db-jobs";
 import { publishJobSlugToGoogle } from "./google-indexing";
@@ -446,5 +446,85 @@ export async function cleanupStaleJobs(staleDaysThreshold = 14): Promise<Cleanup
   return {
     deactivated: (deactivatedResult as any)?.rowCount ?? 0,
     purged: purgedCount,
+  };
+}
+
+/**
+ * Proactively verifies external job links against soft-404, generic board redirects,
+ * and HTTP 404/410 codes. Automatically deactivates identified ghost/expired jobs.
+ */
+export async function verifyActiveJobsLiveness(sampleSize = 50): Promise<{
+  tested: number;
+  expiredDeactivated: number;
+  retainedAlive: number;
+  details: Array<{ id: string; url: string; reason: string }>;
+}> {
+  // Select active external jobs ordered by least recently verified
+  const candidates = await db
+    .select({
+      id: jobs.id,
+      sourceUrl: jobs.sourceUrl,
+      title: jobs.title,
+    })
+    .from(jobs)
+    .where(
+      and(
+        eq(jobs.isActive, true),
+        eq(jobs.source, JobSource.EXTERNAL)
+      )
+    )
+    .orderBy(jobs.lastCheckedAt)
+    .limit(sampleSize);
+
+  let expiredDeactivated = 0;
+  let retainedAlive = 0;
+  const details: Array<{ id: string; url: string; reason: string }> = [];
+
+  for (const job of candidates) {
+    if (!job.sourceUrl) continue;
+
+    const check = await verifyJobUrlLiveness(job.sourceUrl, 7000);
+
+    if (!check.isAlive) {
+      expiredDeactivated++;
+      details.push({
+        id: job.id,
+        url: job.sourceUrl,
+        reason: check.reason || "EXPIRED_OR_SOFT_404",
+      });
+
+      await db
+        .update(jobs)
+        .set({
+          isActive: false,
+          updatedAt: new Date(),
+          lastCheckedAt: new Date(),
+        })
+        .where(eq(jobs.id, job.id));
+    } else {
+      retainedAlive++;
+      // Touch lastCheckedAt so other jobs rotate into the probe queue
+      await db
+        .update(jobs)
+        .set({
+          lastCheckedAt: new Date(),
+        })
+        .where(eq(jobs.id, job.id));
+    }
+  }
+
+  if (expiredDeactivated > 0) {
+    try {
+      await invalidateJobsCache();
+    } catch {
+      // ignore
+    }
+  }
+
+  return {
+    tested: candidates.length,
+    expiredDeactivated,
+    retainedAlive,
+    details,
   };
 }

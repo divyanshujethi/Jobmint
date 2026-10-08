@@ -36,8 +36,8 @@ export async function generateAI({
 
   // TIER 1: GROQ
   if (!preferredProvider || preferredProvider === "groq-llama-3.3") {
-    if (process.env.GROQ_API_KEY) {
-      attemptedProviders.push("Groq (Qwen/Llama)");
+    if (process.env.GROQ_API_KEY || process.env.GROQ_API_KEYS) {
+      attemptedProviders.push("Groq (Qwen)");
       try {
         const res = await callGroqProvider(prompt);
         return {
