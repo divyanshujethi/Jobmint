@@ -18,6 +18,33 @@ export const metadata: Metadata = {
   title: "RoleNest Virtual Internship Labs & Engineering Bootcamps | 3-4 Week Industry Programs",
   description:
     "Comprehensive 3-4 week industrial internship bootcamps across AI/ML, Cybersecurity, Prompt Engineering, Python, Enterprise Java & Full-Stack. Live in-browser code competitions, downloadable engineering guides, VIP Discord mentorship, and official college-recognized Certificate IDs.",
+  alternates: {
+    canonical: "https://internship.rolenest.in",
+  },
+  openGraph: {
+    title: "RoleNest Virtual Internship Labs & Engineering Bootcamps",
+    description:
+      "Comprehensive 3-4 week industrial engineering programs with real projects, mentor code reviews, and verifiable college-recognized credentials.",
+    url: "https://internship.rolenest.in",
+    siteName: "RoleNest Virtual Internship Labs",
+    type: "website",
+    images: [
+      {
+        url: "/icon-512.png",
+        width: 512,
+        height: 512,
+        alt: "RoleNest Virtual Internship Labs",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "RoleNest Virtual Internship Labs & Engineering Bootcamps",
+    description:
+      "Comprehensive 3-4 week industrial engineering programs with real projects, mentor reviews, and verified credentials.",
+    images: ["/icon-512.png"],
+    creator: "@RoleNest",
+  },
   keywords: [
     "Tech Internship India",
     "Paid Internship Bootcamp",

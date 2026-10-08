@@ -16,6 +16,9 @@ export const metadata = {
   title: "DMCA Copyright & Intellectual Property Policy — Role Nest",
   description:
     "Official Digital Millennium Copyright Act (DMCA) policy, notice-and-takedown procedure, designated copyright agent disclosures, and repeat infringer terms for Role Nest.",
+  alternates: {
+    canonical: "https://rolenest.in/dmca",
+  },
 };
 
 export default function DmcaPage() {

@@ -37,6 +37,31 @@ export async function generateMetadata({ params }: RoadmapPageProps) {
   return {
     title: `${roadmap.title} Roadmap — StudyNest Academy`,
     description: roadmap.shortDescription,
+    alternates: {
+      canonical: `https://study.rolenest.in/roadmaps/${slug}`,
+    },
+    openGraph: {
+      title: `${roadmap.title} Roadmap — StudyNest Academy`,
+      description: roadmap.shortDescription,
+      url: `https://study.rolenest.in/roadmaps/${slug}`,
+      siteName: "StudyNest Academy",
+      type: "article",
+      images: [
+        {
+          url: "/icon-512.png",
+          width: 512,
+          height: 512,
+          alt: `${roadmap.title} Roadmap`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${roadmap.title} Roadmap — StudyNest Academy`,
+      description: roadmap.shortDescription,
+      images: ["/icon-512.png"],
+      creator: "@RoleNest",
+    },
   };
 }
 

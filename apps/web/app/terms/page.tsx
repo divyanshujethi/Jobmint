@@ -5,6 +5,9 @@ import { Card, CardContent } from "@/components/ui/card";
 export const metadata = {
   title: "Terms and Conditions — Role Nest",
   description: "Official terms of service, platform disclaimers, merchant of record policies, and subscription terms.",
+  alternates: {
+    canonical: "https://rolenest.in/terms",
+  },
 };
 
 export default function TermsPage() {

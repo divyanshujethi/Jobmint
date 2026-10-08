@@ -20,6 +20,9 @@ export const metadata = {
   title: "Privacy Policy, GDPR & CCPA Disclosures — Role Nest",
   description:
     "Comprehensive Privacy Policy, Payment Processing disclosures via Cashfree Payments, and Statutory Compliance with the Indian DPDP Act 2023, GDPR, and CCPA/CPRA.",
+  alternates: {
+    canonical: "https://rolenest.in/privacy",
+  },
 };
 
 export default function PrivacyPage() {

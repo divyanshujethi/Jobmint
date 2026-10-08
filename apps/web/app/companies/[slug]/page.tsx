@@ -17,10 +17,55 @@ import {
   Sparkles,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import type { Metadata } from "next";
 import { Badge } from "@/components/ui/badge";
 
 interface CompanyPageProps {
   params: Promise<{ slug: string }>;
+}
+
+export async function generateMetadata({ params }: CompanyPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const company = await getLiveCompanyBySlug(slug);
+
+  if (!company) {
+    return {
+      title: "Company Not Found — Role Nest",
+    };
+  }
+
+  const title = `${company.name} Careers & Verified Transparency Metrics — Role Nest`;
+  const description = `${company.description || `${company.name} hiring profile`}. Active hiring in ${company.location || "India"}. Truth Teller verified response rate: ${company.truthTeller.reviewRate}%.`;
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: `https://rolenest.in/companies/${slug}`,
+    },
+    openGraph: {
+      title,
+      description,
+      url: `https://rolenest.in/companies/${slug}`,
+      siteName: "Role Nest",
+      type: "profile",
+      images: [
+        {
+          url: "/icon-512.png",
+          width: 512,
+          height: 512,
+          alt: `${company.name} on Role Nest`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: ["/icon-512.png"],
+      creator: "@RoleNest",
+    },
+  };
 }
 
 export default async function CompanyDetailsPage({ params }: CompanyPageProps) {
@@ -35,8 +80,25 @@ export default async function CompanyDetailsPage({ params }: CompanyPageProps) {
   const allJobs = await getLiveJobs();
   const activeJobs = allJobs.filter((j) => j.companySlug === company.slug);
 
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: company.name,
+    url: company.website || `https://rolenest.in/companies/${company.slug}`,
+    description: company.description,
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: company.location || "India",
+      addressCountry: "IN",
+    },
+  };
+
   return (
     <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
       {/* BREADCRUMB */}
       <div className="flex items-center gap-2 text-xs text-slate-500 mb-6">
         <Link href="/companies" className="hover:text-emerald-600">

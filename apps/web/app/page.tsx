@@ -8,7 +8,7 @@ import { TruthTellerPreview } from "@/components/truth-teller-preview";
 
 export const metadata: Metadata = {
   alternates: {
-    canonical: "/",
+    canonical: "https://rolenest.in",
   },
 };
 

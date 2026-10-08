@@ -5,6 +5,9 @@ import { Card, CardContent } from "@/components/ui/card";
 export const metadata = {
   title: "Refund and Cancellation Policy — Role Nest",
   description: "Official 14-day refund and cancellation policy for Role Nest Pro subscriptions and featured job boosts via Cashfree Payments.",
+  alternates: {
+    canonical: "https://rolenest.in/refund",
+  },
 };
 
 export default function RefundPage() {

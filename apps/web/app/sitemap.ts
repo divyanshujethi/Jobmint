@@ -12,10 +12,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${baseUrl}/jobs`, lastModified: new Date(), changeFrequency: "hourly", priority: 0.95 },
     { url: `${baseUrl}/internships`, lastModified: new Date(), changeFrequency: "daily", priority: 0.9 },
     { url: `${baseUrl}/companies`, lastModified: new Date(), changeFrequency: "daily", priority: 0.85 },
-    { url: `${baseUrl}/potd`, lastModified: new Date(), changeFrequency: "daily", priority: 0.85 },
-    { url: `${baseUrl}/problems`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
-    { url: `${baseUrl}/courses`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
-    { url: `${baseUrl}/roadmaps`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
+    { url: "https://problem.rolenest.in/potd", lastModified: new Date(), changeFrequency: "daily", priority: 0.85 },
+    { url: "https://problem.rolenest.in/problems", lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
+    { url: "https://study.rolenest.in", lastModified: new Date(), changeFrequency: "daily", priority: 0.85 },
+    { url: "https://study.rolenest.in/courses", lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
+    { url: "https://study.rolenest.in/roadmaps", lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
+    { url: "https://study.rolenest.in/playlists", lastModified: new Date(), changeFrequency: "weekly", priority: 0.75 },
+    { url: "https://study.rolenest.in/certificates", lastModified: new Date(), changeFrequency: "monthly", priority: 0.75 },
+    { url: "https://internship.rolenest.in", lastModified: new Date(), changeFrequency: "daily", priority: 0.85 },
+    { url: "https://donation.rolenest.in", lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
     { url: `${baseUrl}/dev-score`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.75 },
     { url: `${baseUrl}/resume/builder`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.75 },
     { url: `${baseUrl}/placement-portal`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.7 },
@@ -100,19 +105,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }));
   } catch {}
 
-  // 4. Learning Roadmaps
+  // 4. Learning Roadmaps (StudyNest Academy)
   const roadmapSlugs = [
-    "frontend-developer",
-    "backend-developer",
+    "ai-engineer",
     "fullstack-developer",
-    "ai-ml-engineer",
-    "devops-engineer",
-    "cloud-engineer",
+    "data-analyst",
+    "backend-systems",
+    "devops-cloud",
     "data-engineer",
+    "cybersecurity",
     "mobile-engineer",
   ];
   const roadmapRoutes: MetadataRoute.Sitemap = roadmapSlugs.map((slug) => ({
-    url: `${baseUrl}/roadmaps/${slug}`,
+    url: `https://study.rolenest.in/roadmaps/${slug}`,
     lastModified: new Date(),
     changeFrequency: "monthly" as const,
     priority: 0.7,
