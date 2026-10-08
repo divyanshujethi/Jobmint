@@ -1142,9 +1142,9 @@ export default function PricingPage() {
                       Partner with RoleNest to hire pre-screened junior and mid-level engineers with audited GitHub repositories and verified DevScores. Pay only on 30-day candidate retention.
                     </p>
                   </div>
-                  <Link href="/bounties">
+                  <Link href="/placement-portal">
                     <Button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs h-10 rounded-xl">
-                      Explore Startup Bounties →
+                      Hire Vetted Engineers →
                     </Button>
                   </Link>
                 </div>

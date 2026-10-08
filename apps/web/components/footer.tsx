@@ -199,7 +199,7 @@ export function Footer() {
               </li>
               <li>
                 <Link href="/bounties" className="hover:text-emerald-600 font-medium text-amber-700 flex items-center gap-1.5">
-                  💰 Bounty Nest™ Referrals
+                  🎁 Refer a Friend (7 Days Free Pro)
                 </Link>
               </li>
               <li>

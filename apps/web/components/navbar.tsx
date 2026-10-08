@@ -429,10 +429,10 @@ export function Navbar() {
                           <Gift className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
                           <div>
                             <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5 group-hover:text-blue-600 transition-colors">
-                              Bounties &amp; Referrals
-                              <span className="rounded bg-amber-50 text-amber-700 px-1 py-0.2 text-[9px] font-mono">Earn</span>
+                              Refer a Friend
+                              <span className="rounded bg-amber-50 text-amber-700 px-1 py-0.2 text-[9px] font-mono">Free Pro</span>
                             </div>
-                            <div className="text-[11px] text-slate-500">Employee referrals market</div>
+                            <div className="text-[11px] text-slate-500">Get 7 Days Free Pro per friend</div>
                           </div>
                         </Link>
 
@@ -983,9 +983,9 @@ export function Navbar() {
                   >
                     <span className="flex items-center gap-2">
                       <Gift className="h-3.5 w-3.5 text-amber-500" />
-                      Bounties &amp; Referrals
+                      Refer a Friend
                     </span>
-                    <span className="text-[9px] font-mono text-amber-700">Bonus</span>
+                    <span className="text-[9px] font-mono text-amber-700">7d Pro</span>
                   </Link>
 
                   <Link

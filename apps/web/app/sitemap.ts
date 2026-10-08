@@ -27,6 +27,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${baseUrl}/cancellation`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.5 },
     { url: `${baseUrl}/terms`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.4 },
     { url: `${baseUrl}/privacy`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.4 },
+    { url: `${baseUrl}/dmca`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.4 },
   ];
 
   // 2. Dynamic Job Slugs from Database (Scaled up to 5,000)
