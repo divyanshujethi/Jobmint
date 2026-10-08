@@ -47,13 +47,14 @@ export async function GET(request: Request): Promise<NextResponse> {
 
     const cleanup = await cleanupStaleJobs(staleDays);
 
-    // Run active probe verification on up to 30 active external jobs per cron run
+    // Run active probe verification on external jobs per cron run
     let probeResult = null;
     const enableProbe = searchParams.get("probe") !== "false";
+    const probeLimit = Math.min(parseInt(searchParams.get("probeLimit") || "10", 10), 30);
     if (enableProbe) {
       try {
         const { verifyActiveJobsLiveness } = await import("@/lib/job-ingestion");
-        probeResult = await verifyActiveJobsLiveness(30);
+        probeResult = await verifyActiveJobsLiveness(probeLimit);
       } catch (err: any) {
         console.warn("[Cron Jobs TTL] Active probe error:", err.message);
       }

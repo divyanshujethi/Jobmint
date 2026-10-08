@@ -480,37 +480,46 @@ export async function verifyActiveJobsLiveness(sampleSize = 50): Promise<{
   let retainedAlive = 0;
   const details: Array<{ id: string; url: string; reason: string }> = [];
 
-  for (const job of candidates) {
-    if (!job.sourceUrl) continue;
+  const BATCH_SIZE = 5;
+  for (let i = 0; i < candidates.length; i += BATCH_SIZE) {
+    const batch = candidates.slice(i, i + BATCH_SIZE);
+    await Promise.all(
+      batch.map(async (job) => {
+        if (!job.sourceUrl) return;
 
-    const check = await verifyJobUrlLiveness(job.sourceUrl, 7000);
+        try {
+          const check = await verifyJobUrlLiveness(job.sourceUrl, 3500);
 
-    if (!check.isAlive) {
-      expiredDeactivated++;
-      details.push({
-        id: job.id,
-        url: job.sourceUrl,
-        reason: check.reason || "EXPIRED_OR_SOFT_404",
-      });
+          if (!check.isAlive) {
+            expiredDeactivated++;
+            details.push({
+              id: job.id,
+              url: job.sourceUrl,
+              reason: check.reason || "EXPIRED_OR_SOFT_404",
+            });
 
-      await db
-        .update(jobs)
-        .set({
-          isActive: false,
-          updatedAt: new Date(),
-          lastCheckedAt: new Date(),
-        })
-        .where(eq(jobs.id, job.id));
-    } else {
-      retainedAlive++;
-      // Touch lastCheckedAt so other jobs rotate into the probe queue
-      await db
-        .update(jobs)
-        .set({
-          lastCheckedAt: new Date(),
-        })
-        .where(eq(jobs.id, job.id));
-    }
+            await db
+              .update(jobs)
+              .set({
+                isActive: false,
+                updatedAt: new Date(),
+                lastCheckedAt: new Date(),
+              })
+              .where(eq(jobs.id, job.id));
+          } else {
+            retainedAlive++;
+            await db
+              .update(jobs)
+              .set({
+                lastCheckedAt: new Date(),
+              })
+              .where(eq(jobs.id, job.id));
+          }
+        } catch (err: any) {
+          retainedAlive++;
+        }
+      })
+    );
   }
 
   if (expiredDeactivated > 0) {
