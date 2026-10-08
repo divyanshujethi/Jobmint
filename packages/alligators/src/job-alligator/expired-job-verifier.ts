@@ -108,14 +108,14 @@ export async function verifyJobUrlLiveness(
       };
     }
 
-    // 2. Server Errors (5xx) or Rate Limits (429) - retain as alive to avoid false drops
-    if (httpStatus >= 500 || httpStatus === 429) {
+    // 2. Server Errors (5xx), WAF challenges (403/401), or Rate Limits (429) - retain as alive to avoid false drops
+    if (httpStatus >= 500 || httpStatus === 429 || httpStatus === 403 || httpStatus === 401) {
       return {
         url,
         finalUrl,
         httpStatus,
         isAlive: true,
-        reason: `SERVER_TEMP_${httpStatus}`,
+        reason: `SERVER_WAF_OR_TEMP_${httpStatus}`,
         checkedAt,
       };
     }
