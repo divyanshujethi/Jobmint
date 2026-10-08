@@ -28,12 +28,12 @@ import {
 interface GovJob {
   id: string;
   orgName: string;
-  orgCategory: "Research" | "Ministry" | "PSU";
+  orgCategory: "Research" | "Ministry" | "PSU" | "Banking" | "State";
   title: string;
   payLevel: string;
   approxMonthlySalary: string;
   qualification: string;
-  selectionProcess: "GATE Score + Interview" | "Written Exam (CBT) + Interview" | "Direct Interview / Project Assessment";
+  selectionProcess: "GATE Score + Interview" | "Written Exam (CBT) + Interview" | "Prelims + Mains + Interview" | "Direct Interview / Project Assessment";
   officialPortalUrl: string;
   notificationUrl: string;
   applicationDeadline: string;
@@ -281,6 +281,210 @@ const GOV_TECH_JOBS: GovJob[] = [
     status: "Upcoming Annual Drive",
     description: "Develop embedded controls for heavy turbines, industrial plant simulation engines, and enterprise defence telemetry systems.",
     vacancies: "30+ Trainees"
+  },
+  {
+    id: "sbi-sco-it",
+    orgName: "State Bank of India (SBI Central Recruitment)",
+    orgCategory: "Banking",
+    title: "Specialist Cadre Officer (SCO) - Deputy Manager / Manager (IT)",
+    payLevel: "MMGS-II / MMGS-III (Basic ₹64,820 - ₹1,00,000 + Bank Perks)",
+    approxMonthlySalary: "₹1,35,000 / month (Gross CTC ~₹19 - ₹24 LPA)",
+    qualification: "B.E. / B.Tech (CS / IT / ECE) or MCA / M.Sc (CS/IT) with 60% aggregate",
+    selectionProcess: "Written Exam (CBT) + Interview",
+    officialPortalUrl: "https://sbi.co.in/web/careers",
+    notificationUrl: "https://sbi.co.in/web/careers/current-openings",
+    applicationDeadline: "Annual SBI SCO Notification",
+    tags: ["Public Sector Bank", "Core Banking YONO", "Cloud Infra", "Fintech Scale"],
+    status: "Upcoming Annual Drive",
+    description: "Scale YONO super-app architecture, secure core banking transaction switches (CBS), handle anti-fraud telemetry, and microservices cloud clusters.",
+    vacancies: "150+ IT Specialist Posts"
+  },
+  {
+    id: "ibps-so-it",
+    orgName: "Institute of Banking Personnel Selection (IBPS)",
+    orgCategory: "Banking",
+    title: "IT Officer (Scale I) - Public Sector Banks (PNB, BOB, Canara)",
+    payLevel: "Junior Management Grade Scale I (₹48,480 - ₹85,920)",
+    approxMonthlySalary: "₹72,000 / month (Gross + Lease Allowance)",
+    qualification: "4-year Engineering Degree in CS / IT / Electronics or PG in CS/IT",
+    selectionProcess: "Prelims + Mains + Interview",
+    officialPortalUrl: "https://www.ibps.in",
+    notificationUrl: "https://www.ibps.in",
+    applicationDeadline: "Annual CRP SPL Nationwide Cycle",
+    tags: ["PSB Banking", "National Recruitment", "Fintech Ops", "Permanent"],
+    status: "Upcoming Annual Drive",
+    description: "Manage bank core IT infrastructure, database replication, ATM switch interconnects, cyber security audits, and payment gateway APIs.",
+    vacancies: "220+ Across 11 Nationalized Banks"
+  },
+  {
+    id: "rbi-grade-b-depr",
+    orgName: "Reserve Bank of India (RBI Services Board)",
+    orgCategory: "Banking",
+    title: "Officer Grade 'B' (Information Technology / Data Science)",
+    payLevel: "RBI Grade B Pay Scale (Basic ₹55,200 + ₹1.16L Perks & Allowances)",
+    approxMonthlySalary: "₹1,45,000 / month (Gross CTC ~₹24 LPA)",
+    qualification: "B.Tech in CS/IT or MCA with min 60% marks + 2 years tech experience",
+    selectionProcess: "Prelims + Mains + Interview",
+    officialPortalUrl: "https://opportunities.rbi.org.in",
+    notificationUrl: "https://opportunities.rbi.org.in/scripts/vacancies.aspx",
+    applicationDeadline: "Annual RBI Services Board Drive",
+    tags: ["Central Bank", "Monetary Policy Tech", "RTGS / NEFT Core", "High Prestige"],
+    status: "Upcoming Annual Drive",
+    description: "Develop monetary data warehouse pipelines, RTGS/NEFT national clearing systems, digital rupee (CBDC) platforms, and systemic cyber defense architecture.",
+    vacancies: "35+ Grade B Officers"
+  },
+  {
+    id: "sebi-it-officer",
+    orgName: "Securities and Exchange Board of India (SEBI)",
+    orgCategory: "Banking",
+    title: "Officer Grade 'A' (Assistant Manager - Information Technology)",
+    payLevel: "SEBI Grade A (Basic ₹44,500 + Heavy Allowances)",
+    approxMonthlySalary: "₹1,40,000 / month (Gross CTC ~₹22.5 LPA)",
+    qualification: "Engineering Graduate in CS/IT or MCA or Post Graduate in CS/IT",
+    selectionProcess: "Prelims + Mains + Interview",
+    officialPortalUrl: "https://www.sebi.gov.in/sebiweb/other/career.jsp",
+    notificationUrl: "https://www.sebi.gov.in/sebiweb/other/career.jsp",
+    applicationDeadline: "Annual Phase I/II Selection",
+    tags: ["Capital Markets", "Stock Exchange Telemetry", "Algo Trading Audits"],
+    status: "Upcoming Annual Drive",
+    description: "Build market surveillance AI systems, high-frequency algorithmic trading auditing pipelines, and stock exchange clearing interconnects.",
+    vacancies: "24+ Grade A Officers"
+  },
+  {
+    id: "nabard-it-officer",
+    orgName: "NABARD (National Bank for Agriculture and Rural Development)",
+    orgCategory: "Banking",
+    title: "Assistant Manager (Grade 'A' - Information Technology)",
+    payLevel: "Grade A Pay Scale (Basic ₹44,500 + Allowances)",
+    approxMonthlySalary: "₹1,20,000 / month (Gross CTC ~₹18.5 LPA)",
+    qualification: "Bachelor's Degree in CS/IT/Computer Applications with min 60% marks",
+    selectionProcess: "Prelims + Mains + Interview",
+    officialPortalUrl: "https://www.nabard.org/careers-notices1.aspx",
+    notificationUrl: "https://www.nabard.org/careers-notices1.aspx",
+    applicationDeadline: "Annual Grade A Recruitment",
+    tags: ["Development Bank", "Agri-Fintech", "Rural Banking Systems", "Permanent"],
+    status: "Upcoming Annual Drive",
+    description: "Manage national rural banking cloud infrastructures, financial inclusion data analytics, and cooperative bank core IT modernizations.",
+    vacancies: "18+ Officers"
+  },
+  {
+    id: "powergrid-et-cs",
+    orgName: "Power Grid Corporation of India Limited (POWERGRID - Maharatna)",
+    orgCategory: "PSU",
+    title: "Engineer Trainee (Computer Science / IT)",
+    payLevel: "E-1 Grade (₹40,000 - ₹1,40,000 + Maharatna Benefits)",
+    approxMonthlySalary: "₹1,15,000 / month (Gross CTC ~₹16.5 LPA)",
+    qualification: "B.E. / B.Tech in CS/IT with min 65% aggregate + Valid GATE Score",
+    selectionProcess: "GATE Score + Interview",
+    officialPortalUrl: "https://www.powergrid.in/careers",
+    notificationUrl: "https://www.powergrid.in/job-opportunities",
+    applicationDeadline: "Annual Post-GATE Drive",
+    tags: ["Maharatna", "Smart Grid SCADA", "Substation Telemetry", "Permanent"],
+    status: "Upcoming Annual Drive",
+    description: "Build national transmission grid monitoring SCADA networks, optical fiber telemetry routers, and renewable energy dispatch algorithms.",
+    vacancies: "25+ Engineers"
+  },
+  {
+    id: "coal-india-mt-cs",
+    orgName: "Coal India Limited (CIL - Maharatna PSU)",
+    orgCategory: "PSU",
+    title: "Management Trainee (Systems / Computer Science)",
+    payLevel: "E-2 Grade (₹50,000 - ₹1,60,000 + Coal Field Allowances)",
+    approxMonthlySalary: "₹1,10,000 / month (Gross CTC ~₹16 LPA)",
+    qualification: "B.E. / B.Tech / B.Sc (Engg) in CS/IT or MCA with min 60% marks",
+    selectionProcess: "Written Exam (CBT) + Interview",
+    officialPortalUrl: "https://www.coalindia.in/career-at-cil/",
+    notificationUrl: "https://www.coalindia.in/career-at-cil/",
+    applicationDeadline: "Open CBT / GATE Recruitment",
+    tags: ["Maharatna", "Mining Telemetry", "Enterprise ERP", "Permanent"],
+    status: "Upcoming Annual Drive",
+    description: "Deploy automated mine dispatch software, IoT vehicle tracking sensor grids, enterprise SAP ERP systems, and environmental monitoring portals.",
+    vacancies: "45+ Management Trainees"
+  },
+  {
+    id: "gail-et-it",
+    orgName: "GAIL (India) Limited (Maharatna PSU)",
+    orgCategory: "PSU",
+    title: "Executive Trainee (Information Technology / BIS)",
+    payLevel: "E-1 Grade (₹60,000 - ₹1,80,000 + 35% PRP)",
+    approxMonthlySalary: "₹1,25,000 / month (Gross CTC ~₹18 LPA)",
+    qualification: "B.E. / B.Tech in CS / IT with min 65% aggregate + Valid GATE Score",
+    selectionProcess: "GATE Score + Interview",
+    officialPortalUrl: "https://gailonline.com/CRApplyingGail.html",
+    notificationUrl: "https://gailonline.com/CRApplyingGail.html",
+    applicationDeadline: "Annual GATE Shortlist",
+    tags: ["Maharatna", "Gas Pipeline SCADA", "Cyber Security", "Permanent"],
+    status: "Upcoming Annual Drive",
+    description: "Architect natural gas pipeline control SCADA networks, industrial process control cybersecurity, and cross-country enterprise networks.",
+    vacancies: "15+ Posts"
+  },
+  {
+    id: "hal-engineer-cs",
+    orgName: "Hindustan Aeronautics Limited (HAL - Navratna PSU)",
+    orgCategory: "PSU",
+    title: "Management Trainee / Design Trainee (Computer Science / Avionics)",
+    payLevel: "Grade II (₹40,000 - ₹1,40,000 + Aviation Perks)",
+    approxMonthlySalary: "₹90,000 / month (Gross CTC ~₹13.5 LPA)",
+    qualification: "Full time Bachelor's Degree in Engineering / Technology in CS/IT (min 65%)",
+    selectionProcess: "Written Exam (CBT) + Interview",
+    officialPortalUrl: "https://hal-india.co.in/Careers/",
+    notificationUrl: "https://hal-india.co.in/Careers/",
+    applicationDeadline: "Annual All-India CBT Selection",
+    tags: ["Defence Aerospace", "Fighter Jet Avionics", "Real-Time Embedded OS"],
+    status: "Upcoming Annual Drive",
+    description: "Write safety-critical real-time flight mission software, HUD avionics displays, and radar tracking digital signal processing algorithms.",
+    vacancies: "40+ Positions"
+  },
+  {
+    id: "bis-scientist-b-it",
+    orgName: "Bureau of Indian Standards (BIS / Ministry of Consumer Affairs)",
+    orgCategory: "Ministry",
+    title: "Scientist 'B' (Computer Engineering / Information Technology)",
+    payLevel: "7th CPC Level 10 (₹56,100 - ₹1,77,500)",
+    approxMonthlySalary: "₹1,12,000 / month (Gross + Central Govt Perks)",
+    qualification: "Bachelor's Degree in Engineering/Technology in CS/IT + Valid GATE Score",
+    selectionProcess: "GATE Score + Interview",
+    officialPortalUrl: "https://www.bis.gov.in/career-opportunities/",
+    notificationUrl: "https://www.bis.gov.in/career-opportunities/",
+    applicationDeadline: "Annual GATE Selection Window",
+    tags: ["Central Govt", "Group A Gazetted", "National Standards", "Permanent"],
+    status: "Upcoming Annual Drive",
+    description: "Formulate national software quality benchmarks, smart grid IoT standards, AI ethics standards, and manage national certification databases.",
+    vacancies: "20+ Scientist Posts"
+  },
+  {
+    id: "state-discom-it-engineer",
+    orgName: "State Electricity Transmission & DISCOMs (UPPCL / MSEDCL / BESCOM)",
+    orgCategory: "State",
+    title: "Assistant Engineer (Information Technology / Systems)",
+    payLevel: "State 7th CPC Pay Scale (₹56,100 - ₹1,77,500)",
+    approxMonthlySalary: "₹92,000 / month",
+    qualification: "B.Tech in CS/IT from a recognized university with min 60% marks",
+    selectionProcess: "Written Exam (CBT) + Interview",
+    officialPortalUrl: "https://www.upenergy.in",
+    notificationUrl: "https://www.upenergy.in/vacancies",
+    applicationDeadline: "Periodic State Board Drives",
+    tags: ["State Govt", "Smart Metering", "Billing Engines", "State PSUs"],
+    status: "Active / Ongoing",
+    description: "Architect statewide smart electrical metering (AMI) ingestion clusters, billing transaction systems, and real-time power outage tracking portals.",
+    vacancies: "85+ Across State Entities"
+  },
+  {
+    id: "state-psc-programmer",
+    orgName: "State Public Service Commissions & NIC State Units (TNPSC / UPPSC / WBPSC)",
+    orgCategory: "State",
+    title: "Programmer Grade-I / Systems Manager",
+    payLevel: "State Gazetted Level 9/10 (₹53,100 - ₹1,67,800)",
+    approxMonthlySalary: "₹88,000 / month",
+    qualification: "B.E./B.Tech (CS/IT) or MCA with First Class",
+    selectionProcess: "Written Exam (CBT) + Interview",
+    officialPortalUrl: "https://uppsc.up.nic.in",
+    notificationUrl: "https://uppsc.up.nic.in",
+    applicationDeadline: "State PSC Gazette Notification",
+    tags: ["State Gazetted", "e-Governance", "State Portals", "Permanent"],
+    status: "Active / Ongoing",
+    description: "Develop state e-Governance public portals, land record digitisation engines (Bhoomi/Bhulekh), and state cloud data center operations.",
+    vacancies: "110+ Posts"
   }
 ];
 
@@ -420,10 +624,12 @@ export default function GovTechPage() {
 
             <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0">
               {[
-                { label: "All Sectors", value: "ALL" },
-                { label: "Research Labs (ISRO/DRDO)", value: "Research" },
-                { label: "Ministries (NIC/MeitY)", value: "Ministry" },
-                { label: "PSUs (C-DAC/NPCI/CRIS)", value: "PSU" },
+                { label: "All Sectors (24+)", value: "ALL" },
+                { label: "Research Labs (ISRO/DRDO/BARC)", value: "Research" },
+                { label: "Ministries (NIC/MeitY/BIS)", value: "Ministry" },
+                { label: "Maharatna & Navratna PSUs", value: "PSU" },
+                { label: "Public Sector Banking (RBI/SBI/IBPS)", value: "Banking" },
+                { label: "State Govt & DISCOMs", value: "State" },
               ].map((c) => (
                 <button
                   key={c.value}
@@ -898,9 +1104,9 @@ export default function GovTechPage() {
 
               <div className="space-y-3 text-xs text-slate-700">
                 <div className="bg-white/80 rounded-lg p-3.5 border border-emerald-200/60">
-                  <p className="font-bold text-slate-900">Q: Are these all the government tech jobs in India?</p>
+                  <p className="font-bold text-slate-900">Q: Does this cover all government and public sector tech jobs in India?</p>
                   <p className="mt-1 leading-relaxed text-slate-600">
-                    A: These represent <strong>all major premier central scientific bodies, ministries, and top Maharatna/Navratna PSUs</strong> hiring computer science and IT engineers (ISRO, DRDO, NIC, C-DAC, CRIS, BARC, IOCL, NTPC, ONGC, BHEL, BEL, ECIL). Smaller state-level electricity board IT positions or regional municipal contracts may recruit via individual state public service commissions (TNPSC, UPPSC, KPSC, etc.). We prioritize high-impact, permanent, and research-grade positions.
+                    A: <strong>Yes!</strong> RoleNest now indexes across all 5 major public tech sectors in India: (1) <strong>Research & Defence Labs</strong> (ISRO, DRDO, BARC), (2) <strong>Central Ministries & Standards</strong> (NIC/MeitY, CERT-In, BIS), (3) <strong>Maharatna & Navratna PSUs</strong> (IOCL, NTPC, ONGC, BHEL, GAIL, Coal India, PowerGrid, HAL, BEL, ECIL, C-DAC, CRIS, NPCI), (4) <strong>Public Sector Banking & Financial Regulators</strong> (RBI Grade B IT, SEBI Grade A IT, SBI SCO, IBPS SO, NABARD), and (5) <strong>State Gazetted & DISCOM Infrastructure</strong> (UPPCL, MSEDCL, BESCOM, State PSC Programmers).
                   </p>
                 </div>
 
