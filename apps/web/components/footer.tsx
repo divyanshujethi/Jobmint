@@ -279,6 +279,16 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/dmca" className="hover:text-emerald-600 font-medium text-slate-700">
+                  DMCA &amp; IP Copyright Policy
+                </Link>
+              </li>
+              <li>
+                <Link href="/privacy#gdpr-addendum" className="hover:text-emerald-600 text-xs text-slate-500 font-medium">
+                  GDPR &amp; CCPA Disclosures
+                </Link>
+              </li>
+              <li>
                 <Link href="/refund" className="hover:text-emerald-600 font-medium text-slate-700">
                   Refund &amp; Cancellation Policy
                 </Link>
@@ -341,6 +351,10 @@ export function Footer() {
               <span>•</span>
               <Link href="/privacy" className="text-slate-500 hover:text-emerald-700">
                 Privacy Policy
+              </Link>
+              <span>•</span>
+              <Link href="/dmca" className="text-slate-500 hover:text-emerald-700">
+                DMCA Policy
               </Link>
             </div>
           </div>

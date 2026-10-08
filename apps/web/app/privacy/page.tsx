@@ -12,13 +12,14 @@ import {
   Mail,
   CreditCard,
   Building2,
+  Globe,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 
 export const metadata = {
-  title: "Privacy Policy & DPDP Disclosures — Role Nest",
+  title: "Privacy Policy, GDPR & CCPA Disclosures — Role Nest",
   description:
-    "Comprehensive Privacy Policy, Payment Processing disclosures via Cashfree Payments, and Statutory Compliance with the Indian DPDP Act 2023 and GDPR.",
+    "Comprehensive Privacy Policy, Payment Processing disclosures via Cashfree Payments, and Statutory Compliance with the Indian DPDP Act 2023, GDPR, and CCPA/CPRA.",
 };
 
 export default function PrivacyPage() {
@@ -331,6 +332,76 @@ export default function PrivacyPage() {
                   <strong>No Ad Tracking:</strong> Error telemetry is strictly isolated for system reliability and is never sold, leased, or utilized for advertising or user tracking profiles.
                 </li>
               </ul>
+            </section>
+
+            {/* SECTION 9: GDPR (EEA & UK USERS) */}
+            <section id="gdpr-addendum" className="space-y-3 pt-2">
+              <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+                <Globe className="h-4 w-4 text-emerald-600" />
+                9. European Economic Area (EEA) &amp; UK Addendum (GDPR)
+              </h2>
+              <p>
+                If you are a resident of the European Union, European Economic Area (EEA), or United Kingdom, the processing of your personal data is protected under the General Data Protection Regulation (Regulation (EU) 2016/679 - GDPR) and the UK GDPR.
+              </p>
+              <div className="space-y-2 text-xs sm:text-sm text-slate-600">
+                <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 space-y-2">
+                  <p className="font-semibold text-slate-900">
+                    <strong>Legal Bases for Processing:</strong> We only process your personal data when we have a lawful ground:
+                  </p>
+                  <ul className="list-disc pl-5 space-y-1">
+                    <li><strong>Contractual Necessity:</strong> To provide account access, authenticate your sessions, track applications, and deliver study pods and certificates.</li>
+                    <li><strong>Legitimate Interests:</strong> To secure our network, prevent platform fraud/spam, optimize performance, and maintain platform integrity.</li>
+                    <li><strong>Statutory Consent:</strong> When you voluntarily submit anonymous compensation benchmarks or opt into communications.</li>
+                  </ul>
+                </div>
+                <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 space-y-2">
+                  <p className="font-semibold text-slate-900">
+                    <strong>Your Specific GDPR Rights:</strong>
+                  </p>
+                  <ul className="list-disc pl-5 space-y-1">
+                    <li><strong>Right of Access &amp; Portability:</strong> Obtain a copy of your personal data in structured, machine-readable format (JSON export in Account Settings).</li>
+                    <li><strong>Right to Rectification:</strong> Request correction of incomplete or inaccurate personal data.</li>
+                    <li><strong>Right to Erasure (&quot;Right to be Forgotten&quot;):</strong> Request permanent deletion of all personal records and resumes via 1-click in Account Settings.</li>
+                    <li><strong>Right to Restriction &amp; Objection:</strong> Object to processing based on legitimate interests or request temporary restriction of processing.</li>
+                    <li><strong>Right to Lodge a Complaint:</strong> Lodge a complaint with your local EU/EEA Data Protection Authority (DPA).</li>
+                  </ul>
+                </div>
+                <p>
+                  For international data transfers outside the EEA, we rely on Standard Contractual Clauses (SCCs) and robust technical encryption standards (TLS 1.3, AES-256). To exercise any GDPR rights, email <a href="mailto:privacy@rolenest.in" className="text-emerald-700 underline font-semibold">privacy@rolenest.in</a>.
+                </p>
+              </div>
+            </section>
+
+            {/* SECTION 10: CCPA / CPRA DISCLOSURE (CALIFORNIA RESIDENTS) */}
+            <section id="ccpa-disclosure" className="space-y-3 pt-2">
+              <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+                <ShieldCheck className="h-4 w-4 text-emerald-600" />
+                10. California Consumer Privacy Act (CCPA / CPRA) Disclosures
+              </h2>
+              <p>
+                This section applies solely to California residents pursuant to the California Consumer Privacy Act of 2018, as amended by the California Privacy Rights Act of 2020 (collectively, &quot;CCPA/CPRA&quot;).
+              </p>
+              <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 space-y-2 text-xs sm:text-sm text-slate-600">
+                <div className="flex items-center gap-2 font-bold text-slate-900">
+                  <span className="rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-mono px-2 py-0.5">ZERO-SALE DISCLOSURE</span>
+                  <span>We Do Not Sell or Share Personal Information</span>
+                </div>
+                <p>
+                  Role Nest does <strong>not sell</strong> personal information of consumers, nor do we &quot;share&quot; personal information for cross-context behavioral advertising (as defined under the CCPA/CPRA). We have not sold or shared any consumer personal information in the preceding 12 months.
+                </p>
+                <div className="pt-2 border-t border-slate-200/80 space-y-1">
+                  <p className="font-semibold text-slate-900">California Resident Rights:</p>
+                  <ul className="list-disc pl-5 space-y-1">
+                    <li><strong>Right to Know:</strong> Request disclosure of categories and specific pieces of personal information collected.</li>
+                    <li><strong>Right to Delete:</strong> Request deletion of personal information subject to statutory exceptions.</li>
+                    <li><strong>Right to Correct:</strong> Request correction of inaccurate personal information.</li>
+                    <li><strong>Right to Non-Discrimination:</strong> We will never discriminate, deny services, or alter pricing because you exercised your privacy rights.</li>
+                  </ul>
+                </div>
+                <p className="pt-1">
+                  California residents can submit verifiable consumer requests directly to <a href="mailto:privacy@rolenest.in" className="text-emerald-700 underline font-semibold">privacy@rolenest.in</a>. Requests will be acknowledged within 10 days and fulfilled within 45 days.
+                </p>
+              </div>
             </section>
 
             <div className="pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
