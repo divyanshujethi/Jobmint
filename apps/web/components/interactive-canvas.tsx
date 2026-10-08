@@ -96,10 +96,10 @@ export function InteractiveStudyCanvas() {
   const [cloudSynced, setCloudSynced] = useState(false);
 
   // ── Gamification State ──
-  const [userXp, setUserXp] = useState<number>(850);
-  const [streakDays, setStreakDays] = useState<number>(3);
+  const [userXp, setUserXp] = useState<number>(0);
+  const [streakDays, setStreakDays] = useState<number>(0);
   const [claimedQuests, setClaimedQuests] = useState<Set<string>>(new Set());
-  const [unlockedAchievements, setUnlockedAchievements] = useState<Set<string>>(new Set(["a1"]));
+  const [unlockedAchievements, setUnlockedAchievements] = useState<Set<string>>(new Set());
   const [showQuestsModal, setShowQuestsModal] = useState<boolean>(false);
   const [showAchievementsModal, setShowAchievementsModal] = useState<boolean>(false);
   const [floatingXp, setFloatingXp] = useState<{ id: number; text: string; x: number; y: number } | null>(null);

@@ -176,10 +176,10 @@ export function InteractiveRoadmapSprints({ roadmap }: InteractiveRoadmapSprints
       localStorage.setItem(proofsStorageKey, JSON.stringify(updatedProofs));
 
       // Award +30 XP on unified gamification ledger
-      const currentXp = parseInt(localStorage.getItem("studynest_gamification_xp") || "850", 10);
+      const currentXp = parseInt(localStorage.getItem("studynest_gamification_xp") || "0", 10);
       const newXp = currentXp + 30;
       localStorage.setItem("studynest_gamification_xp", newXp.toString());
-      const currentStreak = parseInt(localStorage.getItem("studynest_study_streak") || "4", 10);
+      const currentStreak = parseInt(localStorage.getItem("studynest_study_streak") || "0", 10);
       window.dispatchEvent(new CustomEvent("studynest-xp-updated", { detail: { xp: newXp, streak: currentStreak } }));
     } catch {}
 

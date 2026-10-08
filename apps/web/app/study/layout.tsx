@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/icon-512.png",
+        url: "https://study.rolenest.in/icon-512.png",
         width: 512,
         height: 512,
         alt: "StudyNest Academy Learning Platform",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     title: "StudyNest Academy — Interactive Roadmaps, Skill Canvas & Cohorts",
     description:
       "Master high-paying tech skills with node-based skill canvases, curated roadmaps, and collaborative study pods.",
-    images: ["/icon-512.png"],
+    images: ["https://study.rolenest.in/icon-512.png"],
     creator: "@RoleNest",
   },
 };

@@ -311,7 +311,7 @@ export default function AccountSettingsPage() {
                           month: "short",
                           year: "numeric",
                         })}. Renew now to resume AI interview practice and recruiter direct messaging.`
-                      : "Upgrade to Pro to unlock direct recruiter referrals, AI auto-apply, and priority ranking."}
+                      : "Upgrade to Pro to unlock unlimited AI ATS resume tailoring, verified DevScore ledger sync, and priority application tracking."}
                   </p>
                 </div>
                 {profile?.isPro ? (

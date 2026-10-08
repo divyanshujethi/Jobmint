@@ -2009,7 +2009,7 @@ function POTDWorkspace() {
               </div>
               <div className="rounded-xl bg-slate-800/80 border border-slate-700/60 p-2">
                 <span className="text-[9px] uppercase font-bold text-slate-400 block">DevScore</span>
-                <span className="text-base font-black text-blue-400">{userDevScore > 0 ? userDevScore : 50}</span>
+                <span className="text-base font-black text-blue-400">{userDevScore}</span>
               </div>
             </div>
 
@@ -2022,7 +2022,7 @@ function POTDWorkspace() {
                 <Button
                   onClick={() => {
                     const shareText = encodeURIComponent(
-                      `🔥 Just solved coding challenge "${currentProblem.title}" on ProblemNest Arena! Current DevScore: ${userDevScore > 0 ? userDevScore : 50}/1000. Try solving it: https://problem.rolenest.in/potd?problem=${currentProblem.slug}`
+                      `🔥 Just solved coding challenge "${currentProblem.title}" on ProblemNest Arena! Current DevScore: ${userDevScore}/1000. Try solving it: https://problem.rolenest.in/potd?problem=${currentProblem.slug}`
                     );
                     window.open(`https://api.whatsapp.com/send?text=${shareText}`, "_blank", "noopener,noreferrer");
                   }}
