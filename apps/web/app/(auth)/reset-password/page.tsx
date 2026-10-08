@@ -91,7 +91,7 @@ function ResetPasswordForm() {
                   href="/login"
                   className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold shadow-md transition-all"
                 >
-                  Sign in to Role Nest <ArrowRight className="h-4 w-4" />
+                  Sign in to RoleNest <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
             </div>

@@ -282,7 +282,7 @@ export default function StudyPodDetailPage() {
       id: `std-user-${Date.now()}`,
       author: sessionUser?.name || "Candidate (You)",
       avatar: (sessionUser?.name?.[0] || "Y").toUpperCase(),
-      college: "Role Nest Verified Candidate",
+      college: "RoleNest Verified Candidate",
       timeAgo: "Just now",
       completed: myCompletedInput.trim(),
       nextUp: myNextInput.trim() || "Continuing next phase sprint.",
@@ -821,7 +821,7 @@ export default function StudyPodDetailPage() {
                     Cohort Peer Discussion &amp; AI Mentor
                   </h3>
                   <p className="text-xs text-slate-400 mt-0.5">
-                    Coordinate live mock interviews and clarify doubts with Role Nest Cohort Bot
+                    Coordinate live mock interviews and clarify doubts with RoleNest Cohort Bot
                   </p>
                 </div>
                 <span className="flex items-center gap-1.5 text-[11px] font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2.5 py-1 rounded-full font-bold">
@@ -894,7 +894,7 @@ export default function StudyPodDetailPage() {
                 <div className="rounded-xl border border-indigo-950/80 bg-slate-900/60 p-4 text-center space-y-3">
                   <div className="flex items-center justify-center gap-2 text-xs text-slate-400">
                     <Lock className="w-4 h-4 text-amber-400" />
-                    <span>Sign in to participate in discussion and ask the Role Nest Cohort Bot.</span>
+                    <span>Sign in to participate in discussion and ask the RoleNest Cohort Bot.</span>
                   </div>
                   <Link href={`/login?callbackUrl=/study-pods/${pod.slug}`}>
                     <Button size="sm" className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs rounded-xl shadow-md shadow-indigo-600/20">
@@ -923,7 +923,7 @@ export default function StudyPodDetailPage() {
                     </div>
                     <div className="overflow-hidden">
                       <div className="flex items-center gap-2">
-                        <h4 className="text-sm font-bold text-white truncate">Role Nest Cohort Bot</h4>
+                        <h4 className="text-sm font-bold text-white truncate">RoleNest Cohort Bot</h4>
                         <span className="rounded bg-indigo-500/20 border border-indigo-500/40 px-1.5 py-0.2 text-[9px] text-indigo-300 font-mono font-bold">
                           AI Mentor
                         </span>
@@ -952,7 +952,7 @@ export default function StudyPodDetailPage() {
                           </span>
                         </div>
                         <p className="text-xs text-slate-300 font-mono truncate">Active Cohort Peer</p>
-                        <p className="text-[11px] text-slate-400 truncate">Role Nest Candidate</p>
+                        <p className="text-[11px] text-slate-400 truncate">RoleNest Candidate</p>
                       </div>
                     </div>
                     <span className="text-[10px] text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30">

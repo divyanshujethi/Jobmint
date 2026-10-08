@@ -56,7 +56,7 @@ export default function StudyHubPage() {
   const [proModalOpen, setProModalOpen] = useState(false);
   const [gamificationModalOpen, setGamificationModalOpen] = useState(false);
   const [gamificationTab, setGamificationTab] = useState<"overview" | "quests" | "badges">("overview");
-  const [studyXp, setStudyXp] = useState<number>(850);
+  const [studyXp, setStudyXp] = useState<number>(0);
   const [courses, setCourses] = useState<InteractiveJobCourse[]>(ALL_INTERACTIVE_COURSES);
   const [selectedCourse, setSelectedCourse] = useState<InteractiveJobCourse>(ALL_INTERACTIVE_COURSES[0]!);
   const [selectedCategory, setSelectedCategory] = useState<string>("ALL");
@@ -72,7 +72,7 @@ export default function StudyHubPage() {
   const [completedDays, setCompletedDays] = useState<Record<string, number[]>>({});
   const [expandedDay, setExpandedDay] = useState<number | null>(1);
   const [showAnswerDay, setShowAnswerDay] = useState<number | null>(null);
-  const [streakCount, setStreakCount] = useState<number>(3);
+  const [streakCount, setStreakCount] = useState<number>(0);
 
   // Load progress
   useEffect(() => {
@@ -142,7 +142,7 @@ export default function StudyHubPage() {
           localStorage.setItem("studynest_study_streak", newStreak.toString());
           localStorage.setItem("rolenest_study_streak", newStreak.toString());
 
-          const currentXp = parseInt(localStorage.getItem("studynest_gamification_xp") || "850", 10);
+          const currentXp = parseInt(localStorage.getItem("studynest_gamification_xp") || "0", 10);
           const newXp = currentXp + 120;
           localStorage.setItem("studynest_gamification_xp", newXp.toString());
           window.dispatchEvent(new CustomEvent("studynest-xp-updated", { detail: { xp: newXp, streak: newStreak } }));
@@ -234,7 +234,7 @@ export default function StudyHubPage() {
                 title="Inspect Learning Streak & Daily Goals (Click to view)"
               >
                 <Flame className="h-4 w-4 fill-amber-400 text-amber-400 animate-pulse" />
-                <span>{streakCount}-Day Learning Streak</span>
+                <span>{streakCount > 0 ? `${streakCount}-Day Learning Streak` : "0-Day Streak • Start Learning"}</span>
               </button>
 
               <button
@@ -247,7 +247,7 @@ export default function StudyHubPage() {
                 title="Inspect Total Study XP & Rank Level Progress (Click to view)"
               >
                 <Zap className="h-4 w-4 fill-indigo-400 text-indigo-400" />
-                <span>{studyXp.toLocaleString()} XP Points &bull; Lvl Progress</span>
+                <span>{studyXp > 0 ? `${studyXp.toLocaleString()} XP Points • Lvl Progress` : "0 XP • Start Lesson to Level Up"}</span>
               </button>
 
               <button
@@ -804,7 +804,7 @@ export default function StudyHubPage() {
                   Get Cryptographically Verified Diplomas &amp; AI Copilot
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                  Unlock official course graduation certificates for your LinkedIn &amp; resume, unlimited AI syllabus generators, downloadable systems architecture kits, and 1-on-1 mock STAR interviews.
+                  Unlock official course graduation certificates for your LinkedIn &amp; resume, advanced AI syllabus generators, downloadable systems architecture kits, and 1-on-1 mock STAR interviews.
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0 w-full md:w-auto">

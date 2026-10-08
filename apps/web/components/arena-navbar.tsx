@@ -32,9 +32,9 @@ interface SessionUser {
 
 export function ArenaNavbar() {
   const pathname = usePathname();
-  const [streak, setStreak] = useState(3);
-  const [devScore, setDevScore] = useState(780);
-  const [xp, setXp] = useState(1250);
+  const [streak, setStreak] = useState(0);
+  const [devScore, setDevScore] = useState<number | null>(null);
+  const [xp, setXp] = useState(0);
   const [user, setUser] = useState<SessionUser | null>(null);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [showRewardsModal, setShowRewardsModal] = useState(false);
@@ -49,6 +49,9 @@ export function ArenaNavbar() {
       .then((data) => {
         if (data && data.user) {
           setUser(data.user);
+          if (data.user.devScore) {
+            setDevScore(data.user.devScore);
+          }
         }
       })
       .catch(() => {});
@@ -58,9 +61,10 @@ export function ArenaNavbar() {
       const storedSolved = localStorage.getItem("jobmint_solved_problems");
       if (storedSolved) {
         const solvedArr = JSON.parse(storedSolved);
-        if (Array.isArray(solvedArr)) {
-          setXp(solvedArr.length * 50 + 200);
-          setStreak(Math.max(1, solvedArr.length));
+        if (Array.isArray(solvedArr) && solvedArr.length > 0) {
+          setXp(solvedArr.length * 50);
+          setStreak(solvedArr.length);
+          setDevScore(Math.min(1000, solvedArr.length * 50));
         }
       }
     } catch {}
@@ -200,7 +204,7 @@ export function ArenaNavbar() {
                     <div className="text-xs font-bold text-white truncate">{user.name || "Coder"}</div>
                     <div className="text-[11px] text-neutral-400 truncate">{user.email}</div>
                     <div className="mt-1.5 flex items-center justify-between text-[10px] font-mono bg-neutral-900 px-2 py-1 rounded-md text-amber-400">
-                      <span>DevScore: {devScore}</span>
+                      <span>DevScore: {devScore !== null && devScore > 0 ? `${devScore}/1000` : "Unranked"}</span>
                       <span>Streak: {streak}d</span>
                     </div>
                   </div>
@@ -270,7 +274,7 @@ export function ArenaNavbar() {
         onClose={() => setShowRewardsModal(false)}
         streak={streak}
         xp={xp}
-        devScore={devScore}
+        devScore={devScore || 0}
       />
 
       {/* Pro Monetization Modal */}

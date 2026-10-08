@@ -127,7 +127,7 @@ export async function POST(req: NextRequest) {
                 candidate.candidateName || "Candidate",
                 candidate.jobTitle,
                 candidate.companyName,
-                "Our hiring team was impressed with your background and has advanced you to Round 1 Technical Architecture. Check your Role Nest dashboard for scheduling details."
+                "Our hiring team was impressed with your background and has advanced you to Round 1 Technical Architecture. Check your RoleNest dashboard for scheduling details."
               );
               await sendEmail({ to: candidate.candidateEmail, subject, html });
             }

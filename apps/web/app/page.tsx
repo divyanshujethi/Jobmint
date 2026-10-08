@@ -95,7 +95,7 @@ export default function HomePage() {
             <div className="pt-3 flex flex-wrap items-center justify-center gap-2 text-xs text-slate-500">
               <span className="font-semibold text-slate-700">Popular:</span>
               <Link href="/gov-tech" className="rounded-full bg-emerald-100 hover:bg-emerald-200 px-3 py-1 font-bold text-emerald-900 border border-emerald-300 flex items-center gap-1">
-                🏛️ Govt & PSU Tech (24+)
+                🏛️ Govt & PSU Tech (950+)
               </Link>
               <Link href="/jobs?filter=remote" className="rounded-full bg-slate-100 hover:bg-slate-200 px-3 py-1 font-medium text-slate-700">
                 Remote Internships
@@ -285,7 +285,7 @@ export default function HomePage() {
                 <span className="text-emerald-400">We Teach You What&apos;s Missing.</span>
               </h2>
               <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-                Traditional job portals leave you wondering why you never got an interview. Role Nest breaks down your match with exact mathematical transparency and links you directly to 100% free courses to bridge the gap.
+                Traditional job portals leave you wondering why you never got an interview. RoleNest breaks down your match with exact mathematical transparency and links you directly to 100% free courses to bridge the gap.
               </p>
               <div className="pt-2 flex flex-wrap gap-4">
                 <Link href="/roadmaps">

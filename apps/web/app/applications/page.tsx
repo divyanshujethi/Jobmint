@@ -230,17 +230,17 @@ export default function ApplicationsTrackerPage() {
             <span className="text-xs text-amber-700 font-semibold">Quota Reached ({total}/{maxLimit})</span>
             <Link href="/pricing">
               <Button size="sm" className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs h-8 px-3 rounded-xl shadow-xs">
-                Unlock 25 or Unlimited Slots →
+                Upgrade for 50 or 150 Slots →
               </Button>
             </Link>
           </div>
         ) : maxLimit !== Infinity ? (
           <Link href="/pricing" className="shrink-0 text-xs text-emerald-700 hover:underline font-semibold">
-            Upgrade for up to 25 or Unlimited tracking →
+            Upgrade for up to 50 or 150 tracked applications →
           </Link>
         ) : (
           <span className="shrink-0 text-xs text-emerald-700 font-bold flex items-center gap-1">
-            <Sparkles className="h-3.5 w-3.5" /> Unlimited Tracking Active
+            <Sparkles className="h-3.5 w-3.5" /> High-Quota Tracking Active
           </span>
         )}
       </div>

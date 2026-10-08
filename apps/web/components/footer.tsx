@@ -333,7 +333,7 @@ export function Footer() {
 
         <div className="mt-12 border-t border-slate-100 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <div>
-            <p>© {new Date().getFullYear()} <strong className="text-slate-700 font-bold">Role Nest</strong> (<a href="https://rolenest.in" className="text-emerald-700 hover:underline">rolenest.in</a>) — Engineered &amp; Maintained by <strong className="text-slate-700 font-bold">RitualDev Lab</strong> (<a href="https://ritualdev.in" target="_blank" rel="noopener noreferrer" className="text-emerald-700 hover:underline">ritualdev.in</a>).</p>
+            <p>© {new Date().getFullYear()} <strong className="text-slate-700 font-bold">RoleNest</strong> (<a href="https://rolenest.in" className="text-emerald-700 hover:underline">rolenest.in</a>) — Engineered &amp; Maintained by <strong className="text-slate-700 font-bold">RitualDev Lab</strong> (<a href="https://ritualdev.in" target="_blank" rel="noopener noreferrer" className="text-emerald-700 hover:underline">ritualdev.in</a>).</p>
             <p className="text-[11px] text-slate-400 mt-0.5">Payments &amp; contributions securely processed via Cashfree Payments (RBI Authorized Payment Aggregator).</p>
           </div>
           <div className="flex flex-col sm:items-end gap-1">

@@ -31,7 +31,6 @@ class QuotaCircuitBreaker {
             (process.env.CLOUDFLARE_ACCOUNT_ID || process.env.R2_ACCOUNT_ID)
         ),
         ociOllama: true, // Always ready on OCI Always Free VM
-        gemini: Boolean(process.env.GEMINI_API_KEY),
       },
     };
   }

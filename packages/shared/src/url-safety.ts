@@ -99,8 +99,8 @@ export function detectJobPlatform(url: string | null | undefined, companyName?: 
   if (!url) {
     return {
       type: "COMPANY_DIRECT",
-      displayName: "Role Nest",
-      applyButtonLabel: "Apply on Role Nest",
+      displayName: "RoleNest",
+      applyButtonLabel: "Apply on RoleNest",
       badgeLabel: "Direct Opening",
       badgeClass: "bg-emerald-50 text-emerald-800 border-emerald-200",
       buttonClass: "bg-emerald-600 hover:bg-emerald-500 text-white",

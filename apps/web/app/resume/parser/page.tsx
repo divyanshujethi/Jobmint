@@ -10,7 +10,7 @@ export default function ResumeParserPage() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-6">
           <div>
             <div className="flex items-center gap-2 text-xs text-slate-500 font-mono mb-2">
-              <Link href="/jobs" className="hover:text-emerald-600 transition-colors">Role Nest</Link>
+              <Link href="/jobs" className="hover:text-emerald-600 transition-colors">RoleNest</Link>
               <span>/</span>
               <span className="text-slate-800 font-semibold">Resume Parser</span>
             </div>

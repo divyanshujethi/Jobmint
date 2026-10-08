@@ -283,7 +283,7 @@ export default function AccountSettingsPage() {
                     {profile?.isPro ? (
                       <>
                         <Crown className="h-4 w-4 text-amber-500 fill-amber-500" />
-                        <span>Role Nest Pro Active</span>
+                        <span>RoleNest Pro Active</span>
                       </>
                     ) : profile?.proExpiresAt && new Date(profile.proExpiresAt) <= new Date() ? (
                       <>
@@ -385,7 +385,7 @@ export default function AccountSettingsPage() {
               Right to Access &amp; Data Portability (Section 11)
             </CardTitle>
             <CardDescription className="text-xs">
-              Under DPDP Section 11 and GDPR Article 15, you have the right to obtain a full machine-readable copy of your personal data processed by Role Nest.
+              Under DPDP Section 11 and GDPR Article 15, you have the right to obtain a full machine-readable copy of your personal data processed by RoleNest.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4 pt-0 text-xs text-slate-600">

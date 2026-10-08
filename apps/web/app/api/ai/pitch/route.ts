@@ -63,7 +63,7 @@ Company: ${company}
 Target Tech Stack: ${skillsText}
 Candidate Profile:
 - Skills: ${Array.isArray(candidateSkills) && candidateSkills.length > 0 ? candidateSkills.join(", ") : "Full-stack developer"}
-- Dev Score: ${devScore ? `${devScore}/1000 Verified on Role Nest` : "Top-tier coder"}
+- Dev Score: ${devScore ? `${devScore}/1000 Verified on RoleNest` : "Top-tier coder"}
 - Summary: ${candidateSummary || "Hands-on builder with strong CS fundamentals"}
 
 Instructions:
@@ -85,7 +85,7 @@ Return strictly the 3 paragraphs formatted with clean line breaks.
       // Deterministic high-quality fallback
       pitch = `I have been closely following ${company}'s engineering pace and high-scale architecture, and I am excited to apply for the ${role} opening. Having built and shipped production web services with ${skillsText}, I know how critical reliability and clean code patterns are to your team.
 
-In my recent technical work, I focused heavily on scalable full-stack development, optimizing state management, database schema design, and asynchronous API integration. With a verified Dev Score on Role Nest, my focus is always on delivering measurable proof-of-work rather than resume buzzwords.
+In my recent technical work, I focused heavily on scalable full-stack development, optimizing state management, database schema design, and asynchronous API integration. With a verified Dev Score on RoleNest, my focus is always on delivering measurable proof-of-work rather than resume buzzwords.
 
 I would love to connect for a quick technical sync to discuss how my hands-on background with ${skillsText} can immediately accelerate ${company}'s upcoming roadmap. Thank you for your time, and I look forward to speaking soon.`;
     }

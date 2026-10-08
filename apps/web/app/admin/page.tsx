@@ -33,13 +33,13 @@ export default async function AdminPage() {
             </span>
             <h1 className="text-2xl font-bold text-white">SuperAdmin Clearance Required</h1>
             <p className="text-xs text-slate-400 leading-relaxed">
-              Your account <strong>{session.user.email}</strong> is not listed as an authorized administrator on Role Nest.
+              Your account <strong>{session.user.email}</strong> is not listed as an authorized administrator on RoleNest.
             </p>
           </div>
           <div className="flex flex-col gap-2 pt-2">
             <Link href="/">
               <Button variant="outline" className="w-full text-xs text-slate-300">
-                Return to Role Nest Board
+                Return to RoleNest Board
               </Button>
             </Link>
           </div>

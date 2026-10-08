@@ -23,7 +23,7 @@ export function evaluateJobTruth(params: {
     salaryLower.includes("commission only")
   ) {
     if (params.title.toLowerCase().includes("engineer") || params.title.toLowerCase().includes("developer")) {
-      reasons.push("Unpaid engineering role detected (violates Role Nest truth policy)");
+      reasons.push("Unpaid engineering role detected (violates RoleNest truth policy)");
       score -= 50;
       isGhostRisk = true;
     }

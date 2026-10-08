@@ -42,6 +42,5 @@ export interface SystemUsageStats {
     groq: boolean;
     cloudflare: boolean;
     ociOllama: boolean;
-    gemini: boolean;
   };
 }

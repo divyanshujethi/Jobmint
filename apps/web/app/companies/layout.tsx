@@ -8,24 +8,24 @@ export const metadata: Metadata = {
     canonical: "https://rolenest.in/companies",
   },
   openGraph: {
-    title: "Top Tech Companies — Role Nest",
+    title: "Top Tech Companies — RoleNest",
     description:
       "Browse verified tech employers and emerging startups actively hiring in India.",
     url: "https://rolenest.in/companies",
-    siteName: "Role Nest",
+    siteName: "RoleNest",
     type: "website",
     images: [
       {
         url: "/icon-512.png",
         width: 512,
         height: 512,
-        alt: "Role Nest Top Tech Employers",
+        alt: "RoleNest Top Tech Employers",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Top Tech Companies — Role Nest",
+    title: "Top Tech Companies — RoleNest",
     description:
       "Browse verified tech employers and emerging startups actively hiring in India.",
     images: ["/icon-512.png"],

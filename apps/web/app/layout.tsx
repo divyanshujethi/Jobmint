@@ -17,12 +17,12 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXTAUTH_URL || "https://rolenest.in"),
   title: {
-    default: "Role Nest — Find opportunities without being left guessing",
+    default: "RoleNest — Find opportunities without being left guessing",
     template: `%s | ${APP_CONFIG.name}`,
   },
   description:
-    "Role Nest is the transparent tech careers platform. Explore verified software engineer jobs, high-stipend internships with direct ATS links, real-time match diagnostics, and personal application journaling.",
-  applicationName: "Role Nest",
+    "RoleNest is the transparent tech careers platform. Explore verified software engineer jobs, high-stipend internships with direct ATS links, real-time match diagnostics, and personal application journaling.",
+  applicationName: "RoleNest",
   keywords: [
     "tech jobs",
     "software engineer internships",
@@ -37,9 +37,9 @@ export const metadata: Metadata = {
     "AI engineer jobs",
     "full stack developer careers",
   ],
-  authors: [{ name: "Role Nest Team", url: "https://rolenest.in" }],
-  creator: "Role Nest",
-  publisher: "Role Nest",
+  authors: [{ name: "RoleNest Team", url: "https://rolenest.in" }],
+  creator: "RoleNest",
+  publisher: "RoleNest",
   manifest: "/manifest.json",
   icons: {
     icon: [
@@ -54,14 +54,14 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "Role Nest",
+    title: "RoleNest",
   },
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "https://rolenest.in",
-    siteName: "Role Nest",
-    title: "Role Nest — Find opportunities without being left guessing",
+    siteName: "RoleNest",
+    title: "RoleNest — Find opportunities without being left guessing",
     description:
       "Explore verified software engineer jobs, high-stipend internships, and smart personal application tracking with direct ATS links.",
     images: [
@@ -69,13 +69,13 @@ export const metadata: Metadata = {
         url: "/icon-512.png",
         width: 512,
         height: 512,
-        alt: "Role Nest Tech Careers Platform",
+        alt: "RoleNest Tech Careers Platform",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Role Nest — Find opportunities without being left guessing",
+    title: "RoleNest — Find opportunities without being left guessing",
     description:
       "Explore verified developer jobs, high-stipend tech internships, and personal application journaling with direct ATS links.",
     images: ["/icon-512.png"],
@@ -100,7 +100,7 @@ const jsonLd = {
     {
       "@type": "Organization",
       "@id": "https://rolenest.in/#organization",
-      name: "Role Nest",
+      name: "RoleNest",
       url: "https://rolenest.in",
       logo: "https://rolenest.in/icon-512.png",
       description:
@@ -120,7 +120,7 @@ const jsonLd = {
       "@type": "WebSite",
       "@id": "https://rolenest.in/#website",
       url: "https://rolenest.in",
-      name: "Role Nest",
+      name: "RoleNest",
       description:
         "Find verified software engineering, AI, DevOps, and frontend developer jobs with transparent telemetry.",
       publisher: {

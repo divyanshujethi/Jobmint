@@ -66,7 +66,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Call Tier 1 Groq / Tier 2 Gemini cascade
+    // Call Tier 1 Groq / Tier 2 Ollama cascade
     const aiResponse = await generateAI({
       task: 'ANALYZE_FULL_RESUME',
       input: { resumeText, targetRole: targetRole || 'Software Engineer' },

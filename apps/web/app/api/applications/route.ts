@@ -126,7 +126,7 @@ export async function GET(req: NextRequest) {
           }),
           note: isExternal
             ? `Logged via official company portal. Truth Teller 7-day follow-up scheduled (${followUpDueDays > 0 ? `${followUpDueDays}d remaining` : "Follow-up recommended"}).`
-            : "Application submitted directly on Role Nest with Truth Teller telemetry active.",
+            : "Application submitted directly on RoleNest with Truth Teller telemetry active.",
         },
       ];
 

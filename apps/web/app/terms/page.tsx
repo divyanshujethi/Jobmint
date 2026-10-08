@@ -3,7 +3,7 @@ import { ShieldCheck, AlertTriangle, ArrowLeft, FileText, Building2, Mail, Credi
 import { Card, CardContent } from "@/components/ui/card";
 
 export const metadata = {
-  title: "Terms and Conditions — Role Nest",
+  title: "Terms and Conditions — RoleNest",
   description: "Official terms of service, platform disclaimers, merchant of record policies, and subscription terms.",
   alternates: {
     canonical: "https://rolenest.in/terms",
@@ -28,7 +28,7 @@ export default function TermsPage() {
             Terms of Service &amp; User Agreement
           </h1>
           <p className="text-sm text-slate-600 mt-1">
-            Last Updated: September 2026. Please read these terms carefully before accessing or using Role Nest.
+            Last Updated: September 2026. Please read these terms carefully before accessing or using RoleNest.
           </p>
         </div>
 
@@ -39,7 +39,7 @@ export default function TermsPage() {
             Payment Processing Partner (Cashfree Payments)
           </div>
           <p className="text-xs sm:text-sm text-emerald-900 leading-relaxed font-medium">
-            All online payments, UPI transactions, cards, and NetBanking on Role Nest are securely processed by <strong>Cashfree Payments India Pvt. Ltd.</strong>, an RBI-authorized Payment Aggregator. Customer support and service inquiries are handled directly by Role Nest.
+            All online payments, UPI transactions, cards, and NetBanking on RoleNest are securely processed by <strong>Cashfree Payments India Pvt. Ltd.</strong>, an RBI-authorized Payment Aggregator. Customer support and service inquiries are handled directly by RoleNest.
           </p>
         </div>
 
@@ -50,7 +50,7 @@ export default function TermsPage() {
             Important Notice: No Employment or Internship Guarantee
           </div>
           <p className="text-xs sm:text-sm text-amber-800 leading-relaxed">
-            <strong>Role Nest is an open, transparent discovery and proof-of-work hiring ecosystem.</strong> We provide verified listings, skill diagnostics, interactive course roadmaps, and recruiter tracking transparency.
+            <strong>RoleNest is an open, transparent discovery and proof-of-work hiring ecosystem.</strong> We provide verified listings, skill diagnostics, interactive course roadmaps, and recruiter tracking transparency.
             <strong> We DO NOT guarantee, warrant, or promise employment, internships, interview callbacks, offers, or compensation of any kind.</strong> All hiring choices, interview invitations, and final job decisions rest entirely within the independent discretion of third-party employers and companies.
           </p>
         </div>
@@ -63,10 +63,10 @@ export default function TermsPage() {
                 1. Operator Identification &amp; Contact Information
               </h2>
               <p>
-                Role Nest (&ldquo;we&rdquo;, &ldquo;us&rdquo;, or &ldquo;our&rdquo;) is operated by <strong>RitualDev Lab (Founder: Divyanshu Jethi)</strong>.
+                RoleNest (&ldquo;we&rdquo;, &ldquo;us&rdquo;, or &ldquo;our&rdquo;) is operated by <strong>RitualDev Lab (Founder: Divyanshu Jethi)</strong>.
               </p>
               <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 text-xs space-y-1.5 text-slate-700 font-mono">
-                <div><strong>Platform Name:</strong> Role Nest (rolenest.in)</div>
+                <div><strong>Platform Name:</strong> RoleNest (rolenest.in)</div>
                 <div><strong>Operating Entity:</strong> RitualDev Lab (Divyanshu Jethi)</div>
                 <div><strong>Registered Office / Address:</strong> Sector 62, Noida, Gautam Buddha Nagar, Uttar Pradesh 201301, India</div>
                 <div><strong>Customer Support Email:</strong> support@rolenest.in</div>
@@ -80,7 +80,7 @@ export default function TermsPage() {
                 2. Acceptance of Terms
               </h2>
               <p>
-                By registering, accessing, or using the Role Nest web application, API endpoints, feeds, or developer tools, you signify that you have read, understood, and agreed to be bound by these Terms, our <Link href="/privacy" className="text-emerald-700 underline font-semibold">Privacy Policy</Link>, and our <Link href="/refund" className="text-emerald-700 underline font-semibold">Refund &amp; Cancellation Policy</Link>. If you do not agree to these terms, you must discontinue use immediately.
+                By registering, accessing, or using the RoleNest web application, API endpoints, feeds, or developer tools, you signify that you have read, understood, and agreed to be bound by these Terms, our <Link href="/privacy" className="text-emerald-700 underline font-semibold">Privacy Policy</Link>, and our <Link href="/refund" className="text-emerald-700 underline font-semibold">Refund &amp; Cancellation Policy</Link>. If you do not agree to these terms, you must discontinue use immediately.
               </p>
             </section>
 
@@ -89,11 +89,11 @@ export default function TermsPage() {
                 3. Description of Digital Services
               </h2>
               <p>
-                Role Nest operates a SaaS platform designed for software engineering students, freshers, and early-career tech professionals:
+                RoleNest operates a SaaS platform designed for software engineering students, freshers, and early-career tech professionals:
               </p>
               <ul className="list-disc pl-5 space-y-1.5 text-xs sm:text-sm text-slate-600">
                 <li><strong>Free Community Tier:</strong> Access to public job search, curated fresher internships with direct official application links, Problem of the Day (POTD), and visual skill canvases.</li>
-                <li><strong>Role Nest Pro (Paid SaaS Subscription):</strong> Advanced ATS resume compatibility scoring, verified recruiter response telemetry, private resume vault, and priority application status tracking.</li>
+                <li><strong>RoleNest Pro (Paid SaaS Subscription):</strong> Advanced ATS resume compatibility scoring, verified recruiter response telemetry, private resume vault, and priority application status tracking.</li>
                 <li><strong>Employer Featured Boosts (One-Time Service):</strong> Verified employers may boost job listings for 30 days to highlight authentic openings to prospective candidates.</li>
               </ul>
             </section>
@@ -103,10 +103,10 @@ export default function TermsPage() {
                 4. Instant Digital Delivery Policy
               </h2>
               <p>
-                All digital goods and services provided by Role Nest are delivered <strong>immediately upon successful payment authorization</strong>. No physical goods are shipped.
+                All digital goods and services provided by RoleNest are delivered <strong>immediately upon successful payment authorization</strong>. No physical goods are shipped.
               </p>
               <p className="text-xs text-slate-600">
-                Upon transaction completion via Cashfree Payments, your Role Nest account is instantly upgraded to Pro status, and an official transaction confirmation email containing your tax invoice and order reference number is immediately dispatched to your billing email address.
+                Upon transaction completion via Cashfree Payments, your RoleNest account is instantly upgraded to Pro status, and an official transaction confirmation email containing your tax invoice and order reference number is immediately dispatched to your billing email address.
               </p>
             </section>
 
@@ -118,11 +118,11 @@ export default function TermsPage() {
                 All digital transactions are processed through <strong>Cashfree Payments India Pvt. Ltd.</strong>, an RBI-licensed Payment Aggregator supporting UPI (Google Pay, PhonePe, Paytm, CRED, BHIM), RuPay/Visa/Mastercard debit and credit cards, and NetBanking across all Indian banks.
               </p>
               <ul className="list-disc pl-5 space-y-1.5 text-xs sm:text-sm text-slate-600">
-                <li><strong>Candidate Pricing:</strong> Role Nest offers Campus Student Pass at ₹99/month (with verified student credentials), Role Nest Pro at ₹199/month or ₹1,499/year (Annual Pass). Standalone 1-on-1 Senior Staff Engineer Resume &amp; Mock Audits are available separately at ₹799/session.</li>
+                <li><strong>Candidate Pricing:</strong> RoleNest offers Campus Student Pass at ₹99/month (with verified student credentials), RoleNest Pro at ₹199/month or ₹1,499/year (Annual Pass). Standalone 1-on-1 Senior Staff Engineer Resume &amp; Mock Audits are available separately at ₹799/session.</li>
                 <li><strong>Employer Pricing:</strong> Employer Featured Job Listings are ₹1,499 for 30 days of elevated placement.</li>
                 <li><strong>Billing &amp; Access:</strong> Subscriptions grant instant access for the duration purchased (30 or 365 days). You can renew or manage your plan inside <Link href="/settings/account" className="text-emerald-700 underline font-semibold">Account Settings</Link>.</li>
-                <li><strong>Taxes:</strong> All prices displayed on Role Nest are in Indian National Rupees (INR) and include all statutory taxes where applicable.</li>
-                <li><strong>Payment Security:</strong> Role Nest never stores or accesses your raw card numbers, CVVs, or UPI MPINs. All payment processing takes place via Cashfree&apos;s RBI-compliant and PCI-DSS Level 1 certified infrastructure.</li>
+                <li><strong>Taxes:</strong> All prices displayed on RoleNest are in Indian National Rupees (INR) and include all statutory taxes where applicable.</li>
+                <li><strong>Payment Security:</strong> RoleNest never stores or accesses your raw card numbers, CVVs, or UPI MPINs. All payment processing takes place via Cashfree&apos;s RBI-compliant and PCI-DSS Level 1 certified infrastructure.</li>
               </ul>
             </section>
 
@@ -131,7 +131,7 @@ export default function TermsPage() {
                 6. 14-Day Refund &amp; Cancellation Policy
               </h2>
               <p>
-                We stand behind the quality of Role Nest Pro. First-time subscribers are protected by our <strong>14-Day 100% Money-Back Guarantee</strong>.
+                We stand behind the quality of RoleNest Pro. First-time subscribers are protected by our <strong>14-Day 100% Money-Back Guarantee</strong>.
               </p>
               <p className="text-xs text-slate-600">
                 If you are not satisfied for any reason within 14 days of your initial purchase, you may claim a full refund by contacting <a href="mailto:support@rolenest.in" className="text-emerald-700 underline font-semibold">support@rolenest.in</a> with your Order ID or Payment reference number. Refunds are credited back to your original payment method (UPI account or bank card) within 3 to 7 business days via Cashfree Payments. For complete terms, see our <Link href="/refund" className="text-emerald-700 underline font-semibold">Refund &amp; Cancellation Policy</Link>.
@@ -161,11 +161,11 @@ export default function TermsPage() {
                 9. Public Job Listings, Aggregation &amp; Employer De-Listing
               </h2>
               <p>
-                Role Nest indexes publicly accessible job opportunities and official ATS feeds (such as Greenhouse, Lever, Workday, Ashby, and BambooHR) to help candidates discover openings with direct employer application links:
+                RoleNest indexes publicly accessible job opportunities and official ATS feeds (such as Greenhouse, Lever, Workday, Ashby, and BambooHR) to help candidates discover openings with direct employer application links:
               </p>
               <ul className="list-disc pl-5 space-y-1 text-xs sm:text-sm text-slate-600">
                 <li>
-                  <strong>Direct ATS Redirection:</strong> All application links redirect candidates directly to the employer&apos;s authoritative portal. Role Nest never acts as an unauthorized intermediary or alters application materials.
+                  <strong>Direct ATS Redirection:</strong> All application links redirect candidates directly to the employer&apos;s authoritative portal. RoleNest never acts as an unauthorized intermediary or alters application materials.
                 </li>
                 <li>
                   <strong>Verification Badge Transparency:</strong> A &ldquo;Verified ATS Link&rdquo; badge signifies that the application destination has been parsed and verified against an authentic, active employer career system.
@@ -181,7 +181,7 @@ export default function TermsPage() {
                 10. Subscription Periods &amp; AI Compute Fair Use
               </h2>
               <p>
-                Subscription passes (Campus Pass, Role Nest Pro, and All-Access Super Pass) provide active digital features for the term selected (monthly or annual). AI-assisted generation tools (ATS scoring, STAR bullet generation, interview prep) remain subject to clearly defined per-tier generation quotas to safeguard infrastructure stability and prevent automated abuse.
+                Subscription passes (Campus Pass, RoleNest Pro, and Annual Super Pass) provide active digital features for the term selected (monthly or annual). AI-assisted generation tools (ATS scoring, STAR bullet generation, interview prep) remain subject to clearly defined per-tier generation quotas to safeguard infrastructure stability and prevent automated abuse.
               </p>
             </section>
 
@@ -190,7 +190,7 @@ export default function TermsPage() {
                 11. Limitation of Liability
               </h2>
               <p>
-                To the fullest extent permitted by applicable law, Role Nest, RitualDev Lab, and its operators shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including loss of profits, data, or employment opportunities, arising out of your access to or use of the platform.
+                To the fullest extent permitted by applicable law, RoleNest, RitualDev Lab, and its operators shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including loss of profits, data, or employment opportunities, arising out of your access to or use of the platform.
               </p>
             </section>
 

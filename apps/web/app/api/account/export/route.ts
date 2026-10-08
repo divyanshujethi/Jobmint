@@ -43,7 +43,7 @@ export async function GET() {
       dpdpComplianceNotice: {
         act: "Digital Personal Data Protection Act, 2023 (DPDP Act, India)",
         statutorySection: "Section 11: Right to Access Information About Personal Data",
-        dataFiduciary: "Role Nest / RitualDev Technologies",
+        dataFiduciary: "RoleNest / RitualDev Lab",
         exportGeneratedAt: new Date().toISOString(),
         grievanceRedressalOfficerEmail: "support@rolenest.in",
       },
@@ -67,7 +67,7 @@ export async function GET() {
       status: 200,
       headers: {
         "Content-Type": "application/json",
-        "Content-Disposition": `attachment; filename="jobmint-dpdp-data-export-${userId}.json"`,
+        "Content-Disposition": `attachment; filename="rolenest-dpdp-data-export-${userId}.json"`,
       },
     });
   } catch (error) {

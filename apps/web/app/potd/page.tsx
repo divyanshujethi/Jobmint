@@ -1018,7 +1018,7 @@ function POTDWorkspace() {
                   </ul>
                 </div>
 
-                {/* RECRUITER FAST-TRACK REFERRAL STATUS */}
+                {/* VERIFIED PROOF-OF-WORK ATS PORTFOLIO */}
                 <div className="rounded-2xl border border-blue-500/30 bg-blue-950/20 p-4 space-y-2.5 mt-2">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
@@ -1027,22 +1027,22 @@ function POTDWorkspace() {
                       </div>
                       <div>
                         <div className="text-xs font-bold text-white flex items-center gap-2">
-                          <span>Recruiter Fast-Track Referral</span>
+                          <span>Verified Proof-of-Work ATS Portfolio</span>
                           <span className="rounded-full bg-blue-500/20 text-blue-300 text-[10px] font-mono px-2 py-0.2 border border-blue-500/40">
-                            Verified Candidate
+                            Cryptographic Verification
                           </span>
                         </div>
                         <div className="text-[10px] text-blue-300/80">
-                          Direct pipeline to Google, Amazon, Microsoft, Swiggy, &amp; Uber recruiters
+                          Export tamper-proof problem verifications to your direct ATS applications
                         </div>
                       </div>
                     </div>
                     <span className="text-[11px] font-mono font-bold px-2.5 py-1 rounded-lg bg-blue-500/20 text-blue-300 border border-blue-500/40">
-                      DevScore: {userDevScore || 750}/1000
+                      DevScore: {userDevScore > 0 ? `${userDevScore}/1000` : "Unranked (0/1000)"}
                     </span>
                   </div>
                   <p className="text-[11px] text-neutral-300 leading-relaxed font-sans">
-                    Top DevScore profiles bypass resume screening filters. Every verified problem solve writes authentic proof-of-work to your profile and dispatches you directly into employer inboxes on RoleNest.
+                    Every verified problem solve writes authentic cryptographic proof-of-work to your profile. Attach your verified DevScore badge to ATS applications to stand out to engineering hiring teams across 115,000+ tech openings on RoleNest.
                   </p>
                   <div className="flex items-center justify-between pt-1 text-xs">
                     <a
@@ -1054,7 +1054,7 @@ function POTDWorkspace() {
                       Explore 115,000+ Direct ATS Openings on RoleNest ↗
                     </a>
                     <span className="text-[10px] text-emerald-400 font-mono">
-                      ✓ Direct Referral Active
+                      {userDevScore > 0 ? "✓ Proof-of-Work Ledger Synced" : "Solve Challenge to Activate Ledger"}
                     </span>
                   </div>
                 </div>
@@ -2009,7 +2009,7 @@ function POTDWorkspace() {
               </div>
               <div className="rounded-xl bg-slate-800/80 border border-slate-700/60 p-2">
                 <span className="text-[9px] uppercase font-bold text-slate-400 block">DevScore</span>
-                <span className="text-base font-black text-blue-400">{userDevScore || 750}</span>
+                <span className="text-base font-black text-blue-400">{userDevScore > 0 ? userDevScore : 50}</span>
               </div>
             </div>
 
@@ -2022,7 +2022,7 @@ function POTDWorkspace() {
                 <Button
                   onClick={() => {
                     const shareText = encodeURIComponent(
-                      `🔥 Just solved coding challenge "${currentProblem.title}" on ProblemNest Arena! Current DevScore: ${userDevScore || 750}/1000. Try solving it: https://problem.rolenest.in/potd?problem=${currentProblem.slug}`
+                      `🔥 Just solved coding challenge "${currentProblem.title}" on ProblemNest Arena! Current DevScore: ${userDevScore > 0 ? userDevScore : 50}/1000. Try solving it: https://problem.rolenest.in/potd?problem=${currentProblem.slug}`
                     );
                     window.open(`https://api.whatsapp.com/send?text=${shareText}`, "_blank", "noopener,noreferrer");
                   }}

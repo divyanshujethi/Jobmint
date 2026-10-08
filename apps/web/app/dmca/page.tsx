@@ -13,9 +13,9 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 
 export const metadata = {
-  title: "DMCA Copyright & Intellectual Property Policy — Role Nest",
+  title: "DMCA Copyright & Intellectual Property Policy — RoleNest",
   description:
-    "Official Digital Millennium Copyright Act (DMCA) policy, notice-and-takedown procedure, designated copyright agent disclosures, and repeat infringer terms for Role Nest.",
+    "Official Digital Millennium Copyright Act (DMCA) policy, notice-and-takedown procedure, designated copyright agent disclosures, and repeat infringer terms for RoleNest.",
   alternates: {
     canonical: "https://rolenest.in/dmca",
   },

@@ -120,7 +120,7 @@ export default function ResumeAssistantPage() {
       if (res.status === 401 || data.requiresAuth) {
         setRequiresAuth(true);
         setSessionUser(null);
-        setError("Sign-in required: Please log in to Role Nest to use our server-side AI models.");
+        setError("Sign-in required: Please log in to RoleNest to use our server-side AI models.");
         return;
       }
 
@@ -178,7 +178,7 @@ export default function ResumeAssistantPage() {
           
           {/* Breadcrumbs */}
           <div className="flex items-center gap-2 text-xs text-slate-500 font-mono">
-            <Link href="/jobs" className="hover:text-emerald-600">Role Nest</Link>
+            <Link href="/jobs" className="hover:text-emerald-600">RoleNest</Link>
             <span>/</span>
             <Link href="/resume/builder" className="hover:text-emerald-600">Resume Tools</Link>
             <span>/</span>
@@ -192,7 +192,7 @@ export default function ResumeAssistantPage() {
               ATS Resume Bullet Assistant
             </h1>
             <p className="text-slate-600 text-sm mt-1">
-              Powered by our 4-Tier AI Cascade Engine (Gemini 2.5 Flash, Groq, Cloudflare, WebGPU).
+              Powered by our 4-Tier AI Cascade Engine (Groq Llama 3.3 70B &amp; Qwen, Self-Hosted Ollama, Cloudflare, WebGPU).
             </p>
           </div>
 
@@ -214,7 +214,7 @@ export default function ResumeAssistantPage() {
                     Sign in to Unlock the AI Bullet Assistant
                   </h2>
                   <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-xl">
-                    To prevent automated bot scraping and guarantee fair quota allocation across our 4-Tier AI Cascade Engine (Gemini 2.5 Flash, Groq Llama 3.3, Cloudflare, WebGPU), this tool requires an active Role Nest account.
+                    To prevent automated bot scraping and guarantee fair quota allocation across our 4-Tier AI Cascade Engine (Groq Llama 3.3, Self-Hosted Ollama, Cloudflare, WebGPU), this tool requires an active RoleNest account.
                   </p>
                 </div>
               </div>
@@ -280,7 +280,7 @@ export default function ResumeAssistantPage() {
                   4-Tier Cascade Engine
                 </div>
                 <p className="text-[11px] text-slate-600 leading-relaxed">
-                  Automatic fallback through Gemini 2.5 Flash, Groq Llama 3.3, Cloudflare, and local WebGPU for 100% uptime.
+                  Automatic fallback through Groq Llama 3.3 70B &amp; Qwen, Self-Hosted Ollama, Cloudflare, and local WebGPU for 100% uptime.
                 </p>
               </div>
 
@@ -336,7 +336,7 @@ export default function ResumeAssistantPage() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-6">
           <div>
             <div className="flex items-center gap-2 text-xs text-slate-500 font-mono mb-2">
-              <Link href="/jobs" className="hover:text-emerald-600">Role Nest</Link>
+              <Link href="/jobs" className="hover:text-emerald-600">RoleNest</Link>
               <span>/</span>
               <Link href="/resume/builder" className="hover:text-emerald-600">Resume Tools</Link>
               <span>/</span>
@@ -347,7 +347,7 @@ export default function ResumeAssistantPage() {
               ATS Resume Bullet Assistant
             </h1>
             <p className="text-slate-600 text-sm mt-1">
-              Powered by our 4-Tier AI Cascade Engine (Gemini 2.5 Flash, Groq, Cloudflare, WebGPU).
+              Powered by our 4-Tier AI Cascade Engine (Groq Llama 3.3 70B &amp; Qwen, Self-Hosted Ollama, Cloudflare, WebGPU).
             </p>
           </div>
 
@@ -391,7 +391,7 @@ export default function ResumeAssistantPage() {
             <ShieldCheck className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
             <div className="text-xs sm:text-sm">
               <span className="font-bold text-emerald-900">Zero-Hallucination &amp; Zero-Cost Architecture: </span>
-              Authenticated cascade runs across Gemini 2.5 Flash, Groq Llama 3.3, Cloudflare, and local WebGPU.
+              Authenticated cascade runs across Groq Llama 3.3 70B &amp; Qwen, Self-Hosted Ollama, Cloudflare, and local WebGPU.
             </div>
           </div>
           <Link

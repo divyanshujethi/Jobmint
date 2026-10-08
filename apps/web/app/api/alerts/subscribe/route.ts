@@ -54,7 +54,7 @@ export async function POST(req: NextRequest) {
       target: cleanTarget,
       message:
         channel === "WHATSAPP"
-          ? `Subscribed ${cleanTarget} to instant WhatsApp job alerts! Click below to join the priority Role Nest WhatsApp alert stream.`
+          ? `Subscribed ${cleanTarget} to instant WhatsApp job alerts! Click below to join the priority RoleNest WhatsApp alert stream.`
           : `Subscribed ${cleanTarget} to Telegram bot alerts! Click below to start receiving real-time role notifications.`,
       actionUrl: channel === "WHATSAPP" ? whatsappCommunityUrl : telegramBotUrl,
     });

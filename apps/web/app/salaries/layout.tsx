@@ -8,24 +8,24 @@ export const metadata: Metadata = {
     canonical: "https://rolenest.in/salaries",
   },
   openGraph: {
-    title: "Tech Salaries in India — Role Nest",
+    title: "Tech Salaries in India — RoleNest",
     description:
       "Explore real, verified engineering salaries and fresher compensation ranges across Indian tech companies.",
     url: "https://rolenest.in/salaries",
-    siteName: "Role Nest",
+    siteName: "RoleNest",
     type: "website",
     images: [
       {
         url: "/icon-512.png",
         width: 512,
         height: 512,
-        alt: "Role Nest Engineering Salaries",
+        alt: "RoleNest Engineering Salaries",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tech Salaries in India — Role Nest",
+    title: "Tech Salaries in India — RoleNest",
     description:
       "Explore real, verified engineering salaries and fresher compensation ranges across Indian tech companies.",
     images: ["/icon-512.png"],

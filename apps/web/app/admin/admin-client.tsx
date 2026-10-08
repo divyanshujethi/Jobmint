@@ -215,7 +215,7 @@ export function SuperAdminPanelClient() {
     return (
       <div className="min-h-screen bg-slate-950 text-white flex flex-col items-center justify-center space-y-4">
         <RefreshCw className="h-8 w-8 text-emerald-400 animate-spin" />
-        <p className="text-sm font-mono text-slate-400">Loading Role Nest SuperAdmin Terminal...</p>
+        <p className="text-sm font-mono text-slate-400">Loading RoleNest SuperAdmin Terminal...</p>
       </div>
     );
   }
@@ -291,7 +291,7 @@ export function SuperAdminPanelClient() {
               </span>
             </div>
             <h1 className="text-base sm:text-lg font-bold text-white leading-tight">
-              Role Nest Governance & Database Console
+              RoleNest Governance &amp; Database Console
             </h1>
           </div>
         </div>

@@ -243,14 +243,14 @@ export const PSEO_TOPICS: Record<string, PseoTopic> = {
       {
         question: "Which companies are actively hiring in Bangalore?",
         answer:
-          "Top product startups including Swiggy, Razorpay, Flipkart, Postman, and Stripe actively list verified engineering roles on Role Nest.",
+          "Top product startups including Swiggy, Razorpay, Flipkart, Postman, and Stripe actively list verified engineering roles on RoleNest.",
       },
     ],
   },
   "react-developer-bangalore": {
     slug: "react-developer-bangalore",
     title: "React Developer Bangalore",
-    metaTitle: "React Developer Jobs in Bangalore (2026) | Role Nest",
+    metaTitle: "React Developer Jobs in Bangalore (2026) | RoleNest",
     metaDescription:
       "Find verified React Developer jobs in Bangalore for 2026. Explore frontend and fullstack roles with competitive CTC bands, transparent tech stacks, and direct ATS links.",
     heading: "React Developer Jobs in Bengaluru",
@@ -278,7 +278,7 @@ export const PSEO_TOPICS: Record<string, PseoTopic> = {
       {
         question: "Which Bangalore tech companies are actively hiring React developers?",
         answer:
-          "Product leaders like Razorpay, Swiggy, Zerodha, Postman, and Flipkart frequently hire React engineers via direct ATS links indexed on Role Nest.",
+          "Product leaders like Razorpay, Swiggy, Zerodha, Postman, and Flipkart frequently hire React engineers via direct ATS links indexed on RoleNest.",
       },
       {
         question: "Are remote React developer jobs available from Bangalore?",
@@ -290,7 +290,7 @@ export const PSEO_TOPICS: Record<string, PseoTopic> = {
   "python-freshers-pune": {
     slug: "python-freshers-pune",
     title: "Python Freshers Pune",
-    metaTitle: "Python Fresher Internships & Jobs in Pune (2026) | Role Nest",
+    metaTitle: "Python Fresher Internships & Jobs in Pune (2026) | RoleNest",
     metaDescription:
       "Apply for verified Python fresher internships and entry-level developer roles in Pune. Verified stipends, mentorship, and direct company applications with no middlemen.",
     heading: "Python Fresher Internships & Jobs in Pune",
@@ -330,7 +330,7 @@ export const PSEO_TOPICS: Record<string, PseoTopic> = {
   "golang-hyderabad": {
     slug: "golang-hyderabad",
     title: "Golang Jobs Hyderabad",
-    metaTitle: "Golang Developer Jobs in Hyderabad (2026) | Role Nest",
+    metaTitle: "Golang Developer Jobs in Hyderabad (2026) | RoleNest",
     metaDescription:
       "Discover verified Golang backend engineering jobs in Hyderabad (HITEC City / Gachibowli). High-concurrency distributed systems with competitive CTC.",
     heading: "Golang Backend Developer Jobs in Hyderabad",
@@ -484,12 +484,12 @@ export function resolvePseoCategory(slug: string): PseoTopic | null {
     : `${titleWords}`;
 
   const metaTitleText = detectedCity
-    ? `${skillDisplayName || "Tech"} ${isInternship ? "Internships" : "Jobs"} in ${cityDisplayName} (2026) | Role Nest`
-    : `${titleWords} (2026) | Role Nest`;
+    ? `${skillDisplayName || "Tech"} ${isInternship ? "Internships" : "Jobs"} in ${cityDisplayName} (2026) | RoleNest`
+    : `${titleWords} (2026) | RoleNest`;
 
   const metaDescText = detectedCity
     ? `Discover verified ${skillDisplayName || "software"} ${isInternship ? "internships" : "jobs"} in ${cityDisplayName}. Direct ATS application links, transparent compensation, and verified recruiter review times.`
-    : `Discover verified ${titleWords} with transparent salaries, recruiter response telemetry, and verified tech teams on Role Nest.`;
+    : `Discover verified ${titleWords} with transparent salaries, recruiter response telemetry, and verified tech teams on RoleNest.`;
 
   return {
     slug: normalized,
@@ -548,12 +548,12 @@ export function resolvePseoCategory(slug: string): PseoTopic | null {
         answer: `Employers look for solid data structures and algorithm foundations, proficiency in ${skillDisplayName || "modern frameworks"}, and clean GitHub proof-of-work.`,
       },
       {
-        question: `How does Role Nest guarantee recruiter review for ${titleWords}?`,
-        answer: `Every opening on Role Nest features direct ATS links without middleman portals. Our Truth Teller telemetry nudges you for follow-ups if an employer takes more than 7 days to review.`,
+        question: `How does RoleNest guarantee recruiter review for ${titleWords}?`,
+        answer: `Every opening on RoleNest features direct ATS links without middleman portals. Our Truth Teller telemetry nudges you for follow-ups if an employer takes more than 7 days to review.`,
       },
       {
         question: `Are freshers eligible for roles in ${cityDisplayName || "top tech hubs"}?`,
-        answer: `Yes, verified companies on Role Nest welcome early-career talent and final-year students with verified skill proof-of-work and DevScore ratings.`,
+        answer: `Yes, verified companies on RoleNest welcome early-career talent and final-year students with verified skill proof-of-work and DevScore ratings.`,
       },
     ],
   };

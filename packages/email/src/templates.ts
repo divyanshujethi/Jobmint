@@ -15,13 +15,13 @@ export function applicationSubmittedTemplate(
         </div>
         <h2 style="font-size: 18px; color: #0f172a; margin-bottom: 8px;">Application Received, ${candidateName}!</h2>
         <p style="font-size: 14px; line-height: 1.6; color: #334155;">
-          Your application for <strong>${jobTitle}</strong> at <strong>${companyName}</strong> has been successfully registered on Role Nest.
+          Your application for <strong>${jobTitle}</strong> at <strong>${companyName}</strong> has been successfully registered on RoleNest.
         </p>
         <div style="background-color: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 8px; padding: 14px; margin: 20px 0; font-size: 13px; color: #065f46;">
           ✓ <strong>Truth Teller Telemetry Active</strong>: You will be notified the moment the hiring team reviews your resume. If no review takes place within 7 days, you will receive an inactivity advisory.
         </div>
         <p style="font-size: 12px; color: #94a3b8; margin-top: 30px;">
-          ${APP_CONFIG.tagline} • Delivered via Role Nest Verified Notification Gateway
+          ${APP_CONFIG.tagline} • Delivered via RoleNest Verified Notification Gateway
         </p>
       </div>
     `,
@@ -49,7 +49,7 @@ export function applicationViewedTemplate(
           ✓ Timestamp logged in your Application Tracker.
         </div>
         <p style="font-size: 12px; color: #94a3b8; margin-top: 30px;">
-          ${APP_CONFIG.tagline} • Delivered via Role Nest Free Notification Gateway
+          ${APP_CONFIG.tagline} • Delivered via RoleNest Free Notification Gateway
         </p>
       </div>
     `,
@@ -100,7 +100,7 @@ export function inactivityNoticeTemplate(
         </div>
         <h2 style="font-size: 18px; color: #0f172a;">Application Update</h2>
         <p style="font-size: 14px; line-height: 1.6; color: #334155;">
-          You applied for <strong>${jobTitle}</strong> at <strong>${companyName}</strong> ${daysAgo} days ago. The employer has not viewed your application yet on Role Nest.
+          You applied for <strong>${jobTitle}</strong> at <strong>${companyName}</strong> ${daysAgo} days ago. The employer has not viewed your application yet on RoleNest.
         </p>
         <div style="background-color: #fffbeb; border: 1px solid #fde68a; border-radius: 8px; padding: 14px; margin: 20px 0; font-size: 13px; color: #92400e;">
           💡 We recommend exploring similar active opportunities rather than waiting.
@@ -123,10 +123,10 @@ export function candidateWelcomeConfirmationTemplate(
           <span style="font-size: 11px; color: #065f46; background: #ecfdf5; border: 1px solid #a7f3d0; padding: 3px 8px; border-radius: 9999px; margin-left: 10px; font-weight: 600;">Account Verification</span>
         </div>
         
-        <h2 style="font-size: 20px; color: #0f172a; margin-bottom: 12px; font-weight: 700;">Welcome to Role Nest, ${candidateName}!</h2>
+        <h2 style="font-size: 20px; color: #0f172a; margin-bottom: 12px; font-weight: 700;">Welcome to RoleNest, ${candidateName}!</h2>
         
         <p style="font-size: 14px; line-height: 1.6; color: #334155; margin-bottom: 20px;">
-          Thanks for joining Role Nest. To activate your candidate profile, discover verified tech openings in India, and track your applications with Truth Teller, please verify your email address.
+          Thanks for joining RoleNest. To activate your candidate profile, discover verified tech openings in India, and track your applications with Truth Teller, please verify your email address.
         </p>
 
         <div style="text-align: center; margin: 28px 0;">

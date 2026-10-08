@@ -26,9 +26,9 @@ export async function POST(req: NextRequest) {
     const jobUrl = `https://rolenest.in/jobs/${slug || "browse"}`;
     const salaryText = salaryMin && salaryMax ? `💰 ₹${salaryMin} - ₹${salaryMax} LPA` : "💰 Competitive CTC";
 
-    const formattedTelegramMessage = `🚀 *NEW ROLE ALERT on Role Nest*\n\n💼 *${title}*\n🏢 *${companyName}*\n📍 ${location || "Remote"}\n${salaryText}\n\n⚡ *Zero-Ghosting Direct ATS Bypass:*\n🔗 [Apply Directly on Role Nest](${jobUrl})`;
+    const formattedTelegramMessage = `🚀 *NEW ROLE ALERT on RoleNest*\n\n💼 *${title}*\n🏢 *${companyName}*\n📍 ${location || "Remote"}\n${salaryText}\n\n⚡ *Zero-Ghosting Direct ATS Bypass:*\n🔗 [Apply Directly on RoleNest](${jobUrl})`;
 
-    const formattedWhatsAppMessage = `🚀 *NEW TECH ROLE ON ROLE NEST*\n\n*${title}* @ *${companyName}*\n📍 ${location || "Remote"}\n${salaryText}\n\nApply with Verified DevScore:\n👉 ${jobUrl}`;
+    const formattedWhatsAppMessage = `🚀 *NEW TECH ROLE ON ROLENEST*\n\n*${title}* @ *${companyName}*\n📍 ${location || "Remote"}\n${salaryText}\n\nApply with Verified DevScore:\n👉 ${jobUrl}`;
 
     // If TELEGRAM_BOT_TOKEN and TELEGRAM_CHANNEL_ID are present, dispatch to live Telegram Channel
     const botToken = process.env.TELEGRAM_BOT_TOKEN;

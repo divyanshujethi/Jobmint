@@ -355,7 +355,7 @@ export default function PricingPage() {
                 Accelerate Your Tech Career With Verified Tools
               </h1>
               <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
-                Direct ATS job discovery is forever free. Accelerate your interview preparation with unlimited AI ATS resume optimization, 30-day interactive study courses, and verified recruiter placement.
+                Direct ATS job discovery is forever free. Accelerate your interview preparation with intelligent AI ATS resume optimization, 30-day interactive study courses, and verified employer telemetry.
               </p>
             </div>
 
@@ -364,11 +364,11 @@ export default function PricingPage() {
               <div className="text-center space-y-3">
                 <h2 className="text-2xl sm:text-3xl font-black text-slate-900">For Candidates &amp; Developers</h2>
                 <p className="text-xs sm:text-sm text-slate-600 max-w-2xl mx-auto">
-                  Direct ATS job discovery is forever free. Accelerate your interview preparation with unlimited AI ATS resume optimization, 30-day interactive study courses, and verified recruiter placement.
+                  Direct ATS job discovery is forever free. Accelerate your interview preparation with intelligent AI ATS resume optimization, 30-day interactive study courses, and verified employer telemetry.
                 </p>
               </div>
 
-              {/* RitualDev & Role Nest Community Backer Banner */}
+              {/* RoleNest Community Backer Banner */}
               <div className="rounded-2xl border border-emerald-200 bg-linear-to-r from-emerald-50 via-teal-50 to-white p-4 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
                 <div className="flex items-center gap-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-600 text-white font-bold shrink-0">
@@ -376,11 +376,11 @@ export default function PricingPage() {
                   </div>
                   <div>
                     <div className="font-bold text-slate-900 flex items-center gap-2">
-                      <span>An Open Community Initiative by RitualDev &amp; Role Nest</span>
+                      <span>An Open Community Initiative by RitualDev Lab &amp; RoleNest</span>
                       <span className="rounded bg-emerald-100 text-emerald-800 px-1.5 py-0.5 text-[10px] font-mono font-bold">100% Ad-Free</span>
                     </div>
                     <p className="text-slate-600 text-[11px] mt-0.5">
-                      <strong>Role Nest</strong> (<a href="https://rolenest.in" className="text-emerald-700 underline font-semibold">rolenest.in</a>) is backed by <strong>RitualDev</strong> (<a href="https://ritualdev.in" target="_blank" rel="noopener noreferrer" className="text-emerald-700 underline font-semibold">ritualdev.in</a>) to keep developer jobs free from recruiter paywalls.
+                      <strong>RoleNest</strong> (<a href="https://rolenest.in" className="text-emerald-700 underline font-semibold">rolenest.in</a>) is backed by <strong>RitualDev Lab</strong> (<a href="https://ritualdev.in" target="_blank" rel="noopener noreferrer" className="text-emerald-700 underline font-semibold">ritualdev.in</a>) to keep developer jobs free from recruiter paywalls.
                     </p>
                   </div>
                 </div>

@@ -32,7 +32,7 @@ describe("Truth Filter Anti-Ghosting Engine (evaluateJobTruth)", () => {
     expect(result.passes).toBe(false);
     expect(result.isGhostRisk).toBe(true);
     expect(result.reasons).toContain(
-      "Unpaid engineering role detected (violates Role Nest truth policy)"
+      "Unpaid engineering role detected (violates RoleNest truth policy)"
     );
   });
 

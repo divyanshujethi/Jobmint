@@ -7,8 +7,8 @@ import { Button } from '@/components/ui/button';
 import { AdminAlligatorsClient } from './client-component';
 
 export const metadata: Metadata = {
-  title: "Alligator Intelligence Center | Role Nest",
-  description: "Live status, crawl controls, and company verification queue for Role Nest Alligator Engines.",
+  title: "Alligator Intelligence Center | RoleNest",
+  description: "Live status, crawl controls, and company verification queue for RoleNest Alligator Engines.",
 };
 
 export default async function AdminAlligatorsPage() {
@@ -43,7 +43,7 @@ export default async function AdminAlligatorsPage() {
           <div className="flex flex-col gap-2 pt-2">
             <Link href="/">
               <Button variant="outline" className="w-full text-xs text-slate-300">
-                Return to Role Nest Board
+                Return to RoleNest Board
               </Button>
             </Link>
           </div>

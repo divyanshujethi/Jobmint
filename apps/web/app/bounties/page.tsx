@@ -64,7 +64,7 @@ export default function ReferralsAndRewardsPage() {
 
   const handleShareWhatsApp = () => {
     const text = encodeURIComponent(
-      `Hey! Sign up on RoleNest using my invite link to get 7 Days Free Pro Subscription (unlimited AI roadmaps & verified jobs): ${inviteUrl}`
+      `Hey! Sign up on RoleNest using my invite link to get 7 Days Free Pro Pass (75 AI generations & verified jobs): ${inviteUrl}`
     );
     window.open(`https://api.whatsapp.com/send?text=${text}`, "_blank");
   };
@@ -248,7 +248,7 @@ export default function ReferralsAndRewardsPage() {
             </div>
             <h4 className="font-bold text-slate-900 text-sm">AI STAR Resume Improver</h4>
             <p className="text-xs text-slate-600 leading-relaxed">
-              Unlimited AI rewrites that format your bullet points with high-impact action verbs and measurable engineering metrics.
+              Smart AI rewrites that format your bullet points with high-impact action verbs and measurable engineering metrics.
             </p>
           </div>
 

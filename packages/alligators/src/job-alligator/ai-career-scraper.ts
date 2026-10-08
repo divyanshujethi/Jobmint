@@ -1,9 +1,9 @@
 /**
- * AI Web Scraper for Custom Career Pages (RoleNest / JobMint)
+ * AI Web Scraper for Custom Career Pages (RoleNest)
  *
  * Designed for companies with custom-built career portals (not using Ashby/Greenhouse/Lever).
  * Fetches page content, strips HTML noise, and uses high-throughput AI models
- * (Google Gemini 3.8 Flash / Gemini 3.5 Flash-Lite, with Groq Llama 3.3 fallback)
+ * (Groq Llama 3.3 70B & Qwen, with multi-key pool rotation)
  * to reliably extract structured job postings, normalize locations, and score authenticity.
  */
 
@@ -66,93 +66,25 @@ export function sanitizeCareerHtml(html: string): string {
   return cleaned;
 }
 
-/**
- * Calls Gemini (default: gemini-3.8-flash, or gemini-3.5-flash-lite)
- * with strict JSON Schema output.
- */
-async function callGeminiForJobs(
-  sanitizedText: string,
-  companyName: string,
-  model = process.env.GEMINI_MODEL || "gemini-3.8-flash"
-): Promise<AiScrapedJob[]> {
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) {
-    throw new Error("GEMINI_API_KEY is not configured");
-  }
-
-  const prompt = `You are an expert technical recruiting AI scraper.
-Analyze the following text extracted from the career page of "${companyName}".
-Extract all open technical, engineering, software, product, data, and design jobs or internships.
-
-Return ONLY a valid JSON array of objects with the following schema:
-[
-  {
-    "title": "Exact job title",
-    "department": "Engineering/Product/Design/Data",
-    "location": "City, State, Country or Remote",
-    "workMode": "REMOTE" | "HYBRID" | "ONSITE",
-    "jobType": "FULL_TIME" | "INTERNSHIP" | "CONTRACT",
-    "salaryOrStipend": "Stipend or salary if listed, otherwise 'Competitive Market Standard'",
-    "experienceYears": 0, // Integer (0 for internships or freshers)
-    "skills": ["Skill1", "Skill2"],
-    "applyUrl": "Direct URL or link found in text to apply, otherwise ''",
-    "description": "2-3 sentence overview of responsibilities and requirements"
-  }
-]
-
-If no tech jobs or internships are found, return an empty JSON array: []
-
-CAREER PAGE CONTENT:
-"""
-${sanitizedText}
-"""`;
-
-  const res = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json", "User-Agent": "RoleNest-AI-Scraper/1.0" },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: {
-          temperature: 0.1,
-          maxOutputTokens: 4000,
-          responseMimeType: "application/json",
-        },
-      }),
-    }
-  );
-
-  if (!res.ok) {
-    const errText = await res.text();
-    throw new Error(`Gemini Scraper Error (${res.status}): ${errText}`);
-  }
-
-  const data = await res.json();
-  const parts: any[] = data.candidates?.[0]?.content?.parts || [];
-  const rawText = parts.find((p) => p.text && !p.thought)?.text || parts[0]?.text || "[]";
-
-  try {
-    const parsed = JSON.parse(rawText.trim());
-    return Array.isArray(parsed) ? parsed : [];
-  } catch {
-    const match = rawText.match(/\[[\s\S]*\]/);
-    if (match) {
-      return JSON.parse(match[0]);
-    }
-    return [];
-  }
+function getGroqKeys(): string[] {
+  const multi = process.env.GROQ_API_KEYS
+    ? process.env.GROQ_API_KEYS.split(",").map((k) => k.trim()).filter(Boolean)
+    : [];
+  const single = process.env.GROQ_API_KEY ? [process.env.GROQ_API_KEY.trim()] : [];
+  return Array.from(new Set([...multi, ...single]));
 }
 
+let currentScraperKeyIndex = 0;
+
 /**
- * Fallback to Groq (Llama 3.3 70B Versatile / Llama 3.1 8B Instant) if Gemini fails or is throttled.
+ * Extracts jobs using Groq (Llama 3.3 70B / Qwen) with multi-key pool rotation.
  */
 async function callGroqForJobs(
   sanitizedText: string,
   companyName: string
 ): Promise<AiScrapedJob[]> {
-  const apiKey = process.env.GROQ_API_KEY;
-  if (!apiKey) {
+  const keys = getGroqKeys();
+  if (keys.length === 0) {
     throw new Error("GROQ_API_KEY is not configured");
   }
 
@@ -163,32 +95,47 @@ Do not include any explanation or markdown tags outside the JSON.
 Content:
 ${sanitizedText}`;
 
-  const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      "Content-Type": "application/json",
-      "User-Agent": "RoleNest-AI-Scraper/1.0",
-    },
-    body: JSON.stringify({
-      model: process.env.GROQ_MODEL || "qwen/qwen3.8-27b",
-      messages: [{ role: "user", content: prompt }],
-      temperature: 0.1,
-      response_format: { type: "json_object" },
-    }),
-  });
+  let lastError: Error | null = null;
+  for (let attempt = 0; attempt < keys.length; attempt++) {
+    const idx = (currentScraperKeyIndex + attempt) % keys.length;
+    const apiKey = keys[idx]!;
 
-  if (!res.ok) {
-    throw new Error(`Groq API Error (${res.status})`);
+    try {
+      const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          "Content-Type": "application/json",
+          "User-Agent": "RoleNest-AI-Scraper/1.0",
+        },
+        body: JSON.stringify({
+          model: process.env.GROQ_MODEL || "qwen/qwen3.8-27b",
+          messages: [{ role: "user", content: prompt }],
+          temperature: 0.1,
+          response_format: { type: "json_object" },
+        }),
+      });
+
+      if (!res.ok) {
+        lastError = new Error(`Groq API Error (${res.status})`);
+        continue;
+      }
+
+      const data = await res.json();
+      const content = data.choices?.[0]?.message?.content || "{}";
+      const parsed = JSON.parse(content);
+      currentScraperKeyIndex = (idx + 1) % keys.length;
+
+      if (Array.isArray(parsed)) return parsed;
+      if (Array.isArray(parsed.jobs)) return parsed.jobs;
+      if (Array.isArray(parsed.data)) return parsed.data;
+      return [];
+    } catch (err: any) {
+      lastError = err;
+    }
   }
 
-  const data = await res.json();
-  const content = data.choices?.[0]?.message?.content || "{}";
-  const parsed = JSON.parse(content);
-  if (Array.isArray(parsed)) return parsed;
-  if (Array.isArray(parsed.jobs)) return parsed.jobs;
-  if (Array.isArray(parsed.data)) return parsed.data;
-  return [];
+  throw lastError || new Error("All Groq keys failed during career scraping");
 }
 
 /**

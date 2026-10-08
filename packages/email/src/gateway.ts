@@ -27,14 +27,14 @@ export async function sendEmail({
   const mailtrapApiKey = process.env.MAILTRAP_API_KEY;
 
   const resendSenderEmail = process.env.RESEND_SENDER_EMAIL || process.env.EMAIL_FROM || "alert@mail.rolenest.in";
-  const resendSenderName = process.env.RESEND_SENDER_NAME || "Role Nest";
+  const resendSenderName = process.env.RESEND_SENDER_NAME || "RoleNest";
   const resendFrom = from || `${resendSenderName} <${resendSenderEmail}>`;
 
   const brevoSenderEmail = process.env.BREVO_SENDER_EMAIL || "alert@news.rolenest.in";
-  const brevoSenderName = process.env.BREVO_SENDER_NAME || "Role Nest";
+  const brevoSenderName = process.env.BREVO_SENDER_NAME || "RoleNest";
 
   const mailtrapSenderEmail = process.env.MAILTRAP_SENDER_EMAIL || "alert@alert.rolenest.in";
-  const mailtrapSenderName = process.env.MAILTRAP_SENDER_NAME || "Role Nest";
+  const mailtrapSenderName = process.env.MAILTRAP_SENDER_NAME || "RoleNest";
 
   // 1. PRIMARY: RESEND (High-reputation transactional delivery)
   if (resendApiKey) {

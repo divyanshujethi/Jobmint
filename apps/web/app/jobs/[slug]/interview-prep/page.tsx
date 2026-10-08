@@ -33,7 +33,7 @@ export default function JobInterviewPrepPage() {
   const [loading, setLoading] = useState(true);
   const [expandedIndex, setExpandedIndex] = useState<number | null>(0);
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
-  const [provider, setProvider] = useState<string>("gemini");
+  const [provider, setProvider] = useState<string>("groq-llama-3.3");
   const [rateLimitMsg, setRateLimitMsg] = useState<string | null>(null);
   const [sessionUser, setSessionUser] = useState<any>(null);
   const [sessionChecked, setSessionChecked] = useState(false);
@@ -103,7 +103,7 @@ export default function JobInterviewPrepPage() {
       }
 
       if (res.ok && data.result) {
-        setProvider(data.provider || "gemini");
+        setProvider(data.provider || "groq-llama-3.3");
         if (Array.isArray(data.result)) {
           setQuestions(data.result);
         } else if (typeof data.result === "string") {
