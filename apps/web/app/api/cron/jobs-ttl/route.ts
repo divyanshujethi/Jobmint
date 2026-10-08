@@ -50,7 +50,7 @@ export async function GET(request: Request): Promise<NextResponse> {
     // Run active probe verification on external jobs per cron run
     let probeResult = null;
     const enableProbe = searchParams.get("probe") !== "false";
-    const probeLimit = Math.min(parseInt(searchParams.get("probeLimit") || "5", 10), 15);
+    const probeLimit = Math.min(parseInt(searchParams.get("probeLimit") || "2", 10), 10);
     if (enableProbe) {
       try {
         const { verifyActiveJobsLiveness } = await import("@/lib/job-ingestion");
