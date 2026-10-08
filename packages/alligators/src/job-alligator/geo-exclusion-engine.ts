@@ -257,13 +257,13 @@ export async function verifyAmbiguousRemoteWithAI(
     return aiEvaluationCache.get(cacheKey)!;
   }
 
-  const apiKey = process.env.GEMINI_API_KEY;
+  const apiKey = process.env.GROQ_API_KEY;
   if (!apiKey) {
     // Graceful fallback: If no API key is set, conservatively accept if "worldwide" or reject if ambiguous
     const fallbackEligible = !descriptionSnippet.toLowerCase().includes("must reside in");
     return {
       isEligible: fallbackEligible,
-      reason: "Gemini API key not configured, evaluated via heuristic fallback",
+      reason: "Groq API key not configured, evaluated via heuristic fallback",
     };
   }
 
@@ -284,28 +284,27 @@ Reply ONLY with a valid JSON object matching this schema:
   "reason": "1 concise sentence explaining the geographic or visa eligibility"
 }`;
 
-    const res = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json", "User-Agent": "RoleNest-GeoEngine/1.0" },
-        body: JSON.stringify({
-          contents: [{ parts: [{ text: prompt }] }],
-          generationConfig: {
-            temperature: 0.0,
-            maxOutputTokens: 200,
-            responseMimeType: "application/json",
-          },
-        }),
-      }
-    );
+    const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+        "User-Agent": "RoleNest-GeoEngine/1.0",
+      },
+      body: JSON.stringify({
+        model: "llama-3.3-70b-versatile",
+        messages: [{ role: "user", content: prompt }],
+        temperature: 0.0,
+        response_format: { type: "json_object" },
+      }),
+    });
 
     if (!res.ok) {
-      return { isEligible: false, reason: `Gemini API returned status ${res.status}` };
+      return { isEligible: false, reason: `Groq API returned status ${res.status}` };
     }
 
     const data = await res.json();
-    const rawText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+    const rawText = data?.choices?.[0]?.message?.content || "{}";
     const parsed = JSON.parse(rawText);
 
     const result = {

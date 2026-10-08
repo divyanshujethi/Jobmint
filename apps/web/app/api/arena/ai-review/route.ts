@@ -1,8 +1,22 @@
 import { NextRequest, NextResponse } from "next/server";
-import { callGroqProvider, callGeminiProvider } from "@repo/ai";
+import { callGroqProvider, callOllamaProvider } from "@repo/ai";
+import { checkRateLimit } from "@/lib/rate-limit";
 
 export async function POST(req: NextRequest) {
   try {
+    const rateLimit = await checkRateLimit(req, {
+      maxRequests: 15,
+      windowSeconds: 60,
+      prefix: "rl:arena-review",
+    });
+
+    if (!rateLimit.allowed) {
+      return NextResponse.json(
+        { error: `Too many code review requests. Please wait ${rateLimit.resetInSeconds}s.` },
+        { status: 429 }
+      );
+    }
+
     const body = await req.json();
     const { code, language, problemTitle, problemDescription, category, difficulty } = body;
 
@@ -52,12 +66,18 @@ Provide an authoritative analysis. Return ONLY valid JSON with this exact schema
       if (process.env.GROQ_API_KEY) {
         const groqRes = await callGroqProvider(prompt);
         rawText = groqRes.text;
-      } else if (process.env.GEMINI_API_KEY) {
-        const geminiRes = await callGeminiProvider(prompt);
-        rawText = geminiRes.text;
+      } else {
+        const ollamaRes = await callOllamaProvider(prompt);
+        rawText = ollamaRes.text;
       }
     } catch (apiErr: any) {
-      console.warn("AI provider error in arena review:", apiErr?.message);
+      console.warn("Primary AI provider error in arena review:", apiErr?.message);
+      try {
+        const ollamaRes = await callOllamaProvider(prompt);
+        rawText = ollamaRes.text;
+      } catch (ollamaErr: any) {
+        console.warn("Ollama AI fallback error in arena review:", ollamaErr?.message);
+      }
     }
 
     if (rawText) {

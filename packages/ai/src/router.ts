@@ -1,17 +1,15 @@
-﻿import { AIRequestOptions, AIResponse, AIProviderName } from "./types";
+import { AIRequestOptions, AIResponse, AIProviderName } from "./types";
 import { circuitBreaker } from "./circuit-breaker";
 import { callGroqProvider } from "./providers/groq-provider";
 import { callCloudflareWorkersAI } from "./providers/cloudflare-provider";
 import { callOllamaProvider } from "./providers/ollama-provider";
-import { callGeminiProvider } from "./providers/gemini-provider";
 
 /**
- * 4-Tier Llama 3.2 AI Cascade Router
- * Tier 1: Groq (Llama 3.3 70B - 300 tok/sec, 14.4k/day free)
- * Tier 2: Cloudflare Workers AI (Llama 3.2 3B - Edge GPU)
- * Tier 3: OCI Always Free VM (Llama 3.2 3B - Self-Hosted Ollama, 0 limits)
- * Tier 4: Gemini 1.5/2.0 Flash (Generous free tier)
- * Tier 5: Deterministic ATS Engine (Offline / 0-cost safety net)
+ * Non-Google AI Cascade Router:
+ * Tier 1: Groq (Llama 3.3 70B / Qwen - 300 tok/sec, 14.4k/day free)
+ * Tier 2: OCI VM Self-Hosted (Llama 3.2 3B - Self-Hosted Ollama, 0 limits, 100% private)
+ * Tier 3: Cloudflare Workers AI (Llama 3.2 3B - Edge GPU)
+ * Tier 4: Deterministic ATS Engine (Offline / 0-cost safety net)
  */
 export async function generateAI({
   task,
@@ -58,29 +56,7 @@ export async function generateAI({
     }
   }
 
-  // TIER 2: GEMINI FLASH (Google AI Studio)
-  if (!preferredProvider || preferredProvider === "gemini-flash") {
-    if (process.env.GEMINI_API_KEY) {
-      attemptedProviders.push("Google Gemini Flash");
-      try {
-        const res = await callGeminiProvider(prompt);
-        return {
-          success: true,
-          provider: "gemini-flash",
-          modelUsed: res.modelUsed,
-          tier: 2,
-          latencyMs: res.latencyMs,
-          result: formatResult(task, res.text, input),
-          cached: false,
-          providerChainAttempted: attemptedProviders,
-        };
-      } catch (err: any) {
-        console.warn(`[AI Cascade] Tier 2 Gemini failed: ${err.message}. Falling to Tier 3...`);
-      }
-    }
-  }
-
-  // TIER 3: OCI ALWAYS FREE VM (Self-Hosted Llama 3.2 3B via Ollama)
+  // TIER 2: OCI ALWAYS FREE VM (Self-Hosted Llama 3.2 3B via Ollama)
   if (!preferredProvider || preferredProvider === "oci-ollama-llama-3.2") {
     attemptedProviders.push("OCI VM Self-Hosted (Llama 3.2 3B)");
     try {
@@ -89,18 +65,18 @@ export async function generateAI({
         success: true,
         provider: "oci-ollama-llama-3.2",
         modelUsed: res.modelUsed,
-        tier: 3,
+        tier: 2,
         latencyMs: res.latencyMs,
         result: formatResult(task, res.text, input),
         cached: false,
         providerChainAttempted: attemptedProviders,
       };
     } catch (err: any) {
-      console.warn(`[AI Cascade] Tier 3 OCI Ollama failed: ${err.message}. Falling to Tier 4...`);
+      console.warn(`[AI Cascade] Tier 2 OCI Ollama failed: ${err.message}. Falling to Tier 3...`);
     }
   }
 
-  // TIER 4: CLOUDFLARE WORKERS AI
+  // TIER 3: CLOUDFLARE WORKERS AI
   if (!preferredProvider || preferredProvider === "cloudflare-llama-3.2") {
     if ((process.env.CLOUDFLARE_ACCOUNT_ID || process.env.R2_ACCOUNT_ID) && process.env.CLOUDFLARE_API_TOKEN) {
       attemptedProviders.push("Cloudflare Workers AI (Llama 3.2 3B)");
@@ -110,19 +86,19 @@ export async function generateAI({
           success: true,
           provider: "cloudflare-llama-3.2",
           modelUsed: res.modelUsed,
-          tier: 4,
+          tier: 3,
           latencyMs: res.latencyMs,
           result: formatResult(task, res.text, input),
           cached: false,
           providerChainAttempted: attemptedProviders,
         };
       } catch (err: any) {
-        console.warn(`[AI Cascade] Tier 4 Cloudflare failed: ${err.message}. Falling to Deterministic...`);
+        console.warn(`[AI Cascade] Tier 3 Cloudflare failed: ${err.message}. Falling to Deterministic...`);
       }
     }
   }
 
-  // TIER 5: DETERMINISTIC SAFE FALLBACK (Offline & Testing Engine)
+  // TIER 4: DETERMINISTIC SAFE FALLBACK (Offline & Testing Engine)
   attemptedProviders.push("Deterministic Rule-Based Engine");
   return {
     success: true,

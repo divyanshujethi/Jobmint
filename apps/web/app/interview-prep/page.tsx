@@ -71,7 +71,7 @@ export default function StandaloneInterviewPrepPage() {
   const [loading, setLoading] = useState(false);
   const [expandedIndex, setExpandedIndex] = useState<number | null>(0);
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
-  const [provider, setProvider] = useState<string>("gemini");
+  const [provider, setProvider] = useState<string>("groq");
   const [rateLimitMsg, setRateLimitMsg] = useState<string | null>(null);
 
   const [sessionUser, setSessionUser] = useState<any>(null);
@@ -132,7 +132,7 @@ export default function StandaloneInterviewPrepPage() {
       }
 
       if (res.ok && data.result) {
-        setProvider(data.provider || "gemini");
+        setProvider(data.provider || "groq");
         if (Array.isArray(data.result)) {
           setQuestions(data.result);
         } else if (typeof data.result === "string") {
@@ -185,7 +185,7 @@ export default function StandaloneInterviewPrepPage() {
             <Sparkles className="h-4 w-4 text-purple-600" />
             <span>AI Interview Prep Question Generator</span>
             <span className="rounded-md bg-purple-200/80 px-1.5 py-0.2 text-[9px] font-mono uppercase font-black">
-              Live Gemini AI
+              Llama 3.3 AI
             </span>
           </div>
 

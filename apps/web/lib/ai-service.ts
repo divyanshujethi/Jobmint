@@ -1,6 +1,6 @@
 /**
- * Multi-Provider AI Service
- * Calls Groq (Llama 3.3 70B) or Gemini Flash directly with fallback to robust deterministic NLP
+ * Non-Google AI Service
+ * Calls Groq (Llama 3.3 70B / Qwen) directly with fallback to self-hosted Ollama (Llama 3.2 3B)
  */
 
 interface CallLlmOptions {
@@ -45,44 +45,44 @@ export async function callFastLlm({
         if (text) return text.trim();
       }
     } catch (err: any) {
-      console.warn("[callFastLlm] Groq failed, falling back to Gemini:", err.message);
+      console.warn("[callFastLlm] Groq failed, falling back to Ollama:", err.message);
     }
   }
 
-  // Provider 2: Gemini Flash
-  const geminiKey = process.env.GEMINI_API_KEY;
-  if (geminiKey) {
-    try {
-      const model = process.env.GEMINI_MODEL || "gemini-1.5-flash";
-      const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${geminiKey}`;
+  // Provider 2: Self-Hosted Ollama (Llama 3.2 3B on OCI VM)
+  const ollamaUrl = process.env.OLLAMA_BASE_URL || "http://127.0.0.1:11434";
+  const ollamaModel = process.env.OLLAMA_MODEL || "llama3.2:3b";
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 6000);
 
-      const contents: any[] = [];
-      if (systemInstruction) {
-        contents.push({ role: "user", parts: [{ text: `System: ${systemInstruction}\n\nTask:\n${prompt}` }] });
-      } else {
-        contents.push({ role: "user", parts: [{ text: prompt }] });
-      }
+    const fullPrompt = systemInstruction
+      ? `System: ${systemInstruction}\n\nTask:\n${prompt}`
+      : prompt;
 
-      const res = await fetch(endpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          contents,
-          generationConfig: {
-            temperature,
-            maxOutputTokens: 1500,
-          },
-        }),
-      });
+    const res = await fetch(`${ollamaUrl}/api/generate`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      signal: controller.signal,
+      body: JSON.stringify({
+        model: ollamaModel,
+        prompt: fullPrompt,
+        stream: false,
+        options: {
+          temperature,
+          num_predict: 1000,
+        },
+      }),
+    });
 
-      if (res.ok) {
-        const json = await res.json();
-        const text = json.candidates?.[0]?.content?.parts?.[0]?.text;
-        if (text) return text.trim();
-      }
-    } catch (err: any) {
-      console.warn("[callFastLlm] Gemini failed, falling back to deterministic:", err.message);
+    clearTimeout(timeoutId);
+    if (res.ok) {
+      const json = await res.json();
+      const text = json.response?.trim();
+      if (text) return text;
     }
+  } catch (err: any) {
+    console.warn("[callFastLlm] Ollama fallback failed:", err.message);
   }
 
   return "";

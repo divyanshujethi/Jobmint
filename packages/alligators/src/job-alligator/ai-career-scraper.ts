@@ -229,18 +229,13 @@ export async function scrapeCustomCareerWithAI(options: {
     return [];
   }
 
-  // 2. Call AI extraction with Gemini, falling back to Groq
+  // 2. Call AI extraction with Groq (Llama 3.3 70B)
   let extractedJobs: AiScrapedJob[] = [];
   try {
-    extractedJobs = await callGeminiForJobs(sanitized, companyName, model);
-  } catch (geminiErr: any) {
-    console.warn(`[AI Career Scraper] Gemini failed (${geminiErr.message}), falling back to Groq...`);
-    try {
-      extractedJobs = await callGroqForJobs(sanitized, companyName);
-    } catch (groqErr: any) {
-      console.error(`[AI Career Scraper] Both Gemini and Groq extraction failed:`, groqErr.message);
-      return [];
-    }
+    extractedJobs = await callGroqForJobs(sanitized, companyName);
+  } catch (groqErr: any) {
+    console.error(`[AI Career Scraper] Groq extraction failed:`, groqErr.message);
+    return [];
   }
 
   // 3. Normalize & Truth Filter Results

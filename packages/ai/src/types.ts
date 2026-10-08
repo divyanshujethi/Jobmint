@@ -10,7 +10,6 @@ export type AIProviderName =
   | "groq-llama-3.3"
   | "cloudflare-llama-3.2"
   | "oci-ollama-llama-3.2"
-  | "gemini-flash"
   | "deterministic";
 
 export interface AIRequestOptions {
@@ -23,7 +22,7 @@ export interface AIResponse {
   success: boolean;
   provider: AIProviderName;
   modelUsed: string;
-  tier: number; // 0: WebGPU, 1: Groq, 2: Cloudflare, 3: OCI Ollama, 4: Gemini/Deterministic
+  tier: number; // 0: WebGPU, 1: Groq, 2: OCI Ollama, 3: Cloudflare, 4: Deterministic
   latencyMs: number;
   result: any;
   cached: boolean;
