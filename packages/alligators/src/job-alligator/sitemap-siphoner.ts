@@ -1,5 +1,5 @@
 /**
- * Role Nest - Deep Sitemap.xml Siphoner
+ * RoleNest - Deep Sitemap.xml Siphoner
  * Parses public sitemap XML feeds from major remote and tech platforms directly into memory
  * without browser rendering or bot detection triggers.
  * Filters URLs via in-memory regex before fetching pages.

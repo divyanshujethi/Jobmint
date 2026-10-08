@@ -252,7 +252,7 @@ export async function GET(req: NextRequest) {
         "https://api.github.com/search/repositories?q=" + encodeURIComponent(query) + "&sort=stars&order=desc&per_page=12",
         {
           headers: {
-            "User-Agent": "Role Nest-Trendshift/1.0",
+            "User-Agent": "RoleNest-Trendshift/1.0",
             Accept: "application/vnd.github.v3+json",
           },
           next: { revalidate: 600 },

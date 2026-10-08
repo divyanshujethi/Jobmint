@@ -1,5 +1,5 @@
 /**
- * Role Nest - SmartRecruiters & Enterprise ATS Fast Crawler
+ * RoleNest - SmartRecruiters & Enterprise ATS Fast Crawler
  * Crawls unauthenticated JSON endpoints of major global and Indian tech employers
  * using SmartRecruiters ATS infrastructure.
  */

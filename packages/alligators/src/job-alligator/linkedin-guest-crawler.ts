@@ -1,5 +1,5 @@
 /**
- * Role Nest - LinkedIn Public Guest Job Crawler
+ * RoleNest - LinkedIn Public Guest Job Crawler
  * Siphons live, unauthenticated job postings across India directly from LinkedIn's
  * public guest search endpoint without requiring user login, cookies, or headless browsers.
  * 

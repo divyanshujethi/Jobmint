@@ -58,7 +58,7 @@ export const GENERAL_TECHNICAL_30_POOL: QuizQuestion[] = [
   },
   {
     id: 5,
-    question: "What cryptographic primitive does Role Nest use to ensure public certificate and credential immutability?",
+    question: "What cryptographic primitive does RoleNest use to ensure public certificate and credential immutability?",
     options: [
       "Base64 encoded plain-text files",
       "Cryptographic SHA-256 ledger hashes timestamped and publicly verifiable",

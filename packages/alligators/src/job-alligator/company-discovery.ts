@@ -1,5 +1,5 @@
 /**
- * Autonomous Company & Career Discovery Engine (RoleNest / JobMint)
+ * Autonomous Company & Career Discovery Engine (RoleNest)
  *
  * Automatically discovers emerging tech companies and startups,
  * fingerprints their career portals / ATS infrastructure (Ashby, Greenhouse, Lever),

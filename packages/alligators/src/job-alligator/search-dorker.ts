@@ -1,5 +1,5 @@
 /**
- * Role Nest - Search Engine Dorking Engine
+ * RoleNest - Search Engine Dorking Engine
  * Crawls DuckDuckGo search queries targeting public Greenhouse, Lever, and Ashby boards
  * without browser rendering overhead. Extracts real company slugs and authentic ATS posting links.
  */

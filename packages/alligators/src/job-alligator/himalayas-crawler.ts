@@ -1,5 +1,5 @@
 /**
- * Role Nest - Himalayas Global Remote Jobs Crawler
+ * RoleNest - Himalayas Global Remote Jobs Crawler
  * Crawls transparent global remote engineering jobs with explicit country and timezone restrictions.
  * Integrated with the 3-Layer Geo-Exclusion Engine.
  */

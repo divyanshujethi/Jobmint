@@ -228,7 +228,7 @@ export function WebGpuBadge({
             </div>
 
             <p className="text-xs text-slate-600 leading-relaxed">
-              We test your real hardware specifications to determine whether your browser can safely execute local WebGPU LLMs (e.g. Llama 3.2 1B) without freezing your system, or whether you should use Role Nest Cloud AI.
+              We test your real hardware specifications to determine whether your browser can safely execute local WebGPU LLMs (e.g. Llama 3.2 1B) without freezing your system, or whether you should use RoleNest Cloud AI.
             </p>
 
             {/* SPEC TELEMETRY GRID */}

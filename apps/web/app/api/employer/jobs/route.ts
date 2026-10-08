@@ -10,7 +10,7 @@ export async function POST(req: NextRequest) {
     const session = await auth();
     if (!session || !session.user || !session.user.email) {
       return NextResponse.json(
-        { error: "Unauthorized: You must be signed in to publish opportunities on Role Nest." },
+        { error: "Unauthorized: You must be signed in to publish opportunities on RoleNest." },
         { status: 401 }
       );
     }
@@ -89,7 +89,7 @@ export async function POST(req: NextRequest) {
           const [newComp] = await db
             .insert(companies)
             .values({
-              name: "Role Nest Partner Tech",
+              name: "RoleNest Partner Tech",
               slug: "rolenest-partner-tech",
               website: "https://rolenest.in",
               location: "Remote",

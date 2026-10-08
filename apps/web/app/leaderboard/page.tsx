@@ -368,21 +368,21 @@ export default function LeaderboardPage() {
   const shareCampusBattle = () => {
     const collegeTag = userCollege ? `${userCollege}` : "our college";
     const text = encodeURIComponent(
-      `🚨 Representing ${collegeTag} on the National Inter-College Engineering Leaderboard on Role Nest! Join using our campus invite to boost our college rank: ${referralUrl}`
+      `🚨 Representing ${collegeTag} on the National Inter-College Engineering Leaderboard on RoleNest! Join using our campus invite to boost our college rank: ${referralUrl}`
     );
     window.open(`https://api.whatsapp.com/send?text=${text}`, "_blank");
   };
 
   const shareOnWhatsApp = () => {
     const text = encodeURIComponent(
-      `Hey! Check out Role Nest - the zero-ghosting developer platform with verified dev scores, free course diplomas, and honest hiring stats. Join using my invite: ${referralUrl}`
+      `Hey! Check out RoleNest - the zero-ghosting developer platform with verified dev scores, free course diplomas, and honest hiring stats. Join using my invite: ${referralUrl}`
     );
     window.open(`https://api.whatsapp.com/send?text=${text}`, "_blank");
   };
 
   const shareOnTwitter = () => {
     const text = encodeURIComponent(
-      `Building my daily engineering streak on @Role Nest! Verify real GitHub commits, earn DPDP-compliant course diplomas, and get hired with honest stats. ${referralUrl}`
+      `Building my daily engineering streak on @RoleNest! Verify real GitHub commits, earn DPDP-compliant course diplomas, and get hired with honest stats. ${referralUrl}`
     );
     window.open(`https://twitter.com/intent/tweet?text=${text}`, "_blank");
   };
@@ -712,7 +712,7 @@ export default function LeaderboardPage() {
                 <div>
                   <h3 className={t.tableTitle}>
                     <Trophy className="h-5 w-5 text-amber-500" />
-                    Top Streak Builders on Role Nest
+                    Top Streak Builders on RoleNest
                   </h3>
                   <p className={`text-xs mt-0.5 ${isArena ? "text-neutral-400" : "text-slate-500"}`}>
                     Real candidate streaks querying the live database. Ranked by active days, XP, and badges.
@@ -746,7 +746,7 @@ export default function LeaderboardPage() {
                           <div className="mx-auto max-w-sm space-y-2">
                             <Trophy className={`h-8 w-8 mx-auto ${isArena ? "text-neutral-600" : "text-slate-300"}`} />
                             <p className={`font-bold text-sm ${isArena ? "text-neutral-300" : "text-slate-700"}`}>No builders on the leaderboard yet</p>
-                            <p className={`text-xs ${isArena ? "text-neutral-500" : "text-slate-500"}`}>Sign in and click Daily Check-in to be #1 on Role Nest!</p>
+                            <p className={`text-xs ${isArena ? "text-neutral-500" : "text-slate-500"}`}>Sign in and click Daily Check-in to be #1 on RoleNest!</p>
                           </div>
                         </td>
                       </tr>
@@ -991,7 +991,7 @@ export default function LeaderboardPage() {
                     {colleges.length === 0 ? (
                       <tr>
                         <td colSpan={6} className={`py-12 text-center ${isArena ? "text-neutral-500" : "text-slate-500"}`}>
-                          Select your college above to create the first campus team on Role Nest!
+                          Select your college above to create the first campus team on RoleNest!
                         </td>
                       </tr>
                     ) : (
@@ -1333,7 +1333,7 @@ export default function LeaderboardPage() {
                   Developer Peer Referral Network
                 </h3>
                 <p className={`text-xs sm:text-sm leading-relaxed ${isArena ? "text-neutral-400" : "text-slate-600"}`}>
-                  Share your unique referral link with engineering classmates and teammates. When they sign up on Role Nest, they receive a free streak freeze and you earn XP plus badge milestone rewards.
+                  Share your unique referral link with engineering classmates and teammates. When they sign up on RoleNest, they receive a free streak freeze and you earn XP plus badge milestone rewards.
                 </p>
               </div>
 

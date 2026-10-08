@@ -3,7 +3,7 @@ import { getLiveJobBySlug } from "@/lib/db-jobs";
 import { resolvePseoCategory } from "@/lib/pseo-data";
 
 export const runtime = "nodejs";
-export const alt = "Role Nest Tech Careers";
+export const alt = "RoleNest Tech Careers";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -12,7 +12,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
   const job = await getLiveJobBySlug(slug);
   const pseo = !job ? resolvePseoCategory(slug) : null;
 
-  const title = job ? job.title : pseo ? pseo.heading : "Verified Tech Careers | Role Nest";
+  const title = job ? job.title : pseo ? pseo.heading : "Verified Tech Careers | RoleNest";
   const subtitle = job
     ? `${job.companyName} • ${job.location} (${job.workMode})`
     : pseo
@@ -60,7 +60,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
             </div>
             <div style={{ display: "flex", flexDirection: "column" }}>
               <div style={{ fontSize: "28px", fontWeight: "900", letterSpacing: "-0.5px", color: "#ffffff" }}>
-                Role Nest
+                RoleNest
               </div>
               <div style={{ fontSize: "14px", color: "#94a3b8", fontWeight: "600", textTransform: "uppercase", letterSpacing: "1px" }}>
                 Truth Teller Career Platform
@@ -171,7 +171,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
                 fontWeight: "800",
               }}
             >
-              Apply on Role Nest →
+              Apply on RoleNest →
             </div>
           </div>
         </div>

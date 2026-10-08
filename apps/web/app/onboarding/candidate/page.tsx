@@ -178,7 +178,7 @@ function CandidateOnboardingContent() {
             Set Up Your Engineering Profile
           </CardTitle>
           <CardDescription className="text-xs text-slate-600">
-            Upload your resume and select your tech stack so Role Nest can compute your real-time ATS match scores and connect you directly with hiring founders.
+            Upload your resume and select your tech stack so RoleNest can compute your real-time ATS match scores and connect you directly with hiring founders.
           </CardDescription>
         </CardHeader>
 

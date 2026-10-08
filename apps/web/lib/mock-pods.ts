@@ -34,7 +34,7 @@ export interface StudyPod {
 
 export const BOT_COORDINATOR: PodMember = {
   id: "cohort-bot",
-  name: "Role Nest Cohort Bot",
+  name: "RoleNest Cohort Bot",
   avatarInitial: "🤖",
   college: "Verified AI Coordinator",
   roleInterest: "Technical Study Mentor",

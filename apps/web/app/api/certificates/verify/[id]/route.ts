@@ -34,7 +34,7 @@ export async function GET(
           recipientName: dbCert.recipientName,
           issuedAt: dbCert.issuedAt.toISOString(),
           skills: course.skillsLearned,
-          creatorAttribution: `Curriculum curated by ${course.creator} • Verified by Role Nest Technical Education`,
+          creatorAttribution: `Curriculum curated by ${course.creator} • Verified by RoleNest Technical Education`,
           githubProofUrl: dbCert.githubUrl || undefined,
           verificationHash: dbCert.verificationHash,
           score: dbCert.score,

@@ -5,7 +5,7 @@ import { HardDrive, ShieldCheck, Sparkles, FileSearch, ArrowRight, Lock } from "
 import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
-  title: "Candidate Resume Vault — Role Nest",
+  title: "Candidate Resume Vault — RoleNest",
   description: "Secure, private cloud storage for your verified PDF resumes with token-gated recruiter access and 1-click job applications.",
 };
 
@@ -29,7 +29,7 @@ export default function ResumeStoragePage() {
             Candidate Resume Vault
           </h1>
           <p className="text-sm text-slate-600 max-w-2xl leading-relaxed">
-            Your personal, encrypted resume repository. Save your latest verified PDF resume here to enable instant 1-click applications across Role Nest. Your resume is never public and is only shared with companies you explicitly apply to.
+            Your personal, encrypted resume repository. Save your latest verified PDF resume here to enable instant 1-click applications across RoleNest. Your resume is never public and is only shared with companies you explicitly apply to.
           </p>
         </div>
 

@@ -12,7 +12,7 @@ export default async function JobsPage() {
   const itemListJsonLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "Verified Tech Jobs in India and Remote — Role Nest",
+    name: "Verified Tech Jobs in India and Remote — RoleNest",
     description:
       "Explore verified software engineering, AI, and developer jobs with direct ATS links and ghosting protection.",
     numberOfItems: initialJobs.length,

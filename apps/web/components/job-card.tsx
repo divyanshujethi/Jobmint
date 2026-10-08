@@ -226,7 +226,7 @@ export function JobCard({ job, candidateIntel }: JobCardProps) {
             </span>
           ) : (
             <span className="text-slate-600 font-medium">
-              Direct Role Nest Opening
+              Direct RoleNest Opening
             </span>
           )}
         </div>
@@ -250,7 +250,7 @@ export function JobCard({ job, candidateIntel }: JobCardProps) {
               e.preventDefault();
               e.stopPropagation();
               const url = `https://rolenest.in/jobs/${job.slug}?ref=share_card_wa`;
-              const text = encodeURIComponent(`🔥 ${job.title} at ${job.companyName} (${job.salaryOrStipend}) with direct ATS link on Role Nest: ${url}`);
+              const text = encodeURIComponent(`🔥 ${job.title} at ${job.companyName} (${job.salaryOrStipend}) with direct ATS link on RoleNest: ${url}`);
               window.open(`https://api.whatsapp.com/send?text=${text}`, "_blank", "noopener,noreferrer");
             }}
             className="p-2 rounded-lg text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 transition-colors cursor-pointer shrink-0"

@@ -438,7 +438,7 @@ export default function StandaloneInterviewPrepPage() {
               Apply with Direct ATS Transparency &amp; Tracked Follow-ups
             </h3>
             <p className="text-xs text-slate-600 max-w-lg leading-relaxed">
-              Every job on Role Nest links directly to official employer career portals (Greenhouse, Lever, Ashby, Workday). Track your application with automated 7-day follow-up reminders.
+              Every job on RoleNest links directly to official employer career portals (Greenhouse, Lever, Ashby, Workday). Track your application with automated 7-day follow-up reminders.
             </p>
           </div>
 

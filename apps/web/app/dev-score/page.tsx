@@ -104,7 +104,7 @@ export default function VerifiedDevScorePage() {
 
   const handleCopyBadge = () => {
     if (!result) return;
-    const badgeMarkdown = `[![Role Nest Verified Dev](https://img.shields.io/badge/Role%20Nest%20Dev%20Score-${result.devScore}%2F1000-10b981?style=for-the-badge&logo=github)](https://rolenest.in/dev-score?user=${result.username})`;
+    const badgeMarkdown = `[![RoleNest Verified Dev](https://img.shields.io/badge/Role%20Nest%20Dev%20Score-${result.devScore}%2F1000-10b981?style=for-the-badge&logo=github)](https://rolenest.in/dev-score?user=${result.username})`;
     navigator.clipboard.writeText(badgeMarkdown);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
@@ -144,7 +144,7 @@ export default function VerifiedDevScorePage() {
             Proof-of-Work Verification Protocol
           </div>
           <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-slate-900">
-            Role Nest Verified Dev Score
+            RoleNest Verified Dev Score
           </h1>
           <p className="mx-auto max-w-2xl text-sm sm:text-base text-slate-600">
             Kill fake resume buzzwords. Scan real GitHub commits, production code architecture, and live deployed web demos to prove actual engineering caliber.
@@ -161,7 +161,7 @@ export default function VerifiedDevScorePage() {
                 • <strong>Public Preview:</strong> You can look up <em>any</em> developer&apos;s public GitHub profile (try your friends, top open-source contributors, or candidates) to inspect their real proof-of-work.
               </p>
               <p>
-                • <strong>Your Applications:</strong> When you enter your own GitHub handle and click <strong>&quot;Attach Dev Score to My Applications&quot;</strong>, it binds your score to your Role Nest profile so recruiters see verified proof of competence when reviewing your applications.
+                • <strong>Your Applications:</strong> When you enter your own GitHub handle and click <strong>&quot;Attach Dev Score to My Applications&quot;</strong>, it binds your score to your RoleNest profile so recruiters see verified proof of competence when reviewing your applications.
               </p>
             </div>
           </div>
@@ -383,7 +383,7 @@ export default function VerifiedDevScorePage() {
                     Verified Repositories & Proof-of-Work Demos
                   </h3>
                   <p className="text-xs text-slate-600">
-                    Test live applications directly in your browser without leaving Role Nest.
+                    Test live applications directly in your browser without leaving RoleNest.
                   </p>
                 </div>
               </div>

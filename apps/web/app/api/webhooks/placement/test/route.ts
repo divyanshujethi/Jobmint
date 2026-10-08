@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
 
     if (platform === "discord" || trimmedUrl.includes("discord.com")) {
       payload = {
-        username: "Role Nest Placement Alerts",
+        username: "RoleNest Placement Alerts",
         avatar_url: `${baseUrl}/icon-192.png`,
         embeds: [
           {
@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
               { name: "Truth Teller Status", value: `${sampleJob.truthTeller.reviewRate}% Review Rate • ${sampleJob.truthTeller.medianFirstReviewDays} Days Median Review`, inline: false },
             ],
             footer: {
-              text: "Role Nest College Syndication Engine • 100% Free & Transparent",
+              text: "RoleNest College Syndication Engine • 100% Free & Transparent",
             },
             timestamp: new Date().toISOString(),
           },
@@ -53,7 +53,7 @@ export async function POST(req: NextRequest) {
     } else {
       // Slack payload
       payload = {
-        text: `🎓 *New Verified Opening Alert from Role Nest*:\n*${sampleJob.title}* at *${sampleJob.companyName}*\nCompensation: ${sampleJob.salaryOrStipend} | Mode: ${sampleJob.workMode}\nSkills: ${sampleJob.skills.slice(0, 4).join(", ")}\nLink: ${baseUrl}/jobs/${sampleJob.slug}`,
+        text: `🎓 *New Verified Opening Alert from RoleNest*:\n*${sampleJob.title}* at *${sampleJob.companyName}*\nCompensation: ${sampleJob.salaryOrStipend} | Mode: ${sampleJob.workMode}\nSkills: ${sampleJob.skills.slice(0, 4).join(", ")}\nLink: ${baseUrl}/jobs/${sampleJob.slug}`,
       };
     }
 

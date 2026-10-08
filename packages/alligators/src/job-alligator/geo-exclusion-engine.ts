@@ -1,5 +1,5 @@
 /**
- * Role Nest - Geo-Exclusion & Global Remote Eligibility Engine
+ * RoleNest - Geo-Exclusion & Global Remote Eligibility Engine
  * 
  * 3-Layer Funnel:
  * Layer 1: Deterministic Meta-Filtering (ATS API Fields: 0ms, $0)

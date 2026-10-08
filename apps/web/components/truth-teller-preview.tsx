@@ -92,7 +92,7 @@ export function TruthTellerPreview() {
               Every tracked application starts an automatic 7-day countdown with follow-up email templates and tips for connecting with hiring managers.
             </p>
             <div className="pt-1 flex items-center justify-between">
-              <span className="font-semibold text-slate-800 text-[11px]">Track unlimited external roles</span>
+              <span className="font-semibold text-slate-800 text-[11px]">Track and manage your roles</span>
               <Link
                 href="/applications"
                 className="inline-flex items-center gap-1 text-emerald-700 font-bold hover:underline"

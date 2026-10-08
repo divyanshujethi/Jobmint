@@ -1437,7 +1437,7 @@ function POTDWorkspace() {
                     </h4>
                   </div>
                   <p className="text-[11px] text-slate-300 leading-relaxed">
-                    Hiring companies on Role Nest (Swiggy, Razorpay, Google, Zepto) filter candidates by Verified Dev Score. Each POTD you solve increases your verified score, bypassing the ATS queue automatically.
+                    Hiring companies on RoleNest (Swiggy, Razorpay, Google, Zepto) filter candidates by Verified Dev Score. Each POTD you solve increases your verified score, bypassing the ATS queue automatically.
                   </p>
                   <div className="flex flex-wrap items-center gap-2 pt-1">
                     <Link

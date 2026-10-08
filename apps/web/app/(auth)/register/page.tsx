@@ -75,7 +75,7 @@ function RegisterContent() {
                 </span>
               </div>
               <div className="text-[11px] text-indigo-800 leading-tight mt-0.5">
-                Create and verify your account to unlock <strong>7 Days of Free RoleNest Pro</strong> (unlimited roadmaps, verified job queue &amp; AI prep)!
+                Create and verify your account to unlock <strong>7 Days of Free RoleNest Pro</strong> (full interactive roadmaps, verified job queue &amp; AI prep)!
               </div>
             </div>
           </div>

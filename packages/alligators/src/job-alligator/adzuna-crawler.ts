@@ -1,5 +1,5 @@
 /**
- * Role Nest - Adzuna India IT Jobs Crawler
+ * RoleNest - Adzuna India IT Jobs Crawler
  * Crawls live, verified technology jobs across India from Adzuna Developer API (country=in, category=it-jobs).
  * Over 100,000+ active domestic tech roles available.
  * Integrated with the 3-Layer Geo-Exclusion Engine.

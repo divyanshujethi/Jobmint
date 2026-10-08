@@ -84,7 +84,7 @@ export default function PlacementPortalPage() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-neutral-800 pb-6">
           <div>
             <div className="flex items-center gap-2 text-xs text-neutral-400 font-mono mb-2">
-              <Link href="/jobs" className="hover:text-emerald-400">Role Nest</Link>
+              <Link href="/jobs" className="hover:text-emerald-400">RoleNest</Link>
               <span>/</span>
               <span className="text-neutral-200">Campus Placement Portal</span>
             </div>

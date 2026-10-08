@@ -16,8 +16,8 @@ interface ProUpgradeModalProps {
 export function ProUpgradeModal({
   isOpen,
   onClose,
-  title = "Unlock Unlimited AI Generations with Pro",
-  reason = "You have used your 3 free AI trials. Upgrade to Role Nest Pro for unlimited ATS matching, personalized cover letters, and employer AI drafting.",
+  title = "Unlock High-Quota AI Generations with Pro",
+  reason = "You have used your 5 free AI generations. Upgrade to RoleNest Pro for 75 monthly AI generations, ATS matching, personalized cover letters, and employer AI drafting.",
 }: ProUpgradeModalProps) {
   const [loading, setLoading] = useState(false);
 

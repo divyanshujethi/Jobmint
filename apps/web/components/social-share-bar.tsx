@@ -29,11 +29,11 @@ export function SocialShareBar({
 
   const getShareText = () => {
     if (type === "potd") {
-      return `⚡ Just solved today's coding challenge "${title}" on Role Nest! Test your problem solving skills here:`;
+      return `⚡ Just solved today's coding challenge "${title}" on RoleNest! Test your problem solving skills here:`;
     }
     const compText = companyName ? ` at ${companyName}` : "";
     const salText = salaryOrStipend ? ` (${salaryOrStipend})` : "";
-    return `🔥 Found a verified ${title}${compText}${salText} with direct ATS application on Role Nest:`;
+    return `🔥 Found a verified ${title}${compText}${salText} with direct ATS application on RoleNest:`;
   };
 
   const handleCopyLink = () => {

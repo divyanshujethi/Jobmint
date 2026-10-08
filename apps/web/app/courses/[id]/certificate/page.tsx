@@ -674,7 +674,7 @@ export default function CourseCertificatePage({
             </div>
 
             <div className="mt-4 text-[9px] font-mono text-slate-500 text-center relative z-10 leading-tight">
-              Issued in compliance with Sections 5 &amp; 6 of the Indian Digital Personal Data Protection (DPDP) Act, 2023. Certified proof-of-work certificate under Role Nest Open Education Standards; not an accredited degree.
+              Issued in compliance with Sections 5 &amp; 6 of the Indian Digital Personal Data Protection (DPDP) Act, 2023. Certified proof-of-work certificate under RoleNest Open Education Standards; not an accredited degree.
             </div>
           </div>
         </div>

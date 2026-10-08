@@ -65,7 +65,7 @@ const PLAN_DETAILS: Record<
     ],
   },
   pro: {
-    name: "Role Nest Pro",
+    name: "RoleNest Pro",
     price: 199,
     period: "30 Days Active Access",
     badge: "Flagship Monthly",
@@ -96,7 +96,7 @@ const PLAN_DETAILS: Record<
     ],
   },
   pro_annual: {
-    name: "Role Nest Annual Career Pass",
+    name: "RoleNest Annual Career Pass",
     price: 1499,
     period: "365 Days Access (Save 37% • ₹125/mo)",
     badge: "Best Long-Term Value",
@@ -111,7 +111,7 @@ const PLAN_DETAILS: Record<
     ],
   },
   featured_job: {
-    name: "Role Nest Featured Job Listing",
+    name: "RoleNest Featured Job Listing",
     price: 1499,
     period: "30 Days Active Featured Listing",
     badge: "Employer Boost",
@@ -124,7 +124,7 @@ const PLAN_DETAILS: Record<
     ],
   },
   hiring_sprint: {
-    name: "Role Nest Hiring Sprint Bundle (3x)",
+    name: "RoleNest Hiring Sprint Bundle (3x)",
     price: 3499,
     period: "60 Days Validity",
     badge: "Save 25%",
@@ -545,7 +545,7 @@ export default function PricingPage() {
                     <div className="flex items-center justify-between">
                       <div>
                         <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-                          Role Nest Pro
+                          RoleNest Pro
                         </h3>
                         <p className="text-xs text-slate-500 mt-0.5">The complete AI &amp; job tracking unfair advantage.</p>
                       </div>
@@ -803,7 +803,7 @@ export default function PricingPage() {
             <div className="space-y-6 pt-10 border-t border-slate-200">
               <div className="text-center space-y-1">
                 <h3 className="text-2xl font-black text-slate-900">Transparent Feature &amp; Limitations Comparison</h3>
-                <p className="text-xs text-slate-500">Every feature is backed by real code in Role Nest. Zero synthetic claims, zero hidden restrictions.</p>
+                <p className="text-xs text-slate-500">Every feature is backed by real code in RoleNest. Zero synthetic claims, zero hidden restrictions.</p>
               </div>
 
               <div className="overflow-x-auto rounded-3xl border border-slate-200 bg-white shadow-sm">
@@ -813,7 +813,7 @@ export default function PricingPage() {
                       <th className="p-4 font-bold text-slate-900">Features &amp; Limitations</th>
                       <th className="p-4 font-bold text-slate-900 text-center">Free Community</th>
                       <th className="p-4 font-bold text-indigo-700 text-center bg-indigo-50/50">Campus Student Pass</th>
-                      <th className="p-4 font-bold text-emerald-700 text-center bg-emerald-50/50">Role Nest Pro (Monthly / Annual)</th>
+                      <th className="p-4 font-bold text-emerald-700 text-center bg-emerald-50/50">RoleNest Pro (Monthly / Annual)</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-100 text-slate-700">

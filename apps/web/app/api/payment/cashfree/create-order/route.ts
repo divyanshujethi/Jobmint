@@ -13,37 +13,37 @@ const PLAN_CONFIGS: Record<
   }
 > = {
   student: {
-    name: "Role Nest Campus & Student Pass (Monthly)",
+    name: "RoleNest Campus & Student Pass (Monthly)",
     amount: 99,
     durationMs: 30 * 24 * 60 * 60 * 1000,
     description: "Student Discount Pass • 15 AI Resume Scans • 10 Active Applications • Monaco POTD Solutions",
   },
   student_semester: {
-    name: "Role Nest Student Semester Pass (6 Months)",
+    name: "RoleNest Student Semester Pass (6 Months)",
     amount: 249,
     durationMs: 180 * 24 * 60 * 60 * 1000,
     description: "6 months Student Pass • Save 58% • POTD Solutions • Student Verified Badge",
   },
   pro: {
-    name: "Role Nest Pro (Monthly Membership)",
+    name: "RoleNest Pro (Monthly Membership)",
     amount: 199,
     durationMs: 30 * 24 * 60 * 60 * 1000,
     description: "1 month of Pro access • AI ATS Resume Matcher • Full 30-Day Course Engine • Ghosting Alerts",
   },
   pro_plus: {
-    name: "Role Nest Plus (Career Accelerator - 3 Months Sprint)",
+    name: "RoleNest Plus (Career Accelerator - 3 Months Sprint)",
     amount: 499,
     durationMs: 90 * 24 * 60 * 60 * 1000,
     description: "3 months Pro Plus access • Save 16% • Priority Recruiter Placement • DevScore GitHub Deep Audit",
   },
   pro_quarterly: {
-    name: "Role Nest Plus (Career Accelerator - 3 Months Sprint)",
+    name: "RoleNest Plus (Career Accelerator - 3 Months Sprint)",
     amount: 499,
     durationMs: 90 * 24 * 60 * 60 * 1000,
     description: "3 months Pro Plus access • Save 16% • Priority Recruiter Placement • DevScore GitHub Deep Audit",
   },
   pro_annual: {
-    name: "Role Nest Pro (Annual Pass - 1 Year)",
+    name: "RoleNest Pro (Annual Pass - 1 Year)",
     amount: 1499,
     durationMs: 365 * 24 * 60 * 60 * 1000,
     description: "1 full year Pro access • Immutable Proof-of-Work Verification • 1-Click Tailored Bullets",
@@ -55,13 +55,13 @@ const PLAN_CONFIGS: Record<
     description: "45-min live session • Line-by-line ATS resume review • Project architecture critique • Live mock interview",
   },
   featured_job: {
-    name: "Role Nest Featured Job Listing (30 Days)",
+    name: "RoleNest Featured Job Listing (30 Days)",
     amount: 1499,
     durationMs: 30 * 24 * 60 * 60 * 1000,
     description: "30-day top-of-feed featured job listing • Verified company badge • Direct distribution to active devs",
   },
   hiring_sprint: {
-    name: "Role Nest Hiring Sprint Bundle (3 Featured Jobs)",
+    name: "RoleNest Hiring Sprint Bundle (3 Featured Jobs)",
     amount: 3499,
     durationMs: 60 * 24 * 60 * 60 * 1000,
     description: "3 featured jobs boost • Direct candidate outreach • Priority applicant review dashboard",
@@ -120,8 +120,8 @@ export async function POST(req: NextRequest) {
         );
       }
       finalAmount = parsedAmount;
-      planName = "Community Support Donation (RitualDev & Role Nest)";
-      orderNoteText = `Role Nest & RitualDev Contribution - ₹${finalAmount} - Backing free developer tooling & transparent tech hiring (ritualdev.in / rolenest.in)`;
+      planName = "Community Support Donation (RitualDev & RoleNest)";
+      orderNoteText = `RoleNest & RitualDev Contribution - ₹${finalAmount} - Backing free developer tooling & transparent tech hiring (ritualdev.in / rolenest.in)`;
     } else {
       const planConfig = PLAN_CONFIGS[plan] ?? PLAN_CONFIGS.pro;
       finalAmount = planConfig.amount;
@@ -268,7 +268,7 @@ export async function POST(req: NextRequest) {
       user_id: userId,
       user_email: userEmail,
       customer_phone: resolvedPhone,
-      community: "RitualDev Role Nest",
+      community: "RitualDev RoleNest",
     };
     if (isDonation && donorNote) {
       const cleanNote = String(donorNote)

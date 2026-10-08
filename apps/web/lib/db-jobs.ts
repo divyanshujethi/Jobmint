@@ -233,7 +233,7 @@ export async function getLiveJobs(
             ? "Verified Direct Career Portal"
             : totalApps > 0
               ? `Active recently`
-              : "Direct Role Nest Application",
+              : "Direct RoleNest Application",
         },
       };
 
@@ -390,7 +390,7 @@ export async function getLiveJobBySlug(slug: string): Promise<MockJob | null> {
             ? "Verified Direct Career Portal"
             : totalApps > 0
               ? `Active recently`
-              : "Direct Role Nest Application",
+              : "Direct RoleNest Application",
         },
       };
     }

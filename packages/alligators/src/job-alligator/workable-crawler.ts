@@ -1,5 +1,5 @@
 /**
- * Role Nest - Workable Public ATS Fast Crawler
+ * RoleNest - Workable Public ATS Fast Crawler
  * Queries public JSON endpoints of tech organizations utilizing Workable.
  * Extracts authentic, verified positions with zero recruiter markup and direct apply links.
  */

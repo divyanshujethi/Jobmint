@@ -39,7 +39,7 @@ export default function RefundPage() {
             Payment Gateway Notice
           </div>
           <p className="text-xs sm:text-sm text-emerald-900 leading-relaxed font-medium">
-            Transactions are processed through Cashfree Payments India Pvt. Ltd. (RBI Authorized Payment Aggregator). Role Nest directly handles all candidate customer service inquiries, billing support, and refund processing.
+            Transactions are processed through Cashfree Payments India Pvt. Ltd. (RBI Authorized Payment Aggregator). RoleNest directly handles all candidate customer service inquiries, billing support, and refund processing.
           </p>
         </div>
 
@@ -50,20 +50,20 @@ export default function RefundPage() {
             <section className="space-y-3">
               <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
                 <CheckCircle2 className="h-5 w-5 text-emerald-600" />
-                1. 14-Day 100% Money-Back Guarantee (Role Nest Pro)
+                1. 14-Day 100% Money-Back Guarantee (RoleNest Pro)
               </h2>
               <p>
-                We want you to be completely satisfied with your purchase. Every first-time subscriber to <strong>Role Nest Pro</strong> is covered by our unconditional <strong>14-Day Money-Back Guarantee</strong>.
+                We want you to be completely satisfied with your purchase. Every first-time subscriber to <strong>RoleNest Pro</strong> is covered by our unconditional <strong>14-Day Money-Back Guarantee</strong>.
               </p>
               <div className="rounded-xl border border-emerald-200 bg-emerald-50/50 p-4 text-xs sm:text-sm text-emerald-950 space-y-2">
                 <p>
-                  <strong>Eligibility:</strong> If you are not satisfied with Role Nest Pro for any reason, you may request a 100% full refund within <strong>14 calendar days</strong> from the initial purchase date. No questions asked.
+                  <strong>Eligibility:</strong> If you are not satisfied with RoleNest Pro for any reason, you may request a 100% full refund within <strong>14 calendar days</strong> from the initial purchase date. No questions asked.
                 </p>
                 <p>
                   <strong>How to Claim Your Refund:</strong>
                 </p>
                 <ol className="list-decimal pl-5 space-y-1 text-xs text-slate-700">
-                  <li>Email our support desk at <a href="mailto:support@rolenest.in" className="text-emerald-700 underline font-semibold">support@rolenest.in</a> or <a href="mailto:contact@rolenest.in" className="text-emerald-700 underline font-semibold">contact@rolenest.in</a> with your <strong>Role Nest Order ID or Cashfree Reference ID</strong> (found in your email receipt).</li>
+                  <li>Email our support desk at <a href="mailto:support@rolenest.in" className="text-emerald-700 underline font-semibold">support@rolenest.in</a> or <a href="mailto:contact@rolenest.in" className="text-emerald-700 underline font-semibold">contact@rolenest.in</a> with your <strong>RoleNest Order ID or Cashfree Reference ID</strong> (found in your email receipt).</li>
                   <li>Our team will verify the payment and authorize the refund back to your source account within 24 hours.</li>
                 </ol>
               </div>
@@ -118,7 +118,7 @@ export default function RefundPage() {
               </p>
               <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 space-y-2 text-xs text-slate-700">
                 <div>
-                  <strong>Method 1 (Account Settings):</strong> You can review your plan status and expiry date inside your Role Nest dashboard under <Link href="/settings/account" className="text-emerald-700 underline font-semibold">Settings &gt; Account &gt; Billing</Link>.
+                  <strong>Method 1 (Account Settings):</strong> You can review your plan status and expiry date inside your RoleNest dashboard under <Link href="/settings/account" className="text-emerald-700 underline font-semibold">Settings &gt; Account &gt; Billing</Link>.
                 </div>
                 <div>
                   <strong>Method 2 (Email Support):</strong> Contact us at <a href="mailto:support@rolenest.in" className="text-emerald-700 underline font-semibold">support@rolenest.in</a> requesting cancellation or non-renewal, and our team will process it within 24 hours.
@@ -135,10 +135,10 @@ export default function RefundPage() {
                 4. Instant Digital Service Delivery
               </h2>
               <p>
-                All digital services provided by Role Nest are delivered <strong>instantaneously upon successful payment</strong>:
+                All digital services provided by RoleNest are delivered <strong>instantaneously upon successful payment</strong>:
               </p>
               <ul className="list-disc pl-5 space-y-1 text-xs text-slate-600">
-                <li>Your Role Nest account is instantly upgraded to Pro status with unrestricted access to recruiter response rates, ATS resume diagnostics, and tracking tools.</li>
+                <li>Your RoleNest account is instantly upgraded to Pro status with unrestricted access to recruiter response rates, ATS resume diagnostics, and tracking tools.</li>
                 <li>Your official payment receipt and tax invoice are immediately dispatched by email.</li>
                 <li>Because services are 100% digital, there are no physical shipping fees, packaging costs, or delivery delays.</li>
               </ul>
@@ -163,7 +163,7 @@ export default function RefundPage() {
                 6. Customer Support Contact Information
               </h2>
               <div className="rounded-xl border border-slate-200 bg-slate-50 p-5 text-xs space-y-2 text-slate-700">
-                <div><strong>Operating Business:</strong> Role Nest (RitualDev Lab / Divyanshu Jethi)</div>
+                <div><strong>Operating Business:</strong> RoleNest (RitualDev Lab / Divyanshu Jethi)</div>
                 <div><strong>Registered Office / Address:</strong> Sector 62, Noida, Gautam Buddha Nagar, Uttar Pradesh 201301, India</div>
                 <div><strong>Customer Support Email:</strong> <a href="mailto:support@rolenest.in" className="text-emerald-700 underline font-semibold">support@rolenest.in</a></div>
                 <div><strong>Corporate Inquiries:</strong> <a href="mailto:contact@rolenest.in" className="text-emerald-700 underline font-semibold">contact@rolenest.in</a></div>

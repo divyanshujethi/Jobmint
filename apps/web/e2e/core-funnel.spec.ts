@@ -4,7 +4,7 @@ test.describe("Core Funnel: Candidate to Recruiter Workflow", () => {
   test("1. Candidate Job Search Funnel", async ({ page }) => {
     // Navigate to /jobs
     await page.goto("/jobs");
-    await expect(page).toHaveTitle(/Jobs|Role Nest/i);
+    await expect(page).toHaveTitle(/Jobs|RoleNest/i);
 
     // Verify main headings and search bar exist
     const searchInput = page.locator('input[placeholder*="Search by title" i], input[type="text"]').first();
@@ -26,7 +26,7 @@ test.describe("Core Funnel: Candidate to Recruiter Workflow", () => {
   test("2. Resume Upload & ATS Matcher Funnel", async ({ page }) => {
     // Navigate to /resume/parser or assistant
     await page.goto("/resume/parser");
-    await expect(page).toHaveTitle(/Resume|Parser|Role Nest/i);
+    await expect(page).toHaveTitle(/Resume|Parser|RoleNest/i);
 
     // Verify ATS match / upload container exists
     const atsContainer = page.locator("body");
@@ -54,7 +54,7 @@ test.describe("Core Funnel: Candidate to Recruiter Workflow", () => {
   test("3. Application Submission & Truth Teller Telemetry Funnel", async ({ page }) => {
     // Verify candidate applications tracker page loads
     await page.goto("/applications");
-    await expect(page).toHaveTitle(/Applications|Tracker|Role Nest/i);
+    await expect(page).toHaveTitle(/Applications|Tracker|RoleNest/i);
 
     // Verify Truth Teller UI components
     await expect(page.locator("text=Truth Teller").first()).toBeVisible();
@@ -69,7 +69,7 @@ test.describe("Core Funnel: Candidate to Recruiter Workflow", () => {
   test("4. Recruiter Review & Stage Pipeline Funnel", async ({ page }) => {
     // Verify employer applicants dashboard
     await page.goto("/employer/applicants");
-    await expect(page).toHaveTitle(/Applicants|Employer|Role Nest/i);
+    await expect(page).toHaveTitle(/Applicants|Employer|RoleNest/i);
 
     // Check Recruiter Desk heading & Truth Teller badge
     await expect(page.getByRole("heading", { name: /Recruiter Applicant Desk/i })).toBeVisible();

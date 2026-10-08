@@ -1,5 +1,5 @@
 /**
- * Role Nest - Internshala Tech Opportunities Fast Crawler
+ * RoleNest - Internshala Tech Opportunities Fast Crawler
  * Siphons verified technology internships and fresher jobs directly from Internshala's
  * public sitemaps (over 12,800+ total opportunities across India).
  * 

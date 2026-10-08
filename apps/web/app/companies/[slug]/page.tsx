@@ -30,11 +30,11 @@ export async function generateMetadata({ params }: CompanyPageProps): Promise<Me
 
   if (!company) {
     return {
-      title: "Company Not Found — Role Nest",
+      title: "Company Not Found — RoleNest",
     };
   }
 
-  const title = `${company.name} Careers & Verified Transparency Metrics — Role Nest`;
+  const title = `${company.name} Careers & Verified Transparency Metrics — RoleNest`;
   const description = `${company.description || `${company.name} hiring profile`}. Active hiring in ${company.location || "India"}. Truth Teller verified response rate: ${company.truthTeller.reviewRate}%.`;
 
   return {
@@ -47,14 +47,14 @@ export async function generateMetadata({ params }: CompanyPageProps): Promise<Me
       title,
       description,
       url: `https://rolenest.in/companies/${slug}`,
-      siteName: "Role Nest",
+      siteName: "RoleNest",
       type: "profile",
       images: [
         {
           url: "/icon-512.png",
           width: 512,
           height: 512,
-          alt: `${company.name} on Role Nest`,
+          alt: `${company.name} on RoleNest`,
         },
       ],
     },
@@ -166,7 +166,7 @@ export default async function CompanyDetailsPage({ params }: CompanyPageProps) {
           </h2>
         </div>
         <p className="mt-1 text-xs text-slate-600">
-          This data is derived directly from candidate interactions on Role Nest. We do not label companies &quot;good&quot; or &quot;bad&quot; — we show the observed facts.
+          This data is derived directly from candidate interactions on RoleNest. We do not label companies &quot;good&quot; or &quot;bad&quot; — we show the observed facts.
         </p>
 
         <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-4">

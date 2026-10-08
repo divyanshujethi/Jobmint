@@ -1,5 +1,5 @@
 /**
- * Role Nest - Ashby Job Board Crawler
+ * RoleNest - Ashby Job Board Crawler
  * Crawls modern high-growth AI startups and tech category leaders hosted on Ashby.
  * Integrated with the 3-Layer Geo-Exclusion Engine.
  */

@@ -254,7 +254,7 @@ export default function JobInterviewPrepPage() {
               <div className="flex items-center gap-2 text-amber-900">
                 <Lock className="w-4 h-4 text-amber-600 shrink-0" />
                 <span>
-                  <strong>Free Tier Quota:</strong> You have access to 3 targeted mock questions for this job. Upgrade to <strong>Role Nest Pro</strong> to unlock the complete question bank and AI evaluations.
+                  <strong>Free Tier Quota:</strong> You have access to 3 targeted mock questions for this job. Upgrade to <strong>RoleNest Pro</strong> to unlock the complete question bank and AI evaluations.
                 </span>
               </div>
               <Link href="/pricing" className="shrink-0">

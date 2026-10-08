@@ -1,5 +1,5 @@
 /**
- * Role Nest - Naukri India Fast Enterprise Job Crawler
+ * RoleNest - Naukri India Fast Enterprise Job Crawler
  * Streams and decompresses verified technology vacancies directly from Naukri.com
  * official XML and gzip sitemaps (300,000+ total vacancies across Indian metros).
  * 

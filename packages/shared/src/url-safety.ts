@@ -1,5 +1,5 @@
 /**
- * Role Nest - Safe Hyperlinking & External Platform Identification Engine
+ * RoleNest - Safe Hyperlinking & External Platform Identification Engine
  * 
  * Safety Policy:
  * 1. Sanitizes external URLs by stripping tracking, cookies, affiliate tags, and malicious tokens.

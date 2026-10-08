@@ -12,7 +12,7 @@ export default async function InternshipsPage() {
   const itemListJsonLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "Paid Tech Internships in India & Remote — Role Nest",
+    name: "Paid Tech Internships in India & Remote — RoleNest",
     description:
       "Explore verified software engineering, AI, and developer internships with official stipends and direct ATS apply links.",
     numberOfItems: initialInternships.length,

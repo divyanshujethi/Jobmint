@@ -124,7 +124,7 @@ export default function CertificateVerifyPage({
                     )}
                   </div>
                   <h1 className="text-2xl sm:text-3xl font-black text-slate-900">
-                    Verified Role Nest Certificate
+                    Verified RoleNest Certificate
                   </h1>
                 </div>
               </div>
@@ -274,7 +274,7 @@ export default function CertificateVerifyPage({
                   variant="outline"
                   className="border-slate-700 bg-slate-900 text-slate-300 hover:text-white text-xs gap-1 rounded-xl"
                 >
-                  Explore All Role Nest Curricula
+                  Explore All RoleNest Curricula
                   <ChevronRight className="h-3.5 w-3.5" />
                 </Button>
               </Link>

@@ -293,7 +293,7 @@ export function InstantAlertsModal({ onClose }: { onClose: () => void }) {
                 {channel === "WHATSAPP" ? (
                   <>
                     <MessageCircle className="h-4 w-4" />
-                    Open Role Nest WhatsApp Channel
+                    Open RoleNest WhatsApp Channel
                   </>
                 ) : (
                   <>

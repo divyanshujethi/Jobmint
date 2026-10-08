@@ -24,8 +24,8 @@ import { StudyGamificationModal } from "./study-gamification-modal";
 
 export function StudyNavbar() {
   const pathname = usePathname();
-  const [streak, setStreak] = useState(3);
-  const [xp, setXp] = useState(850);
+  const [streak, setStreak] = useState(0);
+  const [xp, setXp] = useState(0);
   const [isPro, setIsPro] = useState(false);
   const [proModalOpen, setProModalOpen] = useState(false);
   const [gamificationModalOpen, setGamificationModalOpen] = useState(false);

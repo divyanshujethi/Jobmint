@@ -54,7 +54,7 @@ export default function PrivacyPage() {
             Payment Gateway &amp; Processing Notice
           </div>
           <p className="text-xs sm:text-sm text-emerald-900 leading-relaxed font-medium">
-            All online payments, UPI transactions, cards, and NetBanking on Role Nest are securely handled through Cashfree Payments India Pvt. Ltd., an RBI-authorized Payment Aggregator. Role Nest never stores your sensitive payment credentials.
+            All online payments, UPI transactions, cards, and NetBanking on RoleNest are securely handled through Cashfree Payments India Pvt. Ltd., an RBI-authorized Payment Aggregator. RoleNest never stores your sensitive payment credentials.
           </p>
         </div>
 
@@ -117,7 +117,7 @@ export default function PrivacyPage() {
             Data Fiduciary Identification &amp; Statutory Notice
           </div>
           <p className="text-xs sm:text-sm text-emerald-800 leading-relaxed">
-            This notice accompanies the collection of personal data by <strong>Role Nest (Operated by RitualDev Lab / Divyanshu Jethi)</strong>, acting as a Data Fiduciary. Registered Office: Sector 62, Noida, Gautam Buddha Nagar, Uttar Pradesh 201301, India. Email: <a href="mailto:privacy@rolenest.in" className="underline font-semibold">privacy@rolenest.in</a> / <a href="mailto:support@rolenest.in" className="underline font-semibold">support@rolenest.in</a>.
+            This notice accompanies the collection of personal data by <strong>RoleNest (Operated by RitualDev Lab / Divyanshu Jethi)</strong>, acting as a Data Fiduciary. Registered Office: Sector 62, Noida, Gautam Buddha Nagar, Uttar Pradesh 201301, India. Email: <a href="mailto:privacy@rolenest.in" className="underline font-semibold">privacy@rolenest.in</a> / <a href="mailto:support@rolenest.in" className="underline font-semibold">support@rolenest.in</a>.
           </p>
         </div>
 
@@ -130,7 +130,7 @@ export default function PrivacyPage() {
                 1. Itemised Personal Data We Collect
               </h2>
               <p>
-                When you access Role Nest as a student, fresher, or recruiter, we collect only strictly necessary data:
+                When you access RoleNest as a student, fresher, or recruiter, we collect only strictly necessary data:
               </p>
               <ul className="list-disc pl-5 space-y-1.5 text-xs sm:text-sm text-slate-600">
                 <li>
@@ -162,13 +162,13 @@ export default function PrivacyPage() {
               </h2>
               <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 space-y-2 text-xs sm:text-sm text-slate-700">
                 <p>
-                  <strong>Payment Aggregator:</strong> All digital transactions on Role Nest are processed securely by <strong>Cashfree Payments India Pvt. Ltd.</strong>, an RBI-licensed Payment Aggregator operating in compliance with Reserve Bank of India (RBI) payment and settlement directives.
+                  <strong>Payment Aggregator:</strong> All digital transactions on RoleNest are processed securely by <strong>Cashfree Payments India Pvt. Ltd.</strong>, an RBI-licensed Payment Aggregator operating in compliance with Reserve Bank of India (RBI) payment and settlement directives.
                 </p>
                 <p>
-                  <strong>Zero Card Storage on Role Nest:</strong> When you purchase Role Nest Pro or an Employer Boost, your payment credentials (credit/debit card numbers, CVV, expiry dates, NetBanking credentials, and UPI information) are entered directly into Cashfree&apos;s RBI-compliant and PCI-DSS Level 1 certified secure checkout component.
+                  <strong>Zero Card Storage on RoleNest:</strong> When you purchase RoleNest Pro or an Employer Boost, your payment credentials (credit/debit card numbers, CVV, expiry dates, NetBanking credentials, and UPI information) are entered directly into Cashfree&apos;s RBI-compliant and PCI-DSS Level 1 certified secure checkout component.
                 </p>
                 <p>
-                  <strong>Role Nest NEVER receives, processes, or stores your raw card numbers, CVVs, or UPI PINs.</strong> Role Nest only receives an encrypted customer ID, payment session token, order ID, and transaction confirmation from Cashfree via secure server webhooks to activate your digital features.
+                  <strong>RoleNest NEVER receives, processes, or stores your raw card numbers, CVVs, or UPI PINs.</strong> RoleNest only receives an encrypted customer ID, payment session token, order ID, and transaction confirmation from Cashfree via secure server webhooks to activate your digital features.
                 </p>
                 <p className="text-xs text-slate-500">
                   Cashfree&apos;s processing of your data is governed by the <a href="https://www.cashfree.com/privacy-policy/" target="_blank" rel="noopener noreferrer" className="text-emerald-700 underline font-semibold">Cashfree Privacy Policy</a>. Cashfree Payments India Pvt. Ltd. is headquartered in Bengaluru, Karnataka, India.
@@ -188,7 +188,7 @@ export default function PrivacyPage() {
                 <li>Matching your skill profile to verified fresher job and internship postings.</li>
                 <li>Conducting automated skill diagnostic tests and gap-to-offer roadmaps.</li>
                 <li>Delivering your application securely to the hiring manager when you click &ldquo;Apply&rdquo;.</li>
-                <li>Issuing cryptographic proof-of-work completion diplomas for Role Nest curricula.</li>
+                <li>Issuing cryptographic proof-of-work completion diplomas for RoleNest curricula.</li>
                 <li>Sending transparent application status alerts (Anti-Ghosting Wall).</li>
               </ol>
             </section>
@@ -205,7 +205,7 @@ export default function PrivacyPage() {
                     Right to Access &amp; Data Portability (Section 11)
                   </div>
                   <p className="text-xs text-slate-600">
-                    You can request a summary of your personal data processed by Role Nest. You can instantly download a complete JSON export of your profile, applications, and certificates via{" "}
+                    You can request a summary of your personal data processed by RoleNest. You can instantly download a complete JSON export of your profile, applications, and certificates via{" "}
                     <Link href="/settings/account" className="text-emerald-700 underline font-semibold">
                       Settings &gt; Account &gt; Download My Data
                     </Link>.
@@ -243,7 +243,7 @@ export default function PrivacyPage() {
                 5. Protection of Children and Minors (DPDP Sec. 9)
               </h2>
               <p>
-                Role Nest is an engineering career platform intended for adults, college students, and aspiring software professionals. We do not engage in targeted advertising directed at children, nor do we track behavior or process personal data of individuals under 18 years without verifiable parental/guardian consent.
+                RoleNest is an engineering career platform intended for adults, college students, and aspiring software professionals. We do not engage in targeted advertising directed at children, nor do we track behavior or process personal data of individuals under 18 years without verifiable parental/guardian consent.
               </p>
             </section>
 
@@ -253,7 +253,7 @@ export default function PrivacyPage() {
                 6. Grievance Redressal Officer &amp; Contact SLA (DPDP Sec. 13)
               </h2>
               <p>
-                In compliance with Section 13 of the Digital Personal Data Protection Act, 2023, Role Nest has appointed a designated Grievance Redressal Officer to address complaints, data rights requests, and security disclosures.
+                In compliance with Section 13 of the Digital Personal Data Protection Act, 2023, RoleNest has appointed a designated Grievance Redressal Officer to address complaints, data rights requests, and security disclosures.
               </p>
 
               <div className="rounded-2xl border-2 border-slate-200 bg-white p-5 space-y-3 shadow-sm">
@@ -309,7 +309,7 @@ export default function PrivacyPage() {
                 7. Technical Safeguards &amp; Security Standards
               </h2>
               <p>
-                We maintain state-of-the-art organizational and technical measures: AES-256 and HMAC-SHA256 encryption, role-based database permissions, NVMe private token gating, and automated threat logs. In the unlikely event of a personal data breach, Role Nest will notify the <strong>Data Protection Board of India</strong> and affected Data Principals in the prescribed statutory format.
+                We maintain state-of-the-art organizational and technical measures: AES-256 and HMAC-SHA256 encryption, role-based database permissions, NVMe private token gating, and automated threat logs. In the unlikely event of a personal data breach, RoleNest will notify the <strong>Data Protection Board of India</strong> and affected Data Principals in the prescribed statutory format.
               </p>
             </section>
 
@@ -319,7 +319,7 @@ export default function PrivacyPage() {
                 8. Error Telemetry, Performance Monitoring &amp; Diagnostics (Sentry)
               </h2>
               <p>
-                To maintain uptime, detect application crashes, and fix user-facing defects, Role Nest integrates Sentry (Functional Software, Inc.) for application error tracking and performance telemetry:
+                To maintain uptime, detect application crashes, and fix user-facing defects, RoleNest integrates Sentry (Functional Software, Inc.) for application error tracking and performance telemetry:
               </p>
               <ul className="list-disc pl-5 space-y-1 text-xs sm:text-sm text-slate-600">
                 <li>
@@ -390,7 +390,7 @@ export default function PrivacyPage() {
                   <span>We Do Not Sell or Share Personal Information</span>
                 </div>
                 <p>
-                  Role Nest does <strong>not sell</strong> personal information of consumers, nor do we &quot;share&quot; personal information for cross-context behavioral advertising (as defined under the CCPA/CPRA). We have not sold or shared any consumer personal information in the preceding 12 months.
+                  RoleNest does <strong>not sell</strong> personal information of consumers, nor do we &quot;share&quot; personal information for cross-context behavioral advertising (as defined under the CCPA/CPRA). We have not sold or shared any consumer personal information in the preceding 12 months.
                 </p>
                 <div className="pt-2 border-t border-slate-200/80 space-y-1">
                   <p className="font-semibold text-slate-900">California Resident Rights:</p>
@@ -410,7 +410,7 @@ export default function PrivacyPage() {
             <div className="pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
               <div className="flex items-center gap-2">
                 <ShieldCheck className="h-4 w-4 text-emerald-600" />
-                <span>Role Nest Privacy &amp; Data Protection Standard</span>
+                <span>RoleNest Privacy &amp; Data Protection Standard</span>
               </div>
               <div className="flex items-center gap-3">
                 <Link href="/terms" className="hover:text-emerald-600 underline">Terms and Conditions</Link>

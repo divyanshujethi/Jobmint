@@ -43,7 +43,7 @@ const IMPACT_TIERS: Record<number, string> = {
 
 const FAQS = [
   {
-    q: "Why should I contribute to the RitualDev Lab, DevShelf & Role Nest Fund?",
+    q: "Why should I contribute to the RitualDev Lab, DevShelf & RoleNest Fund?",
     a: "Unlike traditional placement agencies that charge job seekers ₹10,000–₹50,000 or sell candidate phone numbers to spam recruiters, our collective believes developer learning resources and verified hiring must remain 100% free, open, and ad-free. Your contribution directly funds cloud server clusters, AI compute tokens, and continuous development.",
   },
   {
@@ -64,7 +64,7 @@ const FAQS = [
   },
   {
     q: "What is the relationship between ritualdev.in, devshelf.ritualdev.in, and rolenest.in?",
-    a: "RitualDev Lab (ritualdev.in) is the parent developer collective and engineering studio. DevShelf (devshelf.ritualdev.in) is our free developer shelf for roadmaps, cheat sheets, and interview prep. Role Nest (rolenest.in) is the flagship tech careers and job verification platform.",
+    a: "RitualDev Lab (ritualdev.in) is the parent developer collective and engineering studio. DevShelf (devshelf.ritualdev.in) is our free developer shelf for roadmaps, cheat sheets, and interview prep. RoleNest (rolenest.in) is the flagship tech careers and job verification platform.",
   },
 ];
 
@@ -230,7 +230,7 @@ export default function DonatePage() {
         }
       `}</style>
 
-      {/* 1. Standalone Top Bar - Distinct from Role Nest Job Board */}
+      {/* 1. Standalone Top Bar - Distinct from RoleNest Job Board */}
       <header className="donation-header sticky top-0 z-40 w-full border-b border-slate-800/80 bg-slate-950/90 backdrop-blur-md">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3">
@@ -240,7 +240,7 @@ export default function DonatePage() {
             <div>
               <div className="flex items-center gap-2">
                 <span className="font-black text-sm sm:text-base tracking-tight text-white">
-                  RitualDev <span className="text-emerald-400">×</span> Role Nest
+                  RitualDev <span className="text-emerald-400">×</span> RoleNest
                 </span>
                 <span className="rounded-full bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 text-[10px] font-black uppercase tracking-wider text-emerald-400 hidden sm:inline-block">
                   Community Fund
@@ -332,7 +332,7 @@ export default function DonatePage() {
             </h1>
 
             <p className="text-sm sm:text-base text-slate-300 leading-relaxed max-w-2xl mx-auto">
-              Jointly supported by <strong>RitualDev Lab</strong>, <strong>Role Nest</strong>, and <strong>DevShelf</strong>. Your contribution keeps tech career telemetry, standard ATS tools, and developer learning roadmaps completely free for students.
+              Jointly supported by <strong>RitualDev Lab</strong>, <strong>RoleNest</strong>, and <strong>DevShelf</strong>. Your contribution keeps tech career telemetry, standard ATS tools, and developer learning roadmaps completely free for students.
             </p>
 
             {/* Real Live Community Ledger - Zero Fake Funding */}
@@ -485,12 +485,12 @@ export default function DonatePage() {
                     </p>
                   </div>
 
-                  {/* Pillar 3: Role Nest */}
+                  {/* Pillar 3: RoleNest */}
                   <div className="p-4 rounded-2xl border border-slate-800 bg-slate-950/60 hover:border-emerald-500/40 transition-colors space-y-1.5">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <div className="h-2 w-2 rounded-full bg-emerald-400" />
-                        <span className="font-black text-sm text-white">Role Nest</span>
+                        <span className="font-black text-sm text-white">RoleNest</span>
                       </div>
                       <a
                         href="https://rolenest.in"
@@ -524,7 +524,7 @@ export default function DonatePage() {
                 </div>
 
                 <p className="text-slate-300 leading-relaxed text-[11.5px]">
-                  <strong>Data Fiduciary:</strong> Role Nest &amp; RitualDev Technologies (Sector 62, Noida, UP 201301). Under Section 5 &amp; 6 of the DPDP Act 2023, your contact information is exclusively processed for Cashfree UPI payment processing and digital receipt generation.
+                  <strong>Data Fiduciary:</strong> RoleNest &amp; RitualDev Technologies (Sector 62, Noida, UP 201301). Under Section 5 &amp; 6 of the DPDP Act 2023, your contact information is exclusively processed for Cashfree UPI payment processing and digital receipt generation.
                 </p>
 
                 {showDpdpDetails && (
@@ -884,7 +884,7 @@ export default function DonatePage() {
           {/* Bottom Banner: Gratitude & Reciprocal Links */}
           <div className="rounded-3xl border border-slate-800 bg-slate-900/80 p-8 text-center space-y-4 shadow-xl">
             <h3 className="text-xl font-black text-white">
-              A Thank You from the RitualDev, Role Nest &amp; DevShelf Teams
+              A Thank You from the RitualDev, RoleNest &amp; DevShelf Teams
             </h3>
             <p className="text-xs sm:text-sm text-slate-400 max-w-2xl mx-auto leading-relaxed">
               Every single rupee contributed empowers college engineering candidates who cannot afford expensive ₹10,000+ placement courses or paid recruiter spam services. We remain accountable to our developer community.
@@ -912,7 +912,7 @@ export default function DonatePage() {
                 href="https://rolenest.in"
                 className="text-xs font-bold text-emerald-400 hover:text-emerald-300 underline flex items-center gap-1"
               >
-                Role Nest Platform (rolenest.in) <ExternalLink className="h-3 w-3" />
+                RoleNest Platform (rolenest.in) <ExternalLink className="h-3 w-3" />
               </a>
             </div>
           </div>
@@ -927,14 +927,14 @@ export default function DonatePage() {
             <span>•</span>
             <a href="https://devshelf.ritualdev.in" target="_blank" rel="noopener noreferrer" className="hover:text-white">DevShelf</a>
             <span>•</span>
-            <a href="https://rolenest.in" className="hover:text-white">Role Nest</a>
+            <a href="https://rolenest.in" className="hover:text-white">RoleNest</a>
             <span>•</span>
             <a href="https://rolenest.in/privacy" className="hover:text-white">DPDP Privacy Policy</a>
             <span>•</span>
             <a href="https://rolenest.in/terms" className="hover:text-white">Terms of Contribution</a>
           </div>
           <p className="text-[11px] text-slate-500">
-            © {new Date().getFullYear()} Community Infrastructure Fund — Jointly Operated by RitualDev Lab &amp; Role Nest (Founder: Divyanshu Jethi).
+            © {new Date().getFullYear()} Community Infrastructure Fund — Jointly Operated by RitualDev Lab &amp; RoleNest (Founder: Divyanshu Jethi).
           </p>
           <p className="text-[11px] text-slate-600 max-w-2xl mx-auto">
             DPDP Act 2023 Compliant • Registered Office: Sector 62, Noida, Gautam Buddha Nagar, Uttar Pradesh 201301 • RBI-Authorized Cashfree Payments Processing

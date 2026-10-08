@@ -86,7 +86,7 @@ export function sanitizeOrderTags(tags?: Record<string, string>): Record<string,
 }
 
 export function sanitizeOrderNote(note?: string): string {
-  if (!note) return "Role Nest Contribution";
+  if (!note) return "RoleNest Contribution";
   return (
     String(note)
       .replace(/<[^>]*>/g, "")
@@ -94,7 +94,7 @@ export function sanitizeOrderNote(note?: string): string {
       .replace(/₹/g, "INR ")
       .replace(/[^\x20-\x7E]/g, "")
       .trim()
-      .slice(0, 200) || "Role Nest Contribution"
+      .slice(0, 200) || "RoleNest Contribution"
   );
 }
 

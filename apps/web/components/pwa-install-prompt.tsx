@@ -108,7 +108,7 @@ export function PwaInstallPrompt() {
                 R
               </div>
               <div>
-                <h4 className="text-sm font-bold text-slate-900">Install Role Nest App</h4>
+                <h4 className="text-sm font-bold text-slate-900">Install RoleNest App</h4>
                 <p className="text-xs text-slate-500 mt-0.5">
                   100% Free • Fast Offline Roadmaps &amp; Live Job Alerts
                 </p>
@@ -152,7 +152,7 @@ export function PwaInstallPrompt() {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2 text-slate-900 font-bold text-lg">
                 <Smartphone className="h-5 w-5 text-emerald-600" />
-                How to Install Role Nest App
+                How to Install RoleNest App
               </div>
               <button
                 type="button"
@@ -165,7 +165,7 @@ export function PwaInstallPrompt() {
             </div>
 
             <p className="text-xs text-slate-600 leading-relaxed">
-              Role Nest is a Progressive Web App (PWA) with full offline support and instant loading. You can install it directly from your browser:
+              RoleNest is a Progressive Web App (PWA) with full offline support and instant loading. You can install it directly from your browser:
             </p>
 
             <div className="space-y-2.5 text-xs text-slate-700 bg-slate-50 border border-slate-200 p-4 rounded-2xl">

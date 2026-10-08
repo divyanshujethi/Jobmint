@@ -406,7 +406,7 @@ export const CANVAS_TRACKS: CanvasTrack[] = [
         mentalModelSnippet: "# Dockerized Production Architecture:\n# Frontend: Next.js 15 App Router (Streaming Markdown)\n# Backend: FastAPI + LangGraph State Engine\n# Retrieval: Qdrant Vector DB with Hybrid HNSW\n# Serving: Groq API / Self-Hosted vLLM Llama 3.2",
         matchedCourseId: "karpathy-nn",
         resources: [
-          { title: "Role Nest Capstone Blueprint Guide", url: "https://github.com", type: "exercise", provider: "Role Nest Academy", isFree: true },
+          { title: "RoleNest Capstone Blueprint Guide", url: "https://github.com", type: "exercise", provider: "RoleNest Academy", isFree: true },
           { title: "OpenAI Cookbook Production Architecture", url: "https://github.com/openai/openai-cookbook", type: "doc", provider: "OpenAI", isFree: true },
         ],
       },
@@ -589,7 +589,7 @@ export const CANVAS_TRACKS: CanvasTrack[] = [
         mentalModelSnippet: "# Deployment Checklist:\n# 1. Zero-downtime database migrations\n# 2. Security headers (HSTS, CSP, X-Frame-Options)\n# 3. Environment secrets separation (Dev vs Prod)",
         matchedCourseId: "hitesh-chai-fullstack",
         resources: [
-          { title: "SaaS Boilerplate Guide", url: "https://github.com", type: "exercise", provider: "Role Nest Academy", isFree: true },
+          { title: "SaaS Boilerplate Guide", url: "https://github.com", type: "exercise", provider: "RoleNest Academy", isFree: true },
         ],
       },
     ],
@@ -1311,7 +1311,7 @@ export const CANVAS_TRACKS: CanvasTrack[] = [
         mentalModelSnippet: "# Medallion Architecture:\n# Bronze: Raw Append-Only Kafka Events\n# Silver: Deduplicated, Validated & Schema-Enforced Clean Records\n# Gold: Aggregated Business Marts Serving BI & ML Models",
         matchedCourseId: "abhishek-devops-aws",
         resources: [
-          { title: "Role Nest Lakehouse Capstone Guide", url: "https://github.com", type: "exercise", provider: "Role Nest Academy", isFree: true },
+          { title: "RoleNest Lakehouse Capstone Guide", url: "https://github.com", type: "exercise", provider: "RoleNest Academy", isFree: true },
         ],
       },
     ],
@@ -1567,7 +1567,7 @@ export const CANVAS_TRACKS: CanvasTrack[] = [
           creator: "Gaurav Sen"
         },
         resources: [
-          { title: "Role Nest Backend Capstone Architecture", url: "https://github.com", type: "exercise", provider: "Role Nest Engineering", isFree: true },
+          { title: "RoleNest Backend Capstone Architecture", url: "https://github.com", type: "exercise", provider: "RoleNest Engineering", isFree: true },
         ],
       },
     ],

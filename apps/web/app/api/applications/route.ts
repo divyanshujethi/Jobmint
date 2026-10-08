@@ -295,7 +295,7 @@ export async function POST(req: NextRequest) {
     ) {
       return NextResponse.json(
         {
-          error: `Tracking Quota Reached: Your current plan (${planInfo.planTier.toUpperCase()}) allows up to ${planInfo.limits.maxTrackedApplications} active tracked applications in your Kanban pipeline. Upgrade to Role Nest Pro (25 applications) or Plus (unlimited applications) to track more positions.`,
+          error: `Tracking Quota Reached: Your current plan (${planInfo.planTier.toUpperCase()}) allows up to ${planInfo.limits.maxTrackedApplications} active tracked applications in your Kanban pipeline. Upgrade to RoleNest Pro (50 applications) or Annual Pass (150 applications) to track more positions.`,
           code: "TRACKING_LIMIT_REACHED",
           currentCount: existingApps.length,
           limit: planInfo.limits.maxTrackedApplications,
@@ -323,7 +323,7 @@ export async function POST(req: NextRequest) {
     await db.insert(applicationEvents).values({
       applicationId: newApp.id,
       eventType: "APPLIED",
-      note: "Application successfully received by Role Nest telemetry with Truth Teller active.",
+      note: "Application successfully received by RoleNest telemetry with Truth Teller active.",
     });
 
     // 5. Send confirmation email asynchronously via Brevo / Free Gateway

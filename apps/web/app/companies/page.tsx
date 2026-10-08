@@ -9,7 +9,7 @@ export default async function CompaniesDirectoryPage() {
   const itemListJsonLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "Top Tech Employers & Transparent Companies in India — Role Nest",
+    name: "Top Tech Employers & Transparent Companies in India — RoleNest",
     description:
       "Browse verified tech employers, unicorns, and emerging startups actively hiring engineers in India with Truth Teller transparency metrics.",
     numberOfItems: companies.length,

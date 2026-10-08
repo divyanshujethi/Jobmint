@@ -81,7 +81,7 @@ export function JobApplyButton({
             type="button"
             onClick={handleTrackApplication}
             disabled={isTracking}
-            title="Log this external application in your Role Nest Truth Teller dashboard"
+            title="Log this external application in your RoleNest Truth Teller dashboard"
             className="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold border border-slate-200 transition-colors"
           >
             <BookmarkCheck className="h-3.5 w-3.5 text-slate-500" />
@@ -92,7 +92,7 @@ export function JobApplyButton({
     );
   }
 
-  // Direct employer posting on Role Nest
+  // Direct employer posting on RoleNest
   return (
     <>
       <Button
@@ -100,7 +100,7 @@ export function JobApplyButton({
         className={className}
         onClick={() => setIsOpen(true)}
       >
-        Apply on Role Nest
+        Apply on RoleNest
       </Button>
 
       <ApplyModal

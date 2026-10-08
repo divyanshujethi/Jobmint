@@ -369,7 +369,7 @@ export function DemoSandboxModal({
                     <span>Proof of Work</span>
                   </div>
                   <div className="text-xs text-slate-300">
-                    Evaluated by Role Nest Dev Score indexer for authentic candidate authorship.
+                    Evaluated by RoleNest Dev Score indexer for authentic candidate authorship.
                   </div>
                 </div>
               </div>

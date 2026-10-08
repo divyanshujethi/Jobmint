@@ -16,7 +16,7 @@ export const PSEO_TOPICS: Record<string, PseoTopic> = {
   "remote-frontend-developer": {
     slug: "remote-frontend-developer",
     title: "Remote Frontend Developer",
-    metaTitle: "Remote Frontend Developer Jobs in India (2026) | Role Nest",
+    metaTitle: "Remote Frontend Developer Jobs in India (2026) | RoleNest",
     metaDescription:
       "Explore verified remote Frontend Developer jobs. React, Next.js, TypeScript & Vue roles with transparent salaries and active Truth Teller hiring telemetry.",
     heading: "Remote Frontend Developer Jobs",
@@ -43,12 +43,12 @@ export const PSEO_TOPICS: Record<string, PseoTopic> = {
       {
         question: "What is the average salary for Remote Frontend Developers in India?",
         answer:
-          "Based on verified Role Nest listings, Remote Frontend Developers earn between ₹12,00,000 to ₹35,00,000 annually, depending on experience with React, TypeScript, and modern state architectures.",
+          "Based on verified RoleNest listings, Remote Frontend Developers earn between ₹12,00,000 to ₹35,00,000 annually, depending on experience with React, TypeScript, and modern state architectures.",
       },
       {
-        question: "How does Role Nest guarantee recruiter review for remote roles?",
+        question: "How does RoleNest guarantee recruiter review for remote roles?",
         answer:
-          "Role Nest Truth Teller monitors recruiter activity. Companies on our verified board maintain a median review time under 3 days, eliminating application ghosting.",
+          "RoleNest Truth Teller monitors recruiter activity. Companies on our verified board maintain a median review time under 3 days, eliminating application ghosting.",
       },
       {
         question: "What key skills are required for remote frontend developer jobs in 2026?",
@@ -60,7 +60,7 @@ export const PSEO_TOPICS: Record<string, PseoTopic> = {
   "fresher-internships-bangalore": {
     slug: "fresher-internships-bangalore",
     title: "Fresher Internships Bangalore",
-    metaTitle: "Fresher Tech Internships in Bangalore (2026) | Role Nest",
+    metaTitle: "Fresher Tech Internships in Bangalore (2026) | RoleNest",
     metaDescription:
       "Find high-stipend software engineering internships in Bangalore for 2024-2026 graduates. Verified ₹40,000 - ₹80,000/mo stipends with PPO opportunities.",
     heading: "Fresher & Tech Internships in Bengaluru",
@@ -91,14 +91,14 @@ export const PSEO_TOPICS: Record<string, PseoTopic> = {
       {
         question: "Can 2025 and 2026 batch college students apply for these internships?",
         answer:
-          "Yes! Most internship roles on Role Nest welcome pre-final and final year computer science students with active GitHub projects or competitive problem-solving records.",
+          "Yes! Most internship roles on RoleNest welcome pre-final and final year computer science students with active GitHub projects or competitive problem-solving records.",
       },
     ],
   },
   "python-ai-engineer": {
     slug: "python-ai-engineer",
     title: "Python AI & LLM Engineer",
-    metaTitle: "Python AI & Machine Learning Engineer Jobs (2026) | Role Nest",
+    metaTitle: "Python AI & Machine Learning Engineer Jobs (2026) | RoleNest",
     metaDescription:
       "Discover verified Python AI Engineer and LLM Agent roles. Work on RAG pipelines, fine-tuning, and production generative AI systems with competitive compensation.",
     heading: "Python AI & LLM Engineering Jobs",
@@ -129,14 +129,14 @@ export const PSEO_TOPICS: Record<string, PseoTopic> = {
       {
         question: "Are remote Python AI jobs available for Indian engineers?",
         answer:
-          "Yes! More than 60% of AI engineering listings on Role Nest offer flexible remote or hybrid work arrangements with global teams.",
+          "Yes! More than 60% of AI engineering listings on RoleNest offer flexible remote or hybrid work arrangements with global teams.",
       },
     ],
   },
   "backend-developer-jobs": {
     slug: "backend-developer-jobs",
     title: "Backend Developer Jobs",
-    metaTitle: "Backend Developer Jobs in India (2026) | Role Nest",
+    metaTitle: "Backend Developer Jobs in India (2026) | RoleNest",
     metaDescription:
       "Browse verified Backend Developer jobs. Distributed systems, PostgreSQL, Node.js, Go, and Java careers with transparent salary bands.",
     heading: "Backend Engineering Jobs",
@@ -161,7 +161,7 @@ export const PSEO_TOPICS: Record<string, PseoTopic> = {
     ],
     faqs: [
       {
-        question: "What is the typical tech stack for backend jobs on Role Nest?",
+        question: "What is the typical tech stack for backend jobs on RoleNest?",
         answer:
           "Companies commonly hire for Node.js/TypeScript, Go, Python (FastAPI), Java (Spring Boot), PostgreSQL, Kafka, and Redis.",
       },
@@ -170,7 +170,7 @@ export const PSEO_TOPICS: Record<string, PseoTopic> = {
   "full-stack-developer-jobs": {
     slug: "full-stack-developer-jobs",
     title: "Full Stack Developer Jobs",
-    metaTitle: "Full Stack Developer Jobs in India (2026) | Role Nest",
+    metaTitle: "Full Stack Developer Jobs in India (2026) | RoleNest",
     metaDescription:
       "Find top Full Stack Developer roles with React, Next.js, Node.js, and cloud deployments. Verified active ATS direct links and smart application tracking.",
     heading: "Full Stack Developer Jobs",
@@ -188,16 +188,16 @@ export const PSEO_TOPICS: Record<string, PseoTopic> = {
     ],
     faqs: [
       {
-        question: "Why apply for Full Stack roles through Role Nest?",
+        question: "Why apply for Full Stack roles through RoleNest?",
         answer:
-          "Role Nest verifies each listing and tracks application milestones in real-time, giving candidates honest feedback on resume views and shortlist status.",
+          "RoleNest verifies each listing and tracks application milestones in real-time, giving candidates honest feedback on resume views and shortlist status.",
       },
     ],
   },
   "fresher-developer-jobs": {
     slug: "fresher-developer-jobs",
     title: "Fresher Developer Jobs",
-    metaTitle: "Fresher Software Engineer Jobs (2024-2026 Batches) | Role Nest",
+    metaTitle: "Fresher Software Engineer Jobs (2024-2026 Batches) | RoleNest",
     metaDescription:
       "Apply for junior software engineer and fresher developer jobs in India. Verified entry-level roles with genuine mentorship and competitive pay.",
     heading: "Fresher Software Engineer Jobs",
@@ -216,14 +216,14 @@ export const PSEO_TOPICS: Record<string, PseoTopic> = {
       {
         question: "How can freshers stand out when applying?",
         answer:
-          "Include a verified Role Nest Dev Score, solved problems on our POTD platform, and active GitHub repositories demonstrating clean code.",
+          "Include a verified RoleNest Dev Score, solved problems on our POTD platform, and active GitHub repositories demonstrating clean code.",
       },
     ],
   },
   "jobs-in-bangalore": {
     slug: "jobs-in-bangalore",
     title: "Tech Jobs in Bangalore",
-    metaTitle: "Top Tech & Software Engineer Jobs in Bangalore (2026) | Role Nest",
+    metaTitle: "Top Tech & Software Engineer Jobs in Bangalore (2026) | RoleNest",
     metaDescription:
       "Explore software engineer, AI, and developer job openings in Bangalore. Verified tech startups and unicorn employers with transparent pay.",
     heading: "Tech Jobs in Bengaluru",

@@ -150,10 +150,10 @@ function PaymentVerificationContent() {
               <div className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 border border-emerald-200 px-3 py-0.5 text-[11px] font-bold text-emerald-800 mx-auto">
                 <Sparkles className="h-3.5 w-3.5 text-emerald-600" />
                 {isDonation
-                  ? "RitualDev & Role Nest Supporter"
+                  ? "RitualDev & RoleNest Supporter"
                   : isInternship
                     ? "Internship Admission Confirmed"
-                    : "Role Nest Pro Activated"}
+                    : "RoleNest Pro Activated"}
               </div>
               <CardTitle className="text-2xl font-black text-slate-900">
                 {isDonation ? "Donation Received! Thank You ❤️" : "Payment Successful!"}
@@ -186,7 +186,7 @@ function PaymentVerificationContent() {
                 {isDonation ? (
                   <div className="flex justify-between">
                     <span className="text-slate-500 font-medium">Initiative:</span>
-                    <span className="font-semibold text-emerald-900">RitualDev Lab &amp; Role Nest</span>
+                    <span className="font-semibold text-emerald-900">RitualDev Lab &amp; RoleNest</span>
                   </div>
                 ) : details?.expiresAt && (
                   <div className="flex justify-between">
@@ -206,7 +206,7 @@ function PaymentVerificationContent() {
                 <ShieldCheck className="h-4 w-4 text-emerald-600 shrink-0" />
                 <span>
                   {isDonation
-                    ? "On behalf of the engineering teams at RitualDev (ritualdev.in) and Role Nest (rolenest.in), we deeply appreciate your generosity."
+                    ? "On behalf of the engineering teams at RitualDev (ritualdev.in) and RoleNest (rolenest.in), we deeply appreciate your generosity."
                     : isInternship
                       ? "Access your live day-by-day labs and verified academic credentials in the student portal."
                       : "All Pro features are now unlocked on your profile: Unlimited ATS matching, POTD streaks, and priority application tracking."}
@@ -237,7 +237,7 @@ function PaymentVerificationContent() {
                     rel="noreferrer"
                     className="text-xs text-slate-500 hover:text-emerald-700 transition-colors"
                   >
-                    Explore Role Nest Tech Careers Platform (rolenest.in) →
+                    Explore RoleNest Tech Careers Platform (rolenest.in) →
                   </a>
                   <a
                     href="https://ritualdev.in"

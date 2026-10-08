@@ -175,7 +175,7 @@ export function ApplyModal({
 
       const data = await res.json();
       if (res.status === 403 && data.requiresPro) {
-        setProModalReason(data.error || "You have reached your 3 free AI generations limit. Upgrade to Pro for unlimited ATS matching.");
+        setProModalReason(data.error || "You have reached your 5 free AI generations limit. Upgrade to Pro for high-quota ATS matching.");
         setShowProModal(true);
         return;
       }
@@ -214,7 +214,7 @@ export function ApplyModal({
 
       const data = await res.json();
       if (res.status === 403 && data.requiresPro) {
-        setProModalReason(data.error || "You have used your 3 free AI trials. Upgrade to Pro for unlimited AI cover letters.");
+        setProModalReason(data.error || "You have used your 5 free AI generations. Upgrade to Pro for high-quota AI cover letters.");
         setShowProModal(true);
         return;
       }

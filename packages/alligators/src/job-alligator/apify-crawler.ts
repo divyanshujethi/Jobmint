@@ -1,5 +1,5 @@
 /**
- * Role Nest - Apify Universal Jobs Crawler
+ * RoleNest - Apify Universal Jobs Crawler
  * Uses Apify Actor platform to fetch scraped listings from Indeed, LinkedIn, Greenhouse, and Lever boards.
  * Integrated with the 3-Layer Geo-Exclusion Engine.
  */

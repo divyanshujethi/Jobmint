@@ -110,7 +110,7 @@ export async function POST(req: NextRequest) {
             })
             .where(eq(users.id, userId));
           console.log(
-            `[Paddle Webhook] Successfully activated Role Nest Pro for user ID: ${userId}`
+            `[Paddle Webhook] Successfully activated RoleNest Pro for user ID: ${userId}`
           );
         } else if (customerEmail) {
           await db
@@ -123,7 +123,7 @@ export async function POST(req: NextRequest) {
             })
             .where(eq(users.email, customerEmail.toLowerCase()));
           console.log(
-            `[Paddle Webhook] Successfully activated Role Nest Pro for user email: ${customerEmail}`
+            `[Paddle Webhook] Successfully activated RoleNest Pro for user email: ${customerEmail}`
           );
         }
       }
@@ -171,7 +171,7 @@ export async function POST(req: NextRequest) {
           })
           .where(eq(users.id, userId));
         console.log(
-          `[Paddle Webhook] Role Nest Pro revoked for canceled user ID: ${userId}`
+          `[Paddle Webhook] RoleNest Pro revoked for canceled user ID: ${userId}`
         );
       } else if (customerEmail) {
         await db
@@ -182,7 +182,7 @@ export async function POST(req: NextRequest) {
           })
           .where(eq(users.email, customerEmail.toLowerCase()));
         console.log(
-          `[Paddle Webhook] Role Nest Pro revoked for canceled user email: ${customerEmail}`
+          `[Paddle Webhook] RoleNest Pro revoked for canceled user email: ${customerEmail}`
         );
       }
     }

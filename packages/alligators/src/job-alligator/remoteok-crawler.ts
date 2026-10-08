@@ -1,5 +1,5 @@
 /**
- * Role Nest - RemoteOK Live Tech Jobs Crawler
+ * RoleNest - RemoteOK Live Tech Jobs Crawler
  * Crawls active remote software engineering positions from RemoteOK API.
  * Integrated with the 3-Layer Geo-Exclusion Engine.
  */

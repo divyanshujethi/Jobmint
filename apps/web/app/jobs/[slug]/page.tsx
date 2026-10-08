@@ -55,7 +55,7 @@ export async function generateMetadata({ params }: JobPageProps): Promise<Metada
           title: pseo.metaTitle,
           description: pseo.metaDescription,
           url: `https://rolenest.in/jobs/${slug}`,
-          siteName: "Role Nest",
+          siteName: "RoleNest",
           type: "website",
           images: [
             {
@@ -76,12 +76,12 @@ export async function generateMetadata({ params }: JobPageProps): Promise<Metada
     }
 
     return {
-      title: "Job Not Found | Role Nest",
+      title: "Job Not Found | RoleNest",
     };
   }
 
   const title = `${job.title} at ${job.companyName}`;
-  const description = `${job.title} opportunity at ${job.companyName}. Location: ${job.location} (${job.workMode}). Compensation: ${job.salaryOrStipend}. Verified on Role Nest Truth Teller.`;
+  const description = `${job.title} opportunity at ${job.companyName}. Location: ${job.location} (${job.workMode}). Compensation: ${job.salaryOrStipend}. Verified on RoleNest Truth Teller.`;
 
   return {
     title,
@@ -93,7 +93,7 @@ export async function generateMetadata({ params }: JobPageProps): Promise<Metada
       title,
       description,
       url: `https://rolenest.in/jobs/${slug}`,
-      siteName: "Role Nest",
+      siteName: "RoleNest",
       type: "article",
       images: [
         {
@@ -540,13 +540,13 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
                 <div className="flex justify-between border-b border-slate-100 pb-2">
                   <span className="text-slate-600">Candidate Review Rate</span>
                   <span className="font-bold text-emerald-700">
-                    {job.truthTeller.reviewRate > 0 ? `${job.truthTeller.reviewRate}%` : "Direct Role Nest"}
+                    {job.truthTeller.reviewRate > 0 ? `${job.truthTeller.reviewRate}%` : "Direct RoleNest"}
                   </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-slate-600">Hiring Channel</span>
                   <span className="font-medium text-emerald-600">
-                    Direct Role Nest Recruiter
+                    Direct RoleNest Recruiter
                   </span>
                 </div>
               </div>

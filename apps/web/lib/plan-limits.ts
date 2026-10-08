@@ -156,7 +156,7 @@ export async function checkAndIncrementAiQuota(userIdOrEmail: string): Promise<{
   if (planInfo.limits.maxAiGenerations !== Infinity && planInfo.aiGenerationsCount >= planInfo.limits.maxAiGenerations) {
     return {
       allowed: false,
-      error: `AI Generation Quota Reached: Your current plan (${planInfo.planTier.toUpperCase()}) includes ${planInfo.limits.maxAiGenerations} AI generations total (ATS resume scans / JD drafts). Upgrade to Role Nest Pro for unlimited AI tailoring and gap analysis.`,
+      error: `AI Generation Quota Reached: Your current plan (${planInfo.planTier.toUpperCase()}) includes ${planInfo.limits.maxAiGenerations} AI generations total (ATS resume scans / JD drafts). Upgrade to RoleNest Pro (75 AI generations) or Annual Pass (300 AI generations) for comprehensive AI tailoring and gap analysis.`,
       currentCount: planInfo.aiGenerationsCount,
       limit: planInfo.limits.maxAiGenerations,
       upgradeUrl: "/pricing",

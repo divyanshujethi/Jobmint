@@ -107,7 +107,7 @@ export default function PostNewJobPage() {
 
       const data = await res.json();
       if (res.status === 403 && data.requiresPro) {
-        setProModalReason(data.error || "You have reached your 3 free AI generations limit. Upgrade to Pro for unlimited AI job drafting.");
+        setProModalReason(data.error || "You have reached your 5 free AI generations limit. Upgrade to Pro for high-quota AI job drafting.");
         setShowProModal(true);
         return;
       }
@@ -214,7 +214,7 @@ export default function PostNewJobPage() {
           </span>
           <h1 className="text-2xl font-bold text-slate-900">Sign In to Post Opportunities</h1>
           <p className="text-xs text-slate-600 leading-relaxed">
-            Posting an opportunity on Role Nest creates a verifiable company record with Truth Teller transparency. Please sign in with your employer account.
+            Posting an opportunity on RoleNest creates a verifiable company record with Truth Teller transparency. Please sign in with your employer account.
           </p>
         </div>
         <div className="pt-2 flex flex-col gap-2">
@@ -288,7 +288,7 @@ export default function PostNewJobPage() {
               </div>
             </div>
             <CardTitle className="text-2xl font-bold text-slate-900 pt-1">
-              Post an Opportunity on Role Nest
+              Post an Opportunity on RoleNest
             </CardTitle>
             <CardDescription>
               Reach thousands of ambitious students and freshers. Verified corporate postings receive 3.4x more high-fit applicants.
@@ -627,7 +627,7 @@ export default function PostNewJobPage() {
                   <label htmlFor="featured-boost" className="text-xs space-y-0.5 cursor-pointer">
                     <span className="font-bold text-slate-900 block flex items-center gap-1.5">
                       <Sparkles className="h-3.5 w-3.5 text-amber-600" />
-                      Feature this Job on Role Nest (+₹1,499)
+                      Feature this Job on RoleNest (+₹1,499)
                     </span>
                     <span className="text-slate-600 block">
                       Pin to the top of all candidate searches, get a highlighted gold badge, and reach 5x more verified applicants.
