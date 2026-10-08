@@ -3,7 +3,7 @@ import { auth } from "@/auth";
 import { db, users, eq } from "@repo/database";
 import { getCache, setCache } from "@/lib/redis";
 
-export const MAX_FREE_AI_USES = 3;
+export const MAX_FREE_AI_USES = 5;
 
 export interface QuotaCheckResult {
   allowed: boolean;
@@ -17,7 +17,7 @@ export interface QuotaCheckResult {
 }
 
 /**
- * Checks if the current user or IP has remaining free AI generations or has an active Pro subscription.
+ * Checks if the current user or IP has remaining AI generations according to their plan tier.
  */
 export async function checkAiQuota(req: NextRequest): Promise<QuotaCheckResult> {
   let userId: string | null = null;
@@ -28,39 +28,38 @@ export async function checkAiQuota(req: NextRequest): Promise<QuotaCheckResult> 
     if (session?.user?.id) {
       userId = session.user.id;
 
-      // Check DB for Pro status
-      const [userRecord] = await db
-        .select({
-          isPro: users.isPro,
-          proExpiresAt: users.proExpiresAt,
-        })
-        .from(users)
-        .where(eq(users.id, userId))
-        .limit(1);
+      // Check DB for plan & Pro status
+      const { getUserPlan } = await import("@/lib/plan-limits");
+      const plan = await getUserPlan(userId);
+      isPro = plan.isPro;
 
-      if (userRecord) {
-        const isActive =
-          userRecord.isPro &&
-          (!userRecord.proExpiresAt || new Date(userRecord.proExpiresAt) > new Date());
-        if (isActive) {
-          isPro = true;
-        }
+      const limit = plan.limits.maxAiGenerations;
+      const current = plan.aiGenerationsCount;
+
+      if (current >= limit) {
+        return {
+          allowed: false,
+          isPro,
+          usageCount: current,
+          remaining: 0,
+          limit,
+          userKey: userId,
+          requiresPro: true,
+          error: `AI Quota Reached: You have reached the limit of ${limit} AI generations on your ${plan.planTier.toUpperCase()} plan. Please upgrade at /pricing to increase your quota.`,
+        };
       }
+
+      return {
+        allowed: true,
+        isPro,
+        usageCount: current,
+        remaining: Math.max(0, limit - current),
+        limit,
+        userKey: userId,
+      };
     }
   } catch (err) {
     console.warn("[AI Quota] Error checking user session/DB:", err);
-  }
-
-  // If user is Pro, they get unlimited AI generations
-  if (isPro) {
-    return {
-      allowed: true,
-      isPro: true,
-      usageCount: 0,
-      remaining: 999999,
-      limit: 999999,
-      userKey: userId || "pro-user",
-    };
   }
 
   // For free / trial users, track by user ID or IP
@@ -83,7 +82,7 @@ export async function checkAiQuota(req: NextRequest): Promise<QuotaCheckResult> 
       limit: MAX_FREE_AI_USES,
       userKey,
       requiresPro: true,
-      error: `Free AI Trial Exhausted: You have used your ${MAX_FREE_AI_USES} free AI generations. Upgrade to Role Nest Pro for unlimited ATS matching, cover letter generation, and JD drafting.`,
+      error: `Free AI Trial Exhausted: You have used your ${MAX_FREE_AI_USES} free AI generations. Upgrade your plan at /pricing to get up to 75 AI generations/month.`,
     };
   }
 

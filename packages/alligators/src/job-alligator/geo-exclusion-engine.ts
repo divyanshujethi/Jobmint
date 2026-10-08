@@ -292,7 +292,7 @@ Reply ONLY with a valid JSON object matching this schema:
         "User-Agent": "RoleNest-GeoEngine/1.0",
       },
       body: JSON.stringify({
-        model: "llama-3.3-70b-versatile",
+        model: process.env.GROQ_MODEL || "qwen/qwen3.8-27b",
         messages: [{ role: "user", content: prompt }],
         temperature: 0.0,
         response_format: { type: "json_object" },

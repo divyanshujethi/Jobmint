@@ -43,7 +43,7 @@ export async function POST(req: NextRequest) {
     if (!session || !session.user) {
       return NextResponse.json(
         {
-          error: "Please sign in to Role Nest to access your free AI resume scans (3 total on Free tier, or unlimited on Pro).",
+          error: "Please sign in to Role Nest to access your free AI resume scans (5 total on Free tier, or up to 75/mo on Pro).",
           requiresAuth: true,
           upgradeUrl: "/login?callbackUrl=/resumes",
         },

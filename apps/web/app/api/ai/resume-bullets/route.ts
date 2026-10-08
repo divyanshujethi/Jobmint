@@ -55,7 +55,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Check Plan Limits (Free accounts strictly limited to 3 AI generations total)
+    // Check Plan Limits (Free accounts strictly limited to 5 AI generations total)
     const { checkAndIncrementAiQuota } = await import("@/lib/plan-limits");
     const quotaCheck = await checkAndIncrementAiQuota(userId);
     if (!quotaCheck.allowed) {
