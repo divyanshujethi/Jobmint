@@ -227,7 +227,7 @@ export async function POST(req: NextRequest) {
     if (action === "APPROVE_SALARY") {
       const { salaryId } = payload || {};
       const pendingKey = "rolenest:salaries:pending";
-      const publicCacheKey = "rolenest:salaries:v4:all";
+      const publicCacheKey = "rolenest:salaries:v5:all";
 
       const pending = (await getCache<SalaryRecord[]>(pendingKey)) || [];
       const itemToApprove = pending.find((s) => s.id === salaryId);
