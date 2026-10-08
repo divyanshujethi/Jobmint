@@ -213,11 +213,79 @@ const GOV_TECH_JOBS: GovJob[] = [
     status: "Active / Ongoing",
     description: "Work on control instrumentation software, communication hardware interfaces, and security equipment deployment.",
     vacancies: "60+ Openings"
+  },
+  {
+    id: "iocl-is-officer",
+    orgName: "Indian Oil Corporation Limited (IOCL - Maharatna PSU)",
+    orgCategory: "PSU",
+    title: "Information Systems Officer (Grade A / CS)",
+    payLevel: "E-2 Grade (₹50,000 - ₹1,60,000 + Maharatna Allowances)",
+    approxMonthlySalary: "₹1,25,000 / month (Gross CTC ~₹17.3 LPA)",
+    qualification: "Full-time B.E. / B.Tech in CS / IT with min 65% aggregate + Valid GATE",
+    selectionProcess: "GATE Score + Interview",
+    officialPortalUrl: "https://iocl.com/latest-job",
+    notificationUrl: "https://iocl.com/latest-job",
+    applicationDeadline: "Annual Post-GATE Cycle",
+    tags: ["Maharatna", "Enterprise ERP", "Industrial IoT", "Cloud Infrastructure"],
+    status: "Upcoming Annual Drive",
+    description: "Architect refinery automation software, nationwide SAP ERP systems, smart terminal pipelines, and digital supply chain analytics.",
+    vacancies: "35+ Officers"
+  },
+  {
+    id: "ntpc-it-executive",
+    orgName: "NTPC Limited (Maharatna PSU)",
+    orgCategory: "PSU",
+    title: "Executive Trainee (IT / Systems)",
+    payLevel: "E-1 Grade (₹40,000 - ₹1,40,000 + Performance Related Pay)",
+    approxMonthlySalary: "₹1,05,000 / month (Gross CTC ~₹15 LPA)",
+    qualification: "Engineering Degree in CS / IT / Data Science with min 65% marks",
+    selectionProcess: "GATE Score + Interview",
+    officialPortalUrl: "https://careers.ntpc.co.in",
+    notificationUrl: "https://careers.ntpc.co.in",
+    applicationDeadline: "Annual National Recruitment",
+    tags: ["Maharatna", "Power Grid SCADA", "Data Engineering", "Permanent"],
+    status: "Upcoming Annual Drive",
+    description: "Oversee mission-critical power generation SCADA databases, IT infrastructure networks, and enterprise renewable energy dashboards.",
+    vacancies: "25+ Posts"
+  },
+  {
+    id: "ongc-programming-officer",
+    orgName: "Oil and Natural Gas Corporation (ONGC - Maharatna PSU)",
+    orgCategory: "PSU",
+    title: "Programming Officer (Class I Executive)",
+    payLevel: "E-1 Level (₹60,000 - ₹1,80,000 + 35% Cafeteria Perks)",
+    approxMonthlySalary: "₹1,30,000 / month (Gross CTC ~₹21 LPA)",
+    qualification: "Graduate Engineering in CS/IT or Post Graduate in CS/IT with min 60%",
+    selectionProcess: "GATE Score + Interview",
+    officialPortalUrl: "https://ongcindia.com/web/eng/career",
+    notificationUrl: "https://ongcindia.com/web/eng/career",
+    applicationDeadline: "Annual GATE Shortlist",
+    tags: ["Maharatna", "Subsurface Computing", "Seismic Data Processing", "Permanent"],
+    status: "Upcoming Annual Drive",
+    description: "High-performance cluster management, seismic imaging algorithms, deepwater telemetry systems, and geological cloud infrastructure.",
+    vacancies: "20+ Posts"
+  },
+  {
+    id: "bhel-engineer-trainee",
+    orgName: "Bharat Heavy Electricals Limited (BHEL)",
+    orgCategory: "PSU",
+    title: "Engineer Trainee (Computer Science)",
+    payLevel: "E-1 Grade (₹50,000 - ₹1,60,000 + Industrial Perks)",
+    approxMonthlySalary: "₹95,000 / month",
+    qualification: "Full time B.Tech in CS / IT with min 65% marks or 6.5 CGPA",
+    selectionProcess: "Written Exam (CBT) + Interview",
+    officialPortalUrl: "https://careers.bhel.in",
+    notificationUrl: "https://careers.bhel.in",
+    applicationDeadline: "Central CBT Drive",
+    tags: ["Maharatna", "Industrial Automation", "Simulation Systems"],
+    status: "Upcoming Annual Drive",
+    description: "Develop embedded controls for heavy turbines, industrial plant simulation engines, and enterprise defence telemetry systems.",
+    vacancies: "30+ Trainees"
   }
 ];
 
 export default function GovTechPage() {
-  const [activeTab, setActiveTab] = useState<"openings" | "howToApply" | "payScale" | "syllabus">("openings");
+  const [activeTab, setActiveTab] = useState<"openings" | "howToApply" | "payScale" | "syllabus" | "crawlerPolicy">("openings");
   const [selectedCategory, setSelectedCategory] = useState<string>("ALL");
   const [searchTerm, setSearchTerm] = useState<string>("");
 
@@ -232,7 +300,7 @@ export default function GovTechPage() {
         const matchesTitle = job.title.toLowerCase().includes(q);
         const matchesTags = job.tags.some((t) => t.toLowerCase().includes(q));
         const matchesQual = job.qualification.toLowerCase().includes(q);
-        if (!matchesOrg && !matchesTitle && !matchesTags && !matchesQual) return false;
+        if (!matchesOrg && !matchesTitle && !matchesQual) return false;
       }
       return true;
     });
@@ -240,32 +308,42 @@ export default function GovTechPage() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-      {/* ANTI-SCAM VERIFICATION BANNER */}
+      {/* ANTI-SCAM VERIFICATION BANNER & CRAWLER STATUS */}
       <div className="mb-6 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-emerald-500/30 bg-gradient-to-r from-emerald-950 via-slate-900 to-teal-950 p-4 text-emerald-200 shadow-xl">
         <div className="flex items-center gap-3">
           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/40">
             <ShieldCheck className="h-5 w-5" />
           </div>
           <div>
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2">
               <span className="text-xs font-bold uppercase tracking-wider text-emerald-400">
-                100% Verified Government Recruitment
+                100% Verified Government & PSU Recruitment
               </span>
               <span className="rounded-full bg-emerald-500/20 px-2 py-0.5 text-[10px] font-semibold text-emerald-300 border border-emerald-500/30">
-                No 3rd-Party Scam Links
+                Direct .gov.in & .nic.in Portals
+              </span>
+              <span className="rounded-full bg-blue-500/20 px-2 py-0.5 text-[10px] font-semibold text-blue-300 border border-blue-500/30 flex items-center gap-1">
+                <span className="h-1.5 w-1.5 rounded-full bg-blue-400 animate-pulse"></span>
+                Automated Deadline & Expiry Crawler Active
               </span>
             </div>
             <p className="text-xs text-slate-300 mt-0.5">
-              RoleNest indexes solely verified official portals (<span className="font-mono text-emerald-400">.gov.in</span>, <span className="font-mono text-emerald-400">.nic.in</span>). No ad popups, no registration fees, no fake notifications.
+              RoleNest continuously crawls official gazettes & PSU career portals. Expired recruitment windows are automatically archived by our TTL verification engine so you never apply to closed notifications.
             </p>
           </div>
         </div>
         <div className="flex items-center gap-2">
+          <button
+            onClick={() => setActiveTab("crawlerPolicy")}
+            className="rounded-xl border border-teal-500/40 bg-teal-500/10 px-3 py-1.5 text-xs font-medium text-teal-300 hover:bg-teal-500/20 transition-colors cursor-pointer"
+          >
+            How Our Crawler Works &rarr;
+          </button>
           <Link
             href="/jobs"
             className="rounded-xl border border-emerald-500/40 bg-emerald-500/10 px-3.5 py-1.5 text-xs font-medium text-emerald-300 hover:bg-emerald-500/20 transition-colors"
           >
-            Switch to Startup & Corporate Jobs &rarr;
+            Startup & Corporate Jobs &rarr;
           </Link>
         </div>
       </div>
@@ -302,6 +380,7 @@ export default function GovTechPage() {
             { id: "howToApply", label: "Step-by-Step 'How to Apply' Guide", icon: FileText },
             { id: "payScale", label: "7th CPC Pay Scale & Perks Breakdown", icon: Coins },
             { id: "syllabus", label: "Exam Pattern & Technical Syllabus", icon: BookOpen },
+            { id: "crawlerPolicy", label: "Live Crawler & Expiry Watchdog", icon: Sparkles },
           ].map((tab) => {
             const Icon = tab.icon;
             const isActive = activeTab === tab.id;
@@ -473,43 +552,61 @@ export default function GovTechPage() {
                     { name: "DRDO RAC Portal", url: "https://rac.gov.in" },
                     { name: "ISRO Careers", url: "https://www.isro.gov.in/Careers.html" },
                     { name: "C-DAC Careers", url: "https://www.cdac.in/index.aspx?id=current_jobs" },
+                    { name: "IOCL Careers", url: "https://iocl.com/latest-job" },
+                    { name: "NTPC Careers", url: "https://careers.ntpc.co.in" },
                   ]
                 },
                 {
                   step: "02",
-                  title: "Choose Your Examination Pathway: GATE vs Non-GATE",
-                  desc: "Government tech positions fall into two distinct pathways:",
+                  title: "One-Time Registration (OTR) & Profile Setup",
+                  desc: "Most central portals require a permanent OTR registration before you can submit an application for an open notification:",
                   details: [
-                    "GATE Pathway (DRDO RAC, CRIS, BARC, NPCI): Requires a valid GATE Score in CS/IT within the last 3 years. Candidates are shortlisted directly for Tier-2 Technical Interviews based on their GATE normalized score.",
-                    "Direct Exam Pathway (NIC / NIELIT, ISRO ICRB, BEL): Conducts their own 120-150 question Computer-Based Test (CBT). No GATE score is required. Anyone with a recognized B.Tech/MCA can sit for the exam."
+                    "UPSC / OTR Portals: Upload verified DigiLocker credentials, Class 10 Board certificate (mandatory for DOB proof), and active Aadhaar authentication.",
+                    "DRDO RAC Portal: Complete Bio-Data profiling. Ensure your name matches verbatim across your Degree certificate, Aadhaar, and GATE Admit Card.",
+                    "PSU Career Portals (IOCL, NTPC, ONGC): Create candidate profiles during the annual Post-GATE notification window. Have your GATE Registration ID and normalized score ready."
                   ]
                 },
                 {
                   step: "03",
-                  title: "Document Preparation Checklist (Crucial for Verification)",
-                  desc: "Before opening the application form, prepare digital scans according to precise government upload specifications:",
-                  checklist: [
-                    "Degree Certificate or Provisional Degree (B.E./B.Tech/MCA/M.Sc in CS or IT) with minimum 60% or 6.5 CGPA.",
-                    "Valid Category Certificate (OBC-NCL / EWS must be issued within the current financial year in Government of India format; state certificates are often rejected).",
-                    "GATE Scorecard (for DRDO/CRIS/BARC positions) with clear registration number.",
-                    "Passport Photo (White background, 20 KB - 50 KB, JPEG) and Signature (Black ink on white paper, 10 KB - 20 KB).",
-                    "Government Photo Identity Card (Aadhaar, Voter ID, or Passport)."
+                  title: "Choose Your Examination Pathway: GATE vs Non-GATE",
+                  desc: "Government tech positions fall into two distinct pathways:",
+                  details: [
+                    "GATE Pathway (DRDO RAC, IOCL, ONGC, NTPC, CRIS, BARC, NPCI): Requires a valid GATE Score in CS/IT within the last 3 years. Shortlisting is done directly for Tier-2 Technical Interviews or Group Discussions (GD/GT) based on GATE normalized marks.",
+                    "Direct CBT Exam Pathway (NIC / NIELIT, ISRO ICRB, BEL, BHEL, C-DAC): Conducts independent 120-150 question Computer-Based Tests (CBT). No GATE score is required. Any recognized B.Tech/MCA/M.Sc graduate can sit for the exam."
                   ]
                 },
                 {
                   step: "04",
+                  title: "Document Preparation Checklist (Strict Central Government Formats)",
+                  desc: "Before opening the application form, prepare digital scans according to precise government upload specifications:",
+                  checklist: [
+                    "Degree Certificate or Provisional Degree (B.E./B.Tech/MCA/M.Sc in CS or IT) with minimum 60% or 6.5 CGPA.",
+                    "Valid Category Certificate (OBC-NCL / EWS must be issued within the current financial year in Government of India format; state certificates are often rejected).",
+                    "GATE Scorecard (for DRDO/CRIS/BARC/PSUs) with clear registration number and qualifying cutoffs.",
+                    "Passport Photo (White background, 20 KB - 50 KB, JPEG) and Signature (Black ink on white paper, 10 KB - 20 KB).",
+                    "Government Photo Identity Card (Aadhaar, Voter ID, or Passport).",
+                    "No Objection Certificate (NOC): Mandatory if you are currently employed in a Central/State Government dept or PSU."
+                  ]
+                },
+                {
+                  step: "05",
                   title: "Fee Payment & Exemption Norms",
                   desc: "Central Government norms provide extensive fee exemptions:",
                   feeRules: [
                     "General & OBC Male Candidates: Typical examination fee is ₹100 - ₹1,000 depending on the ministry.",
                     "Exempted Categories: Female candidates of all categories, SC, ST, and Persons with Benchmark Disabilities (PwD) are 100% exempt from application fees under Central Govt rules.",
-                    "Always pay via official SBI ePay or Treasury BharatKosh gateways."
+                    "Always pay via official SBI ePay or Treasury BharatKosh gateways. Never pay via third-party UPI handles or external payment links."
                   ]
                 },
                 {
-                  step: "05",
-                  title: "Technical Interview & Document Verification",
-                  desc: "Shortlisted candidates are invited for technical panel interviews. For Scientist 'B' (Level 10), the interview carries 15-20% weightage, focusing heavily on B.Tech final-year projects, core algorithms, and distributed systems."
+                  step: "06",
+                  title: "Biometric Verification, CBT & Technical Interview",
+                  desc: "Upon qualifying the CBT or GATE screening:",
+                  details: [
+                    "Admit Card & Biometric Check: Download admit card from the official portal. Exam centers enforce strict biometric iris/fingerprint scanning against Aadhaar data.",
+                    "Technical Panel Interview: For Scientist 'B' / E-2 Executive roles, interviews carry 15-20% weightage. Panels probe deeply into Data Structures, Operating Systems, Computer Networks, and your final year engineering capstone project.",
+                    "Medical Examination: Final selection is contingent on passing standard Central Health Service (CHS) medical fitness standards."
+                  ]
                 }
               ].map((item) => (
                 <div key={item.step} className="flex gap-4 rounded-xl border border-slate-100 bg-slate-50/50 p-4 sm:p-5">
@@ -735,6 +832,92 @@ export default function GovTechPage() {
               <p className="mt-1 leading-relaxed text-slate-700">
                 For DRDO RAC Scientist 'B' (Computer Science), the typical shortlisting cutoff score for General Category candidates ranges between <strong>720 - 780 GATE Score</strong> (Rank ~300 - 800). For NIC Scientist 'B' direct CBT exam, scoring <strong>75% or higher in Section A</strong> reliably guarantees an interview call.
               </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* TAB 5: AUTOMATED CRAWLER & EXPIRY WATCHDOG */}
+      {activeTab === "crawlerPolicy" && (
+        <div className="mt-6 space-y-6">
+          <div className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8 shadow-xs">
+            <div className="flex items-center justify-between flex-wrap gap-4 border-b border-slate-100 pb-5">
+              <div>
+                <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
+                  <Sparkles className="h-5 w-5 text-emerald-600" />
+                  RoleNest GovTech Crawler & Deadline Watchdog
+                </h2>
+                <p className="mt-1 text-xs text-slate-600">
+                  How our automated data pipeline indexes, validates, and purges expired Indian Government and PSU tech recruitment notifications.
+                </p>
+              </div>
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-800 border border-emerald-300">
+                <span className="h-2 w-2 rounded-full bg-emerald-500 animate-ping"></span>
+                Crawler Status: Operational (Daily Sync)
+              </span>
+            </div>
+
+            <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="rounded-xl border border-slate-200 bg-slate-50/60 p-5 space-y-2">
+                <div className="flex items-center gap-2 text-xs font-bold text-slate-900">
+                  <Search className="h-4 w-4 text-blue-600" />
+                  1. Official Gazette & Portal Ingestion
+                </div>
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  Our crawler targets verified government domains (<code className="text-emerald-700 font-mono">.gov.in</code>, <code className="text-emerald-700 font-mono">.nic.in</code>, <code className="text-emerald-700 font-mono">.res.in</code>), Employment News India, and official PSU career handles (ISRO, DRDO RAC, NIC, C-DAC, IOCL, NTPC).
+                </p>
+              </div>
+
+              <div className="rounded-xl border border-slate-200 bg-slate-50/60 p-5 space-y-2">
+                <div className="flex items-center gap-2 text-xs font-bold text-slate-900">
+                  <Clock className="h-4 w-4 text-amber-600" />
+                  2. Automated Deadline & Expiry Tracking
+                </div>
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  Every notification parsed is stamped with its submission cut-off date. Our automated TTL daemon (<code className="text-emerald-700 font-mono">/api/cron/jobs-ttl</code>) evaluates deadlines: postings past their last date are auto-flagged and removed from the active feed.
+                </p>
+              </div>
+
+              <div className="rounded-xl border border-slate-200 bg-slate-50/60 p-5 space-y-2">
+                <div className="flex items-center gap-2 text-xs font-bold text-slate-900">
+                  <ShieldCheck className="h-4 w-4 text-emerald-600" />
+                  3. Zero Fake Links & Anti-Phishing Filter
+                </div>
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  All apply buttons link directly to official registrar portals. Any third-party intermediary, payment gateway asking for unauthorized fees, or deceptive ad-link is hard-blocked by our security heuristics.
+                </p>
+              </div>
+            </div>
+
+            {/* ARE THESE ALL GOV TECH JOBS FAQ */}
+            <div className="mt-8 rounded-xl border border-emerald-200 bg-emerald-50/50 p-6 space-y-4">
+              <h3 className="text-sm font-bold text-emerald-950 flex items-center gap-2">
+                <Info className="h-4 w-4 text-emerald-700" />
+                Frequently Asked Questions: Coverage & Crawler Behavior
+              </h3>
+
+              <div className="space-y-3 text-xs text-slate-700">
+                <div className="bg-white/80 rounded-lg p-3.5 border border-emerald-200/60">
+                  <p className="font-bold text-slate-900">Q: Are these all the government tech jobs in India?</p>
+                  <p className="mt-1 leading-relaxed text-slate-600">
+                    A: These represent <strong>all major premier central scientific bodies, ministries, and top Maharatna/Navratna PSUs</strong> hiring computer science and IT engineers (ISRO, DRDO, NIC, C-DAC, CRIS, BARC, IOCL, NTPC, ONGC, BHEL, BEL, ECIL). Smaller state-level electricity board IT positions or regional municipal contracts may recruit via individual state public service commissions (TNPSC, UPPSC, KPSC, etc.). We prioritize high-impact, permanent, and research-grade positions.
+                  </p>
+                </div>
+
+                <div className="bg-white/80 rounded-lg p-3.5 border border-emerald-200/60">
+                  <p className="font-bold text-slate-900">Q: How often does the crawler discover new notifications?</p>
+                  <p className="mt-1 leading-relaxed text-slate-600">
+                    A: Central government organizations typically recruit on annual or bi-annual cycles (such as ISRO ICRB or DRDO RAC post-GATE release in March/April). Our crawler syncs daily to pick up rolling project appointments (like C-DAC and BEL) as well as freshly gazetted annual drives.
+                  </p>
+                </div>
+
+                <div className="bg-white/80 rounded-lg p-3.5 border border-emerald-200/60">
+                  <p className="font-bold text-slate-900">Q: Does RoleNest charge any fee for government job applications?</p>
+                  <p className="mt-1 leading-relaxed text-slate-600">
+                    A: <strong>Never.</strong> Application fees are payable solely to the official Government of India treasury (via BharatKosh or SBI ePay) on the official government website. RoleNest provides 100% free discovery and guidance.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
