@@ -16,7 +16,7 @@ export async function GET(req: NextRequest) {
     }
 
     const avgLpa = Math.round(data.reduce((acc, s) => acc + s.totalCtcLpa, 0) / (data.length || 1));
-    const totalSubmissions = data.reduce((acc, s) => acc + s.verifiedSubmissions, 0);
+    const totalSubmissions = data.reduce((acc, s) => acc + (s.verifiedSubmissions || 1), 0);
 
     return NextResponse.json({
       salaries: data,
@@ -95,19 +95,20 @@ export async function POST(req: NextRequest) {
       workMode: validWorkMode,
       interviewRounds: interviewRounds || "Coding Assessment + Technical Rounds + HR",
       typicalTimelineDays: 18,
-      verifiedSubmissions: 1,
       marketPercentile: ctc >= 35 ? "Top 5%" : ctc >= 20 ? "Top 15%" : "Median (50%)",
+      status: "PENDING_VERIFICATION",
+      submittedAt: new Date().toISOString(),
     };
 
-    // Update Redis
-    const cached = await getCache<SalaryRecord[]>(SALARIES_CACHE_KEY);
-    const current = cached && Array.isArray(cached) ? cached : COMPREHENSIVE_INDIAN_SALARIES;
-    const updated = [newRecord, ...current];
-    await setCache(SALARIES_CACHE_KEY, updated, 14 * 24 * 60 * 60);
+    // Store in Redis pending moderation queue for admin review (spam protection)
+    const pendingKey = "rolenest:salaries:pending";
+    const existingPending = (await getCache<SalaryRecord[]>(pendingKey)) || [];
+    existingPending.unshift(newRecord);
+    await setCache(pendingKey, existingPending.slice(0, 500), 90 * 24 * 60 * 60);
 
     return NextResponse.json({
       success: true,
-      message: "Anonymous salary submission recorded. Thank you for empowering transparency!",
+      message: "Anonymous salary submission received and forwarded to Admin Verification queue (+50 XP granted). Once reviewed for accuracy, it will be published to the public benchmarks!",
       salary: newRecord,
     });
   } catch (err: any) {

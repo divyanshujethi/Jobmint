@@ -437,7 +437,7 @@ export default function SalariesPage() {
                       </p>
                       <div className="pt-2 text-[10px] text-slate-500 flex items-center justify-between">
                         <span>Work Mode: <strong>{s.workMode}</strong></span>
-                        <span>Verified Reports: <strong>{s.verifiedSubmissions}</strong></span>
+                        <span>Benchmark Status: <strong className="text-emerald-700">{s.status === "PENDING_VERIFICATION" ? "Under Review" : "Verified Offer"}</strong></span>
                       </div>
                     </div>
 
@@ -495,7 +495,7 @@ export default function SalariesPage() {
                   Submit Anonymous Salary (+50 XP)
                 </h3>
                 <p className="text-xs text-slate-500">
-                  Zero PII collected. Help fellow Indian software engineers negotiate fair pay.
+                  Zero PII collected. Submissions are reviewed by admins for anti-spam verification before publishing.
                 </p>
               </div>
             </div>

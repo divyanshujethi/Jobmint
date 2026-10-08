@@ -16,8 +16,12 @@ export interface SalaryRecord {
   workMode: "Remote" | "Hybrid" | "On-site";
   interviewRounds: string;
   typicalTimelineDays: number;
-  verifiedSubmissions: number;
   marketPercentile: "Top 5%" | "Top 15%" | "Median (50%)" | "Industry Standard";
+  verifiedSubmissions?: number;
+  status?: "APPROVED" | "PENDING_VERIFICATION" | "REJECTED";
+  submittedAt?: string;
+  submitterEmail?: string;
+  sourceNote?: string;
 }
 
 export const COMPREHENSIVE_INDIAN_SALARIES: SalaryRecord[] = [
@@ -40,7 +44,7 @@ export const COMPREHENSIVE_INDIAN_SALARIES: SalaryRecord[] = [
     workMode: "Hybrid",
     interviewRounds: "Online Assessment + 4 Technical Rounds + Googliness",
     typicalTimelineDays: 24,
-    verifiedSubmissions: 64,
+    
     marketPercentile: "Top 5%",
   },
   {
@@ -61,7 +65,7 @@ export const COMPREHENSIVE_INDIAN_SALARIES: SalaryRecord[] = [
     workMode: "Hybrid",
     interviewRounds: "Recruiter Phone Screen + 4 Coding + 1 System Design + Googliness",
     typicalTimelineDays: 28,
-    verifiedSubmissions: 48,
+    
     marketPercentile: "Top 5%",
   },
   {
@@ -82,7 +86,7 @@ export const COMPREHENSIVE_INDIAN_SALARIES: SalaryRecord[] = [
     workMode: "Hybrid",
     interviewRounds: "Online Test + 3 Technical Rounds + AA (As Appropriate)",
     typicalTimelineDays: 21,
-    verifiedSubmissions: 72,
+    
     marketPercentile: "Top 15%",
   },
   {
@@ -103,7 +107,7 @@ export const COMPREHENSIVE_INDIAN_SALARIES: SalaryRecord[] = [
     workMode: "Hybrid",
     interviewRounds: "Screening + 3 Coding Rounds + System Design + Managerial",
     typicalTimelineDays: 24,
-    verifiedSubmissions: 55,
+    
     marketPercentile: "Top 15%",
   },
   {
@@ -124,7 +128,7 @@ export const COMPREHENSIVE_INDIAN_SALARIES: SalaryRecord[] = [
     workMode: "Hybrid",
     interviewRounds: "3 System Design & DSA Rounds + Partner Director Interview",
     typicalTimelineDays: 25,
-    verifiedSubmissions: 42,
+    
     marketPercentile: "Top 15%",
   },
   {
@@ -145,7 +149,7 @@ export const COMPREHENSIVE_INDIAN_SALARIES: SalaryRecord[] = [
     workMode: "On-site",
     interviewRounds: "Online Assessment (2 DSA + Work Style) + 3 Virtual Onsite + Bar Raiser",
     typicalTimelineDays: 20,
-    verifiedSubmissions: 98,
+    
     marketPercentile: "Top 15%",
   },
   {
@@ -166,7 +170,7 @@ export const COMPREHENSIVE_INDIAN_SALARIES: SalaryRecord[] = [
     workMode: "On-site",
     interviewRounds: "1 Screen + 2 High Level & Low Level Design + 1 DSA + 1 Bar Raiser (LP heavy)",
     typicalTimelineDays: 22,
-    verifiedSubmissions: 78,
+    
     marketPercentile: "Top 15%",
   },
   {
@@ -187,7 +191,7 @@ export const COMPREHENSIVE_INDIAN_SALARIES: SalaryRecord[] = [
     workMode: "Hybrid",
     interviewRounds: "CodeSignal Screening + 3 Coding & Machine Coding + 1 Bar Raiser",
     typicalTimelineDays: 18,
-    verifiedSubmissions: 39,
+    
     marketPercentile: "Top 5%",
   },
   {
@@ -208,7 +212,7 @@ export const COMPREHENSIVE_INDIAN_SALARIES: SalaryRecord[] = [
     workMode: "Hybrid",
     interviewRounds: "1 System Architecture + 2 Advanced Coding + 1 Past Work Deep Dive + Cultural",
     typicalTimelineDays: 21,
-    verifiedSubmissions: 31,
+    
     marketPercentile: "Top 5%",
   },
   {
@@ -229,7 +233,7 @@ export const COMPREHENSIVE_INDIAN_SALARIES: SalaryRecord[] = [
     workMode: "Remote",
     interviewRounds: "Karat Screen + 2 Technical Craft + 1 System Design + 1 Values Interview",
     typicalTimelineDays: 19,
-    verifiedSubmissions: 45,
+    
     marketPercentile: "Top 5%",
   },
   {
@@ -250,7 +254,7 @@ export const COMPREHENSIVE_INDIAN_SALARIES: SalaryRecord[] = [
     workMode: "Remote",
     interviewRounds: "Architecture Design + Coding & Concurrency + Management & Values",
     typicalTimelineDays: 22,
-    verifiedSubmissions: 34,
+    
     marketPercentile: "Top 5%",
   },
   {
@@ -271,7 +275,7 @@ export const COMPREHENSIVE_INDIAN_SALARIES: SalaryRecord[] = [
     workMode: "Hybrid",
     interviewRounds: "HackerRank Test + 3 Technical Coding + 1 Managerial / Core Values",
     typicalTimelineDays: 23,
-    verifiedSubmissions: 36,
+    
     marketPercentile: "Top 15%",
   },
   {
@@ -292,7 +296,7 @@ export const COMPREHENSIVE_INDIAN_SALARIES: SalaryRecord[] = [
     workMode: "Hybrid",
     interviewRounds: "Online Assessment + 2 Technical + 1 Managerial + HR",
     typicalTimelineDays: 16,
-    verifiedSubmissions: 50,
+    
     marketPercentile: "Median (50%)",
   },
   {
@@ -313,7 +317,7 @@ export const COMPREHENSIVE_INDIAN_SALARIES: SalaryRecord[] = [
     workMode: "Hybrid",
     interviewRounds: "3 DSA & Systems Coding + 1 Cloud Architecture Discussion",
     typicalTimelineDays: 20,
-    verifiedSubmissions: 42,
+    
     marketPercentile: "Median (50%)",
   },
 
@@ -336,7 +340,7 @@ export const COMPREHENSIVE_INDIAN_SALARIES: SalaryRecord[] = [
     workMode: "Hybrid",
     interviewRounds: "Machine Coding Round (2.5h) + Problem Solving (DSA) + Tech Arch + Culture",
     typicalTimelineDays: 14,
-    verifiedSubmissions: 58,
+    
     marketPercentile: "Top 15%",
   },
   {
@@ -357,7 +361,7 @@ export const COMPREHENSIVE_INDIAN_SALARIES: SalaryRecord[] = [
     workMode: "Hybrid",
     interviewRounds: "High Level System Design + Low Level Design + Past Project Architecture + Fit",
     typicalTimelineDays: 16,
-    verifiedSubmissions: 41,
+    
     marketPercentile: "Top 15%",
   },
   {
@@ -378,7 +382,7 @@ export const COMPREHENSIVE_INDIAN_SALARIES: SalaryRecord[] = [
     workMode: "On-site",
     interviewRounds: "Take Home / Machine Coding + 2 Deep Concurrency & Data Modeling + Founder Round",
     typicalTimelineDays: 12,
-    verifiedSubmissions: 35,
+    
     marketPercentile: "Top 5%",
   },
   {
@@ -399,7 +403,7 @@ export const COMPREHENSIVE_INDIAN_SALARIES: SalaryRecord[] = [
     workMode: "On-site",
     interviewRounds: "Large Scale Distributed Systems + LLD Kafka & Redis + Leadership & Philosophy",
     typicalTimelineDays: 14,
-    verifiedSubmissions: 28,
+    
     marketPercentile: "Top 5%",
   },
   {
@@ -420,7 +424,7 @@ export const COMPREHENSIVE_INDIAN_SALARIES: SalaryRecord[] = [
     workMode: "On-site",
     interviewRounds: "Machine Coding in Go + High Concurrency DSA + System Architecture",
     typicalTimelineDays: 10,
-    verifiedSubmissions: 42,
+    
     marketPercentile: "Top 15%",
   },
   {
@@ -441,7 +445,7 @@ export const COMPREHENSIVE_INDIAN_SALARIES: SalaryRecord[] = [
     workMode: "Hybrid",
     interviewRounds: "Machine Coding UI / State Management + Problem Solving + Hiring Manager",
     typicalTimelineDays: 15,
-    verifiedSubmissions: 61,
+    
     marketPercentile: "Top 15%",
   },
   {
@@ -462,7 +466,7 @@ export const COMPREHENSIVE_INDIAN_SALARIES: SalaryRecord[] = [
     workMode: "Hybrid",
     interviewRounds: "HLD Microservices + LLD Machine Coding + Past Architecture Discussion",
     typicalTimelineDays: 18,
-    verifiedSubmissions: 47,
+    
     marketPercentile: "Top 15%",
   },
   {
@@ -483,7 +487,7 @@ export const COMPREHENSIVE_INDIAN_SALARIES: SalaryRecord[] = [
     workMode: "On-site",
     interviewRounds: "Live Coding & Algorithm + Machine Coding (React / Node) + Team Fit",
     typicalTimelineDays: 12,
-    verifiedSubmissions: 53,
+    
     marketPercentile: "Top 15%",
   },
   {
@@ -504,7 +508,7 @@ export const COMPREHENSIVE_INDIAN_SALARIES: SalaryRecord[] = [
     workMode: "On-site",
     interviewRounds: "Campus / Off-Campus Online Test + 2 DSA Rounds + 1 CS Fundamentals & Java",
     typicalTimelineDays: 17,
-    verifiedSubmissions: 67,
+    
     marketPercentile: "Top 15%",
   },
   {
@@ -525,7 +529,7 @@ export const COMPREHENSIVE_INDIAN_SALARIES: SalaryRecord[] = [
     workMode: "On-site",
     interviewRounds: "Machine Coding (Clean Architecture) + DSA + Low Level Design + Engineering Lead",
     typicalTimelineDays: 18,
-    verifiedSubmissions: 49,
+    
     marketPercentile: "Top 15%",
   },
   {
@@ -546,7 +550,7 @@ export const COMPREHENSIVE_INDIAN_SALARIES: SalaryRecord[] = [
     workMode: "Hybrid",
     interviewRounds: "Machine Coding Round (Design Patterns) + 2 Problem Solving DSA + Hiring Manager",
     typicalTimelineDays: 18,
-    verifiedSubmissions: 60,
+    
     marketPercentile: "Top 15%",
   },
   {
@@ -567,7 +571,7 @@ export const COMPREHENSIVE_INDIAN_SALARIES: SalaryRecord[] = [
     workMode: "Hybrid",
     interviewRounds: "Machine Coding + Problem Solving + Architecture Discussion + Culture",
     typicalTimelineDays: 14,
-    verifiedSubmissions: 43,
+    
     marketPercentile: "Top 15%",
   },
   {
@@ -588,7 +592,7 @@ export const COMPREHENSIVE_INDIAN_SALARIES: SalaryRecord[] = [
     workMode: "On-site",
     interviewRounds: "Machine Coding (Spring Boot / Node) + DSA + CS Fundamentals + Culture Fit",
     typicalTimelineDays: 14,
-    verifiedSubmissions: 38,
+    
     marketPercentile: "Top 15%",
   },
   {
@@ -609,7 +613,7 @@ export const COMPREHENSIVE_INDIAN_SALARIES: SalaryRecord[] = [
     workMode: "Hybrid",
     interviewRounds: "Open Source Code Review + Practical Pair Programming + Systems & Networking + CTO",
     typicalTimelineDays: 12,
-    verifiedSubmissions: 25,
+    
     marketPercentile: "Top 15%",
   },
   {
@@ -630,7 +634,7 @@ export const COMPREHENSIVE_INDIAN_SALARIES: SalaryRecord[] = [
     workMode: "Remote",
     interviewRounds: "Take-Home Assignment + Technical Deep Dive + DSA + Culture & Collaboration",
     typicalTimelineDays: 16,
-    verifiedSubmissions: 30,
+    
     marketPercentile: "Top 15%",
   },
   {
@@ -651,7 +655,7 @@ export const COMPREHENSIVE_INDIAN_SALARIES: SalaryRecord[] = [
     workMode: "Hybrid",
     interviewRounds: "Coding Challenge + 2 Technical Interviews (Systems & Concurrency) + HM",
     typicalTimelineDays: 15,
-    verifiedSubmissions: 37,
+    
     marketPercentile: "Top 15%",
   },
   {
@@ -672,7 +676,7 @@ export const COMPREHENSIVE_INDIAN_SALARIES: SalaryRecord[] = [
     workMode: "On-site",
     interviewRounds: "Hacking Day / 2-Day Hackathon + Deep Functional Programming + Founder Chat",
     typicalTimelineDays: 10,
-    verifiedSubmissions: 44,
+    
     marketPercentile: "Top 15%",
   },
 
@@ -695,7 +699,7 @@ export const COMPREHENSIVE_INDIAN_SALARIES: SalaryRecord[] = [
     workMode: "Hybrid",
     interviewRounds: "TCS NQT Advanced (Coding & DSA) + Technical Interview + MR/HR",
     typicalTimelineDays: 30,
-    verifiedSubmissions: 110,
+    
     marketPercentile: "Median (50%)",
   },
   {
@@ -716,7 +720,7 @@ export const COMPREHENSIVE_INDIAN_SALARIES: SalaryRecord[] = [
     workMode: "Hybrid",
     interviewRounds: "TCS NQT Coding Assessment + Technical Round + HR",
     typicalTimelineDays: 28,
-    verifiedSubmissions: 145,
+    
     marketPercentile: "Industry Standard",
   },
   {
@@ -737,7 +741,7 @@ export const COMPREHENSIVE_INDIAN_SALARIES: SalaryRecord[] = [
     workMode: "On-site",
     interviewRounds: "TCS NQT Aptitude & Basic Coding + Combined TR/HR",
     typicalTimelineDays: 35,
-    verifiedSubmissions: 220,
+    
     marketPercentile: "Industry Standard",
   },
   {
@@ -758,7 +762,7 @@ export const COMPREHENSIVE_INDIAN_SALARIES: SalaryRecord[] = [
     workMode: "Hybrid",
     interviewRounds: "HackWithInfy Contest (Rank 1-500) + Advanced DSA Technical Interview",
     typicalTimelineDays: 25,
-    verifiedSubmissions: 85,
+    
     marketPercentile: "Median (50%)",
   },
   {
@@ -779,7 +783,7 @@ export const COMPREHENSIVE_INDIAN_SALARIES: SalaryRecord[] = [
     workMode: "Hybrid",
     interviewRounds: "InfyTQ / HackWithInfy Qualifier + Technical Interview + HR",
     typicalTimelineDays: 30,
-    verifiedSubmissions: 125,
+    
     marketPercentile: "Industry Standard",
   },
   {
@@ -800,7 +804,7 @@ export const COMPREHENSIVE_INDIAN_SALARIES: SalaryRecord[] = [
     workMode: "Hybrid",
     interviewRounds: "Skill Assessment (Full Stack / Cloud) + Technical + HR",
     typicalTimelineDays: 28,
-    verifiedSubmissions: 95,
+    
     marketPercentile: "Industry Standard",
   },
   {
@@ -821,7 +825,7 @@ export const COMPREHENSIVE_INDIAN_SALARIES: SalaryRecord[] = [
     workMode: "Hybrid",
     interviewRounds: "Cognitive Assessment + Technical Assessment + Coding + HR Interview",
     typicalTimelineDays: 26,
-    verifiedSubmissions: 105,
+    
     marketPercentile: "Industry Standard",
   },
 ];

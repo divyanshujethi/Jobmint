@@ -4,6 +4,8 @@ import { auth } from "@/auth";
 import { sendEmail, applicationViewedTemplate, interviewInvitationTemplate } from "@repo/email";
 import { publishJobSlugToGoogle } from "@/lib/google-indexing";
 import { invalidateJobsCache } from "@/lib/db-jobs";
+import { getCache, setCache } from "@/lib/redis";
+import { SalaryRecord, COMPREHENSIVE_INDIAN_SALARIES } from "@/lib/salary-data";
 
 export async function POST(req: NextRequest) {
   try {
@@ -218,6 +220,50 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({
         success: true,
         message: res.message || `Google Indexing API triggered for ${slug}`,
+      });
+    }
+
+    // 8. Approve User-Submitted Salary
+    if (action === "APPROVE_SALARY") {
+      const { salaryId } = payload || {};
+      const pendingKey = "rolenest:salaries:pending";
+      const publicCacheKey = "rolenest:salaries:v3:all";
+
+      const pending = (await getCache<SalaryRecord[]>(pendingKey)) || [];
+      const itemToApprove = pending.find((s) => s.id === salaryId);
+
+      if (!itemToApprove) {
+        return NextResponse.json({ error: "Salary submission not found in pending queue" }, { status: 404 });
+      }
+
+      // Mark approved
+      itemToApprove.status = "APPROVED";
+      const remainingPending = pending.filter((s) => s.id !== salaryId);
+      await setCache(pendingKey, remainingPending, 90 * 24 * 60 * 60);
+
+      // Add to public cache
+      const publicList = (await getCache<SalaryRecord[]>(publicCacheKey)) || COMPREHENSIVE_INDIAN_SALARIES;
+      const updatedPublic = [itemToApprove, ...publicList];
+      await setCache(publicCacheKey, updatedPublic, 14 * 24 * 60 * 60);
+
+      return NextResponse.json({
+        success: true,
+        message: `Salary report for ${itemToApprove.companyName} (${itemToApprove.role}) approved and published!`,
+      });
+    }
+
+    // 9. Reject / Spam User-Submitted Salary
+    if (action === "REJECT_SALARY") {
+      const { salaryId } = payload || {};
+      const pendingKey = "rolenest:salaries:pending";
+
+      const pending = (await getCache<SalaryRecord[]>(pendingKey)) || [];
+      const remainingPending = pending.filter((s) => s.id !== salaryId);
+      await setCache(pendingKey, remainingPending, 90 * 24 * 60 * 60);
+
+      return NextResponse.json({
+        success: true,
+        message: "Salary submission rejected and removed from moderation queue.",
       });
     }
 

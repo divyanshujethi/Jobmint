@@ -42,6 +42,9 @@ import {
   ArrowUpDown,
   SlidersHorizontal,
   X,
+  DollarSign,
+  Trash2,
+  ArrowRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -50,10 +53,13 @@ export function SuperAdminPanelClient() {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState<any>(null);
   const [activeTab, setActiveTab] = useState<
-    "OVERVIEW" | "TABLE_EDITOR" | "COMPANIES" | "JOBS" | "APPLICATIONS" | "RESUMES" | "SYSTEM"
+    "OVERVIEW" | "TABLE_EDITOR" | "COMPANIES" | "JOBS" | "APPLICATIONS" | "RESUMES" | "SALARIES" | "SYSTEM"
   >("OVERVIEW");
   const [actionLoading, setActionLoading] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
+
+  // Salaries Search
+  const [salarySearch, setSalarySearch] = useState("");
 
   // Resume Search
   const [resumeSearch, setResumeSearch] = useState("");
@@ -262,6 +268,7 @@ export function SuperAdminPanelClient() {
   const jobs = data?.jobs || [];
   const applications = data?.applications || [];
   const resumes = data?.resumes || [];
+  const pendingSalaries = data?.pendingSalaries || [];
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 font-sans pb-16">
@@ -345,6 +352,7 @@ export function SuperAdminPanelClient() {
           { id: "JOBS", label: `Jobs (${jobs.length})`, icon: Briefcase },
           { id: "APPLICATIONS", label: `Truth Teller (${applications.length})`, icon: Eye },
           { id: "RESUMES", label: `Resumes (${resumes.length})`, icon: FileText },
+          { id: "SALARIES", label: `Salaries (${pendingSalaries.length})`, icon: DollarSign },
           { id: "SYSTEM", label: "System & Backups", icon: Activity },
         ].map((tab) => {
           const Icon = tab.icon;
@@ -1628,6 +1636,188 @@ export function SuperAdminPanelClient() {
                 </tbody>
               </table>
             </div>
+          </div>
+        )}
+
+        {/* ======================================================== */}
+        {/* TAB: SALARIES (MODERATION QUEUE)                         */}
+        {/* ======================================================== */}
+        {activeTab === "SALARIES" && (
+          <div className="rounded-2xl border border-slate-800 bg-slate-900/60 overflow-hidden space-y-4 p-5">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                    <DollarSign className="h-3.5 w-3.5" />
+                  </span>
+                  <h3 className="text-xl font-bold text-white">
+                    Salary Moderation Queue ({pendingSalaries.length} Pending)
+                  </h3>
+                  {pendingSalaries.length > 0 && (
+                    <span className="rounded-full bg-amber-500/20 border border-amber-500/40 px-2 py-0.5 text-[10px] font-mono text-amber-300 font-bold">
+                      AWAITING REVIEW
+                    </span>
+                  )}
+                </div>
+                <p className="text-xs text-slate-400 mt-1">
+                  Review anonymous community compensation submissions to filter out spam, false reports, and outliers before publishing to live benchmarks.
+                </p>
+              </div>
+
+              <div className="flex items-center gap-2 flex-wrap">
+                <div className="relative">
+                  <Search className="h-4 w-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                  <input
+                    type="text"
+                    placeholder="Search company or role..."
+                    value={salarySearch}
+                    onChange={(e) => setSalarySearch(e.target.value)}
+                    className="pl-9 pr-4 py-2 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 w-48 sm:w-56"
+                  />
+                </div>
+                <Link
+                  href="/salaries"
+                  target="_blank"
+                  className="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-200 transition-colors border border-slate-700 flex items-center gap-1.5"
+                >
+                  <span>Public Benchmarks</span>
+                  <ExternalLink className="h-3.5 w-3.5 text-slate-400" />
+                </Link>
+              </div>
+            </div>
+
+            {pendingSalaries.length === 0 ? (
+              <div className="py-16 text-center text-slate-400 space-y-3">
+                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
+                  <CheckCircle2 className="h-6 w-6" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-white text-sm">Moderation Queue is Clean</h4>
+                  <p className="text-xs text-slate-500 max-w-md mx-auto mt-1">
+                    No pending salary submissions awaiting verification. When users submit compensation on /salaries, they will appear here for review.
+                  </p>
+                </div>
+                <Link
+                  href="/salaries"
+                  target="_blank"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-400 hover:text-emerald-300 pt-2"
+                >
+                  <span>Test Submit on /salaries</span>
+                  <ArrowRight className="h-3 w-3" />
+                </Link>
+              </div>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-xs">
+                  <thead className="bg-slate-950 text-slate-400 font-mono text-[11px] uppercase border-b border-slate-800">
+                    <tr>
+                      <th className="py-3 px-4">Company &amp; Role</th>
+                      <th className="py-3 px-4">Compensation (CTC)</th>
+                      <th className="py-3 px-4">Breakdown</th>
+                      <th className="py-3 px-4">Location &amp; Mode</th>
+                      <th className="py-3 px-4">Interview / Rounds</th>
+                      <th className="py-3 px-4">Submitted At</th>
+                      <th className="py-3 px-4 text-right">Moderation Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-800/60 font-sans">
+                    {pendingSalaries
+                      .filter((s: any) => {
+                        if (!salarySearch.trim()) return true;
+                        const term = salarySearch.toLowerCase();
+                        return (
+                          (s.companyName || "").toLowerCase().includes(term) ||
+                          (s.role || "").toLowerCase().includes(term) ||
+                          (s.location || "").toLowerCase().includes(term)
+                        );
+                      })
+                      .map((s: any) => (
+                        <tr key={s.id} className="hover:bg-slate-800/30 transition-colors">
+                          <td className="py-3 px-4">
+                            <div className="font-bold text-white text-sm">{s.companyName}</div>
+                            <div className="text-slate-300 text-xs flex items-center gap-1.5 mt-0.5">
+                              <span>{s.role}</span>
+                              <span className="text-slate-600">•</span>
+                              <span className="text-[10px] font-mono text-emerald-400">{s.level}</span>
+                            </div>
+                            <div className="flex items-center gap-1 mt-1">
+                              <span className="rounded bg-slate-800 px-1.5 py-0.5 text-[9px] font-mono text-slate-300">
+                                {s.tier}
+                              </span>
+                              <span className="rounded bg-slate-800 px-1.5 py-0.5 text-[9px] font-mono text-indigo-300">
+                                {s.roleTrack}
+                              </span>
+                            </div>
+                          </td>
+                          <td className="py-3 px-4">
+                            <div className="text-base font-black text-emerald-400 font-mono">
+                              ₹{s.totalCtcLpa} LPA
+                            </div>
+                            <div className="text-[10px] font-mono text-slate-400">
+                              Est. {s.estimatedMonthlyInHand}
+                            </div>
+                          </td>
+                          <td className="py-3 px-4 text-slate-300 font-mono text-[11px] space-y-0.5">
+                            <div>Base: <span className="text-white font-semibold">₹{s.baseSalaryLpa}L</span></div>
+                            <div>Bonus: <span className="text-slate-400">₹{s.bonusLpa}L</span></div>
+                            <div>Stocks: <span className="text-amber-400">₹{s.stocksLpa}L</span></div>
+                          </td>
+                          <td className="py-3 px-4">
+                            <div className="text-white font-medium">{s.location || "Bangalore"}</div>
+                            <span className="text-[10px] text-slate-400 font-mono">{s.workMode}</span>
+                          </td>
+                          <td className="py-3 px-4 max-w-xs">
+                            <p className="text-slate-300 text-[11px] line-clamp-2 font-mono">
+                              {s.interviewRounds || "Standard Technical Rounds"}
+                            </p>
+                          </td>
+                          <td className="py-3 px-4 font-mono text-slate-400 text-[11px]">
+                            {s.submittedAt
+                              ? new Date(s.submittedAt).toLocaleDateString("en-US", {
+                                  month: "short",
+                                  day: "numeric",
+                                  hour: "2-digit",
+                                  minute: "2-digit",
+                                })
+                              : "Recent"}
+                          </td>
+                          <td className="py-3 px-4 text-right">
+                            <div className="flex items-center justify-end gap-2">
+                              <Button
+                                size="sm"
+                                className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs h-8 gap-1 shadow-sm"
+                                disabled={actionLoading === "APPROVE_SALARY"}
+                                onClick={() =>
+                                  handleAction("APPROVE_SALARY", {
+                                    salaryId: s.id,
+                                  })
+                                }
+                              >
+                                <CheckCircle className="h-3.5 w-3.5" />
+                                <span>Approve &amp; Publish</span>
+                              </Button>
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                className="bg-red-950/40 hover:bg-red-900/60 text-red-300 hover:text-red-200 border-red-800/60 text-xs h-8 gap-1"
+                                disabled={actionLoading === "REJECT_SALARY"}
+                                onClick={() =>
+                                  handleAction("REJECT_SALARY", {
+                                    salaryId: s.id,
+                                  })
+                                }
+                              >
+                                <XCircle className="h-3.5 w-3.5" />
+                                <span>Reject / Spam</span>
+                              </Button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
         )}
 

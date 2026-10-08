@@ -3,6 +3,8 @@ import { db, companies, jobs, applications, users, skills, candidateProfiles, de
 import { auth } from "@/auth";
 import { checkDatabase, checkRedis } from "@/lib/health-check";
 import { signAccessToken } from "@repo/storage";
+import { getCache } from "@/lib/redis";
+import { SalaryRecord } from "@/lib/salary-data";
 
 export const dynamic = "force-dynamic";
 
@@ -142,6 +144,9 @@ export async function GET() {
       };
     });
 
+    // Fetch user-submitted salaries for moderation
+    const pendingSalaries = (await getCache<SalaryRecord[]>("rolenest:salaries:pending")) || [];
+
     return NextResponse.json({
       isAdmin: Boolean(isAdmin),
       currentUser: session?.user || null,
@@ -156,6 +161,7 @@ export async function GET() {
         proUsers: Number(proUsersRes[0]?.count || 0),
         totalSkills: Number(totalSkillsRes[0]?.count || 0),
         totalResumes: Number(totalResumesRes[0]?.count || 0),
+        pendingSalariesCount: pendingSalaries.length,
       },
       health: {
         database: dbHealth,
@@ -169,6 +175,7 @@ export async function GET() {
       jobs: recentJobs,
       applications: recentApps,
       resumes: formattedResumes,
+      pendingSalaries,
     });
   } catch (error: any) {
     console.error("Error fetching admin stats:", error);
