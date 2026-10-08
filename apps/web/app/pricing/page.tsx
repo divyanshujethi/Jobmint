@@ -157,17 +157,26 @@ export default function PricingPage() {
   const [inputPhone, setInputPhone] = useState("");
   const [phoneError, setPhoneError] = useState<string | null>(null);
   const [isSubmittingCheckout, setIsSubmittingCheckout] = useState(false);
+  const [liveJobsCount, setLiveJobsCount] = useState<number>(117296);
 
   useEffect(() => {
     let isMounted = true;
 
     async function loadAccountData() {
       try {
-        const [sessionRes, profileRes, companyRes] = await Promise.allSettled([
+        const [sessionRes, profileRes, companyRes, statsRes] = await Promise.allSettled([
           fetch("/api/auth/session"),
           fetch("/api/account/profile"),
           fetch("/api/employer/company"),
+          fetch("/api/stats/public"),
         ]);
+
+        if (statsRes.status === "fulfilled") {
+          const statsData = await statsRes.value.json().catch(() => null);
+          if (statsData?.activeJobs) {
+            setLiveJobsCount(statsData.activeJobs);
+          }
+        }
 
         if (sessionRes.status === "fulfilled") {
           const data = await sessionRes.value.json().catch(() => null);
@@ -434,7 +443,7 @@ export default function PricingPage() {
                       <ul className="space-y-2 text-xs text-slate-600">
                         <li className="flex items-start gap-2">
                           <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
-                          <span>Full access to 115,000+ verified tech jobs &amp; internships</span>
+                          <span>Full access to {liveJobsCount.toLocaleString()}+ verified tech jobs &amp; internships</span>
                         </li>
                         <li className="flex items-start gap-2">
                           <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
@@ -667,7 +676,7 @@ export default function PricingPage() {
                         </li>
                         <li className="flex items-center gap-2">
                           <Check className="h-3.5 w-3.5 text-orange-600 shrink-0" />
-                          <span>50+ DSA problems catalog with difficulty filters</span>
+                          <span>70 curated DSA problems catalog with company tags</span>
                         </li>
                       </ul>
                     </div>
@@ -705,13 +714,13 @@ export default function PricingPage() {
                       </div>
 
                       <p className="text-xs text-slate-600 leading-relaxed">
-                        Complete open engineering curricula pass. Access 30-day interactive curricula, verified graduation diplomas, and production capstone kits.
+                        Complete open engineering curricula pass. Core roadmaps remain 100% free with open diplomas; Scholar adds verified digital IDs, AI course synthesis, and capstones.
                       </p>
 
                       <ul className="space-y-1.5 text-xs text-slate-700 pt-2 border-t border-slate-100">
                         <li className="flex items-center gap-2">
                           <Check className="h-3.5 w-3.5 text-indigo-600 shrink-0" />
-                          <span>Verified Course Certificates &amp; digital IDs</span>
+                          <span>Cryptographic Verified Digital Credentials &amp; Ledger IDs</span>
                         </li>
                         <li className="flex items-center gap-2">
                           <Check className="h-3.5 w-3.5 text-indigo-600 shrink-0" />
@@ -762,7 +771,9 @@ export default function PricingPage() {
                             or ₹1,999 / year
                           </span>
                         </div>
-                        <p className="text-[11px] text-slate-500">Saves 44% compared to separate subscriptions</p>
+                        <p className="text-[11px] text-slate-500">
+                          Saves 25% (₹299/mo vs ₹397/mo combined: Pro ₹199 + CodePass ₹99 + Scholar ₹99)
+                        </p>
                       </div>
 
                       <ul className="space-y-1.5 text-xs text-slate-700 pt-2 border-t border-purple-100">
@@ -823,7 +834,7 @@ export default function PricingPage() {
                       </td>
                     </tr>
                     <tr>
-                      <td className="p-4 font-medium">115,000+ Live Verified Tech Jobs &amp; Internships</td>
+                      <td className="p-4 font-medium">{liveJobsCount.toLocaleString()}+ Live Verified Tech Jobs &amp; Internships</td>
                       <td className="p-4 text-center text-emerald-600 font-bold">✓ Included</td>
                       <td className="p-4 text-center text-emerald-600 font-bold bg-indigo-50/30">✓ Included</td>
                       <td className="p-4 text-center text-emerald-600 font-bold bg-emerald-50/30">✓ Included</td>

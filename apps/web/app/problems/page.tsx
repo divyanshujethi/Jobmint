@@ -254,7 +254,7 @@ export default function ProblemsCatalogPage() {
                   </span>
                 </div>
                 <p className="text-[11px] text-neutral-400 leading-relaxed max-w-xl">
-                  Unlock company-tagged challenges (Google, Amazon, Swiggy, Uber), AI code explanations, mock OA simulators, and direct recruiter referral fast-tracking.
+                  Unlock company-tagged challenges (Google, Amazon, Swiggy, Uber), AI code explanations, mock OA simulators, and verified cryptographic skill badges.
                 </p>
               </div>
             </div>

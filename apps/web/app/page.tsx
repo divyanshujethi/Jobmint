@@ -135,7 +135,7 @@ export default function HomePage() {
               </div>
 
               <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-white leading-tight">
-                1-Click Recruiter-Approved <br />
+                1-Click ATS-Optimized <br />
                 <span className="bg-gradient-to-r from-blue-400 via-emerald-300 to-teal-300 bg-clip-text text-transparent">
                   Single-Column Resume &amp; LaTeX Export
                 </span>

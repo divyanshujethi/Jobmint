@@ -1042,7 +1042,7 @@ function POTDWorkspace() {
                     </span>
                   </div>
                   <p className="text-[11px] text-neutral-300 leading-relaxed font-sans">
-                    Every verified problem solve writes authentic cryptographic proof-of-work to your profile. Attach your verified DevScore badge to ATS applications to stand out to engineering hiring teams across 115,000+ tech openings on RoleNest.
+                    Every verified problem solve writes authentic cryptographic proof-of-work to your profile. Attach your verified DevScore badge to ATS applications to stand out to engineering hiring teams across 117,000+ tech openings on RoleNest.
                   </p>
                   <div className="flex items-center justify-between pt-1 text-xs">
                     <a
@@ -1051,7 +1051,7 @@ function POTDWorkspace() {
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1 text-[11px] font-bold text-blue-400 hover:text-blue-300 underline font-mono"
                     >
-                      Explore 115,000+ Direct ATS Openings on RoleNest ↗
+                      Explore 117,000+ Direct ATS Openings on RoleNest ↗
                     </a>
                     <span className="text-[10px] text-emerald-400 font-mono">
                       {userDevScore > 0 ? "✓ Proof-of-Work Ledger Synced" : "Solve Challenge to Activate Ledger"}
@@ -2099,12 +2099,12 @@ function POTDWorkspace() {
             <div className="rounded-2xl border border-blue-500/30 bg-blue-950/20 p-4 space-y-2">
               <div className="flex items-center gap-2 text-xs font-bold text-white">
                 <Briefcase className="h-4 w-4 text-blue-400" />
-                <span>Recruiter Referral Status</span>
+                <span>Verified DevScore Status</span>
               </div>
               <p className="text-[11px] text-neutral-300 leading-relaxed">
                 {mockOaScore.passed
-                  ? "Your successful timed OA submission qualifies your profile for priority fast-track referral directly to Google, Amazon, and Swiggy recruiters on RoleNest."
-                  : "Keep practicing! Solving problems with passing test cases unlocks recruiter fast-track referral priority."}
+                  ? "Your successful timed OA submission is recorded to your authentic profile ledger with verified proof-of-work for employer applications."
+                  : "Keep practicing! Passing all automated test cases within the time limit writes verified proof-of-work to your profile."}
               </p>
             </div>
 

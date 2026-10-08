@@ -194,7 +194,7 @@ export function Navbar() {
               <Building2 className="h-4 w-4 text-emerald-600" />
               <span>Govt Tech</span>
               <span className="rounded-full bg-emerald-100 text-emerald-800 px-1.5 py-0.2 text-[9px] font-mono font-bold">
-                24+ Orgs
+                32+ Orgs
               </span>
             </Link>
 
@@ -856,7 +856,7 @@ export function Navbar() {
                     <Building2 className="h-4 w-4 text-emerald-600" />
                     Govt & PSU Tech Jobs
                   </span>
-                  <span className="rounded bg-emerald-100 text-emerald-800 px-1.5 py-0.5 text-[9px] font-mono font-bold">24+ Orgs</span>
+                  <span className="rounded bg-emerald-100 text-emerald-800 px-1.5 py-0.5 text-[9px] font-mono font-bold">32+ Orgs</span>
                 </Link>
 
                 {/* Pillar 2 */}
