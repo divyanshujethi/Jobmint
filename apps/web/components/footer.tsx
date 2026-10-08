@@ -245,6 +245,12 @@ export function Footer() {
                   Verification &amp; Transparency Standard
                 </Link>
               </li>
+              <li>
+                <Link href="/changelog" className="hover:text-emerald-600 font-bold text-slate-800 flex items-center gap-1">
+                  <span>🚀 Public Changelog</span>
+                  <span className="rounded bg-blue-100 text-blue-800 px-1 py-0.2 text-[8px] font-mono">Live</span>
+                </Link>
+              </li>
             </ul>
           </div>
 

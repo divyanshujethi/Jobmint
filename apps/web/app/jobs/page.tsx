@@ -1,12 +1,13 @@
-import { getLiveJobs, getTotalActiveJobsCount } from "@/lib/db-jobs";
+import { getLiveJobs } from "@/lib/db-jobs";
+import { getPlatformMetrics } from "@/lib/platform-metrics";
 import { JobsFeedClient } from "@/components/jobs-feed-client";
 
 export const revalidate = 60; // Revalidate every 60s for lightning fast SSR with fresh database jobs
 
 export default async function JobsPage() {
-  const [initialJobs, initialTotal] = await Promise.all([
+  const [initialJobs, metrics] = await Promise.all([
     getLiveJobs({ limit: 60 }),
-    getTotalActiveJobsCount(),
+    getPlatformMetrics(),
   ]);
 
   const itemListJsonLd = {
@@ -53,7 +54,12 @@ export default async function JobsPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }}
       />
-      <JobsFeedClient initialJobs={initialJobs} initialTotal={initialTotal} />
+      <JobsFeedClient
+        initialJobs={initialJobs}
+        initialTotal={metrics.activeJobs}
+        initialVerified24h={metrics.verified24hCount}
+        initialLastCrawl={metrics.lastCrawlTime}
+      />
     </>
   );
 }
