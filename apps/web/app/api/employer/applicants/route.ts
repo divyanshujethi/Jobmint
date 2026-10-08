@@ -216,6 +216,60 @@ export async function PATCH(req: NextRequest) {
       return NextResponse.json({ error: "applicationId and status are required" }, { status: 400 });
     }
 
+    const userEmail = session.user.email.toLowerCase();
+    const adminEmails = (process.env.ADMIN_EMAILS || "admin@rolenest.in,divyanshu.dev@gmail.com,divyanshujethi@gmail.com,admin@ritualdev.in")
+      .split(",")
+      .map((e) => e.trim().toLowerCase());
+    const isAdmin = (session.user as any)?.role === "ADMIN" || adminEmails.includes(userEmail);
+
+    // Look up logged-in user
+    const dbUser = await db
+      .select()
+      .from(users)
+      .where(eq(users.email, userEmail))
+      .limit(1);
+
+    const currentUserId = dbUser[0]?.id;
+    if (!currentUserId) {
+      return NextResponse.json({ error: "Unauthorized user account" }, { status: 401 });
+    }
+
+    // Verify application exists and retrieve companyId
+    const targetApp = await db
+      .select({
+        id: applications.id,
+        companyId: jobs.companyId,
+      })
+      .from(applications)
+      .innerJoin(jobs, eq(applications.jobId, jobs.id))
+      .where(eq(applications.id, applicationId))
+      .limit(1);
+
+    if (targetApp.length === 0) {
+      return NextResponse.json({ error: "Application not found" }, { status: 404 });
+    }
+
+    // IDOR Check: Ensure user is authorized for this company or is an admin
+    if (!isAdmin) {
+      const membership = await db
+        .select()
+        .from(companyMembers)
+        .where(
+          and(
+            eq(companyMembers.userId, currentUserId),
+            eq(companyMembers.companyId, targetApp[0].companyId)
+          )
+        )
+        .limit(1);
+
+      if (membership.length === 0) {
+        return NextResponse.json(
+          { error: "Forbidden: You are not authorized to update applications for this organization." },
+          { status: 403 }
+        );
+      }
+    }
+
     const now = new Date();
 
     // 1. Update application status & timestamps

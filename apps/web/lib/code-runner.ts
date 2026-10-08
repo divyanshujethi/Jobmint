@@ -128,18 +128,27 @@ function workerFunction() {
       try {
         if (typeof val === "undefined") return "undefined";
         if (val === null) return "null";
-        if (typeof val === "object") return JSON.stringify(val);
-        return String(val);
+        let str = typeof val === "object" ? JSON.stringify(val) : String(val);
+        if (str.length > 1000) str = str.slice(0, 1000) + "... [truncated]";
+        return str;
       } catch (err) {
         return String(val);
       }
     };
 
+    const pushLog = (prefix: string, args: any[]) => {
+      if (logs.length < 100) {
+        logs.push(prefix + args.map(safeSerialize).join(" "));
+      } else if (logs.length === 100) {
+        logs.push("[TRUNCATED: Log output limit reached (100 entries)]");
+      }
+    };
+
     const customConsole = {
-      log: (...args: any[]) => logs.push(args.map(safeSerialize).join(" ")),
-      info: (...args: any[]) => logs.push(args.map(safeSerialize).join(" ")),
-      warn: (...args: any[]) => logs.push("[WARN] " + args.map(safeSerialize).join(" ")),
-      error: (...args: any[]) => logs.push("[ERR] " + args.map(safeSerialize).join(" ")),
+      log: (...args: any[]) => pushLog("", args),
+      info: (...args: any[]) => pushLog("", args),
+      warn: (...args: any[]) => pushLog("[WARN] ", args),
+      error: (...args: any[]) => pushLog("[ERR] ", args),
     };
 
     function deepEqual(a: any, b: any): boolean {
@@ -273,7 +282,8 @@ declare global {
 
 async function runPythonViaPyodide(
   code: string,
-  testCases: TestCase[]
+  testCases: TestCase[],
+  timeoutMs = 5000
 ): Promise<ExecutionReport> {
   try {
     if (!window.loadPyodide && !window.__pyodideInstance) {
@@ -318,9 +328,17 @@ scope = {}
 logs = []
 
 class CustomStdout:
+    def __init__(self):
+        self.count = 0
     def write(self, s):
-        if s.strip():
-            logs.append(s.strip())
+        val = s.strip()
+        if val:
+            if self.count < 100:
+                logs.append(val[:1000])
+                self.count += 1
+            elif self.count == 100:
+                logs.append("[TRUNCATED: Max 100 log entries reached]")
+                self.count += 1
     def flush(self):
         pass
 
@@ -389,7 +407,20 @@ for tc in test_cases_json:
 json.dumps({"results": results, "logs": logs})
 `;
 
-    const rawOutput = await pyodide.runPythonAsync(runnerPy);
+    const execPromise = pyodide.runPythonAsync(runnerPy);
+    const timeoutPromise = new Promise<never>((_, reject) => {
+      setTimeout(
+        () =>
+          reject(
+            new Error(
+              `Time Limit Exceeded (${timeoutMs}ms): Python execution timed out. Check for infinite loops or high complexity.`
+            )
+          ),
+        timeoutMs
+      );
+    });
+
+    const rawOutput = await Promise.race([execPromise, timeoutPromise]);
     const parsed = JSON.parse(rawOutput);
 
     const passedTests = parsed.results.filter((r: TestResult) => r.passed).length;
@@ -429,6 +460,33 @@ export function executeCodeInSandbox(
   language: SupportedLanguage = "javascript",
   timeoutMs = 4000
 ): Promise<ExecutionReport> {
+  // Input validation & size guards
+  if (!code || typeof code !== "string" || !code.trim()) {
+    return Promise.resolve({
+      passed: false,
+      allPassed: false,
+      totalTests: testCases.length,
+      passedTests: 0,
+      results: [],
+      logs: [],
+      compilationError: "No code provided to execute.",
+      runtimeError: null,
+    });
+  }
+
+  if (code.length > 65536) {
+    return Promise.resolve({
+      passed: false,
+      allPassed: false,
+      totalTests: testCases.length,
+      passedTests: 0,
+      results: [],
+      logs: [],
+      compilationError: "Code length exceeds the 64KB sandbox limit.",
+      runtimeError: null,
+    });
+  }
+
   // C++ and Java - Secure Server-Side Linux Container Sandbox
   if (language === "cpp" || language === "java") {
     const langName = language === "cpp" ? "C++20 (GCC)" : "Java 21 (OpenJDK)";
@@ -484,7 +542,7 @@ export function executeCodeInSandbox(
 
   // Python execution
   if (language === "python") {
-    return runPythonViaPyodide(code, testCases);
+    return runPythonViaPyodide(code, testCases, timeoutMs);
   }
 
   // JS or TS via Web Worker

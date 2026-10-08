@@ -14,9 +14,27 @@ import {
   ArrowRight,
 } from "lucide-react";
 
+function getSafeCallbackUrl(raw: string | null): string {
+  if (!raw) return "/recommendations";
+  if (raw.startsWith("/") && !raw.startsWith("//")) return raw;
+  try {
+    const parsed = new URL(raw);
+    const host = parsed.hostname.toLowerCase();
+    if (
+      host === "rolenest.in" ||
+      host.endsWith(".rolenest.in") ||
+      host === "localhost" ||
+      host === "127.0.0.1"
+    ) {
+      return raw;
+    }
+  } catch {}
+  return "/recommendations";
+}
+
 function LoginForm() {
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") || "/recommendations";
+  const callbackUrl = getSafeCallbackUrl(searchParams.get("callbackUrl"));
   const refCode = searchParams.get("ref");
   const isVerified = searchParams.get("verified") === "1";
 

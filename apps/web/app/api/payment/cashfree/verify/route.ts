@@ -57,26 +57,71 @@ export async function GET(req: NextRequest) {
         });
       }
 
-      // Determine duration based on order_id pattern
+      // Initialize processed_orders idempotency ledger
+      await db.execute(sql`
+        CREATE TABLE IF NOT EXISTS processed_orders (
+          order_id VARCHAR(128) PRIMARY KEY,
+          amount NUMERIC(10, 2),
+          customer_email VARCHAR(255),
+          plan VARCHAR(64),
+          processed_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+        );
+      `);
+
+      // Determine duration and planTier based on order_id pattern
       let durationMs = 30 * 24 * 60 * 60 * 1000; // default 1 month
       let isFeaturedJob = false;
       let planName = "pro";
 
-      if (orderId.includes("pro_annual")) {
+      if (orderId.includes("all_access_annual")) {
+        durationMs = 365 * 24 * 60 * 60 * 1000;
+        planName = "super_pass";
+      } else if (orderId.includes("all_access") || orderId.includes("super_pass")) {
+        durationMs = 30 * 24 * 60 * 60 * 1000;
+        planName = "super_pass";
+      } else if (orderId.includes("pro_annual")) {
         durationMs = 365 * 24 * 60 * 60 * 1000;
         planName = "pro_annual";
-      } else if (orderId.includes("pro_quarterly") || orderId.includes("pro_plus")) {
-        durationMs = 90 * 24 * 60 * 60 * 1000;
-        planName = "pro_plus";
       } else if (orderId.includes("student_semester")) {
         durationMs = 180 * 24 * 60 * 60 * 1000;
         planName = "student";
       } else if (orderId.includes("student")) {
         durationMs = 30 * 24 * 60 * 60 * 1000;
         planName = "student";
+      } else if (orderId.includes("pro_quarterly") || orderId.includes("pro_plus")) {
+        durationMs = 90 * 24 * 60 * 60 * 1000;
+        planName = "pro_plus";
+      } else if (orderId.includes("codepass")) {
+        durationMs = 30 * 24 * 60 * 60 * 1000;
+        planName = "codepass";
+      } else if (orderId.includes("scholar")) {
+        durationMs = 30 * 24 * 60 * 60 * 1000;
+        planName = "scholar";
       } else if (orderId.includes("featured_job")) {
         isFeaturedJob = true;
         planName = "featured_job";
+      } else if (orderId.includes("hiring_sprint")) {
+        isFeaturedJob = true;
+        planName = "hiring_sprint";
+      }
+
+      // Check if this order was already processed (by webhook or prior page load)
+      const alreadyProcessed: any = await db.execute(sql`
+        SELECT order_id FROM processed_orders WHERE order_id = ${orderId} LIMIT 1;
+      `);
+      const processedRows = Array.isArray(alreadyProcessed) ? alreadyProcessed : (alreadyProcessed?.rows || []);
+
+      if (processedRows.length > 0) {
+        // Return verified state without double-extending the subscription
+        return NextResponse.json({
+          success: true,
+          orderStatus: order.order_status,
+          isPaid: true,
+          plan: planName,
+          amount: order.order_amount,
+          orderId: order.order_id,
+          duplicate: true,
+        });
       }
 
       // 1. Activate Pro for the candidate with seamless extension/upgrading
@@ -130,6 +175,17 @@ export async function GET(req: NextRequest) {
             .set(updatePayload)
             .where(eq(users.id, existingUser.id));
         }
+      }
+
+      // Record successful order in idempotency ledger
+      try {
+        await db.execute(sql`
+          INSERT INTO processed_orders (order_id, amount, customer_email, plan)
+          VALUES (${order.order_id}, ${order.order_amount}, ${customerEmail || ''}, ${planName})
+          ON CONFLICT (order_id) DO NOTHING;
+        `);
+      } catch (idempErr) {
+        console.error("[Cashfree Verify Idempotency Insert Error]:", idempErr);
       }
 
       return NextResponse.json({

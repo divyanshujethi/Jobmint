@@ -187,7 +187,7 @@ export default function ApplicationsTrackerPage() {
           className="shrink-0 rounded-xl bg-slate-900 hover:bg-slate-800 text-white px-4 py-2 text-xs font-bold flex items-center justify-center gap-1.5 transition-all shadow-sm"
         >
           <Crown className="h-3.5 w-3.5 text-amber-400" />
-          <span>Get Pro Priority (₹499/mo)</span>
+          <span>Get Pro Priority (₹199/mo)</span>
         </button>
       </div>
 

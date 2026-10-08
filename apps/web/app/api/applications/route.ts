@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db, applications, applicationEvents, jobs, companies, candidateProfiles, users, eq, desc, inArray } from "@repo/database";
+import { db, applications, applicationEvents, jobs, companies, candidateProfiles, users, eq, and, desc, inArray } from "@repo/database";
 import { auth } from "@/auth";
 import { sendEmail, applicationSubmittedTemplate } from "@repo/email";
 
@@ -363,6 +363,140 @@ export async function POST(req: NextRequest) {
     });
   } catch (error: any) {
     console.error("Error submitting application to DB:", error);
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+}
+
+export async function DELETE(req: NextRequest) {
+  try {
+    const session = await auth();
+    if (!session?.user?.email) {
+      return NextResponse.json({ error: "Unauthorized: Please sign in." }, { status: 401 });
+    }
+
+    const { searchParams } = new URL(req.url);
+    const applicationId = searchParams.get("id");
+    if (!applicationId) {
+      return NextResponse.json({ error: "Application ID is required." }, { status: 400 });
+    }
+
+    // 1. Resolve logged-in candidate profile
+    const userList = await db.select().from(users).where(eq(users.email, session.user.email)).limit(1);
+    if (userList.length === 0) {
+      return NextResponse.json({ error: "User profile not found." }, { status: 404 });
+    }
+
+    const profileList = await db
+      .select()
+      .from(candidateProfiles)
+      .where(eq(candidateProfiles.userId, userList[0].id))
+      .limit(1);
+
+    if (profileList.length === 0) {
+      return NextResponse.json({ error: "Candidate profile not found." }, { status: 404 });
+    }
+
+    const candidateProfileId = profileList[0].id;
+
+    // 2. Strict IDOR verification: verify target application belongs to this candidate
+    const existing = await db
+      .select({ id: applications.id })
+      .from(applications)
+      .where(
+        and(
+          eq(applications.id, applicationId),
+          eq(applications.candidateProfileId, candidateProfileId)
+        )
+      )
+      .limit(1);
+
+    if (existing.length === 0) {
+      return NextResponse.json(
+        { error: "Forbidden: Application not found or you are not authorized to modify it." },
+        { status: 403 }
+      );
+    }
+
+    // 3. Delete dependent timeline events first, then delete application
+    await db.delete(applicationEvents).where(eq(applicationEvents.applicationId, applicationId));
+    await db.delete(applications).where(eq(applications.id, applicationId));
+
+    return NextResponse.json({
+      success: true,
+      message: "Application removed from your tracking pipeline.",
+    });
+  } catch (error: any) {
+    console.error("Error deleting application:", error);
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+}
+
+export async function PATCH(req: NextRequest) {
+  try {
+    const session = await auth();
+    if (!session?.user?.email) {
+      return NextResponse.json({ error: "Unauthorized: Please sign in." }, { status: 401 });
+    }
+
+    const body = await req.json();
+    const { id: applicationId, coverNote, resumeUrl } = body;
+
+    if (!applicationId) {
+      return NextResponse.json({ error: "Application ID is required." }, { status: 400 });
+    }
+
+    // 1. Resolve logged-in candidate profile
+    const userList = await db.select().from(users).where(eq(users.email, session.user.email)).limit(1);
+    if (userList.length === 0) {
+      return NextResponse.json({ error: "User profile not found." }, { status: 404 });
+    }
+
+    const profileList = await db
+      .select()
+      .from(candidateProfiles)
+      .where(eq(candidateProfiles.userId, userList[0].id))
+      .limit(1);
+
+    if (profileList.length === 0) {
+      return NextResponse.json({ error: "Candidate profile not found." }, { status: 404 });
+    }
+
+    const candidateProfileId = profileList[0].id;
+
+    // 2. Strict IDOR verification
+    const existing = await db
+      .select({ id: applications.id })
+      .from(applications)
+      .where(
+        and(
+          eq(applications.id, applicationId),
+          eq(applications.candidateProfileId, candidateProfileId)
+        )
+      )
+      .limit(1);
+
+    if (existing.length === 0) {
+      return NextResponse.json(
+        { error: "Forbidden: Application not found or you are not authorized to modify it." },
+        { status: 403 }
+      );
+    }
+
+    // 3. Update candidate-accessible fields
+    const updateData: Record<string, any> = {
+      lastStatusChangeAt: new Date(),
+    };
+    if (typeof coverNote === "string") updateData.coverNote = coverNote;
+    if (typeof resumeUrl === "string") updateData.resumeUrl = resumeUrl;
+
+    await db.update(applications).set(updateData).where(eq(applications.id, applicationId));
+
+    return NextResponse.json({
+      success: true,
+      message: "Application updated successfully.",
+    });
+  } catch (error: any) {
+    console.error("Error updating application:", error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }

@@ -183,6 +183,20 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    if (typeof code !== "string" || code.length > 65536) {
+      return NextResponse.json(
+        { error: "Payload rejected: Code length exceeds 64KB sandbox limit." },
+        { status: 400 }
+      );
+    }
+
+    if (testCases.length > 50) {
+      return NextResponse.json(
+        { error: "Payload rejected: Maximum 50 test cases permitted per run." },
+        { status: 400 }
+      );
+    }
+
     if (language !== "cpp" && language !== "java") {
       return NextResponse.json(
         { error: "This secure server sandbox currently executes C++ and Java." },

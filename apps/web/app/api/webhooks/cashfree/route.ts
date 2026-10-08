@@ -58,8 +58,9 @@ export async function POST(req: NextRequest) {
     const alreadyProcessed: any = await db.execute(sql`
       SELECT order_id FROM processed_orders WHERE order_id = ${orderId} LIMIT 1;
     `);
+    const processedRows = Array.isArray(alreadyProcessed) ? alreadyProcessed : (alreadyProcessed?.rows || []);
 
-    if (alreadyProcessed && alreadyProcessed.length > 0) {
+    if (processedRows.length > 0) {
       console.log(`[Cashfree Webhook Idempotency]: Order ${orderId} has already been fulfilled. Skipping duplicate.`);
       return NextResponse.json({ received: true, duplicate: true, orderId }, { status: 200 });
     }
@@ -94,6 +95,12 @@ export async function POST(req: NextRequest) {
             VALUES (${order.order_id}, ${order.order_id}, ${order.order_amount}, ${order.customer_details?.customer_name || 'Community Supporter'}, ${customerEmail || ''}, ${order.customer_details?.customer_phone || ''}, ${order.order_note || ''}, 'cashfree', 'PAID')
             ON CONFLICT (order_id) DO UPDATE SET status = 'PAID';
           `);
+
+          await db.execute(sql`
+            INSERT INTO processed_orders (order_id, amount, customer_email, plan)
+            VALUES (${order.order_id}, ${order.order_amount}, ${customerEmail || ''}, 'donation')
+            ON CONFLICT (order_id) DO NOTHING;
+          `);
         } catch (e) {
           console.error("[Donation Webhook Save Error]:", e);
         }
@@ -103,13 +110,38 @@ export async function POST(req: NextRequest) {
 
       let durationMs = 30 * 24 * 60 * 60 * 1000;
       let isFeaturedJob = false;
+      let planTier = "pro";
 
-      if (orderId.includes("pro_annual")) {
+      if (orderId.includes("all_access_annual")) {
         durationMs = 365 * 24 * 60 * 60 * 1000;
+        planTier = "super_pass";
+      } else if (orderId.includes("all_access") || orderId.includes("super_pass")) {
+        durationMs = 30 * 24 * 60 * 60 * 1000;
+        planTier = "super_pass";
+      } else if (orderId.includes("pro_annual")) {
+        durationMs = 365 * 24 * 60 * 60 * 1000;
+        planTier = "pro_annual";
+      } else if (orderId.includes("student_semester")) {
+        durationMs = 180 * 24 * 60 * 60 * 1000;
+        planTier = "student";
+      } else if (orderId.includes("student")) {
+        durationMs = 30 * 24 * 60 * 60 * 1000;
+        planTier = "student";
       } else if (orderId.includes("pro_quarterly") || orderId.includes("pro_plus")) {
         durationMs = 90 * 24 * 60 * 60 * 1000;
+        planTier = "pro_plus";
+      } else if (orderId.includes("codepass")) {
+        durationMs = 30 * 24 * 60 * 60 * 1000;
+        planTier = "codepass";
+      } else if (orderId.includes("scholar")) {
+        durationMs = 30 * 24 * 60 * 60 * 1000;
+        planTier = "scholar";
       } else if (orderId.includes("featured_job")) {
         isFeaturedJob = true;
+        planTier = "featured_job";
+      } else if (orderId.includes("hiring_sprint")) {
+        isFeaturedJob = true;
+        planTier = "hiring_sprint";
       }
 
       if (!isFeaturedJob) {
@@ -142,6 +174,7 @@ export async function POST(req: NextRequest) {
           const updatePayload: Record<string, any> = {
             isPro: true,
             proExpiresAt: expiresAt,
+            planTier: planTier,
             updatedAt: new Date(),
           };
 
@@ -155,7 +188,7 @@ export async function POST(req: NextRequest) {
             .set(updatePayload)
             .where(eq(users.id, existingUser.id));
 
-          console.log(`[Cashfree Webhook] Pro membership extended/activated until ${expiresAt.toISOString()} for order ${orderId}`);
+          console.log(`[Cashfree Webhook] ${planTier} membership extended/activated until ${expiresAt.toISOString()} for order ${orderId}`);
         }
       }
 
@@ -163,7 +196,7 @@ export async function POST(req: NextRequest) {
       try {
         await db.execute(sql`
           INSERT INTO processed_orders (order_id, amount, customer_email, plan)
-          VALUES (${order.order_id}, ${order.order_amount}, ${customerEmail || ''}, ${orderId.includes("pro_annual") ? 'pro_annual' : orderId.includes("student") ? 'student' : 'pro'})
+          VALUES (${order.order_id}, ${order.order_amount}, ${customerEmail || ''}, ${planTier})
           ON CONFLICT (order_id) DO NOTHING;
         `);
       } catch (idempErr) {

@@ -54,6 +54,36 @@ const PLAN_CONFIGS: Record<
     durationMs: 30 * 24 * 60 * 60 * 1000,
     description: "45-min live session • Line-by-line ATS resume review • Project architecture critique • Live mock interview",
   },
+  all_access_bundle: {
+    name: "RoleNest All-Access Super Pass (Monthly)",
+    amount: 299,
+    durationMs: 30 * 24 * 60 * 60 * 1000,
+    description: "Complete 3-in-1 ecosystem access: RoleNest Pro + ProblemNest CodePass + StudyNest Scholar (Save 25%)",
+  },
+  super_pass: {
+    name: "RoleNest All-Access Super Pass (Monthly)",
+    amount: 299,
+    durationMs: 30 * 24 * 60 * 60 * 1000,
+    description: "Complete 3-in-1 ecosystem access: RoleNest Pro + ProblemNest CodePass + StudyNest Scholar (Save 25%)",
+  },
+  all_access_annual: {
+    name: "RoleNest All-Access Super Pass (Annual)",
+    amount: 1999,
+    durationMs: 365 * 24 * 60 * 60 * 1000,
+    description: "1 full year ecosystem access: RoleNest Pro + ProblemNest CodePass + StudyNest Scholar",
+  },
+  codepass: {
+    name: "ProblemNest CodePass (Monthly)",
+    amount: 99,
+    durationMs: 30 * 24 * 60 * 60 * 1000,
+    description: "Full POTD Monaco Editor Solutions, 70+ Curated Problems & Testcase Hints",
+  },
+  scholar: {
+    name: "StudyNest Scholar Pass (Monthly)",
+    amount: 99,
+    durationMs: 30 * 24 * 60 * 60 * 1000,
+    description: "All 30-Day Job-to-Course Curricula & Verified Course Certificates",
+  },
   featured_job: {
     name: "RoleNest Featured Job Listing (30 Days)",
     amount: 1499,
