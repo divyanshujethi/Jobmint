@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db, users, verificationTokens, eq, and, gt } from "@repo/database";
+import { db, users, verificationTokens, userStreaks, eq, and, gt } from "@repo/database";
+import { grantFreeProDays } from "@/lib/plan-limits";
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
@@ -33,13 +34,54 @@ export async function GET(req: NextRequest) {
     }
 
     // Mark email as verified
-    await db
+    const [updatedUser] = await db
       .update(users)
       .set({
         emailVerified: new Date(),
         updatedAt: new Date(),
       })
-      .where(eq(users.email, normalizedEmail));
+      .where(eq(users.email, normalizedEmail))
+      .returning();
+
+    // Check if referee was referred by an existing user
+    if (updatedUser) {
+      try {
+        const refCookie = req.cookies.get("jm_referral")?.value;
+        if (refCookie) {
+          const [referrer] = await db
+            .select()
+            .from(userStreaks)
+            .where(eq(userStreaks.referralCode, refCookie))
+            .limit(1);
+
+          if (referrer && referrer.userId !== updatedUser.id) {
+            // Grant 7 Days Free Pro to both referrer and referee
+            await Promise.all([
+              grantFreeProDays(referrer.userId, 7),
+              grantFreeProDays(updatedUser.id, 7),
+            ]);
+
+            // Update referrer streak stats
+            const updatedBadges = [...(referrer.unlockedBadges || [])];
+            if (!updatedBadges.includes("COMMUNITY_CHAMPION")) {
+              updatedBadges.push("COMMUNITY_CHAMPION");
+            }
+            await db
+              .update(userStreaks)
+              .set({
+                referralCount: (referrer.referralCount || 0) + 1,
+                totalXp: (referrer.totalXp || 0) + 100,
+                streakFreezes: (referrer.streakFreezes || 0) + 1,
+                unlockedBadges: updatedBadges,
+                updatedAt: new Date(),
+              })
+              .where(eq(userStreaks.id, referrer.id));
+          }
+        }
+      } catch (refErr) {
+        console.error("[Auth Verify Referral Attribution Error]:", refErr);
+      }
+    }
 
     // Cleanup consumed token
     await db

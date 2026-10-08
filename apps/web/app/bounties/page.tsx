@@ -47,9 +47,9 @@ export default function BountyNestPage() {
   const [selectedExp, setSelectedExp] = useState<string>("ALL");
 
   // Referral Invite (Refer a Friend for 1 Week Free Pro)
-  const [myReferralCode, setMyReferralCode] = useState<string>("PRO7DAY");
+  const [myReferralCode, setMyReferralCode] = useState<string>("INVITE");
   const [copiedInvite, setCopiedInvite] = useState(false);
-  const [invitedFriendsCount, setInvitedFriendsCount] = useState(2);
+  const [invitedFriendsCount, setInvitedFriendsCount] = useState<number>(0);
 
   // Candidate Apply / Request Referral Modal
   const [activeReferBounty, setActiveReferBounty] = useState<EmployeeHostedBounty | null>(null);
@@ -100,14 +100,27 @@ export default function BountyNestPage() {
       .catch((err) => console.error("Error loading employee bounties:", err))
       .finally(() => setIsLoading(false));
 
+    // Fetch real authenticated streak referral telemetry
+    fetch("/api/streak")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data?.referralCode) {
+          setMyReferralCode(data.referralCode);
+        }
+        if (typeof data?.referralCount === "number") {
+          setInvitedFriendsCount(data.referralCount);
+        } else {
+          setInvitedFriendsCount(0);
+        }
+      })
+      .catch(() => {
+        setInvitedFriendsCount(0);
+      });
+
     try {
       const savedEmail = localStorage.getItem("rolenest_user_email");
       if (savedEmail) {
         setCandidateEmail(savedEmail);
-        setMyReferralCode(savedEmail.split("@")[0].toUpperCase().slice(0, 8));
-      } else {
-        const randomCode = "NEST" + Math.floor(1000 + Math.random() * 9000);
-        setMyReferralCode(randomCode);
       }
       const savedName = localStorage.getItem("rolenest_user_name");
       if (savedName) setCandidateName(savedName);
@@ -265,7 +278,7 @@ export default function BountyNestPage() {
             </h1>
 
             <p className="text-sm sm:text-base text-indigo-100/90 leading-relaxed font-medium">
-              Share your invite link with college friends or developer peers. When they sign up on RoleNest, <strong className="text-amber-300 font-bold">both of you instantly unlock 7 Days of Free Pro Subscription</strong> — including full roadmap source code, AI system reviews, and prioritized job feeds!
+              Share your invite link with college friends or developer peers. When they register and activate their account, <strong className="text-amber-300 font-bold">both of you earn 7 Days of Free Pro Subscription</strong> — including full roadmap source code, AI system reviews, and prioritized job feeds!
             </p>
 
             <div className="flex flex-wrap items-center gap-4 pt-2">
@@ -275,7 +288,7 @@ export default function BountyNestPage() {
               </div>
               <div className="flex items-center gap-2 bg-emerald-950/80 border border-emerald-700/60 rounded-xl px-3.5 py-2">
                 <Award className="h-4 w-4 text-emerald-400" />
-                <span className="text-xs text-emerald-200">Pro Days Earned: <strong className="text-emerald-300 font-bold">14 Days Free</strong></span>
+                <span className="text-xs text-emerald-200">Pro Days Earned: <strong className="text-emerald-300 font-bold">{invitedFriendsCount * 7} Days Free</strong></span>
               </div>
             </div>
           </div>
@@ -331,7 +344,7 @@ export default function BountyNestPage() {
             </div>
 
             <p className="text-[11px] text-indigo-200/80 text-center leading-tight">
-              🎁 Give 7 Days Pro to your friend, get 7 Days Pro credited instantly to your account.
+              🎁 When your friend registers with your code &amp; activates their profile, 7 Days Pro is credited to both of your accounts in real-time.
             </p>
           </div>
         </div>
@@ -396,30 +409,30 @@ export default function BountyNestPage() {
           <div className="bg-white border border-slate-200 rounded-xl p-4 space-y-1.5">
             <div className="flex items-center gap-2 text-xs font-bold text-slate-900">
               <span className="flex h-5 w-5 items-center justify-center rounded-full bg-purple-100 text-purple-700 text-xs font-mono">1</span>
-              Company Pays Employee Bonus
+              Corporate Referral Bonus Policy
             </div>
             <p className="text-xs text-slate-600 leading-relaxed">
-              When Google, Twilio, or Razorpay hires a referred candidate, the company pays the referring employee an internal referral bonus (e.g. ₹60k–₹1.2L).
+              Every major tech company (Twilio, Google, Razorpay) has an official internal employee referral program. When an employee refers a qualified hire who joins, the company pays the employee an official cash bonus ($1,000–$3,000 / ₹60k–₹1.2L).
             </p>
           </div>
 
           <div className="bg-white border border-slate-200 rounded-xl p-4 space-y-1.5">
             <div className="flex items-center gap-2 text-xs font-bold text-slate-900">
               <span className="flex h-5 w-5 items-center justify-center rounded-full bg-purple-100 text-purple-700 text-xs font-mono">2</span>
-              Verified Employee Hosts Slot
+              Why Employees Host Slots Here
             </div>
             <p className="text-xs text-slate-600 leading-relaxed">
-              Verified corporate tech employees host their internal openings here, reviewing pre-vetted candidate DevScores and submitting them directly to company ATS.
+              Employees want top candidates so they don&apos;t waste their internal referral quota. By hosting on RoleNest, they receive candidates pre-vetted with high DevScores and GitHub proof, dramatically increasing their referral success rate.
             </p>
           </div>
 
           <div className="bg-white border border-slate-200 rounded-xl p-4 space-y-1.5">
             <div className="flex items-center gap-2 text-xs font-bold text-slate-900">
               <span className="flex h-5 w-5 items-center justify-center rounded-full bg-purple-100 text-purple-700 text-xs font-mono">3</span>
-              RoleNest Facilitation Cut (15%)
+              RoleNest Escrow &amp; 15% Facilitation Cut
             </div>
             <p className="text-xs text-slate-600 leading-relaxed">
-              Upon successful candidate joining and probationary completion, RoleNest deducts a 15% platform escrow cut, and the rest is distributed to the host &amp; candidate!
+              When the candidate gets hired and clears their initial joining period, the company releases the referral payout. RoleNest takes a transparent 15% platform verification fee, and the rest is settled between the employee host and the candidate!
             </p>
           </div>
         </div>

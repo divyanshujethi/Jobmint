@@ -183,3 +183,29 @@ export async function checkAndIncrementAiQuota(userIdOrEmail: string): Promise<{
     upgradeUrl: "/pricing",
   };
 }
+
+export async function grantFreeProDays(userId: string, daysToAdd: number = 7): Promise<{ success: boolean; proExpiresAt: Date }> {
+  await ensurePlanColumns();
+  const [userRecord] = await db.select().from(users).where(eq(users.id, userId)).limit(1);
+  if (!userRecord) {
+    throw new Error("User not found");
+  }
+
+  const now = new Date();
+  const currentExpiry = userRecord.proExpiresAt ? new Date(userRecord.proExpiresAt) : null;
+  const baseDate = currentExpiry && currentExpiry > now ? currentExpiry : now;
+  const newExpiry = new Date(baseDate.getTime() + daysToAdd * 24 * 60 * 60 * 1000);
+
+  await db
+    .update(users)
+    .set({
+      isPro: true,
+      planTier: userRecord.planTier === "free" ? "pro" : userRecord.planTier,
+      proExpiresAt: newExpiry,
+      updatedAt: new Date(),
+    })
+    .where(eq(users.id, userId));
+
+  return { success: true, proExpiresAt: newExpiry };
+}
+

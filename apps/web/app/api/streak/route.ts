@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { db, userStreaks, users, eq } from "@repo/database";
+import { grantFreeProDays } from "@/lib/plan-limits";
 
 export const dynamic = "force-dynamic";
 
@@ -168,6 +169,16 @@ export async function GET(req: NextRequest) {
                 updatedAt: new Date(),
               })
               .where(eq(userStreaks.id, referrer.id));
+
+            // Grant 7 Days Free Pro to both referrer and newly registered referee
+            try {
+              await Promise.all([
+                grantFreeProDays(referrer.userId, 7),
+                grantFreeProDays(userId, 7),
+              ]);
+            } catch (proErr) {
+              console.error("Failed to grant free pro days on referral:", proErr);
+            }
           }
         } catch (err) {
           console.error("Referral attribution error:", err);

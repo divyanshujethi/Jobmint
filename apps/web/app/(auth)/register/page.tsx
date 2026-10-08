@@ -1,17 +1,35 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { APP_CONFIG, UserRole } from "@repo/shared";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
-import { GraduationCap, Building, ShieldCheck, Loader2, Sparkles } from "lucide-react";
+import { GraduationCap, Building, ShieldCheck, Loader2, Sparkles, Gift } from "lucide-react";
 
 export default function RegisterPage() {
+  return (
+    <Suspense fallback={<div className="min-h-[85vh] flex items-center justify-center"><Loader2 className="h-6 w-6 animate-spin text-emerald-600" /></div>}>
+      <RegisterContent />
+    </Suspense>
+  );
+}
+
+function RegisterContent() {
+  const searchParams = useSearchParams();
+  const refCode = searchParams.get("ref");
+
   const [role, setRole] = useState<string>(UserRole.CANDIDATE);
   const [activeProvider, setActiveProvider] = useState<string | null>(null);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [consentError, setConsentError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && refCode) {
+      document.cookie = "jm_referral=" + encodeURIComponent(refCode) + "; path=/; max-age=604800; SameSite=Lax";
+    }
+  }, [refCode]);
 
   const handleOAuthSignUp = async (provider: string) => {
     if (!agreedToTerms) {
@@ -43,6 +61,25 @@ export default function RegisterPage() {
             Create your account in seconds with your verified profile
           </CardDescription>
         </CardHeader>
+
+        {refCode && (
+          <div className="mx-6 mb-2 rounded-2xl border border-indigo-300 bg-indigo-50/90 p-3.5 shadow-xs text-indigo-950 flex items-center gap-3">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-indigo-600 text-white font-bold shrink-0">
+              <Gift className="h-5 w-5" />
+            </div>
+            <div>
+              <div className="text-xs font-bold text-indigo-950 flex items-center gap-1.5">
+                Peer Invite Applied ({refCode})
+                <span className="rounded bg-indigo-200 text-indigo-900 text-[10px] font-mono px-1.5 py-0.2 font-bold">
+                  7-Day Pro
+                </span>
+              </div>
+              <div className="text-[11px] text-indigo-800 leading-tight mt-0.5">
+                Create and verify your account to unlock <strong>7 Days of Free RoleNest Pro</strong> (unlimited roadmaps, verified job queue &amp; AI prep)!
+              </div>
+            </div>
+          </div>
+        )}
 
         <CardContent className="space-y-5">
           {/* ROLE TOGGLE */}
