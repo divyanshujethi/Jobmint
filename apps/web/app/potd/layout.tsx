@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Problem of the Day — ProblemNest Arena | RoleNest",
+  title: "Problem of the Day — ProblemNest Arena",
   description:
     "Solve the daily coding challenge on ProblemNest Arena. Real-time multi-language sandbox runner (Python, TypeScript, C++, Java), automated test cases, and company interview tracking.",
   alternates: {

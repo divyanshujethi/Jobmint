@@ -1,11 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import { DISCORD_CHANNELS, DISCORD_ROLES, sendDiscordMessage } from "@/lib/discord-notifications";
+import { verifyCronOrAdminSecret } from "@/lib/api-auth";
 
 export async function GET(req: NextRequest) {
+  if (!verifyCronOrAdminSecret(req)) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
   return handleCron(req);
 }
 
 export async function POST(req: NextRequest) {
+  if (!verifyCronOrAdminSecret(req)) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
   return handleCron(req);
 }
 

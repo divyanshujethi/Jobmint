@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getCache } from "@/lib/redis";
+import { verifyCronOrAdminSecret, verifyAdminSession } from "@/lib/api-auth";
 
 export const dynamic = "force-dynamic";
 
@@ -15,6 +16,13 @@ interface BroadcastJobPayload {
 }
 
 export async function POST(req: NextRequest) {
+  const isAdmin = await verifyAdminSession();
+  const isSecretAuth = verifyCronOrAdminSecret(req);
+
+  if (!isAdmin && !isSecretAuth) {
+    return NextResponse.json({ error: "Unauthorized: Admin privileges or secret header required to broadcast alerts." }, { status: 401 });
+  }
+
   try {
     const body: BroadcastJobPayload = await req.json();
     const { title, companyName, location, slug, salaryMin, salaryMax } = body;

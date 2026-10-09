@@ -136,7 +136,9 @@ export async function POST(req: NextRequest) {
       html,
     });
 
-    console.info(`[Auth Register] Verification email sent to ${normalizedEmail} via ${emailResult.provider} (Success: ${emailResult.success})`);
+    const atIdx = normalizedEmail.indexOf("@");
+    const maskedEmail = atIdx > 1 ? `${normalizedEmail[0]}***${normalizedEmail.slice(atIdx)}` : normalizedEmail;
+    console.info(`[Auth Register] Verification email sent to ${maskedEmail} via ${emailResult.provider} (Success: ${emailResult.success})`);
 
     return NextResponse.json({
       success: true,

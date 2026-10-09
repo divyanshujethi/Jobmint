@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "70 Curated Coding Problems — ProblemNest Arena | RoleNest",
+  title: "70 Curated Coding Problems — ProblemNest Arena",
   description:
     "Master 70 essential Data Structures & Algorithms coding challenges across Arrays, Trees, Dynamic Programming, and Graphs with in-browser compiler execution.",
   alternates: {

@@ -209,7 +209,7 @@ export function Footer() {
               </li>
               <li>
                 <Link href="/certificates" className="hover:text-emerald-600 text-slate-500">
-                  🎓 Free Course Diplomas
+                  🎓 Verified Course Certificates
                 </Link>
               </li>
             </ul>

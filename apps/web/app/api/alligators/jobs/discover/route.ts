@@ -7,10 +7,16 @@ import {
   crawlIndiaTechBoards,
 } from "@repo/alligators";
 import { persistCrawledJobs } from "@/lib/job-ingestion";
+import { verifyCronOrAdminSecret, verifyAdminSession } from "@/lib/api-auth";
 
 export const maxDuration = 60; // Up to 60s for network probing and validation
 
 export async function GET(request: Request): Promise<NextResponse> {
+  const isAuthorized = verifyCronOrAdminSecret(request) || (await verifyAdminSession());
+  if (!isAuthorized) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   try {
     const { searchParams } = new URL(request.url);
     const domain = searchParams.get("domain")?.trim();
@@ -69,6 +75,11 @@ export async function GET(request: Request): Promise<NextResponse> {
 }
 
 export async function POST(request: Request): Promise<NextResponse> {
+  const isAuthorized = verifyCronOrAdminSecret(request) || (await verifyAdminSession());
+  if (!isAuthorized) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   try {
     let body: any = {};
     try {

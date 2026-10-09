@@ -52,7 +52,9 @@ export async function POST(req: NextRequest) {
         html,
       });
 
-      console.info(`[Auth Forgot Password] Reset email sent to ${normalizedEmail} via ${emailResult.provider} (Success: ${emailResult.success})`);
+      const atIdx = normalizedEmail.indexOf("@");
+      const maskedEmail = atIdx > 1 ? `${normalizedEmail[0]}***${normalizedEmail.slice(atIdx)}` : normalizedEmail;
+      console.info(`[Auth Forgot Password] Reset email sent to ${maskedEmail} via ${emailResult.provider} (Success: ${emailResult.success})`);
     }
 
     // Always return success to protect privacy

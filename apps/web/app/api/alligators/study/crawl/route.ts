@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { crawlYouTubePlaylist, SEED_STUDY_PLAYLISTS } from "@repo/alligators";
 import { getAllPlaylists, getDynamicPlaylists, saveDynamicPlaylist } from "@/lib/courses-store";
 import { CURATED_COURSES, CoursePlaylist } from "@/lib/courses-data";
+import { verifyCronOrAdminSecret, verifyAdminSession } from "@/lib/api-auth";
 
 export const maxDuration = 60;
 export const dynamic = "force-dynamic";
@@ -38,6 +39,11 @@ export async function GET(): Promise<NextResponse> {
 }
 
 export async function POST(request: Request): Promise<NextResponse> {
+  const isAuthorized = verifyCronOrAdminSecret(request) || (await verifyAdminSession());
+  if (!isAuthorized) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   try {
     let body: any = {};
     try {

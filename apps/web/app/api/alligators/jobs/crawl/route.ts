@@ -9,14 +9,21 @@ import {
 } from "@repo/alligators";
 import { persistCrawledJobs, cleanupStaleJobs } from "@/lib/job-ingestion";
 import { invalidateJobsCache } from "@/lib/db-jobs";
+import { verifyCronOrAdminSecret } from "@/lib/api-auth";
 
 export const maxDuration = 60; // Allow sufficient time for batch crawling & persisting
 
 export async function GET(request: Request): Promise<NextResponse> {
+  if (!verifyCronOrAdminSecret(request)) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   try {
     const { searchParams } = new URL(request.url);
     const crawler = (searchParams.get("crawler") || searchParams.get("target") || "all").toLowerCase();
-    const staleDays = parseInt(searchParams.get("staleDays") || "14", 10);
+    const rawStaleDays = parseInt(searchParams.get("staleDays") || "14", 10);
+    // Securely clamp staleDays between 7 and 60 days to prevent malicious or accidental wiping of catalog
+    const staleDays = isNaN(rawStaleDays) ? 14 : Math.min(60, Math.max(7, rawStaleDays));
 
     let jobsToPersist: RawCrawledJob[] = [];
     let crawlStats: any = {};

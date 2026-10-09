@@ -1,10 +1,19 @@
 import { NextResponse } from "next/server";
+import { verifyAdminSession } from "@/lib/api-auth";
 
 /**
- * Zero-Cost Company Verification API
- * Checks DNS TXT Records or Corporate Domain Matches
+ * SuperAdmin-Guarded Company Verification API
+ * Requires verified administrator session.
  */
 export async function POST(request: Request): Promise<NextResponse> {
+  const isAdmin = await verifyAdminSession();
+  if (!isAdmin) {
+    return NextResponse.json(
+      { success: false, error: "Unauthorized: SuperAdmin session required to verify company domains." },
+      { status: 401 }
+    );
+  }
+
   try {
     const { companyId, domain, workEmail, method } = await request.json();
 
