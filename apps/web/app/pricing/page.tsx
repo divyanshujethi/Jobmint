@@ -813,67 +813,7 @@ export default function PricingPage() {
                     </div>
                   </div>
 
-                  {/* MASTER BUNDLE: ALL-ACCESS SUPER PASS */}
-                  <div className="relative rounded-3xl border-2 border-purple-500 bg-linear-to-b from-purple-50/60 via-white to-white p-6 shadow-xl flex flex-col justify-between ring-1 ring-purple-500/20">
-                    <div className="absolute -top-3 right-5 rounded-full bg-linear-to-r from-purple-600 to-indigo-600 px-3 py-0.5 text-[10px] font-black uppercase tracking-wider text-white shadow-sm flex items-center gap-1">
-                      <Sparkles className="h-3 w-3" /> 3-in-1 Master Bundle
-                    </div>
-                    <div className="space-y-4">
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <h4 className="text-base font-bold text-slate-900 flex items-center gap-2">
-                            All-Access Super Pass
-                          </h4>
-                          <p className="text-[11px] text-purple-700 font-semibold mt-0.5">RoleNest + ProblemNest + StudyNest</p>
-                        </div>
-                      </div>
-
-                      <div className="space-y-1">
-                        <div className="flex items-baseline gap-1">
-                          <span className="text-3xl font-black text-slate-900">₹299</span>
-                          <span className="text-xs text-slate-500 font-semibold">/ month</span>
-                          <span className="text-slate-300 mx-1.5">•</span>
-                          <span className="text-xs font-bold text-purple-800 bg-purple-100 border border-purple-200 px-2 py-0.5 rounded-full">
-                            or ₹1,999 / year
-                          </span>
-                        </div>
-                        <p className="text-[11px] text-slate-500">
-                          Saves 25% (₹299/mo vs ₹397/mo combined: Pro ₹199 + CodePass ₹99 + Scholar ₹99)
-                        </p>
-                      </div>
-
-                      <ul className="space-y-1.5 text-xs text-slate-700 pt-2 border-t border-purple-100">
-                        <li className="flex items-center gap-2">
-                          <Check className="h-3.5 w-3.5 text-purple-600 shrink-0" />
-                          <span><strong>RoleNest Pro:</strong> 75 AI ATS tailorings &amp; Ghosting Shield</span>
-                        </li>
-                        <li className="flex items-center gap-2">
-                          <Check className="h-3.5 w-3.5 text-purple-600 shrink-0" />
-                          <span><strong>ProblemNest CodePass:</strong> Full POTD solutions &amp; hints</span>
-                        </li>
-                        <li className="flex items-center gap-2">
-                          <Check className="h-3.5 w-3.5 text-purple-600 shrink-0" />
-                          <span><strong>StudyNest Scholar:</strong> All 30-day curricula &amp; certificates</span>
-                        </li>
-                        <li className="flex items-center gap-2">
-                          <Check className="h-3.5 w-3.5 text-purple-600 shrink-0" />
-                          <span>Single unified billing &amp; priority WhatsApp support</span>
-                        </li>
-                      </ul>
-                    </div>
-
-                    <div className="pt-6">
-                      <Button
-                        onClick={handleAllAccessCheckout}
-                        className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs h-10 shadow-md gap-1.5"
-                      >
-                        <Crown className="h-3.5 w-3.5" />
-                        Get All-Access Super Pass — ₹299
-                      </Button>
-                    </div>
-                  </div>
-
-                  {/* TIER 4: 3-IN-1 MASTER BUNDLE: ALL-ACCESS SUPER PASS */}
+                  {/* 3-IN-1 MASTER BUNDLE: ALL-ACCESS SUPER PASS */}
                   <div className="relative rounded-3xl border-2 border-purple-500 bg-linear-to-b from-purple-50/70 via-white to-white p-6 shadow-xl flex flex-col justify-between ring-2 ring-purple-500/20 hover:border-purple-600 transition-all">
                     <div className="absolute -top-3 right-5 rounded-full bg-linear-to-r from-purple-600 to-indigo-600 px-3 py-0.5 text-[10px] font-black uppercase tracking-wider text-white shadow-sm flex items-center gap-1">
                       <Sparkles className="h-3 w-3" /> 3-in-1 Master Bundle
