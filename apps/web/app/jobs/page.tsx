@@ -60,6 +60,31 @@ export default async function JobsPage() {
         initialVerified24h={metrics.verified24hCount}
         initialLastCrawl={metrics.lastCrawlTime}
       />
+      <noscript>
+        <div className="mx-auto max-w-7xl px-4 py-8">
+          <h2 className="text-xl font-bold mb-4 text-slate-900">
+            Verified Tech Openings ({initialJobs.length} loaded)
+          </h2>
+          <div className="space-y-4">
+            {initialJobs.map((job) => (
+              <article key={job.id} className="p-4 bg-white rounded-xl border border-slate-200">
+                <a
+                  href={`/jobs/${job.slug}`}
+                  className="text-base font-bold text-emerald-600 hover:underline"
+                >
+                  {job.title}
+                </a>
+                <p className="text-sm text-slate-600 mt-1">
+                  <strong>{job.companyName}</strong> • {job.location || "Remote"} • {job.jobType}
+                </p>
+                {job.salaryOrStipend && (
+                  <p className="text-xs text-slate-500 mt-1">{job.salaryOrStipend}</p>
+                )}
+              </article>
+            ))}
+          </div>
+        </div>
+      </noscript>
     </>
   );
 }

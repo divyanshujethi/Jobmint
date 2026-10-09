@@ -728,7 +728,7 @@ ${data.skills.map((s) => `    \\textbf{${escapeLatex(s.category)}}{: ${escapeLat
                 )}
               </div>
               <p className="text-xs text-slate-500">
-                Recruiter-approved single-column, zero-bloat formatting crafted for modern ATS parsers.
+                ATS-optimized single-column, zero-bloat formatting crafted for modern hiring systems.
               </p>
             </div>
           </div>
