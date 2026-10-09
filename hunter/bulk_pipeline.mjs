@@ -1113,8 +1113,8 @@ async function main() {
     const allowed = onlyArg ? onlyArg.split("=")[1].toLowerCase().split(",") : null;
     const shouldRun = (stage) => !allowed || allowed.includes(stage.toLowerCase());
 
-    // Stage 1: Foundit Sitemaps (0 through 10)
-    const founditStats = shouldRun("foundit") ? await runFounditStage(client, 0, 11, 8000) : { inserted: 0, updated: 0 };
+    // Stage 1: Foundit Sitemaps (Decommissioned per Zero-Consultancies policy)
+    const founditStats = { inserted: 0, updated: 0 };
 
     // Stage 2: Adzuna India Developer API
     const adzunaStats = shouldRun("adzuna") ? await runAdzunaStage(client) : { inserted: 0, updated: 0 };
@@ -1125,16 +1125,16 @@ async function main() {
     // Stage 4: LinkedIn Public Guest Search API
     const linkedInStats = shouldRun("linkedin") ? await runLinkedInStage(client) : { inserted: 0, updated: 0 };
 
-    // Stage 5: Internshala Tech Opportunities Siphoner
+    // Stage 5: Internshala Tech Opportunities Siphoner (Retained for freshers & student internships)
     const internshalaStats = shouldRun("internshala") ? await runInternshalaStage(client) : { inserted: 0, updated: 0 };
 
-    // Stage 6: Naukri India Fast Enterprise Crawler
-    const naukriStats = shouldRun("naukri") ? await runNaukriStage(client) : { inserted: 0, updated: 0 };
+    // Stage 6: Naukri India Fast Enterprise Crawler (Decommissioned per Zero-Consultancies policy)
+    const naukriStats = { inserted: 0, updated: 0 };
 
     // Stage 7: SmartRecruiters Public Enterprise ATS
     const srStats = shouldRun("smartrecruiters") ? await runSmartRecruitersStage(client) : { inserted: 0, updated: 0 };
 
-    // Stage 8: High-Tier Direct ATS (Greenhouse & Lever)
+    // Stage 8: High-Tier Direct ATS (Greenhouse, Lever & Ashby)
     const atsStats = shouldRun("ats") ? await runAtsStage(client) : { inserted: 0, updated: 0 };
 
     const totalAdded =

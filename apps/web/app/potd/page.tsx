@@ -1042,7 +1042,7 @@ function POTDWorkspace() {
                     </span>
                   </div>
                   <p className="text-[11px] text-neutral-300 leading-relaxed font-sans">
-                    Every verified problem solve writes authentic cryptographic proof-of-work to your profile. Attach your verified DevScore badge to ATS applications to stand out to engineering hiring teams across 117,000+ tech openings on RoleNest.
+                    Every verified problem solve writes authentic cryptographic proof-of-work to your profile. Attach your verified DevScore badge to ATS applications to stand out to engineering hiring teams across 20,000+ verified tech openings on RoleNest.
                   </p>
                   <div className="flex items-center justify-between pt-1 text-xs">
                     <a
@@ -1051,7 +1051,7 @@ function POTDWorkspace() {
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1 text-[11px] font-bold text-blue-400 hover:text-blue-300 underline font-mono"
                     >
-                      Explore 117,000+ Direct ATS Openings on RoleNest ↗
+                      Explore 20,000+ Direct ATS Openings on RoleNest ↗
                     </a>
                     <span className="text-[10px] text-emerald-400 font-mono">
                       {userDevScore > 0 ? "✓ Proof-of-Work Ledger Synced" : "Solve Challenge to Activate Ledger"}

@@ -96,12 +96,10 @@ export async function runJobAlligator(options?: {
   const [
     adzunaJobs,
     joobleJobs,
-    founditJobs,
     linkedInJobs,
     smartRecruitersJobs,
     workableJobs,
     internshalaJobs,
-    naukriJobs,
     indiaJobs,
     jobsPipeJobs,
     ashbyJobs,
@@ -123,14 +121,6 @@ export async function runJobAlligator(options?: {
       console.error("[Job Alligator] Jooble crawler failed:", err);
       return [];
     }),
-    crawlFounditIndia({
-      limit: founditLimit,
-      startSitemapIndex: founditStartIndex,
-      sitemapIndexCount: founditSitemapCount,
-    }).catch((err) => {
-      console.error("[Job Alligator] Foundit crawler failed:", err);
-      return [];
-    }),
     crawlLinkedInGuestJobs({ totalLimit: linkedinLimit }).catch((err) => {
       console.error("[Job Alligator] LinkedIn crawler failed:", err);
       return [];
@@ -145,10 +135,6 @@ export async function runJobAlligator(options?: {
     }),
     crawlInternshalaOpportunities({ limit: internshalaLimit }).catch((err) => {
       console.error("[Job Alligator] Internshala crawler failed:", err);
-      return [];
-    }),
-    crawlNaukriIndia({ limit: naukriLimit }).catch((err) => {
-      console.error("[Job Alligator] Naukri crawler failed:", err);
       return [];
     }),
     crawlIndiaTechBoards({ maxPerCompany, enableDiscovery }).catch((err) => {
@@ -174,12 +160,10 @@ export async function runJobAlligator(options?: {
   const allJobs = [
     ...adzunaJobs,
     ...joobleJobs,
-    ...founditJobs,
     ...linkedInJobs,
     ...smartRecruitersJobs,
     ...workableJobs,
     ...internshalaJobs,
-    ...naukriJobs,
     ...indiaJobs,
     ...jobsPipeJobs,
     ...ashbyJobs,

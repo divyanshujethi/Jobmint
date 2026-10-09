@@ -202,7 +202,7 @@ export default function StandaloneInterviewPrepPage() {
               className="font-bold text-emerald-700 hover:text-emerald-800 hover:underline flex items-center gap-1"
             >
               <Briefcase className="h-3.5 w-3.5" />
-              <span>Or choose from 117,000+ Live Verified Job Openings →</span>
+              <span>Or choose from 20,000+ Live Verified Job Openings →</span>
             </Link>
           </div>
         </div>
@@ -446,7 +446,7 @@ export default function StandaloneInterviewPrepPage() {
             <Link href="/jobs" className="w-full sm:w-auto">
               <Button className="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs h-11 px-6 rounded-xl shadow-sm gap-2">
                 <Briefcase className="h-3.5 w-3.5" />
-                <span>Explore 117,000+ Openings</span>
+                <span>Explore 20,000+ Openings</span>
               </Button>
             </Link>
             <Link href="/pricing" className="w-full sm:w-auto">

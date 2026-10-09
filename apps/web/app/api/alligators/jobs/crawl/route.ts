@@ -32,17 +32,14 @@ export async function GET(request: Request): Promise<NextResponse> {
       const limit = parseInt(searchParams.get("limit") || "1000", 10);
       jobsToPersist = await crawlInternshalaOpportunities({ limit });
       crawlStats = { accepted: jobsToPersist.length, totalCrawled: jobsToPersist.length, rejectedGhostJobs: 0 };
-    } else if (crawler === "naukri") {
-      const limit = parseInt(searchParams.get("limit") || "1500", 10);
-      jobsToPersist = await crawlNaukriIndia({ limit, maxSitemaps: 3 });
-      crawlStats = { accepted: jobsToPersist.length, totalCrawled: jobsToPersist.length, rejectedGhostJobs: 0 };
+    } else if (crawler === "naukri" || crawler === "foundit") {
+      return NextResponse.json({
+        success: false,
+        message: `Crawler '${crawler}' has been permanently decommissioned to guarantee authentic zero-consultancy direct ATS jobs.`,
+      }, { status: 410 });
     } else if (crawler === "linkedin") {
       const limit = parseInt(searchParams.get("limit") || "300", 10);
       jobsToPersist = await crawlLinkedInGuestJobs({ totalLimit: limit });
-      crawlStats = { accepted: jobsToPersist.length, totalCrawled: jobsToPersist.length, rejectedGhostJobs: 0 };
-    } else if (crawler === "foundit") {
-      const limit = parseInt(searchParams.get("limit") || "2000", 10);
-      jobsToPersist = await crawlFounditIndia({ limit, sitemapIndexCount: 2 });
       crawlStats = { accepted: jobsToPersist.length, totalCrawled: jobsToPersist.length, rejectedGhostJobs: 0 };
     } else {
       const internshipLimit = parseInt(searchParams.get("internshipLimit") || "50", 10);
