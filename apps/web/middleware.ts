@@ -9,6 +9,14 @@ export function middleware(req: NextRequest) {
 
   const { pathname } = req.nextUrl;
 
+  // Dynamic SEO robots and sitemap per subdomain
+  if (pathname === "/robots.txt") {
+    return NextResponse.rewrite(new URL("/api/seo/robots", req.url));
+  }
+  if (pathname === "/sitemap.xml") {
+    return NextResponse.rewrite(new URL("/api/seo/sitemap", req.url));
+  }
+
   // Static assets and internal next requests pass through directly
   if (
     pathname.startsWith("/_next") ||

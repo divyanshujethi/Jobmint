@@ -400,6 +400,7 @@ ${argsList}
           workDir: tmpDir,
           command: ["g++", "-O2", "-std=c++20", "solution.cpp", "-o", "solution.out"],
           timeoutMs: 15000,
+          memoryMb: 512,
         });
       } catch (compileErr: any) {
         const errorMsg = compileErr.stderr || compileErr.message || "Compilation failed";
@@ -422,6 +423,7 @@ ${argsList}
           workDir: tmpDir,
           command: ["timeout", "6s", "./solution.out"],
           timeoutMs: 9000,
+          memoryMb: 512,
         });
         stdout = res.stdout;
       } catch (runErr: any) {
@@ -564,9 +566,9 @@ ${argsList}
       try {
         await runInSandbox({
           workDir: tmpDir,
-          command: ["javac", "-cp", ".", "Main.java"],
+          command: ["javac", "-J-Xmx384m", "-cp", ".", "Main.java"],
           timeoutMs: 20000,
-          memoryMb: 512,
+          memoryMb: 1024,
         });
       } catch (compileErr: any) {
         return NextResponse.json({
@@ -586,9 +588,9 @@ ${argsList}
       try {
         const res = await runInSandbox({
           workDir: tmpDir,
-          command: ["timeout", "6s", "java", "-Xmx256m", "-cp", ".", "Main"],
+          command: ["timeout", "6s", "java", "-Xmx256m", "-Xms64m", "-cp", ".", "Main"],
           timeoutMs: 10000,
-          memoryMb: 512,
+          memoryMb: 1024,
         });
         stdout = res.stdout;
       } catch (runErr: any) {

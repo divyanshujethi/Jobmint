@@ -291,6 +291,7 @@ export async function getLiveJobBySlug(slug: string): Promise<MockJob | null> {
         source: jobs.source,
         sourceUrl: jobs.sourceUrl,
         isFeatured: jobs.isFeatured,
+        isActive: jobs.isActive,
         createdAt: jobs.createdAt,
         companyName: companies.name,
         companySlug: companies.slug,
@@ -305,7 +306,7 @@ export async function getLiveJobBySlug(slug: string): Promise<MockJob | null> {
       })
       .from(jobs)
       .innerJoin(companies, eq(jobs.companyId, companies.id))
-      .where(and(eq(jobs.slug, slug), eq(jobs.isActive, true)))
+      .where(eq(jobs.slug, slug))
       .limit(1);
 
     if (rawJobs && rawJobs.length > 0) {
@@ -350,6 +351,7 @@ export async function getLiveJobBySlug(slug: string): Promise<MockJob | null> {
         companyLogoColor: "#10b981",
         isVerified: j.isVerified,
         isFeatured: j.isFeatured,
+        isActive: j.isActive,
         location: j.location,
         workMode: (j.workMode as WorkMode) || WorkMode.REMOTE,
         jobType: (j.jobType as JobType) || JobType.FULL_TIME,

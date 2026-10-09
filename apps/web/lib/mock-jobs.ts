@@ -11,6 +11,7 @@ export interface MockJob {
   companyLogoInitial: string;
   companyLogoColor?: string; // Deterministic brand color for initial avatar fallback
   isVerified: boolean;
+  isActive?: boolean;
   isFeatured?: boolean;
   location: string;
   workMode: (typeof WorkMode)[keyof typeof WorkMode];

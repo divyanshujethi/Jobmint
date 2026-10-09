@@ -80,6 +80,20 @@ export async function generateMetadata({ params }: JobPageProps): Promise<Metada
     };
   }
 
+  if (job.isActive === false) {
+    return {
+      title: `${job.title} at ${job.companyName} (Closed) | RoleNest`,
+      description: `This position at ${job.companyName} is no longer accepting applications. Explore active verified tech jobs on RoleNest.`,
+      robots: {
+        index: false,
+        follow: true,
+      },
+      alternates: {
+        canonical: `https://rolenest.in/jobs/${slug}`,
+      },
+    };
+  }
+
   const title = `${job.title} at ${job.companyName}`;
   const description = `${job.title} opportunity at ${job.companyName}. Location: ${job.location} (${job.workMode}). Compensation: ${job.salaryOrStipend}. Verified on RoleNest Truth Teller.`;
 
@@ -229,6 +243,28 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
         <span className="text-slate-900 font-medium">{job.title}</span>
       </div>
 
+      {job.isActive === false && (
+        <div className="mb-6 rounded-2xl border border-amber-300 bg-amber-50/90 p-5 text-amber-900 shadow-sm">
+          <div className="flex items-start gap-3">
+            <AlertTriangle className="h-5 w-5 text-amber-600 shrink-0 mt-0.5" />
+            <div className="space-y-1">
+              <h2 className="font-bold text-slate-900 text-sm">This Opening is Closed or Expired</h2>
+              <p className="text-xs text-slate-700 leading-relaxed">
+                {job.companyName} is no longer accepting new candidate submissions for this role. You can explore similar live verified tech opportunities on RoleNest.
+              </p>
+              <div className="pt-2">
+                <Link
+                  href="/jobs"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 hover:text-emerald-800 hover:underline"
+                >
+                  Explore similar active openings →
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* MAIN COLUMN (2 COLS) */}
         <div className="lg:col-span-2 space-y-8">
@@ -252,22 +288,35 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
                         <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" /> Verified
                       </span>
                     )}
+                    {job.isActive === false && (
+                      <span className="inline-flex items-center gap-1 rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-bold text-amber-800 border border-amber-200">
+                        Closed / Expired
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>
 
               <div className="hidden sm:block">
-                <JobApplyButton
-                  jobId={job.id}
-                  jobTitle={job.title}
-                  companyName={job.companyName}
-                  requiredSkills={job.skills}
-                  jobDescription={job.description}
-                  source={job.source}
-                  sourceUrl={job.sourceUrl}
-                  size="lg"
-                  className="font-bold"
-                />
+                {job.isActive === false ? (
+                  <Link href="/jobs">
+                    <Button variant="outline" size="lg" className="font-bold border-slate-300 text-slate-700 hover:bg-slate-50">
+                      Explore Active Jobs →
+                    </Button>
+                  </Link>
+                ) : (
+                  <JobApplyButton
+                    jobId={job.id}
+                    jobTitle={job.title}
+                    companyName={job.companyName}
+                    requiredSkills={job.skills}
+                    jobDescription={job.description}
+                    source={job.source}
+                    sourceUrl={job.sourceUrl}
+                    size="lg"
+                    className="font-bold"
+                  />
+                )}
               </div>
             </div>
 
@@ -563,17 +612,25 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
             {job.companyName} • {job.salaryOrStipend}
           </div>
         </div>
-        <JobApplyButton
-          jobId={job.id}
-          jobTitle={job.title}
-          companyName={job.companyName}
-          requiredSkills={job.skills}
-          jobDescription={job.description}
-          source={job.source}
-          sourceUrl={job.sourceUrl}
-          size="sm"
-          className="font-bold shrink-0 shadow-sm"
-        />
+        {job.isActive === false ? (
+          <Link href="/jobs">
+            <Button size="sm" variant="outline" className="font-bold shrink-0 border-slate-300">
+              Browse Open Jobs
+            </Button>
+          </Link>
+        ) : (
+          <JobApplyButton
+            jobId={job.id}
+            jobTitle={job.title}
+            companyName={job.companyName}
+            requiredSkills={job.skills}
+            jobDescription={job.description}
+            source={job.source}
+            sourceUrl={job.sourceUrl}
+            size="sm"
+            className="font-bold shrink-0 shadow-sm"
+          />
+        )}
       </div>
     </div>
   );
