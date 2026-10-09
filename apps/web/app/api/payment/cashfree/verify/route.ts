@@ -124,10 +124,28 @@ export async function GET(req: NextRequest) {
         });
       }
 
-      // 1. Activate Pro for the candidate with seamless extension/upgrading
+      // 1. Activate Pro for the candidate with seamless extension/upgrading or promote Job
       let expiresAt = new Date(Date.now() + durationMs);
 
-      if (!isFeaturedJob) {
+      if (isFeaturedJob) {
+        const targetJobId = order.order_tags?.job_id;
+        if (targetJobId) {
+          try {
+            const featuredExpiresAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+            await db
+              .update(jobs)
+              .set({
+                isFeatured: true,
+                featuredExpiresAt,
+                updatedAt: new Date(),
+              })
+              .where(eq(jobs.id, targetJobId));
+            console.log(`[Cashfree Verify] Job ${targetJobId} promoted to Featured status.`);
+          } catch (jobErr) {
+            console.error("[Cashfree Verify Featured Job Error]:", jobErr);
+          }
+        }
+      } else {
         const targetUserId =
           session?.user?.id ||
           (customerId && !customerId.startsWith("guest_") ? customerId : null);

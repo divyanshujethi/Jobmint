@@ -1,0 +1,9 @@
+{
+  "name": "@repo/extension",
+  "version": "1.0.0",
+  "description": "Track with RoleNest - Manifest V3 Chrome Extension",
+  "private": true,
+  "scripts": {
+    "build": "node -e \"console.log('RoleNest Chrome Extension is pure web Manifest V3 - ready for Chrome Web Store / Unpacked loading.')\""
+  }
+}

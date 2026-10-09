@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Track with RoleNest</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="brand">
+        <div class="logo-box">
+          <svg class="icon-owl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
+        <div>
+          <h1 class="brand-name">RoleNest</h1>
+          <p class="brand-tag">Truth Teller Application Journal</p>
+        </div>
+      </div>
+      <a href="https://rolenest.in/applications" target="_blank" class="journal-link" title="Open Dashboard">
+        Journal &rarr;
+      </a>
+    </header>
+
+    <!-- State View: Form -->
+    <div id="form-view">
+      <div id="detection-pill" class="pill pill-detecting">
+        <span class="dot"></span>
+        <span id="detection-text">Detecting role on page...</span>
+      </div>
+
+      <form id="track-form">
+        <div class="field">
+          <label for="job-title">Job Title</label>
+          <input type="text" id="job-title" placeholder="e.g. Full-Stack Engineer" required />
+        </div>
+
+        <div class="field-row">
+          <div class="field flex-1">
+            <label for="company-name">Company</label>
+            <input type="text" id="company-name" placeholder="e.g. Swiggy" required />
+          </div>
+          <div class="field flex-1">
+            <label for="location">Location</label>
+            <input type="text" id="location" placeholder="e.g. Bengaluru / Remote" />
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field flex-1">
+            <label for="status">Application Status</label>
+            <select id="status">
+              <option value="APPLIED" selected>Applied</option>
+              <option value="SHORTLISTED">Shortlisted</option>
+              <option value="INTERVIEW">Interview Scheduled</option>
+              <option value="SAVED">Saved / Wishlist</option>
+            </select>
+          </div>
+          <div class="field flex-1">
+            <label for="salary">Salary / Stipend</label>
+            <input type="text" id="salary" placeholder="e.g. ₹18 LPA" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="notes">Notes / Referral Details</label>
+          <input type="text" id="notes" placeholder="e.g. Applied via employee referral" />
+        </div>
+
+        <input type="hidden" id="source-url" />
+
+        <button type="submit" id="btn-submit" class="btn btn-primary">
+          <span id="btn-text">Track with RoleNest</span>
+          <span id="btn-spinner" class="spinner hidden"></span>
+        </button>
+      </form>
+    </div>
+
+    <!-- State View: Success -->
+    <div id="success-view" class="success-box hidden">
+      <div class="success-icon">✓</div>
+      <h2 class="success-title">Application Tracked!</h2>
+      <p class="success-desc">
+        Logged to your RoleNest journal. Truth Teller 7-day anti-ghosting follow-up schedule is active.
+      </p>
+      <div class="success-actions">
+        <a id="view-app-link" href="https://rolenest.in/applications" target="_blank" class="btn btn-primary">
+          Open in Kanban Journal &rarr;
+        </a>
+        <button id="btn-track-another" class="btn btn-ghost">
+          Track Another Job
+        </button>
+      </div>
+    </div>
+
+    <!-- Footer info -->
+    <footer class="footer">
+      <span>Auto-syncs to rolenest.in</span>
+      <span>•</span>
+      <a href="https://rolenest.in" target="_blank">RoleNest Ecosystem</a>
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

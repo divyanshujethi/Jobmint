@@ -98,11 +98,19 @@ export default function PlacementPortalPage() {
           </div>
 
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2.5">
+            <Link href="/placement-portal/dashboard">
+              <Button
+                className="bg-emerald-500 hover:bg-emerald-400 text-neutral-950 font-black text-xs px-4 py-2.5 rounded-xl shadow-lg gap-1.5"
+              >
+                Launch TPO Live Dashboard →
+              </Button>
+            </Link>
             <Button
               onClick={() => setShowTpoModal(true)}
-              className="bg-emerald-500 hover:bg-emerald-400 text-neutral-950 font-black text-xs px-4 py-2.5 rounded-xl shadow-lg"
+              variant="outline"
+              className="border-neutral-800 text-neutral-300 hover:bg-neutral-900 font-bold text-xs px-4 py-2.5 rounded-xl"
             >
-              Book TPO Demo / Pilot →
+              Book TPO Demo / Pilot
             </Button>
             <div className="bg-neutral-900 border border-purple-800/80 px-3 py-1.5 rounded-xl text-xs font-mono flex items-center gap-1.5 text-purple-300">
               <span className="h-2 w-2 rounded-full bg-purple-400 animate-pulse" />

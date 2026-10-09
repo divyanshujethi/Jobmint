@@ -18,6 +18,8 @@ importers:
         specifier: ^5.0.3
         version: 5.0.3(@opentelemetry/api@1.9.1)(@types/node@22.20.3)(vite@8.3.2(@types/node@22.20.3)(jiti@1.21.7)(terser@5.51.2))
 
+  apps/extension: {}
+
   apps/mobile:
     dependencies:
       '@repo/matching':

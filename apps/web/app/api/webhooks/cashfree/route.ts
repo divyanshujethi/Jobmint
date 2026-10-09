@@ -144,7 +144,25 @@ export async function POST(req: NextRequest) {
         planTier = "hiring_sprint";
       }
 
-      if (!isFeaturedJob) {
+      if (isFeaturedJob) {
+        const targetJobId = order.order_tags?.job_id;
+        if (targetJobId) {
+          try {
+            const featuredExpiresAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+            await db
+              .update(jobs)
+              .set({
+                isFeatured: true,
+                featuredExpiresAt,
+                updatedAt: new Date(),
+              })
+              .where(eq(jobs.id, targetJobId));
+            console.log(`[Cashfree Webhook] Job ${targetJobId} promoted to Featured status until ${featuredExpiresAt.toISOString()}`);
+          } catch (jobErr) {
+            console.error("[Cashfree Featured Job Boost Error]:", jobErr);
+          }
+        }
+      } else {
         let existingUser: any = null;
         if (customerId && !customerId.startsWith("guest_")) {
           const [u] = await db

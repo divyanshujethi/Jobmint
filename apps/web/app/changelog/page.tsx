@@ -61,6 +61,22 @@ interface ChangelogEntry {
 
 const CHANGELOG_ENTRIES: ChangelogEntry[] = [
   {
+    version: "v2.7.0",
+    date: "October 2026",
+    title: "Track with RoleNest Manifest V3 Extension & Campus Placement Command Center",
+    tag: "FEATURE",
+    highlights: [
+      "Launched 'Track with RoleNest' Manifest V3 Chrome Extension for 1-click external job journaling",
+      "Auto-extraction engine supporting LinkedIn, Greenhouse, Lever, Indeed, and Workday",
+      "Deployed Institutional Campus Placement Cell (TPO) Command Center (/placement-portal/dashboard)",
+      "Implemented employer paid featured job boost with automated 30-day top-of-feed placement",
+      "Hardened code runner sandboxes with timeout protection and Web Worker execution bounds",
+      "Enforced strict Cashfree webhook & verify order idempotency ledgers",
+    ],
+    details:
+      "Empowered job seekers to journal any external role into their Truth Teller Kanban pipeline directly from their browser, and equipped campus placement cells with live student DevScore telemetry and NAAC accreditation reporting.",
+  },
+  {
     version: "v2.6.0",
     date: "October 2026",
     title: "Real-Time Telemetry, Single Database Metric Pipeline & Subdomain Unification",

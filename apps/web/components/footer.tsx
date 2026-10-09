@@ -236,6 +236,18 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/placement-portal/dashboard" className="hover:text-emerald-600 font-bold text-emerald-800 flex items-center gap-1">
+                  <span>🎓 Campus Placement Dashboard</span>
+                  <span className="rounded bg-emerald-100 text-emerald-800 px-1 py-0.2 text-[8px] font-mono">TPO</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/extension" className="hover:text-emerald-600 font-bold text-slate-800 flex items-center gap-1">
+                  <span>🧩 Chrome Extension (1-Click Track)</span>
+                  <span className="rounded bg-indigo-100 text-indigo-800 px-1 py-0.2 text-[8px] font-mono">New</span>
+                </Link>
+              </li>
+              <li>
                 <Link href="/api/feed/rss" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-600 flex items-center gap-1 text-amber-700">
                   Standard RSS 2.0 Feed
                 </Link>
