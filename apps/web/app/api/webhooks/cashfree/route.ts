@@ -3,6 +3,9 @@ import { getCashfreeOrder, verifyCashfreeWebhookSignature } from "@/lib/cashfree
 import { db, users, jobs, eq, sql } from "@repo/database";
 
 export async function POST(req: NextRequest) {
+  // Set once this delivery has atomically claimed the order; released if fulfilment fails
+  // so that Cashfree's retry can try again instead of the payment being silently lost.
+  let claimedOrderId: string | null = null;
   try {
     const rawBodyText = await req.text();
     const signature = req.headers.get("x-webhook-signature");
@@ -20,8 +23,9 @@ export async function POST(req: NextRequest) {
         console.error("[Cashfree Webhook Rejected]: Invalid HMAC signature or timestamp drift.");
         return NextResponse.json({ error: "Invalid webhook signature" }, { status: 401 });
       }
-    } else if (process.env.NODE_ENV === "production") {
-      console.error("[Cashfree Webhook Rejected]: Missing webhook signature or timestamp headers in production.");
+    } else if (process.env.NODE_ENV !== "development" && process.env.ALLOW_UNSIGNED_WEBHOOKS !== "1") {
+      // Fail closed: unsigned webhooks are only accepted in local development.
+      console.error("[Cashfree Webhook Rejected]: Missing webhook signature or timestamp headers.");
       return NextResponse.json({ error: "Missing required signature headers" }, { status: 401 });
     }
 
@@ -32,12 +36,13 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Invalid JSON payload" }, { status: 400 });
     }
 
-    console.log("[Cashfree Webhook Received]:", JSON.stringify(rawBody));
-
     const orderId =
       rawBody?.data?.order?.order_id ||
       rawBody?.data?.order_id ||
       rawBody?.order_id;
+
+    // Log the order id only: the payload contains customer name, email and phone.
+    console.log("[Cashfree Webhook Received]: order", orderId ?? "(none)");
 
     if (!orderId) {
       return NextResponse.json({ received: true, note: "No order_id detected" }, { status: 200 });
@@ -69,6 +74,21 @@ export async function POST(req: NextRequest) {
     const order = await getCashfreeOrder(orderId);
 
     if (order.order_status === "PAID") {
+      // Atomically claim the order. The SELECT above is only a cheap pre-check: two concurrent
+      // deliveries can both pass it, but only one INSERT ... RETURNING can win.
+      const claim: any = await db.execute(sql`
+        INSERT INTO processed_orders (order_id, amount, customer_email, plan)
+        VALUES (${order.order_id}, ${order.order_amount}, ${order.customer_details?.customer_email?.toLowerCase() || ""}, 'claimed')
+        ON CONFLICT (order_id) DO NOTHING
+        RETURNING order_id;
+      `);
+      const claimedRows = Array.isArray(claim) ? claim : (claim?.rows || []);
+      if (claimedRows.length === 0) {
+        console.log(`[Cashfree Webhook Idempotency]: Order ${orderId} was claimed by a concurrent delivery. Skipping.`);
+        return NextResponse.json({ received: true, duplicate: true, orderId }, { status: 200 });
+      }
+      claimedOrderId = String(order.order_id);
+
       const customerEmail = order.customer_details.customer_email?.toLowerCase();
       const customerId = order.customer_details.customer_id;
 
@@ -97,12 +117,12 @@ export async function POST(req: NextRequest) {
           `);
 
           await db.execute(sql`
-            INSERT INTO processed_orders (order_id, amount, customer_email, plan)
-            VALUES (${order.order_id}, ${order.order_amount}, ${customerEmail || ''}, 'donation')
-            ON CONFLICT (order_id) DO NOTHING;
+            UPDATE processed_orders SET plan = 'donation' WHERE order_id = ${order.order_id};
           `);
         } catch (e) {
           console.error("[Donation Webhook Save Error]:", e);
+          // Rethrow so the claim is released and Cashfree retries, instead of losing the donation record.
+          throw e;
         }
 
         return NextResponse.json({ received: true, type: "donation", amount: order.order_amount }, { status: 200 });
@@ -207,15 +227,16 @@ export async function POST(req: NextRequest) {
             .where(eq(users.id, existingUser.id));
 
           console.log(`[Cashfree Webhook] ${planTier} membership extended/activated until ${expiresAt.toISOString()} for order ${orderId}`);
+        } else {
+          // Paid but no matching account: needs manual follow-up, never a silent success.
+          console.error(`[Cashfree Webhook] PAID order ${orderId} (${planTier}) has no matching user. Manual reconciliation required.`);
         }
       }
 
       // Record successful order in idempotency ledger
       try {
         await db.execute(sql`
-          INSERT INTO processed_orders (order_id, amount, customer_email, plan)
-          VALUES (${order.order_id}, ${order.order_amount}, ${customerEmail || ''}, ${planTier})
-          ON CONFLICT (order_id) DO NOTHING;
+          UPDATE processed_orders SET plan = ${planTier} WHERE order_id = ${order.order_id};
         `);
       } catch (idempErr) {
         console.error("[Cashfree Idempotency Insert Error]:", idempErr);
@@ -225,6 +246,14 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ received: true }, { status: 200 });
   } catch (error: any) {
     console.error("[Cashfree Webhook Error]:", error);
-    return NextResponse.json({ error: error.message || "Webhook processing failed" }, { status: 500 });
+    if (claimedOrderId) {
+      try {
+        await db.execute(sql`DELETE FROM processed_orders WHERE order_id = ${claimedOrderId} AND plan = 'claimed';`);
+      } catch (releaseErr) {
+        console.error("[Cashfree Webhook] Failed to release order claim:", releaseErr);
+      }
+    }
+    // Do not leak internals to the caller.
+    return NextResponse.json({ error: "Webhook processing failed" }, { status: 500 });
   }
 }

@@ -2,6 +2,7 @@ import { NextRequest } from "next/server";
 import { auth } from "@/auth";
 import { db, users, eq } from "@repo/database";
 import { getCache, setCache } from "@/lib/redis";
+import { getClientIp } from "@/lib/rate-limit";
 
 export const MAX_FREE_AI_USES = 5;
 
@@ -63,10 +64,9 @@ export async function checkAiQuota(req: NextRequest): Promise<QuotaCheckResult> 
   }
 
   // For free / trial users, track by user ID or IP
-  const ip =
-    req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
-    req.headers.get("x-real-ip") ||
-    "127.0.0.1";
+  // Use the same trusted-header order as the rate limiter (Cloudflare first).
+  // Reading x-forwarded-for first let anyone reset their free quota by spoofing it.
+  const ip = getClientIp(req);
 
   const userKey = userId ? `user:${userId}` : `ip:${ip.replace(/[^a-zA-Z0-9_.-]/g, "_")}`;
   const quotaRedisKey = `rolenest:ai_quota:${userKey}`;

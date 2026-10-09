@@ -1,15 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
-import { exec } from "child_process";
-import { promisify } from "util";
 import fs from "fs/promises";
 import path from "path";
 import os from "os";
 import crypto from "crypto";
 
 import { checkRateLimit } from "@/lib/rate-limit";
+import { auth } from "@/auth";
+import { isSandboxConfigured, runInSandbox } from "@/lib/sandbox";
 
-const execAsync = promisify(exec);
-
+// Defence-in-depth only. A substring blocklist is NOT a security boundary and is
+// trivially bypassable; the real isolation is the container in lib/sandbox.ts.
 // Security sandbox blocklist patterns (static AST-lite token inspection)
 const BLOCKED_TOKENS_CPP = [
   "system(", "popen(", "fork(", "execve(", "execl(", "execvp(",
@@ -204,6 +204,23 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // Fail closed: never compile/run untrusted code on the app host.
+    if (!isSandboxConfigured()) {
+      return NextResponse.json(
+        { error: "C++ and Java execution is temporarily unavailable. JavaScript, TypeScript and Python run in your browser." },
+        { status: 503 }
+      );
+    }
+
+    // Server-side execution is costly and abusable: require a signed-in account.
+    const session = await auth();
+    if (!session?.user?.id) {
+      return NextResponse.json(
+        { error: "Sign in to run C++ or Java. JavaScript, TypeScript and Python run in your browser without an account." },
+        { status: 401 }
+      );
+    }
+
     // Rate limiting: 20 executions per 60 seconds per IP
     const rateLimit = await checkRateLimit(req, {
       maxRequests: 20,
@@ -260,6 +277,8 @@ export async function POST(req: NextRequest) {
     }
 
     await fs.mkdir(tmpDir, { recursive: true });
+    // The container runs as an unprivileged user and must be able to write its output here.
+    await fs.chmod(tmpDir, 0o777);
 
     // Detect method name from code if not provided
     let methodName = rawMethodName;
@@ -373,14 +392,14 @@ ${argsList}
 `;
 
       const srcPath = path.join(tmpDir, "solution.cpp");
-      const binPath = path.join(tmpDir, "solution.out");
       await fs.writeFile(srcPath, cppSource, "utf8");
 
       // 1. Compile with C++20 and resource limit
       try {
-        await execAsync(`g++ -O2 -std=c++20 "${srcPath}" -o "${binPath}"`, {
-          timeout: 10000,
-          maxBuffer: 1024 * 512,
+        await runInSandbox({
+          workDir: tmpDir,
+          command: ["g++", "-O2", "-std=c++20", "solution.cpp", "-o", "solution.out"],
+          timeoutMs: 15000,
         });
       } catch (compileErr: any) {
         const errorMsg = compileErr.stderr || compileErr.message || "Compilation failed";
@@ -399,10 +418,10 @@ ${argsList}
       // 2. Run binary in security sandbox
       let stdout = "";
       try {
-        const runCmd = `timeout 6s "${binPath}"`;
-        const res = await execAsync(runCmd, {
-          timeout: 7000,
-          maxBuffer: 1024 * 1024,
+        const res = await runInSandbox({
+          workDir: tmpDir,
+          command: ["timeout", "6s", "./solution.out"],
+          timeoutMs: 9000,
         });
         stdout = res.stdout;
       } catch (runErr: any) {
@@ -543,9 +562,11 @@ ${argsList}
 
       // 1. Compile Java
       try {
-        await execAsync(`javac -cp "${tmpDir}" "${javaFilePath}"`, {
-          timeout: 10000,
-          maxBuffer: 1024 * 512,
+        await runInSandbox({
+          workDir: tmpDir,
+          command: ["javac", "-cp", ".", "Main.java"],
+          timeoutMs: 20000,
+          memoryMb: 512,
         });
       } catch (compileErr: any) {
         return NextResponse.json({
@@ -563,9 +584,11 @@ ${argsList}
       // 2. Run Java with heap limit and timeout
       let stdout = "";
       try {
-        const res = await execAsync(`timeout 6s java -Xmx256m -cp "${tmpDir}" Main`, {
-          timeout: 7000,
-          maxBuffer: 1024 * 1024,
+        const res = await runInSandbox({
+          workDir: tmpDir,
+          command: ["timeout", "6s", "java", "-Xmx256m", "-cp", ".", "Main"],
+          timeoutMs: 10000,
+          memoryMb: 512,
         });
         stdout = res.stdout;
       } catch (runErr: any) {

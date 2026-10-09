@@ -1279,7 +1279,7 @@ function POTDWorkspace() {
                   <div>
                     <h4 className="text-xs font-bold text-white">Sponsor a Weekend Hiring Hackathon</h4>
                     <p className="text-[11px] text-slate-300 mt-0.5 leading-relaxed">
-                      Host custom problems in our anti-cheat sandbox. Reach 5,000+ top student coders and receive direct candidate shortlists.
+                      Host custom problems in the ProblemNest arena and review shortlisted student solvers.
                     </p>
                   </div>
                   <Button

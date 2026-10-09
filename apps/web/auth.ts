@@ -99,17 +99,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return session;
     },
     async redirect({ url, baseUrl }) {
-      // Allow relative paths
-      if (url.startsWith("/")) return `${baseUrl}${url}`;
-      // Allow rolenest.in and *.rolenest.in
+      // Allow same-site relative paths (but not protocol-relative "//host" or "/\host")
+      if (url.startsWith("/") && !url.startsWith("//") && !url.startsWith("/\\")) return `${baseUrl}${url}`;
+      // Allow rolenest.in and *.rolenest.in (localhost only outside production)
       try {
         const parsed = new URL(url);
-        if (
-          parsed.hostname === "rolenest.in" ||
-          parsed.hostname.endsWith(".rolenest.in") ||
-          parsed.hostname === "localhost" ||
-          parsed.hostname === "127.0.0.1"
-        ) {
+        const isLocal =
+          process.env.NODE_ENV !== "production" &&
+          (parsed.hostname === "localhost" || parsed.hostname === "127.0.0.1");
+        if (parsed.hostname === "rolenest.in" || parsed.hostname.endsWith(".rolenest.in") || isLocal) {
           return url;
         }
       } catch {}

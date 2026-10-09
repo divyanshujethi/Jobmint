@@ -1291,7 +1291,7 @@ export default function PricingPage() {
                       ₹25k - ₹75k <span className="text-xs font-normal text-slate-500">/ contest</span>
                     </div>
                     <p className="text-xs text-slate-600 leading-relaxed">
-                      Host custom problems in our anti-cheat code runner. Reach 5,000+ active student coders and receive direct candidate shortlists of top 1% solvers.
+                      Host custom problems in the ProblemNest arena and review shortlisted student solvers.
                     </p>
                   </div>
                   <Link href="/potd">

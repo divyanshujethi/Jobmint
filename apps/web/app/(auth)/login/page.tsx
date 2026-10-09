@@ -5,6 +5,7 @@ import { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { APP_CONFIG } from "@repo/shared";
+import { getSafeCallbackUrl } from "@/lib/safe-redirect";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import {
   GraduationCap,
@@ -13,24 +14,6 @@ import {
   Loader2,
   ArrowRight,
 } from "lucide-react";
-
-function getSafeCallbackUrl(raw: string | null): string {
-  if (!raw) return "/recommendations";
-  if (raw.startsWith("/") && !raw.startsWith("//")) return raw;
-  try {
-    const parsed = new URL(raw);
-    const host = parsed.hostname.toLowerCase();
-    if (
-      host === "rolenest.in" ||
-      host.endsWith(".rolenest.in") ||
-      host === "localhost" ||
-      host === "127.0.0.1"
-    ) {
-      return raw;
-    }
-  } catch {}
-  return "/recommendations";
-}
 
 function LoginForm() {
   const searchParams = useSearchParams();

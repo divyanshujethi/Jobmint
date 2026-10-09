@@ -2,6 +2,7 @@
 
 import { useState, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
+import { isSafeRelativePath } from "@/lib/safe-redirect";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
@@ -39,7 +40,9 @@ const EXPERIENCE_LEVELS = [
 function CandidateOnboardingContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const callbackUrl = searchParams.get("callbackUrl") || "/recommendations";
+  const rawCallback = searchParams.get("callbackUrl");
+  // Only same-site paths: an attacker-supplied absolute URL must never reach router.push.
+  const callbackUrl = rawCallback && isSafeRelativePath(rawCallback) ? rawCallback : "/recommendations";
 
   const [headline, setHeadline] = useState("");
   const [location, setLocation] = useState("");
