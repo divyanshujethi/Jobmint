@@ -144,6 +144,7 @@ export default function PricingPage() {
   const [hasCompanyAccount, setHasCompanyAccount] = useState<boolean>(false);
   const [company, setCompany] = useState<any>(null);
   const [adminOverride, setAdminOverride] = useState<"candidate" | "employer" | null>(null);
+  const [activeAudience, setActiveAudience] = useState<"candidate" | "employer">("candidate");
   const [isLoadingAccount, setIsLoadingAccount] = useState<boolean>(true);
 
   const [isPro, setIsPro] = useState(false);
@@ -209,6 +210,7 @@ export default function PricingPage() {
             setHasCompanyAccount(true);
             setCompany(data.company);
             setUserRole("EMPLOYER");
+            setActiveAudience("employer");
           }
         }
       } catch (err) {
@@ -296,21 +298,53 @@ export default function PricingPage() {
       "divyanshujethi@gmail.com",
     ].includes(sessionUser?.email?.toLowerCase());
 
-  // Strictly respect account boundary:
-  // - If user has a company account -> "employer" view only
-  // - If user does NOT have a company account -> "candidate" view only
-  // - Admin can optionally toggle view mode to audit both
+  // Allow users to toggle between Candidate and Employer views (defaulting according to account type)
   const effectiveView: "candidate" | "employer" =
-    isAdmin && adminOverride
-      ? adminOverride
-      : isCompanyAccount
-        ? "employer"
-        : "candidate";
+    adminOverride || activeAudience;
 
   return (
     <div className="min-h-screen bg-slate-50/50 py-16 px-4 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl space-y-16">
-        {/* ADMIN VIEW CONTROLLER */}
+        {/* PUBLIC AUDIENCE SELECTOR (Candidates & 3-in-1 Bundle vs Employers) */}
+        <div className="flex items-center justify-center">
+          <div className="inline-flex items-center p-1.5 rounded-2xl bg-slate-200/80 border border-slate-300/80 shadow-xs">
+            <button
+              type="button"
+              onClick={() => {
+                setActiveAudience("candidate");
+                setAdminOverride(null);
+              }}
+              className={`px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-2 ${
+                effectiveView === "candidate"
+                  ? "bg-white text-slate-900 shadow-sm"
+                  : "text-slate-600 hover:text-slate-900"
+              }`}
+            >
+              <Sparkles className="h-4 w-4 text-purple-600" />
+              <span>For Developers &amp; Candidates</span>
+              <span className="rounded-full bg-purple-100 text-purple-800 px-2.5 py-0.5 text-[10px] font-black uppercase">
+                3-in-1 Bundle
+              </span>
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setActiveAudience("employer");
+                setAdminOverride(null);
+              }}
+              className={`px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-2 ${
+                effectiveView === "employer"
+                  ? "bg-white text-slate-900 shadow-sm"
+                  : "text-slate-600 hover:text-slate-900"
+              }`}
+            >
+              <Building className="h-4 w-4 text-blue-600" />
+              <span>For Employers &amp; Recruiters</span>
+            </button>
+          </div>
+        </div>
+
+        {/* ADMIN VIEW CONTROLLER (If Admin) */}
         {isAdmin && (
           <div className="rounded-2xl border border-amber-300 bg-amber-50/80 p-3.5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs shadow-xs">
             <span className="font-bold text-amber-950 flex items-center gap-2">
@@ -318,7 +352,7 @@ export default function PricingPage() {
               <span>
                 <strong>Admin Mode:</strong> Currently viewing{" "}
                 <span className="underline uppercase tracking-wider font-extrabold text-amber-900">
-                  {effectiveView === "employer" ? "Company / Employer" : "Candidate & Developer"}
+                  {effectiveView === "employer" ? "Company / Employer" : "Candidate & Developer (3-in-1 Bundle)"}
                 </span>{" "}
                 plans
               </span>
@@ -414,8 +448,40 @@ export default function PricingPage() {
                 </p>
               </div>
 
-              {/* Candidate Plan Cards: 3 Streamlined Tiers (Free, Campus Student Pass ₹99, Pro Member ₹199/mo or ₹1,499/yr) */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+              {/* PROMINENT 3-IN-1 MASTER BUNDLE HERO CALLOUT */}
+              <div className="rounded-3xl border-2 border-purple-500 bg-gradient-to-r from-purple-50 via-indigo-50/60 to-purple-50 p-6 shadow-md flex flex-col lg:flex-row items-center justify-between gap-6 ring-2 ring-purple-500/20">
+                <div className="flex items-center gap-4">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-purple-600 text-white font-black shadow-md shrink-0">
+                    <Sparkles className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="font-black text-lg sm:text-xl text-slate-900">
+                        3-in-1 All-Access Master Bundle
+                      </span>
+                      <span className="rounded-full bg-purple-600 text-white px-2.5 py-0.5 text-[10px] font-black uppercase tracking-wider shadow-xs">
+                        Save 25%
+                      </span>
+                      <span className="rounded-full bg-purple-100 text-purple-900 border border-purple-200 px-2 py-0.5 text-[10px] font-bold">
+                        ₹299 / month or ₹1,999 / year
+                      </span>
+                    </div>
+                    <p className="text-xs sm:text-sm text-slate-600 mt-1">
+                      Unlocks the entire ecosystem in one click: <strong>RoleNest Pro</strong> (75 AI ATS tailorings) + <strong>ProblemNest CodePass</strong> (POTD solutions &amp; 70 DSA problems) + <strong>StudyNest Scholar Pass</strong> (all interactive roadmaps &amp; certs).
+                    </p>
+                  </div>
+                </div>
+                <Button
+                  onClick={handleAllAccessCheckout}
+                  className="whitespace-nowrap rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold px-6 py-3 text-xs sm:text-sm shadow-md flex items-center gap-2 shrink-0 w-full lg:w-auto justify-center"
+                >
+                  <Crown className="h-4 w-4" />
+                  <span>Get 3-in-1 Master Bundle — ₹299</span>
+                </Button>
+              </div>
+
+              {/* Candidate Plan Cards: 4 Tiers (Free, Student ₹99, Pro ₹199, and 3-in-1 Master Bundle ₹299) */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
                 {/* TIER 1: FREE FOREVER */}
                 <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm flex flex-col justify-between hover:border-slate-300 transition-all">
                   <div className="space-y-5">
@@ -806,6 +872,76 @@ export default function PricingPage() {
                       </Button>
                     </div>
                   </div>
+
+                  {/* TIER 4: 3-IN-1 MASTER BUNDLE: ALL-ACCESS SUPER PASS */}
+                  <div className="relative rounded-3xl border-2 border-purple-500 bg-linear-to-b from-purple-50/70 via-white to-white p-6 shadow-xl flex flex-col justify-between ring-2 ring-purple-500/20 hover:border-purple-600 transition-all">
+                    <div className="absolute -top-3 right-5 rounded-full bg-linear-to-r from-purple-600 to-indigo-600 px-3 py-0.5 text-[10px] font-black uppercase tracking-wider text-white shadow-sm flex items-center gap-1">
+                      <Sparkles className="h-3 w-3" /> 3-in-1 Master Bundle
+                    </div>
+                    <div className="space-y-5">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <h3 className="text-lg font-black text-slate-900 flex items-center gap-2">
+                            All-Access Super Pass
+                          </h3>
+                          <p className="text-xs text-purple-700 font-semibold mt-0.5">RoleNest + ProblemNest + StudyNest</p>
+                        </div>
+                      </div>
+
+                      {/* Dual Pricing Display */}
+                      <div className="space-y-1">
+                        <div className="flex items-baseline gap-1">
+                          <span className="text-3xl font-black text-slate-900">₹299</span>
+                          <span className="text-xs text-slate-500 font-semibold">/ month</span>
+                          <span className="text-slate-300 mx-1.5">•</span>
+                          <span className="text-xs font-bold text-purple-800 bg-purple-100 border border-purple-200 px-2 py-0.5 rounded-full">
+                            or ₹1,999 / yr
+                          </span>
+                        </div>
+                        <p className="text-[11px] text-purple-700 font-medium">
+                          Saves 25% (₹299/mo vs ₹397/mo combined: Pro ₹199 + CodePass ₹99 + Scholar ₹99)
+                        </p>
+                      </div>
+
+                      <div className="space-y-2 pt-2 border-t border-purple-100">
+                        <div className="text-[10px] font-extrabold uppercase tracking-wider text-purple-900 flex items-center gap-1">
+                          <CheckCircle2 className="h-3.5 w-3.5 text-purple-600" /> Complete 3-in-1 Suite:
+                        </div>
+                        <ul className="space-y-2 text-xs text-slate-700">
+                          <li className="flex items-start gap-2">
+                            <Check className="h-4 w-4 text-purple-600 shrink-0 mt-0.5" />
+                            <span><strong>RoleNest Pro Included:</strong> 75 AI ATS tailorings &amp; Ghosting Shield</span>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <Check className="h-4 w-4 text-purple-600 shrink-0 mt-0.5" />
+                            <span><strong>ProblemNest CodePass:</strong> Full POTD solutions &amp; 70 curated DSA catalog</span>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <Check className="h-4 w-4 text-purple-600 shrink-0 mt-0.5" />
+                            <span><strong>StudyNest Scholar:</strong> All 30-day interactive curricula &amp; certificates</span>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <Check className="h-4 w-4 text-purple-600 shrink-0 mt-0.5" />
+                            <span><strong>Telegram / WhatsApp Alerts:</strong> Instant priority match notifications</span>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <Check className="h-4 w-4 text-purple-600 shrink-0 mt-0.5" />
+                            <span><strong>Single Unified Billing:</strong> One pass unlocks all 3 subdomains</span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div className="pt-6">
+                      <Button
+                        onClick={handleAllAccessCheckout}
+                        className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs h-10 shadow-md flex items-center justify-center gap-1.5"
+                      >
+                        <Crown className="h-3.5 w-3.5" />
+                        Get All-Access Super Pass — ₹299
+                      </Button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -824,12 +960,15 @@ export default function PricingPage() {
                       <th className="p-4 font-bold text-slate-900">Features &amp; Limitations</th>
                       <th className="p-4 font-bold text-slate-900 text-center">Free Community</th>
                       <th className="p-4 font-bold text-indigo-700 text-center bg-indigo-50/50">Campus Student Pass</th>
-                      <th className="p-4 font-bold text-emerald-700 text-center bg-emerald-50/50">RoleNest Pro (Monthly / Annual)</th>
+                      <th className="p-4 font-bold text-emerald-700 text-center bg-emerald-50/50">RoleNest Pro</th>
+                      <th className="p-4 font-bold text-purple-700 text-center bg-purple-50/70 border-l border-purple-200">
+                        All-Access Super Pass (3-in-1 Master Bundle)
+                      </th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-100 text-slate-700">
                     <tr className="bg-slate-50/50">
-                      <td colSpan={4} className="p-3 font-extrabold uppercase tracking-wider text-[10px] text-slate-500">
+                      <td colSpan={5} className="p-3 font-extrabold uppercase tracking-wider text-[10px] text-slate-500">
                         Core Job Discovery &amp; Practice
                       </td>
                     </tr>
@@ -838,34 +977,53 @@ export default function PricingPage() {
                       <td className="p-4 text-center text-emerald-600 font-bold">✓ Included</td>
                       <td className="p-4 text-center text-emerald-600 font-bold bg-indigo-50/30">✓ Included</td>
                       <td className="p-4 text-center text-emerald-600 font-bold bg-emerald-50/30">✓ Included</td>
+                      <td className="p-4 text-center text-purple-700 font-bold bg-purple-50/40 border-l border-purple-100">✓ Included</td>
                     </tr>
                     <tr>
                       <td className="p-4 font-medium">Direct Official ATS Links (Greenhouse, Lever, Ashby)</td>
                       <td className="p-4 text-center text-emerald-600 font-bold">✓ 100% Direct</td>
                       <td className="p-4 text-center text-emerald-600 font-bold bg-indigo-50/30">✓ 100% Direct</td>
                       <td className="p-4 text-center text-emerald-600 font-bold bg-emerald-50/30">✓ 100% Direct</td>
+                      <td className="p-4 text-center text-purple-700 font-bold bg-purple-50/40 border-l border-purple-100">✓ 100% Direct</td>
                     </tr>
                     <tr>
                       <td className="p-4 font-medium">Indian Govt Tech Careers Portal (/gov-tech)</td>
                       <td className="p-4 text-center text-emerald-600 font-bold">✓ Included</td>
                       <td className="p-4 text-center text-emerald-600 font-bold bg-indigo-50/30">✓ Included</td>
                       <td className="p-4 text-center text-emerald-600 font-bold bg-emerald-50/30">✓ Included</td>
+                      <td className="p-4 text-center text-purple-700 font-bold bg-purple-50/40 border-l border-purple-100">✓ Included</td>
                     </tr>
                     <tr>
                       <td className="p-4 font-medium">Standard Single-Column ATS Resume Builder</td>
                       <td className="p-4 text-center text-emerald-600 font-bold">✓ Included (LaTeX)</td>
                       <td className="p-4 text-center text-emerald-600 font-bold bg-indigo-50/30">✓ Included (LaTeX)</td>
                       <td className="p-4 text-center text-emerald-600 font-bold bg-emerald-50/30">✓ Included (LaTeX)</td>
+                      <td className="p-4 text-center text-purple-700 font-bold bg-purple-50/40 border-l border-purple-100">✓ Included (LaTeX)</td>
                     </tr>
                     <tr>
                       <td className="p-4 font-medium">Daily Problem of the Day (Monaco Editor Runner)</td>
                       <td className="p-4 text-center text-emerald-600 font-bold">✓ Included</td>
                       <td className="p-4 text-center text-emerald-600 font-bold bg-indigo-50/30">✓ Full Solutions</td>
                       <td className="p-4 text-center text-emerald-600 font-bold bg-emerald-50/30">✓ Full Solutions</td>
+                      <td className="p-4 text-center text-purple-700 font-bold bg-purple-50/40 border-l border-purple-100">✓ Full Solutions</td>
+                    </tr>
+                    <tr>
+                      <td className="p-4 font-medium">ProblemNest Full DSA Catalog (70 Curated Problems)</td>
+                      <td className="p-4 text-center text-slate-400">—</td>
+                      <td className="p-4 text-center text-slate-400 bg-indigo-50/30">—</td>
+                      <td className="p-4 text-center text-slate-400 bg-emerald-50/30">—</td>
+                      <td className="p-4 text-center text-purple-700 font-bold bg-purple-50/40 border-l border-purple-100">✓ All 70+ Problems</td>
+                    </tr>
+                    <tr>
+                      <td className="p-4 font-medium">StudyNest Interactive 30-Day Curricula &amp; Certs</td>
+                      <td className="p-4 text-center text-slate-400">—</td>
+                      <td className="p-4 text-center text-slate-400 bg-indigo-50/30">—</td>
+                      <td className="p-4 text-center text-slate-400 bg-emerald-50/30">—</td>
+                      <td className="p-4 text-center text-purple-700 font-bold bg-purple-50/40 border-l border-purple-100">✓ Full Access &amp; Certs</td>
                     </tr>
 
                     <tr className="bg-slate-50/50">
-                      <td colSpan={4} className="p-3 font-extrabold uppercase tracking-wider text-[10px] text-slate-500">
+                      <td colSpan={5} className="p-3 font-extrabold uppercase tracking-wider text-[10px] text-slate-500">
                         AI Career Suite &amp; Automation
                       </td>
                     </tr>
@@ -874,28 +1032,32 @@ export default function PricingPage() {
                       <td className="p-4 text-center text-slate-500">5 scans starter quota</td>
                       <td className="p-4 text-center text-indigo-700 font-bold bg-indigo-50/30">25 / month</td>
                       <td className="p-4 text-center text-emerald-600 font-bold bg-emerald-50/30">75 / month</td>
+                      <td className="p-4 text-center text-purple-700 font-bold bg-purple-50/40 border-l border-purple-100">75 / month</td>
                     </tr>
                     <tr>
                       <td className="p-4 font-medium">STAR Accomplishment Bullet Improver</td>
                       <td className="p-4 text-center text-slate-400">—</td>
                       <td className="p-4 text-center text-indigo-700 font-bold bg-indigo-50/30">25 / month</td>
                       <td className="p-4 text-center text-emerald-600 font-bold bg-emerald-50/30">75 / month</td>
+                      <td className="p-4 text-center text-purple-700 font-bold bg-purple-50/40 border-l border-purple-100">75 / month</td>
                     </tr>
                     <tr>
                       <td className="p-4 font-medium">Interview Prep Question Generator</td>
                       <td className="p-4 text-center text-slate-500">3 questions</td>
                       <td className="p-4 text-center text-indigo-700 font-bold bg-indigo-50/30">10 / job</td>
                       <td className="p-4 text-center text-emerald-600 font-bold bg-emerald-50/30">25 / job</td>
+                      <td className="p-4 text-center text-purple-700 font-bold bg-purple-50/40 border-l border-purple-100">25 / job</td>
                     </tr>
                     <tr>
                       <td className="p-4 font-medium">Custom Cover Letter Writer</td>
                       <td className="p-4 text-center text-slate-400">—</td>
                       <td className="p-4 text-center text-slate-400 bg-indigo-50/30">—</td>
                       <td className="p-4 text-center text-emerald-600 font-bold bg-emerald-50/30">75 / month</td>
+                      <td className="p-4 text-center text-purple-700 font-bold bg-purple-50/40 border-l border-purple-100">75 / month</td>
                     </tr>
 
                     <tr className="bg-slate-50/50">
-                      <td colSpan={4} className="p-3 font-extrabold uppercase tracking-wider text-[10px] text-slate-500">
+                      <td colSpan={5} className="p-3 font-extrabold uppercase tracking-wider text-[10px] text-slate-500">
                         Application Tracking &amp; Recruiter Visibility
                       </td>
                     </tr>
@@ -904,34 +1066,39 @@ export default function PricingPage() {
                       <td className="p-4 text-center text-slate-500">Max 5 jobs</td>
                       <td className="p-4 text-center text-indigo-700 font-bold bg-indigo-50/30">Max 15 jobs</td>
                       <td className="p-4 text-center text-emerald-600 font-bold bg-emerald-50/30">Max 50 jobs</td>
+                      <td className="p-4 text-center text-purple-700 font-bold bg-purple-50/40 border-l border-purple-100">Max 50 jobs</td>
                     </tr>
                     <tr>
                       <td className="p-4 font-medium">7-Day Follow-Up &amp; Recruiter Inactivity Reminders</td>
                       <td className="p-4 text-center text-slate-400">—</td>
                       <td className="p-4 text-center text-indigo-700 font-bold bg-indigo-50/30">✓ Active</td>
                       <td className="p-4 text-center text-emerald-600 font-bold bg-emerald-50/30">✓ Active</td>
+                      <td className="p-4 text-center text-purple-700 font-bold bg-purple-50/40 border-l border-purple-100">✓ Active</td>
                     </tr>
                     <tr>
                       <td className="p-4 font-medium">Telegram / WhatsApp Instant Job Match Pings</td>
                       <td className="p-4 text-center text-slate-400">—</td>
                       <td className="p-4 text-center text-slate-400 bg-indigo-50/30">—</td>
                       <td className="p-4 text-center text-emerald-600 font-bold bg-emerald-50/30">✓ Instant Pings</td>
+                      <td className="p-4 text-center text-purple-700 font-bold bg-purple-50/40 border-l border-purple-100">✓ Instant Pings</td>
                     </tr>
                     <tr>
                       <td className="p-4 font-medium">Candidate Directory Badge</td>
                       <td className="p-4 text-center text-slate-400">Standard (None)</td>
                       <td className="p-4 text-center text-indigo-700 font-bold bg-indigo-50/30">Verified Student</td>
                       <td className="p-4 text-center text-emerald-600 font-bold bg-emerald-50/30">Verified Pro</td>
+                      <td className="p-4 text-center text-purple-700 font-bold bg-purple-50/40 border-l border-purple-100">Verified All-Access Pro</td>
                     </tr>
                     <tr>
                       <td className="p-4 font-medium">DevScore GitHub Code Cadence Audit</td>
                       <td className="p-4 text-center text-slate-400">—</td>
                       <td className="p-4 text-center text-slate-600 font-medium bg-indigo-50/30">Basic Score</td>
                       <td className="p-4 text-center text-emerald-600 font-bold bg-emerald-50/30">Deep Audit</td>
+                      <td className="p-4 text-center text-purple-700 font-bold bg-purple-50/40 border-l border-purple-100">Deep Audit</td>
                     </tr>
 
                     <tr className="bg-slate-50/50">
-                      <td colSpan={4} className="p-3 font-extrabold uppercase tracking-wider text-[10px] text-slate-500">
+                      <td colSpan={5} className="p-3 font-extrabold uppercase tracking-wider text-[10px] text-slate-500">
                         Pricing &amp; Duration
                       </td>
                     </tr>
@@ -940,12 +1107,14 @@ export default function PricingPage() {
                       <td className="p-4 text-center font-black text-slate-900">₹0</td>
                       <td className="p-4 text-center font-black text-indigo-700 bg-indigo-50/30">₹99 / month</td>
                       <td className="p-4 text-center font-black text-emerald-700 bg-emerald-50/30">₹199/mo or ₹1,499/yr</td>
+                      <td className="p-4 text-center font-black text-purple-800 bg-purple-50/50 border-l border-purple-100">₹299/mo or ₹1,999/yr</td>
                     </tr>
                     <tr>
                       <td className="p-4 font-medium">Access Duration</td>
                       <td className="p-4 text-center font-mono">Forever Free</td>
                       <td className="p-4 text-center font-mono bg-indigo-50/30">30 Days</td>
                       <td className="p-4 text-center font-mono bg-emerald-50/30">30 or 365 Days</td>
+                      <td className="p-4 text-center font-mono text-purple-900 bg-purple-50/50 border-l border-purple-100">30 or 365 Days</td>
                     </tr>
                   </tbody>
                 </table>
