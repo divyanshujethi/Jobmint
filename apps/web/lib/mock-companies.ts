@@ -8,6 +8,7 @@ export interface CompanyProfile {
   industry: string;
   description: string;
   isVerified: boolean;
+  activeJobsCount?: number;
   truthTeller: {
     totalApplications: number;
     reviewedApplications: number;

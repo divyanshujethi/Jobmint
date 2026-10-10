@@ -155,18 +155,37 @@ export function CompaniesFeedClient({
 
               {/* TRUTH TELLER STATS BOX */}
               <div className="rounded-xl border border-slate-100 bg-slate-50/80 p-3.5 space-y-2 text-xs">
-                <div className="flex justify-between items-center">
-                  <span className="text-slate-500">Candidate Review Rate</span>
-                  <span className="font-bold text-emerald-700">
-                    {comp.truthTeller.reviewRate}%
-                  </span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-slate-500">Median First Review</span>
-                  <span className="font-bold text-slate-900">
-                    {comp.truthTeller.medianFirstReviewDays} days
-                  </span>
-                </div>
+                {comp.truthTeller.totalApplications > 0 ? (
+                  <>
+                    <div className="flex justify-between items-center">
+                      <span className="text-slate-500">Candidate Review Rate</span>
+                      <span className="font-bold text-emerald-700">
+                        {comp.truthTeller.reviewRate}%
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-slate-500">Median First Review</span>
+                      <span className="font-bold text-slate-900">
+                        {comp.truthTeller.medianFirstReviewDays} days
+                      </span>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="flex justify-between items-center">
+                      <span className="text-slate-500">Active Tech Roles</span>
+                      <span className="font-bold text-slate-900">
+                        {comp.activeJobsCount !== undefined ? `${comp.activeJobsCount} open` : "Direct ATS"}
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-slate-500">Telemetry Status</span>
+                      <span className="font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded text-[10px]">
+                        Calibrating
+                      </span>
+                    </div>
+                  </>
+                )}
                 <div className="flex justify-between items-center text-[11px] pt-1 border-t border-slate-200/60 text-slate-400">
                   <span>Recruiter Activity</span>
                   <span className="text-emerald-600 font-medium">

@@ -248,12 +248,25 @@ export function GapToOfferDiagnostic({
 
           <div className="flex items-center gap-2 self-start sm:self-auto">
             <div className="text-right mr-1">
-              <div className="text-2xl font-black text-emerald-700 font-mono">
-                {matchPercentage > 0 ? `${matchPercentage}%` : "--%"}
-              </div>
-              <div className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">
-                ATS Match
-              </div>
+              {matchPercentage > 0 ? (
+                <>
+                  <div className="text-2xl font-black text-emerald-700 font-mono">
+                    {matchPercentage}%
+                  </div>
+                  <div className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">
+                    ATS Match
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="text-xs font-bold text-emerald-800 bg-emerald-100/80 border border-emerald-200/60 rounded-lg px-2 py-0.5 whitespace-nowrap">
+                    Ready to Match
+                  </div>
+                  <div className="text-[10px] text-slate-400 uppercase tracking-wider font-semibold mt-0.5">
+                    Click AI Match
+                  </div>
+                </>
+              )}
             </div>
 
             <Button

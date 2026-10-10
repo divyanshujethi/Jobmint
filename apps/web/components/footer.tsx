@@ -355,8 +355,8 @@ export function Footer() {
             <p className="text-[11px] text-slate-400 mt-0.5">Payments &amp; contributions securely processed via Cashfree Payments (RBI Authorized Payment Aggregator).</p>
           </div>
           <div className="flex flex-col sm:items-end gap-1">
-            <p className="flex items-center gap-1.5">
-              Support: <a href="mailto:support@rolenest.in" className="text-emerald-700 font-semibold underline">support@rolenest.in</a> • Built with <Heart className="h-3.5 w-3.5 text-rose-500 fill-rose-500" /> for freshers.
+            <p className="flex items-center gap-1.5 flex-wrap sm:flex-nowrap">
+              Support: <a href="mailto:support@rolenest.in" className="text-emerald-700 font-semibold underline">support@rolenest.in</a> • Built with <span className="inline-flex items-center gap-1 text-rose-600 font-semibold"><Heart className="h-3.5 w-3.5 text-rose-500 fill-rose-500 inline-block align-middle" aria-hidden="true" /> love</span> for freshers.
             </p>
             <div className="flex items-center gap-2 text-[11px]">
               <Link

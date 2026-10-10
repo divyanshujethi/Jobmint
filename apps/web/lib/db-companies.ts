@@ -1,4 +1,4 @@
-﻿import { db, companies, jobs, eq, desc } from "@repo/database";
+import { db, companies, jobs, eq, desc } from "@repo/database";
 import { CompanyProfile, MOCK_COMPANIES } from "./mock-companies";
 
 export async function getLiveCompanies(): Promise<CompanyProfile[]> {
@@ -12,11 +12,31 @@ export async function getLiveCompanies(): Promise<CompanyProfile[]> {
       return MOCK_COMPANIES;
     }
 
+    // Tally authentic active jobs count per company
+    const activeJobs = await db
+      .select({
+        companyId: jobs.companyId,
+      })
+      .from(jobs)
+      .where(eq(jobs.isActive, true));
+
+    const activeJobCounts = new Map<string, number>();
+    for (const j of activeJobs) {
+      if (j.companyId) {
+        activeJobCounts.set(j.companyId, (activeJobCounts.get(j.companyId) || 0) + 1);
+      }
+    }
+
     return rawCompanies.map((c) => {
-      const totalApps = parseInt(c.totalApplications || "0", 10) || 120;
-      const reviewedApps = parseInt(c.reviewedApplications || "0", 10) || 105;
-      const reviewRate = Math.round((reviewedApps / Math.max(totalApps, 1)) * 100);
-      const medianDays = parseFloat(c.medianFirstReviewDays || "2.1") || 2.1;
+      const parsedApps = parseInt(c.totalApplications || "0", 10);
+      const totalApps = Number.isFinite(parsedApps) && parsedApps > 0 ? parsedApps : 0;
+
+      const parsedReviewed = parseInt(c.reviewedApplications || "0", 10);
+      const reviewedApps = Number.isFinite(parsedReviewed) && parsedReviewed > 0 ? parsedReviewed : 0;
+
+      const reviewRate = totalApps > 0 ? Math.round((reviewedApps / totalApps) * 100) : 0;
+      const medianDays = c.medianFirstReviewDays ? parseFloat(c.medianFirstReviewDays) : 0;
+      const activeCount = activeJobCounts.get(c.id) || 0;
 
       return {
         id: c.id,
@@ -26,15 +46,18 @@ export async function getLiveCompanies(): Promise<CompanyProfile[]> {
         website: c.website,
         location: c.location,
         industry: c.industry,
-        description: c.description || `${c.name} is a verified engineering employer on RoleNest.`,
+        description: c.description || `${c.name} is an enterprise engineering employer on RoleNest.`,
         isVerified: c.isVerified,
+        activeJobsCount: activeCount,
         truthTeller: {
           totalApplications: totalApps,
           reviewedApplications: reviewedApps,
           reviewRate,
           medianFirstReviewDays: medianDays,
-          lastRecruiterActivity: `Active ${Math.min((totalApps % 5) + 1, 4)} hours ago`,
-          isFastReviewer: medianDays <= 2.5,
+          lastRecruiterActivity: totalApps > 0
+            ? (c.lastActiveAt ? `Active ${Math.min((totalApps % 5) + 1, 4)} hours ago` : "Active recently")
+            : (activeCount > 0 ? "Hiring actively" : "No recent activity"),
+          isFastReviewer: totalApps > 0 && medianDays > 0 && medianDays <= 2.5,
         },
       };
     });

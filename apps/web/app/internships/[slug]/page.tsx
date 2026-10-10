@@ -238,13 +238,15 @@ export default async function InternshipSlugPage({ params }: InternshipPageProps
         </div>
 
         {/* Skills */}
-        <div className="flex flex-wrap gap-1.5 pt-2 border-t border-slate-100">
-          {job.skills.map((skill) => (
-            <Badge key={skill} variant="secondary" className="text-xs">
-              {skill}
-            </Badge>
-          ))}
-        </div>
+        {job.skills && job.skills.length > 0 && (
+          <div className="flex flex-wrap gap-1.5 pt-2 border-t border-slate-100">
+            {job.skills.map((skill) => (
+              <Badge key={skill} variant="secondary" className="text-xs">
+                {skill}
+              </Badge>
+            ))}
+          </div>
+        )}
 
         {/* Description */}
         <div className="pt-4 border-t border-slate-100 space-y-3 text-sm text-slate-700 leading-relaxed">

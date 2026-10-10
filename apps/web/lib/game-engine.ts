@@ -53,29 +53,57 @@ export function calculatePlayerStats(xp: number, streakDays: number = 1): Player
   };
 }
 
+function getCrossDomainCookie(name: string): string | null {
+  if (typeof document === "undefined") return null;
+  const match = document.cookie.match(new RegExp("(?:^|;\\s*)" + name + "=([^;]*)"));
+  return match ? decodeURIComponent(match[1]) : null;
+}
+
+function setCrossDomainCookie(name: string, value: string) {
+  if (typeof document === "undefined") return;
+  const isProd = typeof window !== "undefined" && window.location.hostname.endsWith("rolenest.in");
+  const domainPart = isProd ? "; domain=.rolenest.in" : "";
+  document.cookie = `${name}=${encodeURIComponent(value)}; path=/; max-age=31536000; SameSite=Lax${domainPart}`;
+}
+
 export function getStoredPlayerStats(): PlayerStats {
   if (typeof window === "undefined") {
-    return calculatePlayerStats(0);
+    return calculatePlayerStats(0, 0);
   }
   try {
-    const rawXp = parseInt(localStorage.getItem("rolenest_game_xp") || "350", 10);
-    const rawStreak = parseInt(localStorage.getItem("rolenest_game_streak") || "3", 10);
-    return calculatePlayerStats(isNaN(rawXp) ? 350 : rawXp, isNaN(rawStreak) ? 3 : rawStreak);
+    // 1. Try cross-subdomain cookie first (.rolenest.in shared across study, problem, main)
+    const cookieXp = getCrossDomainCookie("rolenest_game_xp");
+    const cookieStreak = getCrossDomainCookie("rolenest_game_streak");
+
+    // 2. Fallback to localStorage
+    const localXp = localStorage.getItem("rolenest_game_xp");
+    const localStreak = localStorage.getItem("rolenest_game_streak");
+
+    const rawXp = parseInt(cookieXp || localXp || "0", 10);
+    const rawStreak = parseInt(cookieStreak || localStreak || "0", 10);
+
+    const safeXp = isNaN(rawXp) ? 0 : rawXp;
+    const safeStreak = isNaN(rawStreak) ? 0 : rawStreak;
+
+    return calculatePlayerStats(safeXp, safeStreak);
   } catch {
-    return calculatePlayerStats(350);
+    return calculatePlayerStats(0, 0);
   }
 }
 
 export function addPlayerXp(amount: number): PlayerStats {
-  if (typeof window === "undefined") return calculatePlayerStats(amount);
+  if (typeof window === "undefined") return calculatePlayerStats(amount, 0);
   try {
     const current = getStoredPlayerStats();
     const newXp = current.xp + amount;
+    
+    // Save to both localStorage and cross-subdomain cookie
     localStorage.setItem("rolenest_game_xp", String(newXp));
+    setCrossDomainCookie("rolenest_game_xp", String(newXp));
     
     // Check if level up occurred
-    const prevStats = calculatePlayerStats(current.xp);
-    const nextStats = calculatePlayerStats(newXp);
+    const prevStats = calculatePlayerStats(current.xp, current.streakDays);
+    const nextStats = calculatePlayerStats(newXp, current.streakDays);
     if (nextStats.level > prevStats.level) {
       playLevelUpFanfare();
       triggerConfetti();
@@ -84,7 +112,7 @@ export function addPlayerXp(amount: number): PlayerStats {
     }
     return nextStats;
   } catch {
-    return calculatePlayerStats(amount);
+    return calculatePlayerStats(amount, 0);
   }
 }
 

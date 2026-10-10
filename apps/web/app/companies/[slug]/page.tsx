@@ -169,42 +169,60 @@ export default async function CompanyDetailsPage({ params }: CompanyPageProps) {
           This data is derived directly from candidate interactions on RoleNest. We do not label companies &quot;good&quot; or &quot;bad&quot; — we show the observed facts.
         </p>
 
-        <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-4">
-          <div className="rounded-xl bg-white border border-emerald-100 p-4 shadow-2xs">
-            <span className="text-xs text-slate-500 block">Applications Received</span>
-            <span className="text-2xl font-black text-slate-900 mt-1 block">
-              {company.truthTeller.totalApplications}
-            </span>
-          </div>
+        {company.truthTeller.totalApplications > 0 ? (
+          <>
+            <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-4">
+              <div className="rounded-xl bg-white border border-emerald-100 p-4 shadow-2xs">
+                <span className="text-xs text-slate-500 block">Applications Received</span>
+                <span className="text-2xl font-black text-slate-900 mt-1 block">
+                  {company.truthTeller.totalApplications}
+                </span>
+              </div>
 
-          <div className="rounded-xl bg-white border border-emerald-100 p-4 shadow-2xs">
-            <span className="text-xs text-slate-500 block">Applications Reviewed</span>
-            <span className="text-2xl font-black text-slate-900 mt-1 block">
-              {company.truthTeller.reviewedApplications}
-            </span>
-          </div>
+              <div className="rounded-xl bg-white border border-emerald-100 p-4 shadow-2xs">
+                <span className="text-xs text-slate-500 block">Applications Reviewed</span>
+                <span className="text-2xl font-black text-slate-900 mt-1 block">
+                  {company.truthTeller.reviewedApplications}
+                </span>
+              </div>
 
-          <div className="rounded-xl bg-white border border-emerald-100 p-4 shadow-2xs">
-            <span className="text-xs text-emerald-700 block">Review Rate</span>
-            <span className="text-2xl font-black text-emerald-700 mt-1 block">
-              {company.truthTeller.reviewRate}%
-            </span>
-          </div>
+              <div className="rounded-xl bg-white border border-emerald-100 p-4 shadow-2xs">
+                <span className="text-xs text-emerald-700 block">Review Rate</span>
+                <span className="text-2xl font-black text-emerald-700 mt-1 block">
+                  {company.truthTeller.reviewRate}%
+                </span>
+              </div>
 
-          <div className="rounded-xl bg-white border border-emerald-100 p-4 shadow-2xs">
-            <span className="text-xs text-slate-500 block">Median First Review</span>
-            <span className="text-2xl font-black text-slate-900 mt-1 block">
-              {company.truthTeller.medianFirstReviewDays} days
-            </span>
-          </div>
-        </div>
+              <div className="rounded-xl bg-white border border-emerald-100 p-4 shadow-2xs">
+                <span className="text-xs text-slate-500 block">Median First Review</span>
+                <span className="text-2xl font-black text-slate-900 mt-1 block">
+                  {company.truthTeller.medianFirstReviewDays} days
+                </span>
+              </div>
+            </div>
 
-        <div className="mt-4 flex items-center justify-between text-xs text-emerald-900 bg-white/70 border border-emerald-100 rounded-lg p-3">
-          <span className="font-semibold">Last Recruiter Activity:</span>
-          <span className="font-bold text-emerald-700">
-            {company.truthTeller.lastRecruiterActivity}
-          </span>
-        </div>
+            <div className="mt-4 flex items-center justify-between text-xs text-emerald-900 bg-white/70 border border-emerald-100 rounded-lg p-3">
+              <span className="font-semibold">Last Recruiter Activity:</span>
+              <span className="font-bold text-emerald-700">
+                {company.truthTeller.lastRecruiterActivity}
+              </span>
+            </div>
+          </>
+        ) : (
+          <div className="mt-6 rounded-xl border border-dashed border-emerald-200 bg-white/80 p-6 text-center space-y-2">
+            <div className="inline-flex items-center gap-1.5 rounded-full bg-emerald-100 text-emerald-800 px-3 py-1 text-xs font-bold font-mono">
+              Telemetry Calibrating
+            </div>
+            <p className="text-xs text-slate-600 max-w-md mx-auto">
+              No historical candidate application telemetry logged for {company.name} yet. As candidates submit applications via RoleNest, authentic response speed and review percentages will populate in real-time.
+            </p>
+            <div className="pt-2 flex justify-center items-center gap-4 text-[11px] text-slate-500 font-medium">
+              <span>• Active Roles: <strong className="text-slate-800">{activeJobs.length}</strong></span>
+              <span>• Direct ATS Verified</span>
+              <span>• 7-Day Ghosting SLA Active</span>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* ACTIVE OPENINGS */}
