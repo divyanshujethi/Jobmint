@@ -21,6 +21,12 @@ export interface RawCrawledJob {
   isGhostRisk: boolean;
   truthScore: number;
   publishedAt: string;
+  country?: string;
+  city?: string;
+  remoteScope?: string;
+  roleCategory?: string;
+  needsReview?: boolean;
+  reviewReason?: string;
 }
 
 export interface IngestedJobResult {

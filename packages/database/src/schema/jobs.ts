@@ -26,6 +26,10 @@ export const jobs = pgTable(
     source: text("source").notNull().default(JobSource.DIRECT),
     sourceUrl: text("source_url"),
     externalJobId: text("external_job_id"),
+    country: text("country").default("India"),
+    city: text("city"),
+    remoteScope: text("remote_scope"),
+    roleCategory: text("role_category"),
     isActive: boolean("is_active").default(true).notNull(),
     isFeatured: boolean("is_featured").default(false).notNull(),
     featuredExpiresAt: timestamp("featured_expires_at", { mode: "date" }),
@@ -40,8 +44,34 @@ export const jobs = pgTable(
     index("idx_jobs_external_id").on(table.externalJobId),
     index("idx_jobs_is_active").on(table.isActive),
     index("idx_jobs_company_id").on(table.companyId),
+    index("idx_jobs_city").on(table.city),
+    index("idx_jobs_role_category").on(table.roleCategory),
     index("idx_jobs_created_at").on(table.createdAt),
     index("idx_jobs_last_checked").on(table.lastCheckedAt),
+  ]
+);
+
+export const jobLocationReviewQueue = pgTable(
+  "job_location_review_queue",
+  {
+    id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
+    companyName: text("company_name").notNull(),
+    title: text("title").notNull(),
+    sourceUrl: text("source_url").notNull(),
+    rawLocation: text("raw_location").notNull(),
+    detectedCity: text("detected_city"),
+    detectedWorkMode: text("detected_work_mode"),
+    detectedRemoteScope: text("detected_remote_scope"),
+    flagReason: text("flag_reason").notNull(),
+    status: text("status").notNull().default("PENDING"),
+    reviewedBy: text("reviewed_by"),
+    reviewedAt: timestamp("reviewed_at", { mode: "date" }),
+    createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
+  },
+  (table) => [
+    index("idx_review_queue_status").on(table.status),
+    index("idx_review_queue_company").on(table.companyName),
+    index("idx_review_queue_created_at").on(table.createdAt),
   ]
 );
 

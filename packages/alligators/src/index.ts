@@ -60,6 +60,7 @@ export * from './job-alligator/campus-early-career-crawler';
 export * from './job-alligator/simplify-crawler';
 export * from './job-alligator/india-crawler';
 export * from './job-alligator/company-discovery';
+export * from './job-alligator/india-gatekeeper';
 export * from './job-alligator/indian-startup-seeds';
 export * from './job-alligator/ai-career-scraper';
 export * from './job-alligator/expired-job-verifier';

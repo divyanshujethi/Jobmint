@@ -27,8 +27,8 @@ if (!process.env.DATABASE_URL) {
   }
 }
 
-import { runJobAlligator, normalizeIndiaLocation, RawCrawledJob, TargetBoard } from "../packages/alligators/src/index";
-import { db, jobs, companies, skills, jobSkills, inArray } from "../packages/database/src/index";
+import { runJobAlligator, evaluateIndiaTechGatekeeper, RawCrawledJob, TargetBoard } from "../packages/alligators/src/index";
+import { db, jobs, companies, skills, jobSkills, jobLocationReviewQueue, inArray } from "../packages/database/src/index";
 import { JobSource } from "../packages/shared/src/index";
 import { sql } from "drizzle-orm";
 import crypto from "crypto";
@@ -163,10 +163,15 @@ async function main() {
     companyCleanName: string;
     location: string;
     workMode: string;
+    country: string;
+    city?: string;
+    remoteScope: string;
+    roleCategory: string;
   }
   const validItems: ValidJobItem[] = [];
   const missingCompanies = new Map<string, { name: string; slug: string; website?: string; domain: string; location: string }>();
   const missingSkills = new Map<string, string>();
+  const reviewQueueItems: Array<typeof jobLocationReviewQueue.$inferInsert> = [];
   let skipped = 0;
 
   for (const job of crawlResult.jobs) {
@@ -175,8 +180,35 @@ async function main() {
       continue;
     }
 
-    const locInfo = normalizeIndiaLocation(job.location);
-    if (!locInfo.isIndiaOrRemote) {
+    // 2-Stage Strict India-Only & Role-Level Tech Gatekeeper
+    const gateEval = evaluateIndiaTechGatekeeper(
+      job.title,
+      job.location,
+      job.workMode,
+      undefined
+    );
+
+    // Route ambiguous locations to the dedicated review queue
+    if (gateEval.location.needsReview) {
+      reviewQueueItems.push({
+        id: crypto.randomUUID(),
+        companyName: job.companyName.trim(),
+        title: job.title.trim(),
+        sourceUrl: job.sourceUrl,
+        rawLocation: job.location || "Unspecified",
+        detectedCity: gateEval.location.city || null,
+        detectedWorkMode: gateEval.location.workMode || null,
+        detectedRemoteScope: gateEval.location.remoteScope || null,
+        flagReason: gateEval.location.reviewReason || "Ambiguous remote location or country eligibility",
+        status: "PENDING",
+        createdAt: new Date(),
+      });
+      skipped++;
+      continue;
+    }
+
+    // If rejected by Gatekeeper (non-tech role or outside India), skip
+    if (!gateEval.accepted) {
       skipped++;
       continue;
     }
@@ -184,7 +216,7 @@ async function main() {
     const companyCleanName = job.companyName.trim();
     const companySlug = slugify(companyCleanName);
     const domain = extractDomain(job.companyWebsite) || `${companySlug}.com`;
-    const loc = locInfo.location || "Remote";
+    const loc = gateEval.location.formattedLocation || "India";
 
     if (!companyMap.has(companySlug) && !companyMap.has(companyCleanName.toLowerCase())) {
       if (!missingCompanies.has(companySlug)) {
@@ -212,7 +244,11 @@ async function main() {
       companySlug,
       companyCleanName,
       location: loc,
-      workMode: locInfo.workMode,
+      workMode: gateEval.location.workMode,
+      country: gateEval.location.country,
+      city: gateEval.location.city,
+      remoteScope: gateEval.location.remoteScope,
+      roleCategory: gateEval.role.roleCategory,
     });
   }
 
@@ -329,6 +365,10 @@ async function main() {
       jobType: job.jobType,
       workMode: workMode as any,
       location,
+      country: item.country,
+      city: item.city || null,
+      remoteScope: item.remoteScope,
+      roleCategory: item.roleCategory,
       salaryOrStipend: job.salaryOrStipend || "Competitive (Official)",
       experienceYears: job.experienceYears ?? 0,
       description: job.description,
@@ -404,11 +444,24 @@ async function main() {
     }
   }
 
+  // 11. Batch insert ambiguous locations into review queue
+  if (reviewQueueItems.length > 0) {
+    for (let i = 0; i < reviewQueueItems.length; i += 500) {
+      const chunk = reviewQueueItems.slice(i, i + 500);
+      try {
+        await db.insert(jobLocationReviewQueue).values(chunk).onConflictDoNothing();
+      } catch (err: any) {
+        console.error("Error inserting review queue batch:", err.message);
+      }
+    }
+  }
+
   console.log(`\n🎉 Ingestion Complete!`);
-  console.log(`   ✨ New Jobs Added:     ${inserted}`);
-  console.log(`   🔄 Existing Updated:   ${jobIdsToTouch.length}`);
-  console.log(`   ⏭️ Skipped/Duplicates: ${skipped}`);
-  console.log(`   Total Processed:       ${crawlResult.jobs.length}`);
+  console.log(`   ✨ New Jobs Added:            ${inserted}`);
+  console.log(`   🔄 Existing Updated:          ${jobIdsToTouch.length}`);
+  console.log(`   🛡️ Ambiguous in Review Queue:  ${reviewQueueItems.length}`);
+  console.log(`   ⏭️ Skipped/Foreign/Non-Tech:  ${skipped}`);
+  console.log(`   Total Processed:              ${crawlResult.jobs.length}`);
 
   process.exit(0);
 }
