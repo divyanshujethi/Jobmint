@@ -77,7 +77,7 @@ export async function crawlBreezyJobs(options?: {
         const normLoc = normalizeIndiaLocation(locName);
         const finalLocation = isRemoteFlag
           ? "Remote, India"
-          : normLoc.normalizedLocation || `${locName}, India`;
+          : normLoc.location || `${locName}, India`;
 
         const geoCheck = await verifyOpportunityEligibility(
           { rawLocation: finalLocation, countryCode: isIndia ? "IN" : undefined },
@@ -109,7 +109,7 @@ export async function crawlBreezyJobs(options?: {
           experienceYears: expInfo.experienceYears,
           skills,
           description: `${title} opportunity at ${comp.name}. Official direct listing on company Breezy HR portal.`,
-          source: JobSource.DIRECT,
+          source: 'EXTERNAL',
           sourceUrl: directUrl,
           externalId: `breezy-${comp.identifier}-${item.id || item._id}`,
           isGhostRisk: false,

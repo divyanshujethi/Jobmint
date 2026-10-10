@@ -122,7 +122,7 @@ export async function crawlWorkdayJobs(options?: {
           const normLoc = normalizeIndiaLocation(rawLoc);
           const finalLocation = isRemote
             ? "Remote, India"
-            : normLoc.normalizedLocation || `${rawLoc}, India`;
+            : normLoc.location || `${rawLoc}, India`;
 
           // Geo eligibility check
           const geoCheck = await verifyOpportunityEligibility(
@@ -157,7 +157,7 @@ export async function crawlWorkdayJobs(options?: {
             experienceYears: expInfo.experienceYears,
             skills,
             description: `${title} opportunity at ${comp.name}. Direct submission via official Workday portal. Guaranteed authentic ATS opening.`,
-            source: JobSource.DIRECT,
+            source: 'EXTERNAL',
             sourceUrl: directUrl,
             externalId: `wd-${comp.tenant}-${jobId}`,
             isGhostRisk: false,

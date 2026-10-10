@@ -78,7 +78,7 @@ export async function crawlRecruiteeJobs(options?: {
         const normLoc = normalizeIndiaLocation(locStr);
         const finalLocation = isRemoteFlag
           ? "Remote, India"
-          : normLoc.normalizedLocation || `${item.location || "India"}`;
+          : normLoc.location || `${item.location || "India"}`;
 
         const geoCheck = await verifyOpportunityEligibility(
           { rawLocation: finalLocation, countryCode: isIndia ? "IN" : undefined },
@@ -110,7 +110,7 @@ export async function crawlRecruiteeJobs(options?: {
           experienceYears: expInfo.experienceYears,
           skills,
           description: `${title} opportunity at ${comp.name}. Official direct listing on company Recruitee portal.`,
-          source: JobSource.DIRECT,
+          source: 'EXTERNAL',
           sourceUrl: directUrl,
           externalId: `recruitee-${comp.identifier}-${item.id}`,
           isGhostRisk: false,

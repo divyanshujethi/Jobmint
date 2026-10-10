@@ -22,6 +22,7 @@ import { crawlWorkableJobs } from './job-alligator/workable-crawler';
 import { crawlWorkdayJobs } from './job-alligator/workday-crawler';
 import { crawlBreezyJobs } from './job-alligator/breezy-crawler';
 import { crawlRecruiteeJobs } from './job-alligator/recruitee-crawler';
+import { crawlPersonioJobs } from './job-alligator/personio-crawler';
 import { crawlInternshalaOpportunities } from './job-alligator/internshala-crawler';
 import { crawlNaukriIndia } from './job-alligator/naukri-crawler';
 
@@ -35,6 +36,7 @@ export * from './job-alligator/ashby-crawler';
 export * from './job-alligator/workday-crawler';
 export * from './job-alligator/breezy-crawler';
 export * from './job-alligator/recruitee-crawler';
+export * from './job-alligator/personio-crawler';
 export * from './job-alligator/himalayas-crawler';
 export * from './job-alligator/jobspipe-crawler';
 export * from './job-alligator/remotive-crawler';
@@ -106,6 +108,10 @@ export async function runJobAlligator(options?: {
     linkedInJobs,
     smartRecruitersJobs,
     workableJobs,
+    workdayJobs,
+    breezyJobs,
+    recruiteeJobs,
+    personioJobs,
     internshalaJobs,
     indiaJobs,
     jobsPipeJobs,
@@ -152,6 +158,10 @@ export async function runJobAlligator(options?: {
       console.error("[Job Alligator] Recruitee crawler failed:", err);
       return [];
     }),
+    crawlPersonioJobs().catch((err) => {
+      console.error("[Job Alligator] Personio crawler failed:", err);
+      return [];
+    }),
     crawlInternshalaOpportunities({ limit: internshalaLimit }).catch((err) => {
       console.error("[Job Alligator] Internshala crawler failed:", err);
       return [];
@@ -185,6 +195,7 @@ export async function runJobAlligator(options?: {
     ...workdayJobs,
     ...breezyJobs,
     ...recruiteeJobs,
+    ...personioJobs,
     ...internshalaJobs,
     ...indiaJobs,
     ...jobsPipeJobs,
