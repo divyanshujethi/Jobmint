@@ -1128,13 +1128,18 @@ async function runWorkdayStage(client) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "User-Agent": "RoleNest-Alligator/1.0",
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
           Accept: "application/json",
+          Origin: `https://${comp.host}`,
+          Referer: `https://${comp.host}/en-US/${comp.site}`,
         },
         body: JSON.stringify({ appliedFacets: {}, limit: 50, offset: 0, searchText: "" }),
       });
 
-      if (!res.ok) continue;
+      if (!res.ok) {
+        console.warn(`   ⚠️ Workday ${comp.name} responded ${res.status}`);
+        continue;
+      }
       const json = await res.json();
       if (!json || !Array.isArray(json.jobPostings)) continue;
 

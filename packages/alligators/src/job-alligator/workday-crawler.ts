@@ -75,8 +75,10 @@ export async function crawlWorkdayJobs(options?: {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "User-Agent": "RoleNest-WorkdayAlligator/1.0 (Mozilla/5.0 compatible)",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
             Accept: "application/json",
+            Origin: `https://${comp.host}`,
+            Referer: `https://${comp.host}/en-US/${comp.site}`,
           },
           body: JSON.stringify({
             appliedFacets: {},
