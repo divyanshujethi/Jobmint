@@ -158,7 +158,7 @@ export default function PricingPage() {
   const [inputPhone, setInputPhone] = useState("");
   const [phoneError, setPhoneError] = useState<string | null>(null);
   const [isSubmittingCheckout, setIsSubmittingCheckout] = useState(false);
-  const [liveJobsCount, setLiveJobsCount] = useState<number>(20686);
+  const [liveJobsCount, setLiveJobsCount] = useState<number>(11310);
 
   useEffect(() => {
     let isMounted = true;

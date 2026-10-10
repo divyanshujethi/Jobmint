@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     canonical: "https://problem.rolenest.in/problems",
   },
   openGraph: {
-    title: "70 Curated Coding Problems — ProblemNest Arena | RoleNest",
+    title: "70 Curated Coding Problems — ProblemNest Arena",
     description:
       "Practice high-frequency technical interview questions with live in-browser compiler.",
     url: "https://problem.rolenest.in/problems",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "70 Curated Coding Problems — ProblemNest Arena | RoleNest",
+    title: "70 Curated Coding Problems — ProblemNest Arena",
     description: "70 curated coding interview challenges with live sandbox compilation.",
     images: ["https://problem.rolenest.in/icon-512.png"],
     creator: "@RoleNest",

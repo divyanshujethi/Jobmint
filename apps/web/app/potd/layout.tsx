@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     canonical: "https://problem.rolenest.in/potd",
   },
   openGraph: {
-    title: "Problem of the Day — ProblemNest Arena | RoleNest",
+    title: "Problem of the Day — ProblemNest Arena",
     description:
       "Solve curated daily algorithmic problems with instant multi-language execution, automated test runner, and company interview insights.",
     url: "https://problem.rolenest.in/potd",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Problem of the Day — ProblemNest Arena | RoleNest",
+    title: "Problem of the Day — ProblemNest Arena",
     description:
       "Daily coding problems with multi-language execution, instant test verdicts, and company interview tagging.",
     images: ["https://problem.rolenest.in/icon-512.png"],

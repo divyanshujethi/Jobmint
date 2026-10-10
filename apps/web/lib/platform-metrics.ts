@@ -23,15 +23,15 @@ export interface PlatformMetrics {
 const METRICS_CACHE_KEY = "cache:platform:metrics:v2";
 const METRICS_CACHE_TTL_SECONDS = 1800; // 30 minutes TTL
 
-// Fallback baseline aligned with verified production metrics (Direct ATS + Internships)
+// Fallback baseline aligned with verified production metrics (Direct ATS + Tech Internships)
 export const BASELINE_PLATFORM_METRICS: PlatformMetrics = {
-  totalJobs: 20714,
-  activeJobs: 20686,
-  activeInternships: 12810,
-  activeFullTime: 7876,
+  totalJobs: 21239,
+  activeJobs: 11310,
+  activeInternships: 7324,
+  activeFullTime: 3986,
   govJobs: 966,
-  totalCompanies: 2150,
-  verifiedCompanies: 2150,
+  totalCompanies: 6479,
+  verifiedCompanies: 6479,
   curatedCourses: 75,
   dsaProblems: 70,
   careerRoadmaps: 8,

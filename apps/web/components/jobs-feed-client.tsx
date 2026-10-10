@@ -56,8 +56,8 @@ function formatTimeAgo(date: Date): string {
 
 export function JobsFeedClient({
   initialJobs = [],
-  initialTotal = 117296,
-  initialVerified24h = 4218,
+  initialTotal = 11310,
+  initialVerified24h = 1420,
   initialLastCrawl,
 }: {
   initialJobs?: MockJob[];
@@ -922,12 +922,12 @@ export function JobsFeedClient({
             Showing{" "}
             <strong className="text-slate-900">
               {viewMode === "COMPANY_GROUPED"
-                ? `${companyGroups.length} companies (${filteredJobs.length.toLocaleString()} roles of ${totalServerJobs.toLocaleString()} total)`
+                ? `${companyGroups.length} companies (${filteredJobs.length.toLocaleString()} roles in feed)`
                 : viewMode === "RECOMMENDED"
-                ? `${recommendedJobsWithScores.length.toLocaleString()} matched roles (out of ${totalServerJobs.toLocaleString()})`
+                ? `${recommendedJobsWithScores.length.toLocaleString()} matched roles (out of ${totalServerJobs.toLocaleString()} total)`
                 : hasActiveFilters
-                ? `${filteredJobs.length.toLocaleString()} filtered roles (out of ${totalServerJobs.toLocaleString()})`
-                : `${filteredJobs.length.toLocaleString()} of ${totalServerJobs.toLocaleString()} live tech roles`}
+                ? `${filteredJobs.length.toLocaleString()} filtered roles (out of ${totalServerJobs.toLocaleString()} total)`
+                : `${totalServerJobs.toLocaleString()} verified tech roles in India`}
             </strong>
           </span>
           {hasActiveFilters && (
@@ -1585,7 +1585,10 @@ export function JobsFeedClient({
                   <div className="font-mono font-medium">
                     Showing <span className="font-bold text-slate-900">{(currentPage - 1) * PAGE_SIZE + 1}</span> to{" "}
                     <span className="font-bold text-slate-900">{Math.min(currentPage * PAGE_SIZE, diversifiedJobs.length)}</span> of{" "}
-                    <span className="font-bold text-slate-900">{diversifiedJobs.length}</span> opportunities
+                    <span className="font-bold text-slate-900">{diversifiedJobs.length}</span> positions
+                    {!hasActiveFilters && totalServerJobs > diversifiedJobs.length && (
+                      <span className="text-slate-400 text-[11px] ml-1">({totalServerJobs.toLocaleString()} total in catalog)</span>
+                    )}
                   </div>
 
                   <div className="flex items-center gap-1.5">
