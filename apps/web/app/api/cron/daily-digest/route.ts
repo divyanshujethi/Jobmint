@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { db, users, jobs, candidateProfiles, eq, and, desc, sql } from "@repo/database";
 import { sendEmail, dailyMatchesDigestTemplate } from "@repo/email";
 
+import { verifyCronOrAdminSecret } from "@/lib/api-auth";
+
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
 
@@ -11,27 +13,7 @@ export const maxDuration = 60;
  * High-retention mechanism that delivers value without paywalling basic notifications.
  */
 export async function GET(request: Request): Promise<NextResponse> {
-  const { searchParams } = new URL(request.url);
-  const authHeader = request.headers.get("authorization");
-
-  const validSecrets = new Set(
-    [
-      process.env.CRON_SECRET,
-      "dev-cron-secret",
-      "india-truth-cron-secret-2026",
-      "rolenest-cron-2026",
-    ].filter(Boolean) as string[]
-  );
-
-  const providedSecret = searchParams.get("secret") || searchParams.get("key");
-  const providedBearer = authHeader?.replace(/^Bearer\s+/i, "");
-
-  const isAuthorized =
-    process.env.NODE_ENV !== "production" ||
-    (providedSecret && validSecrets.has(providedSecret)) ||
-    (providedBearer && validSecrets.has(providedBearer));
-
-  if (!isAuthorized) {
+  if (!verifyCronOrAdminSecret(request)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 

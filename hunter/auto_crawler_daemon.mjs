@@ -4,8 +4,34 @@
  * Managed by PM2 with auto-restart on system reboot.
  */
 
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+// Auto-load root .env or apps/web/.env if CRON_SECRET is not yet in process.env
+if (!process.env.CRON_SECRET) {
+  for (const envRel of ["../apps/web/.env", "../.env"]) {
+    const envFile = path.resolve(__dirname, envRel);
+    if (fs.existsSync(envFile)) {
+      const lines = fs.readFileSync(envFile, "utf-8").split("\n");
+      for (const line of lines) {
+        const trimmed = line.trim();
+        if (trimmed && !trimmed.startsWith("#") && trimmed.includes("=")) {
+          const [k, ...v] = trimmed.split("=");
+          if (k && v && !process.env[k.trim()]) {
+            process.env[k.trim()] = v.join("=").trim().replace(/^["']|["']$/g, "");
+          }
+        }
+      }
+    }
+  }
+}
+
 const INTERVAL_MS = 6 * 60 * 60 * 1000; // Crawl every 6 hours (4 times daily)
-const CRAWL_URL = "http://localhost:3000/api/alligators/jobs/crawl?discover=true&staleDays=14";
+const CRAWL_URL = process.env.CRAWL_URL || "http://localhost:3000/api/alligators/jobs/crawl?discover=true&staleDays=14";
+const CRON_SECRET = process.env.CRON_SECRET || "";
 
 async function executeCrawl() {
   const timestamp = new Date().toISOString();
@@ -14,8 +40,10 @@ async function executeCrawl() {
   try {
     const res = await fetch(CRAWL_URL, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ secret: "india-truth-cron-secret-2026" }),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${CRON_SECRET}`,
+      },
     });
 
     if (!res.ok) {

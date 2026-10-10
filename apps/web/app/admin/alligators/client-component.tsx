@@ -254,7 +254,7 @@ export function AdminAlligatorsClient() {
               Alligator Fleet &amp; Autonomous Ingestion Deck
             </h1>
             <p className="text-slate-400 text-sm mt-1">
-              Multi-Engine Autonomous Siphoners: Internshala, Naukri, LinkedIn, Foundit, and Enterprise ATS pipelines.
+              Direct ATS Pipelines: Greenhouse, Lever, Ashby, Workday, SmartRecruiters, and verified fresher internships.
             </p>
           </div>
 
@@ -452,58 +452,6 @@ export function AdminAlligatorsClient() {
               </div>
             </div>
 
-            {/* 3. LINKEDIN GUEST ALLIGATOR */}
-            <div className="rounded-2xl border border-sky-900/60 bg-gradient-to-br from-slate-900 via-slate-900 to-sky-950/30 p-6 space-y-5 shadow-sm">
-              <div className="flex items-start justify-between gap-3">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-sky-950/80 border border-sky-800 text-2xl">
-                    🔗
-                  </div>
-                  <div>
-                    <h3 className="text-base font-bold text-white flex items-center gap-2">
-                      LinkedIn Alligator
-                    </h3>
-                    <span className="rounded-full bg-sky-900/80 text-sky-300 border border-sky-700 px-2 py-0.5 text-[10px] font-mono">
-                      ZERO-AUTH GUEST
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Keyless guest API search across 12 high-priority software, AI, full-stack, and cloud engineering domains.
-              </p>
-
-              <div className="grid grid-cols-2 gap-3 pt-1">
-                <div className="rounded-xl border border-slate-800 bg-slate-950/60 p-3 text-center">
-                  <div className="text-[11px] text-slate-400">LinkedIn in DB</div>
-                  <div className="text-xl font-bold text-sky-300 mt-0.5">
-                    {isLoadingStats ? "..." : (jobStats.linkedinCount || 2736).toLocaleString()}
-                  </div>
-                </div>
-                <div className="rounded-xl border border-slate-800 bg-slate-950/60 p-3 text-center">
-                  <div className="text-[11px] text-slate-400">Direct Apply</div>
-                  <div className="text-xl font-bold text-emerald-400 mt-0.5">100%</div>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-2 pt-1">
-                <Button
-                  onClick={() => triggerCrawler("linkedin", "LinkedIn Alligator")}
-                  disabled={!!runningCrawler}
-                  size="sm"
-                  className="w-full bg-sky-600 hover:bg-sky-500 text-white font-semibold text-xs gap-1.5"
-                >
-                  <RefreshCw className={`h-3.5 w-3.5 ${runningCrawler === "linkedin" ? "animate-spin" : ""}`} />
-                  {runningCrawler === "linkedin" ? "Crawling LinkedIn..." : "Run LinkedIn Alligator"}
-                </Button>
-                <Link href="/jobs" target="_blank">
-                  <Button variant="outline" size="sm" className="border-slate-700 hover:bg-slate-800 text-xs">
-                    <ExternalLink className="h-3.5 w-3.5 text-sky-400" />
-                  </Button>
-                </Link>
-              </div>
-            </div>
 
             {/* 4. FOUNDIT ENTERPRISE ALLIGATOR */}
             <div className="rounded-2xl border border-purple-900/60 bg-gradient-to-br from-slate-900 via-slate-900 to-purple-950/30 p-6 space-y-5 shadow-sm">

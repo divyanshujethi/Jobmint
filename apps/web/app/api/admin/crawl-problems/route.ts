@@ -1,18 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { crawlDailyLeetCodeProblem, crawlLatestLeetCodeProblems } from "@/lib/leetcode-crawler";
+import { verifyCronOrAdminSecret } from "@/lib/api-auth";
 
 export async function POST(req: NextRequest) {
   try {
-    const authHeader = req.headers.get("authorization");
-    const cronSecretHeader = req.headers.get("x-cron-secret");
-    const expectedSecret = process.env.CRON_SECRET || process.env.ADMIN_SECRET || "jobmint_cron_secret";
-
-    // Verify authorization
-    const isAuthorized =
-      (authHeader && authHeader === `Bearer ${expectedSecret}`) ||
-      (cronSecretHeader && cronSecretHeader === expectedSecret);
-
-    if (!isAuthorized && process.env.NODE_ENV === "production") {
+    if (!verifyCronOrAdminSecret(req)) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
@@ -47,15 +39,11 @@ export async function POST(req: NextRequest) {
 }
 
 export async function GET(req: NextRequest) {
-  // Allow GET with secret in query for simple cron ping triggers
-  const { searchParams } = new URL(req.url);
-  const secret = searchParams.get("secret");
-  const expectedSecret = process.env.CRON_SECRET || process.env.ADMIN_SECRET || "jobmint_cron_secret";
-
-  if (process.env.NODE_ENV === "production" && secret !== expectedSecret) {
+  if (!verifyCronOrAdminSecret(req)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
+  const { searchParams } = new URL(req.url);
   const mode = searchParams.get("mode") || "daily";
   const limit = parseInt(searchParams.get("limit") || "5", 10);
 

@@ -614,111 +614,11 @@ async function runJoobleStage(client, keywords = ["software developer", "react d
 }
 
 /**
- * STAGE 4: LinkedIn Public Guest Search API
+ * STAGE 4: LinkedIn Public Guest Search API (Decommissioned per Direct ATS policy)
  */
-async function runLinkedInStage(client, roles = [
-  "software engineer", "frontend developer", "backend developer",
-  "full stack engineer", "devops engineer", "data engineer",
-  "python developer", "react developer", "ai machine learning engineer",
-  "cloud engineer", "android developer", "ios developer"
-], locations = [
-  "Bengaluru, Karnataka, India", "Hyderabad, Telangana, India",
-  "Pune, Maharashtra, India", "Delhi NCR, India",
-  "Mumbai, Maharashtra, India", "Chennai, Tamil Nadu, India", "India"
-], maxPages = 4) {
-  console.log(`\n🚀 [LinkedIn Stage] Crawling LinkedIn Guest API across ${roles.length} roles and ${locations.length} hubs...`);
-  let inserted = 0;
-  let updated = 0;
-  const userAgents = [
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
-  ];
-
-  for (const role of roles) {
-    for (const loc of locations) {
-      for (let page = 0; page < maxPages; page++) {
-        const start = page * 25;
-        const encodedRole = encodeURIComponent(role);
-        const encodedLoc = encodeURIComponent(loc);
-        const url = `https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?keywords=${encodedRole}&location=${encodedLoc}&start=${start}`;
-
-        try {
-          const ua = userAgents[Math.floor(Math.random() * userAgents.length)];
-          const html = await new Promise((resolve, reject) => {
-            https.get(url, {
-              headers: {
-                "User-Agent": ua,
-                "Accept-Language": "en-US,en;q=0.9",
-                Accept: "text/html,application/xhtml+xml",
-              },
-              timeout: 10000,
-            }, (res) => {
-              if (res.statusCode !== 200) return resolve(null);
-              let data = "";
-              res.on("data", (d) => data += d);
-              res.on("end", () => resolve(data));
-            }).on("error", reject);
-          });
-
-          if (!html || html.length < 500) break;
-
-          const cardBlocks = html.split(/<li[^>]*>/i).slice(1);
-          const batch = [];
-
-          for (const card of cardBlocks) {
-            const linkMatch = card.match(/href="(https:\/\/[a-z]+\.linkedin\.com\/jobs\/view\/[^"?]+)/i);
-            const titleMatch = card.match(/<h3 class="[^"]*base-search-card__title[^"]*">([\s\S]*?)<\/h3>/i);
-            const companyMatch =
-              card.match(/<h4 class="[^"]*base-search-card__subtitle[^"]*">\s*<a[^>]*>([\s\S]*?)<\/a>/i) ||
-              card.match(/<h4 class="[^"]*base-search-card__subtitle[^"]*">([\s\S]*?)<\/h4>/i);
-            const locMatch = card.match(/<span class="[^"]*job-search-card__location[^"]*">([\s\S]*?)<\/span>/i);
-
-            if (!linkMatch || !titleMatch) continue;
-
-            const cleanText = (s) => s.replace(/<[^>]+>/g, " ").replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/\s+/g, " ").trim();
-            const rawUrl = linkMatch[1].split("?")[0];
-            const title = cleanText(titleMatch[1]);
-            const company = companyMatch ? cleanText(companyMatch[1]) : "Verified Employer";
-            const location = locMatch ? cleanText(locMatch[1]) : loc;
-
-            if (title.length < 3 || company.length < 2) continue;
-
-            const idMatch = rawUrl.match(/-([0-9]+)$/) || rawUrl.match(/\/([0-9]+)$/);
-            const externalId = idMatch ? `linkedin-${idMatch[1]}` : `linkedin-${slugify(title).slice(0, 15)}`;
-
-            batch.push({
-              title,
-              companyName: company,
-              location,
-              sourceUrl: rawUrl,
-              externalId,
-              jobType: "FULL_TIME",
-              workMode: location.toLowerCase().includes("remote") ? "REMOTE" : "ON_SITE",
-              salaryOrStipend: "Competitive (Industry Standard)",
-              experienceYears: 2,
-              description: `${title} role open at ${company}. Location: ${location}. Candidates can review verified responsibilities and apply directly on LinkedIn.`,
-            });
-          }
-
-          if (batch.length > 0) {
-            const stats = await batchInsertJobs(client, batch);
-            inserted += stats.inserted;
-            updated += stats.updated;
-            process.stdout.write(`   [LinkedIn ${role} in ${loc.split(',')[0]} p.${page + 1}: +${inserted} new, ~${updated} refreshed]\r`);
-          }
-
-          // Polite pacing: 300ms
-          await new Promise((r) => setTimeout(r, 300));
-        } catch (e) {
-          break;
-        }
-      }
-    }
-  }
-
-  console.log(`\n   ✅ LinkedIn Stage complete: +${inserted} new, ~${updated} refreshed.`);
-  return { inserted, updated };
+async function runLinkedInStage(client) {
+  console.log("\n⚠️ [LinkedIn Stage] Decommissioned permanently per Direct ATS & Terms of Service compliance.");
+  return { inserted: 0, updated: 0 };
 }
 
 /**
@@ -1357,8 +1257,8 @@ async function main() {
     // Stage 3: Jooble India API
     const joobleStats = shouldRun("jooble") ? await runJoobleStage(client) : { inserted: 0, updated: 0 };
 
-    // Stage 4: LinkedIn Public Guest Search API
-    const linkedInStats = shouldRun("linkedin") ? await runLinkedInStage(client) : { inserted: 0, updated: 0 };
+    // Stage 4: LinkedIn Public Guest Search API (Decommissioned per Direct ATS policy)
+    const linkedInStats = { inserted: 0, updated: 0 };
 
     // Stage 5: Internshala Tech Opportunities Siphoner (Retained for freshers & student internships)
     const internshalaStats = shouldRun("internshala") ? await runInternshalaStage(client) : { inserted: 0, updated: 0 };

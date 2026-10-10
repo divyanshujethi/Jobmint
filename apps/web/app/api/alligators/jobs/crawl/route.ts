@@ -3,7 +3,6 @@ import {
   runJobAlligator,
   crawlInternshalaOpportunities,
   crawlNaukriIndia,
-  crawlLinkedInGuestJobs,
   crawlFounditIndia,
   RawCrawledJob,
 } from "@repo/alligators";
@@ -32,15 +31,11 @@ export async function GET(request: Request): Promise<NextResponse> {
       const limit = parseInt(searchParams.get("limit") || "1000", 10);
       jobsToPersist = await crawlInternshalaOpportunities({ limit });
       crawlStats = { accepted: jobsToPersist.length, totalCrawled: jobsToPersist.length, rejectedGhostJobs: 0 };
-    } else if (crawler === "naukri" || crawler === "foundit") {
+    } else if (crawler === "naukri" || crawler === "foundit" || crawler === "linkedin") {
       return NextResponse.json({
         success: false,
         message: `Crawler '${crawler}' has been permanently decommissioned to guarantee authentic zero-consultancy direct ATS jobs.`,
       }, { status: 410 });
-    } else if (crawler === "linkedin") {
-      const limit = parseInt(searchParams.get("limit") || "300", 10);
-      jobsToPersist = await crawlLinkedInGuestJobs({ totalLimit: limit });
-      crawlStats = { accepted: jobsToPersist.length, totalCrawled: jobsToPersist.length, rejectedGhostJobs: 0 };
     } else {
       const internshipLimit = parseInt(searchParams.get("internshipLimit") || "50", 10);
       const newGradLimit = parseInt(searchParams.get("newGradLimit") || "50", 10);

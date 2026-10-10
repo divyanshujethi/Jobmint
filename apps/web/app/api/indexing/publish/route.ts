@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { verifyAdminSession } from "@/lib/api-auth";
+import { verifyAdminSession, verifyCronOrAdminSecret } from "@/lib/api-auth";
 import { notifyGoogleIndexing, publishJobSlugToGoogle } from "@/lib/google-indexing";
 import { db, jobs, eq } from "@repo/database";
 
@@ -8,10 +8,7 @@ export const dynamic = "force-dynamic";
 export async function POST(req: NextRequest) {
   try {
     const isAdmin = await verifyAdminSession();
-
-    const authHeader = req.headers.get("authorization");
-    const isCronAuthorized =
-      authHeader && process.env.CRON_SECRET && authHeader === `Bearer ${process.env.CRON_SECRET}`;
+    const isCronAuthorized = verifyCronOrAdminSecret(req);
 
     if (!isAdmin && !isCronAuthorized) {
       return NextResponse.json(

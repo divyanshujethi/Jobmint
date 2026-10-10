@@ -17,17 +17,17 @@ export function timingSafeEqualString(a: string, b: string): boolean {
 }
 
 /**
- * Verifies Authorization: Bearer <secret> or query param / header secret against CRON_SECRET or ADMIN_SECRET.
- * Compares strictly in constant time.
+ * Verifies Authorization: Bearer <secret> or x-cron-secret header against CRON_SECRET or ADMIN_SECRET.
+ * Secrets in URL query parameters (?key=, ?secret=) are strictly disallowed to prevent leaking
+ * into Cloudflare / Nginx access logs and HTTP Referer headers.
+ * Compares strictly in constant time. Fails closed when secrets are not configured.
  */
 export function verifyCronOrAdminSecret(req: Request): boolean {
   const authHeader = req.headers.get("authorization") || "";
   const xCronSecret = req.headers.get("x-cron-secret") || "";
-  const { searchParams } = new URL(req.url);
-  const querySecret = searchParams.get("key") || searchParams.get("secret") || "";
 
   const providedBearer = authHeader.replace(/^Bearer\s+/i, "").trim();
-  const candidates = [providedBearer, xCronSecret.trim(), querySecret.trim()].filter(Boolean);
+  const candidates = [providedBearer, xCronSecret.trim()].filter(Boolean);
 
   if (candidates.length === 0) {
     return false;
@@ -40,9 +40,9 @@ export function verifyCronOrAdminSecret(req: Request): boolean {
     .filter(Boolean)
     .map((s) => (s as string).trim());
 
-  // Also include dev fallback only if strictly not in production
-  if (process.env.NODE_ENV !== "production") {
-    validSecrets.push("jobmint_cron_secret", "dev-cron-secret");
+  if (validSecrets.length === 0) {
+    // Fail closed: No secrets configured in environment
+    return false;
   }
 
   for (const candidate of candidates) {

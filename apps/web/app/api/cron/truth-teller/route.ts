@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { db, applications, jobs, companies, candidateProfiles, users, eq, desc } from "@repo/database";
 import { ApplicationStatus } from "@repo/shared";
 import { sendEmail, inactivityNoticeTemplate } from "@repo/email";
+import { verifyCronOrAdminSecret } from "@/lib/api-auth";
 
 /**
  * Truth Teller Background 7-Day Inactivity Detector
@@ -9,27 +10,7 @@ import { sendEmail, inactivityNoticeTemplate } from "@repo/email";
  * Free tier safe & idempotent
  */
 export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const authHeader = request.headers.get("authorization");
-  const validSecrets = new Set(
-    [
-      process.env.CRON_SECRET,
-      "dev-cron-secret",
-      "india-truth-cron-secret-2026",
-      "rolenest-cron-2026",
-    ].filter(Boolean) as string[]
-  );
-
-  const providedKey = searchParams.get("key");
-  const providedBearer = authHeader?.replace(/^Bearer\s+/i, "");
-
-  // Verify secret in production (accepts CRON_SECRET, dev-cron-secret, or Bearer auth)
-  const isAuthorized =
-    process.env.NODE_ENV !== "production" ||
-    (providedKey && validSecrets.has(providedKey)) ||
-    (providedBearer && validSecrets.has(providedBearer));
-
-  if (!isAuthorized) {
+  if (!verifyCronOrAdminSecret(request)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 

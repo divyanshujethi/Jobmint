@@ -8,6 +8,8 @@ import { saveDynamicPlaylist, getDynamicPlaylists } from "@/lib/courses-store";
 import { saveDynamicRoadmapUpdates } from "@/lib/roadmaps-store";
 import { CoursePlaylist } from "@/lib/courses-data";
 
+import { verifyCronOrAdminSecret } from "@/lib/api-auth";
+
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
 
@@ -18,23 +20,15 @@ export const maxDuration = 60;
  * 2. YouTube Masterclasses & Playlists Crawler (Extracts video counts, durations, chapters, tech skills)
  */
 export async function GET(request: Request): Promise<NextResponse> {
+  if (!verifyCronOrAdminSecret(request)) {
+    return NextResponse.json(
+      { success: false, error: "Unauthorized cron execution" },
+      { status: 401 }
+    );
+  }
+
   try {
     const { searchParams } = new URL(request.url);
-    const authHeader = request.headers.get("authorization");
-    const secretParam = searchParams.get("secret") || searchParams.get("key");
-
-    const validSecret = process.env.CRON_SECRET || "india-truth-cron-secret-2026";
-    const isAuthorized =
-      secretParam === validSecret ||
-      authHeader === `Bearer ${validSecret}` ||
-      authHeader === `Bearer ${process.env.CRON_SECRET}`;
-
-    if (!isAuthorized && process.env.NODE_ENV === "production") {
-      return NextResponse.json(
-        { success: false, error: "Unauthorized cron execution" },
-        { status: 401 }
-      );
-    }
 
     const crawlType = searchParams.get("type") || "all"; // "all" | "roadmaps" | "youtube"
     const timestamp = new Date().toISOString();

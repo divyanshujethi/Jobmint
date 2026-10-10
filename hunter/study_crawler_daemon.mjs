@@ -7,19 +7,47 @@
  * Runs every 7 days (or configurable interval) with auto-restart via PM2.
  */
 
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+// Auto-load root .env or apps/web/.env if CRON_SECRET is not yet in process.env
+if (!process.env.CRON_SECRET) {
+  for (const envRel of ["../apps/web/.env", "../.env"]) {
+    const envFile = path.resolve(__dirname, envRel);
+    if (fs.existsSync(envFile)) {
+      const lines = fs.readFileSync(envFile, "utf-8").split("\n");
+      for (const line of lines) {
+        const trimmed = line.trim();
+        if (trimmed && !trimmed.startsWith("#") && trimmed.includes("=")) {
+          const [k, ...v] = trimmed.split("=");
+          if (k && v && !process.env[k.trim()]) {
+            process.env[k.trim()] = v.join("=").trim().replace(/^["']|["']$/g, "");
+          }
+        }
+      }
+    }
+  }
+}
+
 const INTERVAL_MS = 7 * 24 * 60 * 60 * 1000; // Crawl every 7 days (weekly)
 const LOCAL_WEB_BASE = process.env.WEB_BASE_URL || "http://localhost:3000";
-const CRON_SECRET = process.env.CRON_SECRET || "india-truth-cron-secret-2026";
+const CRON_SECRET = process.env.CRON_SECRET || "";
 
 async function executeStudyCrawl() {
   const timestamp = new Date().toISOString();
   console.log(`[${timestamp}] [StudyCrawlerDaemon] Starting scheduled study curriculum & YouTube crawl cycle...`);
 
   try {
-    const url = `${LOCAL_WEB_BASE}/api/cron/study-crawler?type=all&verify=true&limit=8&secret=${encodeURIComponent(CRON_SECRET)}`;
+    const url = `${LOCAL_WEB_BASE}/api/cron/study-crawler?type=all&verify=true&limit=8`;
     const res = await fetch(url, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${CRON_SECRET}`,
+      },
     });
 
     if (!res.ok) {

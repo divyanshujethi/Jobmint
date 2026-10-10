@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { cleanupStaleJobs } from "@/lib/job-ingestion";
+import { verifyCronOrAdminSecret } from "@/lib/api-auth";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
@@ -10,34 +11,15 @@ export const maxDuration = 60;
  * and purges dead expired jobs older than 30 days with zero applications.
  */
 export async function GET(request: Request): Promise<NextResponse> {
+  if (!verifyCronOrAdminSecret(request)) {
+    return NextResponse.json(
+      { success: false, error: "Unauthorized cron execution" },
+      { status: 401 }
+    );
+  }
+
   try {
     const { searchParams } = new URL(request.url);
-    const authHeader = request.headers.get("authorization");
-    const secretParam = searchParams.get("secret");
-
-    const validSecrets = new Set(
-      [
-        process.env.CRON_SECRET,
-        "dev-cron-secret",
-        "india-truth-cron-secret-2026",
-        "rolenest-cron-2026",
-      ].filter(Boolean) as string[]
-    );
-
-    const providedSecret = searchParams.get("secret") || searchParams.get("key");
-    const providedBearer = authHeader?.replace(/^Bearer\s+/i, "");
-
-    const isAuthorized =
-      process.env.NODE_ENV !== "production" ||
-      (providedSecret && validSecrets.has(providedSecret)) ||
-      (providedBearer && validSecrets.has(providedBearer));
-
-    if (!isAuthorized) {
-      return NextResponse.json(
-        { success: false, error: "Unauthorized cron execution" },
-        { status: 401 }
-      );
-    }
 
     // Default TTL is 14 days, configurable between 14 and 21 days
     let staleDays = parseInt(searchParams.get("staleDays") || "14", 10);
