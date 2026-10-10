@@ -1124,31 +1124,18 @@ async function runWorkdayStage(client) {
   for (const comp of companies) {
     try {
       const url = `https://${comp.host}/wday/cxs/${comp.tenant}/${comp.site}/jobs`;
-      const body = JSON.stringify({ appliedFacets: {}, limit: 50, offset: 0, searchText: "" });
-
-      const json = await new Promise((resolve, reject) => {
-        const req = https.request(url, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Content-Length": Buffer.byteLength(body),
-            "User-Agent": "RoleNest-Alligator/1.0",
-            Accept: "application/json",
-          },
-          timeout: 10000,
-        }, (res) => {
-          if (res.statusCode !== 200) return resolve(null);
-          let data = "";
-          res.on("data", (d) => data += d);
-          res.on("end", () => {
-            try { resolve(JSON.parse(data)); } catch (e) { resolve(null); }
-          });
-        });
-        req.on("error", reject);
-        req.write(body);
-        req.end();
+      const res = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "User-Agent": "RoleNest-Alligator/1.0",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({ appliedFacets: {}, limit: 50, offset: 0, searchText: "" }),
       });
 
+      if (!res.ok) continue;
+      const json = await res.json();
       if (!json || !Array.isArray(json.jobPostings)) continue;
 
       const batch = [];
