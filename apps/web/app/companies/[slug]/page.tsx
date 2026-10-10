@@ -30,11 +30,11 @@ export async function generateMetadata({ params }: CompanyPageProps): Promise<Me
 
   if (!company) {
     return {
-      title: "Company Not Found — RoleNest",
+      title: "Company Not Found",
     };
   }
 
-  const title = `${company.name} Careers & Verified Transparency Metrics — RoleNest`;
+  const title = `${company.name} Careers & Verified Transparency Metrics`;
   const description = `${company.description || `${company.name} hiring profile`}. Active hiring in ${company.location || "India"}. Truth Teller verified response rate: ${company.truthTeller.reviewRate}%.`;
 
   return {

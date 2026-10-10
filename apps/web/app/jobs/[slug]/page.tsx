@@ -76,13 +76,13 @@ export async function generateMetadata({ params }: JobPageProps): Promise<Metada
     }
 
     return {
-      title: "Job Not Found | RoleNest",
+      title: "Job Not Found",
     };
   }
 
   if (job.isActive === false) {
     return {
-      title: `${job.title} at ${job.companyName} (Closed) | RoleNest`,
+      title: `${job.title} at ${job.companyName} (Closed)`,
       description: `This position at ${job.companyName} is no longer accepting applications. Explore active verified tech jobs on RoleNest.`,
       robots: {
         index: false,

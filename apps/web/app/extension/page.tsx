@@ -15,7 +15,7 @@ import {
 import { Button } from "@/components/ui/button";
 
 export const metadata = {
-  title: "Track with RoleNest — Manifest V3 Chrome Extension | RoleNest",
+  title: "Track with RoleNest — Manifest V3 Chrome Extension",
   description:
     "1-Click save job openings from LinkedIn, Greenhouse, Lever, Indeed, and company career portals directly to your RoleNest personal application journal.",
   alternates: {

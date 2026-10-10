@@ -5,7 +5,7 @@ import { HardDrive, ShieldCheck, Sparkles, FileSearch, ArrowRight, Lock } from "
 import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
-  title: "Candidate Resume Vault — RoleNest",
+  title: "Candidate Resume Vault",
   description: "Secure, private cloud storage for your verified PDF resumes with token-gated recruiter access and 1-click job applications.",
 };
 

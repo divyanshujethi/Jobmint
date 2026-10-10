@@ -3,7 +3,7 @@ import { ShieldCheck, AlertTriangle, ArrowLeft, FileText, Building2, Mail, Credi
 import { Card, CardContent } from "@/components/ui/card";
 
 export const metadata = {
-  title: "Terms and Conditions — RoleNest",
+  title: "Terms and Conditions",
   description: "Official terms of service, platform disclaimers, merchant of record policies, and subscription terms.",
   alternates: {
     canonical: "https://rolenest.in/terms",

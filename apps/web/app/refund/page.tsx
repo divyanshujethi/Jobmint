@@ -3,7 +3,7 @@ import { ShieldCheck, ArrowLeft, RefreshCw, Mail, CreditCard, Clock, CheckCircle
 import { Card, CardContent } from "@/components/ui/card";
 
 export const metadata = {
-  title: "Refund and Cancellation Policy — RoleNest",
+  title: "Refund and Cancellation Policy",
   description: "Official 14-day refund and cancellation policy for RoleNest Pro subscriptions and featured job boosts via Cashfree Payments.",
   alternates: {
     canonical: "https://rolenest.in/refund",

@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { BootcampAdminPanelClient } from "./admin-client";
 
 export const metadata = {
-  title: "Internship & Bootcamp Admin Command Center | RoleNest",
+  title: "Internship & Bootcamp Admin Command Center",
   description: "Manage virtual internships, track admission statuses, opening soon schedules, and student progress.",
 };
 

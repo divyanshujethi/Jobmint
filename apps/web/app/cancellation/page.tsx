@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import RefundPage from "../refund/page";
 
 export const metadata: Metadata = {
-  title: "Cancellation Policy — RoleNest",
+  title: "Cancellation Policy",
   description:
     "Official subscription cancellation policy, refund guarantees, and account management terms for RoleNest services.",
   alternates: {

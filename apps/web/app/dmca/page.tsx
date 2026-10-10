@@ -13,7 +13,7 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 
 export const metadata = {
-  title: "DMCA Copyright & Intellectual Property Policy — RoleNest",
+  title: "DMCA Copyright & Intellectual Property Policy",
   description:
     "Official Digital Millennium Copyright Act (DMCA) policy, notice-and-takedown procedure, designated copyright agent disclosures, and repeat infringer terms for RoleNest.",
   alternates: {

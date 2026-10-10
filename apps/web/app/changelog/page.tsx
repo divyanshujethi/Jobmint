@@ -17,7 +17,7 @@ import {
 import { getPlatformMetrics } from "@/lib/platform-metrics";
 
 export const metadata: Metadata = {
-  title: "Public Product Changelog — RoleNest",
+  title: "Public Product Changelog",
   description:
     "Live development history, verification engine milestones, and platform upgrades behind RoleNest.",
   alternates: {

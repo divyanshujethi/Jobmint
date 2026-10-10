@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Support the RoleNest Community — Donation & Open Platform",
+  title: "Support the Open Platform Community — Donation & Mission",
   description:
     "Support the 100% free, anti-ghosting tech careers movement for Indian students, freshers, and engineers.",
   alternates: {

@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { AdminAlligatorsClient } from './client-component';
 
 export const metadata: Metadata = {
-  title: "Alligator Intelligence Center | RoleNest",
+  title: "Alligator Intelligence Center",
   description: "Live status, crawl controls, and company verification queue for RoleNest Alligator Engines.",
 };
 

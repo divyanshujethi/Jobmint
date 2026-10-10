@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import AdminSystemDashboard from './client/client-page';
 
 export const metadata: Metadata = {
-  title: "Zero-Cost Quota Monitor & Architecture | RoleNest",
+  title: "Zero-Cost Quota Monitor & Architecture",
   description: "Live cloud resource consumption and quota circuit breakers for RoleNest infrastructure.",
 };
 

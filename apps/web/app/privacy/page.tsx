@@ -17,7 +17,7 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 
 export const metadata = {
-  title: "Privacy Policy, GDPR & CCPA Disclosures — RoleNest",
+  title: "Privacy Policy, GDPR & CCPA Disclosures",
   description:
     "Comprehensive Privacy Policy, Payment Processing disclosures via Cashfree Payments, and Statutory Compliance with the Indian DPDP Act 2023, GDPR, and CCPA/CPRA.",
   alternates: {

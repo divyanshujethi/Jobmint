@@ -46,7 +46,7 @@ export async function generateMetadata({ params }: InternshipPageProps): Promise
   const job = await getLiveJobBySlug(slug);
   if (job) {
     return {
-      title: `${job.title} at ${job.companyName} | RoleNest Internships`,
+      title: `${job.title} at ${job.companyName} (Internship)`,
       description: `Apply for ${job.title} at ${job.companyName} (${job.location}). Verified stipend: ${job.salaryOrStipend || "Competitive"}. Direct ATS apply link with anti-ghosting follow-up tracking.`,
       alternates: {
         canonical: `https://rolenest.in/internships/${slug}`,
@@ -55,7 +55,7 @@ export async function generateMetadata({ params }: InternshipPageProps): Promise
   }
 
   return {
-    title: "Verified IT Internships in India | RoleNest",
+    title: "Verified IT Internships in India",
     description: "Browse verified engineering and tech internships across top Indian tech hubs with direct ATS applications.",
   };
 }
