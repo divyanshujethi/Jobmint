@@ -242,6 +242,18 @@ export function fingerprintAtsFromHtml(
     return { type: "recruitee", token: recruiteeMatch[1] };
   }
 
+  // Search for Personio
+  const personioMatch = html.match(/(?:https?:)?\/\/([a-zA-Z0-9_\-]+)\.(?:jobs\.)?personio\.(?:de|com)/i);
+  if (personioMatch && personioMatch[1] && !["app", "www", "api"].includes(personioMatch[1].toLowerCase())) {
+    return { type: "personio", token: personioMatch[1] };
+  }
+
+  // Search for BambooHR
+  const bambooMatch = html.match(/(?:https?:)?\/\/([a-zA-Z0-9_\-]+)\.bamboohr\.com/i);
+  if (bambooMatch && bambooMatch[1] && !["app", "www"].includes(bambooMatch[1].toLowerCase())) {
+    return { type: "bamboohr", token: bambooMatch[1] };
+  }
+
   return null;
 }
 
@@ -639,6 +651,9 @@ export async function probeCompanyCareers(
       { type: "ashby", token },
       { type: "smartrecruiters", token },
       { type: "workable", token },
+      { type: "breezy", token },
+      { type: "recruitee", token },
+      { type: "personio", token },
     ];
 
     for (const c of checks) {

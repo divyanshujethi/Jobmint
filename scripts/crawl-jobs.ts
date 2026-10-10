@@ -27,9 +27,10 @@ if (!process.env.DATABASE_URL) {
   }
 }
 
-import { runJobAlligator, normalizeIndiaLocation, RawCrawledJob } from "../packages/alligators/src/index";
+import { runJobAlligator, normalizeIndiaLocation, RawCrawledJob, TargetBoard } from "../packages/alligators/src/index";
 import { db, jobs, companies, skills, jobSkills, inArray } from "../packages/database/src/index";
 import { JobSource } from "../packages/shared/src/index";
+import { sql } from "drizzle-orm";
 import crypto from "crypto";
 
 function slugify(text: string): string {
@@ -62,6 +63,37 @@ async function main() {
   const founditStartIndex = parseInt(process.argv[6] || "0", 10);
   const founditSitemapCount = parseInt(process.argv[7] || "11", 10);
 
+  // Load all verified employer ATS boards from PostgreSQL registry
+  let verifiedBoards: TargetBoard[] = [];
+  try {
+    const dbCompanies = await db
+      .select({
+        name: companies.name,
+        domain: companies.domain,
+        atsProvider: companies.atsProvider,
+        atsToken: companies.atsToken,
+        website: companies.website,
+        careersUrl: companies.careersUrl,
+        sector: companies.sector,
+        tier: companies.tier,
+      })
+      .from(companies)
+      .where(sql`${companies.discoveryStatus} = 'VERIFIED' AND ${companies.atsProvider} IS NOT NULL AND ${companies.atsToken} IS NOT NULL`);
+
+    verifiedBoards = dbCompanies.map((c) => ({
+      companyName: c.name,
+      type: (c.atsProvider as any) || "custom",
+      token: c.atsToken || "",
+      website: c.website || `https://${c.domain}`,
+      careersUrl: c.careersUrl || undefined,
+      sector: c.sector || undefined,
+      tier: c.tier || undefined,
+    }));
+    console.log(`📋 Loaded ${verifiedBoards.length} verified ATS company boards from PostgreSQL registry`);
+  } catch (err: any) {
+    console.log(`⚠️ Note: Proceeding with built-in startup seeds (${err.message})`);
+  }
+
   console.log(`📡 Fetching live tech opportunities (Internships: ${internshipLimit}, New Grad: ${newGradLimit}, Adzuna Pages: ${adzunaPages}, Foundit Limit: ${founditLimit}, Sitemaps: ${founditStartIndex} to ${founditStartIndex + founditSitemapCount})...`);
   const crawlResult = await runJobAlligator({
     internshipLimit,
@@ -71,6 +103,7 @@ async function main() {
     founditLimit,
     founditStartIndex,
     founditSitemapCount,
+    additionalBoards: verifiedBoards,
   });
 
   console.log(`✅ Crawl finished in ${(crawlResult.durationMs / 1000).toFixed(1)}s.`);

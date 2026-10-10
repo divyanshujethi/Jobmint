@@ -26,6 +26,8 @@ import { crawlPersonioJobs } from './job-alligator/personio-crawler';
 import { crawlInternshalaOpportunities } from './job-alligator/internshala-crawler';
 import { crawlNaukriIndia } from './job-alligator/naukri-crawler';
 
+import { TargetBoard } from './job-alligator/company-discovery';
+
 export * from './types';
 export * from './job-alligator/skill-extractor';
 export * from './job-alligator/truth-filter';
@@ -88,6 +90,7 @@ export async function runJobAlligator(options?: {
   workableLimit?: number;
   internshalaLimit?: number;
   naukriLimit?: number;
+  additionalBoards?: TargetBoard[];
 }) {
   const startTime = Date.now();
   const internshipLimit = options?.internshipLimit ?? 30;
@@ -168,7 +171,11 @@ export async function runJobAlligator(options?: {
       console.error("[Job Alligator] Internshala crawler failed:", err);
       return [];
     }),
-    crawlIndiaTechBoards({ maxPerCompany, enableDiscovery }).catch((err) => {
+    crawlIndiaTechBoards({
+      maxPerCompany,
+      enableDiscovery,
+      additionalBoards: options?.additionalBoards,
+    }).catch((err) => {
       console.error("[Job Alligator] India crawler failed:", err);
       return [];
     }),
