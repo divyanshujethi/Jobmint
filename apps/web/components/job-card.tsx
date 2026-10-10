@@ -171,6 +171,15 @@ export function JobCard({ job, candidateIntel }: JobCardProps) {
 
       {/* WORK MODE, LOCATION & SALARY */}
       <div className="mt-3.5 flex flex-wrap items-center gap-2 text-xs text-slate-600 font-medium">
+        {job.jobType === "INTERNSHIP" ? (
+          <span className="rounded-md bg-purple-50 border border-purple-200 px-2 py-1 text-purple-700 font-bold">
+            🎓 Tech Internship
+          </span>
+        ) : job.experienceYears <= 1 ? (
+          <span className="rounded-md bg-sky-50 border border-sky-200 px-2 py-1 text-sky-700 font-bold">
+            ⚡ Fresher / SDE-1 (0-1 YOE)
+          </span>
+        ) : null}
         <span className="rounded-md bg-slate-100 px-2 py-1 text-slate-700">
           {job.workMode.replace("_", " ")}
         </span>

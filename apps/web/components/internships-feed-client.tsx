@@ -21,6 +21,7 @@ export function InternshipsFeedClient({
   const [totalServerInternships, setTotalServerInternships] = useState<number>(initialTotal);
   const [search, setSearch] = useState("");
   const [modeFilter, setModeFilter] = useState("ALL");
+  const [trackFilter, setTrackFilter] = useState("ALL");
   const [currentPage, setCurrentPage] = useState<number>(1);
   const PAGE_SIZE = 12;
 
@@ -58,7 +59,7 @@ export function InternshipsFeedClient({
   // Reset pagination on filter or search change
   useEffect(() => {
     setCurrentPage(1);
-  }, [search, modeFilter]);
+  }, [search, modeFilter, trackFilter]);
 
   const filteredInternships = useMemo(() => {
     return internships.filter((job) => {
@@ -73,9 +74,20 @@ export function InternshipsFeedClient({
       if (modeFilter !== "ALL" && job.workMode !== modeFilter) {
         return false;
       }
+      if (trackFilter !== "ALL") {
+        const titleLower = job.title.toLowerCase();
+        const skillsText = job.skills.join(" ").toLowerCase();
+        const combo = `${titleLower} ${skillsText}`;
+        if (trackFilter === "FRONTEND" && !combo.match(/frontend|front-end|react|vue|angular|ui|web|javascript|typescript/)) return false;
+        if (trackFilter === "BACKEND" && !combo.match(/backend|back-end|node|golang|python|java|spring|django|c\+\+|api|database/)) return false;
+        if (trackFilter === "AI_ML" && !combo.match(/ai|machine learning|ml|data science|deep learning|nlp|vision|pytorch/)) return false;
+        if (trackFilter === "DATA" && !combo.match(/data engineer|data analyst|etl|sql|analytics|bi|big data/)) return false;
+        if (trackFilter === "QA" && !combo.match(/qa|sdet|test|quality assurance|automation|selenium|cypress/)) return false;
+        if (trackFilter === "SDE" && !combo.match(/software|developer|engineer|sde|coding|programmer/)) return false;
+      }
       return true;
     });
-  }, [internships, search, modeFilter]);
+  }, [internships, search, modeFilter, trackFilter]);
 
   const totalPages = Math.max(1, Math.ceil(filteredInternships.length / PAGE_SIZE));
 
@@ -149,10 +161,38 @@ export function InternshipsFeedClient({
           </div>
         </div>
 
+        {/* Early-Career Role Tracks Tabs */}
+        <div className="mt-4 flex items-center gap-2 overflow-x-auto pb-2 text-xs no-scrollbar border-b border-slate-100">
+          <span className="text-[11px] font-bold text-slate-500 shrink-0 flex items-center gap-1 mr-1">
+            Role Track:
+          </span>
+          {[
+            { label: "All Internships", value: "ALL" },
+            { label: "💻 SDE & Software", value: "SDE" },
+            { label: "⚛️ Frontend (React/Web)", value: "FRONTEND" },
+            { label: "🟢 Backend (Node/Java/Go)", value: "BACKEND" },
+            { label: "🤖 AI & Machine Learning", value: "AI_ML" },
+            { label: "📊 Data Engineering", value: "DATA" },
+            { label: "🧪 QA Automation & SDET", value: "QA" },
+          ].map((track) => (
+            <button
+              key={track.value}
+              onClick={() => setTrackFilter(track.value)}
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all shrink-0 cursor-pointer ${
+                trackFilter === track.value
+                  ? "bg-emerald-600 text-white shadow-xs"
+                  : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+              }`}
+            >
+              {track.label}
+            </button>
+          ))}
+        </div>
+
         {/* Quick Search Chips */}
         <div className="mt-3 flex items-center gap-1.5 overflow-x-auto pb-1 text-xs no-scrollbar">
           <span className="text-[11px] font-bold text-slate-400 shrink-0 flex items-center gap-1 mr-1">
-            <Sparkles className="h-3 w-3 text-emerald-600" /> Quick Filters:
+            <Sparkles className="h-3 w-3 text-emerald-600" /> Location & Skills:
           </span>
           {[
             { label: "All", value: "" },

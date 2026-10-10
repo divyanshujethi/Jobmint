@@ -679,6 +679,14 @@ export function JobsFeedClient({
           <Sparkles className="h-3 w-3 text-emerald-600" /> Quick Filter:
         </span>
         {[
+          { label: "🎓 Freshers (0 YOE)", action: () => { setSelectedExp("0"); setSelectedType(JobType.FULL_TIME); } },
+          { label: "⚡ SDE-1 / GET", action: () => { setSelectedExp("1-2"); setSearchTerm("SDE"); } },
+          { label: "🌟 Tech Internships", href: "/internships" },
+          { label: "🧪 QA Automation / SDET", action: () => setSearchTerm("QA") },
+          { label: "🤖 AI / ML Junior", action: () => setSearchTerm("AI") },
+          { label: "📊 Data Engineer I", action: () => setSearchTerm("Data Engineer") },
+          { label: "💻 Junior Frontend", action: () => setSearchTerm("Frontend") },
+          { label: "⚙️ Junior Backend", action: () => setSearchTerm("Backend") },
           { label: "🏛️ Govt & PSU Tech", href: "/gov-tech" },
           { label: "📍 Chandigarh", action: () => setSelectedLocation("chandigarh") },
           { label: "📍 Mohali", action: () => setSelectedLocation("mohali") },
@@ -708,11 +716,7 @@ export function JobsFeedClient({
           { label: "📍 Kochi", action: () => setSelectedLocation("kochi") },
           { label: "📍 Thiruvananthapuram", action: () => setSelectedLocation("thiruvananthapuram") },
           { label: "🌐 Remote India", action: () => { setSelectedMode(WorkMode.REMOTE); setSelectedLocation("india"); } },
-          { label: "🎓 Freshers (0 YOE)", action: () => setSelectedExp("0") },
           { label: "🚀 Startups", action: () => setSearchTerm("Startup") },
-          { label: "React / Next.js", action: () => setSearchTerm("React") },
-          { label: "Python / AI", action: () => setSearchTerm("Python") },
-          { label: "Internships", action: () => setSelectedType(JobType.INTERNSHIP) },
         ].map((chip) =>
           chip.href ? (
             <Link
