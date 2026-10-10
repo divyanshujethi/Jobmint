@@ -103,7 +103,7 @@ export function computeClientAtsMatch(
         remediations.push({
           skill: reqSkill,
           roadmapSlug: guide.roadmapSlug,
-          title: guide.title,
+          title: guide.resource?.title || guide.roadmapSlug,
         });
       }
     }

@@ -79,7 +79,7 @@ export function sanitizeExternalJobUrl(rawUrl: string | null | undefined): strin
 
     // Strip known tracking and affiliate parameters
     const toDelete: string[] = [];
-    parsed.searchParams.forEach((_, key) => {
+    parsed.searchParams.forEach((_: string, key: string) => {
       const lower = key.toLowerCase();
       if (TRACKING_QUERY_PARAMS.has(lower) || lower.startsWith("utm_")) {
         toDelete.push(key);

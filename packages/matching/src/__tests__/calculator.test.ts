@@ -1,10 +1,11 @@
 import { describe, it, expect } from "vitest";
 import { calculateJobMatch } from "../calculator";
-import { WorkMode } from "@repo/shared";
+import { WorkMode, JobType } from "@repo/shared";
 import { CandidateMatchProfile, JobMatchTarget } from "../types";
 
 describe("Job Matching Algorithm (calculateJobMatch)", () => {
   const baseCandidate: CandidateMatchProfile = {
+    id: "cand-1",
     skills: ["TypeScript", "React", "Next.js", "Node.js", "PostgreSQL"],
     experienceYears: 1,
     isFresher: false,
@@ -16,6 +17,7 @@ describe("Job Matching Algorithm (calculateJobMatch)", () => {
     ],
     location: "Bengaluru, Karnataka, India",
     preferredWorkModes: [WorkMode.REMOTE, WorkMode.HYBRID],
+    preferredRoles: ["Full Stack Developer"],
     educationField: "Computer Science",
   };
 
@@ -26,6 +28,7 @@ describe("Job Matching Algorithm (calculateJobMatch)", () => {
     experienceYears: 1,
     location: "Bengaluru, India",
     workMode: WorkMode.REMOTE,
+    jobType: JobType.FULL_TIME,
   };
 
   it("calculates a high match score for fully aligned candidate and job", () => {
@@ -76,6 +79,7 @@ describe("Job Matching Algorithm (calculateJobMatch)", () => {
       experienceYears: 0,
       location: "Remote",
       workMode: WorkMode.REMOTE,
+      jobType: JobType.INTERNSHIP,
     };
 
     const result = calculateJobMatch(fresherCandidate, fresherJob);
@@ -99,12 +103,14 @@ describe("Job Matching Algorithm (calculateJobMatch)", () => {
 
   it("bounds score strictly between 0 and 100", () => {
     const emptyCandidate: CandidateMatchProfile = {
+      id: "empty-cand",
       skills: [],
       experienceYears: 0,
       isFresher: false,
       projects: [],
       location: "Tokyo, Japan",
       preferredWorkModes: [],
+      preferredRoles: [],
       educationField: undefined,
     };
 
@@ -115,6 +121,7 @@ describe("Job Matching Algorithm (calculateJobMatch)", () => {
       experienceYears: 10,
       location: "Bengaluru, India",
       workMode: WorkMode.ON_SITE,
+      jobType: JobType.FULL_TIME,
     };
 
     const result = calculateJobMatch(emptyCandidate, demandingJob);

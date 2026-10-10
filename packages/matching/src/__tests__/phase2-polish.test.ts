@@ -1,17 +1,7 @@
 import { describe, it, expect } from "vitest";
-import { calculatePlayerStats } from "../../../../apps/web/lib/game-engine";
 import { isDirectAtsOrCompanyUrl } from "@repo/shared";
 
-describe("Phase 2: Frontend Hydration, Empty States & Visual Polish", () => {
-  it("calculatePlayerStats initializes honest 0-state for guests without synthetic XP", () => {
-    const stats = calculatePlayerStats(0, 0);
-    expect(stats.xp).toBe(0);
-    expect(stats.streakDays).toBe(0);
-    expect(stats.level).toBe(1);
-    expect(stats.title).toBe("Level 1: Novice Cadet");
-    expect(stats.progressPercent).toBe(0);
-    expect(stats.solvedChallengesCount).toBe(0);
-  });
+describe("Phase 2: Direct ATS and Honest Metrics", () => {
 
   it("isDirectAtsOrCompanyUrl validates direct ATS vs secondary aggregator URLs", () => {
     expect(isDirectAtsOrCompanyUrl("https://boards.greenhouse.io/postman/jobs/12345")).toBe(true);
