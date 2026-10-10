@@ -480,22 +480,22 @@ export default function PricingPage() {
                 </Button>
               </div>
 
-              {/* Candidate Plan Cards: 4 Tiers (Free, Student ₹99, Pro ₹199, and 3-in-1 Master Bundle ₹299) */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+              {/* Candidate Plan Cards: 3 Tiers (Free, Student ₹99, Pro ₹199) */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
                 {/* TIER 1: FREE FOREVER */}
                 <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm flex flex-col justify-between hover:border-slate-300 transition-all">
                   <div className="space-y-5">
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-start justify-between gap-3">
                       <div>
                         <h3 className="text-lg font-bold text-slate-900">Free Starter</h3>
                         <p className="text-xs text-slate-500 mt-0.5">Core job search, standard resume builder &amp; POTD arena.</p>
                       </div>
-                      <span className="rounded-full bg-slate-100 text-slate-700 px-2.5 py-0.5 text-[10px] font-bold font-mono">
-                        ₹0 / mo
+                      <span className="rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 px-2.5 py-0.5 text-[10px] font-bold shrink-0 whitespace-nowrap">
+                        Free Forever
                       </span>
                     </div>
                     <div>
-                      <div className="flex items-baseline gap-1">
+                      <div className="flex items-baseline gap-1 whitespace-nowrap">
                         <span className="text-3xl font-black text-slate-900">₹0</span>
                         <span className="text-xs text-slate-500 font-semibold">/ forever</span>
                       </div>
@@ -562,7 +562,7 @@ export default function PricingPage() {
                       </div>
                     </div>
                     <div>
-                      <div className="flex items-baseline gap-1">
+                      <div className="flex items-baseline gap-1 whitespace-nowrap">
                         <span className="text-3xl font-black text-slate-900">₹99</span>
                         <span className="text-xs text-slate-500 font-semibold">/ month</span>
                       </div>
@@ -627,12 +627,15 @@ export default function PricingPage() {
                     </div>
 
                     {/* Dual Pricing Display */}
-                    <div className="space-y-2">
-                      <div className="flex items-baseline gap-1">
-                        <span className="text-3xl font-black text-slate-900">₹199</span>
-                        <span className="text-xs text-slate-500 font-semibold">/ month</span>
-                        <span className="text-slate-300 mx-1.5">•</span>
-                        <span className="text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full">
+                    <div className="space-y-1.5">
+                      <div className="flex flex-wrap items-baseline gap-2">
+                        <div className="flex items-baseline gap-1 whitespace-nowrap">
+                          <span className="text-3xl font-black text-slate-900">₹199</span>
+                          <span className="text-xs text-slate-500 font-semibold">/ month</span>
+                        </div>
+                        <span className="text-slate-300 hidden sm:inline">•</span>
+                        <span className="inline-flex items-center gap-1 text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-full whitespace-nowrap">
+                          <Sparkles className="h-3 w-3 text-emerald-600" />
                           or ₹1,499 / year (Save 37%)
                         </span>
                       </div>
@@ -722,7 +725,7 @@ export default function PricingPage() {
                             <span className="text-[10px] text-slate-400 font-mono">problem.rolenest.in</span>
                           </div>
                         </div>
-                        <span className="rounded-full bg-orange-50 text-orange-700 px-2.5 py-0.5 text-[10px] font-bold font-mono">
+                        <span className="rounded-full bg-orange-50 text-orange-700 px-2.5 py-0.5 text-[10px] font-bold font-mono shrink-0 whitespace-nowrap">
                           ₹99 / mo
                         </span>
                       </div>
@@ -774,7 +777,7 @@ export default function PricingPage() {
                             <span className="text-[10px] text-slate-400 font-mono">study.rolenest.in</span>
                           </div>
                         </div>
-                        <span className="rounded-full bg-indigo-50 text-indigo-700 px-2.5 py-0.5 text-[10px] font-bold font-mono">
+                        <span className="rounded-full bg-indigo-50 text-indigo-700 px-2.5 py-0.5 text-[10px] font-bold font-mono shrink-0 whitespace-nowrap">
                           ₹99 / mo
                         </span>
                       </div>
@@ -830,11 +833,13 @@ export default function PricingPage() {
 
                       {/* Dual Pricing Display */}
                       <div className="space-y-1">
-                        <div className="flex items-baseline gap-1">
-                          <span className="text-3xl font-black text-slate-900">₹299</span>
-                          <span className="text-xs text-slate-500 font-semibold">/ month</span>
-                          <span className="text-slate-300 mx-1.5">•</span>
-                          <span className="text-xs font-bold text-purple-800 bg-purple-100 border border-purple-200 px-2 py-0.5 rounded-full">
+                        <div className="flex flex-wrap items-baseline gap-2">
+                          <div className="flex items-baseline gap-1 whitespace-nowrap">
+                            <span className="text-3xl font-black text-slate-900">₹299</span>
+                            <span className="text-xs text-slate-500 font-semibold">/ month</span>
+                          </div>
+                          <span className="text-slate-300 hidden sm:inline">•</span>
+                          <span className="inline-flex items-center gap-1 text-xs font-bold text-purple-800 bg-purple-100 border border-purple-200 px-2.5 py-0.5 rounded-full whitespace-nowrap">
                             or ₹1,999 / yr
                           </span>
                         </div>
