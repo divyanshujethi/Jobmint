@@ -63,6 +63,7 @@ export * from './job-alligator/company-discovery';
 export * from './job-alligator/india-gatekeeper';
 export * from './job-alligator/indian-startup-seeds';
 export * from './job-alligator/ai-career-scraper';
+export * from './job-alligator/quality-telemetry';
 export * from './job-alligator/expired-job-verifier';
 export * from './study-alligator/curated-sources';
 export * from './study-alligator/canvas-binder';

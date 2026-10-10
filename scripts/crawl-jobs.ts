@@ -27,7 +27,15 @@ if (!process.env.DATABASE_URL) {
   }
 }
 
-import { runJobAlligator, evaluateIndiaTechGatekeeper, RawCrawledJob, TargetBoard } from "../packages/alligators/src/index";
+import {
+  runJobAlligator,
+  evaluateIndiaTechGatekeeper,
+  checkConsultancyContamination,
+  canonicalizeJobUrl,
+  generateJobFingerprint,
+  RawCrawledJob,
+  TargetBoard,
+} from "../packages/alligators/src/index";
 import { db, jobs, companies, skills, jobSkills, jobLocationReviewQueue, inArray } from "../packages/database/src/index";
 import { JobSource } from "../packages/shared/src/index";
 import { sql } from "drizzle-orm";
@@ -172,7 +180,10 @@ async function main() {
   const missingCompanies = new Map<string, { name: string; slug: string; website?: string; domain: string; location: string }>();
   const missingSkills = new Map<string, string>();
   const reviewQueueItems: Array<typeof jobLocationReviewQueue.$inferInsert> = [];
+  const seenFingerprints = new Set<string>();
   let skipped = 0;
+  let consultancyFiltered = 0;
+  let duplicatesFiltered = 0;
 
   for (const job of crawlResult.jobs) {
     if (!job.sourceUrl || !job.title || !job.companyName) {
@@ -180,7 +191,21 @@ async function main() {
       continue;
     }
 
-    // 2-Stage Strict India-Only & Role-Level Tech Gatekeeper
+    // 1. Canonicalize URL (strip tracking params & UTM markers)
+    job.sourceUrl = canonicalizeJobUrl(job.sourceUrl);
+
+    // 2. Consultancy & Staffing Broker Contamination Guard
+    const consultancyCheck = checkConsultancyContamination(
+      job.companyName,
+      job.title,
+      job.description
+    );
+    if (consultancyCheck.isContaminated) {
+      consultancyFiltered++;
+      continue;
+    }
+
+    // 3. 2-Stage Strict India-Only & Role-Level Tech Gatekeeper
     const gateEval = evaluateIndiaTechGatekeeper(
       job.title,
       job.location,
@@ -213,7 +238,20 @@ async function main() {
       continue;
     }
 
+    // 4. Fingerprint-Based Content Deduplication
     const companyCleanName = job.companyName.trim();
+    const fingerprint = generateJobFingerprint(
+      companyCleanName,
+      job.title,
+      gateEval.location.city,
+      job.jobType
+    );
+    if (seenFingerprints.has(fingerprint)) {
+      duplicatesFiltered++;
+      continue;
+    }
+    seenFingerprints.add(fingerprint);
+
     const companySlug = slugify(companyCleanName);
     const domain = extractDomain(job.companyWebsite) || `${companySlug}.com`;
     const loc = gateEval.location.formattedLocation || "India";
@@ -456,12 +494,33 @@ async function main() {
     }
   }
 
-  console.log(`\n🎉 Ingestion Complete!`);
-  console.log(`   ✨ New Jobs Added:            ${inserted}`);
-  console.log(`   🔄 Existing Updated:          ${jobIdsToTouch.length}`);
+  // 12. Re-compute and synchronize active_jobs_count in companies table
+  try {
+    await db.execute(sql`
+      UPDATE companies
+      SET active_jobs_count = COALESCE(sub.cnt, 0),
+          updated_at = NOW()
+      FROM (
+        SELECT company_id, count(*)::int as cnt
+        FROM jobs
+        WHERE is_active = true
+        GROUP BY company_id
+      ) sub
+      WHERE companies.id = sub.company_id;
+    `);
+    console.log(`   🏢 Synchronized active jobs counters across registered employers.`);
+  } catch (err: any) {
+    console.error("Error updating company active job counts:", err.message);
+  }
+
+  console.log(`\n🎉 Ingestion & Quality Telemetry Complete!`);
+  console.log(`   ✨ New Tech Jobs Added:        ${inserted}`);
+  console.log(`   🔄 Existing Refreshed:         ${jobIdsToTouch.length}`);
   console.log(`   🛡️ Ambiguous in Review Queue:  ${reviewQueueItems.length}`);
-  console.log(`   ⏭️ Skipped/Foreign/Non-Tech:  ${skipped}`);
-  console.log(`   Total Processed:              ${crawlResult.jobs.length}`);
+  console.log(`   🧹 Duplicates Eliminated:      ${duplicatesFiltered}`);
+  console.log(`   🚫 Consultancies Blocked:      ${consultancyFiltered}`);
+  console.log(`   ⏭️ Foreign/Non-Tech Filtered:  ${skipped}`);
+  console.log(`   Total Candidates Processed:    ${crawlResult.jobs.length}`);
 
   process.exit(0);
 }
