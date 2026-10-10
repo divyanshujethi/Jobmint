@@ -1123,60 +1123,69 @@ async function runWorkdayStage(client) {
 
   for (const comp of companies) {
     try {
-      const url = `https://${comp.host}/wday/cxs/${comp.tenant}/${comp.site}/jobs`;
-      const res = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-          Accept: "application/json",
-          Origin: `https://${comp.host}`,
-          Referer: `https://${comp.host}/en-US/${comp.site}`,
-        },
-        body: JSON.stringify({ appliedFacets: {}, limit: 50, offset: 0, searchText: "" }),
-      });
+      let offset = 0;
+      const pageSize = 20;
+      let total = 0;
 
-      if (!res.ok) {
-        console.warn(`   ⚠️ Workday ${comp.name} responded ${res.status}`);
-        continue;
-      }
-      const json = await res.json();
-      if (!json || !Array.isArray(json.jobPostings)) continue;
-
-      const batch = [];
-      for (const item of json.jobPostings) {
-        const title = (item.title || "").trim();
-        if (!title) continue;
-
-        const loc = (item.locationsText || "India").trim();
-        const locLower = loc.toLowerCase();
-        const isIndia = locLower.includes("india") || locLower.includes("bangalore") || locLower.includes("bengaluru") || locLower.includes("mumbai") || locLower.includes("remote");
-        if (!isIndia) continue;
-
-        const externalPath = item.externalPath || "";
-        const sourceUrl = `https://${comp.host}/en-US/${comp.site}${externalPath}`;
-        const jobId = item.bulletFields?.[0] || externalPath.split("/").pop();
-
-        batch.push({
-          title,
-          companyName: comp.name,
-          location: locLower.includes("remote") ? "Remote, India" : `${loc}`,
-          sourceUrl,
-          externalId: `wd-${comp.tenant}-${jobId}`,
-          jobType: "FULL_TIME",
-          workMode: locLower.includes("remote") ? "REMOTE" : "ON_SITE",
-          salaryOrStipend: "Competitive (Industry Standard)",
-          experienceYears: 2,
-          description: `${title} role open at ${comp.name}. Direct application on official company Workday ATS. Verified authentic opening.`,
+      do {
+        const url = `https://${comp.host}/wday/cxs/${comp.tenant}/${comp.site}/jobs`;
+        const res = await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            Accept: "application/json",
+            Origin: `https://${comp.host}`,
+            Referer: `https://${comp.host}/en-US/${comp.site}`,
+          },
+          body: JSON.stringify({ appliedFacets: {}, limit: pageSize, offset, searchText: "" }),
         });
-      }
 
-      if (batch.length > 0) {
-        const stats = await batchInsertJobs(client, batch);
-        inserted += stats.inserted;
-        updated += stats.updated;
-        process.stdout.write(`   [Workday ${comp.name}: +${inserted} new, ~${updated} refreshed]\r`);
-      }
+        if (!res.ok) {
+          console.warn(`   ⚠️ Workday ${comp.name} responded ${res.status}`);
+          break;
+        }
+        const json = await res.json();
+        if (!json || !Array.isArray(json.jobPostings)) break;
+
+        total = json.total || 0;
+        const batch = [];
+        for (const item of json.jobPostings) {
+          const title = (item.title || "").trim();
+          if (!title) continue;
+
+          const loc = (item.locationsText || "India").trim();
+          const locLower = loc.toLowerCase();
+          const isIndia = locLower.includes("india") || locLower.includes("bangalore") || locLower.includes("bengaluru") || locLower.includes("mumbai") || locLower.includes("remote");
+          if (!isIndia) continue;
+
+          const externalPath = item.externalPath || "";
+          const sourceUrl = `https://${comp.host}/en-US/${comp.site}${externalPath}`;
+          const jobId = item.bulletFields?.[0] || externalPath.split("/").pop();
+
+          batch.push({
+            title,
+            companyName: comp.name,
+            location: locLower.includes("remote") ? "Remote, India" : `${loc}`,
+            sourceUrl,
+            externalId: `wd-${comp.tenant}-${jobId}`,
+            jobType: "FULL_TIME",
+            workMode: locLower.includes("remote") ? "REMOTE" : "ON_SITE",
+            salaryOrStipend: "Competitive (Industry Standard)",
+            experienceYears: 2,
+            description: `${title} role open at ${comp.name}. Direct application on official company Workday ATS. Verified authentic opening.`,
+          });
+        }
+
+        if (batch.length > 0) {
+          const stats = await batchInsertJobs(client, batch);
+          inserted += stats.inserted;
+          updated += stats.updated;
+          process.stdout.write(`   [Workday ${comp.name}: +${inserted} new, ~${updated} refreshed]\r`);
+        }
+
+        offset += pageSize;
+      } while (offset < total && offset < 200);
     } catch (e) {
       continue;
     }
