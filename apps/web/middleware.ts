@@ -139,10 +139,11 @@ export function middleware(req: NextRequest) {
       });
     }
 
-    // Main site pages (like /jobs, /pricing) should not exist on problem.rolenest.in
-    const MAIN_SITE_PAGES = ["/jobs", "/pricing", "/applications", "/resume", "/internship-bootcamp", "/donate", "/company"];
+    // Main site pages (like /jobs, /pricing, /login) redirect seamlessly to rolenest.in
+    const MAIN_SITE_PAGES = ["/jobs", "/pricing", "/applications", "/resume", "/internship-bootcamp", "/donate", "/company", "/companies", "/login", "/register", "/settings"];
     if (MAIN_SITE_PAGES.some((prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`))) {
-      return NextResponse.redirect(new URL("/problems", req.url));
+      const search = req.nextUrl.search;
+      return NextResponse.redirect(new URL(`https://rolenest.in${pathname}${search}`, req.url));
     }
 
     return NextResponse.next({
@@ -167,9 +168,10 @@ export function middleware(req: NextRequest) {
     }
 
     // Main site pages that don't belong on study subdomain redirect to rolenest.in
-    const MAIN_SITE_PAGES = ["/jobs", "/pricing", "/applications", "/resume", "/internship-bootcamp", "/donate", "/company"];
+    const MAIN_SITE_PAGES = ["/jobs", "/pricing", "/applications", "/resume", "/internship-bootcamp", "/donate", "/company", "/companies", "/login", "/register", "/settings"];
     if (MAIN_SITE_PAGES.some((prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`))) {
-      return NextResponse.redirect(new URL(`https://rolenest.in${pathname}`, req.url));
+      const search = req.nextUrl.search;
+      return NextResponse.redirect(new URL(`https://rolenest.in${pathname}${search}`, req.url));
     }
 
     return NextResponse.next({

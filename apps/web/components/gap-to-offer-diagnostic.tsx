@@ -23,6 +23,7 @@ import {
 } from "lucide-react";
 import { Button } from "./ui/button";
 import { ProUpgradeModal } from "./pro-upgrade-modal";
+import { computeClientAtsMatch } from "@repo/matching";
 
 interface GapToOfferDiagnosticProps {
   jobTitle: string;
@@ -205,15 +206,19 @@ export function GapToOfferDiagnostic({
     setTimeout(() => setCopiedBulletIdx(null), 2000);
   };
 
-  const matchedSkills = jobSkills.filter((s) => candidateSkills.includes(s));
-  const missingSkills = jobSkills.filter((s) => !candidateSkills.includes(s));
+  // Client-Side Privacy-First ATS Match Engine (DPDP Act 2023 Compliant)
+  const clientAts = computeClientAtsMatch(candidateSkills, jobSkills, {
+    jobTitle,
+    resumeText: uploadedResumeName ? `Candidate vault resume: ${uploadedResumeName}` : undefined,
+  });
+
+  const matchedSkills = aiMatchData ? aiMatchData.matchedSkills : clientAts.matchedSkills;
+  const missingSkills = aiMatchData ? aiMatchData.missingSkills : clientAts.missingSkills;
   const matchPercentage = aiMatchData
     ? aiMatchData.matchScore
     : candidateSkills.length === 0
     ? 0
-    : jobSkills.length > 0
-    ? Math.round((matchedSkills.length / jobSkills.length) * 100)
-    : 0;
+    : clientAts.matchScore;
 
   return (
     <>
@@ -226,9 +231,13 @@ export function GapToOfferDiagnostic({
             </div>
             <div>
               <div className="flex items-center gap-2 flex-wrap">
-                <h3 className="text-base font-bold text-slate-900">AI Resume-to-Job Fit Score</h3>
+                <h3 className="text-base font-bold text-slate-900">Privacy-First ATS Fit Score</h3>
                 <span className="rounded-full bg-emerald-100 text-emerald-800 px-2.5 py-0.5 text-[10px] font-mono font-bold">
                   Instant ATS Matcher
+                </span>
+                <span className="rounded-full bg-slate-100 text-slate-700 px-2 py-0.5 text-[10px] font-mono font-semibold flex items-center gap-1">
+                  <ShieldCheck className="h-3 w-3 text-emerald-600" />
+                  DPDP Act 2023
                 </span>
                 {isProUser ? (
                   <span className="rounded-full bg-amber-100 text-amber-900 px-2 py-0.5 text-[9px] font-bold font-mono">
@@ -236,12 +245,12 @@ export function GapToOfferDiagnostic({
                   </span>
                 ) : freeUsesRemaining !== null ? (
                   <span className="text-[10px] text-slate-400 font-mono">
-                    ({freeUsesRemaining}/3 free tries left)
+                    ({freeUsesRemaining}/3 free AI tries left)
                   </span>
                 ) : null}
               </div>
               <p className="text-xs text-slate-600 mt-0.5">
-                Compare your skills &amp; resume against {jobTitle}&apos;s tech stack with 1-click tailored gap fixes.
+                Local in-browser ATS scoring with 0ms latency and zero data leakage. 1-click tailored STAR bullets.
               </p>
             </div>
           </div>
@@ -277,12 +286,12 @@ export function GapToOfferDiagnostic({
             >
               {isAiMatching ? (
                 <>
-                  <Loader2 className="h-3.5 w-3.5 animate-spin" /> Matching...
+                  <Loader2 className="h-3.5 w-3.5 animate-spin" /> Tailoring...
                 </>
               ) : (
                 <>
                   <Sparkles className="h-3.5 w-3.5 text-indigo-200" />
-                  <span>AI Match</span>
+                  <span>AI STAR Bullets</span>
                 </>
               )}
             </Button>
