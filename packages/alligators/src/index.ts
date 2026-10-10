@@ -19,6 +19,9 @@ import { crawlFounditIndia } from './job-alligator/foundit-crawler';
 import { crawlLinkedInGuestJobs } from './job-alligator/linkedin-guest-crawler';
 import { crawlSmartRecruitersJobs } from './job-alligator/smartrecruiters-crawler';
 import { crawlWorkableJobs } from './job-alligator/workable-crawler';
+import { crawlWorkdayJobs } from './job-alligator/workday-crawler';
+import { crawlBreezyJobs } from './job-alligator/breezy-crawler';
+import { crawlRecruiteeJobs } from './job-alligator/recruitee-crawler';
 import { crawlInternshalaOpportunities } from './job-alligator/internshala-crawler';
 import { crawlNaukriIndia } from './job-alligator/naukri-crawler';
 
@@ -29,6 +32,9 @@ export * from './job-alligator/geo-exclusion-engine';
 export * from './job-alligator/greenhouse-crawler';
 export * from './job-alligator/lever-crawler';
 export * from './job-alligator/ashby-crawler';
+export * from './job-alligator/workday-crawler';
+export * from './job-alligator/breezy-crawler';
+export * from './job-alligator/recruitee-crawler';
 export * from './job-alligator/himalayas-crawler';
 export * from './job-alligator/jobspipe-crawler';
 export * from './job-alligator/remotive-crawler';
@@ -134,6 +140,18 @@ export async function runJobAlligator(options?: {
       console.error("[Job Alligator] Workable crawler failed:", err);
       return [];
     }),
+    crawlWorkdayJobs().catch((err) => {
+      console.error("[Job Alligator] Workday crawler failed:", err);
+      return [];
+    }),
+    crawlBreezyJobs().catch((err) => {
+      console.error("[Job Alligator] Breezy crawler failed:", err);
+      return [];
+    }),
+    crawlRecruiteeJobs().catch((err) => {
+      console.error("[Job Alligator] Recruitee crawler failed:", err);
+      return [];
+    }),
     crawlInternshalaOpportunities({ limit: internshalaLimit }).catch((err) => {
       console.error("[Job Alligator] Internshala crawler failed:", err);
       return [];
@@ -164,6 +182,9 @@ export async function runJobAlligator(options?: {
     ...linkedInJobs,
     ...smartRecruitersJobs,
     ...workableJobs,
+    ...workdayJobs,
+    ...breezyJobs,
+    ...recruiteeJobs,
     ...internshalaJobs,
     ...indiaJobs,
     ...jobsPipeJobs,

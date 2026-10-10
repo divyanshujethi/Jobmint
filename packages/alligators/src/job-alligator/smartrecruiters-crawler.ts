@@ -12,6 +12,8 @@ import { isTechRole, detectExperienceAndType } from "./india-crawler";
 import { verifyOpportunityEligibility } from "./geo-exclusion-engine";
 
 export const SMARTRECRUITERS_COMPANIES = [
+  { identifier: "Freshworks", name: "Freshworks" },
+  { identifier: "swiggy", name: "Swiggy" },
   { identifier: "BoschGroup", name: "Bosch Global Software Technologies" },
   { identifier: "publicissapient", name: "Publicis Sapient" },
   { identifier: "ubisoft", name: "Ubisoft India" },

@@ -886,6 +886,8 @@ async function runNaukriStage(client, maxLimit = 15000) {
  */
 async function runSmartRecruitersStage(client) {
   const companies = [
+    { identifier: "Freshworks", name: "Freshworks" },
+    { identifier: "swiggy", name: "Swiggy" },
     { identifier: "BoschGroup", name: "Bosch Global Software Technologies" },
     { identifier: "WesternDigital", name: "Western Digital" },
     { identifier: "publicissapient", name: "Publicis Sapient" },
@@ -982,6 +984,10 @@ async function runAtsStage(client) {
     { token: "slice", name: "Slice" },
     { token: "razorpaysoftwareprivatelimited", name: "Razorpay" },
     { token: "groww", name: "Groww" },
+    { token: "inmobi", name: "InMobi" },
+    { token: "hackerrank", name: "HackerRank" },
+    { token: "druva", name: "Druva" },
+    { token: "cloudsek", name: "CloudSEK" },
   ];
 
   const leverBoards = [
@@ -990,6 +996,12 @@ async function runAtsStage(client) {
     { site: "porter", name: "Porter" },
     { site: "fampay", name: "FamPay" },
     { site: "palantir", name: "Palantir" },
+    { site: "meesho", name: "Meesho" },
+    { site: "cred", name: "CRED" },
+    { site: "acceldata", name: "Acceldata" },
+    { site: "mindtickle", name: "Mindtickle" },
+    { site: "safe", name: "Safe Security" },
+    { site: "fi", name: "Fi Money" },
   ];
 
   console.log(`\n🚀 [ATS Stage] Crawling Greenhouse & Lever for top tech giants...`);
@@ -1097,6 +1109,92 @@ async function runAtsStage(client) {
 }
 
 /**
+ * STAGE 9: Workday Public CXS API (Postman, BrowserStack)
+ */
+async function runWorkdayStage(client) {
+  const companies = [
+    { name: "Postman", host: "postman.wd108.myworkdayjobs.com", tenant: "postman", site: "careers" },
+    { name: "BrowserStack", host: "browserstack.wd3.myworkdayjobs.com", tenant: "browserstack", site: "External" }
+  ];
+
+  console.log(`\n🚀 [Workday Stage] Crawling ${companies.length} enterprise Workday organizations...`);
+  let inserted = 0;
+  let updated = 0;
+
+  for (const comp of companies) {
+    try {
+      const url = `https://${comp.host}/wday/cxs/${comp.tenant}/${comp.site}/jobs`;
+      const body = JSON.stringify({ appliedFacets: {}, limit: 50, offset: 0, searchText: "" });
+
+      const json = await new Promise((resolve, reject) => {
+        const req = https.request(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Content-Length": Buffer.byteLength(body),
+            "User-Agent": "RoleNest-Alligator/1.0",
+            Accept: "application/json",
+          },
+          timeout: 10000,
+        }, (res) => {
+          if (res.statusCode !== 200) return resolve(null);
+          let data = "";
+          res.on("data", (d) => data += d);
+          res.on("end", () => {
+            try { resolve(JSON.parse(data)); } catch (e) { resolve(null); }
+          });
+        });
+        req.on("error", reject);
+        req.write(body);
+        req.end();
+      });
+
+      if (!json || !Array.isArray(json.jobPostings)) continue;
+
+      const batch = [];
+      for (const item of json.jobPostings) {
+        const title = (item.title || "").trim();
+        if (!title) continue;
+
+        const loc = (item.locationsText || "India").trim();
+        const locLower = loc.toLowerCase();
+        const isIndia = locLower.includes("india") || locLower.includes("bangalore") || locLower.includes("bengaluru") || locLower.includes("mumbai") || locLower.includes("remote");
+        if (!isIndia) continue;
+
+        const externalPath = item.externalPath || "";
+        const sourceUrl = `https://${comp.host}/en-US/${comp.site}${externalPath}`;
+        const jobId = item.bulletFields?.[0] || externalPath.split("/").pop();
+
+        batch.push({
+          title,
+          companyName: comp.name,
+          location: locLower.includes("remote") ? "Remote, India" : `${loc}`,
+          sourceUrl,
+          externalId: `wd-${comp.tenant}-${jobId}`,
+          jobType: "FULL_TIME",
+          workMode: locLower.includes("remote") ? "REMOTE" : "ON_SITE",
+          salaryOrStipend: "Competitive (Industry Standard)",
+          experienceYears: 2,
+          description: `${title} role open at ${comp.name}. Direct application on official company Workday ATS. Verified authentic opening.`,
+        });
+      }
+
+      if (batch.length > 0) {
+        const stats = await batchInsertJobs(client, batch);
+        inserted += stats.inserted;
+        updated += stats.updated;
+        process.stdout.write(`   [Workday ${comp.name}: +${inserted} new, ~${updated} refreshed]\r`);
+      }
+    } catch (e) {
+      continue;
+    }
+  }
+
+  console.log(`\n   ✅ Workday Stage complete: +${inserted} new, ~${updated} refreshed.`);
+  return { inserted, updated };
+}
+
+/**
  * Main Execution Loop
  */
 async function main() {
@@ -1137,6 +1235,9 @@ async function main() {
     // Stage 8: High-Tier Direct ATS (Greenhouse, Lever & Ashby)
     const atsStats = shouldRun("ats") ? await runAtsStage(client) : { inserted: 0, updated: 0 };
 
+    // Stage 9: Workday Public CXS API
+    const workdayStats = shouldRun("workday") ? await runWorkdayStage(client) : { inserted: 0, updated: 0 };
+
     const totalAdded =
       founditStats.inserted +
       adzunaStats.inserted +
@@ -1145,7 +1246,8 @@ async function main() {
       internshalaStats.inserted +
       naukriStats.inserted +
       srStats.inserted +
-      atsStats.inserted;
+      atsStats.inserted +
+      workdayStats.inserted;
 
     const totalRefreshed =
       founditStats.updated +
@@ -1155,7 +1257,8 @@ async function main() {
       internshalaStats.updated +
       naukriStats.updated +
       srStats.updated +
-      atsStats.updated;
+      atsStats.updated +
+      workdayStats.updated;
 
     const postCount = await client.query("SELECT count(*) as total, count(*) FILTER (WHERE is_active = true) as active FROM jobs");
     console.log("\n🐊 ====================================================================");
