@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
 import { auth } from "@/auth";
+import { verifyAdminSession } from "@/lib/api-auth";
 import { db, bootcampEnrollments, eq, and } from "@repo/database";
 import { notifyDiscordEnrollment } from "@/lib/discord-notifications";
 
@@ -14,6 +15,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    const userEmail = session.user.email?.toLowerCase();
     const body = await req.json();
     const {
       trackId,
@@ -57,8 +59,7 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    const userEmail = session.user.email?.toLowerCase();
-    const isAuthorizedTester = userEmail === "divyanshujethi@gmail.com";
+    const isAuthorizedTester = await verifyAdminSession();
 
     // ONE ACTIVE INTERNSHIP RULE:
     // A student can only pursue ONE active internship at a time.
@@ -95,10 +96,10 @@ export async function POST(req: NextRequest) {
     let finalAmount = typeof amountPaid === "number" ? amountPaid : (!isNaN(Number(amountPaid)) ? Number(amountPaid) : 499);
 
     // ZERO RUPEE (₹0) COURSE RULE:
-    // Only divyanshujethi@gmail.com is authorized to enroll for ₹0.
+    // Only verified administrators are authorized to enroll for ₹0.
     if (finalAmount === 0 && !isAuthorizedTester) {
       return NextResponse.json(
-        { error: "Zero Rupee (₹0) test access is reserved exclusively for authorized email: divyanshujethi@gmail.com. Please complete regular enrollment." },
+        { error: "Zero Rupee (₹0) test access is reserved exclusively for authorized administrators. Please complete regular enrollment." },
         { status: 403 }
       );
     }

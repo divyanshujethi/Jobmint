@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db, jobs, companies, companyMembers, users, jobSkills, skills, eq } from "@repo/database";
 import { auth } from "@/auth";
+import { verifyAdminSession } from "@/lib/api-auth";
 import { publishJobSlugToGoogle } from "@/lib/google-indexing";
 
 export const dynamic = "force-dynamic";
@@ -16,9 +17,7 @@ export async function POST(req: NextRequest) {
     }
 
     const userEmail = session.user.email.toLowerCase();
-    const adminEmails = (process.env.ADMIN_EMAILS || "admin@rolenest.in,divyanshu.dev@gmail.com,divyanshujethi@gmail.com,admin@ritualdev.in")
-      .split(",")
-      .map((e) => e.trim().toLowerCase());
+    const isAdmin = await verifyAdminSession();
 
     const [currentUser] = await db
       .select()
@@ -32,8 +31,6 @@ export async function POST(req: NextRequest) {
         { status: 401 }
       );
     }
-
-    const isAdmin = currentUser.role === "ADMIN" || adminEmails.includes(userEmail);
 
     // Look up company memberships for the user
     const userMemberships = await db

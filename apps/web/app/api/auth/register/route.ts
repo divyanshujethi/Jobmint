@@ -24,6 +24,34 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // Security gate: Block registration of reserved system aliases and configured admin emails
+    const BLOCKED_SYSTEM_EMAIL_PREFIXES = [
+      "admin@",
+      "root@",
+      "security@",
+      "support@",
+      "billing@",
+      "system@",
+      "help@",
+      "postmaster@",
+      "hostmaster@",
+    ];
+
+    const adminEmails = (process.env.ADMIN_EMAILS || "")
+      .split(",")
+      .map((e) => e.trim().toLowerCase())
+      .filter(Boolean);
+
+    if (
+      BLOCKED_SYSTEM_EMAIL_PREFIXES.some((prefix) => normalizedEmail.startsWith(prefix)) ||
+      adminEmails.includes(normalizedEmail)
+    ) {
+      return NextResponse.json(
+        { error: "Registration with system or administrative email addresses is restricted." },
+        { status: 403 }
+      );
+    }
+
     if (password.length < 6) {
       return NextResponse.json(
         { error: "Password must be at least 6 characters long." },

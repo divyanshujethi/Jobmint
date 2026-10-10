@@ -65,7 +65,7 @@ export default function InternshipStudentPortalPage() {
   }, []);
 
   const hasEnrollments = Boolean(authData.enrollments && authData.enrollments.length > 0);
-  const isAdmin = authData.user?.email?.toLowerCase() === "divyanshujethi@gmail.com";
+  const isAdmin = Boolean((authData.user as any)?.isAdmin || authData.user?.role === "ADMIN");
   const activeEnrollment = hasEnrollments
     ? authData.enrollments.find((e) => e.id === activeEnrollmentId) || authData.enrollments[0]
     : null;

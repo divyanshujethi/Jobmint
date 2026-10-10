@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { db, jobs, companies, skills, jobSkills, eq, desc, sql } from "@repo/database";
-import { auth } from "@/auth";
+import { verifyAdminSession } from "@/lib/api-auth";
 import { CURATED_COURSES } from "@/lib/courses-data";
 import { getDynamicPlaylists } from "@/lib/courses-store";
 import { VERIFIED_VIRTUAL_INTERNSHIPS } from "@/lib/virtual-internships-data";
@@ -10,19 +10,9 @@ export const dynamic = "force-dynamic";
 
 export async function GET() {
   try {
-    const session = await auth();
-    const adminEmails = (
-      process.env.ADMIN_EMAILS ||
-      "admin@rolenest.in,divyanshu.dev@gmail.com,divyanshujethi@gmail.com,admin@ritualdev.in"
-    )
-      .split(",")
-      .map((e) => e.trim().toLowerCase());
+    const isAuthorized = await verifyAdminSession();
 
-    const userEmail = session?.user?.email?.toLowerCase();
-    const isAdmin =
-      (session?.user as any)?.role === "ADMIN" || (userEmail && adminEmails.includes(userEmail));
-
-    if (!isAdmin) {
+    if (!isAuthorized) {
       return NextResponse.json({ error: "Forbidden: SuperAdmin clearance required" }, { status: 403 });
     }
 

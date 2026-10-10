@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db, companies, jobs, applications, applicationEvents, candidateProfiles, users, eq } from "@repo/database";
-import { auth } from "@/auth";
+import { verifyAdminSession } from "@/lib/api-auth";
 import { sendEmail, applicationViewedTemplate, interviewInvitationTemplate } from "@repo/email";
 import { publishJobSlugToGoogle } from "@/lib/google-indexing";
 import { invalidateJobsCache } from "@/lib/db-jobs";
@@ -9,15 +9,9 @@ import { SalaryRecord, COMPREHENSIVE_INDIAN_SALARIES } from "@/lib/salary-data";
 
 export async function POST(req: NextRequest) {
   try {
-    const session = await auth();
-    const adminEmails = (process.env.ADMIN_EMAILS || "admin@rolenest.in,divyanshu.dev@gmail.com,divyanshujethi@gmail.com,admin@ritualdev.in")
-      .split(",")
-      .map((e) => e.trim().toLowerCase());
+    const isAuthorized = await verifyAdminSession();
 
-    const userEmail = session?.user?.email?.toLowerCase();
-    const isAdmin = (session?.user as any)?.role === "ADMIN" || (userEmail && adminEmails.includes(userEmail));
-
-    if (!isAdmin) {
+    if (!isAuthorized) {
       return NextResponse.json(
         { error: "Forbidden: SuperAdmin privileges required to execute platform governance actions." },
         { status: 403 }

@@ -37,6 +37,7 @@ export async function GET(req: NextRequest) {
         name: session.user.name,
         email: session.user.email,
         image: session.user.image,
+        isAdmin: Boolean((session.user as any)?.isAdmin),
       },
       enrollments,
       submissions,

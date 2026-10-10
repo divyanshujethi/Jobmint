@@ -79,7 +79,7 @@ export default function BootcampTrackDetailPage({
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [activeOtherEnrollment, setActiveOtherEnrollment] = useState<any>(null);
 
-  const isAuthorizedTester = studentEmail?.toLowerCase() === "divyanshujethi@gmail.com";
+  const [isAuthorizedTester, setIsAuthorizedTester] = useState(false);
   const finalPrice = isAuthorizedTester ? 0 : (track.pricing.discountedPrice ?? 499);
 
   // Admission status & Waitlist modal
@@ -111,6 +111,9 @@ export default function BootcampTrackDetailPage({
         if (data.authenticated && data.user) {
           setStudentName(data.user.name || "");
           setStudentEmail(data.user.email || "");
+          if (data.user.isAdmin) {
+            setIsAuthorizedTester(true);
+          }
         }
         if (data.enrollments) {
           const match = data.enrollments.find(
@@ -264,7 +267,7 @@ export default function BootcampTrackDetailPage({
                     </span>
                   </div>
                   <span className="text-[10px] text-emerald-300 font-medium block">
-                    Zero-cost testing access authorized for <strong>divyanshujethi@gmail.com</strong>.
+                    Zero-cost testing access authorized for system administrators.
                   </span>
                 </div>
               ) : (
@@ -683,7 +686,7 @@ export default function BootcampTrackDetailPage({
                   </div>
                   <span className="text-[10px] text-slate-400 block">
                     {finalPrice === 0
-                      ? "Zero payment authorized for divyanshujethi@gmail.com. Instant Offer Letter, College NOC, Day-by-Day unlocking, and certificate verification are immediately activated."
+                      ? "Zero payment authorized for administrator account. Instant Offer Letter, College NOC, Day-by-Day unlocking, and certificate verification are immediately activated."
                       : "Covers live compiler telemetry, daily mentor code review, AICTE 4-credit NOC, and public ledger Certificate ID."}
                   </span>
                 </div>

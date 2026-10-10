@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getFileBuffer, verifySignedToken } from "@repo/storage";
 import { auth } from "@/auth";
+import { verifyAdminSession } from "@/lib/api-auth";
 import { db, candidateProfiles, applications, eq, and, ilike } from "@repo/database";
 import * as path from "path";
 
@@ -37,18 +38,7 @@ export async function GET(req: NextRequest) {
 
     // 1. Check SuperAdmin Session Authorization
     const session = await auth();
-    const adminEmails = (
-      process.env.ADMIN_EMAILS ||
-      "admin@rolenest.in,divyanshu.dev@gmail.com,divyanshujethi@gmail.com,admin@ritualdev.in"
-    )
-      .split(",")
-      .map((e) => e.trim().toLowerCase());
-
-    const userEmail = session?.user?.email?.toLowerCase();
-    const isAdmin =
-      (session?.user as any)?.role === "ADMIN" ||
-      (userEmail && adminEmails.includes(userEmail));
-
+    const isAdmin = await verifyAdminSession();
     let isAuthorized = Boolean(isAdmin);
 
     // 2. Candidate Profile & Application Ownership Check (IDOR protection)

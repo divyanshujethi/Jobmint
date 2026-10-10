@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { db, companies, jobs, applications, users, skills, candidateProfiles, desc, eq, sql } from "@repo/database";
 import { auth } from "@/auth";
+import { verifyAdminSession } from "@/lib/api-auth";
 import { checkDatabase, checkRedis } from "@/lib/health-check";
 import { signAccessToken } from "@repo/storage";
 import { getCache } from "@/lib/redis";
@@ -11,12 +12,7 @@ export const dynamic = "force-dynamic";
 export async function GET() {
   try {
     const session = await auth();
-    const adminEmails = (process.env.ADMIN_EMAILS || "admin@rolenest.in,divyanshu.dev@gmail.com,divyanshujethi@gmail.com,admin@ritualdev.in")
-      .split(",")
-      .map((e) => e.trim().toLowerCase());
-
-    const userEmail = session?.user?.email?.toLowerCase();
-    const isAdmin = (session?.user as any)?.role === "ADMIN" || (userEmail && adminEmails.includes(userEmail));
+    const isAdmin = await verifyAdminSession();
 
     if (!isAdmin) {
       return NextResponse.json({ error: "Forbidden: SuperAdmin required" }, { status: 403 });

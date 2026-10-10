@@ -51,29 +51,30 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           name: user.name,
           role: user.role,
           image: user.image,
+          emailVerified: user.emailVerified,
         };
       },
     }),
     Google({
       clientId: process.env.GOOGLE_CLIENT_ID || "",
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
-      allowDangerousEmailAccountLinking: true,
+      allowDangerousEmailAccountLinking: false,
     }),
     GitHub({
       clientId: process.env.GITHUB_CLIENT_ID || "",
       clientSecret: process.env.GITHUB_CLIENT_SECRET || "",
-      allowDangerousEmailAccountLinking: true,
+      allowDangerousEmailAccountLinking: false,
     }),
     LinkedIn({
       clientId: process.env.LINKEDIN_CLIENT_ID || "",
       clientSecret: process.env.LINKEDIN_CLIENT_SECRET || "",
-      allowDangerousEmailAccountLinking: true,
+      allowDangerousEmailAccountLinking: false,
     }),
     MicrosoftEntraID({
       clientId: process.env.MICROSOFT_CLIENT_ID || "",
       clientSecret: process.env.MICROSOFT_CLIENT_SECRET || "",
       issuer: process.env.MICROSOFT_ISSUER || "https://login.microsoftonline.com/common/v2.0",
-      allowDangerousEmailAccountLinking: true,
+      allowDangerousEmailAccountLinking: false,
     }),
   ],
   callbacks: {
@@ -84,6 +85,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (user) {
         token.id = user.id;
         token.role = (user as any).role || UserRole.CANDIDATE;
+        token.emailVerified = (user as any).emailVerified
+          ? new Date((user as any).emailVerified).toISOString()
+          : null;
       }
       if (trigger === "update" && session?.role) {
         token.role = session.role;
@@ -95,6 +99,21 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         session.user.id = token.id as string;
         (session.user as any).role = token.role as string;
         (session.user as any).githubUsername = token.githubUsername as string;
+        (session.user as any).emailVerified = token.emailVerified
+          ? new Date(token.emailVerified as string)
+          : null;
+
+        const configuredAdminEmails = (process.env.ADMIN_EMAILS || "")
+          .split(",")
+          .map((e) => e.trim().toLowerCase())
+          .filter(Boolean);
+        const userEmail = session.user.email?.toLowerCase();
+        (session.user as any).isAdmin = Boolean(
+          userEmail &&
+          configuredAdminEmails.length > 0 &&
+          configuredAdminEmails.includes(userEmail) &&
+          token.emailVerified
+        );
       }
       return session;
     },

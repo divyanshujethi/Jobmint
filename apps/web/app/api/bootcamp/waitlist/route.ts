@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "@/auth";
+import { verifyAdminSession } from "@/lib/api-auth";
 import { addWaitlistEntry, getWaitlistEntries } from "@/lib/bootcamp-settings-db";
 
 export const dynamic = "force-dynamic";
@@ -7,20 +7,9 @@ export const dynamic = "force-dynamic";
 // GET: Admin-only to view/export all waitlist leads
 export async function GET() {
   try {
-    const session = await auth();
-    const adminEmails = (
-      process.env.ADMIN_EMAILS ||
-      "admin@rolenest.in,divyanshu.dev@gmail.com,divyanshujethi@gmail.com,admin@ritualdev.in"
-    )
-      .split(",")
-      .map((e) => e.trim().toLowerCase());
+    const isAuthorized = await verifyAdminSession();
 
-    const userEmail = session?.user?.email?.toLowerCase();
-    const isAdmin =
-      (session?.user as any)?.role === "ADMIN" ||
-      (userEmail && adminEmails.includes(userEmail));
-
-    if (!isAdmin) {
+    if (!isAuthorized) {
       return NextResponse.json(
         { error: "Forbidden: SuperAdmin privileges required to view waitlist leads." },
         { status: 403 }

@@ -66,7 +66,7 @@ export function Navbar() {
 
   const isCandidate = Boolean(user && (!user.role || user.role === "CANDIDATE"));
   const isRecruiterAllowed = Boolean(
-    user?.email?.toLowerCase() === "divyanshujethi@gmail.com"
+    isAdmin || user?.role === "EMPLOYER" || user?.role === "ADMIN"
   );
   const [isPro, setIsPro] = useState(false);
   const [proExpiresAt, setProExpiresAt] = useState<string | null>(null);
@@ -93,14 +93,7 @@ export function Navbar() {
       .then((data) => {
         if (data && data.user) {
           setUser(data.user);
-          const email = data.user.email?.toLowerCase();
-          const adminEmails = [
-            "admin@rolenest.in",
-            "admin@ritualdev.in",
-            "divyanshu.dev@gmail.com",
-            "divyanshujethi@gmail.com",
-          ];
-          if (email && (adminEmails.includes(email) || data.user.role === "ADMIN")) {
+          if (data.user.isAdmin || data.user.role === "ADMIN") {
             setIsAdmin(true);
           }
         }

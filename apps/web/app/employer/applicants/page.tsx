@@ -79,7 +79,7 @@ export default function EmployerApplicantsPage() {
           window.location.href = "/employer/login";
           return;
         }
-        if (data.user.email?.toLowerCase() !== "divyanshujethi@gmail.com") {
+        if (!data.user.isAdmin && data.user.role !== "EMPLOYER" && data.user.role !== "ADMIN") {
           window.location.href = "/jobs";
           return;
         }

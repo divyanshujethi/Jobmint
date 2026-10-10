@@ -57,22 +57,41 @@ export function verifyCronOrAdminSecret(req: Request): boolean {
 }
 
 /**
+ * Returns the list of authorized admin emails configured in ADMIN_EMAILS.
+ * Fails closed (empty array) if unset or empty.
+ */
+export function getAdminEmails(): string[] {
+  return (process.env.ADMIN_EMAILS || "")
+    .split(",")
+    .map((e) => e.trim().toLowerCase())
+    .filter(Boolean);
+}
+
+/**
+ * Checks if a given email is present in the configured ADMIN_EMAILS environment variable.
+ * Fails closed if ADMIN_EMAILS is unset or empty.
+ */
+export function isConfiguredAdminEmail(email?: string | null): boolean {
+  if (!email) return false;
+  const adminEmails = getAdminEmails();
+  if (adminEmails.length === 0) return false;
+  return adminEmails.includes(email.trim().toLowerCase());
+}
+
+/**
  * Verifies if the request is made by an authorized SuperAdmin session.
+ * Enforces:
+ * 1. Active authenticated session with valid user email.
+ * 2. User MUST have emailVerified (prevents unverified account impersonation).
+ * 3. Email MUST match configured ADMIN_EMAILS (strictly fails closed if unset).
  */
 export async function verifyAdminSession(): Promise<boolean> {
   const session = await auth();
-  if (!session?.user) return false;
+  if (!session?.user?.email) return false;
 
-  const adminEmails = (
-    process.env.ADMIN_EMAILS ||
-    "admin@rolenest.in,divyanshu.dev@gmail.com,divyanshujethi@gmail.com,admin@ritualdev.in"
-  )
-    .split(",")
-    .map((e) => e.trim().toLowerCase());
+  // Strict email verification gate - unverified accounts cannot hold admin privileges
+  const isEmailVerified = Boolean((session.user as any)?.emailVerified);
+  if (!isEmailVerified) return false;
 
-  const userEmail = session.user.email?.toLowerCase();
-  const isAdminRole = (session.user as any)?.role === "ADMIN";
-  const isAdminEmail = Boolean(userEmail && adminEmails.includes(userEmail));
-
-  return isAdminRole || isAdminEmail;
+  return isConfiguredAdminEmail(session.user.email);
 }

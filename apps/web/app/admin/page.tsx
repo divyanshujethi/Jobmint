@@ -1,4 +1,5 @@
 import { auth } from "@/auth";
+import { verifyAdminSession } from "@/lib/api-auth";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { Lock } from "lucide-react";
@@ -13,12 +14,8 @@ export default async function AdminPage() {
     redirect("/login?callbackUrl=/admin");
   }
 
-  // 2. Check Admin role or email whitelist
-  const adminEmails = (process.env.ADMIN_EMAILS || "admin@rolenest.in,admin@ritualdev.in,divyanshu.dev@gmail.com,divyanshujethi@gmail.com")
-    .split(",")
-    .map((e) => e.trim().toLowerCase());
-  const userEmail = session.user.email?.toLowerCase();
-  const isAdmin = (session.user as any)?.role === "ADMIN" || (userEmail && adminEmails.includes(userEmail));
+  // 2. Strict SuperAdmin verification (fails closed if ADMIN_EMAILS unset; requires emailVerified)
+  const isAdmin = await verifyAdminSession();
 
   if (!isAdmin) {
     return (

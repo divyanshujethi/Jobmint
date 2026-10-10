@@ -34,20 +34,20 @@ export default function InternshipBootcampPage() {
   const [trackSearchQuery, setTrackSearchQuery] = useState("");
   const [trackSettings, setTrackSettings] = useState<Record<string, any>>({});
   const [globalAnnouncement, setGlobalAnnouncement] = useState<string | null>(null);
-  const [userEmail, setUserEmail] = useState<string | null>(null);
+  const [isAuthorizedTester, setIsAuthorizedTester] = useState(false);
 
   useEffect(() => {
     fetch("/api/bootcamp/me")
       .then((res) => res.json())
       .then((data) => {
-        if (data.authenticated && data.user?.email) {
-          setUserEmail(data.user.email);
+        if (data.authenticated && data.user) {
+          if (data.user.isAdmin) {
+            setIsAuthorizedTester(true);
+          }
         }
       })
       .catch(() => {});
   }, []);
-
-  const isAuthorizedTester = userEmail?.toLowerCase() === "divyanshujethi@gmail.com";
 
   // Fetch live admission statuses from API
   useEffect(() => {

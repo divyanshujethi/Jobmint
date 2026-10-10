@@ -243,7 +243,7 @@ export function SuperAdminPanelClient() {
               {data?.currentUser?.email || "Not signed in (Guest)"}
             </div>
             <div className="text-[11px] text-slate-500 pt-2 border-t border-slate-800">
-              Only authorized administrator accounts (e.g. admin@rolenest.in, divyanshu.dev@gmail.com) can access this terminal.
+              Only authorized administrator accounts configured in system settings can access this terminal.
             </div>
           </div>
 

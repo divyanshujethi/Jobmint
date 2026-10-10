@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "@/auth";
+import { verifyAdminSession } from "@/lib/api-auth";
 import { notifyGoogleIndexing, publishJobSlugToGoogle } from "@/lib/google-indexing";
 import { db, jobs, eq } from "@repo/database";
 
@@ -7,13 +7,7 @@ export const dynamic = "force-dynamic";
 
 export async function POST(req: NextRequest) {
   try {
-    const session = await auth();
-    const adminEmails = (process.env.ADMIN_EMAILS || "admin@rolenest.in,divyanshu.dev@gmail.com,divyanshujethi@gmail.com,admin@ritualdev.in")
-      .split(",")
-      .map((e) => e.trim().toLowerCase());
-
-    const userEmail = session?.user?.email?.toLowerCase();
-    const isAdmin = (session?.user as any)?.role === "ADMIN" || (userEmail && adminEmails.includes(userEmail));
+    const isAdmin = await verifyAdminSession();
 
     const authHeader = req.headers.get("authorization");
     const isCronAuthorized =

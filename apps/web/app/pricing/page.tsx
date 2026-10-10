@@ -289,14 +289,7 @@ export default function PricingPage() {
   };
 
   const isCompanyAccount = hasCompanyAccount || userRole === "EMPLOYER";
-  const isAdmin =
-    sessionUser?.role === "ADMIN" ||
-    [
-      "admin@rolenest.in",
-      "admin@ritualdev.in",
-      "divyanshu.dev@gmail.com",
-      "divyanshujethi@gmail.com",
-    ].includes(sessionUser?.email?.toLowerCase());
+  const isAdmin = Boolean((sessionUser as any)?.isAdmin || sessionUser?.role === "ADMIN");
 
   // Allow users to toggle between Candidate and Employer views (defaulting according to account type)
   const effectiveView: "candidate" | "employer" =
