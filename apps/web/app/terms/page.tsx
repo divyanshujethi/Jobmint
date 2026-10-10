@@ -203,6 +203,26 @@ export default function TermsPage() {
               </p>
             </section>
 
+            <section className="space-y-3 pt-2 border-t border-slate-100">
+              <div className="rounded-2xl border-2 border-emerald-500/30 bg-emerald-50/60 p-5 space-y-2.5">
+                <div className="flex items-center gap-2 font-bold text-emerald-950 text-base">
+                  <ShieldCheck className="h-5 w-5 text-emerald-700 shrink-0" />
+                  13. Candidate Fee Protection &amp; Anti-Scam Escrow Guarantee (Zero Placement Fees)
+                </div>
+                <p className="text-xs sm:text-sm text-emerald-900 leading-relaxed font-medium">
+                  Under the statutory guidelines of the <strong>Ministry of Labour &amp; Employment, Government of India</strong>, and the <strong>Emigration Act</strong>, legitimate corporate employers and verified recruitment agencies are strictly prohibited from soliciting, demanding, or collecting any placement fees, registration fees, interview security deposits, laptop fees, or &quot;training bonds&quot; from students and job candidates.
+                </p>
+                <div className="space-y-1.5 text-xs text-slate-700 bg-white/80 rounded-xl p-3.5 border border-emerald-200">
+                  <p><strong>Our Zero-Tolerance Enforcement:</strong></p>
+                  <ul className="list-disc pl-5 space-y-1 text-slate-600">
+                    <li>RoleNest is <strong>100% free for candidates to apply</strong>. No employer or recruiter listed on RoleNest is ever permitted to request payment from an applicant.</li>
+                    <li>Any recruiter, employer account, or third-party entity caught demanding monetary compensation from job seekers will face <strong>immediate permanent deplatforming</strong>, forfeiture of employer deposits, and reporting to relevant Indian law enforcement authorities and cybercrime cells (cybercrime.gov.in).</li>
+                    <li>If you encounter any individual impersonating an employer requesting money for an interview, offer letter, or hardware kit, please report immediately to our Trust &amp; Safety desk at <a href="mailto:support@rolenest.in" className="text-emerald-700 underline font-semibold">support@rolenest.in</a>. All whistleblower reports are acted upon within <strong>12 business hours</strong>.</li>
+                  </ul>
+                </div>
+              </div>
+            </section>
+
             <div className="pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
               <span>Customer Inquiries: <a href="mailto:support@rolenest.in" className="text-emerald-700 font-semibold underline">support@rolenest.in</a></span>
               <div className="flex items-center gap-3">

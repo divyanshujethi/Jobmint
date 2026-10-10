@@ -41,6 +41,7 @@ export default function PlacementPortalPage() {
   const [tpoPlan, setTpoPlan] = useState<"SILVER" | "GOLD">("GOLD");
   const [isSubmittingTpo, setIsSubmittingTpo] = useState(false);
   const [tpoSubmitted, setTpoSubmitted] = useState(false);
+  const [tpoError, setTpoError] = useState<string | null>(null);
 
   const rssFeedUrl = typeof window !== "undefined"
     ? `${window.location.origin}/api/feed/rss`
@@ -518,16 +519,42 @@ export default function PlacementPortalPage() {
               </div>
             ) : (
               <form
-                onSubmit={(e) => {
+                onSubmit={async (e) => {
                   e.preventDefault();
                   setIsSubmittingTpo(true);
-                  setTimeout(() => {
-                    setIsSubmittingTpo(false);
+                  setTpoError(null);
+                  try {
+                    const res = await fetch("/api/placement-portal/pilot", {
+                      method: "POST",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({
+                        collegeName: tpoCollege,
+                        tpoName,
+                        email: tpoEmail,
+                        phone: tpoPhone,
+                        batchSize: tpoStudents,
+                        plan: tpoPlan,
+                      }),
+                    });
+                    const data = await res.json();
+                    if (!res.ok) {
+                      throw new Error(data.error || "Failed to submit pilot request.");
+                    }
                     setTpoSubmitted(true);
-                  }, 800);
+                  } catch (err: any) {
+                    setTpoError(err.message || "An error occurred. Please try again.");
+                  } finally {
+                    setIsSubmittingTpo(false);
+                  }
                 }}
                 className="space-y-4 text-xs"
               >
+                {tpoError && (
+                  <div className="p-3 rounded-xl bg-red-950/60 border border-red-800 text-red-300 text-xs flex items-center gap-2">
+                    <AlertCircle className="w-4 h-4 shrink-0 text-red-400" />
+                    <span>{tpoError}</span>
+                  </div>
+                )}
                 <div className="grid grid-cols-2 gap-3">
                   <div>
                     <label className="font-bold text-neutral-300 block mb-1">College / University Name</label>

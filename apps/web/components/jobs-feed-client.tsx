@@ -649,6 +649,14 @@ export function JobsFeedClient({
               <span>Public Changelog</span>
               <ArrowRight className="h-3 w-3" />
             </Link>
+
+            <Link
+              href="/terms"
+              className="inline-flex items-center gap-1 rounded-full bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-2.5 py-1 text-emerald-800 font-bold hover:underline transition-colors"
+            >
+              <ShieldCheck className="h-3 w-3 text-emerald-600" />
+              <span>Zero Candidate Fees Guarantee</span>
+            </Link>
           </div>
         </div>
 

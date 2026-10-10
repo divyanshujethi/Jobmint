@@ -581,6 +581,12 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
                       : "Direct Portal Link"}
                   </span>
                 </div>
+                <div className="flex justify-between border-b border-slate-100 pb-2">
+                  <span className="text-slate-600">Candidate Fees</span>
+                  <span className="font-bold text-emerald-700">
+                    ₹0 (Zero Placement Fee Guarantee)
+                  </span>
+                </div>
                 <div className="flex justify-between">
                   <span className="text-slate-600">Dashboard Tracking</span>
                   <span className="font-medium text-slate-800">
@@ -616,6 +622,12 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
                   <span className="text-slate-600">Candidate Review Rate</span>
                   <span className="font-bold text-emerald-700">
                     {job.truthTeller.reviewRate > 0 ? `${job.truthTeller.reviewRate}%` : "Direct RoleNest"}
+                  </span>
+                </div>
+                <div className="flex justify-between border-b border-slate-100 pb-2">
+                  <span className="text-slate-600">Candidate Fees</span>
+                  <span className="font-bold text-emerald-700">
+                    ₹0 (Zero Placement Fee Guarantee)
                   </span>
                 </div>
                 <div className="flex justify-between">

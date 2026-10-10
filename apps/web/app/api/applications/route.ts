@@ -88,6 +88,7 @@ export async function GET(req: NextRequest) {
             .where(inArray(applicationEvents.applicationId, appIds))
         : [];
     const eventsMap = new Map<string, any[]>();
+    const latestFollowUpMap = new Map<string, Date>();
     for (const ev of allEvents) {
       if (!eventsMap.has(ev.applicationId)) {
         eventsMap.set(ev.applicationId, []);
@@ -102,7 +103,15 @@ export async function GET(req: NextRequest) {
           minute: "2-digit",
         }),
         note: ev.note,
+        createdAt: ev.createdAt,
       });
+
+      if (ev.eventType === "FOLLOW_UP_SENT") {
+        const existingDate = latestFollowUpMap.get(ev.applicationId);
+        if (!existingDate || new Date(ev.createdAt).getTime() > existingDate.getTime()) {
+          latestFollowUpMap.set(ev.applicationId, new Date(ev.createdAt));
+        }
+      }
     }
 
     const now = Date.now();
@@ -111,8 +120,24 @@ export async function GET(req: NextRequest) {
         (now - new Date(app.appliedAt).getTime()) / (1000 * 60 * 60 * 24)
       );
       const isExternal = Boolean(app.sourceUrl);
-      const isGhosted = !isExternal && !app.lastViewedAt && daysSinceApplied >= 7;
-      const followUpDueDays = Math.max(0, 7 - daysSinceApplied);
+      const latestFollowUp = latestFollowUpMap.get(app.id);
+      const hasFollowedUp = Boolean(latestFollowUp);
+
+      let followUpDueDays = 0;
+      let followUpStatus = "SCHEDULED";
+
+      if (latestFollowUp) {
+        const daysSinceFollowUp = Math.floor(
+          (now - latestFollowUp.getTime()) / (1000 * 60 * 60 * 24)
+        );
+        followUpDueDays = Math.max(0, 14 - daysSinceFollowUp);
+        followUpStatus = followUpDueDays > 0 ? "FOLLOW_UP_LOGGED" : "FOLLOW_UP_NOW";
+      } else {
+        followUpDueDays = Math.max(0, 7 - daysSinceApplied);
+        followUpStatus = followUpDueDays === 0 ? "FOLLOW_UP_NOW" : "SCHEDULED";
+      }
+
+      const isGhosted = !isExternal && !app.lastViewedAt && daysSinceApplied >= 7 && !hasFollowedUp;
 
       const appEvents = eventsMap.get(app.id) || [
         {
@@ -157,7 +182,8 @@ export async function GET(req: NextRequest) {
         source: app.source || "EXTERNAL",
         sourceUrl: app.sourceUrl || null,
         followUpDueDays,
-        followUpStatus: daysSinceApplied >= 7 ? "FOLLOW_UP_NOW" : "SCHEDULED",
+        followUpStatus,
+        hasFollowedUp,
         appliedDateFormatted: new Date(app.appliedAt).toLocaleDateString("en-US", {
           month: "short",
           day: "numeric",
@@ -439,7 +465,7 @@ export async function PATCH(req: NextRequest) {
     }
 
     const body = await req.json();
-    const { id: applicationId, coverNote, resumeUrl } = body;
+    const { id: applicationId, coverNote, resumeUrl, action, note } = body;
 
     if (!applicationId) {
       return NextResponse.json({ error: "Application ID is required." }, { status: 400 });
@@ -482,7 +508,25 @@ export async function PATCH(req: NextRequest) {
       );
     }
 
-    // 3. Update candidate-accessible fields
+    // 3. Handle action: LOG_FOLLOW_UP
+    if (action === "LOG_FOLLOW_UP") {
+      await db.insert(applicationEvents).values({
+        applicationId,
+        eventType: "FOLLOW_UP_SENT",
+        note: note || "Candidate logged follow-up recruiter outreach. Truth Teller follow-up timer snoozed (+14 days).",
+      });
+
+      await db.update(applications).set({
+        lastStatusChangeAt: new Date(),
+      }).where(eq(applications.id, applicationId));
+
+      return NextResponse.json({
+        success: true,
+        message: "Follow-up outreach recorded in Truth Teller timeline. Follow-up reminder snoozed for 14 days.",
+      });
+    }
+
+    // 4. Update candidate-accessible fields
     const updateData: Record<string, any> = {
       lastStatusChangeAt: new Date(),
     };

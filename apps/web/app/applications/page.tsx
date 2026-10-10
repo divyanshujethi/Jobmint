@@ -386,10 +386,26 @@ export default function ApplicationsTrackerPage() {
                     </a>
                   )}
 
-                  {followUpMarked[app.id] ? (
-                    <Badge variant="success" className="gap-1 py-1 font-bold">
-                      <Check className="h-3.5 w-3.5" /> Follow-Up Logged (+14d)
-                    </Badge>
+                  {(app as any).hasFollowedUp || followUpMarked[app.id] ? (
+                    (app as any).followUpDueDays === 0 ? (
+                      <>
+                        <Badge variant="warning" className="gap-1 py-1 font-bold">
+                          <AlertCircle className="h-3.5 w-3.5" /> Next Follow-Up Due
+                        </Badge>
+                        <button
+                          type="button"
+                          onClick={() => setFollowUpApp(app)}
+                          className="inline-flex items-center gap-1 text-xs font-bold text-amber-900 bg-amber-100 hover:bg-amber-200 border border-amber-300 px-2.5 py-1 rounded-xl transition-colors cursor-pointer"
+                        >
+                          <Mail className="h-3.5 w-3.5 text-amber-700" />
+                          <span>Outreach Templates</span>
+                        </button>
+                      </>
+                    ) : (
+                      <Badge variant="success" className="gap-1 py-1 font-bold">
+                        <Check className="h-3.5 w-3.5" /> Follow-Up Logged ({(app as any).followUpDueDays || 14}d Snooze)
+                      </Badge>
+                    )
                   ) : (app as any).isExternal ? (
                     (app as any).followUpDueDays === 0 ? (
                       <>
@@ -599,9 +615,32 @@ ${sessionUser?.name || "Candidate"}`}
                 Close
               </Button>
               <Button
-                onClick={() => {
-                  setFollowUpMarked((prev) => ({ ...prev, [followUpApp.id]: true }));
+                onClick={async () => {
+                  const targetApp = followUpApp;
+                  setFollowUpMarked((prev) => ({ ...prev, [targetApp.id]: true }));
                   setFollowUpApp(null);
+                  try {
+                    await fetch("/api/applications", {
+                      method: "PATCH",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({
+                        id: targetApp.id,
+                        action: "LOG_FOLLOW_UP",
+                        note: `Candidate performed follow-up recruiter outreach for ${targetApp.jobTitle} at ${targetApp.companyName}. Snoozed for 14 days.`,
+                      }),
+                    });
+                    // Refresh applications to load updated timeline event and snooze status
+                    fetch("/api/applications")
+                      .then((res) => res.json())
+                      .then((data) => {
+                        if (data.applications && Array.isArray(data.applications)) {
+                          setApplications(data.applications);
+                        }
+                      })
+                      .catch(() => {});
+                  } catch (err) {
+                    console.error("Failed to log follow-up:", err);
+                  }
                 }}
                 className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs"
               >
