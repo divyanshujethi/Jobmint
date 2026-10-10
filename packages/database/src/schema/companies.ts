@@ -1,4 +1,4 @@
-import { pgTable, text, timestamp, boolean, index } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, boolean, integer, index } from "drizzle-orm/pg-core";
 import { users } from "./auth";
 import { CompanyRole } from "@repo/shared";
 
@@ -26,6 +26,17 @@ export const companies = pgTable(
     medianFirstReviewDays: text("median_first_review_days"),
     lastActiveAt: timestamp("last_active_at", { mode: "date" }),
 
+    // ATS Board & Career Discovery Registry
+    careersUrl: text("careers_url"),
+    atsProvider: text("ats_provider"), // 'greenhouse' | 'lever' | 'ashby' | 'smartrecruiters' | 'workable' | 'bamboohr' | 'breezy' | 'recruitee' | 'darwinbox' | 'custom'
+    atsToken: text("ats_token"),
+    discoveryStatus: text("discovery_status").default("UNTESTED").notNull(), // 'VERIFIED' | 'FAILED' | 'MANUAL_REVIEW' | 'UNTESTED'
+    discoveryMethod: text("discovery_method"), // 'REDIRECT' | 'HTML_SNIFF' | 'FALLBACK_PROBE' | 'MANUAL'
+    sector: text("sector"), // 'Fintech' | 'AI/ML' | 'SaaS' | 'DevTools' | 'Ecommerce' | 'Cybersecurity' | 'Product'
+    tier: text("tier"), // 'UNICORN' | 'SOONICORN' | 'GROWTH' | 'SEED'
+    lastProbedAt: timestamp("last_probed_at", { mode: "date" }),
+    activeJobsCount: integer("active_jobs_count").default(0),
+
     createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
     updatedAt: timestamp("updated_at", { mode: "date" }).defaultNow().notNull(),
   },
@@ -33,6 +44,8 @@ export const companies = pgTable(
     index("idx_companies_slug").on(table.slug),
     index("idx_companies_is_verified").on(table.isVerified),
     index("idx_companies_domain").on(table.domain),
+    index("idx_companies_ats_provider").on(table.atsProvider),
+    index("idx_companies_discovery_status").on(table.discoveryStatus),
   ]
 );
 

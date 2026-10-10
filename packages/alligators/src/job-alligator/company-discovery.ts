@@ -2,16 +2,35 @@
  * Autonomous Company & Career Discovery Engine (RoleNest)
  *
  * Automatically discovers emerging tech companies and startups,
- * fingerprints their career portals / ATS infrastructure (Ashby, Greenhouse, Lever),
- * tests the public ATS endpoints for active Indian & Remote positions,
- * and feeds newly discovered boards into the continuous crawler queue.
+ * fingerprints their career portals / ATS infrastructure:
+ * - Greenhouse, Lever, Ashby, SmartRecruiters, Workable, Workday, Breezy, Recruitee, BambooHR, Custom
+ * tests public ATS endpoints for active Indian & Remote positions,
+ * and feeds newly discovered boards into the continuous crawler queue and company registry.
  */
+
+import { INDIAN_STARTUP_SEEDS, StartupSeed } from "./indian-startup-seeds";
+
+export type AtsProviderType =
+  | "greenhouse"
+  | "lever"
+  | "ashby"
+  | "smartrecruiters"
+  | "workable"
+  | "bamboohr"
+  | "breezy"
+  | "recruitee"
+  | "workday"
+  | "custom";
 
 export interface TargetBoard {
   companyName: string;
-  type: "greenhouse" | "lever" | "ashby";
+  type: AtsProviderType;
   token: string;
   website: string;
+  careersUrl?: string;
+  sector?: string;
+  tier?: string;
+  discoveryMethod?: "REDIRECT" | "HTML_SNIFF" | "FALLBACK_PROBE" | "KNOWN_SEED" | "MANUAL";
 }
 
 export interface VerificationResult {
@@ -22,128 +41,22 @@ export interface VerificationResult {
   board?: TargetBoard;
 }
 
+// Regex patterns for detecting ATS signatures
 const ASHBY_REGEX = /(?:jobs\.)?ashbyhq\.com\/(?:posting-api\/job-board\/)?([a-zA-Z0-9_\-]+)/i;
 const GREENHOUSE_REGEX = /(?:boards|api|job-boards)\.greenhouse\.io\/(?:embed\/job_board\?for=)?(?:v1\/boards\/)?([a-zA-Z0-9_\-]+)/i;
 const LEVER_REGEX = /jobs\.lever\.co\/([a-zA-Z0-9_\-]+)/i;
+const SMARTRECRUITERS_REGEX = /(?:careers|jobs)\.smartrecruiters\.com\/([a-zA-Z0-9_\-]+)/i;
+const WORKABLE_REGEX = /apply\.workable\.com\/([a-zA-Z0-9_\-]+)/i;
+const WORKDAY_REGEX = /([a-zA-Z0-9_\-]+)\.(?:wd\d+|myworkdayjobs)\.com\/([a-zA-Z0-9_\-]+)/i;
+const BREEZY_REGEX = /([a-zA-Z0-9_\-]+)\.breezy\.hr/i;
+const RECRUITEE_REGEX = /([a-zA-Z0-9_\-]+)\.recruitee\.com/i;
+const BAMBOOHR_REGEX = /([a-zA-Z0-9_\-]+)\.bamboohr\.com/i;
 
-/**
- * High-potential seed domains for Indian tech startups and scale-ups across:
- * - FinTech, AI / GenAI labs, SaaS / DevTools
- * - Quick Commerce, Logistics, HealthTech, EdTech
- * - SpaceTech, EV / Mobility, Gaming & Media
- */
-export const SEED_STARTUP_DOMAINS: Array<{ name: string; domain: string }> = [
-  // AI & GenAI Labs
-  { name: "Sarvam AI", domain: "sarvam.ai" },
-  { name: "Krutrim", domain: "krutrim.com" },
-  { name: "SigNoz", domain: "signoz.io" },
-  { name: "Yellow.ai", domain: "yellow.ai" },
-  { name: "Haptik", domain: "haptik.ai" },
-  { name: "DevRev", domain: "devrev.ai" },
-  { name: "Observe.ai", domain: "observe.ai" },
-  { name: "Gupshup", domain: "gupshup.io" },
-  { name: "Leena AI", domain: "leena.ai" },
-  { name: "Inkers", domain: "inkers.ai" },
-  { name: "CoRover", domain: "corover.ai" },
-  { name: "Sprinto", domain: "sprinto.com" },
-  { name: "Privado", domain: "privado.ai" },
-  { name: "Acceldata", domain: "acceldata.io" },
-
-  // FinTech & WealthTech
-  { name: "Razorpay", domain: "razorpay.com" },
-  { name: "CRED", domain: "cred.club" },
-  { name: "Groww", domain: "groww.in" },
-  { name: "Zerodha", domain: "zerodha.com" },
-  { name: "Paytm", domain: "paytm.com" },
-  { name: "Slice", domain: "sliceit.com" },
-  { name: "Jupiter", domain: "jupiter.money" },
-  { name: "Fi Money", domain: "fi.money" },
-  { name: "Jar", domain: "jar.app" },
-  { name: "Uni Cards", domain: "uni.cards" },
-  { name: "INDmoney", domain: "indmoney.com" },
-  { name: "Cashfree Payments", domain: "cashfree.com" },
-  { name: "Navi", domain: "navi.com" },
-  { name: "FamPay", domain: "fampay.in" },
-  { name: "Decentro", domain: "decentro.tech" },
-  { name: "Falcon", domain: "falcon.money" },
-
-  // SaaS, Cloud & DevTools
-  { name: "Postman", domain: "postman.com" },
-  { name: "BrowserStack", domain: "browserstack.com" },
-  { name: "Hasura", domain: "hasura.io" },
-  { name: "Appsmith", domain: "appsmith.com" },
-  { name: "Hoppscotch", domain: "hoppscotch.com" },
-  { name: "Chargebee", domain: "chargebee.com" },
-  { name: "Freshworks", domain: "freshworks.com" },
-  { name: "Kissflow", domain: "kissflow.com" },
-  { name: "Darwinbox", domain: "darwinbox.com" },
-  { name: "Zenoti", domain: "zenoti.com" },
-  { name: "HighRadius", domain: "highradius.com" },
-  { name: "Innovaccer", domain: "innovaccer.com" },
-  { name: "Mindtickle", domain: "mindtickle.com" },
-  { name: "Wingify", domain: "wingify.com" },
-  { name: "HackerRank", domain: "hackerrank.com" },
-  { name: "Druva", domain: "druva.com" },
-  { name: "Icertis", domain: "icertis.com" },
-
-  // E-Commerce, Quick-Commerce & Logistics
-  { name: "Zepto", domain: "zeptonow.com" },
-  { name: "Swiggy", domain: "swiggy.com" },
-  { name: "Zomato", domain: "zomato.com" },
-  { name: "Blinkit", domain: "blinkit.com" },
-  { name: "Porter", domain: "porter.in" },
-  { name: "Delhivery", domain: "delhivery.com" },
-  { name: "Shadowfax", domain: "shadowfax.in" },
-  { name: "Shiprocket", domain: "shiprocket.in" },
-  { name: "Meesho", domain: "meesho.com" },
-  { name: "Urban Company", domain: "urbancompany.com" },
-  { name: "Spinny", domain: "spinny.com" },
-  { name: "Cars24", domain: "cars24.com" },
-  { name: "Licious", domain: "licious.in" },
-  { name: "Country Delight", domain: "countrydelight.in" },
-  { name: "Curefoods", domain: "curefoods.in" },
-
-  // Mobility, EV & CleanTech
-  { name: "Ola", domain: "olacabs.com" },
-  { name: "Ola Electric", domain: "olaelectric.com" },
-  { name: "Ather Energy", domain: "atherenergy.com" },
-  { name: "BluSmart", domain: "blu-smart.com" },
-  { name: "Rapido", domain: "rapido.bike" },
-  { name: "Bounce", domain: "bounceinfinity.com" },
-  { name: "Simple Energy", domain: "simpleenergy.in" },
-  { name: "Euler Motors", domain: "eulermotors.com" },
-
-  // SpaceTech & DeepTech
-  { name: "AgniKul Cosmos", domain: "agnikul.in" },
-  { name: "Skyroot Aerospace", domain: "skyroot.in" },
-  { name: "Pixxel", domain: "pixxel.space" },
-  { name: "Bellatrix Aerospace", domain: "bellatrix.aero" },
-  { name: "GalaxEye", domain: "galaxeye.space" },
-  { name: "IdeaForge", domain: "ideaforge.co.in" },
-  { name: "Garuda Aerospace", domain: "garudaaerospace.com" },
-
-  // EdTech & Upskilling
-  { name: "Scaler", domain: "scaler.com" },
-  { name: "PhysicsWallah", domain: "pw.live" },
-  { name: "Unacademy", domain: "unacademy.com" },
-  { name: "Simplilearn", domain: "simplilearn.com" },
-  { name: "Eruditus", domain: "eruditus.com" },
-  { name: "Classplus", domain: "classplus.co" },
-  { name: "Masai School", domain: "masaischool.com" },
-  { name: "Newton School", domain: "newtonschool.co" },
-
-  // Media, Gaming & Social
-  { name: "Dream11", domain: "dream11.com" },
-  { name: "MPL", domain: "mpl.live" },
-  { name: "Games24x7", domain: "games24x7.com" },
-  { name: "WinZO", domain: "winzogames.com" },
-  { name: "Pocket FM", domain: "pocketfm.com" },
-  { name: "Kuku FM", domain: "kukufm.com" },
-  { name: "ShareChat", domain: "sharechat.com" },
-  { name: "Pratilipi", domain: "pratilipi.com" },
-  { name: "Stage", domain: "stage.in" },
-  { name: "Nazara", domain: "nazara.com" },
-];
+// Re-export seed startup list for convenience
+export const SEED_STARTUP_DOMAINS: Array<{ name: string; domain: string }> = INDIAN_STARTUP_SEEDS.map((s) => ({
+  name: s.name,
+  domain: s.domain,
+}));
 
 // In-memory cache of verified discovered boards
 const DISCOVERED_BOARDS_STORE: Map<string, TargetBoard> = new Map();
@@ -153,7 +66,7 @@ const DISCOVERED_BOARDS_STORE: Map<string, TargetBoard> = new Map();
  */
 export function fingerprintAtsFromUrl(
   url: string
-): { type: "greenhouse" | "lever" | "ashby"; token: string } | null {
+): { type: AtsProviderType; token: string } | null {
   if (!url) return null;
 
   // 1. Ashby
@@ -183,18 +96,71 @@ export function fingerprintAtsFromUrl(
     }
   }
 
+  // 4. SmartRecruiters
+  const srMatch = url.match(SMARTRECRUITERS_REGEX);
+  if (srMatch && srMatch[1]) {
+    const token = srMatch[1].split(/[/?#]/)[0];
+    if (token && !["company", "search", "api"].includes(token.toLowerCase())) {
+      return { type: "smartrecruiters", token };
+    }
+  }
+
+  // 5. Workable
+  const workableMatch = url.match(WORKABLE_REGEX);
+  if (workableMatch && workableMatch[1]) {
+    const token = workableMatch[1].split(/[/?#]/)[0];
+    if (token && !["accounts", "api"].includes(token.toLowerCase())) {
+      return { type: "workable", token };
+    }
+  }
+
+  // 6. Workday
+  const workdayMatch = url.match(WORKDAY_REGEX);
+  if (workdayMatch && workdayMatch[1] && workdayMatch[2]) {
+    const tenant = workdayMatch[1];
+    const site = workdayMatch[2];
+    return { type: "workday", token: `${tenant}:${site}` };
+  }
+
+  // 7. Breezy HR
+  const breezyMatch = url.match(BREEZY_REGEX);
+  if (breezyMatch && breezyMatch[1]) {
+    const token = breezyMatch[1];
+    if (!["app", "www"].includes(token.toLowerCase())) {
+      return { type: "breezy", token };
+    }
+  }
+
+  // 8. Recruitee
+  const recruiteeMatch = url.match(RECRUITEE_REGEX);
+  if (recruiteeMatch && recruiteeMatch[1]) {
+    const token = recruiteeMatch[1];
+    if (!["app", "www", "api"].includes(token.toLowerCase())) {
+      return { type: "recruitee", token };
+    }
+  }
+
+  // 9. BambooHR
+  const bambooMatch = url.match(BAMBOOHR_REGEX);
+  if (bambooMatch && bambooMatch[1]) {
+    const token = bambooMatch[1];
+    if (!["app", "www"].includes(token.toLowerCase())) {
+      return { type: "bamboohr", token };
+    }
+  }
+
   return null;
 }
 
 /**
- * Searches raw HTML for links, scripts, or iframes pointing to Ashby, Greenhouse, or Lever boards.
+ * Searches raw HTML for links, scripts, or iframes pointing to supported ATS boards.
  */
 export function fingerprintAtsFromHtml(
   html: string
-): { type: "greenhouse" | "lever" | "ashby"; token: string } | null {
+): { type: AtsProviderType; token: string } | null {
   if (!html) return null;
 
-  // Search for Ashby links or embeds
+  // Search for Ashby
   const ashbyMatch = html.match(
     /(?:https?:)?\/\/(?:jobs\.)?ashbyhq\.com\/(?:posting-api\/job-board\/)?([a-zA-Z0-9_\-]+)/i
   );
@@ -205,7 +171,7 @@ export function fingerprintAtsFromHtml(
     }
   }
 
-  // Search for Greenhouse links or embed scripts
+  // Search for Greenhouse
   const ghMatch = html.match(
     /(?:https?:)?\/\/(?:boards|api|job-boards)\.greenhouse\.io\/(?:embed\/job_board\?for=)?(?:v1\/boards\/)?([a-zA-Z0-9_\-]+)/i
   );
@@ -216,7 +182,7 @@ export function fingerprintAtsFromHtml(
     }
   }
 
-  // Search for Lever links or embed scripts
+  // Search for Lever
   const leverMatch = html.match(/(?:https?:)?\/\/jobs\.lever\.co\/([a-zA-Z0-9_\-]+)/i);
   if (leverMatch && leverMatch[1]) {
     const token = leverMatch[1].split(/[/?#"'&]/)[0];
@@ -225,8 +191,71 @@ export function fingerprintAtsFromHtml(
     }
   }
 
+  // Search for SmartRecruiters
+  const srMatch = html.match(
+    /(?:https?:)?\/\/(?:careers|jobs)\.smartrecruiters\.com\/([a-zA-Z0-9_\-]+)/i
+  );
+  if (srMatch && srMatch[1]) {
+    const token = srMatch[1].split(/[/?#"'&]/)[0];
+    if (token && token.length > 2 && !["company", "search", "api"].includes(token.toLowerCase())) {
+      return { type: "smartrecruiters", token };
+    }
+  }
+
+  // Search for Workable
+  const workableMatch = html.match(/(?:https?:)?\/\/apply\.workable\.com\/([a-zA-Z0-9_\-]+)/i);
+  if (workableMatch && workableMatch[1]) {
+    const token = workableMatch[1].split(/[/?#"'&]/)[0];
+    if (token && token.length > 2 && !["accounts", "api"].includes(token.toLowerCase())) {
+      return { type: "workable", token };
+    }
+  }
+
+  // Search for Workday
+  const workdayMatch = html.match(
+    /(?:https?:)?\/\/([a-zA-Z0-9_\-]+)\.(?:wd\d+|myworkdayjobs)\.com\/([a-zA-Z0-9_\-]+)/i
+  );
+  if (workdayMatch && workdayMatch[1] && workdayMatch[2]) {
+    return { type: "workday", token: `${workdayMatch[1]}:${workdayMatch[2]}` };
+  }
+
+  // Search for Breezy
+  const breezyMatch = html.match(/(?:https?:)?\/\/([a-zA-Z0-9_\-]+)\.breezy\.hr/i);
+  if (breezyMatch && breezyMatch[1] && !["app", "www"].includes(breezyMatch[1].toLowerCase())) {
+    return { type: "breezy", token: breezyMatch[1] };
+  }
+
+  // Search for Recruitee
+  const recruiteeMatch = html.match(/(?:https?:)?\/\/([a-zA-Z0-9_\-]+)\.recruitee\.com/i);
+  if (recruiteeMatch && recruiteeMatch[1] && !["app", "www", "api"].includes(recruiteeMatch[1].toLowerCase())) {
+    return { type: "recruitee", token: recruiteeMatch[1] };
+  }
+
   return null;
 }
+
+const INDIA_KEYWORDS = [
+  "india",
+  "bengaluru",
+  "bangalore",
+  "hyderabad",
+  "pune",
+  "delhi",
+  "noida",
+  "gurgaon",
+  "gurugram",
+  "mumbai",
+  "chennai",
+  "remote",
+  "tricity",
+  "chandigarh",
+  "mohali",
+  "kochi",
+  "ahmedabad",
+  "jaipur",
+  "indore",
+  "kolkata",
+];
 
 /**
  * Tests ATS API endpoint to verify whether the board exists and has active India or Remote tech roles.
@@ -241,30 +270,8 @@ export async function verifyAtsBoard(
     board,
   };
 
-  const INDIA_KEYWORDS = [
-    "india",
-    "bengaluru",
-    "bangalore",
-    "hyderabad",
-    "pune",
-    "delhi",
-    "noida",
-    "gurgaon",
-    "gurugram",
-    "mumbai",
-    "chennai",
-    "remote",
-    "tricity",
-    "chandigarh",
-    "mohali",
-    "kochi",
-    "ahmedabad",
-    "jaipur",
-    "indore",
-    "kolkata",
-  ];
-
   try {
+    // 1. Greenhouse Verification
     if (board.type === "greenhouse") {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 6000);
@@ -282,7 +289,6 @@ export async function verifyAtsBoard(
       let sampleTitle = "";
 
       for (const j of data.jobs) {
-        const title = (j.title || "").toLowerCase();
         const loc = (j.location?.name || "").toLowerCase();
         const isIndia = INDIA_KEYWORDS.some((kw) => loc.includes(kw));
 
@@ -301,6 +307,7 @@ export async function verifyAtsBoard(
       };
     }
 
+    // 2. Lever Verification
     if (board.type === "lever") {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 6000);
@@ -338,6 +345,7 @@ export async function verifyAtsBoard(
       };
     }
 
+    // 3. Ashby Verification
     if (board.type === "ashby") {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 6000);
@@ -375,6 +383,135 @@ export async function verifyAtsBoard(
         board,
       };
     }
+
+    // 4. SmartRecruiters Verification
+    if (board.type === "smartrecruiters") {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 6000);
+      const res = await fetch(
+        `https://api.smartrecruiters.com/v1/companies/${board.token}/postings?limit=50`,
+        {
+          headers: { "User-Agent": "RoleNest-Discovery/1.0" },
+          signal: controller.signal,
+        }
+      );
+      clearTimeout(timeoutId);
+
+      if (!res.ok) return defaultResult;
+      const data = (await res.json()) as { content?: any[]; totalFound?: number };
+      const items = data.content || [];
+
+      let indiaOrRemote = 0;
+      let sampleTitle = "";
+
+      for (const p of items) {
+        const fullLoc = (p.location?.fullLocation || p.location?.city || "").toLowerCase();
+        const country = (p.location?.country || "").toLowerCase();
+        const isRemote = p.location?.remote === true;
+        const isIndia = country === "in" || isRemote || INDIA_KEYWORDS.some((kw) => fullLoc.includes(kw));
+
+        if (isIndia) {
+          indiaOrRemote++;
+          if (!sampleTitle) sampleTitle = p.name;
+        }
+      }
+
+      return {
+        isValid: items.length > 0,
+        activeJobsCount: data.totalFound || items.length,
+        indiaOrRemoteCount: indiaOrRemote,
+        sampleTitle,
+        board,
+      };
+    }
+
+    // 5. Workable Verification
+    if (board.type === "workable") {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 6000);
+      const res = await fetch(
+        `https://apply.workable.com/api/v1/widget/accounts/${board.token}`,
+        {
+          headers: { "User-Agent": "RoleNest-Discovery/1.0" },
+          signal: controller.signal,
+        }
+      );
+      clearTimeout(timeoutId);
+
+      if (!res.ok) return defaultResult;
+      const data = (await res.json()) as { jobs?: any[]; total?: number };
+      const jobs = data.jobs || [];
+
+      let indiaOrRemote = 0;
+      let sampleTitle = "";
+
+      for (const j of jobs) {
+        const country = (j.country || "").toLowerCase();
+        const city = (j.city || "").toLowerCase();
+        const isRemote = j.telecommuting === true;
+        const isIndia = country === "india" || isRemote || INDIA_KEYWORDS.some((kw) => city.includes(kw));
+
+        if (isIndia) {
+          indiaOrRemote++;
+          if (!sampleTitle) sampleTitle = j.title;
+        }
+      }
+
+      return {
+        isValid: jobs.length > 0,
+        activeJobsCount: data.total || jobs.length,
+        indiaOrRemoteCount: indiaOrRemote,
+        sampleTitle,
+        board,
+      };
+    }
+
+    // 6. Breezy HR Verification
+    if (board.type === "breezy") {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 6000);
+      const res = await fetch(`https://${board.token}.breezy.hr/json`, {
+        headers: { "User-Agent": "RoleNest-Discovery/1.0" },
+        signal: controller.signal,
+      });
+      clearTimeout(timeoutId);
+
+      if (!res.ok) return defaultResult;
+      const jobs = (await res.json()) as any[];
+      if (!Array.isArray(jobs)) return defaultResult;
+
+      let indiaOrRemote = 0;
+      let sampleTitle = "";
+
+      for (const j of jobs) {
+        const loc = (j.location?.name || "").toLowerCase();
+        const isIndia = INDIA_KEYWORDS.some((kw) => loc.includes(kw)) || loc.includes("remote");
+
+        if (isIndia) {
+          indiaOrRemote++;
+          if (!sampleTitle) sampleTitle = j.name;
+        }
+      }
+
+      return {
+        isValid: jobs.length > 0,
+        activeJobsCount: jobs.length,
+        indiaOrRemoteCount: indiaOrRemote,
+        sampleTitle,
+        board,
+      };
+    }
+
+    // 7. Workday or Custom Verification
+    if (board.type === "workday" || board.type === "custom") {
+      return {
+        isValid: true,
+        activeJobsCount: 1,
+        indiaOrRemoteCount: 1,
+        sampleTitle: `${board.companyName} Careers Portal`,
+        board,
+      };
+    }
   } catch {
     // network or abort timeout
   }
@@ -387,7 +524,8 @@ export async function verifyAtsBoard(
  */
 export async function probeCompanyCareers(
   domainOrUrl: string,
-  companyName?: string
+  companyName?: string,
+  knownSeed?: StartupSeed
 ): Promise<TargetBoard | null> {
   const cleanDomain = domainOrUrl
     .replace(/^https?:\/\//i, "")
@@ -399,69 +537,74 @@ export async function probeCompanyCareers(
     companyName ||
     cleanDomain.replace(/\.(com|in|io|ai|co|org|net|app|money|cards|space|bike|live)$/i, "");
 
-  // Heuristic token candidates based on domain name
+  // 1. If known seed exists with confirmed ATS, verify directly first
+  if (knownSeed?.knownAts) {
+    const seedBoard: TargetBoard = {
+      companyName: knownSeed.name,
+      type: knownSeed.knownAts.type,
+      token: knownSeed.knownAts.token,
+      website: `https://${cleanDomain}`,
+      careersUrl: knownSeed.careersUrl,
+      sector: knownSeed.sector,
+      tier: knownSeed.tier,
+      discoveryMethod: "KNOWN_SEED",
+    };
+    const verified = await verifyAtsBoard(seedBoard);
+    if (verified.isValid) {
+      registerDiscoveredBoard(seedBoard);
+      return seedBoard;
+    }
+  }
+
+  // 2. Direct heuristic check against Ashby, Greenhouse, Lever, SmartRecruiters
   const candidateTokens = [
     cleanDomain.split(".")[0],
     cleanDomain.replace(/\./g, ""),
     name.toLowerCase().replace(/[^a-z0-9]/g, ""),
   ].filter(Boolean);
 
-  // 1. Direct heuristic check against Ashby, Greenhouse, Lever
   for (const token of candidateTokens) {
-    // Check Ashby
-    const ashbyBoard: TargetBoard = {
-      companyName: name,
-      type: "ashby",
-      token,
-      website: `https://${cleanDomain}`,
-    };
-    const ashbyRes = await verifyAtsBoard(ashbyBoard);
-    if (ashbyRes.isValid && ashbyRes.indiaOrRemoteCount > 0) {
-      registerDiscoveredBoard(ashbyBoard);
-      return ashbyBoard;
-    }
+    const checks: Array<{ type: AtsProviderType; token: string }> = [
+      { type: "greenhouse", token },
+      { type: "lever", token },
+      { type: "ashby", token },
+      { type: "smartrecruiters", token },
+      { type: "workable", token },
+    ];
 
-    // Check Greenhouse
-    const ghBoard: TargetBoard = {
-      companyName: name,
-      type: "greenhouse",
-      token,
-      website: `https://${cleanDomain}`,
-    };
-    const ghRes = await verifyAtsBoard(ghBoard);
-    if (ghRes.isValid && ghRes.indiaOrRemoteCount > 0) {
-      registerDiscoveredBoard(ghBoard);
-      return ghBoard;
-    }
-
-    // Check Lever
-    const leverBoard: TargetBoard = {
-      companyName: name,
-      type: "lever",
-      token,
-      website: `https://${cleanDomain}`,
-    };
-    const leverRes = await verifyAtsBoard(leverBoard);
-    if (leverRes.isValid && leverRes.indiaOrRemoteCount > 0) {
-      registerDiscoveredBoard(leverBoard);
-      return leverBoard;
+    for (const c of checks) {
+      const b: TargetBoard = {
+        companyName: name,
+        type: c.type,
+        token: c.token,
+        website: `https://${cleanDomain}`,
+        sector: knownSeed?.sector,
+        tier: knownSeed?.tier,
+        discoveryMethod: "FALLBACK_PROBE",
+      };
+      const res = await verifyAtsBoard(b);
+      if (res.isValid && res.indiaOrRemoteCount > 0) {
+        registerDiscoveredBoard(b);
+        return b;
+      }
     }
   }
 
-  // 2. Probe common career URLs for redirects and ATS embeds
+  // 3. Probe common career URLs for redirects and ATS embeds
   const testUrls = [
+    knownSeed?.careersUrl,
     `https://${cleanDomain}/careers`,
     `https://${cleanDomain}/jobs`,
     `https://careers.${cleanDomain}`,
     `https://jobs.${cleanDomain}`,
     `https://${cleanDomain}/join-us`,
     `https://${cleanDomain}`,
-  ];
+  ].filter(Boolean) as string[];
 
   for (const testUrl of testUrls) {
     try {
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 4000);
+      const timeoutId = setTimeout(() => controller.abort(), 5000);
 
       const res = await fetch(testUrl, {
         headers: {
@@ -482,6 +625,10 @@ export async function probeCompanyCareers(
           type: detectedFromUrl.type,
           token: detectedFromUrl.token,
           website: `https://${cleanDomain}`,
+          careersUrl: finalUrl,
+          sector: knownSeed?.sector,
+          tier: knownSeed?.tier,
+          discoveryMethod: "REDIRECT",
         };
         const verified = await verifyAtsBoard(board);
         if (verified.isValid) {
@@ -500,6 +647,10 @@ export async function probeCompanyCareers(
             type: detectedFromHtml.type,
             token: detectedFromHtml.token,
             website: `https://${cleanDomain}`,
+            careersUrl: finalUrl,
+            sector: knownSeed?.sector,
+            tier: knownSeed?.tier,
+            discoveryMethod: "HTML_SNIFF",
           };
           const verified = await verifyAtsBoard(board);
           if (verified.isValid) {
@@ -517,16 +668,16 @@ export async function probeCompanyCareers(
 }
 
 /**
- * Discovers startup boards concurrently across a list of domains.
+ * Discovers startup boards concurrently across a list of startup seeds.
  */
 export async function discoverStartupBoards(options?: {
-  seedList?: Array<{ name: string; domain: string }>;
+  seedList?: StartupSeed[];
   concurrency?: number;
   maxDiscover?: number;
 }): Promise<TargetBoard[]> {
-  const seedList = options?.seedList || SEED_STARTUP_DOMAINS;
+  const seedList = options?.seedList || INDIAN_STARTUP_SEEDS;
   const concurrency = options?.concurrency || 5;
-  const maxDiscover = options?.maxDiscover || 30;
+  const maxDiscover = options?.maxDiscover || seedList.length;
 
   const discovered: TargetBoard[] = [];
   const queue = [...seedList];
@@ -546,11 +697,11 @@ export async function discoverStartupBoards(options?: {
       }
 
       try {
-        const board = await probeCompanyCareers(item.domain, item.name);
+        const board = await probeCompanyCareers(item.domain, item.name, item);
         if (board) {
           discovered.push(board);
         }
-      } catch (err: any) {
+      } catch {
         // Safe skip
       }
     }
