@@ -53,6 +53,8 @@ export * from './job-alligator/naukri-crawler';
 export * from './job-alligator/search-dorker';
 export * from './job-alligator/sitemap-siphoner';
 export * from './job-alligator/github-internships';
+export * from './job-alligator/early-career-classifier';
+export * from './job-alligator/campus-early-career-crawler';
 export * from './job-alligator/simplify-crawler';
 export * from './job-alligator/india-crawler';
 export * from './job-alligator/company-discovery';
