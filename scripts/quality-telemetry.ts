@@ -33,8 +33,7 @@ if (!process.env.DATABASE_URL) {
   }
 }
 
-import { db, jobs, companies, jobLocationReviewQueue } from "../packages/database/src/index";
-import { sql, eq, desc, asc } from "drizzle-orm";
+import { db, jobs, companies, jobLocationReviewQueue, sql, eq, desc, asc } from "../packages/database/src/index";
 import { verifyJobUrlLiveness } from "../packages/alligators/src/index";
 
 async function main() {
