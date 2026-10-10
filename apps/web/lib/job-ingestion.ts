@@ -1,6 +1,6 @@
-import { db, jobs, companies, skills, jobSkills, applications, eq, or, and, lt, sql, inArray } from "@repo/database";
-import { RawCrawledJob, normalizeIndiaLocation, verifyJobUrlLiveness } from "@repo/alligators";
-import { JobSource } from "@repo/shared";
+import { db, jobs, companies, skills, jobSkills, applications, jobLocationReviewQueue, jobDeadLetterQueue, eq, or, and, lt, sql, inArray } from "@repo/database";
+import { RawCrawledJob, normalizeIndiaLocation, evaluateIndiaTechGatekeeper, verifyJobUrlLiveness } from "@repo/alligators";
+import { JobSource, CrawledJobPayloadSchema, isDirectAtsOrCompanyUrl, cleanCompanyName, isValidCompanyName } from "@repo/shared";
 import { invalidateJobsCache } from "./db-jobs";
 import { publishJobSlugToGoogle } from "./google-indexing";
 import crypto from "crypto";
@@ -28,6 +28,7 @@ export interface IngestionResult {
   inserted: number;
   updated: number;
   skipped: number;
+  deadLetterCount: number;
   errors: string[];
 }
 
@@ -41,6 +42,7 @@ export async function persistCrawledJobs(crawledJobs: RawCrawledJob[]): Promise<
     inserted: 0,
     updated: 0,
     skipped: 0,
+    deadLetterCount: 0,
     errors: [],
   };
 
@@ -102,27 +104,121 @@ export async function persistCrawledJobs(crawledJobs: RawCrawledJob[]): Promise<
     companyCleanName: string;
     location: string;
     workMode: string;
+    roleCategory?: string;
   }
   const validItems: ValidJobItem[] = [];
   const missingCompanies = new Map<string, { name: string; slug: string; website: string; domain: string; location: string }>();
   const missingSkills = new Map<string, string>(); // slug -> displayName
 
+  const dlqItems: Array<typeof jobDeadLetterQueue.$inferInsert> = [];
+  const reviewQueueItems: Array<typeof jobLocationReviewQueue.$inferInsert> = [];
+
   for (const job of crawledJobs) {
     if (!job.sourceUrl || !job.title || !job.companyName) {
       result.skipped++;
+      result.deadLetterCount++;
+      dlqItems.push({
+        id: crypto.randomUUID(),
+        companyName: job.companyName || "Missing",
+        title: job.title || "Missing",
+        sourceUrl: job.sourceUrl || null,
+        externalId: job.externalId || null,
+        rawPayload: JSON.stringify(job).slice(0, 2000),
+        rejectionReason: "MISSING_REQUIRED_FIELDS: Missing title, companyName, or sourceUrl",
+        status: "DROPPED",
+      });
       continue;
     }
 
-    const locInfo = normalizeIndiaLocation(job.location);
-    if (!locInfo.isIndiaOrRemote) {
+    // 1. Enforce direct ATS / company career portal (zero secondary aggregators)
+    if (!isDirectAtsOrCompanyUrl(job.sourceUrl)) {
       result.skipped++;
+      result.deadLetterCount++;
+      dlqItems.push({
+        id: crypto.randomUUID(),
+        companyName: job.companyName,
+        title: job.title,
+        sourceUrl: job.sourceUrl,
+        externalId: job.externalId || null,
+        rawPayload: JSON.stringify(job).slice(0, 2000),
+        rejectionReason: "FORBIDDEN_AGGREGATOR_SOURCE: Listing originates from secondary aggregator board",
+        status: "DROPPED",
+      });
       continue;
     }
 
-    const companyCleanName = job.companyName.trim();
+    // 2. Strict Zod Schema Validation
+    const zodParsed = CrawledJobPayloadSchema.safeParse(job);
+    if (!zodParsed.success) {
+      result.skipped++;
+      result.deadLetterCount++;
+      dlqItems.push({
+        id: crypto.randomUUID(),
+        companyName: job.companyName,
+        title: job.title,
+        sourceUrl: job.sourceUrl,
+        externalId: job.externalId || null,
+        rawPayload: JSON.stringify(job).slice(0, 2000),
+        rejectionReason: `ZOD_VALIDATION_ERROR: ${zodParsed.error.errors.map((e) => e.message).join("; ")}`,
+        status: "DROPPED",
+      });
+      continue;
+    }
+
+    // 3. Strict India & Tech Role Gatekeeper
+    const gatekeeper = evaluateIndiaTechGatekeeper(job.title, job.location);
+    if (!gatekeeper.accepted) {
+      result.skipped++;
+      result.deadLetterCount++;
+      if (gatekeeper.location.needsReview) {
+        reviewQueueItems.push({
+          id: crypto.randomUUID(),
+          companyName: cleanCompanyName(job.companyName),
+          title: job.title,
+          sourceUrl: job.sourceUrl,
+          rawLocation: job.location,
+          detectedCity: gatekeeper.location.city || null,
+          detectedWorkMode: gatekeeper.location.workMode || null,
+          detectedRemoteScope: gatekeeper.location.remoteScope || null,
+          flagReason: gatekeeper.location.reviewReason || "Ambiguous location scope",
+          status: "PENDING",
+        });
+      } else {
+        dlqItems.push({
+          id: crypto.randomUUID(),
+          companyName: cleanCompanyName(job.companyName),
+          title: job.title,
+          sourceUrl: job.sourceUrl,
+          externalId: job.externalId || null,
+          rawPayload: JSON.stringify(job).slice(0, 2000),
+          rejectionReason: gatekeeper.rejectionReason || "REJECTED_BY_TECH_GATEKEEPER",
+          status: "DROPPED",
+        });
+      }
+      continue;
+    }
+
+    // 4. Entity Resolution & Company Sanitization
+    const companyCleanName = cleanCompanyName(job.companyName);
+    if (!isValidCompanyName(companyCleanName)) {
+      result.skipped++;
+      result.deadLetterCount++;
+      dlqItems.push({
+        id: crypto.randomUUID(),
+        companyName: job.companyName,
+        title: job.title,
+        sourceUrl: job.sourceUrl,
+        externalId: job.externalId || null,
+        rawPayload: JSON.stringify(job).slice(0, 2000),
+        rejectionReason: "INVALID_COMPANY_NAME: Generic or aggregator artifact entity name",
+        status: "DROPPED",
+      });
+      continue;
+    }
+
     const companySlug = slugify(companyCleanName);
     const domain = extractDomain(job.companyWebsite) || `${companySlug}.com`;
-    const loc = locInfo.location || "Remote";
+    const loc = gatekeeper.location.formattedLocation || "India";
 
     if (!companyMap.has(companySlug) && !companyMap.has(companyCleanName.toLowerCase())) {
       if (!missingCompanies.has(companySlug)) {
@@ -150,9 +246,11 @@ export async function persistCrawledJobs(crawledJobs: RawCrawledJob[]): Promise<
       companySlug,
       companyCleanName,
       location: loc,
-      workMode: locInfo.workMode,
+      workMode: gatekeeper.location.workMode || "REMOTE",
+      roleCategory: gatekeeper.role.roleCategory,
     });
   }
+
 
   // 5. Bulk insert missing companies
   if (missingCompanies.size > 0) {
@@ -275,7 +373,9 @@ export async function persistCrawledJobs(crawledJobs: RawCrawledJob[]): Promise<
       description: job.description,
       requirements:
         job.rawRequirements ||
-        `Strong problem solving foundations, knowledge of modern software engineering practices, and interest in working with ${companyCleanName}'s engineering team.`,
+        (item.roleCategory === "software"
+          ? `Solid technical problem-solving foundation, git workflow, and proficiency in modern software development.`
+          : `Demonstrated technical qualifications, domain proficiency, and alignment with ${companyCleanName}'s engineering standards.`),
       benefits: "Official mentor support, direct career feedback, verified hiring progression timeline.",
       source: JobSource.EXTERNAL,
       sourceUrl: job.sourceUrl,
@@ -343,6 +443,30 @@ export async function persistCrawledJobs(crawledJobs: RawCrawledJob[]): Promise<
       }
     }
   }
+
+  // 10.5. Batch record Dead-Letter Queue (DLQ) & Location Review Queue entries
+  if (dlqItems.length > 0) {
+    for (let i = 0; i < dlqItems.length; i += 200) {
+      const chunk = dlqItems.slice(i, i + 200);
+      try {
+        await db.insert(jobDeadLetterQueue).values(chunk).onConflictDoNothing();
+      } catch (err: any) {
+        console.warn("[DLQ] Failed to record dead-letter entries:", err.message);
+      }
+    }
+  }
+
+  if (reviewQueueItems.length > 0) {
+    for (let i = 0; i < reviewQueueItems.length; i += 200) {
+      const chunk = reviewQueueItems.slice(i, i + 200);
+      try {
+        await db.insert(jobLocationReviewQueue).values(chunk).onConflictDoNothing();
+      } catch (err: any) {
+        console.warn("[Review Queue] Failed to record review entries:", err.message);
+      }
+    }
+  }
+
 
   // 11. Invalidate cache so live feeds update immediately
   try {

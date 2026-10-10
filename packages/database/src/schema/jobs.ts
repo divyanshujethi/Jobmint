@@ -75,6 +75,26 @@ export const jobLocationReviewQueue = pgTable(
   ]
 );
 
+export const jobDeadLetterQueue = pgTable(
+  "job_dead_letter_queue",
+  {
+    id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
+    companyName: text("company_name"),
+    title: text("title"),
+    sourceUrl: text("source_url"),
+    externalId: text("external_id"),
+    rawPayload: text("raw_payload"),
+    rejectionReason: text("rejection_reason").notNull(),
+    status: text("status").notNull().default("DROPPED"),
+    createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
+  },
+  (table) => [
+    index("idx_dlq_created_at").on(table.createdAt),
+    index("idx_dlq_rejection_reason").on(table.rejectionReason),
+  ]
+);
+
+
 export const jobSkills = pgTable("job_skills", {
   id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
   jobId: text("job_id")

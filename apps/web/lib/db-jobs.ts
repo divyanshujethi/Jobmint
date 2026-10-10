@@ -69,6 +69,36 @@ function slugify(text: string): string {
 }
 
 /**
+ * Extracts authentic responsibilities and duties dynamically from the job description.
+ * If none are specified, returns an empty array rather than injecting fake developer boilerplate.
+ */
+export function extractResponsibilities(description?: string | null): string[] {
+  if (!description) return [];
+
+  const sectionMatch = description.match(
+    /(?:responsibilities|key responsibilities|what you'?ll do|duties|your role|responsibilities include)[\s\S]*?(?:requirements|qualifications|skills|who you are|about you|what we offer|benefits|$)/i
+  );
+
+  const textToScan = sectionMatch ? sectionMatch[0] : description;
+  const lines = textToScan.split("\n");
+  const extracted: string[] = [];
+
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (/^[-*•]\s+(.+)/.test(trimmed) || /^\d+\.\s+(.+)/.test(trimmed)) {
+      const clean = trimmed.replace(/^[-*•\d.]\s+/, "").trim();
+      if (clean.length > 10 && clean.length < 300) {
+        extracted.push(clean);
+        if (extracted.length >= 6) break;
+      }
+    }
+  }
+
+  return extracted;
+}
+
+
+/**
  * Returns genuine, crawled tech jobs and internships directly from PostgreSQL.
  * Backed by read-through Redis cache.
  */
@@ -239,25 +269,18 @@ export async function getLiveJobs(
 
       if (includeDetails) {
         baseJob.description = j.description;
-        baseJob.responsibilities = [
-          "Design, develop, and deliver high-impact production features.",
-          "Collaborate directly with cross-functional engineering and product mentors.",
-          "Write maintainable, well-documented, and tested code.",
-        ];
-        baseJob.requirements = j.requirements ? j.requirements.split(". ").filter(Boolean) : [
-          "Solid problem-solving foundation",
-          "Proficiency in required tech stack",
-          "Git workflow"
-        ];
-        baseJob.benefits = j.benefits ? j.benefits.split(", ").filter(Boolean) : [
-          "Competitive compensation & performance bonuses",
-          "Premium health and wellness insurance",
-          "Modern development hardware allowance"
-        ];
+        baseJob.responsibilities = extractResponsibilities(j.description);
+        baseJob.requirements = j.requirements
+          ? j.requirements.split(". ").map((r) => r.trim()).filter((r) => r.length > 3)
+          : [];
+        baseJob.benefits = j.benefits
+          ? j.benefits.split(", ").map((b) => b.trim()).filter(Boolean)
+          : [];
       }
 
       return baseJob;
     });
+
 
     // 4. Cache in Redis with 60-second TTL
     if (formattedJobs.length > 0) {
@@ -362,21 +385,13 @@ export async function getLiveJobBySlug(slug: string): Promise<MockJob | null> {
         skills: chunkSkills.map((s) => s.skillName),
         skillSlugs: chunkSkills.map((s) => s.skillSlug),
         description: j.description,
-        responsibilities: [
-          "Design, develop, and deliver high-impact production features.",
-          "Collaborate directly with cross-functional engineering and product mentors.",
-          "Write maintainable, well-documented, and tested code.",
-        ],
-        requirements: j.requirements ? j.requirements.split(". ").filter(Boolean) : [
-          "Solid problem-solving foundation",
-          "Proficiency in required tech stack",
-          "Git workflow"
-        ],
-        benefits: j.benefits ? j.benefits.split(", ").filter(Boolean) : [
-          "Competitive compensation & performance bonuses",
-          "Premium health and wellness insurance",
-          "Modern development hardware allowance"
-        ],
+        responsibilities: extractResponsibilities(j.description),
+        requirements: j.requirements
+          ? j.requirements.split(". ").map((r) => r.trim()).filter((r) => r.length > 3)
+          : [],
+        benefits: j.benefits
+          ? j.benefits.split(", ").map((b) => b.trim()).filter(Boolean)
+          : [],
         source: (j.source as any) || JobSource.DIRECT,
         sourceUrl: j.sourceUrl || undefined,
         postedAgo: formatTimeAgo(j.createdAt),

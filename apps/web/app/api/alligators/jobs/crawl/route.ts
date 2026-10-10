@@ -27,11 +27,8 @@ export async function GET(request: Request): Promise<NextResponse> {
     let jobsToPersist: RawCrawledJob[] = [];
     let crawlStats: any = {};
 
-    if (crawler === "internshala" || crawler === "internship") {
-      const limit = parseInt(searchParams.get("limit") || "1000", 10);
-      jobsToPersist = await crawlInternshalaOpportunities({ limit });
-      crawlStats = { accepted: jobsToPersist.length, totalCrawled: jobsToPersist.length, rejectedGhostJobs: 0 };
-    } else if (crawler === "naukri" || crawler === "foundit" || crawler === "linkedin") {
+    const DECOMMISSIONED_CRAWLERS = ["naukri", "foundit", "linkedin", "internshala", "adzuna", "jooble", "jobspipe"];
+    if (DECOMMISSIONED_CRAWLERS.includes(crawler)) {
       return NextResponse.json({
         success: false,
         message: `Crawler '${crawler}' has been permanently decommissioned to guarantee authentic zero-consultancy direct ATS jobs.`,

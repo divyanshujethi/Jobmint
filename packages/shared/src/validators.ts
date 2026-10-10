@@ -1,5 +1,7 @@
 import { z } from "zod";
 import { UserRole, JobType, WorkMode } from "./enums";
+import { isDirectAtsOrCompanyUrl } from "./url-safety";
+import { cleanCompanyName, isValidCompanyName } from "./company-sanitizer";
 
 export const RegisterInputSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -41,3 +43,57 @@ export type RegisterInput = z.infer<typeof RegisterInputSchema>;
 export type LoginInput = z.infer<typeof LoginInputSchema>;
 export type CandidateProfileInput = z.infer<typeof CandidateProfileSchema>;
 export type CompanyProfileInput = z.infer<typeof CompanyProfileSchema>;
+
+/**
+ * Strict Runtime Zod Ingestion Schema for Crawled / Ingested Job Payloads.
+ * Rejects:
+ * 1. Secondary scraped aggregator links (Naukri, Foundit, Internshala, Indeed, etc.)
+ * 2. Scraper artifact company names ("Foundit Verified Employer", "Manager Opentext")
+ * 3. Ghost jobs & listings with truthScore < 50
+ * 4. Empty or corrupt descriptions (< 20 characters)
+ */
+export const CrawledJobPayloadSchema = z.object({
+  title: z
+    .string()
+    .min(3, "Title must be at least 3 characters")
+    .max(160, "Title cannot exceed 160 characters")
+    .transform((t) => t.trim()),
+  companyName: z
+    .string()
+    .min(2, "Company name must be at least 2 characters")
+    .max(100, "Company name cannot exceed 100 characters")
+    .transform(cleanCompanyName)
+    .refine((c) => isValidCompanyName(c), "Company name is invalid, generic, or an aggregator artifact"),
+  companyWebsite: z.string().url().optional().or(z.literal("")),
+  location: z.string().min(2, "Location is required"),
+  workMode: z.nativeEnum(WorkMode),
+  jobType: z.nativeEnum(JobType),
+  salaryOrStipend: z.string().default("Competitive (Official)"),
+  minSalary: z.number().optional(),
+  maxSalary: z.number().optional(),
+  currency: z.string().default("INR"),
+  experienceYears: z.number().min(0).max(40).default(0),
+  source: z.string().default("EXTERNAL"),
+  sourceUrl: z
+    .string()
+    .url("sourceUrl must be a valid URL")
+    .refine(
+      (url) => isDirectAtsOrCompanyUrl(url),
+      "sourceUrl must be a direct ATS or official employer portal, not a secondary aggregator"
+    ),
+  externalId: z.string().min(1, "externalId is required"),
+  description: z.string().min(20, "Job description must be at least 20 characters"),
+  rawRequirements: z.string().optional(),
+  responsibilities: z.array(z.string()).optional(),
+  skills: z.array(z.string()).default([]),
+  isGhostRisk: z.boolean().default(false),
+  truthScore: z.number().min(50, "Truth score must be >= 50"),
+  publishedAt: z.string().optional(),
+  country: z.string().default("India"),
+  city: z.string().optional(),
+  remoteScope: z.string().optional(),
+  roleCategory: z.string().optional(),
+});
+
+export type CrawledJobPayload = z.infer<typeof CrawledJobPayloadSchema>;
+

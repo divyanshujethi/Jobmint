@@ -412,7 +412,9 @@ async function main() {
       description: job.description,
       requirements:
         job.rawRequirements ||
-        `Strong problem solving foundations, knowledge of modern software engineering practices, and interest in working with ${companyCleanName}'s engineering team.`,
+        (item.roleCategory === "software"
+          ? `Solid technical problem-solving foundation, git workflow, and proficiency in modern software development.`
+          : `Demonstrated technical qualifications, domain proficiency, and alignment with ${companyCleanName}'s engineering standards.`),
       benefits: "Official mentor support, direct career feedback, verified hiring progression timeline.",
       source: JobSource.EXTERNAL,
       sourceUrl: job.sourceUrl,

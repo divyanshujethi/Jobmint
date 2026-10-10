@@ -237,19 +237,19 @@ export function normalizeIndiaLocationStrict(
 // Strict Non-Tech Role Exclusions
 const NON_TECH_ROLE_PATTERNS = [
   // Sales & Business Development
-  /\b(account executive|ae|bdr|sdr|sales manager|sales representative|sales director|sales associate|business development|telecalling|inside sales)\b/i,
+  /\b(sales|business development|bd|telecaller|telecalling|inside sales|account executive|bdr|sdr|client acquisition|field sales|direct sales)\b/i,
   // Human Resources & Talent Acquisition
-  /\b(recruiter|recruitment|talent acquisition|sourcer|hr generalist|hr manager|hr business partner|hrbp|people partner|chief people officer)\b/i,
+  /\b(recruiter|recruitment|talent acquisition|sourcer|hr\b|human resources|people partner|chief people officer)\b/i,
   // Accounting, Finance & Payroll
-  /\b(accountant|accounting|audit|auditor|payroll|tax specialist|accounts payable|financial analyst|billing specialist|treasury)\b/i,
+  /\b(accountant|accounting|audit|auditor|payroll|tax|accounts payable|financial analyst|billing|treasury)\b/i,
   // Legal & Compliance
   /\b(legal counsel|corporate lawyer|paralegal|compliance officer|general counsel|contracts manager)\b/i,
-  // Marketing & Content
-  /\b(copywriter|content writer|social media manager|brand manager|growth marketer|marketing lead|seo specialist|public relations|pr manager)\b/i,
+  // Marketing, Content & SEO
+  /\b(copywriter|content writer|social media|brand manager|growth marketer|marketing|seo\b|public relations|pr manager|digital marketing|influencer)\b/i,
   // Office, Admin & Facilities
-  /\b(office manager|executive assistant|receptionist|workplace experience|facilities coordinator|admin executive)\b/i,
-  // Customer Operations & Call Centers
-  /\b(customer support|customer care|call center|telesales|chat support agent|bpo executive)\b/i,
+  /\b(office manager|executive assistant|receptionist|workplace experience|facilities coordinator|admin executive|operations assistant)\b/i,
+  // Customer Operations, Support & Call Centers
+  /\b(customer support|customer care|customer success|call center|telesales|chat support|bpo\b|voice process|non voice)\b/i,
 ];
 
 // Tech Role Taxonomies
@@ -338,7 +338,11 @@ export function classifyTechRole(
   }
 
   // 3. Fallback check for general engineering / intern / tech terms
-  const isGeneralTech = /\b(engineer|engineering|developer|architect|intern|internship|tech lead|architect)\b/i.test(t);
+  const isGeneralTech =
+    /\b(engineer|engineering|developer|architect|programmer|coder|tech lead)\b/i.test(t) ||
+    (/\b(intern|internship|trainee)\b/i.test(t) &&
+      /\b(tech|technical|software|developer|engineer|coding|web|frontend|backend|fullstack|data|ai|ml|cloud|devops|qa|sdet|cyber|mobile|it)\b/i.test(t));
+
   if (isGeneralTech) {
     return {
       isTech: true,

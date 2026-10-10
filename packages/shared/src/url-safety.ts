@@ -19,6 +19,11 @@ export type JobPlatformType =
   | "ASHBY"
   | "SMARTRECRUITERS"
   | "WORKABLE"
+  | "WORKDAY"
+  | "DARWINBOX"
+  | "BREEZY"
+  | "RECRUITEE"
+  | "PERSONIO"
   | "WELLFOUND"
   | "INSTAHYRE"
   | "COMPANY_DIRECT";
@@ -240,6 +245,71 @@ export function detectJobPlatform(url: string | null | undefined, companyName?: 
     };
   }
 
+  // 11. Direct Enterprise ATS: Workday
+  if (lower.includes("myworkdayjobs.com")) {
+    return {
+      type: "WORKDAY",
+      displayName: "Workday",
+      applyButtonLabel: `Apply on ${companyName || "Workday Portal"}`,
+      badgeLabel: "Workday Direct",
+      badgeClass: "bg-blue-50 text-blue-900 border-blue-200",
+      buttonClass: "bg-blue-700 hover:bg-blue-800 text-white shadow-xs font-semibold",
+      isDirectAts: true,
+    };
+  }
+
+  // 12. Direct Enterprise ATS: Darwinbox
+  if (lower.includes("darwinbox.in") || lower.includes("darwinbox.com")) {
+    return {
+      type: "DARWINBOX",
+      displayName: "Darwinbox",
+      applyButtonLabel: `Apply on ${companyName || "Darwinbox ATS"}`,
+      badgeLabel: "Darwinbox Direct",
+      badgeClass: "bg-orange-50 text-orange-900 border-orange-200",
+      buttonClass: "bg-orange-600 hover:bg-orange-700 text-white shadow-xs font-semibold",
+      isDirectAts: true,
+    };
+  }
+
+  // 13. Direct Enterprise ATS: Breezy HR
+  if (lower.includes("breezy.hr")) {
+    return {
+      type: "BREEZY",
+      displayName: "Breezy HR",
+      applyButtonLabel: `Apply on ${companyName || "Breezy ATS"}`,
+      badgeLabel: "Breezy Direct",
+      badgeClass: "bg-sky-50 text-sky-900 border-sky-200",
+      buttonClass: "bg-sky-600 hover:bg-sky-700 text-white shadow-xs font-semibold",
+      isDirectAts: true,
+    };
+  }
+
+  // 14. Direct Enterprise ATS: Recruitee
+  if (lower.includes("recruitee.com")) {
+    return {
+      type: "RECRUITEE",
+      displayName: "Recruitee",
+      applyButtonLabel: `Apply on ${companyName || "Recruitee ATS"}`,
+      badgeLabel: "Recruitee Direct",
+      badgeClass: "bg-indigo-50 text-indigo-900 border-indigo-200",
+      buttonClass: "bg-indigo-600 hover:bg-indigo-700 text-white shadow-xs font-semibold",
+      isDirectAts: true,
+    };
+  }
+
+  // 15. Direct Enterprise ATS: Personio
+  if (lower.includes("personio.com") || lower.includes("personio.de")) {
+    return {
+      type: "PERSONIO",
+      displayName: "Personio",
+      applyButtonLabel: `Apply on ${companyName || "Personio ATS"}`,
+      badgeLabel: "Personio Direct",
+      badgeClass: "bg-violet-50 text-violet-900 border-violet-200",
+      buttonClass: "bg-violet-600 hover:bg-violet-700 text-white shadow-xs font-semibold",
+      isDirectAts: true,
+    };
+  }
+
   // Default: Verified Company Official Careers Portal
   return {
     type: "COMPANY_DIRECT",
@@ -253,6 +323,49 @@ export function detectJobPlatform(url: string | null | undefined, companyName?: 
 }
 
 /**
+ * List of known secondary aggregators and middleman boards that are forbidden from direct ATS pipelines.
+ */
+export const FORBIDDEN_AGGREGATOR_DOMAINS = [
+  "foundit.in",
+  "monsterindia.com",
+  "naukri.com",
+  "internshala.com",
+  "indeed.com",
+  "shine.com",
+  "timesjobs.com",
+  "freshersworld.com",
+  "apna.co",
+  "adzuna.com",
+  "adzuna.in",
+  "jooble.org",
+  "jooble.com",
+  "jobspipe.com",
+  "quikr.com",
+  "click.in",
+  "locanto.me",
+  "glassdoor.com",
+  "simplyhired.com",
+];
+
+/**
+ * Returns true only if the URL is a direct ATS or official company career portal,
+ * and NOT a secondary scraped aggregator or middleman board.
+ */
+export function isDirectAtsOrCompanyUrl(url: string | null | undefined): boolean {
+  if (!url || typeof url !== "string") return false;
+  const lower = url.toLowerCase().trim();
+  if (!lower.startsWith("http://") && !lower.startsWith("https://")) return false;
+
+  for (const forbidden of FORBIDDEN_AGGREGATOR_DOMAINS) {
+    if (lower.includes(forbidden)) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+/**
  * Returns security-hardened HTML anchor attributes for outbound hyperlinks.
  */
 export function getSafeOutboundProps() {
@@ -261,3 +374,4 @@ export function getSafeOutboundProps() {
     rel: "noopener noreferrer nofollow",
   };
 }
+

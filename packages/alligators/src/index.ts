@@ -26,6 +26,8 @@ import { crawlInternshalaOpportunities } from './job-alligator/internshala-crawl
 import { crawlNaukriIndia } from './job-alligator/naukri-crawler';
 
 import { TargetBoard } from './job-alligator/company-discovery';
+import { isDirectAtsOrCompanyUrl, cleanCompanyName, isValidCompanyName } from '@repo/shared';
+import { evaluateIndiaTechGatekeeper } from './job-alligator/india-gatekeeper';
 
 export * from './types';
 export * from './job-alligator/skill-extractor';
@@ -106,36 +108,19 @@ export async function runJobAlligator(options?: {
   const naukriLimit = options?.naukriLimit ?? 2000;
 
   const [
-    adzunaJobs,
-    joobleJobs,
     smartRecruitersJobs,
     workableJobs,
     workdayJobs,
     breezyJobs,
     recruiteeJobs,
     personioJobs,
-    internshalaJobs,
     indiaJobs,
-    jobsPipeJobs,
     ashbyJobs,
-    himalayasJobs,
-    remotiveJobs,
-    remoteOkJobs,
-    dorkedJobs,
-    sitemapJobs,
     internships,
     newGrads,
     gitlabJobs,
     canonicalJobs,
   ] = await Promise.all([
-    crawlAdzunaIndia({ pages: adzunaPages, resultsPerPage: 50 }).catch((err) => {
-      console.error("[Job Alligator] Adzuna crawler failed:", err);
-      return [];
-    }),
-    crawlJoobleIndia().catch((err) => {
-      console.error("[Job Alligator] Jooble crawler failed:", err);
-      return [];
-    }),
     crawlSmartRecruitersJobs({ limit: smartRecruitersLimit }).catch((err) => {
       console.error("[Job Alligator] SmartRecruiters crawler failed:", err);
       return [];
@@ -160,10 +145,6 @@ export async function runJobAlligator(options?: {
       console.error("[Job Alligator] Personio crawler failed:", err);
       return [];
     }),
-    crawlInternshalaOpportunities({ limit: internshalaLimit }).catch((err) => {
-      console.error("[Job Alligator] Internshala crawler failed:", err);
-      return [];
-    }),
     crawlIndiaTechBoards({
       maxPerCompany,
       enableDiscovery,
@@ -172,16 +153,7 @@ export async function runJobAlligator(options?: {
       console.error("[Job Alligator] India crawler failed:", err);
       return [];
     }),
-    crawlJobsPipe({ limit: 40 }).catch((err) => {
-      console.error("[Job Alligator] JobsPipe crawler failed:", err);
-      return [];
-    }),
     crawlAllAshbyBoards({ maxPerCompany }).catch(() => []),
-    crawlHimalayasJobs({ limit: 80 }).catch(() => []),
-    crawlRemotiveJobs({ limit: 40 }).catch(() => []),
-    crawlRemoteOkJobs({ limit: 40 }).catch(() => []),
-    crawlViaSearchDorking({ maxPerCompany: 5 }).catch(() => []),
-    siphonSitemaps({ maxUrlsPerSource: 20 }).catch(() => []),
     crawlSimplifyInternships({ limit: internshipLimit }).catch(() => []),
     crawlSimplifyNewGrad({ limit: newGradLimit }).catch(() => []),
     crawlGreenhouseBoard('gitlab', 'GitLab').catch(() => []),
@@ -189,23 +161,14 @@ export async function runJobAlligator(options?: {
   ]);
 
   const allJobs = [
-    ...adzunaJobs,
-    ...joobleJobs,
     ...smartRecruitersJobs,
     ...workableJobs,
     ...workdayJobs,
     ...breezyJobs,
     ...recruiteeJobs,
     ...personioJobs,
-    ...internshalaJobs,
     ...indiaJobs,
-    ...jobsPipeJobs,
     ...ashbyJobs,
-    ...himalayasJobs,
-    ...remotiveJobs,
-    ...remoteOkJobs,
-    ...dorkedJobs,
-    ...sitemapJobs,
     ...internships,
     ...newGrads,
     ...gitlabJobs,
@@ -214,8 +177,22 @@ export async function runJobAlligator(options?: {
 
   const acceptedJobs = allJobs.filter((j) => {
     if (j.isGhostRisk || j.truthScore < 50) return false;
-    const locInfo = normalizeIndiaLocation(j.location);
-    return locInfo.isIndiaOrRemote;
+
+    // 1. Enforce direct ATS / company career link (reject any secondary aggregators)
+    if (!isDirectAtsOrCompanyUrl(j.sourceUrl)) return false;
+
+    // 2. Strict India Location & Technical Role Gatekeeper
+    const gatekeeper = evaluateIndiaTechGatekeeper(j.title, j.location);
+    if (!gatekeeper.accepted) return false;
+
+    // 3. Entity Resolution & Company Sanitization
+    const cleanComp = cleanCompanyName(j.companyName);
+    if (!isValidCompanyName(cleanComp)) return false;
+
+    // Standardize cleaned metadata on the job instance
+    j.companyName = cleanComp;
+    j.location = gatekeeper.location.formattedLocation;
+    return true;
   });
   const rejected = allJobs.length - acceptedJobs.length;
 

@@ -403,44 +403,50 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
               </p>
             </div>
 
-            <div>
-              <h3 className="text-base font-bold text-slate-900">
-                Key Responsibilities
-              </h3>
-              <ul className="mt-3 space-y-2 text-sm text-slate-600 list-disc list-inside">
-                {(job.responsibilities || []).map((resp, idx) => (
-                  <li key={idx} className="leading-relaxed">
-                    {resp}
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {job.responsibilities && job.responsibilities.length > 0 && (
+              <div>
+                <h3 className="text-base font-bold text-slate-900">
+                  Key Responsibilities
+                </h3>
+                <ul className="mt-3 space-y-2 text-sm text-slate-600 list-disc list-inside">
+                  {job.responsibilities.map((resp, idx) => (
+                    <li key={idx} className="leading-relaxed">
+                      {resp}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
-            <div>
-              <h3 className="text-base font-bold text-slate-900">
-                Requirements & Qualifications
-              </h3>
-              <ul className="mt-3 space-y-2 text-sm text-slate-600 list-disc list-inside">
-                {(job.requirements || []).map((req, idx) => (
-                  <li key={idx} className="leading-relaxed">
-                    {req}
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {job.requirements && job.requirements.length > 0 && (
+              <div>
+                <h3 className="text-base font-bold text-slate-900">
+                  Requirements & Qualifications
+                </h3>
+                <ul className="mt-3 space-y-2 text-sm text-slate-600 list-disc list-inside">
+                  {job.requirements.map((req, idx) => (
+                    <li key={idx} className="leading-relaxed">
+                      {req}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
-            <div>
-              <h3 className="text-base font-bold text-slate-900">
-                Perks & Benefits
-              </h3>
-              <ul className="mt-3 space-y-2 text-sm text-slate-600 list-disc list-inside">
-                {(job.benefits || []).map((benefit, idx) => (
-                  <li key={idx} className="leading-relaxed">
-                    {benefit}
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {job.benefits && job.benefits.length > 0 && (
+              <div>
+                <h3 className="text-base font-bold text-slate-900">
+                  Perks & Benefits
+                </h3>
+                <ul className="mt-3 space-y-2 text-sm text-slate-600 list-disc list-inside">
+                  {job.benefits.map((benefit, idx) => (
+                    <li key={idx} className="leading-relaxed">
+                      {benefit}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         </div>
 
