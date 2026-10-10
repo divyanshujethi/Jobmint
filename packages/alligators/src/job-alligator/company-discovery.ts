@@ -19,6 +19,7 @@ export type AtsProviderType =
   | "bamboohr"
   | "breezy"
   | "recruitee"
+  | "personio"
   | "workday"
   | "custom";
 
@@ -50,6 +51,7 @@ const WORKABLE_REGEX = /apply\.workable\.com\/([a-zA-Z0-9_\-]+)/i;
 const WORKDAY_REGEX = /([a-zA-Z0-9_\-]+)\.(?:wd\d+|myworkdayjobs)\.com\/([a-zA-Z0-9_\-]+)/i;
 const BREEZY_REGEX = /([a-zA-Z0-9_\-]+)\.breezy\.hr/i;
 const RECRUITEE_REGEX = /([a-zA-Z0-9_\-]+)\.recruitee\.com/i;
+const PERSONIO_REGEX = /([a-zA-Z0-9_\-]+)\.(?:jobs\.)?personio\.(?:de|com)/i;
 const BAMBOOHR_REGEX = /([a-zA-Z0-9_\-]+)\.bamboohr\.com/i;
 
 // Re-export seed startup list for convenience
@@ -146,6 +148,15 @@ export function fingerprintAtsFromUrl(
     const token = bambooMatch[1];
     if (!["app", "www"].includes(token.toLowerCase())) {
       return { type: "bamboohr", token };
+    }
+  }
+
+  // 10. Personio
+  const personioMatch = url.match(PERSONIO_REGEX);
+  if (personioMatch && personioMatch[1]) {
+    const token = personioMatch[1];
+    if (!["app", "www", "api"].includes(token.toLowerCase())) {
+      return { type: "personio", token };
     }
   }
 
@@ -502,7 +513,65 @@ export async function verifyAtsBoard(
       };
     }
 
-    // 7. Workday or Custom Verification
+    // 7. Recruitee Verification
+    if (board.type === "recruitee") {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 6000);
+      const res = await fetch(`https://${board.token}.recruitee.com/api/offers/`, {
+        headers: { "User-Agent": "RoleNest-Discovery/1.0" },
+        signal: controller.signal,
+      });
+      clearTimeout(timeoutId);
+
+      if (!res.ok) return defaultResult;
+      const data = (await res.json()) as { offers?: any[] };
+      const offers = data.offers || [];
+
+      let indiaOrRemote = 0;
+      let sampleTitle = "";
+
+      for (const o of offers) {
+        const loc = (o.location || "").toLowerCase();
+        const isIndia = INDIA_KEYWORDS.some((kw) => loc.includes(kw)) || o.remote === true;
+        if (isIndia) {
+          indiaOrRemote++;
+          if (!sampleTitle) sampleTitle = o.title;
+        }
+      }
+
+      return {
+        isValid: offers.length > 0,
+        activeJobsCount: offers.length,
+        indiaOrRemoteCount: indiaOrRemote,
+        sampleTitle,
+        board,
+      };
+    }
+
+    // 8. Personio Verification
+    if (board.type === "personio") {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 6000);
+      const res = await fetch(`https://${board.token}.jobs.personio.de/xml?language=en`, {
+        headers: { "User-Agent": "RoleNest-Discovery/1.0" },
+        signal: controller.signal,
+      });
+      clearTimeout(timeoutId);
+
+      if (!res.ok) return defaultResult;
+      const xml = await res.text();
+      const posMatches = xml.match(/<position>([\s\S]*?)<\/position>/g) || [];
+
+      return {
+        isValid: posMatches.length > 0,
+        activeJobsCount: posMatches.length,
+        indiaOrRemoteCount: posMatches.length,
+        sampleTitle: `${board.companyName} Opportunities`,
+        board,
+      };
+    }
+
+    // 9. Workday or Custom Verification
     if (board.type === "workday" || board.type === "custom") {
       return {
         isValid: true,

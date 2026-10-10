@@ -15,7 +15,7 @@ export interface StartupSeed {
   domain: string;
   careersUrl?: string;
   knownAts?: {
-    type: "greenhouse" | "lever" | "ashby" | "smartrecruiters" | "workable" | "bamboohr" | "breezy" | "recruitee" | "workday" | "custom";
+    type: "greenhouse" | "lever" | "ashby" | "smartrecruiters" | "workable" | "bamboohr" | "breezy" | "recruitee" | "personio" | "workday" | "custom";
     token: string;
   };
   sector: "Fintech" | "SaaS" | "DevTools" | "AI/ML" | "Ecommerce" | "Cybersecurity" | "Product" | "Logistics";
@@ -513,5 +513,268 @@ export const INDIAN_STARTUP_SEEDS: StartupSeed[] = [
     sector: "Product",
     tier: "UNICORN",
     location: "Bengaluru, India"
+  },
+  {
+    name: "Thoughtworks",
+    domain: "thoughtworks.com",
+    careersUrl: "https://www.thoughtworks.com/en-in/careers",
+    knownAts: { type: "greenhouse", token: "thoughtworks" },
+    sector: "SaaS",
+    tier: "PUBLIC",
+    location: "Bengaluru, India"
+  },
+  {
+    name: "HackerRank",
+    domain: "hackerrank.com",
+    careersUrl: "https://www.hackerrank.com/careers",
+    knownAts: { type: "greenhouse", token: "hackerrank" },
+    sector: "DevTools",
+    tier: "UNICORN",
+    location: "Bengaluru, India"
+  },
+  {
+    name: "Slice",
+    domain: "sliceit.com",
+    careersUrl: "https://sliceit.com/careers",
+    knownAts: { type: "greenhouse", token: "slice" },
+    sector: "Fintech",
+    tier: "UNICORN",
+    location: "Bengaluru, India"
+  },
+  {
+    name: "FamPay",
+    domain: "fampay.in",
+    careersUrl: "https://fampay.in/careers",
+    knownAts: { type: "lever", token: "fampay" },
+    sector: "Fintech",
+    tier: "SERIES_A_B",
+    location: "Bengaluru, India"
+  },
+  {
+    name: "Porter",
+    domain: "porter.in",
+    careersUrl: "https://porter.in/careers",
+    knownAts: { type: "lever", token: "porter" },
+    sector: "Logistics",
+    tier: "SOONICORN",
+    location: "Bengaluru, India"
+  },
+  {
+    name: "Paytm",
+    domain: "paytm.com",
+    careersUrl: "https://paytm.com/careers",
+    knownAts: { type: "lever", token: "paytm" },
+    sector: "Fintech",
+    tier: "PUBLIC",
+    location: "Noida, India"
+  },
+  {
+    name: "Acceldata",
+    domain: "acceldata.io",
+    careersUrl: "https://www.acceldata.io/careers",
+    knownAts: { type: "lever", token: "acceldata" },
+    sector: "DevTools",
+    tier: "SERIES_A_B",
+    location: "Bengaluru, India"
+  },
+  {
+    name: "Mindtickle",
+    domain: "mindtickle.com",
+    careersUrl: "https://www.mindtickle.com/careers/",
+    knownAts: { type: "lever", token: "mindtickle" },
+    sector: "SaaS",
+    tier: "UNICORN",
+    location: "Pune, India"
+  },
+  {
+    name: "Safe Security",
+    domain: "safe.security",
+    careersUrl: "https://safe.security/careers/",
+    knownAts: { type: "lever", token: "safe" },
+    sector: "Cybersecurity",
+    tier: "SERIES_A_B",
+    location: "Bengaluru, India"
+  },
+  {
+    name: "Fi Money",
+    domain: "fi.money",
+    careersUrl: "https://fi.money/careers",
+    knownAts: { type: "lever", token: "fi" },
+    sector: "Fintech",
+    tier: "SOONICORN",
+    location: "Bengaluru, India"
+  },
+  {
+    name: "CloudSEK",
+    domain: "cloudsek.com",
+    careersUrl: "https://www.cloudsek.com/careers",
+    knownAts: { type: "greenhouse", token: "cloudsek" },
+    sector: "Cybersecurity",
+    tier: "SERIES_A_B",
+    location: "Bengaluru, India"
+  },
+  {
+    name: "Druva",
+    domain: "druva.com",
+    careersUrl: "https://www.druva.com/about/careers",
+    knownAts: { type: "greenhouse", token: "druva" },
+    sector: "SaaS",
+    tier: "UNICORN",
+    location: "Pune, India"
+  },
+  {
+    name: "Swiggy",
+    domain: "swiggy.com",
+    careersUrl: "https://careers.smartrecruiters.com/swiggy",
+    knownAts: { type: "smartrecruiters", token: "swiggy" },
+    sector: "Ecommerce",
+    tier: "PUBLIC",
+    location: "Bengaluru, India"
+  },
+  {
+    name: "Graviton Research Capital",
+    domain: "gravitonresearch.com",
+    careersUrl: "https://boards.greenhouse.io/gravitonresearchcapital",
+    knownAts: { type: "greenhouse", token: "gravitonresearchcapital" },
+    sector: "Fintech",
+    tier: "GROWTH" as any,
+    location: "Gurugram, India"
+  },
+  {
+    name: "Canonical India",
+    domain: "canonical.com",
+    careersUrl: "https://boards.greenhouse.io/canonical",
+    knownAts: { type: "greenhouse", token: "canonical" },
+    sector: "DevTools",
+    tier: "GROWTH" as any,
+    location: "Remote, India"
+  },
+  {
+    name: "LambdaTest",
+    domain: "lambdatest.com",
+    careersUrl: "https://www.lambdatest.com/careers",
+    knownAts: { type: "lever", token: "lambdatest" },
+    sector: "DevTools",
+    tier: "SOONICORN",
+    location: "Noida, India"
+  },
+  {
+    name: "SigNoz",
+    domain: "signoz.io",
+    careersUrl: "https://jobs.ashbyhq.com/signoz",
+    knownAts: { type: "ashby", token: "signoz" },
+    sector: "DevTools",
+    tier: "SERIES_A_B",
+    location: "Bengaluru, India"
+  },
+  {
+    name: "Appsmith",
+    domain: "appsmith.com",
+    careersUrl: "https://jobs.ashbyhq.com/appsmith",
+    knownAts: { type: "ashby", token: "appsmith" },
+    sector: "DevTools",
+    tier: "SERIES_A_B",
+    location: "Bengaluru, India"
+  },
+  {
+    name: "Keploy",
+    domain: "keploy.io",
+    careersUrl: "https://jobs.ashbyhq.com/keploy",
+    knownAts: { type: "ashby", token: "keploy" },
+    sector: "DevTools",
+    tier: "SERIES_A_B",
+    location: "Bengaluru, India"
+  },
+  {
+    name: "Zepto",
+    domain: "zeptonow.com",
+    sector: "Ecommerce",
+    tier: "UNICORN",
+    location: "Mumbai, India"
+  },
+  {
+    name: "Zomato",
+    domain: "zomato.com",
+    sector: "Ecommerce",
+    tier: "PUBLIC",
+    location: "Gurugram, India"
+  },
+  {
+    name: "Blinkit",
+    domain: "blinkit.com",
+    sector: "Ecommerce",
+    tier: "PUBLIC",
+    location: "Gurugram, India"
+  },
+  {
+    name: "Urban Company",
+    domain: "urbancompany.com",
+    sector: "Product",
+    tier: "UNICORN",
+    location: "Gurugram, India"
+  },
+  {
+    name: "Zerodha",
+    domain: "zerodha.com",
+    careersUrl: "https://zerodha.com/careers",
+    sector: "Fintech",
+    tier: "BOOTSTRAPPED",
+    location: "Bengaluru, India"
+  },
+  {
+    name: "BharatPe",
+    domain: "bharatpe.com",
+    sector: "Fintech",
+    tier: "UNICORN",
+    location: "Delhi, India"
+  },
+  {
+    name: "Jupiter Money",
+    domain: "jupiter.money",
+    sector: "Fintech",
+    tier: "SOONICORN",
+    location: "Bengaluru, India"
+  },
+  {
+    name: "Smallcase",
+    domain: "smallcase.com",
+    sector: "Fintech",
+    tier: "SOONICORN",
+    location: "Bengaluru, India"
+  },
+  {
+    name: "Pocket FM",
+    domain: "pocketfm.com",
+    sector: "Product",
+    tier: "SOONICORN",
+    location: "Bengaluru, India"
+  },
+  {
+    name: "Kuku FM",
+    domain: "kukufm.com",
+    sector: "Product",
+    tier: "SOONICORN",
+    location: "Mumbai, India"
+  },
+  {
+    name: "Games24x7",
+    domain: "games24x7.com",
+    sector: "Product",
+    tier: "UNICORN",
+    location: "Mumbai, India"
+  },
+  {
+    name: "MPL",
+    domain: "mpl.live",
+    sector: "Product",
+    tier: "UNICORN",
+    location: "Bengaluru, India"
+  },
+  {
+    name: "BluSmart",
+    domain: "blu-smart.com",
+    sector: "Product",
+    tier: "SOONICORN",
+    location: "Gurugram, India"
   }
 ];

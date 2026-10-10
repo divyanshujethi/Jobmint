@@ -121,7 +121,7 @@ async function main() {
                 },
               });
           } catch (dbErr: any) {
-            // DB logging safe skip
+            console.error(`\n   ❌ DB upsert error for ${seed.name}:`, dbErr.message);
           }
         }
 
