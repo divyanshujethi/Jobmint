@@ -1251,17 +1251,17 @@ async function main() {
     // Stage 1: Foundit Sitemaps (Decommissioned per Zero-Consultancies policy)
     const founditStats = { inserted: 0, updated: 0 };
 
-    // Stage 2: Adzuna India Developer API
-    const adzunaStats = shouldRun("adzuna") ? await runAdzunaStage(client) : { inserted: 0, updated: 0 };
+    // Stage 2: Adzuna India Developer API (Decommissioned per Direct ATS policy)
+    const adzunaStats = { inserted: 0, updated: 0 };
 
-    // Stage 3: Jooble India API
-    const joobleStats = shouldRun("jooble") ? await runJoobleStage(client) : { inserted: 0, updated: 0 };
+    // Stage 3: Jooble India API (Decommissioned per Direct ATS policy)
+    const joobleStats = { inserted: 0, updated: 0 };
 
     // Stage 4: LinkedIn Public Guest Search API (Decommissioned per Direct ATS policy)
     const linkedInStats = { inserted: 0, updated: 0 };
 
-    // Stage 5: Internshala Tech Opportunities Siphoner (Retained for freshers & student internships)
-    const internshalaStats = shouldRun("internshala") ? await runInternshalaStage(client) : { inserted: 0, updated: 0 };
+    // Stage 5: Internshala Tech Opportunities Siphoner (Decommissioned per Direct ATS policy)
+    const internshalaStats = { inserted: 0, updated: 0 };
 
     // Stage 6: Naukri India Fast Enterprise Crawler (Decommissioned per Zero-Consultancies policy)
     const naukriStats = { inserted: 0, updated: 0 };
